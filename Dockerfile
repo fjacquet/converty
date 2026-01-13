@@ -1,4 +1,4 @@
-# Converty - Multi-stage Dockerfile for Next.js
+# Converty - Multi-stage Dockerfile for Next.js Static Export
 # Optimized for production with minimal image size
 
 # ============================================================================
@@ -13,8 +13,8 @@ RUN apk add --no-cache libc6-compat
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Install dependencies
-RUN npm ci --only=production && npm cache clean --force
+# Install all dependencies (including devDependencies for build)
+RUN npm ci && npm cache clean --force
 
 # ============================================================================
 # Stage 2: Builder
@@ -29,44 +29,26 @@ COPY . .
 # Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Build the application
+# Build the static export
 RUN npm run build
 
 # ============================================================================
-# Stage 3: Runner (Production)
+# Stage 3: Runner (Production) - Using nginx for static files
 # ============================================================================
-FROM node:22-alpine AS runner
-WORKDIR /app
+FROM nginx:alpine AS runner
 
-# Set production environment
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Create non-root user for security
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+# Copy static files from builder
+COPY --from=builder /app/out /usr/share/nginx/html
 
-# Copy necessary files from builder
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-
-# Set correct permissions
-RUN chown -R nextjs:nodejs /app
-
-# Switch to non-root user
-USER nextjs
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1
 
 # Expose port
-EXPOSE 3000
+EXPOSE 80
 
-# Set hostname
-ENV HOSTNAME="0.0.0.0"
-ENV PORT=3000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
-
-# Start the application
-CMD ["node", "server.js"]
+# nginx runs as non-root by default in nginx:alpine
+CMD ["nginx", "-g", "daemon off;"]
