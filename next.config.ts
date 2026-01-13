@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   // For GitHub Pages deployment with custom base path
-  // basePath: "/converty",
-  // assetPrefix: "/converty",
+  basePath: "/converty",
+  assetPrefix: "/converty",
 };
 
 export default nextConfig;
