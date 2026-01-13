@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 import {
+  COMMON_DISTANCES,
+  calculateAdvancedDoF,
+  formatDistance,
+} from "@/lib/converters/photo/advanced-dof";
+import {
   PRINT_SIZES,
   SENSOR_COC,
   VIEWING_DISTANCES,
   VISUAL_ACUITY_PRESETS,
 } from "@/lib/converters/photo/circle-of-confusion";
 import { COMMON_APERTURES } from "@/lib/converters/photo/depth-of-field";
-import {
-  calculateAdvancedDoF,
-  COMMON_DISTANCES,
-  formatDistance,
-} from "@/lib/converters/photo/advanced-dof";
 
 export function AdvancedDoFCalculator() {
   // Camera settings

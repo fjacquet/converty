@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { COMMON_APERTURES } from "@/lib/converters/photo/depth-of-field";
 import {
+  COMMON_MAGNIFICATIONS,
   calculateFocusStackShots,
   calculateMacroDoFWithFocalLength,
-  COMMON_MAGNIFICATIONS,
   MACRO_SENSOR_COC,
 } from "@/lib/converters/photo/macro-dof";
 
