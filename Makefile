@@ -2,7 +2,8 @@
         clean clean-all format format-check biome-check biome-fix analyze deps-update deps-audit deps-outdated \
         docker-build docker-run docker-stop docker-push docker-compose-up docker-compose-down \
         export static-serve release version-patch version-minor version-major \
-        check ci pre-commit info routes
+        check ci pre-commit info routes \
+        security security-lint security-audit security-trivy security-all
 
 # Project configuration
 PROJECT_NAME := converty
@@ -61,6 +62,12 @@ help:
 	@echo "  make docker-push    Push Docker image to registry"
 	@echo "  make docker-compose-up    Start with docker-compose"
 	@echo "  make docker-compose-down  Stop docker-compose services"
+	@echo ""
+	@echo "$(GREEN)Security:$(NC)"
+	@echo "  make security       Run all security checks"
+	@echo "  make security-lint  Run Biome security linting"
+	@echo "  make security-audit Run npm audit"
+	@echo "  make security-trivy Run Trivy filesystem scan (requires trivy)"
 	@echo ""
 	@echo "$(GREEN)Dependencies:$(NC)"
 	@echo "  make deps-update    Update all dependencies"
@@ -301,6 +308,52 @@ deps-audit-fix:
 deps-outdated:
 	@echo "$(CYAN)Checking for outdated packages...$(NC)"
 	npm outdated || true
+
+# ============================================================================
+# SECURITY
+# ============================================================================
+
+# Run Biome security linting
+security-lint:
+	@echo "$(CYAN)Running Biome security lint...$(NC)"
+	npx biome lint src/
+	@echo "$(GREEN)✓ Security lint complete$(NC)"
+
+# Run npm security audit
+security-audit:
+	@echo "$(CYAN)Running npm security audit...$(NC)"
+	npm audit --audit-level=moderate
+	@echo "$(GREEN)✓ Security audit complete$(NC)"
+
+# Run Trivy filesystem scan (requires trivy installed)
+security-trivy:
+	@echo "$(CYAN)Running Trivy filesystem scan...$(NC)"
+	@if command -v trivy >/dev/null 2>&1; then \
+		trivy fs --severity HIGH,CRITICAL --scanners vuln,secret,misconfig .; \
+		echo "$(GREEN)✓ Trivy scan complete$(NC)"; \
+	else \
+		echo "$(YELLOW)Trivy not installed. Install with: brew install trivy$(NC)"; \
+		echo "$(YELLOW)Or run: docker run --rm -v $(PWD):/src aquasec/trivy fs /src$(NC)"; \
+	fi
+
+# Run Trivy on Docker image
+security-docker:
+	@echo "$(CYAN)Running Trivy Docker image scan...$(NC)"
+	@if command -v trivy >/dev/null 2>&1; then \
+		docker build -t $(DOCKER_IMAGE):scan . && \
+		trivy image --severity HIGH,CRITICAL $(DOCKER_IMAGE):scan; \
+		echo "$(GREEN)✓ Docker security scan complete$(NC)"; \
+	else \
+		echo "$(YELLOW)Trivy not installed. Install with: brew install trivy$(NC)"; \
+	fi
+
+# Run all security checks
+security: security-lint security-audit
+	@echo "$(GREEN)✓ All security checks complete$(NC)"
+
+# Run comprehensive security scan (including Trivy)
+security-all: security-lint security-audit security-trivy
+	@echo "$(GREEN)✓ Comprehensive security scan complete$(NC)"
 
 # Clean install (remove node_modules and reinstall)
 deps-clean:

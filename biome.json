@@ -73,6 +73,10 @@
         "useBlockStatements": "off",
         "noNonNullAssertion": "off"
       },
+      "security": {
+        "noDangerouslySetInnerHtml": "error",
+        "noGlobalEval": "error"
+      },
       "suspicious": {
         "noAsyncPromiseExecutor": "error",
         "noCatchAssign": "error",
