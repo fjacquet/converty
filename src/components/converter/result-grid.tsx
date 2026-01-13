@@ -12,11 +12,7 @@ interface ResultGridProps {
   className?: string;
 }
 
-export function ResultGrid({
-  results,
-  columns = 2,
-  className,
-}: ResultGridProps) {
+export function ResultGrid({ results, columns = 2, className }: ResultGridProps) {
   return (
     <div
       className={cn(
@@ -28,19 +24,12 @@ export function ResultGrid({
       )}
     >
       {results.map((result, index) => (
-        <div
-          key={index}
-          className="rounded-lg border bg-card p-4 text-card-foreground"
-        >
-          <p className="text-sm font-medium text-muted-foreground mb-1">
-            {result.label}
-          </p>
+        <div key={index} className="rounded-lg border bg-card p-4 text-card-foreground">
+          <p className="text-sm font-medium text-muted-foreground mb-1">{result.label}</p>
           <p className="text-lg font-semibold font-mono">
             {result.value}
             {result.unit && (
-              <span className="ml-1 text-sm font-normal text-muted-foreground">
-                {result.unit}
-              </span>
+              <span className="ml-1 text-sm font-normal text-muted-foreground">{result.unit}</span>
             )}
           </p>
         </div>

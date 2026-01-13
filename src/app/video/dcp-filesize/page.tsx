@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { DCPFilesizeCalculator } from "./dcp-filesize-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { DCPFilesizeCalculator } from "./dcp-filesize-calculator";
 
 export const metadata: Metadata = {
   title: "DCP File Size Calculator",

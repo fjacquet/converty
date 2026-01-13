@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { CompositionCalculator } from "./composition-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { CompositionCalculator } from "./composition-calculator";
 
 export const metadata: Metadata = {
   title: "Composition Calculator",
-  description: "Calculate field of view and image composition from focal length, distance, and crop factor.",
+  description:
+    "Calculate field of view and image composition from focal length, distance, and crop factor.",
   keywords: ["composition", "focal length", "field of view", "crop factor", "photography"],
 };
 

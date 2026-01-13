@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { SEOAnalyzer } from "./seo-analyzer";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { SEOAnalyzer } from "./seo-analyzer";
 
 export const metadata: Metadata = {
   title: "SEO Performance Analyzer",

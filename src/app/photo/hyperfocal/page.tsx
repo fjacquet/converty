@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { HyperfocalCalculator } from "./hyperfocal-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { HyperfocalCalculator } from "./hyperfocal-calculator";
 
 export const metadata: Metadata = {
   title: "Hyperfocal Distance Calculator",

@@ -83,9 +83,15 @@ export function analyzeSEO(metrics: SEOMetrics): SEOScore {
     if (altRatio === 1) {
       scores.images = { score: 100, feedback: "All images have alt text" };
     } else if (altRatio >= 0.8) {
-      scores.images = { score: 80, feedback: `${Math.round((1 - altRatio) * 100)}% missing alt text` };
+      scores.images = {
+        score: 80,
+        feedback: `${Math.round((1 - altRatio) * 100)}% missing alt text`,
+      };
     } else {
-      scores.images = { score: 40, feedback: `${Math.round((1 - altRatio) * 100)}% missing alt text` };
+      scores.images = {
+        score: 40,
+        feedback: `${Math.round((1 - altRatio) * 100)}% missing alt text`,
+      };
     }
   }
 
@@ -126,11 +132,11 @@ export function analyzeSEO(metrics: SEOMetrics): SEOScore {
 
   scores.overall = Math.round(
     scores.title.score * weights.title +
-    scores.description.score * weights.description +
-    scores.headings.score * weights.headings +
-    scores.images.score * weights.images +
-    scores.content.score * weights.content +
-    scores.links.score * weights.links
+      scores.description.score * weights.description +
+      scores.headings.score * weights.headings +
+      scores.images.score * weights.images +
+      scores.content.score * weights.content +
+      scores.links.score * weights.links
   );
 
   return scores;

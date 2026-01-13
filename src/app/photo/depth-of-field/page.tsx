@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { DepthOfFieldCalculator } from "./depth-of-field-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { DepthOfFieldCalculator } from "./depth-of-field-calculator";
 
 export const metadata: Metadata = {
   title: "Depth of Field Calculator",
-  description: "Calculate depth of field from aperture, focal length, and distance. Find hyperfocal distance.",
+  description:
+    "Calculate depth of field from aperture, focal length, and distance. Find hyperfocal distance.",
   keywords: ["depth of field", "dof", "aperture", "bokeh", "hyperfocal", "photography"],
 };
 

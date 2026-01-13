@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { EmojiMap } from "./emoji-map";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { EmojiMap } from "./emoji-map";
 
 export const metadata: Metadata = {
   title: "Emoji Character Map",

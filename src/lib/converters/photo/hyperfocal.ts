@@ -42,7 +42,7 @@ export function calculateHyperfocal(input: HyperfocalInput): HyperfocalResult {
   const { focalLength, aperture, circleOfConfusion } = input;
 
   // Calculate hyperfocal distance in mm, then convert to meters
-  const hyperfocalMM = (Math.pow(focalLength, 2) / (aperture * circleOfConfusion)) + focalLength;
+  const hyperfocalMM = focalLength ** 2 / (aperture * circleOfConfusion) + focalLength;
   const hyperfocalDistance = hyperfocalMM / 1000; // Convert to meters
   const hyperfocalDistanceFeet = hyperfocalDistance * 3.28084;
 
@@ -98,7 +98,8 @@ export const FOCAL_LENGTHS = [14, 16, 20, 24, 28, 35, 50, 85, 100, 135, 200];
 export const APERTURES = [1.4, 1.8, 2, 2.8, 4, 5.6, 8, 11, 16, 22];
 
 export const HYPERFOCAL_INFO = {
-  definition: "The closest distance at which a lens can be focused while keeping objects at infinity acceptably sharp",
+  definition:
+    "The closest distance at which a lens can be focused while keeping objects at infinity acceptably sharp",
   usage: [
     "Focus at hyperfocal distance for maximum depth of field",
     "Everything from half the hyperfocal distance to infinity will be sharp",

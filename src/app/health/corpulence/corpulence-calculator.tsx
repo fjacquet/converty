@@ -39,9 +39,7 @@ export function CorpulenceCalculator() {
         <button
           onClick={() => setUnit("metric")}
           className={`flex-1 py-2 px-4 rounded-lg border font-medium transition-colors ${
-            unit === "metric"
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted/50 hover:bg-muted"
+            unit === "metric" ? "bg-primary text-primary-foreground" : "bg-muted/50 hover:bg-muted"
           }`}
         >
           Metric (kg/cm)
@@ -159,9 +157,9 @@ export function CorpulenceCalculator() {
           <div className="p-4 rounded-lg border bg-muted/50 text-sm text-muted-foreground">
             <p className="font-medium text-foreground mb-2">About Corpulence Index</p>
             <p>
-              The Corpulence Index (CI), also known as the Ponderal Index, is calculated as
-              weight divided by height cubed (kg/m³). Unlike BMI which uses height squared,
-              CI may provide a more accurate assessment for very tall or short individuals.
+              The Corpulence Index (CI), also known as the Ponderal Index, is calculated as weight
+              divided by height cubed (kg/m³). Unlike BMI which uses height squared, CI may provide
+              a more accurate assessment for very tall or short individuals.
             </p>
           </div>
         </div>

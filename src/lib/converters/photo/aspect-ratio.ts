@@ -20,10 +20,7 @@ function calculateGCD(a: number, b: number): number {
   return a;
 }
 
-export function calculateAspectRatio(
-  width: number,
-  height: number
-): AspectRatioResult | null {
+export function calculateAspectRatio(width: number, height: number): AspectRatioResult | null {
   if (width <= 0 || height <= 0) {
     return null;
   }

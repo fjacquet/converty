@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { TimeLapseCalculator } from "./time-lapse-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { TimeLapseCalculator } from "./time-lapse-calculator";
 
 export const metadata: Metadata = {
   title: "Time Lapse Calculator",
-  description: "Calculate clip length, shooting interval, photos needed, and memory usage for time lapse.",
+  description:
+    "Calculate clip length, shooting interval, photos needed, and memory usage for time lapse.",
   keywords: ["time lapse", "timelapse", "interval", "photography", "video", "memory"],
 };
 

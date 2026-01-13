@@ -7,9 +7,10 @@ export function CommonBitratesViewer() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const categories = getCategories();
 
-  const filteredBitrates = selectedCategory === "all"
-    ? COMMON_BITRATES
-    : COMMON_BITRATES.filter((b) => b.category === selectedCategory);
+  const filteredBitrates =
+    selectedCategory === "all"
+      ? COMMON_BITRATES
+      : COMMON_BITRATES.filter((b) => b.category === selectedCategory);
 
   return (
     <div className="space-y-6">
@@ -17,7 +18,9 @@ export function CommonBitratesViewer() {
         <button
           onClick={() => setSelectedCategory("all")}
           className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-            selectedCategory === "all" ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-muted/80"
+            selectedCategory === "all"
+              ? "bg-primary text-primary-foreground"
+              : "bg-muted hover:bg-muted/80"
           }`}
         >
           All
@@ -27,7 +30,9 @@ export function CommonBitratesViewer() {
             key={cat}
             onClick={() => setSelectedCategory(cat)}
             className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-              selectedCategory === cat ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-muted/80"
+              selectedCategory === cat
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted hover:bg-muted/80"
             }`}
           >
             {cat}
@@ -48,9 +53,14 @@ export function CommonBitratesViewer() {
           </thead>
           <tbody>
             {filteredBitrates.map((bitrate, idx) => (
-              <tr key={`${bitrate.name}-${idx}`} className="border-b border-muted hover:bg-muted/50">
+              <tr
+                key={`${bitrate.name}-${idx}`}
+                className="border-b border-muted hover:bg-muted/50"
+              >
                 <td className="py-3">
-                  <span className="px-2 py-0.5 rounded bg-muted text-xs font-medium">{bitrate.category}</span>
+                  <span className="px-2 py-0.5 rounded bg-muted text-xs font-medium">
+                    {bitrate.category}
+                  </span>
                 </td>
                 <td className="py-3 font-medium">{bitrate.name}</td>
                 <td className="py-3 text-right font-mono">{bitrate.bitrateMbps} Mbps</td>
@@ -65,7 +75,8 @@ export function CommonBitratesViewer() {
       <div className="grid gap-4 sm:grid-cols-3">
         {categories.slice(0, 6).map((cat) => {
           const catBitrates = COMMON_BITRATES.filter((b) => b.category === cat);
-          const avgBitrate = catBitrates.reduce((a, b) => a + b.bitrateMbps, 0) / catBitrates.length;
+          const avgBitrate =
+            catBitrates.reduce((a, b) => a + b.bitrateMbps, 0) / catBitrates.length;
           return (
             <div key={cat} className="p-4 rounded-lg border bg-muted/50">
               <p className="font-medium">{cat}</p>

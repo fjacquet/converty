@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
-import { calculateAspectFit, COMMON_SCREENS } from "@/lib/converters/photo/aspect-fit";
+import { COMMON_SCREENS, calculateAspectFit } from "@/lib/converters/photo/aspect-fit";
 
 export function AspectFitCalculator() {
   const [imageWidth, setImageWidth] = useState("1920");
@@ -22,18 +22,49 @@ export function AspectFitCalculator() {
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-4">
           <h3 className="font-medium">Image Dimensions</h3>
-          <InputField id="imageWidth" label="Width" value={imageWidth} onChange={setImageWidth} unit="px" min={1} />
-          <InputField id="imageHeight" label="Height" value={imageHeight} onChange={setImageHeight} unit="px" min={1} />
+          <InputField
+            id="imageWidth"
+            label="Width"
+            value={imageWidth}
+            onChange={setImageWidth}
+            unit="px"
+            min={1}
+          />
+          <InputField
+            id="imageHeight"
+            label="Height"
+            value={imageHeight}
+            onChange={setImageHeight}
+            unit="px"
+            min={1}
+          />
         </div>
         <div className="space-y-4">
           <h3 className="font-medium">Screen Dimensions</h3>
-          <InputField id="screenWidth" label="Width" value={screenWidth} onChange={setScreenWidth} unit="px" min={1} />
-          <InputField id="screenHeight" label="Height" value={screenHeight} onChange={setScreenHeight} unit="px" min={1} />
+          <InputField
+            id="screenWidth"
+            label="Width"
+            value={screenWidth}
+            onChange={setScreenWidth}
+            unit="px"
+            min={1}
+          />
+          <InputField
+            id="screenHeight"
+            label="Height"
+            value={screenHeight}
+            onChange={setScreenHeight}
+            unit="px"
+            min={1}
+          />
           <div className="flex flex-wrap gap-2">
             {COMMON_SCREENS.map((screen) => (
               <button
                 key={screen.name}
-                onClick={() => { setScreenWidth(screen.width.toString()); setScreenHeight(screen.height.toString()); }}
+                onClick={() => {
+                  setScreenWidth(screen.width.toString());
+                  setScreenHeight(screen.height.toString());
+                }}
                 className="text-xs px-2 py-1 rounded border hover:bg-muted/50"
               >
                 {screen.name}
@@ -58,21 +89,35 @@ export function AspectFitCalculator() {
           <div className="p-4 rounded-lg border bg-muted/50">
             <p className="text-sm text-muted-foreground mb-1">Letterboxing</p>
             <p className="font-medium">
-              {result.letterboxing === "none" ? "Perfect fit - no letterboxing" :
-               result.letterboxing === "horizontal" ? `${result.letterboxSize}px bars top & bottom` :
-               `${result.letterboxSize}px bars left & right`}
+              {result.letterboxing === "none"
+                ? "Perfect fit - no letterboxing"
+                : result.letterboxing === "horizontal"
+                  ? `${result.letterboxSize}px bars top & bottom`
+                  : `${result.letterboxSize}px bars left & right`}
             </p>
           </div>
 
           <div className="flex justify-center p-4 border rounded-lg bg-muted/20">
-            <div className="relative bg-muted border-2" style={{ width: 200, height: 200 * (parseInt(screenHeight) / parseInt(screenWidth)) }}>
+            <div
+              className="relative bg-muted border-2"
+              style={{ width: 200, height: 200 * (parseInt(screenHeight) / parseInt(screenWidth)) }}
+            >
               <div
                 className="absolute bg-primary/30 border border-primary"
                 style={{
                   width: `${result.fillPercentage}%`,
-                  height: result.letterboxing === "horizontal" ? `${(result.fittedHeight / parseInt(screenHeight)) * 100}%` : "100%",
-                  left: result.letterboxing === "vertical" ? `${(result.letterboxSize / parseInt(screenWidth)) * 100}%` : 0,
-                  top: result.letterboxing === "horizontal" ? `${(result.letterboxSize / parseInt(screenHeight)) * 100}%` : 0,
+                  height:
+                    result.letterboxing === "horizontal"
+                      ? `${(result.fittedHeight / parseInt(screenHeight)) * 100}%`
+                      : "100%",
+                  left:
+                    result.letterboxing === "vertical"
+                      ? `${(result.letterboxSize / parseInt(screenWidth)) * 100}%`
+                      : 0,
+                  top:
+                    result.letterboxing === "horizontal"
+                      ? `${(result.letterboxSize / parseInt(screenHeight)) * 100}%`
+                      : 0,
                 }}
               />
             </div>

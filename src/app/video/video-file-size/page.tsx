@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { VideoFileSizeCalculator } from "./video-file-size-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { VideoFileSizeCalculator } from "./video-file-size-calculator";
 
 export const metadata: Metadata = {
   title: "Video File Size Calculator",
-  description: "Calculate video file size based on duration, bitrate, and resolution. Estimate storage needs for video production.",
+  description:
+    "Calculate video file size based on duration, bitrate, and resolution. Estimate storage needs for video production.",
   keywords: ["video", "file size", "bitrate", "calculator", "storage", "video production"],
 };
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
-import { convertToAllSpeeds, SpeedUnit, SPEED_UNITS } from "@/lib/converters/physics/speed";
+import { convertToAllSpeeds, SPEED_UNITS, type SpeedUnit } from "@/lib/converters/physics/speed";
 
 const UNIT_OPTIONS = SPEED_UNITS.map((u) => ({
   value: u.id,

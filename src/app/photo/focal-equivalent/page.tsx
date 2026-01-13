@@ -1,13 +1,20 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { FocalEquivalentCalculator } from "./focal-equivalent-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { FocalEquivalentCalculator } from "./focal-equivalent-calculator";
 
 export const metadata: Metadata = {
   title: "Focal Length Equivalent Calculator",
   description: "Match field of view and depth of field between different camera sensor sizes.",
-  keywords: ["focal length", "equivalent", "crop factor", "sensor", "field of view", "depth of field"],
+  keywords: [
+    "focal length",
+    "equivalent",
+    "crop factor",
+    "sensor",
+    "field of view",
+    "depth of field",
+  ],
 };
 
 export default function FocalEquivalentPage() {

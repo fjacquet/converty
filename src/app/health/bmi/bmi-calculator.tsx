@@ -1,14 +1,14 @@
 "use client";
 
-import { useConverter } from "@/hooks";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
+import { useConverter } from "@/hooks";
 import {
+  type BMIInput,
+  type BMIResult,
   calculateBMI,
-  BMIInput,
-  BMIResult,
   getBMICategoryInfo,
-  WeightUnit,
-  HeightUnit,
+  type HeightUnit,
+  type WeightUnit,
 } from "@/lib/converters/health/bmi";
 import { cn } from "@/lib/utils";
 
@@ -32,10 +32,7 @@ interface FormValues {
 }
 
 export function BMICalculator() {
-  const { values, setValue, result } = useConverter<
-    FormValues,
-    BMIResult | null
-  >({
+  const { values, setValue, result } = useConverter<FormValues, BMIResult | null>({
     initialValues: {
       weight: "70",
       weightUnit: "kg",
@@ -89,25 +86,11 @@ export function BMICalculator() {
       {bmiResult && (
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <OutputDisplay
-              label="Your BMI"
-              value={bmiResult.bmi}
-              size="lg"
-              className="flex-1"
-            />
+            <OutputDisplay label="Your BMI" value={bmiResult.bmi} size="lg" className="flex-1" />
             <div className="flex-1">
-              <p className="text-sm font-medium text-muted-foreground mb-2">
-                Category
-              </p>
-              <div
-                className={cn(
-                  "rounded-md border bg-muted/50 px-3 py-4",
-                  categoryInfo?.color
-                )}
-              >
-                <span className="text-2xl font-bold">
-                  {bmiResult.categoryLabel}
-                </span>
+              <p className="text-sm font-medium text-muted-foreground mb-2">Category</p>
+              <div className={cn("rounded-md border bg-muted/50 px-3 py-4", categoryInfo?.color)}>
+                <span className="text-2xl font-bold">{bmiResult.categoryLabel}</span>
               </div>
             </div>
           </div>
@@ -123,9 +106,7 @@ export function BMICalculator() {
                 ? [
                     {
                       label:
-                        bmiResult.category === "underweight"
-                          ? "Weight to gain"
-                          : "Weight to lose",
+                        bmiResult.category === "underweight" ? "Weight to gain" : "Weight to lose",
                       value: Math.abs(bmiResult.weightToHealthy),
                       unit: "kg",
                     },

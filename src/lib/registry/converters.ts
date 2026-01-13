@@ -1,14 +1,5 @@
-import {
-  Heart,
-  Palette,
-  Database,
-  Gauge,
-  ImageIcon,
-  Music,
-  Video,
-  Globe,
-} from "lucide-react";
-import { ConverterMeta } from "@/types";
+import { Database, Gauge, Globe, Heart, ImageIcon, Music, Palette, Video } from "lucide-react";
+import type { ConverterMeta } from "@/types";
 
 export const converterRegistry: Record<string, ConverterMeta> = {
   // Health
@@ -187,6 +178,136 @@ export const converterRegistry: Record<string, ConverterMeta> = {
     description: "Calculate ideal shooting distance for portraits",
     category: "photo",
     keywords: ["portrait", "distance", "focal length", "headshot"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "star-trails": {
+    id: "star-trails",
+    slug: "star-trails",
+    name: "Star Trails Calculator",
+    description: "Calculate exposure time for star trail rotation",
+    category: "photo",
+    keywords: ["star trails", "astrophotography", "long exposure", "night", "rotation"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "spot-stars": {
+    id: "spot-stars",
+    slug: "spot-stars",
+    name: "Spot Stars Calculator",
+    description: "Calculate max exposure to prevent star trailing (NPF Rule)",
+    category: "photo",
+    keywords: ["spot stars", "npf rule", "milky way", "astrophotography", "500 rule"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "time-lapse": {
+    id: "time-lapse",
+    slug: "time-lapse",
+    name: "Time Lapse Calculator",
+    description: "Calculate interval, clip length, and memory for time lapse",
+    category: "photo",
+    keywords: ["time lapse", "timelapse", "interval", "photography", "video"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "focal-equivalent": {
+    id: "focal-equivalent",
+    slug: "focal-equivalent",
+    name: "Focal Length Equivalent",
+    description: "Match settings between different sensor sizes",
+    category: "photo",
+    keywords: ["focal length", "equivalent", "crop factor", "sensor", "field of view"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  hyperfocal: {
+    id: "hyperfocal",
+    slug: "hyperfocal",
+    name: "Hyperfocal Distance Calculator",
+    description: "Calculate hyperfocal distance for maximum depth of field",
+    category: "photo",
+    keywords: ["hyperfocal", "depth of field", "landscape", "sharpness", "focus"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "nd-filter": {
+    id: "nd-filter",
+    slug: "nd-filter",
+    name: "ND Filter Calculator",
+    description: "Calculate exposure time with ND filters",
+    category: "photo",
+    keywords: ["nd filter", "neutral density", "long exposure", "shutter speed"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "golden-hour": {
+    id: "golden-hour",
+    slug: "golden-hour",
+    name: "Golden Hour Guide",
+    description: "Calculate golden hour times based on your location",
+    category: "photo",
+    keywords: ["golden hour", "blue hour", "twilight", "sunrise", "sunset", "geolocation"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "circle-of-confusion": {
+    id: "circle-of-confusion",
+    slug: "circle-of-confusion",
+    name: "Circle of Confusion Calculator",
+    description: "Calculate CoC from sensor, print size, and viewing distance",
+    category: "photo",
+    keywords: ["circle of confusion", "coc", "depth of field", "print", "sharpness"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "advanced-dof": {
+    id: "advanced-dof",
+    slug: "advanced-dof",
+    name: "Advanced DoF Calculator",
+    description: "Depth of field with adjustable CoC for print size and viewing",
+    category: "photo",
+    keywords: ["depth of field", "dof", "circle of confusion", "print", "viewing distance"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "macro-dof": {
+    id: "macro-dof",
+    slug: "macro-dof",
+    name: "Macro DoF Calculator",
+    description: "Accurate depth of field for macro photography",
+    category: "photo",
+    keywords: ["macro", "depth of field", "magnification", "close-up", "focus stacking"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "dof-table": {
+    id: "dof-table",
+    slug: "dof-table",
+    name: "DoF Table",
+    description: "Interactive table showing DoF across apertures and distances",
+    category: "photo",
+    keywords: ["depth of field", "table", "aperture", "distance", "reference"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  diffraction: {
+    id: "diffraction",
+    slug: "diffraction",
+    name: "Diffraction Calculator",
+    description: "Calculate when your camera becomes diffraction-limited",
+    category: "photo",
+    keywords: ["diffraction", "airy disk", "aperture", "sharpness", "pixel pitch"],
+    icon: ImageIcon,
+    featured: false,
+  },
+  "macro-diffraction": {
+    id: "macro-diffraction",
+    slug: "macro-diffraction",
+    name: "Macro Diffraction Calculator",
+    description: "Calculate effective aperture and diffraction in macro photography",
+    category: "photo",
+    keywords: ["macro", "diffraction", "effective aperture", "magnification", "sharpness"],
     icon: ImageIcon,
     featured: false,
   },
@@ -383,9 +504,7 @@ export function getConverterById(id: string): ConverterMeta | undefined {
 }
 
 export function getConvertersByCategory(categoryId: string): ConverterMeta[] {
-  return Object.values(converterRegistry).filter(
-    (converter) => converter.category === categoryId
-  );
+  return Object.values(converterRegistry).filter((converter) => converter.category === categoryId);
 }
 
 export function getFeaturedConverters(): ConverterMeta[] {

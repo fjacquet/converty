@@ -40,10 +40,7 @@ export interface BandwidthResult {
   };
 }
 
-export function convertBandwidth(
-  value: number,
-  fromUnit: string
-): BandwidthResult | null {
+export function convertBandwidth(value: number, fromUnit: string): BandwidthResult | null {
   if (value <= 0) return null;
 
   const sourceUnit = BANDWIDTH_UNITS.find((u) => u.id === fromUnit);

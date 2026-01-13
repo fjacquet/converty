@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import {
-  calculateHyperfocal,
-  generateHyperfocalTable,
-  CIRCLE_OF_CONFUSION,
-  FOCAL_LENGTHS,
   APERTURES,
+  CIRCLE_OF_CONFUSION,
+  calculateHyperfocal,
+  FOCAL_LENGTHS,
+  generateHyperfocalTable,
   HYPERFOCAL_INFO,
 } from "@/lib/converters/photo/hyperfocal";
 
@@ -14,7 +14,8 @@ export function HyperfocalCalculator() {
   const [focalLength, setFocalLength] = useState(24);
   const [aperture, setAperture] = useState(8);
   const [sensorName, setSensorName] = useState("Full Frame (35mm)");
-  const selectedSensor = CIRCLE_OF_CONFUSION.find(s => s.name === sensorName) || CIRCLE_OF_CONFUSION[0];
+  const selectedSensor =
+    CIRCLE_OF_CONFUSION.find((s) => s.name === sensorName) || CIRCLE_OF_CONFUSION[0];
 
   const result = calculateHyperfocal({
     focalLength,
@@ -128,7 +129,7 @@ export function HyperfocalCalculator() {
               {table.map((row) => (
                 <tr
                   key={row.aperture}
-                  className={`border-b border-muted ${row.aperture === aperture ? 'bg-primary/10' : ''}`}
+                  className={`border-b border-muted ${row.aperture === aperture ? "bg-primary/10" : ""}`}
                 >
                   <td className="py-2">f/{row.aperture}</td>
                   <td className="py-2">{row.hyperfocal.toFixed(2)}m</td>

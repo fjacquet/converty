@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { LightEVCalculator } from "./light-ev-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { LightEVCalculator } from "./light-ev-calculator";
 
 export const metadata: Metadata = {
   title: "Light EV Calculator",
-  description: "Calculate Exposure Value from aperture, shutter speed, and ISO. Find equivalent exposures.",
+  description:
+    "Calculate Exposure Value from aperture, shutter speed, and ISO. Find equivalent exposures.",
   keywords: ["exposure", "ev", "aperture", "shutter", "iso", "photography", "light meter"],
 };
 

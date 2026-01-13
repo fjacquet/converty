@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
-import { convertFromRgb, ColorConversion } from "@/lib/converters/color/rgb";
-import { cn } from "@/lib/utils";
+import { type ColorConversion, convertFromRgb } from "@/lib/converters/color/rgb";
 
 export function RGBConverter() {
   const [r, setR] = useState("128");

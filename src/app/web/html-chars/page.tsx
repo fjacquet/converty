@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { HTMLCharMap } from "./html-char-map";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { HTMLCharMap } from "./html-char-map";
 
 export const metadata: Metadata = {
   title: "HTML Character Map",

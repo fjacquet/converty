@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import {
-  calculateStarTrails,
   calculateExposureFromRotation,
-  STAR_TRAILS_PRESETS,
+  calculateStarTrails,
   STAR_TRAILS_INFO,
+  STAR_TRAILS_PRESETS,
 } from "@/lib/converters/photo/star-trails";
 
 export function StarTrailsCalculator() {
@@ -14,12 +14,13 @@ export function StarTrailsCalculator() {
   const [rotationDegrees, setRotationDegrees] = useState(15);
   const [hemisphere, setHemisphere] = useState<"north" | "south">("north");
 
-  const result = mode === "time"
-    ? calculateStarTrails({ exposureMinutes, hemisphere })
-    : calculateStarTrails({
-        exposureMinutes: calculateExposureFromRotation(rotationDegrees),
-        hemisphere,
-      });
+  const result =
+    mode === "time"
+      ? calculateStarTrails({ exposureMinutes, hemisphere })
+      : calculateStarTrails({
+          exposureMinutes: calculateExposureFromRotation(rotationDegrees),
+          hemisphere,
+        });
 
   return (
     <div className="space-y-6">
@@ -118,7 +119,15 @@ export function StarTrailsCalculator() {
         <div className="relative w-48 h-48">
           <svg viewBox="0 0 100 100" className="w-full h-full">
             {/* Background circle */}
-            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.2" />
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.5"
+              opacity="0.2"
+            />
             {/* Star trail arc */}
             <path
               d={describeArc(50, 50, 35, 0, Math.min(result.rotationDegrees, 360))}
@@ -189,14 +198,25 @@ export function StarTrailsCalculator() {
 }
 
 // Helper function to draw SVG arc
-function describeArc(x: number, y: number, radius: number, startAngle: number, endAngle: number): string {
+function describeArc(
+  x: number,
+  y: number,
+  radius: number,
+  startAngle: number,
+  endAngle: number
+): string {
   const start = polarToCartesian(x, y, radius, endAngle);
   const end = polarToCartesian(x, y, radius, startAngle);
   const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
   return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArcFlag} 0 ${end.x} ${end.y}`;
 }
 
-function polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number) {
+function polarToCartesian(
+  centerX: number,
+  centerY: number,
+  radius: number,
+  angleInDegrees: number
+) {
   const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
   return {
     x: centerX + radius * Math.cos(angleInRadians),

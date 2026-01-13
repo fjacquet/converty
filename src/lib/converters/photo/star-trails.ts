@@ -18,7 +18,7 @@ export interface StarTrailsResult {
 
 // Earth rotates 360° in 24 hours = 15° per hour = 0.25° per minute
 const DEGREES_PER_MINUTE = 0.25;
-const DEGREES_PER_HOUR = 15;
+const _DEGREES_PER_HOUR = 15;
 
 export function calculateStarTrails(input: StarTrailsInput): StarTrailsResult {
   const { exposureMinutes } = input;

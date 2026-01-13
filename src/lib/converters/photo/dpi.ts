@@ -84,12 +84,12 @@ function getPrintQuality(dpi: number): { printQuality: string; qualityDescriptio
 }
 
 export const COMMON_PRINT_SIZES = [
-  { name: "4×6\"", width: 4, height: 6 },
-  { name: "5×7\"", width: 5, height: 7 },
-  { name: "8×10\"", width: 8, height: 10 },
-  { name: "11×14\"", width: 11, height: 14 },
-  { name: "16×20\"", width: 16, height: 20 },
-  { name: "20×30\"", width: 20, height: 30 },
+  { name: '4×6"', width: 4, height: 6 },
+  { name: '5×7"', width: 5, height: 7 },
+  { name: '8×10"', width: 8, height: 10 },
+  { name: '11×14"', width: 11, height: 14 },
+  { name: '16×20"', width: 16, height: 20 },
+  { name: '20×30"', width: 20, height: 30 },
   { name: "A4", width: 8.27, height: 11.69 },
   { name: "A3", width: 11.69, height: 16.54 },
 ];

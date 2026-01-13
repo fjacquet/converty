@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { Calculator, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "./theme-toggle";
-import { categories } from "@/lib/registry/categories";
+import Link from "next/link";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { categories } from "@/lib/registry/categories";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -53,12 +53,7 @@ export function Header() {
       </div>
 
       {/* Mobile Navigation */}
-      <div
-        className={cn(
-          "md:hidden border-t",
-          mobileMenuOpen ? "block" : "hidden"
-        )}
-      >
+      <div className={cn("md:hidden border-t", mobileMenuOpen ? "block" : "hidden")}>
         <nav className="container py-4 flex flex-col space-y-3">
           {categories.map((category) => (
             <Link

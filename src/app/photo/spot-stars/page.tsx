@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { SpotStarsCalculator } from "./spot-stars-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { SpotStarsCalculator } from "./spot-stars-calculator";
 
 export const metadata: Metadata = {
   title: "Spot Stars Calculator (NPF Rule)",
-  description: "Calculate maximum exposure time to prevent star trailing for Milky Way photography.",
+  description:
+    "Calculate maximum exposure time to prevent star trailing for Milky Way photography.",
   keywords: ["spot stars", "npf rule", "milky way", "astrophotography", "exposure", "500 rule"],
 };
 

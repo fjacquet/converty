@@ -3,10 +3,10 @@
 import { useState } from "react";
 import {
   calculateFocalEquivalent,
-  CROP_FACTORS,
-  COMMON_FOCAL_LENGTHS,
-  COMMON_APERTURES,
+  FOCAL_EQUIV_APERTURES,
+  FOCAL_EQUIV_FOCAL_LENGTHS,
   FOCAL_EQUIVALENT_INFO,
+  SENSOR_CROP_FACTORS,
 } from "@/lib/converters/photo/focal-equivalent";
 
 export function FocalEquivalentCalculator() {
@@ -45,7 +45,7 @@ export function FocalEquivalentCalculator() {
                 onChange={(e) => setSourceCropFactor(parseFloat(e.target.value))}
                 className="w-full h-10 px-3 rounded-md border bg-background"
               >
-                {CROP_FACTORS.map((cf) => (
+                {SENSOR_CROP_FACTORS.map((cf) => (
                   <option key={cf.name} value={cf.value}>
                     {cf.name} ({cf.value}x)
                   </option>
@@ -63,7 +63,7 @@ export function FocalEquivalentCalculator() {
                 className="w-full h-10 px-3 rounded-md border bg-background"
               />
               <div className="flex flex-wrap gap-2">
-                {COMMON_FOCAL_LENGTHS.slice(0, 8).map((fl) => (
+                {FOCAL_EQUIV_FOCAL_LENGTHS.slice(0, 8).map((fl) => (
                   <button
                     key={fl}
                     onClick={() => setSourceFocalLength(fl)}
@@ -86,7 +86,7 @@ export function FocalEquivalentCalculator() {
                 className="w-full h-10 px-3 rounded-md border bg-background"
               />
               <div className="flex flex-wrap gap-2">
-                {COMMON_APERTURES.slice(0, 6).map((ap) => (
+                {FOCAL_EQUIV_APERTURES.slice(0, 6).map((ap) => (
                   <button
                     key={ap}
                     onClick={() => setSourceAperture(ap)}
@@ -133,7 +133,7 @@ export function FocalEquivalentCalculator() {
                 onChange={(e) => setTargetCropFactor(parseFloat(e.target.value))}
                 className="w-full h-10 px-3 rounded-md border bg-background"
               >
-                {CROP_FACTORS.map((cf) => (
+                {SENSOR_CROP_FACTORS.map((cf) => (
                   <option key={cf.name} value={cf.value}>
                     {cf.name} ({cf.value}x)
                   </option>
@@ -179,9 +179,15 @@ export function FocalEquivalentCalculator() {
         <div className="p-4 rounded-lg border bg-muted/30">
           <p className="font-medium mb-2">How It Works</p>
           <ul className="text-sm text-muted-foreground space-y-1">
-            <li><strong>FOV:</strong> {FOCAL_EQUIVALENT_INFO.fieldOfView}</li>
-            <li><strong>DOF:</strong> {FOCAL_EQUIVALENT_INFO.depthOfField}</li>
-            <li><strong>Exposure:</strong> {FOCAL_EQUIVALENT_INFO.exposure}</li>
+            <li>
+              <strong>FOV:</strong> {FOCAL_EQUIVALENT_INFO.fieldOfView}
+            </li>
+            <li>
+              <strong>DOF:</strong> {FOCAL_EQUIVALENT_INFO.depthOfField}
+            </li>
+            <li>
+              <strong>Exposure:</strong> {FOCAL_EQUIVALENT_INFO.exposure}
+            </li>
           </ul>
         </div>
         <div className="p-4 rounded-lg border bg-muted/30">

@@ -26,7 +26,7 @@ export function calculateEV(
   const ev100 = ev + Math.log2(iso / 100);
 
   // Approximate lux from EV100: Lux ≈ 2.5 × 2^EV100
-  const lux = 2.5 * Math.pow(2, ev100);
+  const lux = 2.5 * 2 ** ev100;
   const footCandles = lux / 10.764;
 
   const { lightLevel, description } = getLightLevel(ev100);
@@ -46,17 +46,17 @@ export function calculateSettingsForEV(
   targetEV: number,
   fixedAperture?: number,
   fixedShutter?: number,
-  fixedISO?: number
+  _fixedISO?: number
 ): { aperture?: number; shutterSpeed?: number; iso?: number } {
   // If aperture is fixed, calculate shutter speed at ISO 100
   if (fixedAperture && !fixedShutter) {
-    const shutterSpeed = (fixedAperture * fixedAperture) / Math.pow(2, targetEV);
+    const shutterSpeed = (fixedAperture * fixedAperture) / 2 ** targetEV;
     return { shutterSpeed };
   }
 
   // If shutter is fixed, calculate aperture at ISO 100
   if (fixedShutter && !fixedAperture) {
-    const aperture = Math.sqrt(fixedShutter * Math.pow(2, targetEV));
+    const aperture = Math.sqrt(fixedShutter * 2 ** targetEV);
     return { aperture };
   }
 
@@ -94,15 +94,15 @@ export const COMMON_SHUTTER_SPEEDS = [
   { label: "1/2", value: 0.5 },
   { label: "1/4", value: 0.25 },
   { label: "1/8", value: 0.125 },
-  { label: "1/15", value: 1/15 },
-  { label: "1/30", value: 1/30 },
-  { label: "1/60", value: 1/60 },
-  { label: "1/125", value: 1/125 },
-  { label: "1/250", value: 1/250 },
-  { label: "1/500", value: 1/500 },
-  { label: "1/1000", value: 1/1000 },
-  { label: "1/2000", value: 1/2000 },
-  { label: "1/4000", value: 1/4000 },
-  { label: "1/8000", value: 1/8000 },
+  { label: "1/15", value: 1 / 15 },
+  { label: "1/30", value: 1 / 30 },
+  { label: "1/60", value: 1 / 60 },
+  { label: "1/125", value: 1 / 125 },
+  { label: "1/250", value: 1 / 250 },
+  { label: "1/500", value: 1 / 500 },
+  { label: "1/1000", value: 1 / 1000 },
+  { label: "1/2000", value: 1 / 2000 },
+  { label: "1/4000", value: 1 / 4000 },
+  { label: "1/8000", value: 1 / 8000 },
 ];
 export const COMMON_ISO = [100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600];

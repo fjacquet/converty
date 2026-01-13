@@ -64,14 +64,16 @@ function getQualityAssessment(
   }
 
   if (is4K) {
-    if (bitrateMbps < 15) return { qualityLevel: "Low", recommendation: "May show compression artifacts" };
+    if (bitrateMbps < 15)
+      return { qualityLevel: "Low", recommendation: "May show compression artifacts" };
     if (bitrateMbps < 35) return { qualityLevel: "Good", recommendation: "Good for streaming" };
     if (bitrateMbps < 80) return { qualityLevel: "High", recommendation: "Excellent quality" };
     return { qualityLevel: "Master", recommendation: "Archive/master quality" };
   }
 
   if (isHD) {
-    if (bitrateMbps < 4) return { qualityLevel: "Low", recommendation: "May show compression artifacts" };
+    if (bitrateMbps < 4)
+      return { qualityLevel: "Low", recommendation: "May show compression artifacts" };
     if (bitrateMbps < 8) return { qualityLevel: "Good", recommendation: "Good for streaming" };
     if (bitrateMbps < 20) return { qualityLevel: "High", recommendation: "Excellent quality" };
     return { qualityLevel: "Master", recommendation: "Archive/master quality" };

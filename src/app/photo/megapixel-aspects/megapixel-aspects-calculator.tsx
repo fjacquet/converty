@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { InputField } from "@/components/converter";
-import { calculateMegapixelAspects, MEGAPIXEL_PRESETS } from "@/lib/converters/photo/megapixel-aspects";
+import {
+  calculateMegapixelAspects,
+  MEGAPIXEL_PRESETS,
+} from "@/lib/converters/photo/megapixel-aspects";
 
 export function MegapixelAspectsCalculator() {
   const [megapixels, setMegapixels] = useState("24");
@@ -12,10 +15,24 @@ export function MegapixelAspectsCalculator() {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
-        <InputField id="megapixels" label="Target Megapixels" value={megapixels} onChange={setMegapixels} unit="MP" min={0.1} step={0.1} />
+        <InputField
+          id="megapixels"
+          label="Target Megapixels"
+          value={megapixels}
+          onChange={setMegapixels}
+          unit="MP"
+          min={0.1}
+          step={0.1}
+        />
         <div className="flex flex-wrap gap-2 items-end pb-2">
           {MEGAPIXEL_PRESETS.map((preset) => (
-            <button key={preset.value} onClick={() => setMegapixels(preset.value.toString())} className="text-xs px-2 py-1 rounded border hover:bg-muted/50">{preset.label}</button>
+            <button
+              key={preset.value}
+              onClick={() => setMegapixels(preset.value.toString())}
+              className="text-xs px-2 py-1 rounded border hover:bg-muted/50"
+            >
+              {preset.label}
+            </button>
           ))}
         </div>
       </div>
@@ -37,7 +54,9 @@ export function MegapixelAspectsCalculator() {
                 <tr key={result.name} className="border-b border-muted hover:bg-muted/50">
                   <td className="py-3">
                     <span className="font-medium">{result.name}</span>
-                    <span className="text-muted-foreground ml-2">({result.ratioW}:{result.ratioH})</span>
+                    <span className="text-muted-foreground ml-2">
+                      ({result.ratioW}:{result.ratioH})
+                    </span>
                   </td>
                   <td className="py-3 text-right font-mono">{result.width.toLocaleString()}</td>
                   <td className="py-3 text-right font-mono">{result.height.toLocaleString()}</td>
@@ -60,7 +79,9 @@ export function MegapixelAspectsCalculator() {
                 height: result.ratioH > result.ratioW ? 60 : 60 * (result.ratioH / result.ratioW),
               }}
             />
-            <p className="text-xs font-medium">{result.ratioW}:{result.ratioH}</p>
+            <p className="text-xs font-medium">
+              {result.ratioW}:{result.ratioH}
+            </p>
           </div>
         ))}
       </div>

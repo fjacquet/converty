@@ -11,7 +11,7 @@ export function calculateScreenSize(
   diagonal: number,
   aspectRatioW: number,
   aspectRatioH: number,
-  unit: "inches" | "cm" = "inches",
+  _unit: "inches" | "cm" = "inches",
   pixelWidth?: number,
   pixelHeight?: number
 ): ScreenSizeResult | null {

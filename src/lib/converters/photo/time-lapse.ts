@@ -39,7 +39,7 @@ export function calculateTimeLapse(input: TimeLapseInput): TimeLapseResult {
   let clipLengthSeconds: number;
 
   switch (calculateMode) {
-    case "clip_length":
+    case "clip_length": {
       eventDurationMinutes = input.eventDurationMinutes || 60;
       intervalSeconds = input.intervalSeconds || 5;
       // Photos = event duration / interval
@@ -47,8 +47,9 @@ export function calculateTimeLapse(input: TimeLapseInput): TimeLapseResult {
       const photosForClip = (eventDurationMinutes * 60) / intervalSeconds;
       clipLengthSeconds = photosForClip / frameRate;
       break;
+    }
 
-    case "interval":
+    case "interval": {
       eventDurationMinutes = input.eventDurationMinutes || 60;
       clipLengthSeconds = input.clipLengthSeconds || 30;
       // Photos needed = clip length * frame rate
@@ -56,8 +57,9 @@ export function calculateTimeLapse(input: TimeLapseInput): TimeLapseResult {
       const photosNeeded = clipLengthSeconds * frameRate;
       intervalSeconds = (eventDurationMinutes * 60) / photosNeeded;
       break;
+    }
 
-    case "event_duration":
+    case "event_duration": {
       clipLengthSeconds = input.clipLengthSeconds || 30;
       intervalSeconds = input.intervalSeconds || 5;
       // Photos = clip length * frame rate
@@ -65,6 +67,7 @@ export function calculateTimeLapse(input: TimeLapseInput): TimeLapseResult {
       const photosForEvent = clipLengthSeconds * frameRate;
       eventDurationMinutes = (photosForEvent * intervalSeconds) / 60;
       break;
+    }
 
     default:
       throw new Error("Invalid calculate mode");

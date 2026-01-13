@@ -28,7 +28,7 @@ export function calculateCorpulence(
   }
 
   // Corpulence Index = weight / height³
-  const corpulenceIndex = weightKg / Math.pow(heightM, 3);
+  const corpulenceIndex = weightKg / heightM ** 3;
 
   const { category, description, healthRisk } = getCorpulenceCategory(corpulenceIndex);
 
@@ -103,8 +103,8 @@ export function compareToBMI(
     heightM = height / 100;
   }
 
-  const bmi = weightKg / Math.pow(heightM, 2);
-  const ci = weightKg / Math.pow(heightM, 3);
+  const bmi = weightKg / heightM ** 2;
+  const ci = weightKg / heightM ** 3;
 
   let difference: string;
   if (Math.abs(bmi - ci) < 2) {

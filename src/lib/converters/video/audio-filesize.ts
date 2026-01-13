@@ -8,7 +8,10 @@ export interface AudioFilesizeResult {
   duration: number;
 }
 
-const FORMAT_BITRATES: Record<AudioFormat, { min: number; typical: number; max: number; uncompressed?: boolean }> = {
+const FORMAT_BITRATES: Record<
+  AudioFormat,
+  { min: number; typical: number; max: number; uncompressed?: boolean }
+> = {
   wav: { min: 1411, typical: 1411, max: 4608, uncompressed: true }, // 16-bit/44.1kHz to 24-bit/96kHz
   flac: { min: 400, typical: 900, max: 1400 },
   mp3: { min: 128, typical: 256, max: 320 },
@@ -35,9 +38,14 @@ export function calculateAudioFilesize(
     bitrate = (sampleRate * bitDepth * channels) / 1000; // kbps
   } else {
     switch (quality) {
-      case "low": bitrate = formatInfo.min; break;
-      case "high": bitrate = formatInfo.max; break;
-      default: bitrate = formatInfo.typical;
+      case "low":
+        bitrate = formatInfo.min;
+        break;
+      case "high":
+        bitrate = formatInfo.max;
+        break;
+      default:
+        bitrate = formatInfo.typical;
     }
     bitrate = bitrate * (channels === 1 ? 0.6 : 1); // Mono is roughly 60% of stereo
   }
@@ -49,7 +57,10 @@ export function calculateAudioFilesize(
   return {
     estimatedBytes: Math.round(estimatedBytes),
     estimatedMB: Math.round(estimatedMB * 100) / 100,
-    formatted: estimatedMB >= 1000 ? `${(estimatedMB / 1024).toFixed(2)} GB` : `${estimatedMB.toFixed(2)} MB`,
+    formatted:
+      estimatedMB >= 1000
+        ? `${(estimatedMB / 1024).toFixed(2)} GB`
+        : `${estimatedMB.toFixed(2)} MB`,
     bitrate: Math.round(bitrate),
     duration: durationSeconds,
   };

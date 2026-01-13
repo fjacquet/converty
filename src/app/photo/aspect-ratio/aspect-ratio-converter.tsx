@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { calculateAspectRatio, COMMON_RATIOS } from "@/lib/converters/photo/aspect-ratio";
+import { COMMON_RATIOS, calculateAspectRatio } from "@/lib/converters/photo/aspect-ratio";
 
 export function AspectRatioConverter() {
   const [width, setWidth] = useState("1920");
@@ -40,28 +40,15 @@ export function AspectRatioConverter() {
       {result && (
         <div className="space-y-6">
           <div className="flex items-center gap-6">
-            <OutputDisplay
-              label="Aspect Ratio"
-              value={result.ratio}
-              size="lg"
-              className="flex-1"
-            />
-            <OutputDisplay
-              label="Decimal"
-              value={result.decimal}
-              className="flex-1"
-            />
+            <OutputDisplay label="Aspect Ratio" value={result.ratio} size="lg" className="flex-1" />
+            <OutputDisplay label="Decimal" value={result.decimal} className="flex-1" />
           </div>
 
           <ResultGrid
             results={[
               {
                 label: "Orientation",
-                value: result.isSquare
-                  ? "Square"
-                  : result.isLandscape
-                  ? "Landscape"
-                  : "Portrait",
+                value: result.isSquare ? "Square" : result.isLandscape ? "Landscape" : "Portrait",
               },
               { label: "GCD", value: result.gcd },
             ]}
@@ -86,17 +73,13 @@ export function AspectRatioConverter() {
 
           {/* Common Ratios Reference */}
           <div className="space-y-2">
-            <p className="text-sm font-medium text-muted-foreground">
-              Common Aspect Ratios
-            </p>
+            <p className="text-sm font-medium text-muted-foreground">Common Aspect Ratios</p>
             <div className="grid gap-2 grid-cols-2 sm:grid-cols-4">
               {COMMON_RATIOS.map((r) => (
                 <div
                   key={r.ratio}
                   className={`p-2 rounded border text-center ${
-                    result.ratio === r.ratio
-                      ? "border-primary bg-primary/10"
-                      : ""
+                    result.ratio === r.ratio ? "border-primary bg-primary/10" : ""
                   }`}
                 >
                   <p className="font-mono text-sm">{r.ratio}</p>

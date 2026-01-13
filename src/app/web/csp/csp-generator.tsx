@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CSP_DIRECTIVES, CSP_PRESETS, generateCSP, type CSPConfig } from "@/lib/converters/web/csp";
+import { CSP_DIRECTIVES, CSP_PRESETS, type CSPConfig, generateCSP } from "@/lib/converters/web/csp";
 
 export function CSPGenerator() {
   const [config, setConfig] = useState<CSPConfig>(CSP_PRESETS.moderate);
@@ -57,7 +57,9 @@ export function CSPGenerator() {
 
       {result.issues.length > 0 && (
         <div className="p-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10">
-          <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400 mb-2">Security Issues</p>
+          <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400 mb-2">
+            Security Issues
+          </p>
           <ul className="text-sm space-y-1">
             {result.issues.map((issue, i) => (
               <li key={i}>• {issue}</li>

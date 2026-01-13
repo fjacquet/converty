@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { CSPGenerator } from "./csp-generator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { CSPGenerator } from "./csp-generator";
 
 export const metadata: Metadata = {
   title: "Content Security Policy Generator",

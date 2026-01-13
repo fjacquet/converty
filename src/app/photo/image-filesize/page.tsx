@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { ImageFilesizeCalculator } from "./image-filesize-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { ImageFilesizeCalculator } from "./image-filesize-calculator";
 
 export const metadata: Metadata = {
   title: "Image File Size Calculator",

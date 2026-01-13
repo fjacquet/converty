@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PortraitDistanceCalculator } from "./portrait-distance-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { PortraitDistanceCalculator } from "./portrait-distance-calculator";
 
 export const metadata: Metadata = {
   title: "Portrait Distance Calculator",
-  description: "Calculate ideal shooting distance for portraits based on focal length and composition.",
+  description:
+    "Calculate ideal shooting distance for portraits based on focal length and composition.",
   keywords: ["portrait", "distance", "focal length", "photography", "composition", "headshot"],
 };
 

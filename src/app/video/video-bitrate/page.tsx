@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { VideoBitrateCalculator } from "./video-bitrate-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { VideoBitrateCalculator } from "./video-bitrate-calculator";
 
 export const metadata: Metadata = {
   title: "Video Bitrate Calculator",

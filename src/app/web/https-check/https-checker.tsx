@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { SECURITY_HEADERS, TLS_VERSIONS, analyzeSecurityHeaders } from "@/lib/converters/web/https-check";
+import {
+  analyzeSecurityHeaders,
+  SECURITY_HEADERS,
+  TLS_VERSIONS,
+} from "@/lib/converters/web/https-check";
 
 export function HTTPSChecker() {
   const [headers, setHeaders] = useState<Record<string, string>>({
@@ -46,12 +50,17 @@ export function HTTPSChecker() {
             <div key={header.name} className="p-4 rounded-lg border bg-background space-y-2">
               <div className="flex items-center justify-between">
                 <span className="font-medium">{header.name}</span>
-                <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                  status?.status === "good" ? "bg-green-500/20 text-green-600" :
-                  status?.status === "warning" ? "bg-yellow-500/20 text-yellow-600" :
-                  status?.status === "missing" ? "bg-red-500/20 text-red-600" :
-                  "bg-gray-500/20 text-gray-600"
-                }`}>
+                <span
+                  className={`px-2 py-0.5 rounded text-xs font-medium ${
+                    status?.status === "good"
+                      ? "bg-green-500/20 text-green-600"
+                      : status?.status === "warning"
+                        ? "bg-yellow-500/20 text-yellow-600"
+                        : status?.status === "missing"
+                          ? "bg-red-500/20 text-red-600"
+                          : "bg-gray-500/20 text-gray-600"
+                  }`}
+                >
                   {status?.status || "unknown"}
                 </span>
               </div>
@@ -87,9 +96,13 @@ export function HTTPSChecker() {
                 <tr key={version} className="border-b border-muted">
                   <td className="py-2 font-mono">{version}</td>
                   <td className="py-2">
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                      info.secure ? "bg-green-500/20 text-green-600" : "bg-red-500/20 text-red-600"
-                    }`}>
+                    <span
+                      className={`px-2 py-0.5 rounded text-xs font-medium ${
+                        info.secure
+                          ? "bg-green-500/20 text-green-600"
+                          : "bg-red-500/20 text-red-600"
+                      }`}
+                    >
                       {info.secure ? "Secure" : "Insecure"}
                     </span>
                   </td>

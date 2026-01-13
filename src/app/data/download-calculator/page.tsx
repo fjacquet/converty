@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { DownloadCalculator } from "./download-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { DownloadCalculator } from "./download-calculator";
 
 export const metadata: Metadata = {
   title: "Download Time Calculator",
-  description: "Calculate download time from file size and bandwidth. Estimate how long downloads will take.",
+  description:
+    "Calculate download time from file size and bandwidth. Estimate how long downloads will take.",
   keywords: ["download", "time", "calculator", "bandwidth", "file size", "transfer"],
 };
 

@@ -46,7 +46,7 @@ export function calculateAspectFit(
   }
 
   const scale = fittedWidth / imageWidth;
-  const fillPercentage = (fittedWidth * fittedHeight) / (screenWidth * screenHeight) * 100;
+  const fillPercentage = ((fittedWidth * fittedHeight) / (screenWidth * screenHeight)) * 100;
 
   return {
     fittedWidth: Math.round(fittedWidth),
@@ -64,5 +64,5 @@ export const COMMON_SCREENS = [
   { name: "QHD (1440p)", width: 2560, height: 1440 },
   { name: "4K UHD", width: 3840, height: 2160 },
   { name: "iPhone 15 Pro", width: 1179, height: 2556 },
-  { name: "iPad Pro 12.9\"", width: 2048, height: 2732 },
+  { name: 'iPad Pro 12.9"', width: 2048, height: 2732 },
 ];

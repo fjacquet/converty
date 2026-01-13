@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { SpeedConverter } from "./speed-converter";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { SpeedConverter } from "./speed-converter";
 
 export const metadata: Metadata = {
   title: "Speed Converter",

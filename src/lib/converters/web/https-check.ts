@@ -80,9 +80,7 @@ export const SECURITY_HEADERS: {
   },
 ];
 
-export function analyzeSecurityHeaders(
-  headers: Record<string, string | null>
-): SecurityHeader[] {
+export function analyzeSecurityHeaders(headers: Record<string, string | null>): SecurityHeader[] {
   return SECURITY_HEADERS.map((header) => {
     const value = headers[header.name.toLowerCase()] || headers[header.name] || null;
 

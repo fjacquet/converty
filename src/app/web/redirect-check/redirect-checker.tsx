@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { COMMON_STATUS_CODES, analyzeRedirectChain, type RedirectInfo } from "@/lib/converters/web/redirect-check";
+import {
+  analyzeRedirectChain,
+  COMMON_STATUS_CODES,
+  type RedirectInfo,
+} from "@/lib/converters/web/redirect-check";
 
 export function RedirectChecker() {
   const [url, setUrl] = useState("");
@@ -78,7 +82,9 @@ export function RedirectChecker() {
         <div className="space-y-4">
           <div className="p-4 rounded-lg border bg-muted/50">
             <p className="text-sm text-muted-foreground mb-1">Redirect Chain</p>
-            <p className="text-xl font-semibold">{chain.length} hop{chain.length !== 1 ? "s" : ""}</p>
+            <p className="text-xl font-semibold">
+              {chain.length} hop{chain.length !== 1 ? "s" : ""}
+            </p>
             <p className="text-sm text-muted-foreground mt-1">
               Final URL: {chain[chain.length - 1].url}
             </p>
@@ -88,11 +94,15 @@ export function RedirectChecker() {
             {chain.map((redirect, index) => (
               <div key={index} className="p-3 rounded-lg border bg-background">
                 <div className="flex items-center gap-2">
-                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                    redirect.statusCode < 300 ? "bg-green-500/20 text-green-600" :
-                    redirect.statusCode < 400 ? "bg-blue-500/20 text-blue-600" :
-                    "bg-red-500/20 text-red-600"
-                  }`}>
+                  <span
+                    className={`px-2 py-0.5 rounded text-xs font-medium ${
+                      redirect.statusCode < 300
+                        ? "bg-green-500/20 text-green-600"
+                        : redirect.statusCode < 400
+                          ? "bg-blue-500/20 text-blue-600"
+                          : "bg-red-500/20 text-red-600"
+                    }`}
+                  >
                     {redirect.statusCode}
                   </span>
                   <span className="text-sm text-muted-foreground">
@@ -113,7 +123,9 @@ export function RedirectChecker() {
             <>
               {analysis.issues.length > 0 && (
                 <div className="p-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10">
-                  <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400 mb-2">Issues</p>
+                  <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400 mb-2">
+                    Issues
+                  </p>
                   <ul className="text-sm space-y-1">
                     {analysis.issues.map((issue, i) => (
                       <li key={i}>• {issue}</li>
@@ -124,7 +136,9 @@ export function RedirectChecker() {
 
               {analysis.recommendations.length > 0 && (
                 <div className="p-4 rounded-lg border border-blue-500/50 bg-blue-500/10">
-                  <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2">Recommendations</p>
+                  <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2">
+                    Recommendations
+                  </p>
                   <ul className="text-sm space-y-1">
                     {analysis.recommendations.map((rec, i) => (
                       <li key={i}>• {rec}</li>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
+import { InputField, ResultGrid } from "@/components/converter";
 import { calculateBPM, getTempoMarking } from "@/lib/converters/music/bpm";
 
 export function BPMCalculator() {
@@ -65,9 +65,7 @@ export function BPMCalculator() {
                       <td className="py-2">{note.name}</td>
                       <td className="py-2 font-mono">{note.symbol}</td>
                       <td className="py-2 text-right font-mono">{note.beats}</td>
-                      <td className="py-2 text-right font-mono">
-                        {note.durationMs.toFixed(2)}
-                      </td>
+                      <td className="py-2 text-right font-mono">{note.durationMs.toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>

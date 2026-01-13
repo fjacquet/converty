@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { CorpulenceCalculator } from "./corpulence-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { CorpulenceCalculator } from "./corpulence-calculator";
 
 export const metadata: Metadata = {
   title: "Corpulence Index Calculator",
-  description: "Calculate your Corpulence Index (Ponderal Index) from weight and height. Compare with BMI.",
+  description:
+    "Calculate your Corpulence Index (Ponderal Index) from weight and height. Compare with BMI.",
   keywords: ["corpulence", "ponderal index", "body composition", "weight", "height", "health"],
 };
 

@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { RedirectChecker } from "./redirect-checker";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { RedirectChecker } from "./redirect-checker";
 
 export const metadata: Metadata = {
   title: "Redirect Checker",

@@ -9,11 +9,7 @@ export const LIGHT_PHASES = [
     name: "Night",
     sunElevation: "Below -18°",
     description: "Complete darkness, ideal for astrophotography",
-    photographyTips: [
-      "Milky Way and star photography",
-      "Star trails",
-      "Light painting",
-    ],
+    photographyTips: ["Milky Way and star photography", "Star trails", "Light painting"],
   },
   {
     name: "Astronomical Twilight",

@@ -20,11 +20,7 @@ export function getSpeedUnitInfo(unit: SpeedUnit): SpeedUnitInfo | undefined {
   return SPEED_UNITS.find((u) => u.id === unit);
 }
 
-export function convertSpeed(
-  value: number,
-  fromUnit: SpeedUnit,
-  toUnit: SpeedUnit
-): number {
+export function convertSpeed(value: number, fromUnit: SpeedUnit, toUnit: SpeedUnit): number {
   const from = getSpeedUnitInfo(fromUnit);
   const to = getSpeedUnitInfo(toUnit);
 
@@ -44,10 +40,7 @@ export interface SpeedConversion {
   mach: number;
 }
 
-export function convertToAllSpeeds(
-  value: number,
-  fromUnit: SpeedUnit
-): SpeedConversion {
+export function convertToAllSpeeds(value: number, fromUnit: SpeedUnit): SpeedConversion {
   const ms = convertSpeed(value, fromUnit, "ms");
 
   return {

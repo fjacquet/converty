@@ -58,7 +58,7 @@ export function calculateSpotStars(input: SpotStarsInput): SpotStarsResult {
 
   // Calculate pixel pitch in microns
   // Assuming 3:2 aspect ratio for sensor
-  const sensorHeight = sensorWidth * (2 / 3);
+  const _sensorHeight = sensorWidth * (2 / 3);
   const pixelsWidth = Math.sqrt(megapixels * 1000000 * (3 / 2));
   const pixelPitch = (sensorWidth / pixelsWidth) * 1000; // Convert to microns
 

@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { SPFChecker } from "./spf-checker";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { SPFChecker } from "./spf-checker";
 
 export const metadata: Metadata = {
   title: "SPF Record Checker",

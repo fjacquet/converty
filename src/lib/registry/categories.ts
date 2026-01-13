@@ -1,14 +1,14 @@
 import {
-  Palette,
+  Atom,
+  Camera,
   Database,
   DollarSign,
-  Heart,
-  Music,
-  Camera,
-  Atom,
-  Video,
   Globe,
-  LucideIcon,
+  Heart,
+  type LucideIcon,
+  Music,
+  Palette,
+  Video,
 } from "lucide-react";
 
 export interface Category {

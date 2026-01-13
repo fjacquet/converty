@@ -8,7 +8,12 @@ export interface PortraitDistanceResult {
   description: string;
 }
 
-export type PortraitType = "headshot" | "head-shoulders" | "half-body" | "full-body" | "environmental";
+export type PortraitType =
+  | "headshot"
+  | "head-shoulders"
+  | "half-body"
+  | "full-body"
+  | "environmental";
 
 const PORTRAIT_COVERAGE: Record<PortraitType, { height: number; name: string }> = {
   headshot: { height: 0.3, name: "Headshot" },
@@ -37,7 +42,7 @@ export function calculatePortraitDistance(
   const vFOV = 2 * Math.atan(effectiveSensorHeight / (2 * focalLength)) * (180 / Math.PI);
 
   // Distance = (subject_height / 2) / tan(FOV / 2)
-  const recommendedDistance = (targetHeight / 2) / Math.tan((vFOV / 2) * (Math.PI / 180));
+  const recommendedDistance = targetHeight / 2 / Math.tan((vFOV / 2) * (Math.PI / 180));
 
   // Allow 20% margin on either side
   const minimumDistance = recommendedDistance * 0.8;

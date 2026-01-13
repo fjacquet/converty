@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { DPICalculator } from "./dpi-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { DPICalculator } from "./dpi-calculator";
 
 export const metadata: Metadata = {
   title: "DPI Calculator",

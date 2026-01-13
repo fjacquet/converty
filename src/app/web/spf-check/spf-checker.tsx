@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { parseSPF, SPF_QUALIFIERS, SPF_MECHANISMS } from "@/lib/converters/web/spf-check";
+import { parseSPF, SPF_MECHANISMS, SPF_QUALIFIERS } from "@/lib/converters/web/spf-check";
 
 export function SPFChecker() {
   const [record, setRecord] = useState("v=spf1 include:_spf.google.com ~all");
@@ -27,13 +27,17 @@ export function SPFChecker() {
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="p-4 rounded-lg border bg-muted/50">
           <p className="text-sm text-muted-foreground">Status</p>
-          <p className={`text-xl font-semibold ${result.isValid ? "text-green-600" : "text-red-600"}`}>
+          <p
+            className={`text-xl font-semibold ${result.isValid ? "text-green-600" : "text-red-600"}`}
+          >
             {result.isValid ? "Valid" : "Invalid"}
           </p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50">
           <p className="text-sm text-muted-foreground">DNS Lookups</p>
-          <p className={`text-xl font-semibold ${result.lookupCount > 10 ? "text-red-600" : result.lookupCount > 7 ? "text-yellow-600" : ""}`}>
+          <p
+            className={`text-xl font-semibold ${result.lookupCount > 10 ? "text-red-600" : result.lookupCount > 7 ? "text-yellow-600" : ""}`}
+          >
             {result.lookupCount} / 10
           </p>
         </div>
@@ -60,18 +64,25 @@ export function SPFChecker() {
                 {result.mechanisms.map((mech, i) => (
                   <tr key={i} className="border-b border-muted">
                     <td className="py-2">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        mech.qualifier === "+" ? "bg-green-500/20 text-green-600" :
-                        mech.qualifier === "-" ? "bg-red-500/20 text-red-600" :
-                        mech.qualifier === "~" ? "bg-yellow-500/20 text-yellow-600" :
-                        "bg-gray-500/20 text-gray-600"
-                      }`}>
+                      <span
+                        className={`px-2 py-0.5 rounded text-xs font-medium ${
+                          mech.qualifier === "+"
+                            ? "bg-green-500/20 text-green-600"
+                            : mech.qualifier === "-"
+                              ? "bg-red-500/20 text-red-600"
+                              : mech.qualifier === "~"
+                                ? "bg-yellow-500/20 text-yellow-600"
+                                : "bg-gray-500/20 text-gray-600"
+                        }`}
+                      >
                         {mech.qualifier} {SPF_QUALIFIERS[mech.qualifier]?.name}
                       </span>
                     </td>
                     <td className="py-2 font-mono">{mech.type}</td>
                     <td className="py-2 font-mono text-muted-foreground">{mech.value || "-"}</td>
-                    <td className="py-2 text-muted-foreground">{SPF_QUALIFIERS[mech.qualifier]?.result}</td>
+                    <td className="py-2 text-muted-foreground">
+                      {SPF_QUALIFIERS[mech.qualifier]?.result}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -93,7 +104,9 @@ export function SPFChecker() {
 
       {result.recommendations.length > 0 && (
         <div className="p-4 rounded-lg border border-blue-500/50 bg-blue-500/10">
-          <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2">Recommendations</p>
+          <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2">
+            Recommendations
+          </p>
           <ul className="text-sm space-y-1">
             {result.recommendations.map((rec, i) => (
               <li key={i}>• {rec}</li>

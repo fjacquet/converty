@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { AudioFilesizeCalculator } from "./audio-filesize-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { AudioFilesizeCalculator } from "./audio-filesize-calculator";
 
 export const metadata: Metadata = {
   title: "Audio File Size Calculator",

@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { ScreenSizeCalculator } from "./screen-size-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { ScreenSizeCalculator } from "./screen-size-calculator";
 
 export const metadata: Metadata = {
   title: "Screen Size Calculator",

@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { HTTPSChecker } from "./https-checker";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { HTTPSChecker } from "./https-checker";
 
 export const metadata: Metadata = {
   title: "HTTPS Security Checker",

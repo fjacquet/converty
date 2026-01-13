@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { BMICalculator } from "./bmi-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { BMICalculator } from "./bmi-calculator";
 
 export const metadata: Metadata = {
   title: "BMI Calculator - Body Mass Index",
@@ -38,9 +38,9 @@ function BMIInfo() {
   return (
     <div className="space-y-4">
       <p>
-        Body Mass Index (BMI) is a person&apos;s weight in kilograms divided by the
-        square of height in meters. BMI is an inexpensive and easy screening
-        method for weight categories that may lead to health problems.
+        Body Mass Index (BMI) is a person&apos;s weight in kilograms divided by the square of height
+        in meters. BMI is an inexpensive and easy screening method for weight categories that may
+        lead to health problems.
       </p>
 
       <h3 className="font-semibold">BMI Categories</h3>
@@ -66,15 +66,13 @@ function BMIInfo() {
       </ul>
 
       <h3 className="font-semibold">Formula</h3>
-      <p className="font-mono bg-muted p-2 rounded">
-        BMI = weight (kg) / height (m)²
-      </p>
+      <p className="font-mono bg-muted p-2 rounded">BMI = weight (kg) / height (m)²</p>
 
       <h3 className="font-semibold">Limitations</h3>
       <p>
-        BMI is a useful measure for most adults, but it has limitations. It may
-        overestimate body fat in athletes and others with muscular builds, and
-        underestimate body fat in older persons and others who have lost muscle.
+        BMI is a useful measure for most adults, but it has limitations. It may overestimate body
+        fat in athletes and others with muscular builds, and underestimate body fat in older persons
+        and others who have lost muscle.
       </p>
     </div>
   );

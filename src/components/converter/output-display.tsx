@@ -1,8 +1,8 @@
 "use client";
 
-import { Copy, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Check, Copy } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface OutputDisplayProps {
@@ -35,10 +35,7 @@ export function OutputDisplay({
       <p className="text-sm font-medium text-muted-foreground">{label}</p>
       <div className="flex items-center gap-2">
         <div
-          className={cn(
-            "flex-1 rounded-md border bg-muted/50 px-3 py-2",
-            size === "lg" && "py-4"
-          )}
+          className={cn("flex-1 rounded-md border bg-muted/50 px-3 py-2", size === "lg" && "py-4")}
         >
           <span
             className={cn(
@@ -49,22 +46,11 @@ export function OutputDisplay({
           >
             {value}
           </span>
-          {unit && (
-            <span className="ml-2 text-muted-foreground text-sm">{unit}</span>
-          )}
+          {unit && <span className="ml-2 text-muted-foreground text-sm">{unit}</span>}
         </div>
         {copyable && (
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={handleCopy}
-            className="shrink-0"
-          >
-            {copied ? (
-              <Check className="h-4 w-4 text-green-500" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
+          <Button variant="outline" size="icon" onClick={handleCopy} className="shrink-0">
+            {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
             <span className="sr-only">Copy value</span>
           </Button>
         )}

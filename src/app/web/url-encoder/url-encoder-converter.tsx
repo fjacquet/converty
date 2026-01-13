@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { OutputDisplay } from "@/components/converter";
 import {
-  encodeURL,
+  decodeBase64,
   decodeURL,
   encodeBase64,
-  decodeBase64,
+  encodeURL,
   escapeHtml,
-  unescapeHtml,
   SPECIAL_CHARS,
+  unescapeHtml,
 } from "@/lib/converters/web/url-encoder";
 
 type Mode = "encode" | "decode";
@@ -29,9 +29,7 @@ export function URLEncoderConverter() {
         <button
           onClick={() => setMode("encode")}
           className={`flex-1 py-2 px-4 rounded-lg border font-medium transition-colors ${
-            mode === "encode"
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted/50 hover:bg-muted"
+            mode === "encode" ? "bg-primary text-primary-foreground" : "bg-muted/50 hover:bg-muted"
           }`}
         >
           Encode
@@ -39,9 +37,7 @@ export function URLEncoderConverter() {
         <button
           onClick={() => setMode("decode")}
           className={`flex-1 py-2 px-4 rounded-lg border font-medium transition-colors ${
-            mode === "decode"
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted/50 hover:bg-muted"
+            mode === "decode" ? "bg-primary text-primary-foreground" : "bg-muted/50 hover:bg-muted"
           }`}
         >
           Decode
@@ -59,9 +55,7 @@ export function URLEncoderConverter() {
           onChange={(e) => setInput(e.target.value)}
           className="w-full min-h-24 p-3 rounded-md border bg-background font-mono text-sm resize-y"
           placeholder={
-            mode === "encode"
-              ? "Enter text to encode..."
-              : "Enter encoded text to decode..."
+            mode === "encode" ? "Enter text to encode..." : "Enter encoded text to decode..."
           }
         />
         <div className="flex gap-4 text-sm text-muted-foreground">
@@ -79,12 +73,7 @@ export function URLEncoderConverter() {
           className="font-mono text-sm"
         />
 
-        <OutputDisplay
-          label="Base64"
-          value={base64Result}
-          copyable
-          className="font-mono text-sm"
-        />
+        <OutputDisplay label="Base64" value={base64Result} copyable className="font-mono text-sm" />
 
         <OutputDisplay
           label="HTML Entities"
@@ -96,9 +85,7 @@ export function URLEncoderConverter() {
 
       {/* Special Characters Reference */}
       <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Common URL Encodings
-        </p>
+        <p className="text-sm font-medium text-muted-foreground">Common URL Encodings</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

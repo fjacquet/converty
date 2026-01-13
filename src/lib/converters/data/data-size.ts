@@ -37,11 +37,7 @@ export function getUnitInfo(unit: DataUnit): DataUnitInfo | undefined {
   return DATA_UNITS.find((u) => u.id === unit);
 }
 
-export function convertDataSize(
-  value: number,
-  fromUnit: DataUnit,
-  toUnit: DataUnit
-): number {
+export function convertDataSize(value: number, fromUnit: DataUnit, toUnit: DataUnit): number {
   const from = getUnitInfo(fromUnit);
   const to = getUnitInfo(toUnit);
 
@@ -88,7 +84,7 @@ export function formatDataSize(bytes: number, binary = false): string {
   if (bytes === 0) return "0 B";
 
   const i = Math.floor(Math.log(bytes) / Math.log(base));
-  const value = bytes / Math.pow(base, i);
+  const value = bytes / base ** i;
 
   return `${value.toFixed(2)} ${units[i]}`;
 }

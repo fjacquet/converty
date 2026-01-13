@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { BPMCalculator } from "./bpm-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { BPMCalculator } from "./bpm-calculator";
 
 export const metadata: Metadata = {
   title: "BPM Calculator",
-  description: "Convert BPM to Hz, bar length, and note durations. Calculate tempo and delay times for music production.",
+  description:
+    "Convert BPM to Hz, bar length, and note durations. Calculate tempo and delay times for music production.",
   keywords: ["bpm", "tempo", "beats per minute", "music", "delay", "note duration"],
 };
 

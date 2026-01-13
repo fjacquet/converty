@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { AspectFitCalculator } from "./aspect-fit-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { AspectFitCalculator } from "./aspect-fit-calculator";
 
 export const metadata: Metadata = {
   title: "Aspect Fit Calculator",

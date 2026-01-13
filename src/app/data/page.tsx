@@ -1,5 +1,5 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Metadata } from "next";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCategoryBySlug } from "@/lib/registry/categories";
 import { getConvertersByCategory } from "@/lib/registry/converters";

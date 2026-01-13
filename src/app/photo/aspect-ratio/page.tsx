@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { AspectRatioConverter } from "./aspect-ratio-converter";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { AspectRatioConverter } from "./aspect-ratio-converter";
 
 export const metadata: Metadata = {
   title: "Aspect Ratio Calculator",
-  description: "Calculate aspect ratios from width and height. Find common aspect ratios for video, photo, and screens.",
+  description:
+    "Calculate aspect ratios from width and height. Find common aspect ratios for video, photo, and screens.",
   keywords: ["aspect ratio", "calculator", "width", "height", "16:9", "4:3", "video", "photo"],
 };
 

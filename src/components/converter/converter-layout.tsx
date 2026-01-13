@@ -1,6 +1,6 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Category } from "@/lib/registry/categories";
 import { Breadcrumbs } from "./breadcrumbs";
-import { Category } from "@/lib/registry/categories";
 
 interface ConverterLayoutProps {
   title: string;

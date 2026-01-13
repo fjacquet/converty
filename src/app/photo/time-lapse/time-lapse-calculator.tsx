@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import {
+  type CalculateMode,
   calculateTimeLapse,
   FRAME_RATES,
   IMAGE_SIZES,
   INTERVAL_RECOMMENDATIONS,
   TIME_LAPSE_TIPS,
-  type CalculateMode,
 } from "@/lib/converters/photo/time-lapse";
 
 export function TimeLapseCalculator() {

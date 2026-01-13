@@ -1,14 +1,12 @@
 import Link from "next/link";
-import { categories } from "@/lib/registry/categories";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { categories } from "@/lib/registry/categories";
 
 export default function Home() {
   return (
     <div className="container py-10">
       <div className="mx-auto max-w-4xl text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-          Converty
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">Converty</h1>
         <p className="text-xl text-muted-foreground">
           A collection of free online calculators and converters for everyday use.
         </p>

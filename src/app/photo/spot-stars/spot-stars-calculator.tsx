@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import {
+  CAMERA_PRESETS,
   calculateSpotStars,
   SENSOR_SIZES,
-  CAMERA_PRESETS,
   SPOT_STARS_INFO,
 } from "@/lib/converters/photo/spot-stars";
 
@@ -25,12 +25,12 @@ export function SpotStarsCalculator() {
     accuracy,
   });
 
-  const handlePresetCamera = (preset: typeof CAMERA_PRESETS[0]) => {
+  const handlePresetCamera = (preset: (typeof CAMERA_PRESETS)[0]) => {
     setSensorWidth(preset.sensorWidth);
     setMegapixels(preset.megapixels);
   };
 
-  const handleSensorSize = (sensor: typeof SENSOR_SIZES[0]) => {
+  const handleSensorSize = (sensor: (typeof SENSOR_SIZES)[0]) => {
     setSensorWidth(sensor.width);
   };
 
@@ -41,7 +41,7 @@ export function SpotStarsCalculator() {
           <label className="text-sm font-medium">Camera Preset</label>
           <select
             onChange={(e) => {
-              const preset = CAMERA_PRESETS.find(p => p.name === e.target.value);
+              const preset = CAMERA_PRESETS.find((p) => p.name === e.target.value);
               if (preset) handlePresetCamera(preset);
             }}
             className="w-full h-10 px-3 rounded-md border bg-background"
@@ -57,9 +57,9 @@ export function SpotStarsCalculator() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Sensor Size</label>
           <select
-            value={SENSOR_SIZES.find(s => Math.abs(s.width - sensorWidth) < 1)?.name || ""}
+            value={SENSOR_SIZES.find((s) => Math.abs(s.width - sensorWidth) < 1)?.name || ""}
             onChange={(e) => {
-              const sensor = SENSOR_SIZES.find(s => s.name === e.target.value);
+              const sensor = SENSOR_SIZES.find((s) => s.name === e.target.value);
               if (sensor) handleSensorSize(sensor);
             }}
             className="w-full h-10 px-3 rounded-md border bg-background"
@@ -193,9 +193,15 @@ export function SpotStarsCalculator() {
         <div className="p-4 rounded-lg border bg-muted/30">
           <p className="font-medium mb-2">Rule Explanations</p>
           <ul className="text-sm text-muted-foreground space-y-2">
-            <li><strong>NPF Rule:</strong> {SPOT_STARS_INFO.npfRule}</li>
-            <li><strong>500 Rule:</strong> {SPOT_STARS_INFO.rule500}</li>
-            <li><strong>400 Rule:</strong> {SPOT_STARS_INFO.rule400}</li>
+            <li>
+              <strong>NPF Rule:</strong> {SPOT_STARS_INFO.npfRule}
+            </li>
+            <li>
+              <strong>500 Rule:</strong> {SPOT_STARS_INFO.rule500}
+            </li>
+            <li>
+              <strong>400 Rule:</strong> {SPOT_STARS_INFO.rule400}
+            </li>
           </ul>
         </div>
         <div className="p-4 rounded-lg border bg-muted/30">

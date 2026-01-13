@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { StarTrailsCalculator } from "./star-trails-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { StarTrailsCalculator } from "./star-trails-calculator";
 
 export const metadata: Metadata = {
   title: "Star Trails Calculator",

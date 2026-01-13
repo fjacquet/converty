@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
-import { calculateDepthOfField, COMMON_APERTURES } from "@/lib/converters/photo/depth-of-field";
 import { CROP_FACTORS } from "@/lib/converters/photo/composition";
+import { COMMON_APERTURES, calculateDepthOfField } from "@/lib/converters/photo/depth-of-field";
 
 export function DepthOfFieldCalculator() {
   const [aperture, setAperture] = useState("2.8");
@@ -18,25 +18,62 @@ export function DepthOfFieldCalculator() {
     parseFloat(cropFactor) || 1
   );
 
-  const formatDistance = (d: number) => d === Infinity ? "∞" : `${d.toFixed(2)} m`;
+  const formatDistance = (d: number) => (d === Infinity ? "∞" : `${d.toFixed(2)} m`);
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-2">
-          <InputField id="aperture" label="Aperture" value={aperture} onChange={setAperture} unit="f/" min={0.7} step={0.1} />
+          <InputField
+            id="aperture"
+            label="Aperture"
+            value={aperture}
+            onChange={setAperture}
+            unit="f/"
+            min={0.7}
+            step={0.1}
+          />
           <div className="flex flex-wrap gap-1">
             {COMMON_APERTURES.slice(0, 5).map((a) => (
-              <button key={a} onClick={() => setAperture(a.toString())} className="text-xs px-2 py-1 rounded border hover:bg-muted/50">f/{a}</button>
+              <button
+                key={a}
+                onClick={() => setAperture(a.toString())}
+                className="text-xs px-2 py-1 rounded border hover:bg-muted/50"
+              >
+                f/{a}
+              </button>
             ))}
           </div>
         </div>
-        <InputField id="focalLength" label="Focal Length" value={focalLength} onChange={setFocalLength} unit="mm" min={1} />
-        <InputField id="distance" label="Subject Distance" value={distance} onChange={setDistance} unit="m" min={0.1} step={0.1} />
+        <InputField
+          id="focalLength"
+          label="Focal Length"
+          value={focalLength}
+          onChange={setFocalLength}
+          unit="mm"
+          min={1}
+        />
+        <InputField
+          id="distance"
+          label="Subject Distance"
+          value={distance}
+          onChange={setDistance}
+          unit="m"
+          min={0.1}
+          step={0.1}
+        />
         <div className="space-y-2">
           <label className="text-sm font-medium">Sensor</label>
-          <select value={cropFactor} onChange={(e) => setCropFactor(e.target.value)} className="w-full h-10 px-3 rounded-md border bg-background">
-            {CROP_FACTORS.map((cf) => (<option key={cf.name} value={cf.factor}>{cf.name}</option>))}
+          <select
+            value={cropFactor}
+            onChange={(e) => setCropFactor(e.target.value)}
+            className="w-full h-10 px-3 rounded-md border bg-background"
+          >
+            {CROP_FACTORS.map((cf) => (
+              <option key={cf.name} value={cf.factor}>
+                {cf.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -76,7 +113,9 @@ export function DepthOfFieldCalculator() {
               />
               <div
                 className="absolute w-1 h-full bg-primary"
-                style={{ left: `${(parseFloat(distance) / (result.farLimit === Infinity ? parseFloat(distance) * 2 : result.farLimit)) * 100}%` }}
+                style={{
+                  left: `${(parseFloat(distance) / (result.farLimit === Infinity ? parseFloat(distance) * 2 : result.farLimit)) * 100}%`,
+                }}
               />
             </div>
           </div>

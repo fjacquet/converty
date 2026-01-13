@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 export function useUrlState() {
@@ -26,20 +26,19 @@ export function useUrlState() {
     [pathname, router, searchParams]
   );
 
-  const getFromUrl = useCallback(
-    <T extends Record<string, string | number>>(): Partial<T> | null => {
-      const result: Record<string, string | number> = {};
+  const getFromUrl = useCallback(<
+    T extends Record<string, string | number>,
+  >(): Partial<T> | null => {
+    const result: Record<string, string | number> = {};
 
-      searchParams.forEach((value, key) => {
-        // Try to parse as number, otherwise keep as string
-        const numValue = Number(value);
-        result[key] = isNaN(numValue) ? value : numValue;
-      });
+    searchParams.forEach((value, key) => {
+      // Try to parse as number, otherwise keep as string
+      const numValue = Number(value);
+      result[key] = isNaN(numValue) ? value : numValue;
+    });
 
-      return Object.keys(result).length > 0 ? (result as Partial<T>) : null;
-    },
-    [searchParams]
-  );
+    return Object.keys(result).length > 0 ? (result as Partial<T>) : null;
+  }, [searchParams]);
 
   const getParam = useCallback(
     (key: string): string | null => {

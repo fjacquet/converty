@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { MegapixelAspectsCalculator } from "./megapixel-aspects-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { MegapixelAspectsCalculator } from "./megapixel-aspects-calculator";
 
 export const metadata: Metadata = {
   title: "Megapixel Aspects",
-  description: "View megapixels in different aspect ratios. Compare dimensions for various formats.",
+  description:
+    "View megapixels in different aspect ratios. Compare dimensions for various formats.",
   keywords: ["megapixel", "aspect ratio", "resolution", "format", "16:9", "4:3", "3:2"],
 };
 

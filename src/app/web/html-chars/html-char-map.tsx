@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { HTML_CHAR_ENTITIES, HTML_CHAR_CATEGORIES, getCharsByCategory, searchChars, type HTMLCharCategory } from "@/lib/converters/web/html-chars";
+import {
+  getCharsByCategory,
+  HTML_CHAR_CATEGORIES,
+  HTML_CHAR_ENTITIES,
+  type HTMLCharCategory,
+  searchChars,
+} from "@/lib/converters/web/html-chars";
 
 export function HTMLCharMap() {
   const [search, setSearch] = useState("");
@@ -42,7 +48,9 @@ export function HTMLCharMap() {
           >
             <option value="all">All Categories</option>
             {HTML_CHAR_CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+              <option key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </option>
             ))}
           </select>
         </div>

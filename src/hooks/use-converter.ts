@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "./use-debounce";
 import { useUrlState } from "./use-url-state";
 
@@ -38,7 +38,7 @@ export function useConverter<T extends object, R = any>({
     if (syncUrl) {
       const urlValues = getFromUrl<Record<string, string | number>>();
       if (urlValues) {
-        setValues((prev) => ({ ...prev, ...urlValues } as T));
+        setValues((prev) => ({ ...prev, ...urlValues }) as T);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

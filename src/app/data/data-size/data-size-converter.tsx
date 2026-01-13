@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
-import { convertToAll, DataUnit, DATA_UNITS } from "@/lib/converters/data/data-size";
+import { convertToAll, DATA_UNITS, type DataUnit } from "@/lib/converters/data/data-size";
 
 const UNIT_OPTIONS = DATA_UNITS.map((u) => ({
   value: u.id,
@@ -70,10 +70,9 @@ export function DataSizeConverter() {
 
           <div className="p-4 rounded-lg border bg-muted/50">
             <p className="text-sm text-muted-foreground">
-              <strong>Note:</strong> Decimal units (KB, MB, GB) use base 1000, while
-              binary units (KiB, MiB, GiB) use base 1024. Storage manufacturers
-              typically use decimal units, while operating systems often use binary
-              units.
+              <strong>Note:</strong> Decimal units (KB, MB, GB) use base 1000, while binary units
+              (KiB, MiB, GiB) use base 1024. Storage manufacturers typically use decimal units,
+              while operating systems often use binary units.
             </p>
           </div>
         </div>

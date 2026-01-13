@@ -87,9 +87,7 @@ export function InputField({
           </span>
         ) : null}
       </div>
-      {helperText && !error && (
-        <p className="text-sm text-muted-foreground">{helperText}</p>
-      )}
+      {helperText && !error && <p className="text-sm text-muted-foreground">{helperText}</p>}
       {error && <p className="text-sm text-destructive">{error}</p>}
     </div>
   );

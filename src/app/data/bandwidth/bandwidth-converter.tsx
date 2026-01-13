@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { InputField, ResultGrid } from "@/components/converter";
-import { convertBandwidth, BANDWIDTH_UNITS } from "@/lib/converters/data/bandwidth";
+import { InputField } from "@/components/converter";
+import { BANDWIDTH_UNITS, convertBandwidth } from "@/lib/converters/data/bandwidth";
 
 export function BandwidthConverter() {
   const [value, setValue] = useState("100");

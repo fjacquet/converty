@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { EMOJI_DATA, EMOJI_CATEGORIES, getEmojiByCategory, searchEmoji, type EmojiCategory } from "@/lib/converters/web/emoji-chars";
+import {
+  EMOJI_CATEGORIES,
+  EMOJI_DATA,
+  type EmojiCategory,
+  getEmojiByCategory,
+  searchEmoji,
+} from "@/lib/converters/web/emoji-chars";
 
 export function EmojiMap() {
   const [search, setSearch] = useState("");
@@ -42,7 +48,9 @@ export function EmojiMap() {
           >
             <option value="all">All Categories</option>
             {EMOJI_CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+              <option key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </option>
             ))}
           </select>
         </div>

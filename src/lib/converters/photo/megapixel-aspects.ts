@@ -8,9 +8,7 @@ export interface AspectVariation {
   useCases: string;
 }
 
-export function calculateMegapixelAspects(
-  targetMegapixels: number
-): AspectVariation[] {
+export function calculateMegapixelAspects(targetMegapixels: number): AspectVariation[] {
   if (targetMegapixels <= 0) {
     return [];
   }
@@ -41,7 +39,7 @@ export function calculateMegapixelAspects(
       ratioH,
       width: Math.round(width),
       height: Math.round(height),
-      megapixels: Math.round((width * height) / 1000000 * 100) / 100,
+      megapixels: Math.round(((width * height) / 1000000) * 100) / 100,
       useCases,
     };
   });

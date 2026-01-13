@@ -28,7 +28,7 @@ export interface FocalEquivalentResult {
 }
 
 // Common sensor crop factors
-export const CROP_FACTORS = [
+export const SENSOR_CROP_FACTORS = [
   { name: "Full Frame (35mm)", value: 1 },
   { name: "APS-H (Canon 1D)", value: 1.3 },
   { name: "APS-C (Nikon/Sony/Fuji)", value: 1.5 },
@@ -45,12 +45,7 @@ export const CROP_FACTORS = [
  * Calculate equivalent focal length and aperture between sensor sizes
  */
 export function calculateFocalEquivalent(input: FocalEquivalentInput): FocalEquivalentResult {
-  const {
-    sourceFocalLength,
-    sourceAperture,
-    sourceCropFactor,
-    targetCropFactor,
-  } = input;
+  const { sourceFocalLength, sourceAperture, sourceCropFactor, targetCropFactor } = input;
 
   // Calculate 35mm equivalent focal length for source
   const sourceEffectiveFocalLength = sourceFocalLength * sourceCropFactor;
@@ -60,12 +55,14 @@ export function calculateFocalEquivalent(input: FocalEquivalentInput): FocalEqui
   // For 35mm: diagonal = 43.27mm
   const fullFrameDiagonal = 43.27;
   const sourceDiagonal = fullFrameDiagonal / sourceCropFactor;
-  const sourceFieldOfView = 2 * Math.atan(sourceDiagonal / (2 * sourceFocalLength)) * (180 / Math.PI);
+  const sourceFieldOfView =
+    2 * Math.atan(sourceDiagonal / (2 * sourceFocalLength)) * (180 / Math.PI);
 
   // Calculate target focal length to match FOV
   const targetDiagonal = fullFrameDiagonal / targetCropFactor;
   // To get same FOV: target_focal = target_diagonal / (2 * tan(FOV/2))
-  const targetFocalLength = targetDiagonal / (2 * Math.tan((sourceFieldOfView * Math.PI / 180) / 2));
+  const targetFocalLength =
+    targetDiagonal / (2 * Math.tan((sourceFieldOfView * Math.PI) / 180 / 2));
 
   // Calculate target aperture to match DOF
   // DOF is proportional to crop factor, so aperture must compensate
@@ -76,7 +73,8 @@ export function calculateFocalEquivalent(input: FocalEquivalentInput): FocalEqui
   const targetEffectiveFocalLength = targetFocalLength * targetCropFactor;
 
   // Verify FOV match
-  const targetFieldOfView = 2 * Math.atan(targetDiagonal / (2 * targetFocalLength)) * (180 / Math.PI);
+  const targetFieldOfView =
+    2 * Math.atan(targetDiagonal / (2 * targetFocalLength)) * (180 / Math.PI);
 
   let explanation = "";
   if (targetCropFactor > sourceCropFactor) {
@@ -99,15 +97,13 @@ export function calculateFocalEquivalent(input: FocalEquivalentInput): FocalEqui
   };
 }
 
-// Common lens focal lengths
-export const COMMON_FOCAL_LENGTHS = [
+// Common lens focal lengths for equivalence calculations
+export const FOCAL_EQUIV_FOCAL_LENGTHS = [
   14, 16, 20, 24, 28, 35, 50, 85, 100, 135, 200, 300, 400, 600,
 ];
 
-// Common apertures
-export const COMMON_APERTURES = [
-  1.2, 1.4, 1.8, 2, 2.8, 4, 5.6, 8, 11, 16, 22,
-];
+// Common apertures for equivalence calculations
+export const FOCAL_EQUIV_APERTURES = [1.2, 1.4, 1.8, 2, 2.8, 4, 5.6, 8, 11, 16, 22];
 
 export const FOCAL_EQUIVALENT_INFO = {
   purpose: "Match the look of a photo between different camera systems",

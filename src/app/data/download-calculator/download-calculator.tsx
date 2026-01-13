@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { InputField, OutputDisplay } from "@/components/converter";
 import {
+  BANDWIDTH_PRESETS,
   calculateDownloadTime,
+  FILE_SIZE_PRESETS,
   FILE_SIZE_UNITS,
   SPEED_UNITS,
-  BANDWIDTH_PRESETS,
-  FILE_SIZE_PRESETS,
 } from "@/lib/converters/data/download-calculator";
 
 export function DownloadCalculator() {
@@ -110,11 +110,7 @@ export function DownloadCalculator() {
       {/* Result */}
       {result && (
         <div className="space-y-4">
-          <OutputDisplay
-            label="Estimated Download Time"
-            value={result.formatted}
-            size="lg"
-          />
+          <OutputDisplay label="Estimated Download Time" value={result.formatted} size="lg" />
 
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-4">
             <div className="p-3 rounded-md border bg-muted/50 text-center">
@@ -137,7 +133,8 @@ export function DownloadCalculator() {
 
           <div className="p-4 rounded-lg border bg-muted/50">
             <p className="text-sm text-muted-foreground">
-              Total: {result.totalSeconds.toLocaleString(undefined, { maximumFractionDigits: 1 })} seconds
+              Total: {result.totalSeconds.toLocaleString(undefined, { maximumFractionDigits: 1 })}{" "}
+              seconds
             </p>
           </div>
         </div>

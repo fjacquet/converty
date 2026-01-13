@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { FrameRateConverter } from "./frame-rate-converter";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { FrameRateConverter } from "./frame-rate-converter";
 
 export const metadata: Metadata = {
   title: "Frame Rate Converter",

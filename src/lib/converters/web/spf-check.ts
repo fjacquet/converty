@@ -52,9 +52,9 @@ export function parseSPF(record: string): SPFResult {
     }
 
     const [type, value] = mechanism.includes(":")
-      ? mechanism.split(":", 2) as [string, string]
+      ? (mechanism.split(":", 2) as [string, string])
       : mechanism.includes("=")
-        ? mechanism.split("=", 2) as [string, string]
+        ? (mechanism.split("=", 2) as [string, string])
         : [mechanism, undefined];
 
     // Count DNS lookups

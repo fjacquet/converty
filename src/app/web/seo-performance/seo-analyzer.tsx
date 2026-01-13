@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { analyzeSEO, generateRecommendations, SEO_BEST_PRACTICES, type SEOMetrics } from "@/lib/converters/web/seo-performance";
+import {
+  analyzeSEO,
+  generateRecommendations,
+  SEO_BEST_PRACTICES,
+  type SEOMetrics,
+} from "@/lib/converters/web/seo-performance";
 
 export function SEOAnalyzer() {
   const [metrics, setMetrics] = useState<SEOMetrics>({
@@ -127,32 +132,42 @@ export function SEOAnalyzer() {
 
       <div className="p-6 rounded-lg border bg-muted/50 text-center">
         <p className="text-sm text-muted-foreground mb-2">Overall SEO Score</p>
-        <p className={`text-5xl font-bold ${
-          score.overall >= 80 ? "text-green-600" :
-          score.overall >= 60 ? "text-yellow-600" :
-          "text-red-600"
-        }`}>
+        <p
+          className={`text-5xl font-bold ${
+            score.overall >= 80
+              ? "text-green-600"
+              : score.overall >= 60
+                ? "text-yellow-600"
+                : "text-red-600"
+          }`}
+        >
           {score.overall}
         </p>
         <p className="text-sm text-muted-foreground mt-2">out of 100</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {Object.entries(score).filter(([key]) => key !== "overall").map(([key, value]) => (
-          <div key={key} className="p-4 rounded-lg border bg-background">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-medium capitalize">{key}</span>
-              <span className={`text-lg font-bold ${
-                value.score >= 80 ? "text-green-600" :
-                value.score >= 60 ? "text-yellow-600" :
-                "text-red-600"
-              }`}>
-                {value.score}
-              </span>
+        {Object.entries(score)
+          .filter(([key]) => key !== "overall")
+          .map(([key, value]) => (
+            <div key={key} className="p-4 rounded-lg border bg-background">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-medium capitalize">{key}</span>
+                <span
+                  className={`text-lg font-bold ${
+                    value.score >= 80
+                      ? "text-green-600"
+                      : value.score >= 60
+                        ? "text-yellow-600"
+                        : "text-red-600"
+                  }`}
+                >
+                  {value.score}
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground">{value.feedback}</p>
             </div>
-            <p className="text-sm text-muted-foreground">{value.feedback}</p>
-          </div>
-        ))}
+          ))}
       </div>
 
       {recommendations.length > 0 && (
@@ -162,17 +177,23 @@ export function SEOAnalyzer() {
             <div
               key={i}
               className={`p-4 rounded-lg border ${
-                rec.priority === "high" ? "border-red-500/50 bg-red-500/10" :
-                rec.priority === "medium" ? "border-yellow-500/50 bg-yellow-500/10" :
-                "border-blue-500/50 bg-blue-500/10"
+                rec.priority === "high"
+                  ? "border-red-500/50 bg-red-500/10"
+                  : rec.priority === "medium"
+                    ? "border-yellow-500/50 bg-yellow-500/10"
+                    : "border-blue-500/50 bg-blue-500/10"
               }`}
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                  rec.priority === "high" ? "bg-red-500/20 text-red-600" :
-                  rec.priority === "medium" ? "bg-yellow-500/20 text-yellow-600" :
-                  "bg-blue-500/20 text-blue-600"
-                }`}>
+                <span
+                  className={`px-2 py-0.5 rounded text-xs font-medium ${
+                    rec.priority === "high"
+                      ? "bg-red-500/20 text-red-600"
+                      : rec.priority === "medium"
+                        ? "bg-yellow-500/20 text-yellow-600"
+                        : "bg-blue-500/20 text-blue-600"
+                  }`}
+                >
                   {rec.priority}
                 </span>
                 <span className="font-medium">{rec.category}</span>
@@ -197,23 +218,33 @@ export function SEOAnalyzer() {
             <tbody>
               <tr className="border-b border-muted">
                 <td className="py-2">Title</td>
-                <td className="py-2 text-muted-foreground">{SEO_BEST_PRACTICES.title.optimalLength}</td>
+                <td className="py-2 text-muted-foreground">
+                  {SEO_BEST_PRACTICES.title.optimalLength}
+                </td>
               </tr>
               <tr className="border-b border-muted">
                 <td className="py-2">Description</td>
-                <td className="py-2 text-muted-foreground">{SEO_BEST_PRACTICES.description.optimalLength}</td>
+                <td className="py-2 text-muted-foreground">
+                  {SEO_BEST_PRACTICES.description.optimalLength}
+                </td>
               </tr>
               <tr className="border-b border-muted">
                 <td className="py-2">Content</td>
-                <td className="py-2 text-muted-foreground">{SEO_BEST_PRACTICES.content.optimalWords}</td>
+                <td className="py-2 text-muted-foreground">
+                  {SEO_BEST_PRACTICES.content.optimalWords}
+                </td>
               </tr>
               <tr className="border-b border-muted">
                 <td className="py-2">Images</td>
-                <td className="py-2 text-muted-foreground">{SEO_BEST_PRACTICES.images.requirement}</td>
+                <td className="py-2 text-muted-foreground">
+                  {SEO_BEST_PRACTICES.images.requirement}
+                </td>
               </tr>
               <tr className="border-b border-muted">
                 <td className="py-2">Headings</td>
-                <td className="py-2 text-muted-foreground">{SEO_BEST_PRACTICES.headings.requirement}</td>
+                <td className="py-2 text-muted-foreground">
+                  {SEO_BEST_PRACTICES.headings.requirement}
+                </td>
               </tr>
             </tbody>
           </table>

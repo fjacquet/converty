@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { DataSizeConverter } from "./data-size-converter";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { DataSizeConverter } from "./data-size-converter";
 
 export const metadata: Metadata = {
   title: "Data Size Converter",

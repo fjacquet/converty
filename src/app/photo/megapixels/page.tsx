@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { MegapixelCalculator } from "./megapixel-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { MegapixelCalculator } from "./megapixel-calculator";
 
 export const metadata: Metadata = {
   title: "Megapixel Calculator",

@@ -14,7 +14,7 @@ export interface DCPFilesizeResult {
 export function calculateDCPFilesize(
   durationMinutes: number,
   resolution: "2k" | "4k",
-  frameRate: number = 24,
+  _frameRate: number = 24,
   audioChannels: number = 6, // 5.1 surround
   audioSampleRate: number = 48000,
   audioBitDepth: number = 24

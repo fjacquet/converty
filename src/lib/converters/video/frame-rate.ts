@@ -13,14 +13,14 @@ export interface FrameRateConversionResult {
 export function calculateFrameRateConversion(
   sourceFps: number,
   targetFps: number,
-  duration: number = 60, // seconds
+  _duration: number = 60, // seconds
   adjustAudio: boolean = true
 ): FrameRateConversionResult | null {
   if (sourceFps <= 0 || targetFps <= 0) return null;
 
   const ratio = targetFps / sourceFps;
   const speedChange = (ratio - 1) * 100;
-  const durationChange = ((1 / ratio) - 1) * 100;
+  const durationChange = (1 / ratio - 1) * 100;
   const warnings: string[] = [];
 
   let conversionMethod: string;
@@ -46,8 +46,10 @@ export function calculateFrameRateConversion(
   } else if (Math.abs(ratio - 1) < 0.05) {
     // Small change - speed adjustment
     conversionMethod = "Speed adjustment";
-    ffmpegCommand = `ffmpeg -i input.mp4 -filter:v "setpts=${(1/ratio).toFixed(6)}*PTS" -filter:a "atempo=${ratio.toFixed(6)}" -r ${targetFps} output.mp4`;
-    audioAdjustment = adjustAudio ? `Pitch-corrected ${speedChange.toFixed(2)}%` : "Speed changed (pitch affected)";
+    ffmpegCommand = `ffmpeg -i input.mp4 -filter:v "setpts=${(1 / ratio).toFixed(6)}*PTS" -filter:a "atempo=${ratio.toFixed(6)}" -r ${targetFps} output.mp4`;
+    audioAdjustment = adjustAudio
+      ? `Pitch-corrected ${speedChange.toFixed(2)}%`
+      : "Speed changed (pitch affected)";
 
     if (adjustAudio) {
       soxCommand = `sox input.wav output.wav tempo ${ratio.toFixed(4)}`;

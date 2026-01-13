@@ -32,19 +32,25 @@ export function analyzeRedirectChain(chain: RedirectInfo[]): {
   chain.forEach((redirect, index) => {
     // Check for HTTP to HTTPS upgrade
     if (redirect.url.startsWith("http://") && redirect.location?.startsWith("https://")) {
-      recommendations.push(`Redirect ${index + 1}: HTTP to HTTPS upgrade detected. Consider using HSTS.`);
+      recommendations.push(
+        `Redirect ${index + 1}: HTTP to HTTPS upgrade detected. Consider using HSTS.`
+      );
     }
 
     // Check for www/non-www consistency
     const hasWww = redirect.url.includes("://www.");
     const locationHasWww = redirect.location?.includes("://www.");
     if (hasWww !== locationHasWww && redirect.location) {
-      recommendations.push(`Redirect ${index + 1}: www/non-www change. Set a canonical preference.`);
+      recommendations.push(
+        `Redirect ${index + 1}: www/non-www change. Set a canonical preference.`
+      );
     }
 
     // Check for 302 vs 301
     if (redirect.statusCode === 302) {
-      issues.push(`Redirect ${index + 1}: Using 302 (temporary). Consider 301 for SEO if permanent.`);
+      issues.push(
+        `Redirect ${index + 1}: Using 302 (temporary). Consider 301 for SEO if permanent.`
+      );
     }
 
     // Check for redirect loops potential
@@ -59,7 +65,10 @@ export function analyzeRedirectChain(chain: RedirectInfo[]): {
 export const COMMON_STATUS_CODES: Record<number, { name: string; description: string }> = {
   200: { name: "OK", description: "Request succeeded" },
   201: { name: "Created", description: "Resource created successfully" },
-  301: { name: "Moved Permanently", description: "Resource has moved permanently (cached by browsers)" },
+  301: {
+    name: "Moved Permanently",
+    description: "Resource has moved permanently (cached by browsers)",
+  },
   302: { name: "Found", description: "Temporary redirect (not cached)" },
   303: { name: "See Other", description: "Redirect after POST (use GET)" },
   304: { name: "Not Modified", description: "Cached version is still valid" },

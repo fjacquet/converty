@@ -31,7 +31,7 @@ export function formatBytes(bytes: number, decimals = 2): string {
   const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(decimals))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(decimals))} ${sizes[i]}`;
 }
 
 /**
@@ -44,7 +44,7 @@ export function formatBytesSI(bytes: number, decimals = 2): string {
   const sizes = ["B", "kB", "MB", "GB", "TB", "PB", "EB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(decimals))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(decimals))} ${sizes[i]}`;
 }
 
 /**
@@ -74,7 +74,7 @@ export function formatBitrate(bitsPerSecond: number, decimals = 2): string {
   const sizes = ["bps", "Kbps", "Mbps", "Gbps", "Tbps"];
   const i = Math.floor(Math.log(bitsPerSecond) / Math.log(k));
 
-  return `${parseFloat((bitsPerSecond / Math.pow(k, i)).toFixed(decimals))} ${sizes[i]}`;
+  return `${parseFloat((bitsPerSecond / k ** i).toFixed(decimals))} ${sizes[i]}`;
 }
 
 /**
@@ -99,11 +99,7 @@ export function formatPercentage(value: number, decimals = 1): string {
 /**
  * Format currency
  */
-export function formatCurrency(
-  value: number,
-  currency = "USD",
-  locale = "en-US"
-): string {
+export function formatCurrency(value: number, currency = "USD", locale = "en-US"): string {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,

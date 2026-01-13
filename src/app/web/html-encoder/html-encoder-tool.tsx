@@ -1,20 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { encodeHTML, decodeHTML, encodeHTMLAdvanced, type EncodingMode } from "@/lib/converters/web/html-encoder";
+import {
+  decodeHTML,
+  type EncodingMode,
+  encodeHTML,
+  encodeHTMLAdvanced,
+} from "@/lib/converters/web/html-encoder";
 
 export function HTMLEncoderTool() {
   const [input, setInput] = useState("<script>alert('Hello & Goodbye')</script>");
   const [mode, setMode] = useState<EncodingMode>("minimal");
   const [direction, setDirection] = useState<"encode" | "decode">("encode");
 
-  const result = direction === "encode"
-    ? encodeHTMLAdvanced(input, mode)
-    : decodeHTML(input).decoded;
+  const result =
+    direction === "encode" ? encodeHTMLAdvanced(input, mode) : decodeHTML(input).decoded;
 
-  const stats = direction === "encode"
-    ? encodeHTML(input, mode === "full")
-    : decodeHTML(input);
+  const stats = direction === "encode" ? encodeHTML(input, mode === "full") : decodeHTML(input);
 
   return (
     <div className="space-y-6">
@@ -53,7 +55,9 @@ export function HTMLEncoderTool() {
           onChange={(e) => setInput(e.target.value)}
           rows={5}
           className="w-full px-3 py-2 rounded-md border bg-background font-mono text-sm"
-          placeholder={direction === "encode" ? "Enter HTML to encode..." : "Enter encoded HTML to decode..."}
+          placeholder={
+            direction === "encode" ? "Enter HTML to encode..." : "Enter encoded HTML to decode..."
+          }
         />
       </div>
 

@@ -30,9 +30,7 @@ export interface VideoFileSizeResult {
   formatted: string;
 }
 
-export function calculateVideoFileSize(
-  input: VideoFileSizeInput
-): VideoFileSizeResult | null {
+export function calculateVideoFileSize(input: VideoFileSizeInput): VideoFileSizeResult | null {
   const { duration, bitrateMbps, audioBitrateKbps = 192 } = input;
 
   if (duration <= 0 || bitrateMbps <= 0) {

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
-import { Category } from "@/lib/registry/categories";
+import Link from "next/link";
+import type { Category } from "@/lib/registry/categories";
 
 interface BreadcrumbsProps {
   category: Category;
@@ -14,10 +14,7 @@ export function Breadcrumbs({ category, current }: BreadcrumbsProps) {
         <Home className="h-4 w-4" />
       </Link>
       <ChevronRight className="h-4 w-4" />
-      <Link
-        href={`/${category.slug}`}
-        className="hover:text-foreground transition-colors"
-      >
+      <Link href={`/${category.slug}`} className="hover:text-foreground transition-colors">
         {category.name}
       </Link>
       <ChevronRight className="h-4 w-4" />

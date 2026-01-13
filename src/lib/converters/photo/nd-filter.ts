@@ -66,7 +66,7 @@ export const BASE_SHUTTER_SPEEDS = [
 export function calculateNDFilter(input: NDFilterInput): NDFilterResult {
   const { baseShutterSpeed, filterStops } = input;
 
-  const filterFactor = Math.pow(2, filterStops);
+  const filterFactor = 2 ** filterStops;
   const newShutterSpeed = baseShutterSpeed * filterFactor;
   const lightReductionPercent = ((filterFactor - 1) / filterFactor) * 100;
 

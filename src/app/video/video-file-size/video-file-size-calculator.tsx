@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
+  BITRATE_PRESETS,
   calculateVideoFileSize,
   durationToSeconds,
   RESOLUTIONS,
-  BITRATE_PRESETS,
   type VideoResolution,
 } from "@/lib/converters/video/video-file-size";
 
@@ -153,18 +153,22 @@ export function VideoFileSizeCalculator() {
       {/* Results */}
       {result && (
         <div className="space-y-6">
-          <OutputDisplay
-            label="Estimated File Size"
-            value={result.formatted}
-            size="lg"
-          />
+          <OutputDisplay label="Estimated File Size" value={result.formatted} size="lg" />
 
           <ResultGrid
             results={[
               { label: "Total Size", value: result.totalMB, unit: "MB" },
               { label: "Total Size", value: result.totalGB, unit: "GB" },
-              { label: "Video Data", value: Math.round(result.videoBytes / (1024 * 1024)), unit: "MB" },
-              { label: "Audio Data", value: Math.round(result.audioBytes / (1024 * 1024)), unit: "MB" },
+              {
+                label: "Video Data",
+                value: Math.round(result.videoBytes / (1024 * 1024)),
+                unit: "MB",
+              },
+              {
+                label: "Audio Data",
+                value: Math.round(result.audioBytes / (1024 * 1024)),
+                unit: "MB",
+              },
             ]}
             columns={2}
           />

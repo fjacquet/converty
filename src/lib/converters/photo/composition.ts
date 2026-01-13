@@ -33,7 +33,7 @@ export function calculateComposition(
 
   // Calculate how much of the scene is covered at given distance
   const horizontalCoverage = 2 * distance * Math.tan((horizontalFOV / 2) * (Math.PI / 180));
-  const verticalCoverage = 2 * distance * Math.tan((verticalFOV / 2) * (Math.PI / 180));
+  const _verticalCoverage = 2 * distance * Math.tan((verticalFOV / 2) * (Math.PI / 180));
 
   // Assuming a standard portrait (0.5m wide subject), calculate coverage
   const subjectWidth = 0.5; // meters

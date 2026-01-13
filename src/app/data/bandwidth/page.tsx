@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { BandwidthConverter } from "./bandwidth-converter";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { BandwidthConverter } from "./bandwidth-converter";
 
 export const metadata: Metadata = {
   title: "Bandwidth Converter",
-  description: "Convert bandwidth units: Mbps to KB/s, GB/day, TB/week, and more. Calculate data transfer rates.",
+  description:
+    "Convert bandwidth units: Mbps to KB/s, GB/day, TB/week, and more. Calculate data transfer rates.",
   keywords: ["bandwidth", "converter", "mbps", "kbps", "data transfer", "network speed"],
 };
 

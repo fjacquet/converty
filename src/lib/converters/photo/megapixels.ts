@@ -6,10 +6,7 @@ export interface MegapixelResult {
   orientation: "landscape" | "portrait" | "square";
 }
 
-export function calculateMegapixels(
-  width: number,
-  height: number
-): MegapixelResult | null {
+export function calculateMegapixels(width: number, height: number): MegapixelResult | null {
   if (width <= 0 || height <= 0) {
     return null;
   }

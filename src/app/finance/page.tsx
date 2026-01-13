@@ -1,5 +1,5 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Metadata } from "next";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCategoryBySlug } from "@/lib/registry/categories";
 import { getConvertersByCategory } from "@/lib/registry/converters";
@@ -38,9 +38,7 @@ export default function FinancePage() {
         </div>
       ) : (
         <div className="text-center py-12 border rounded-lg bg-muted/50">
-          <p className="text-muted-foreground">
-            Finance calculators coming soon!
-          </p>
+          <p className="text-muted-foreground">Finance calculators coming soon!</p>
         </div>
       )}
     </div>

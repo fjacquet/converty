@@ -1,12 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
-import { FootLambertCalculator } from "./foot-lambert-calculator";
 import { ConverterLayout } from "@/components/converter";
 import { getCategoryBySlug } from "@/lib/registry/categories";
+import { FootLambertCalculator } from "./foot-lambert-calculator";
 
 export const metadata: Metadata = {
   title: "Foot-Lambert Calculator",
-  description: "Calculate screen luminance in foot-lamberts, nits, and lumens for cinema and home theater.",
+  description:
+    "Calculate screen luminance in foot-lamberts, nits, and lumens for cinema and home theater.",
   keywords: ["foot-lambert", "nits", "luminance", "cinema", "projection", "brightness"],
 };
 
