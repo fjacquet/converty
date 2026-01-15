@@ -118,7 +118,11 @@ export const categories: Category[] = [
       { id: "tech", name: "Tech & Network", description: "IP, bandwidth tools" },
       { id: "weather", name: "Weather", description: "Weather calculations" },
       { id: "automotive", name: "Automotive", description: "Vehicle calculators" },
-      { id: "engineering", name: "Engineering & Electrical", description: "Electrical calculations" },
+      {
+        id: "engineering",
+        name: "Engineering & Electrical",
+        description: "Electrical calculations",
+      },
       { id: "science", name: "Science", description: "Scientific calculators" },
       { id: "games", name: "Games & Fun", description: "Fun calculators" },
     ],
@@ -161,7 +165,10 @@ export function getCategoryBySlug(slug: string): Category | undefined {
   return categories.find((c) => c.slug === slug);
 }
 
-export function getSubcategoryById(categoryId: string, subcategoryId: string): Subcategory | undefined {
+export function getSubcategoryById(
+  categoryId: string,
+  subcategoryId: string
+): Subcategory | undefined {
   const category = getCategoryById(categoryId);
   return category?.subcategories?.find((s) => s.id === subcategoryId);
 }

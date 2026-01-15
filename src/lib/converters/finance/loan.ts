@@ -44,8 +44,8 @@ export function calculateLoan(input: LoanInput): LoanResult | null {
     monthlyPayment = loanAmount / loanTerm;
   } else {
     monthlyPayment =
-      (loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, loanTerm))) /
-      (Math.pow(1 + monthlyRate, loanTerm) - 1);
+      (loanAmount * (monthlyRate * (1 + monthlyRate) ** loanTerm)) /
+      ((1 + monthlyRate) ** loanTerm - 1);
   }
 
   // Generate payment schedule
@@ -106,7 +106,7 @@ export function calculateLoan(input: LoanInput): LoanResult | null {
   payoffDate.setMonth(payoffDate.getMonth() + loanTerm);
 
   // Calculate effective annual rate
-  const effectiveRate = Math.pow(1 + monthlyRate, 12) - 1;
+  const effectiveRate = (1 + monthlyRate) ** 12 - 1;
 
   const totalPayment = monthlyPayment * loanTerm;
 

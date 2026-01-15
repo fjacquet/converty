@@ -1,7 +1,5 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
-import { calculateTime, type TimeInput, type TimeResult } from "@/lib/converters/datetime/time";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -12,6 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { calculateTime, type TimeInput, type TimeResult } from "@/lib/converters/datetime/time";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useTimeStore = createCalculatorStore<TimeInput, TimeResult>({
   name: "time-calculator",
@@ -63,7 +63,9 @@ export function TimeCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Duration to {values.operation === "add" ? "Add" : "Subtract"}</CardTitle>
+          <CardTitle className="text-lg">
+            Duration to {values.operation === "add" ? "Add" : "Subtract"}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-3 gap-4">
@@ -108,7 +110,9 @@ export function TimeCalculator() {
             {result.crossesMidnight && (
               <div className="text-center p-2 bg-yellow-500/10 rounded-lg">
                 <p className="text-sm font-medium">
-                  {result.dayChange > 0 ? `+${result.dayChange} day(s)` : `${result.dayChange} day(s)`}
+                  {result.dayChange > 0
+                    ? `+${result.dayChange} day(s)`
+                    : `${result.dayChange} day(s)`}
                 </p>
               </div>
             )}

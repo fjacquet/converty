@@ -33,8 +33,18 @@ const ZODIAC_SIGNS = [
 ];
 
 const CHINESE_ZODIAC = [
-  "Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox",
-  "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat"
+  "Monkey",
+  "Rooster",
+  "Dog",
+  "Pig",
+  "Rat",
+  "Ox",
+  "Tiger",
+  "Rabbit",
+  "Dragon",
+  "Snake",
+  "Horse",
+  "Goat",
 ];
 
 function getZodiacSign(month: number, day: number): string {
@@ -65,21 +75,13 @@ function getChineseZodiac(year: number): string {
 }
 
 function getNextBirthday(birthDate: Date, today: Date): { date: Date; daysUntil: number } {
-  const thisYearBirthday = new Date(
-    today.getFullYear(),
-    birthDate.getMonth(),
-    birthDate.getDate()
-  );
+  const thisYearBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
 
   let nextBirthday: Date;
   if (thisYearBirthday > today) {
     nextBirthday = thisYearBirthday;
   } else {
-    nextBirthday = new Date(
-      today.getFullYear() + 1,
-      birthDate.getMonth(),
-      birthDate.getDate()
-    );
+    nextBirthday = new Date(today.getFullYear() + 1, birthDate.getMonth(), birthDate.getDate());
   }
 
   const diffTime = nextBirthday.getTime() - today.getTime();

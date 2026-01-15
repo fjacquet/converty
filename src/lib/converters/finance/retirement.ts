@@ -94,7 +94,7 @@ export function calculateRetirement(input: RetirementInput): RetirementResult | 
   const retirementSavings = savings;
 
   // Calculate inflation-adjusted values
-  const inflationMultiplier = Math.pow(1 + annualInflation, yearsToRetirement);
+  const inflationMultiplier = (1 + annualInflation) ** yearsToRetirement;
   const inflationAdjustedSavings = retirementSavings / inflationMultiplier;
 
   // Calculate required withdrawal rate
@@ -136,7 +136,7 @@ export function calculateRetirement(input: RetirementInput): RetirementResult | 
   const monthlyRetirementIncome = (actualAnnualWithdrawal + annualSocialSecurity) / 12;
 
   // Calculate savings gap
-  const requiredSavings = (neededFromSavings / safeWithdrawalRate);
+  const requiredSavings = neededFromSavings / safeWithdrawalRate;
   const savingsGap = Math.max(0, requiredSavings - retirementSavings);
   const hasSufficientFunds = savingsGap === 0;
 

@@ -20,10 +20,7 @@ export interface PdfItem {
 /**
  * Export calculator results to PDF
  */
-export function exportToPdf(
-  sections: PdfSection[],
-  options: PdfExportOptions
-): void {
+export function exportToPdf(sections: PdfSection[], options: PdfExportOptions): void {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const margin = 20;
@@ -73,9 +70,7 @@ export function exportToPdf(
         y = margin;
       }
 
-      const valueText = item.unit
-        ? `${item.value} ${item.unit}`
-        : String(item.value);
+      const valueText = item.unit ? `${item.value} ${item.unit}` : String(item.value);
 
       // Label (left aligned)
       doc.setTextColor(80);
@@ -124,8 +119,5 @@ export function exportSimpleResult(
   items: PdfItem[],
   options?: Partial<PdfExportOptions>
 ): void {
-  exportToPdf(
-    [{ title: "Results", items }],
-    { title, ...options }
-  );
+  exportToPdf([{ title: "Results", items }], { title, ...options });
 }

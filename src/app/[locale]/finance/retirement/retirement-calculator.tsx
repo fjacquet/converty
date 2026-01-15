@@ -1,24 +1,24 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Legend,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { InputField, ResultGrid } from "@/components/converter";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   calculateRetirement,
   type RetirementInput,
   type RetirementResult,
 } from "@/lib/converters/finance/retirement";
-import { InputField, ResultGrid } from "@/components/converter";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  ReferenceLine,
-} from "recharts";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useRetirementStore = createCalculatorStore<RetirementInput, RetirementResult>({
   name: "retirement-calculator",
@@ -198,7 +198,10 @@ export function RetirementCalculator() {
 
               <ResultGrid
                 results={[
-                  { label: "Total Contributions", value: formatCurrency(result.totalContributions) },
+                  {
+                    label: "Total Contributions",
+                    value: formatCurrency(result.totalContributions),
+                  },
                   { label: "Total Growth", value: formatCurrency(result.totalGrowth) },
                   {
                     label: "Inflation-Adjusted Value",

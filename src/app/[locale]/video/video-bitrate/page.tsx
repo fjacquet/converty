@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
-import { setRequestLocale, getTranslations } from "next-intl/server";
 import { ConverterLayout } from "@/components/converter/converter-layout";
+import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
 import { VideoBitrateCalculator } from "./video-bitrate-calculator";
-import { locales } from "@/i18n/config";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -37,11 +37,7 @@ export default async function VideoBitratePage({
   const category = getCategoryBySlug("video")!;
 
   return (
-    <ConverterLayout
-      title={t("name")}
-      description={t("description")}
-      category={category}
-    >
+    <ConverterLayout title={t("name")} description={t("description")} category={category}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <VideoBitrateCalculator />
       </Suspense>

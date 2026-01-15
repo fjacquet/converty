@@ -1,13 +1,17 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
-  calculateCompoundInterest,
-  COMPOUND_FREQUENCIES,
-  type CompoundInterestInput,
-  type CompoundInterestResult,
-  type CompoundFrequency,
-} from "@/lib/converters/finance/compound-interest";
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -19,19 +23,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  BarChart,
-  Bar,
-} from "recharts";
+  COMPOUND_FREQUENCIES,
+  type CompoundFrequency,
+  type CompoundInterestInput,
+  type CompoundInterestResult,
+  calculateCompoundInterest,
+} from "@/lib/converters/finance/compound-interest";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
-const useCompoundInterestStore = createCalculatorStore<CompoundInterestInput, CompoundInterestResult>({
+const useCompoundInterestStore = createCalculatorStore<
+  CompoundInterestInput,
+  CompoundInterestResult
+>({
   name: "compound-interest-calculator",
   initialValues: {
     principal: 10000,
@@ -167,9 +170,15 @@ export function CompoundInterestCalculator() {
               <ResultGrid
                 results={[
                   { label: "Initial Investment", value: formatCurrency(result.totalPrincipal) },
-                  { label: "Total Contributions", value: formatCurrency(result.totalContributions) },
+                  {
+                    label: "Total Contributions",
+                    value: formatCurrency(result.totalContributions),
+                  },
                   { label: "Total Interest Earned", value: formatCurrency(result.totalInterest) },
-                  { label: "Effective Annual Rate", value: `${result.effectiveAnnualRate.toFixed(2)}%` },
+                  {
+                    label: "Effective Annual Rate",
+                    value: `${result.effectiveAnnualRate.toFixed(2)}%`,
+                  },
                 ]}
                 columns={2}
               />
@@ -266,7 +275,9 @@ export function CompoundInterestCalculator() {
                     {result.yearlyBreakdown.map((row) => (
                       <tr key={row.year} className="border-b">
                         <td className="py-2 px-2">{row.year}</td>
-                        <td className="text-right py-2 px-2">{formatCurrency(row.contributions)}</td>
+                        <td className="text-right py-2 px-2">
+                          {formatCurrency(row.contributions)}
+                        </td>
                         <td className="text-right py-2 px-2">{formatCurrency(row.interest)}</td>
                         <td className="text-right py-2 px-2 font-medium">
                           {formatCurrency(row.balance)}

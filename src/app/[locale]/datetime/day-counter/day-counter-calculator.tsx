@@ -1,11 +1,15 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
-import { calculateDayCounter, type DayCounterInput, type DayCounterResult } from "@/lib/converters/datetime/day-counter";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import {
+  calculateDayCounter,
+  type DayCounterInput,
+  type DayCounterResult,
+} from "@/lib/converters/datetime/day-counter";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useDayCounterStore = createCalculatorStore<DayCounterInput, DayCounterResult>({
   name: "day-counter-calculator",

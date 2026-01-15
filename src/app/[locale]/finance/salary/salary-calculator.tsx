@@ -1,16 +1,18 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
-  calculateSalary,
-  FILING_STATUSES,
-  PAY_FREQUENCIES,
-  US_STATES,
-  type FilingStatus,
-  type PayFrequency,
-  type SalaryInput,
-  type SalaryResult,
-} from "@/lib/converters/finance/salary";
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -22,18 +24,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
+  calculateSalary,
+  FILING_STATUSES,
+  type FilingStatus,
+  PAY_FREQUENCIES,
+  type PayFrequency,
+  type SalaryInput,
+  type SalaryResult,
+  US_STATES,
+} from "@/lib/converters/finance/salary";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useSalaryStore = createCalculatorStore<SalaryInput, SalaryResult>({
   name: "salary-calculator",

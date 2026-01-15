@@ -1,26 +1,22 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
-  calculateLoan,
-  type LoanInput,
-  type LoanResult,
-} from "@/lib/converters/finance/loan";
-import { InputField, ResultGrid } from "@/components/converter";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  AreaChart,
   Area,
+  AreaChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
+import { InputField, ResultGrid } from "@/components/converter";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { calculateLoan, type LoanInput, type LoanResult } from "@/lib/converters/finance/loan";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useLoanStore = createCalculatorStore<LoanInput, LoanResult>({
   name: "loan-calculator",

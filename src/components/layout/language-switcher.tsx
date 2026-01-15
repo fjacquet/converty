@@ -1,8 +1,6 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { locales, type Locale } from "@/i18n/config";
 import {
   Select,
   SelectContent,
@@ -10,6 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { type Locale, locales } from "@/i18n/config";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 const localeLabels: Record<Locale, string> = {
   en: "EN",

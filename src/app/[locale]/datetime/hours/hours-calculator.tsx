@@ -1,9 +1,9 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
-import { calculateHours, type HoursInput, type HoursResult } from "@/lib/converters/datetime/hours";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { calculateHours, type HoursInput, type HoursResult } from "@/lib/converters/datetime/hours";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useHoursStore = createCalculatorStore<HoursInput, HoursResult>({
   name: "hours-calculator",
@@ -79,9 +79,7 @@ export function HoursCalculator() {
           <CardContent className="space-y-4">
             <div className="text-center p-4 bg-primary/10 rounded-lg">
               <p className="text-3xl font-bold text-primary">{result.formattedDuration}</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                {result.totalHours} total hours
-              </p>
+              <p className="text-sm text-muted-foreground mt-1">{result.totalHours} total hours</p>
             </div>
             <ResultGrid
               results={[

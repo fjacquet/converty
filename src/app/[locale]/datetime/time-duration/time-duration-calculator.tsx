@@ -1,9 +1,13 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
-import { calculateTimeDuration, type TimeDurationInput, type TimeDurationResult } from "@/lib/converters/datetime/time-duration";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  calculateTimeDuration,
+  type TimeDurationInput,
+  type TimeDurationResult,
+} from "@/lib/converters/datetime/time-duration";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useTimeDurationStore = createCalculatorStore<TimeDurationInput, TimeDurationResult>({
   name: "time-duration-calculator",

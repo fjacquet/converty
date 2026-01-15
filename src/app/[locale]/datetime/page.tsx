@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
-import { getCategoryBySlug } from "@/lib/registry/categories";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SubcategoryNav } from "@/components/converter/subcategory-nav";
 import { locales } from "@/i18n/config";
+import { getCategoryBySlug } from "@/lib/registry/categories";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -22,11 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function DateTimePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function DateTimePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 

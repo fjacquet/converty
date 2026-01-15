@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
-import { createCalculatorStore } from "@/stores/calculator-store";
-import { calculateAge, type AgeInput, type AgeResult } from "@/lib/converters/datetime/age";
-import { InputField, ResultGrid, PdfExportButton } from "@/components/converter";
+import { InputField, PdfExportButton, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { type AgeInput, type AgeResult, calculateAge } from "@/lib/converters/datetime/age";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useAgeStore = createCalculatorStore<AgeInput, AgeResult>({
   name: "age-calculator",

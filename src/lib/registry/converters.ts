@@ -1,4 +1,15 @@
-import { Calendar, Database, DollarSign, Gauge, Globe, Heart, ImageIcon, Music, Palette, Video } from "lucide-react";
+import {
+  Calendar,
+  Database,
+  DollarSign,
+  Gauge,
+  Globe,
+  Heart,
+  ImageIcon,
+  Music,
+  Palette,
+  Video,
+} from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const converterRegistry: Record<string, ConverterMeta> = {
@@ -596,7 +607,14 @@ export const converterRegistry: Record<string, ConverterMeta> = {
     description: "Calculate monthly payments, view amortization schedule, and visualize your loan",
     category: "finance",
     subcategory: "loans",
-    keywords: ["mortgage", "home loan", "amortization", "monthly payment", "interest rate", "down payment"],
+    keywords: [
+      "mortgage",
+      "home loan",
+      "amortization",
+      "monthly payment",
+      "interest rate",
+      "down payment",
+    ],
     icon: DollarSign,
     featured: true,
   },
@@ -658,7 +676,10 @@ export function getFeaturedConverters(): ConverterMeta[] {
   return Object.values(converterRegistry).filter((c) => c.featured);
 }
 
-export function getConvertersBySubcategory(categoryId: string, subcategoryId: string): ConverterMeta[] {
+export function getConvertersBySubcategory(
+  categoryId: string,
+  subcategoryId: string
+): ConverterMeta[] {
   return Object.values(converterRegistry).filter(
     (converter) => converter.category === categoryId && converter.subcategory === subcategoryId
   );

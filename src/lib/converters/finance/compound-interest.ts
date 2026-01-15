@@ -44,8 +44,14 @@ const getCompoundingPeriods = (frequency: CompoundFrequency): number => {
 export function calculateCompoundInterest(
   input: CompoundInterestInput
 ): CompoundInterestResult | null {
-  const { principal, interestRate, years, compoundFrequency, monthlyContribution, contributionTiming } =
-    input;
+  const {
+    principal,
+    interestRate,
+    years,
+    compoundFrequency,
+    monthlyContribution,
+    contributionTiming,
+  } = input;
 
   if (principal < 0 || interestRate < 0 || years <= 0) {
     return null;
@@ -58,7 +64,7 @@ export function calculateCompoundInterest(
   const _totalPeriods = n * years;
 
   // Calculate effective annual rate
-  const effectiveAnnualRate = Math.pow(1 + r / n, n) - 1;
+  const effectiveAnnualRate = (1 + r / n) ** n - 1;
 
   const yearlyBreakdown: YearlyBreakdown[] = [];
 

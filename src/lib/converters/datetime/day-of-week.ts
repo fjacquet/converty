@@ -12,15 +12,7 @@ export interface DayOfWeekResult {
   quarter: number;
 }
 
-const DAYS_OF_WEEK = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const DAYS_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 function getWeekNumber(date: Date): number {
   const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
@@ -36,7 +28,7 @@ function getDayOfYear(date: Date): number {
 }
 
 function getDaysInYear(year: number): number {
-  return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 366 : 365;
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 ? 366 : 365;
 }
 
 export function calculateDayOfWeek(input: DayOfWeekInput): DayOfWeekResult | null {

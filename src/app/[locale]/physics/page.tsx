@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { locales } from "@/i18n/config";
+import { Link } from "@/i18n/navigation";
 import { getCategoryBySlug } from "@/lib/registry/categories";
 import { getConvertersByCategory } from "@/lib/registry/converters";
-import { Link } from "@/i18n/navigation";
-import { locales } from "@/i18n/config";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -24,11 +24,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PhysicsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function PhysicsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -54,12 +50,8 @@ export default async function PhysicsPage({
             <Link key={converter.id} href={`/physics/${converter.slug}`}>
               <Card className="h-full transition-colors hover:bg-muted/50">
                 <CardHeader>
-                  <CardTitle className="text-lg">
-                    {tc(`${converter.id}.name`)}
-                  </CardTitle>
-                  <CardDescription>
-                    {tc(`${converter.id}.description`)}
-                  </CardDescription>
+                  <CardTitle className="text-lg">{tc(`${converter.id}.name`)}</CardTitle>
+                  <CardDescription>{tc(`${converter.id}.description`)}</CardDescription>
                 </CardHeader>
               </Card>
             </Link>

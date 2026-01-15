@@ -1,9 +1,13 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
-import { calculateDayOfWeek, type DayOfWeekInput, type DayOfWeekResult } from "@/lib/converters/datetime/day-of-week";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  calculateDayOfWeek,
+  type DayOfWeekInput,
+  type DayOfWeekResult,
+} from "@/lib/converters/datetime/day-of-week";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useDayOfWeekStore = createCalculatorStore<DayOfWeekInput, DayOfWeekResult>({
   name: "day-of-week-calculator",

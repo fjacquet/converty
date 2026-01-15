@@ -1,7 +1,5 @@
 "use client";
 
-import { createCalculatorStore } from "@/stores/calculator-store";
-import { calculateDate, type DateInput, type DateResult } from "@/lib/converters/datetime/date";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -12,6 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { calculateDate, type DateInput, type DateResult } from "@/lib/converters/datetime/date";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useDateStore = createCalculatorStore<DateInput, DateResult>({
   name: "date-calculator",
@@ -64,7 +64,9 @@ export function DateCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Duration to {values.operation === "add" ? "Add" : "Subtract"}</CardTitle>
+          <CardTitle className="text-lg">
+            Duration to {values.operation === "add" ? "Add" : "Subtract"}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

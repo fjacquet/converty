@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getConvertersByCategoryGrouped } from "@/lib/registry/converters";
 import { getSubcategoriesByCategoryId } from "@/lib/registry/categories";
+import { getConvertersByCategoryGrouped } from "@/lib/registry/converters";
 import type { ConverterMeta } from "@/types";
 
 interface SubcategoryNavProps {
@@ -47,24 +47,23 @@ interface SubcategorySectionProps {
   categorySlug: string;
 }
 
-function SubcategorySection({ title, description, converters, categorySlug }: SubcategorySectionProps) {
+function SubcategorySection({
+  title,
+  description,
+  converters,
+  categorySlug,
+}: SubcategorySectionProps) {
   if (converters.length === 0) return null;
 
   return (
     <section className="space-y-4">
       <div>
         <h2 className="text-lg font-semibold">{title}</h2>
-        {description && (
-          <p className="text-sm text-muted-foreground">{description}</p>
-        )}
+        {description && <p className="text-sm text-muted-foreground">{description}</p>}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {converters.map((converter) => (
-          <ConverterCard
-            key={converter.id}
-            converter={converter}
-            categorySlug={categorySlug}
-          />
+          <ConverterCard key={converter.id} converter={converter} categorySlug={categorySlug} />
         ))}
       </div>
     </section>
@@ -87,11 +86,7 @@ export function SubcategoryNav({ categoryId, categorySlug }: SubcategoryNavProps
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {converters.map((converter) => (
-          <ConverterCard
-            key={converter.id}
-            converter={converter}
-            categorySlug={categorySlug}
-          />
+          <ConverterCard key={converter.id} converter={converter} categorySlug={categorySlug} />
         ))}
       </div>
     );

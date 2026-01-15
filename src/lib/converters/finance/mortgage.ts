@@ -74,8 +74,8 @@ export function calculateMortgage(input: MortgageInput): MortgageResult | null {
     monthlyPrincipalInterest = loanAmount / numberOfPayments;
   } else {
     monthlyPrincipalInterest =
-      (loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments))) /
-      (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+      (loanAmount * (monthlyRate * (1 + monthlyRate) ** numberOfPayments)) /
+      ((1 + monthlyRate) ** numberOfPayments - 1);
   }
 
   const monthlyPropertyTax = propertyTax / 12;
@@ -147,7 +147,11 @@ export function calculateMortgage(input: MortgageInput): MortgageResult | null {
 
   const totalPayments = monthlyPrincipalInterest * numberOfPayments;
   const totalCost =
-    totalPayments + propertyTax * loanTerm + homeInsurance * loanTerm + pmi * numberOfPayments + hoaFees * numberOfPayments;
+    totalPayments +
+    propertyTax * loanTerm +
+    homeInsurance * loanTerm +
+    pmi * numberOfPayments +
+    hoaFees * numberOfPayments;
 
   return {
     loanAmount,
