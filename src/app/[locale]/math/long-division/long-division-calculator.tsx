@@ -1,0 +1,181 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { InputField, ResultGrid } from "@/components/converter";
+import { useConverter } from "@/hooks";
+import {
+  type LongDivisionInput,
+  type LongDivisionResult,
+  calculateLongDivision,
+} from "@/lib/converters/math/long-division";
+
+interface FormValues {
+  dividend: string;
+  divisor: string;
+  decimalPlaces: string;
+}
+
+export function LongDivisionCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
+  const tMath = useTranslations("calculator.math");
+
+  const { values, setValue, result } = useConverter<
+    FormValues,
+    LongDivisionResult | null
+  >({
+    initialValues: {
+      dividend: "12345",
+      divisor: "7",
+      decimalPlaces: "10",
+    },
+    calculate: (vals) => {
+      const input: LongDivisionInput = {
+        dividend: parseInt(vals.dividend) || 0,
+        divisor: parseInt(vals.divisor) || 1,
+        decimalPlaces: parseInt(vals.decimalPlaces) || 10,
+      };
+      return { value: calculateLongDivision(input) };
+    },
+  });
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            {tMath("longDivision") || "Long Division Calculator"}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <InputField
+            id="dividend"
+            label={t("dividend") || "Dividend"}
+            value={values.dividend}
+            onChange={(v) => setValue("dividend", v)}
+            type="number"
+          />
+
+          <InputField
+            id="divisor"
+            label={t("divisor") || "Divisor"}
+            value={values.divisor}
+            onChange={(v) => setValue("divisor", v)}
+            type="number"
+          />
+
+          <InputField
+            id="decimalPlaces"
+            label={t("decimalPlaces") || "Decimal Places"}
+            value={values.decimalPlaces}
+            onChange={(v) => setValue("decimalPlaces", v)}
+            type="number"
+            min={1}
+            max={50}
+          />
+        </CardContent>
+      </Card>
+
+      {result?.value && (
+        <>
+          <Card>
+            <CardHeader>
+              <CardTitle>{tResults("result") || "Result"}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResultGrid
+                results={[
+                  {
+                    label: tResults("quotient") || "Quotient",
+                    value: result.value.quotient.toString(),
+                  },
+                  {
+                    label: tResults("remainder") || "Remainder",
+                    value: result.value.remainder.toString(),
+                  },
+                  {
+                    label: tResults("decimal") || "Decimal",
+                    value: result.value.decimal.toFixed(
+                      parseInt(values.decimalPlaces) || 10
+                    ),
+                  },
+                  {
+                    label: tResults("fraction") || "Fraction",
+                    value: result.value.fraction,
+                  },
+                  {
+                    label: tResults("mixedNumber") || "Mixed Number",
+                    value: result.value.mixedNumber,
+                  },
+                ]}
+              />
+            </CardContent>
+          </Card>
+
+          {result.value.repeatingDecimal && (
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {tMath("repeatingDecimal") || "Repeating Decimal"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xl font-mono">
+                  0.{result.value.repeatingDecimal}
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Parentheses indicate repeating digits
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                {tResults("verification") || "Verification"}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="font-mono">{result.value.verification}</p>
+              <p className="text-sm text-muted-foreground mt-2">
+                {result.value.isExact
+                  ? "Division is exact (no remainder)"
+                  : "Division has a remainder"}
+              </p>
+            </CardContent>
+          </Card>
+
+          {result.value.steps.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {tResults("divisionSteps") || "Division Steps"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {result.value.steps.map((step, i) => (
+                    <div
+                      key={i}
+                      className="border-l-2 border-primary pl-4 py-2"
+                    >
+                      <p className="font-semibold">Step {step.step}</p>
+                      <ul className="text-sm text-muted-foreground space-y-1 font-mono">
+                        <li>{step.bring}</li>
+                        <li>{step.divide}</li>
+                        <li>{step.multiply}</li>
+                        <li>{step.subtract}</li>
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </>
+      )}
+    </div>
+  );
+}

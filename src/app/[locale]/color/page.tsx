@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { locales } from "@/i18n/config";
-import { Link } from "@/i18n/navigation";
 import { getCategoryBySlug } from "@/lib/registry/categories";
 import { getConvertersByCategory } from "@/lib/registry/converters";
+import { Link } from "@/i18n/navigation";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -24,37 +23,56 @@ export async function generateMetadata({
   };
 }
 
-export default async function ColorPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ColorCategoryPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const t = await getTranslations("categories.color");
-  const tc = await getTranslations("converters");
-
-  const category = getCategoryBySlug("color")!;
+  const tConverters = await getTranslations("converters");
+  const category = getCategoryBySlug("color");
   const converters = getConvertersByCategory("color");
 
+  if (!category) {
+    return <div>Category not found</div>;
+  }
+
   return (
-    <div className="container py-10">
+    <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <category.icon className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl font-bold tracking-tight">{t("name")}</h1>
-        </div>
+        <h1 className="text-3xl font-bold mb-2">{t("name")}</h1>
         <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {converters.map((converter) => (
-          <Link key={converter.id} href={`/color/${converter.slug}`}>
-            <Card className="h-full transition-colors hover:bg-muted/50">
-              <CardHeader>
-                <CardTitle className="text-lg">{tc(`${converter.id}.name`)}</CardTitle>
-                <CardDescription>{tc(`${converter.id}.description`)}</CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {converters.map((converter) => {
+          const converterT = (key: string) => {
+            try {
+              return tConverters(`${converter.id}.${key}`);
+            } catch {
+              return converter.id;
+            }
+          };
+
+          return (
+            <Link
+              key={converter.id}
+              href={`/color/${converter.slug}`}
+              className="block p-6 bg-card rounded-lg border hover:border-primary transition-colors"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                {converter.icon && <converter.icon className="h-6 w-6 text-primary" />}
+                <h2 className="text-lg font-semibold">{converterT("name")}</h2>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {converterT("description")}
+              </p>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

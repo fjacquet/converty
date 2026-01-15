@@ -267,6 +267,11 @@
       "description": "Calculez les heures dorees selon votre emplacement",
       "metaDescription": "Trouvez les heures dorees et bleues pour votre emplacement"
     },
+    "sun-position": {
+      "name": "Calculateur de Position du Soleil",
+      "description": "Calculez la position du soleil, les heures de crepuscule et les phases de lumiere pour la photographie",
+      "metaDescription": "Calculez l'altitude, l'azimut du soleil, les heures de crepuscule, l'heure doree et l'heure bleue pour la planification photo"
+    },
     "circle-of-confusion": {
       "name": "Calculateur de Cercle de Confusion",
       "description": "Calculez le CdC a partir du capteur, de la taille d'impression et de la distance de visionnage",
@@ -636,6 +641,216 @@
       "name": "Calculateur de Glucides",
       "description": "Calculez vos besoins quotidiens en glucides",
       "metaDescription": "Calculez vos besoins optimaux en glucides selon vos objectifs"
+    },
+    "basic-calculator": {
+      "name": "Calculatrice de Base",
+      "description": "Effectuez des calculs arithmetiques avec expressions",
+      "metaDescription": "Calculatrice en ligne gratuite pour operations arithmetiques et expressions"
+    },
+    "fraction-calculator": {
+      "name": "Calculateur de Fractions",
+      "description": "Additionnez, soustrayez, multipliez, divisez et simplifiez les fractions",
+      "metaDescription": "Calculez les fractions avec solutions detaillees et nombres mixtes"
+    },
+    "percentage-calculator": {
+      "name": "Calculateur de Pourcentage",
+      "description": "Calculez les pourcentages, variations et differences",
+      "metaDescription": "Calculez les pourcentages, variations et differences en pourcentage"
+    },
+    "percent-error": {
+      "name": "Calculateur d'Erreur en Pourcentage",
+      "description": "Calculez l'erreur entre valeurs experimentales et reelles",
+      "metaDescription": "Calculez l'erreur en pourcentage pour experiences scientifiques"
+    },
+    "rounding-calculator": {
+      "name": "Calculateur d'Arrondissement",
+      "description": "Arrondissez les nombres avec differentes methodes et precisions",
+      "metaDescription": "Arrondissez aux decimales, chiffres significatifs ou precision personnalisee"
+    },
+    "average-calculator": {
+      "name": "Calculateur de Moyenne",
+      "description": "Calculez moyenne, mediane, mode et autres moyennes",
+      "metaDescription": "Calculez moyenne arithmetique, ponderee, geometrique et harmonique"
+    },
+    "long-division": {
+      "name": "Calculateur de Division Longue",
+      "description": "Effectuez une division longue avec solution etape par etape",
+      "metaDescription": "Apprenez la division longue avec solutions detaillees et restes"
+    },
+    "exponent-calculator": {
+      "name": "Calculateur d'Exposants",
+      "description": "Calculez les puissances et expressions exponentielles",
+      "metaDescription": "Calculez les puissances, exposants et expressions exponentielles"
+    },
+    "root-calculator": {
+      "name": "Calculateur de Racines",
+      "description": "Calculez racines carrees, cubiques et niemes",
+      "metaDescription": "Calculez racines carrees, cubiques et toute racine nieme"
+    },
+    "logarithm-calculator": {
+      "name": "Calculateur de Logarithmes",
+      "description": "Calculez les logarithmes avec n'importe quelle base",
+      "metaDescription": "Calculez logarithmes base 10, logarithme naturel ou base personnalisee"
+    },
+    "quadratic-calculator": {
+      "name": "Calculateur de Formule Quadratique",
+      "description": "Resolvez les equations quadratiques et trouvez les racines",
+      "metaDescription": "Resolvez equations quadratiques avec solutions detaillees"
+    },
+    "factor-calculator": {
+      "name": "Calculateur de Facteurs",
+      "description": "Trouvez tous les facteurs d'un nombre",
+      "metaDescription": "Trouvez tous les facteurs, paires de facteurs et facteurs premiers"
+    },
+    "gcd-calculator": {
+      "name": "Calculateur de PGCD",
+      "description": "Calculez le Plus Grand Commun Diviseur de plusieurs nombres",
+      "metaDescription": "Calculez le PGCD de deux nombres ou plus"
+    },
+    "lcm-calculator": {
+      "name": "Calculateur de PPCM",
+      "description": "Calculez le Plus Petit Commun Multiple de plusieurs nombres",
+      "metaDescription": "Calculez le PPCM de deux nombres ou plus"
+    },
+    "gcd-lcm": {
+      "name": "Calculateur PGCD & PPCM",
+      "description": "Calculez le PGCD et le PPCM de plusieurs nombres",
+      "metaDescription": "Calculez le PGCD et le PPCM de deux nombres ou plus"
+    },
+    "prime-factorization": {
+      "name": "Calculateur de Decomposition en Facteurs Premiers",
+      "description": "Trouvez les facteurs premiers et diviseurs de tout nombre",
+      "metaDescription": "Trouvez decomposition en facteurs premiers et tous les diviseurs"
+    },
+    "triangle-calculator": {
+      "name": "Calculateur de Triangle",
+      "description": "Calculez les proprietes du triangle a partir des cotes et angles",
+      "metaDescription": "Calculez aire, perimetre, angles et cotes d'un triangle"
+    },
+    "right-triangle": {
+      "name": "Calculateur de Triangle Rectangle",
+      "description": "Calculez les cotes et angles d'un triangle rectangle",
+      "metaDescription": "Calculez dimensions d'un triangle rectangle avec trigonometrie"
+    },
+    "pythagorean-calculator": {
+      "name": "Calculateur du Theoreme de Pythagore",
+      "description": "Calculez le cote manquant avec le theoreme de Pythagore",
+      "metaDescription": "Trouvez le cote manquant d'un triangle rectangle avec Pythagore"
+    },
+    "circle-calculator": {
+      "name": "Calculateur de Cercle",
+      "description": "Calculez les proprietes du cercle a partir du rayon, diametre ou circonference",
+      "metaDescription": "Calculez aire, circonference, diametre et rayon d'un cercle"
+    },
+    "area-calculator": {
+      "name": "Calculateur d'Aire",
+      "description": "Calculez l'aire de diverses formes",
+      "metaDescription": "Calculez aire de rectangle, carre, cercle, triangle, trapeze et plus"
+    },
+    "surface-area-calculator": {
+      "name": "Calculateur de Surface",
+      "description": "Calculez la surface des formes 3D",
+      "metaDescription": "Calculez surface de cube, sphere, cylindre, cone et pyramide"
+    },
+    "volume-calculator": {
+      "name": "Calculateur de Volume",
+      "description": "Calculez le volume des formes 3D",
+      "metaDescription": "Calculez volume de cube, sphere, cylindre, cone, prisme et plus"
+    },
+    "slope-calculator": {
+      "name": "Calculateur de Pente",
+      "description": "Calculez pente, equation et angle d'une droite",
+      "metaDescription": "Calculez pente, ordonnee a l'origine et equation lineaire"
+    },
+    "standard-deviation": {
+      "name": "Calculateur d'Ecart Type",
+      "description": "Calculez ecart type et variance",
+      "metaDescription": "Calculez ecart type de population et echantillon, variance et moyenne"
+    },
+    "statistics-calculator": {
+      "name": "Calculateur Statistique",
+      "description": "Calculez des statistiques completes pour un ensemble de donnees",
+      "metaDescription": "Calculez moyenne, mediane, mode, quartiles, asymetrie et aplatissement"
+    },
+    "probability-calculator": {
+      "name": "Calculateur de Probabilite",
+      "description": "Calculez la probabilite d'evenements et combinaisons",
+      "metaDescription": "Calculez probabilite d'evenements, probabilite conditionnelle et Bayes"
+    },
+    "sample-size": {
+      "name": "Calculateur de Taille d'Echantillon",
+      "description": "Calculez la taille d'echantillon requise pour sondages et etudes",
+      "metaDescription": "Calculez taille d'echantillon avec niveau de confiance et marge d'erreur"
+    },
+    "z-score-calculator": {
+      "name": "Calculateur de Score Z",
+      "description": "Calculez le score Z et probabilites de distribution normale",
+      "metaDescription": "Calculez score Z et trouvez probabilites de la distribution normale"
+    },
+    "p-value-calculator": {
+      "name": "Calculateur de P-Valeur",
+      "description": "Calculez les p-valeurs pour tests d'hypotheses statistiques",
+      "metaDescription": "Calculez p-valeurs a partir de scores z, t, chi-carre et F"
+    },
+    "confidence-interval": {
+      "name": "Calculateur d'Intervalle de Confiance",
+      "description": "Calculez intervalles de confiance pour moyennes et proportions",
+      "metaDescription": "Calculez intervalles de confiance pour moyenne et proportion"
+    },
+    "permutation-combination": {
+      "name": "Calculateur de Permutations et Combinaisons",
+      "description": "Calculez permutations et combinaisons avec ou sans repetition",
+      "metaDescription": "Calculez nPr et nCr pour problemes de denombrement"
+    },
+    "ratio-calculator": {
+      "name": "Calculateur de Ratio",
+      "description": "Calculez et simplifiez les ratios, trouvez les equivalents",
+      "metaDescription": "Simplifiez ratios, trouvez ratios equivalents et proportions"
+    },
+    "binary-calculator": {
+      "name": "Calculateur Binaire",
+      "description": "Convertissez et effectuez des operations en binaire",
+      "metaDescription": "Convertissez entre binaire, decimal, octal et hexadecimal"
+    },
+    "hex-calculator": {
+      "name": "Calculateur Hexadecimal",
+      "description": "Convertissez et calculez en hexadecimal",
+      "metaDescription": "Convertissez et effectuez operations arithmetiques en hexadecimal"
+    },
+    "scientific-notation": {
+      "name": "Calculateur de Notation Scientifique",
+      "description": "Convertissez vers/depuis la notation scientifique et effectuez des operations",
+      "metaDescription": "Convertissez nombres en notation scientifique et effectuez operations"
+    },
+    "big-number": {
+      "name": "Calculateur de Grands Nombres",
+      "description": "Effectuez des operations sur des entiers arbitrairement grands",
+      "metaDescription": "Calculez avec de tres grands nombres au-dela des limites standard"
+    },
+    "number-sequence": {
+      "name": "Calculateur de Suites Numeriques",
+      "description": "Analysez et generez des suites arithmetiques, geometriques et de Fibonacci",
+      "metaDescription": "Trouvez des motifs dans les suites et generez des series"
+    },
+    "matrix-calculator": {
+      "name": "Calculateur de Matrices",
+      "description": "Effectuez operations matricielles: addition, multiplication, transposee, determinant",
+      "metaDescription": "Calculez addition, multiplication, determinant, inverse et transposee de matrices"
+    },
+    "half-life-calculator": {
+      "name": "Calculateur de Demi-Vie",
+      "description": "Calculez la desintegration radioactive et quantite restante",
+      "metaDescription": "Calculez desintegration radioactive, quantite restante et datation carbone"
+    },
+    "distance-calculator": {
+      "name": "Calculateur de Distance",
+      "description": "Calculez distances entre points en 2D, 3D et sur Terre",
+      "metaDescription": "Calculez distance euclidienne, Manhattan et distances geographiques"
+    },
+    "random-number": {
+      "name": "Generateur de Nombres Aleatoires",
+      "description": "Generez des nombres aleatoires avec diverses distributions",
+      "metaDescription": "Generez nombres aleatoires, lancez des des et melangez des listes"
     }
   },
   "calculator": {
@@ -710,7 +925,20 @@
       "weeksToGoal": "Semaines pour l'Objectif",
       "activity": "Activite",
       "duration": "Duree (minutes)",
-      "restingHeartRate": "Frequence Cardiaque au Repos (optionnel)"
+      "restingHeartRate": "Frequence Cardiaque au Repos (optionnel)",
+      "calculate": "Calculer",
+      "convert": "Convertir",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "time": "Heure",
+      "useMyLocation": "Utiliser Ma Position",
+      "precision": "Precision",
+      "numberOfTerms": "Nombre de Termes",
+      "findNthTerm": "Trouver le n-ieme Terme",
+      "sequenceType": "Type de Suite",
+      "firstTerm": "Premier Terme",
+      "commonDifference": "Raison (difference)",
+      "commonRatio": "Raison (rapport)"
     },
     "sections": {
       "input": "Entree",
@@ -803,6 +1031,248 @@
       "marriedJoint": "Marie(e) - Declaration Commune",
       "marriedSeparate": "Marie(e) - Declaration Separee",
       "headOfHousehold": "Chef de Famille"
+    },
+    "math": {
+      "calculationType": "Type de calcul",
+      "percentOf": "Combien fait X% de Y ?",
+      "whatPercent": "X représente quel pourcentage de Y ?",
+      "percentChange": "Variation en pourcentage de X à Y",
+      "percentDifference": "Différence en pourcentage entre X et Y",
+      "percentValue": "Pourcentage (%)",
+      "ofValue": "De la valeur",
+      "value": "Valeur",
+      "ofTotal": "Du total",
+      "fromValue": "Valeur initiale",
+      "toValue": "Valeur finale",
+      "value1": "Valeur 1",
+      "value2": "Valeur 2",
+      "formula": "Formule",
+      "steps": "Étapes",
+      "operation": "Opération",
+      "simplify": "Simplifier",
+      "add": "Additionner",
+      "subtract": "Soustraire",
+      "multiply": "Multiplier",
+      "divide": "Diviser",
+      "toDecimal": "En décimal",
+      "toFraction": "En fraction",
+      "numerator": "Numérateur",
+      "denominator": "Dénominateur",
+      "numerator1": "Numérateur 1",
+      "denominator1": "Dénominateur 1",
+      "numerator2": "Numérateur 2",
+      "denominator2": "Dénominateur 2",
+      "decimal": "Décimal",
+      "result": "Résultat",
+      "simplified": "Simplifié",
+      "mixedNumber": "Nombre mixte",
+      "percentage": "Pourcentage",
+      "numbers": "Nombres",
+      "average": "Moyenne",
+      "count": "Nombre",
+      "sum": "Somme",
+      "min": "Minimum",
+      "max": "Maximum",
+      "median": "Médiane",
+      "mode": "Mode",
+      "range": "Étendue",
+      "decimalPlaces": "Décimales",
+      "roundingMode": "Mode d'arrondi",
+      "roundNearest": "Arrondir au plus proche",
+      "roundUp": "Arrondir vers le haut",
+      "roundDown": "Arrondir vers le bas",
+      "roundHalfUp": "Arrondi standard",
+      "original": "Original",
+      "rounded": "Arrondi",
+      "coefficientA": "Coefficient a",
+      "coefficientB": "Coefficient b",
+      "coefficientC": "Coefficient c",
+      "discriminant": "Discriminant",
+      "roots": "Racines",
+      "vertex": "Sommet",
+      "axisOfSymmetry": "Axe de symétrie",
+      "yIntercept": "Ordonnée à l'origine",
+      "opensUpward": "Ouverture vers le haut",
+      "opensDownward": "Ouverture vers le bas",
+      "realRoots": "Racines réelles",
+      "complexRoots": "Racines complexes",
+      "base": "Base",
+      "exponent": "Exposant",
+      "radicand": "Radicande",
+      "index": "Indice (racine n-ième)",
+      "logBase": "Base du logarithme",
+      "logValue": "Valeur",
+      "naturalLog": "Log naturel (ln)",
+      "commonLog": "Log décimal (log₁₀)",
+      "customBase": "Base personnalisée",
+      "sideA": "Côté a",
+      "sideB": "Côté b",
+      "sideC": "Côté c",
+      "angleA": "Angle A",
+      "angleB": "Angle B",
+      "angleC": "Angle C",
+      "area": "Aire",
+      "perimeter": "Périmètre",
+      "radius": "Rayon",
+      "diameter": "Diamètre",
+      "circumference": "Circonférence",
+      "shape": "Forme",
+      "rectangle": "Rectangle",
+      "triangle": "Triangle",
+      "circle": "Cercle",
+      "trapezoid": "Trapèze",
+      "parallelogram": "Parallélogramme",
+      "ellipse": "Ellipse",
+      "length": "Longueur",
+      "width": "Largeur",
+      "height": "Hauteur",
+      "base1": "Base 1",
+      "base2": "Base 2",
+      "semiMajorAxis": "Demi-grand axe",
+      "semiMinorAxis": "Demi-petit axe",
+      "cube": "Cube",
+      "sphere": "Sphère",
+      "cylinder": "Cylindre",
+      "cone": "Cône",
+      "pyramid": "Pyramide",
+      "volume": "Volume",
+      "surfaceArea": "Surface",
+      "lateralArea": "Surface latérale",
+      "point1X": "Point 1 X",
+      "point1Y": "Point 1 Y",
+      "point2X": "Point 2 X",
+      "point2Y": "Point 2 Y",
+      "slope": "Pente",
+      "yInterceptValue": "Ordonnée à l'origine",
+      "slopeInterceptForm": "Forme pente-ordonnée",
+      "pointSlopeForm": "Forme point-pente",
+      "distance": "Distance",
+      "midpoint": "Point milieu",
+      "standardDeviation": "Écart-type",
+      "variance": "Variance",
+      "populationStdDev": "Écart-type population",
+      "sampleStdDev": "Écart-type échantillon",
+      "probability": "Probabilité",
+      "favorableOutcomes": "Issues favorables",
+      "totalOutcomes": "Issues totales",
+      "odds": "Cotes",
+      "binaryNumber": "Nombre binaire",
+      "decimalNumber": "Nombre décimal",
+      "hexNumber": "Nombre hexadécimal",
+      "octalNumber": "Nombre octal",
+      "convertFrom": "Convertir de",
+      "convertTo": "Convertir en",
+      "minValue": "Valeur minimale",
+      "maxValue": "Valeur maximale",
+      "quantity": "Quantité",
+      "generate": "Générer",
+      "randomNumbers": "Nombres aléatoires",
+      "ratio": "Ratio",
+      "antecedent": "Antécédent",
+      "consequent": "Conséquent",
+      "simplifiedRatio": "Ratio simplifié",
+      "scientificNotation": "Notation scientifique",
+      "coefficient": "Coefficient",
+      "mantissa": "Mantisse",
+      "engineeringNotation": "Notation ingénieur",
+      "standardForm": "Forme standard",
+      "primeFactors": "Facteurs premiers",
+      "factorTree": "Arbre de factorisation",
+      "isPrime": "Est premier",
+      "gcd": "PGCD",
+      "lcm": "PPCM",
+      "number1": "Nombre 1",
+      "number2": "Nombre 2",
+      "dividend": "Dividende",
+      "divisor": "Diviseur",
+      "quotient": "Quotient",
+      "remainder": "Reste",
+      "divisionSteps": "Étapes de division",
+      "confidenceLevel": "Niveau de confiance",
+      "sampleSize": "Taille d'échantillon",
+      "marginOfError": "Marge d'erreur",
+      "confidenceInterval": "Intervalle de confiance",
+      "lowerBound": "Borne inférieure",
+      "upperBound": "Borne supérieure",
+      "zScore": "Score Z",
+      "pValue": "Valeur P",
+      "significanceLevel": "Seuil de signification",
+      "permutation": "Permutation",
+      "combination": "Combinaison",
+      "nValue": "n (total d'éléments)",
+      "rValue": "r (éléments choisis)",
+      "factorial": "Factorielle",
+      "sequenceType": "Type de suite",
+      "arithmetic": "Arithmétique",
+      "geometric": "Géométrique",
+      "fibonacci": "Fibonacci",
+      "firstTerm": "Premier terme",
+      "commonDifference": "Raison (arithmétique)",
+      "commonRatio": "Raison (géométrique)",
+      "numTerms": "Nombre de termes",
+      "sequence": "Suite",
+      "nthTerm": "Terme n",
+      "sumOfTerms": "Somme des termes",
+      "matrixA": "Matrice A",
+      "matrixB": "Matrice B",
+      "matrixOperation": "Opération matricielle",
+      "transpose": "Transposée",
+      "determinant": "Déterminant",
+      "inverse": "Inverse",
+      "matrixResult": "Matrice résultat",
+      "halfLife": "Demi-vie",
+      "initialQuantity": "Quantité initiale",
+      "timeElapsed": "Temps écoulé",
+      "decayConstant": "Constante de décroissance",
+      "remainingQuantity": "Quantité restante",
+      "point1": "Point 1",
+      "point2": "Point 2",
+      "dimensions": "Dimensions",
+      "euclidean": "Euclidienne",
+      "manhattan": "Manhattan",
+      "bigNumber1": "Nombre 1",
+      "bigNumber2": "Nombre 2",
+      "bigNumberOperation": "Opération",
+      "expression": "Expression",
+      "evaluate": "Évaluer",
+      "bigNumber": "Calculateur de Grands Nombres",
+      "calculate": "Calculer",
+      "dataValues": "Valeurs de Donnees",
+      "dataValuesHelp": "Entrez les nombres separes par des virgules, espaces ou nouvelles lignes",
+      "diceRoll": "Lancer de Des",
+      "enterNumbers": "Entrez les Nombres",
+      "generatorMode": "Mode de Generation",
+      "matrix": "Calculateur de Matrices",
+      "maximum": "Maximum",
+      "minimum": "Minimum",
+      "multipleNumbers": "Nombres Multiples",
+      "numberSequence": "Suite de Nombres",
+      "numbersHelp": "Entrez les entiers separes par des virgules, espaces ou nouvelles lignes",
+      "populationOrSample": "Population ou Echantillon",
+      "randomFloat": "Decimal Aleatoire",
+      "randomInteger": "Entier Aleatoire",
+      "sampleVariance": "Variance d'Echantillon",
+      "primeFactorizations": "Decompositions en Facteurs Premiers",
+      "gcdSteps": "Etapes du PGCD",
+      "lcmSteps": "Etapes du PPCM"
+    },
+    "color": {
+      "colorConverter": "Convertisseur de Couleur",
+      "colorPreview": "Apercu de la Couleur",
+      "cssValues": "Valeurs CSS"
+    },
+    "photo": {
+      "sunPosition": "Position du Soleil",
+      "sunrise": "Lever du Soleil",
+      "sunset": "Coucher du Soleil",
+      "solarNoon": "Midi Solaire",
+      "goldenHour": "Heure Doree",
+      "blueHour": "Heure Bleue",
+      "twilight": "Crepuscule",
+      "civilTwilight": "Crepuscule Civil",
+      "nauticalTwilight": "Crepuscule Nautique",
+      "astronomicalTwilight": "Crepuscule Astronomique",
+      "dayLength": "Duree du Jour"
     }
   },
   "validation": {

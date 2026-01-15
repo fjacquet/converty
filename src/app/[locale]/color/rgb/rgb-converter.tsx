@@ -1,129 +1,294 @@
 "use client";
 
-import { useState } from "react";
-import { InputField, ResultGrid } from "@/components/converter";
-import { type ColorConversion, convertFromRgb } from "@/lib/converters/color/rgb";
+import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ResultGrid } from "@/components/converter";
+import {
+  type ColorConversion,
+  convertFromRgb,
+  convertFromHex,
+  hslToRgb,
+  cmykToRgb,
+} from "@/lib/converters/color/rgb";
 
-export function RGBConverter() {
-  const [r, setR] = useState("128");
-  const [g, setG] = useState("128");
-  const [b, setB] = useState("128");
+export function RgbConverter() {
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
+  const tColor = useTranslations("calculator.color");
 
-  const rVal = parseInt(r) || 0;
-  const gVal = parseInt(g) || 0;
-  const bVal = parseInt(b) || 0;
+  const [inputMode, setInputMode] = useState<"rgb" | "hex" | "hsl" | "cmyk">("rgb");
+  const [rgb, setRgb] = useState({ r: 66, g: 133, b: 244 }); // Google blue
+  const [hex, setHex] = useState("#4285F4");
+  const [hsl, setHsl] = useState({ h: 217, s: 89, l: 61 });
+  const [cmyk, setCmyk] = useState({ c: 73, m: 45, y: 0, k: 4 });
+  const [result, setResult] = useState<ColorConversion | null>(null);
 
-  const result: ColorConversion | null =
-    rVal >= 0 && rVal <= 255 && gVal >= 0 && gVal <= 255 && bVal >= 0 && bVal <= 255
-      ? convertFromRgb(rVal, gVal, bVal)
-      : null;
+  const convert = useCallback(() => {
+    let conversion: ColorConversion | null = null;
+
+    switch (inputMode) {
+      case "rgb":
+        conversion = convertFromRgb(rgb.r, rgb.g, rgb.b);
+        break;
+      case "hex":
+        conversion = convertFromHex(hex);
+        break;
+      case "hsl": {
+        const rgbFromHsl = hslToRgb(hsl.h, hsl.s, hsl.l);
+        conversion = convertFromRgb(rgbFromHsl.r, rgbFromHsl.g, rgbFromHsl.b);
+        break;
+      }
+      case "cmyk": {
+        const rgbFromCmyk = cmykToRgb(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+        conversion = convertFromRgb(rgbFromCmyk.r, rgbFromCmyk.g, rgbFromCmyk.b);
+        break;
+      }
+    }
+
+    setResult(conversion);
+
+    // Sync all values
+    if (conversion) {
+      setRgb(conversion.rgb);
+      setHex(conversion.hex);
+      setHsl(conversion.hsl);
+      setCmyk(conversion.cmyk);
+    }
+  }, [inputMode, rgb, hex, hsl, cmyk]);
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <InputField
-          id="r"
-          label="Red (R)"
-          value={r}
-          onChange={setR}
-          min={0}
-          max={255}
-          step={1}
-          placeholder="0-255"
-        />
-        <InputField
-          id="g"
-          label="Green (G)"
-          value={g}
-          onChange={setG}
-          min={0}
-          max={255}
-          step={1}
-          placeholder="0-255"
-        />
-        <InputField
-          id="b"
-          label="Blue (B)"
-          value={b}
-          onChange={setB}
-          min={0}
-          max={255}
-          step={1}
-          placeholder="0-255"
-        />
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>{tColor("colorConverter") || "Color Converter"}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Tabs value={inputMode} onValueChange={(v) => setInputMode(v as typeof inputMode)}>
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="rgb">RGB</TabsTrigger>
+              <TabsTrigger value="hex">HEX</TabsTrigger>
+              <TabsTrigger value="hsl">HSL</TabsTrigger>
+              <TabsTrigger value="cmyk">CMYK</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="rgb" className="space-y-4 mt-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label>R (0-255)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={255}
+                    value={rgb.r}
+                    onChange={(e) =>
+                      setRgb({ ...rgb, r: Number(e.target.value) })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>G (0-255)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={255}
+                    value={rgb.g}
+                    onChange={(e) =>
+                      setRgb({ ...rgb, g: Number(e.target.value) })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>B (0-255)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={255}
+                    value={rgb.b}
+                    onChange={(e) =>
+                      setRgb({ ...rgb, b: Number(e.target.value) })
+                    }
+                  />
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="hex" className="space-y-4 mt-4">
+              <div className="space-y-2">
+                <Label>HEX Color</Label>
+                <Input
+                  type="text"
+                  value={hex}
+                  onChange={(e) => setHex(e.target.value)}
+                  placeholder="#4285F4"
+                />
+              </div>
+            </TabsContent>
+
+            <TabsContent value="hsl" className="space-y-4 mt-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label>H (0-360)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={360}
+                    value={hsl.h}
+                    onChange={(e) =>
+                      setHsl({ ...hsl, h: Number(e.target.value) })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>S (0-100%)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={hsl.s}
+                    onChange={(e) =>
+                      setHsl({ ...hsl, s: Number(e.target.value) })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>L (0-100%)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={hsl.l}
+                    onChange={(e) =>
+                      setHsl({ ...hsl, l: Number(e.target.value) })
+                    }
+                  />
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="cmyk" className="space-y-4 mt-4">
+              <div className="grid grid-cols-4 gap-4">
+                <div className="space-y-2">
+                  <Label>C (%)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={cmyk.c}
+                    onChange={(e) =>
+                      setCmyk({ ...cmyk, c: Number(e.target.value) })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>M (%)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={cmyk.m}
+                    onChange={(e) =>
+                      setCmyk({ ...cmyk, m: Number(e.target.value) })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Y (%)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={cmyk.y}
+                    onChange={(e) =>
+                      setCmyk({ ...cmyk, y: Number(e.target.value) })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>K (%)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={cmyk.k}
+                    onChange={(e) =>
+                      setCmyk({ ...cmyk, k: Number(e.target.value) })
+                    }
+                  />
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+
+          <button
+            type="button"
+            onClick={convert}
+            className="w-full mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+          >
+            {t("convert") || "Convert"}
+          </button>
+        </CardContent>
+      </Card>
 
       {result && (
-        <div className="space-y-6">
-          {/* Color Preview */}
-          <div className="flex gap-4 items-center">
-            <div
-              className="w-24 h-24 rounded-lg border shadow-inner"
-              style={{
-                backgroundColor: result.hex,
-              }}
-            />
-            <div className="space-y-1">
-              <p className="text-sm text-muted-foreground">Preview</p>
-              <p className="text-2xl font-mono font-bold">{result.hex}</p>
-            </div>
-          </div>
+        <>
+          <Card>
+            <CardHeader>
+              <CardTitle>{tColor("colorPreview") || "Color Preview"}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div
+                className="w-full h-32 rounded-lg border"
+                style={{ backgroundColor: result.hex }}
+              />
+            </CardContent>
+          </Card>
 
-          {/* All Formats */}
-          <ResultGrid
-            results={[
-              { label: "HEX", value: result.hex },
-              {
-                label: "RGB",
-                value: `rgb(${result.rgb.r}, ${result.rgb.g}, ${result.rgb.b})`,
-              },
-              {
-                label: "HSL",
-                value: `hsl(${result.hsl.h}, ${result.hsl.s}%, ${result.hsl.l}%)`,
-              },
-              {
-                label: "CMYK",
-                value: `cmyk(${result.cmyk.c}%, ${result.cmyk.m}%, ${result.cmyk.y}%, ${result.cmyk.k}%)`,
-              },
-            ]}
-            columns={2}
-          />
+          <Card>
+            <CardHeader>
+              <CardTitle>{tResults("result") || "Conversion Results"}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResultGrid
+                results={[
+                  {
+                    label: "RGB",
+                    value: `rgb(${result.rgb.r}, ${result.rgb.g}, ${result.rgb.b})`,
+                  },
+                  { label: "HEX", value: result.hex },
+                  {
+                    label: "HSL",
+                    value: `hsl(${result.hsl.h}, ${result.hsl.s}%, ${result.hsl.l}%)`,
+                  },
+                  {
+                    label: "CMYK",
+                    value: `cmyk(${result.cmyk.c}%, ${result.cmyk.m}%, ${result.cmyk.y}%, ${result.cmyk.k}%)`,
+                  },
+                ]}
+              />
+            </CardContent>
+          </Card>
 
-          {/* Component Values */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="p-4 rounded-lg border">
-              <h3 className="font-medium mb-2">HSL Components</h3>
-              <div className="space-y-1 text-sm">
-                <p>
-                  Hue: <span className="font-mono">{result.hsl.h}°</span>
-                </p>
-                <p>
-                  Saturation: <span className="font-mono">{result.hsl.s}%</span>
-                </p>
-                <p>
-                  Lightness: <span className="font-mono">{result.hsl.l}%</span>
-                </p>
+          <Card>
+            <CardHeader>
+              <CardTitle>{tColor("cssValues") || "CSS Values"}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="p-2 bg-muted rounded font-mono text-sm">
+                color: {result.hex};
               </div>
-            </div>
-            <div className="p-4 rounded-lg border">
-              <h3 className="font-medium mb-2">CMYK Components</h3>
-              <div className="space-y-1 text-sm">
-                <p>
-                  Cyan: <span className="font-mono">{result.cmyk.c}%</span>
-                </p>
-                <p>
-                  Magenta: <span className="font-mono">{result.cmyk.m}%</span>
-                </p>
-                <p>
-                  Yellow: <span className="font-mono">{result.cmyk.y}%</span>
-                </p>
-                <p>
-                  Key (Black): <span className="font-mono">{result.cmyk.k}%</span>
-                </p>
+              <div className="p-2 bg-muted rounded font-mono text-sm">
+                color: rgb({result.rgb.r}, {result.rgb.g}, {result.rgb.b});
               </div>
-            </div>
-          </div>
-        </div>
+              <div className="p-2 bg-muted rounded font-mono text-sm">
+                color: hsl({result.hsl.h}, {result.hsl.s}%, {result.hsl.l}%);
+              </div>
+            </CardContent>
+          </Card>
+        </>
       )}
     </div>
   );
