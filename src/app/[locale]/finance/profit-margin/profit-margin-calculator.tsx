@@ -1,0 +1,200 @@
+"use client";
+
+import { useFormatter, useTranslations } from "next-intl";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  calculateProfitMargin,
+  type ProfitMarginResult,
+} from "@/lib/converters/finance/profit-margin";
+
+export function ProfitMarginCalculator() {
+  const t = useTranslations("calculator");
+  const format = useFormatter();
+
+  const [revenue, setRevenue] = useState<number>(100000);
+  const [costOfGoodsSold, setCostOfGoodsSold] = useState<number>(60000);
+  const [operatingExpenses, setOperatingExpenses] = useState<number>(20000);
+  const [taxes, setTaxes] = useState<number>(5000);
+
+  const result: ProfitMarginResult | null = calculateProfitMargin({
+    revenue,
+    costOfGoodsSold,
+    operatingExpenses,
+    taxes,
+  });
+
+  const formatCurrency = (value: number) =>
+    format.number(value, { style: "currency", currency: "CHF" });
+
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("sections.input")}</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="revenue">Revenue (Sales)</Label>
+            <Input
+              id="revenue"
+              type="number"
+              min="0"
+              step="1000"
+              value={revenue}
+              onChange={(e) => setRevenue(Number(e.target.value))}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="cogs">Cost of Goods Sold (COGS)</Label>
+            <Input
+              id="cogs"
+              type="number"
+              min="0"
+              step="1000"
+              value={costOfGoodsSold}
+              onChange={(e) => setCostOfGoodsSold(Number(e.target.value))}
+            />
+            <p className="text-xs text-muted-foreground">
+              Direct costs: materials, labor, manufacturing
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="opex">Operating Expenses</Label>
+            <Input
+              id="opex"
+              type="number"
+              min="0"
+              step="1000"
+              value={operatingExpenses}
+              onChange={(e) => setOperatingExpenses(Number(e.target.value))}
+            />
+            <p className="text-xs text-muted-foreground">Rent, utilities, salaries, marketing</p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="taxes">Taxes</Label>
+            <Input
+              id="taxes"
+              type="number"
+              min="0"
+              step="100"
+              value={taxes}
+              onChange={(e) => setTaxes(Number(e.target.value))}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("sections.results")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {result ? (
+            <div className="space-y-4">
+              <div className="space-y-3">
+                <div className="p-4 bg-blue-500/10 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Gross Profit</p>
+                      <p className="text-xl font-bold">{formatCurrency(result.grossProfit)}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-muted-foreground">Gross Margin</p>
+                      <p className="text-xl font-bold text-blue-600">
+                        {result.grossMargin.toFixed(1)}%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {result.operatingProfit !== undefined && (
+                  <div className="p-4 bg-purple-500/10 rounded-lg">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="text-sm text-muted-foreground">Operating Profit</p>
+                        <p className="text-xl font-bold">
+                          {formatCurrency(result.operatingProfit)}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-muted-foreground">Operating Margin</p>
+                        <p className="text-xl font-bold text-purple-600">
+                          {result.operatingMargin?.toFixed(1)}%
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {result.netProfit !== undefined && (
+                  <div
+                    className={`p-4 rounded-lg ${result.netProfit >= 0 ? "bg-green-500/10" : "bg-red-500/10"}`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="text-sm text-muted-foreground">Net Profit</p>
+                        <p className="text-xl font-bold">{formatCurrency(result.netProfit)}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-muted-foreground">Net Margin</p>
+                        <p
+                          className={`text-xl font-bold ${result.netProfit >= 0 ? "text-green-600" : "text-red-600"}`}
+                        >
+                          {result.netMargin?.toFixed(1)}%
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="p-4 bg-muted rounded-lg">
+                <p className="text-sm text-muted-foreground">Markup on COGS</p>
+                <p className="text-xl font-bold">{result.markup.toFixed(1)}%</p>
+              </div>
+
+              <div className="border-t pt-4 space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Revenue</span>
+                  <span>{formatCurrency(revenue)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">- COGS</span>
+                  <span>{formatCurrency(costOfGoodsSold)}</span>
+                </div>
+                <div className="flex justify-between font-medium">
+                  <span>= Gross Profit</span>
+                  <span>{formatCurrency(result.grossProfit)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">- Operating Expenses</span>
+                  <span>{formatCurrency(operatingExpenses)}</span>
+                </div>
+                <div className="flex justify-between font-medium">
+                  <span>= Operating Profit</span>
+                  <span>{formatCurrency(result.operatingProfit ?? 0)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">- Taxes</span>
+                  <span>{formatCurrency(taxes)}</span>
+                </div>
+                <div className="flex justify-between font-bold">
+                  <span>= Net Profit</span>
+                  <span>{formatCurrency(result.netProfit ?? 0)}</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <p className="text-muted-foreground">Enter values to calculate</p>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

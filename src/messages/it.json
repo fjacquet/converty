@@ -82,8 +82,9 @@
     "payments": "Pagamenti e Debiti",
     "investments": "Pensione e Investimenti",
     "taxes": "Reddito e Tasse",
-    "real-estate": "Immobiliare",
-    "savings": "Risparmio e Valuta",
+    "business": "Attivita",
+    "everyday": "Quotidiano",
+    "conversion": "Conversione",
     "body": "Composizione Corporea",
     "nutrition": "Nutrizione",
     "fitness": "Fitness",
@@ -410,6 +411,46 @@
       "name": "Calcolatore Stipendio e Tasse",
       "description": "Calcola lo stipendio netto dopo tasse federali, cantonali e contributi sociali",
       "metaDescription": "Calcola il tuo stipendio netto dopo le tasse"
+    },
+    "tip": {
+      "name": "Calcolatore Mancia",
+      "description": "Calcola la mancia e dividi il conto tra piu persone",
+      "metaDescription": "Calcola le mance e dividi i conti facilmente"
+    },
+    "savings-goal": {
+      "name": "Calcolatore Obiettivo Risparmio",
+      "description": "Calcola quanto tempo ci vuole per raggiungere il tuo obiettivo di risparmio",
+      "metaDescription": "Pianifica i tuoi risparmi e raggiungi i tuoi obiettivi finanziari"
+    },
+    "inflation": {
+      "name": "Calcolatore Inflazione",
+      "description": "Calcola l'impatto dell'inflazione sul potere d'acquisto",
+      "metaDescription": "Comprendi l'impatto dell'inflazione sul tuo denaro"
+    },
+    "roi": {
+      "name": "Calcolatore ROI",
+      "description": "Calcola il ritorno sull'investimento e i rendimenti annualizzati",
+      "metaDescription": "Calcola i tuoi rendimenti di investimento"
+    },
+    "break-even": {
+      "name": "Calcolatore Punto di Pareggio",
+      "description": "Calcola il punto di pareggio per la tua attivita",
+      "metaDescription": "Trova il punto di pareggio della tua attivita"
+    },
+    "profit-margin": {
+      "name": "Calcolatore Margine di Profitto",
+      "description": "Calcola i margini lordi, operativi e netti",
+      "metaDescription": "Calcola i margini di profitto aziendali"
+    },
+    "discount": {
+      "name": "Calcolatore Sconto",
+      "description": "Calcola sconti, prezzi di vendita e risparmi",
+      "metaDescription": "Calcola sconti e prezzi di vendita"
+    },
+    "currency": {
+      "name": "Convertitore Valuta",
+      "description": "Converti tra le principali valute mondiali",
+      "metaDescription": "Converti valute con tassi di cambio attuali"
     }
   },
   "calculator": {

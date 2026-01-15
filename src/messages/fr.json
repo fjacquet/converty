@@ -82,8 +82,9 @@
     "payments": "Paiements et Dettes",
     "investments": "Retraite et Investissements",
     "taxes": "Revenus et Impots",
-    "real-estate": "Immobilier",
-    "savings": "Epargne et Devises",
+    "business": "Entreprise",
+    "everyday": "Quotidien",
+    "conversion": "Conversion",
     "body": "Composition Corporelle",
     "nutrition": "Nutrition",
     "fitness": "Condition Physique",
@@ -410,6 +411,46 @@
       "name": "Calculateur de Salaire et Impots",
       "description": "Calculez le salaire net apres impots federaux, cantonaux et cotisations sociales",
       "metaDescription": "Calculez votre salaire net apres impots"
+    },
+    "tip": {
+      "name": "Calculateur de Pourboire",
+      "description": "Calculez le pourboire et partagez l'addition entre plusieurs personnes",
+      "metaDescription": "Calculez les pourboires et partagez les additions facilement"
+    },
+    "savings-goal": {
+      "name": "Calculateur d'Objectif d'Epargne",
+      "description": "Calculez le temps necessaire pour atteindre votre objectif d'epargne",
+      "metaDescription": "Planifiez votre epargne et atteignez vos objectifs financiers"
+    },
+    "inflation": {
+      "name": "Calculateur d'Inflation",
+      "description": "Calculez l'impact de l'inflation sur le pouvoir d'achat",
+      "metaDescription": "Comprenez l'impact de l'inflation sur votre argent"
+    },
+    "roi": {
+      "name": "Calculateur de ROI",
+      "description": "Calculez le retour sur investissement et les rendements annualises",
+      "metaDescription": "Calculez vos rendements d'investissement"
+    },
+    "break-even": {
+      "name": "Calculateur de Seuil de Rentabilite",
+      "description": "Calculez le seuil de rentabilite de votre entreprise",
+      "metaDescription": "Trouvez le seuil de rentabilite de votre entreprise"
+    },
+    "profit-margin": {
+      "name": "Calculateur de Marge Beneficiaire",
+      "description": "Calculez les marges brutes, operationnelles et nettes",
+      "metaDescription": "Calculez les marges beneficiaires"
+    },
+    "discount": {
+      "name": "Calculateur de Remise",
+      "description": "Calculez les remises, prix de vente et economies",
+      "metaDescription": "Calculez les remises et prix de vente"
+    },
+    "currency": {
+      "name": "Convertisseur de Devises",
+      "description": "Convertissez entre les principales devises mondiales",
+      "metaDescription": "Convertissez les devises avec les taux de change"
     }
   },
   "calculator": {

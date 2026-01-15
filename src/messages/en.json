@@ -82,8 +82,9 @@
     "payments": "Payments & Debt",
     "investments": "Retirement & Investments",
     "taxes": "Income & Taxes",
-    "real-estate": "Real Estate",
-    "savings": "Savings & Currency",
+    "business": "Business",
+    "everyday": "Everyday",
+    "conversion": "Conversion",
     "body": "Body Composition",
     "nutrition": "Nutrition",
     "fitness": "Fitness",
@@ -410,6 +411,46 @@
       "name": "Salary & Tax Calculator",
       "description": "Calculate take-home pay after federal, state taxes, and FICA",
       "metaDescription": "Calculate your take-home pay after taxes"
+    },
+    "tip": {
+      "name": "Tip Calculator",
+      "description": "Calculate tip amount and split bills between multiple people",
+      "metaDescription": "Calculate tips and split bills easily"
+    },
+    "savings-goal": {
+      "name": "Savings Goal Calculator",
+      "description": "Calculate how long to reach your savings goal with regular contributions",
+      "metaDescription": "Plan your savings and reach your financial goals"
+    },
+    "inflation": {
+      "name": "Inflation Calculator",
+      "description": "Calculate the impact of inflation on purchasing power over time",
+      "metaDescription": "Understand inflation's impact on your money"
+    },
+    "roi": {
+      "name": "ROI Calculator",
+      "description": "Calculate return on investment and annualized returns",
+      "metaDescription": "Calculate your investment returns"
+    },
+    "break-even": {
+      "name": "Break-Even Calculator",
+      "description": "Calculate break-even point for your business",
+      "metaDescription": "Find your business break-even point"
+    },
+    "profit-margin": {
+      "name": "Profit Margin Calculator",
+      "description": "Calculate gross, operating, and net profit margins",
+      "metaDescription": "Calculate business profit margins"
+    },
+    "discount": {
+      "name": "Discount Calculator",
+      "description": "Calculate discounts, sale prices, and savings",
+      "metaDescription": "Calculate discounts and sale prices"
+    },
+    "currency": {
+      "name": "Currency Converter",
+      "description": "Convert between major world currencies",
+      "metaDescription": "Convert currencies with live exchange rates"
     }
   },
   "calculator": {

@@ -82,8 +82,9 @@
     "payments": "Zahlungen und Schulden",
     "investments": "Ruhestand und Investitionen",
     "taxes": "Einkommen und Steuern",
-    "real-estate": "Immobilien",
-    "savings": "Sparen und Waehrung",
+    "business": "Unternehmen",
+    "everyday": "Alltag",
+    "conversion": "Umrechnung",
     "body": "Koerperzusammensetzung",
     "nutrition": "Ernaehrung",
     "fitness": "Fitness",
@@ -410,6 +411,46 @@
       "name": "Gehalts- und Steuerrechner",
       "description": "Berechnen Sie das Nettogehalt nach Bundes-, Kantonssteuern und Sozialabgaben",
       "metaDescription": "Berechnen Sie Ihr Nettogehalt nach Steuern"
+    },
+    "tip": {
+      "name": "Trinkgeldrechner",
+      "description": "Berechnen Sie Trinkgeld und teilen Sie Rechnungen zwischen mehreren Personen",
+      "metaDescription": "Berechnen Sie Trinkgelder und teilen Sie Rechnungen einfach"
+    },
+    "savings-goal": {
+      "name": "Sparzielrechner",
+      "description": "Berechnen Sie, wie lange es dauert, Ihr Sparziel zu erreichen",
+      "metaDescription": "Planen Sie Ihre Ersparnisse und erreichen Sie Ihre finanziellen Ziele"
+    },
+    "inflation": {
+      "name": "Inflationsrechner",
+      "description": "Berechnen Sie die Auswirkung der Inflation auf die Kaufkraft",
+      "metaDescription": "Verstehen Sie die Auswirkung der Inflation auf Ihr Geld"
+    },
+    "roi": {
+      "name": "ROI-Rechner",
+      "description": "Berechnen Sie die Kapitalrendite und annualisierte Renditen",
+      "metaDescription": "Berechnen Sie Ihre Anlagerenditen"
+    },
+    "break-even": {
+      "name": "Break-Even-Rechner",
+      "description": "Berechnen Sie den Break-Even-Punkt fuer Ihr Unternehmen",
+      "metaDescription": "Finden Sie den Break-Even-Punkt Ihres Unternehmens"
+    },
+    "profit-margin": {
+      "name": "Gewinnmargenrechner",
+      "description": "Berechnen Sie Brutto-, Betriebs- und Nettogewinnmargen",
+      "metaDescription": "Berechnen Sie Unternehmensgewinnmargen"
+    },
+    "discount": {
+      "name": "Rabattrechner",
+      "description": "Berechnen Sie Rabatte, Verkaufspreise und Ersparnisse",
+      "metaDescription": "Berechnen Sie Rabatte und Verkaufspreise"
+    },
+    "currency": {
+      "name": "Waehrungsrechner",
+      "description": "Konvertieren Sie zwischen wichtigen Weltwaehrungen",
+      "metaDescription": "Konvertieren Sie Waehrungen mit aktuellen Wechselkursen"
     }
   },
   "calculator": {

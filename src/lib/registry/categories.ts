@@ -63,11 +63,11 @@ export const categories: Category[] = [
     subcategories: [
       { id: "loans", name: "Loans & Mortgages", description: "Mortgage, auto, personal loans" },
       { id: "interest", name: "Interest & APR", description: "Interest rate calculations" },
-      { id: "payments", name: "Payments & Debt", description: "Payment and debt management" },
       { id: "investments", name: "Retirement & Investments", description: "Investment planning" },
       { id: "taxes", name: "Income & Taxes", description: "Tax calculators" },
-      { id: "real-estate", name: "Real Estate", description: "Property and rental calculators" },
-      { id: "savings", name: "Savings & Currency", description: "Savings and currency tools" },
+      { id: "business", name: "Business", description: "Profit, break-even, margins" },
+      { id: "everyday", name: "Everyday", description: "Tips, discounts, shopping" },
+      { id: "conversion", name: "Conversion", description: "Currency and unit conversion" },
     ],
   },
   {
