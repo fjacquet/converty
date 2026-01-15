@@ -750,6 +750,52 @@ export const converterRegistry: Record<string, ConverterMeta> = {
     icon: DollarSign,
     featured: true,
   },
+
+  // Loans
+  "auto-loan": {
+    id: "auto-loan",
+    slug: "auto-loan",
+    name: "Auto Loan Calculator",
+    description: "Calculate car loan payments, interest, and total cost",
+    category: "finance",
+    subcategory: "loans",
+    keywords: ["auto loan", "car loan", "vehicle financing", "car payment"],
+    icon: DollarSign,
+    featured: false,
+  },
+  "personal-loan": {
+    id: "personal-loan",
+    slug: "personal-loan",
+    name: "Personal Loan Calculator",
+    description: "Calculate personal loan payments with fees and APR",
+    category: "finance",
+    subcategory: "loans",
+    keywords: ["personal loan", "loan payment", "APR", "origination fee"],
+    icon: DollarSign,
+    featured: false,
+  },
+  "student-loan": {
+    id: "student-loan",
+    slug: "student-loan",
+    name: "Student Loan Calculator",
+    description: "Calculate student loan payments with grace period options",
+    category: "finance",
+    subcategory: "loans",
+    keywords: ["student loan", "education loan", "grace period", "college"],
+    icon: DollarSign,
+    featured: false,
+  },
+  "home-equity": {
+    id: "home-equity",
+    slug: "home-equity",
+    name: "Home Equity Calculator",
+    description: "Calculate home equity loan or HELOC payments",
+    category: "finance",
+    subcategory: "loans",
+    keywords: ["home equity", "HELOC", "second mortgage", "equity loan"],
+    icon: DollarSign,
+    featured: false,
+  },
 };
 
 export function getConverterById(id: string): ConverterMeta | undefined {

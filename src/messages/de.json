@@ -451,6 +451,26 @@
       "name": "Waehrungsrechner",
       "description": "Konvertieren Sie zwischen wichtigen Weltwaehrungen",
       "metaDescription": "Konvertieren Sie Waehrungen mit aktuellen Wechselkursen"
+    },
+    "auto-loan": {
+      "name": "Autokredit-Rechner",
+      "description": "Berechnen Sie Autokreditzahlungen, Zinsen und Gesamtkosten",
+      "metaDescription": "Berechnen Sie Ihre monatlichen Autokreditzahlungen und Gesamtkosten"
+    },
+    "personal-loan": {
+      "name": "Privatkredit-Rechner",
+      "description": "Berechnen Sie Privatkreditzahlungen mit Gebuehren und effektivem Jahreszins",
+      "metaDescription": "Berechnen Sie Privatkreditzahlungen inklusive Bearbeitungsgebuehren"
+    },
+    "student-loan": {
+      "name": "Studienkredit-Rechner",
+      "description": "Berechnen Sie Studienkreditzahlungen mit Karenzzeit-Optionen",
+      "metaDescription": "Berechnen Sie Studienkreditzahlungen und Tilgungsplaene"
+    },
+    "home-equity": {
+      "name": "Eigenkapital-Rechner",
+      "description": "Berechnen Sie Eigenheimkredit- oder HELOC-Zahlungen",
+      "metaDescription": "Berechnen Sie Eigenheimkredit- und HELOC-Zahlungen"
     }
   },
   "calculator": {

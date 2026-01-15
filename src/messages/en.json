@@ -451,6 +451,26 @@
       "name": "Currency Converter",
       "description": "Convert between major world currencies",
       "metaDescription": "Convert currencies with live exchange rates"
+    },
+    "auto-loan": {
+      "name": "Auto Loan Calculator",
+      "description": "Calculate car loan payments, interest, and total cost",
+      "metaDescription": "Calculate your auto loan monthly payments and total cost"
+    },
+    "personal-loan": {
+      "name": "Personal Loan Calculator",
+      "description": "Calculate personal loan payments with fees and APR",
+      "metaDescription": "Calculate personal loan payments including origination fees"
+    },
+    "student-loan": {
+      "name": "Student Loan Calculator",
+      "description": "Calculate student loan payments with grace period options",
+      "metaDescription": "Calculate student loan payments and repayment schedules"
+    },
+    "home-equity": {
+      "name": "Home Equity Calculator",
+      "description": "Calculate home equity loan or HELOC payments",
+      "metaDescription": "Calculate home equity loan and HELOC payments"
     }
   },
   "calculator": {

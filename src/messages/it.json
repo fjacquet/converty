@@ -451,6 +451,26 @@
       "name": "Convertitore Valuta",
       "description": "Converti tra le principali valute mondiali",
       "metaDescription": "Converti valute con tassi di cambio attuali"
+    },
+    "auto-loan": {
+      "name": "Calcolatore Prestito Auto",
+      "description": "Calcola pagamenti, interessi e costo totale del prestito auto",
+      "metaDescription": "Calcola le rate mensili e il costo totale del prestito auto"
+    },
+    "personal-loan": {
+      "name": "Calcolatore Prestito Personale",
+      "description": "Calcola i pagamenti del prestito personale con commissioni e TAEG",
+      "metaDescription": "Calcola i pagamenti del prestito personale incluse le commissioni"
+    },
+    "student-loan": {
+      "name": "Calcolatore Prestito Studentesco",
+      "description": "Calcola i pagamenti del prestito studentesco con opzioni di grazia",
+      "metaDescription": "Calcola i pagamenti e i piani di rimborso del prestito studentesco"
+    },
+    "home-equity": {
+      "name": "Calcolatore Patrimonio Immobiliare",
+      "description": "Calcola i pagamenti del prestito ipotecario o HELOC",
+      "metaDescription": "Calcola i pagamenti del prestito ipotecario ed HELOC"
     }
   },
   "calculator": {

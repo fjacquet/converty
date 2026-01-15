@@ -451,6 +451,26 @@
       "name": "Convertisseur de Devises",
       "description": "Convertissez entre les principales devises mondiales",
       "metaDescription": "Convertissez les devises avec les taux de change"
+    },
+    "auto-loan": {
+      "name": "Calculateur de Pret Auto",
+      "description": "Calculez les paiements, interets et cout total de votre pret auto",
+      "metaDescription": "Calculez vos mensualites et le cout total de votre pret auto"
+    },
+    "personal-loan": {
+      "name": "Calculateur de Pret Personnel",
+      "description": "Calculez les paiements de pret personnel avec frais et TAE",
+      "metaDescription": "Calculez les paiements de pret personnel incluant les frais"
+    },
+    "student-loan": {
+      "name": "Calculateur de Pret Etudiant",
+      "description": "Calculez les paiements de pret etudiant avec periode de grace",
+      "metaDescription": "Calculez les paiements et echeanciers de pret etudiant"
+    },
+    "home-equity": {
+      "name": "Calculateur de Valeur Nette Immobiliere",
+      "description": "Calculez les paiements de pret sur valeur domiciliaire ou HELOC",
+      "metaDescription": "Calculez les paiements de pret sur valeur domiciliaire"
     }
   },
   "calculator": {
