@@ -506,6 +506,136 @@
       "name": "Rentenrechner",
       "description": "Berechnen Sie Rentenzahlungen und Ruhestandseinkommen",
       "metaDescription": "Berechnen Sie Rentenzahlungen und Ruhestandseinkommensprognosen"
+    },
+    "body-fat": {
+      "name": "Koerperfettrechner",
+      "description": "Berechnen Sie den Koerperfettanteil mit der US-Navy-Methode",
+      "metaDescription": "Berechnen Sie Ihren Koerperfettanteil mit der US-Navy-Methode"
+    },
+    "lean-body-mass": {
+      "name": "Magermasse-Rechner",
+      "description": "Berechnen Sie die Magermasse mit verschiedenen Formeln",
+      "metaDescription": "Berechnen Sie Ihre Magermasse (fettfreie Masse) mit medizinischen Formeln"
+    },
+    "body-surface-area": {
+      "name": "Koerperoberflaechen-Rechner",
+      "description": "Berechnen Sie KOF mit mehreren medizinischen Formeln",
+      "metaDescription": "Berechnen Sie die Koerperoberflaeche fuer Medikamentendosierung"
+    },
+    "ideal-weight": {
+      "name": "Idealgewicht-Rechner",
+      "description": "Berechnen Sie das ideale Koerpergewicht mit mehreren Formeln",
+      "metaDescription": "Berechnen Sie Ihr Idealgewicht mit Robinson, Miller, Devine und Hamwi"
+    },
+    "bmr-calculator": {
+      "name": "Grundumsatz-Rechner",
+      "description": "Berechnen Sie den Grundumsatz fuer Kalorienplanung",
+      "metaDescription": "Berechnen Sie Ihren Grundumsatz mit Harris-Benedict und Mifflin-St Jeor"
+    },
+    "tdee-calculator": {
+      "name": "TDEE-Rechner",
+      "description": "Berechnen Sie den taeglichen Gesamtenergieverbrauch",
+      "metaDescription": "Berechnen Sie Ihren Gesamtenergieverbrauch basierend auf Aktivitaetsniveau"
+    },
+    "calorie-calculator": {
+      "name": "Kalorienrechner",
+      "description": "Berechnen Sie den taeglichen Kalorienbedarf fuer Gewichtsziele",
+      "metaDescription": "Berechnen Sie Kalorienbedarf und Makros fuer Gewichtsabnahme oder -zunahme"
+    },
+    "calories-burned": {
+      "name": "Kalorienverbrauch-Rechner",
+      "description": "Berechnen Sie verbrannte Kalorien bei verschiedenen Aktivitaeten",
+      "metaDescription": "Berechnen Sie Kalorienverbrauch beim Training mit MET-Werten"
+    },
+    "target-heart-rate": {
+      "name": "Zielherzfrequenz-Rechner",
+      "description": "Berechnen Sie Herzfrequenz-Zonen fuer das Training",
+      "metaDescription": "Berechnen Sie Ihre Zielherzfrequenz-Zonen fuer Fettverbrennung und Cardio"
+    },
+    "one-rep-max": {
+      "name": "1RM-Rechner",
+      "description": "Berechnen Sie Ihr Maximalkraftgewicht aus submaximalen Hebungen",
+      "metaDescription": "Berechnen Sie Ihr 1RM mit verschiedenen Formeln aus submaximalen Hebungen"
+    },
+    "pace-calculator": {
+      "name": "Tempo-Rechner",
+      "description": "Berechnen Sie Lauftempo, Zwischenzeiten und Zeitvorhersagen",
+      "metaDescription": "Berechnen Sie Lauftempo, Zwischenzeiten und prognostizieren Sie Laufzeiten"
+    },
+    "macro-calculator": {
+      "name": "Makro-Rechner",
+      "description": "Berechnen Sie Ihren taeglichen Makronaehrstoffbedarf",
+      "metaDescription": "Berechnen Sie Ihre Protein-, Kohlenhydrat- und Fettziele nach Ihren Zielen"
+    },
+    "bac-calculator": {
+      "name": "Blutalkohol-Rechner",
+      "description": "Schaetzen Sie Ihren Blutalkoholspiegel und die Abbauzeit",
+      "metaDescription": "Berechnen Sie Ihren Blutalkoholspiegel und die Zeit bis zur Nuechternheit"
+    },
+    "due-date": {
+      "name": "Geburtstermin-Rechner",
+      "description": "Berechnen Sie den voraussichtlichen Geburtstermin",
+      "metaDescription": "Berechnen Sie Ihren Geburtstermin mit verschiedenen Methoden"
+    },
+    "ovulation-calculator": {
+      "name": "Eisprung-Rechner",
+      "description": "Sagen Sie Eisprung und fruchtbare Fenster voraus",
+      "metaDescription": "Sagen Sie Ihre Eisprungtage und fruchtbaren Tage voraus"
+    },
+    "pregnancy-weight-gain": {
+      "name": "Schwangerschafts-Gewichtszunahme-Rechner",
+      "description": "Berechnen Sie die empfohlene Gewichtszunahme waehrend der Schwangerschaft",
+      "metaDescription": "Berechnen Sie eine gesunde Gewichtszunahme in der Schwangerschaft nach BMI"
+    },
+    "gfr-calculator": {
+      "name": "GFR-Rechner",
+      "description": "Berechnen Sie die glomerulaere Filtrationsrate fuer die Nierenfunktion",
+      "metaDescription": "Berechnen Sie Ihre GFR zur Beurteilung der Nierenfunktion"
+    },
+    "body-type": {
+      "name": "Koerpertyp-Rechner",
+      "description": "Bestimmen Sie Ihren Somatotyp (ekto-, meso-, endomorph)",
+      "metaDescription": "Finden Sie Ihren Koerpertyp heraus und erhalten Sie angepasste Trainingstipps"
+    },
+    "healthy-weight": {
+      "name": "Gesundes-Gewicht-Rechner",
+      "description": "Finden Sie Ihren gesunden Gewichtsbereich nach Groesse",
+      "metaDescription": "Berechnen Sie Ihren gesunden Gewichtsbereich nach Ihrer Groesse"
+    },
+    "protein-calculator": {
+      "name": "Protein-Rechner",
+      "description": "Berechnen Sie Ihren taeglichen Proteinbedarf",
+      "metaDescription": "Berechnen Sie Ihren Proteinbedarf nach Zielen und Aktivitaet"
+    },
+    "water-intake": {
+      "name": "Wasserbedarf-Rechner",
+      "description": "Berechnen Sie Ihren taeglichen Wasserbedarf",
+      "metaDescription": "Berechnen Sie, wie viel Wasser Sie taeglich trinken sollten"
+    },
+    "sleep-calculator": {
+      "name": "Schlaf-Rechner",
+      "description": "Finden Sie optimale Schlaf- und Aufwachzeiten",
+      "metaDescription": "Berechnen Sie optimale Schlaf- und Aufwachzeiten nach Schlafzyklen"
+    },
+    "army-body-fat": {
+      "name": "US-Armee-Koerperfett-Rechner",
+      "description": "Berechnen Sie Koerperfett mit der US-Armee-Bandmassmethode",
+      "metaDescription": "Berechnen Sie Ihren Koerperfettanteil nach US-Armee-Standards"
+    },
+    "period-calculator": {
+      "name": "Perioden-Rechner",
+      "description": "Verfolgen Sie Ihren Menstruationszyklus und sagen Sie die naechste Periode voraus",
+      "metaDescription": "Verfolgen und prognostizieren Sie Ihren Menstruationszyklus"
+    },
+    "fat-intake": {
+      "name": "Fettaufnahme-Rechner",
+      "description": "Berechnen Sie Ihren taeglichen Fettbedarf",
+      "metaDescription": "Berechnen Sie Ihren optimalen Fettbedarf nach Ihren Zielen"
+    },
+    "carb-calculator": {
+      "name": "Kohlenhydrat-Rechner",
+      "description": "Berechnen Sie Ihren taeglichen Kohlenhydratbedarf",
+      "metaDescription": "Berechnen Sie Ihren optimalen Kohlenhydratbedarf nach Ihren Zielen"
     }
   },
   "calculator": {
@@ -552,7 +682,35 @@
       "filingStatus": "Steuerstatus",
       "state": "Kanton",
       "preTaxDeductions": "Abzuege vor Steuern",
-      "postTaxDeductions": "Abzuege nach Steuern"
+      "postTaxDeductions": "Abzuege nach Steuern",
+      "gender": "Geschlecht",
+      "male": "Maennlich",
+      "female": "Weiblich",
+      "age": "Alter",
+      "weight": "Gewicht (kg)",
+      "height": "Groesse (cm)",
+      "neck": "Halsumfang (cm)",
+      "waist": "Taillenumfang (cm)",
+      "hip": "Hueftumfang (cm)",
+      "frameSize": "Koerperbau",
+      "small": "Klein",
+      "medium": "Mittel",
+      "large": "Gross",
+      "activityLevel": "Aktivitaetsniveau",
+      "sedentary": "Sitzend (wenig oder keine Bewegung)",
+      "light": "Leicht (Training 1-3 Tage/Woche)",
+      "moderate": "Moderat (Training 3-5 Tage/Woche)",
+      "active": "Aktiv (intensives Training 6-7 Tage/Woche)",
+      "veryActive": "Sehr Aktiv (sehr intensives Training und koerperliche Arbeit)",
+      "goal": "Ziel",
+      "loseWeight": "Abnehmen",
+      "maintain": "Gewicht halten",
+      "gainWeight": "Zunehmen",
+      "targetWeight": "Zielgewicht (kg)",
+      "weeksToGoal": "Wochen bis zum Ziel",
+      "activity": "Aktivitaet",
+      "duration": "Dauer (Minuten)",
+      "restingHeartRate": "Ruheherzfrequenz (optional)"
     },
     "sections": {
       "input": "Eingabe",
@@ -593,7 +751,35 @@
       "monthlyIncome": "Monatliches Einkommen",
       "yearsUntilRetirement": "Jahre bis zur Rente",
       "incomeBreakdown": "Einkommensaufschluesselung",
-      "taxBreakdown": "Steueraufschluesselung"
+      "taxBreakdown": "Steueraufschluesselung",
+      "bodyFatPercentage": "Koerperfettanteil",
+      "fatMass": "Fettmasse",
+      "leanMass": "Magermasse",
+      "category": "Kategorie",
+      "essential": "Essentielles Fett",
+      "athletes": "Sportler",
+      "fitness": "Fitness",
+      "average": "Durchschnitt",
+      "obese": "Adipoes",
+      "bodySurfaceArea": "Koerperoberflaeche",
+      "idealWeight": "Idealgewicht",
+      "bmr": "Grundumsatz",
+      "tdee": "Gesamtenergieverbrauch",
+      "targetCalories": "Zielkalorien",
+      "proteinGrams": "Protein",
+      "carbsGrams": "Kohlenhydrate",
+      "fatGrams": "Fett",
+      "caloriesBurned": "Verbrannte Kalorien",
+      "caloriesPerMinute": "Kalorien pro Minute",
+      "fatBurned": "Verbranntes Fett",
+      "maxHeartRate": "Maximale Herzfrequenz",
+      "heartRateReserve": "Herzfrequenzreserve",
+      "heartRateZones": "Herzfrequenzzonen",
+      "heartRateZone": "Herzfrequenzzone",
+      "fatBurningZone": "Fettverbrennungszone",
+      "cardioZone": "Cardiozone",
+      "bpm": "bpm",
+      "kcal": "kcal"
     },
     "time": {
       "yearsMonthsDays": "{years} Jahre, {months} Monate, {days} Tage",

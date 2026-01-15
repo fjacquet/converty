@@ -41,7 +41,7 @@ export function calculateBreakEven(input: BreakEvenInput): BreakEvenResult | nul
   for (const mult of increments) {
     const units = Math.round(breakEvenUnits * mult);
     const revenue = units * pricePerUnit;
-    const totalCost = fixedCosts + (units * variableCostPerUnit);
+    const totalCost = fixedCosts + units * variableCostPerUnit;
     const profit = revenue - totalCost;
 
     profitAtUnits.push({

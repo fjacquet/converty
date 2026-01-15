@@ -506,6 +506,136 @@
       "name": "Annuity Calculator",
       "description": "Calculate annuity payments and retirement income",
       "metaDescription": "Calculate annuity payments and retirement income projections"
+    },
+    "body-fat": {
+      "name": "Body Fat Calculator",
+      "description": "Calculate body fat percentage using the US Navy method",
+      "metaDescription": "Calculate your body fat percentage using the US Navy method with measurements"
+    },
+    "lean-body-mass": {
+      "name": "Lean Body Mass Calculator",
+      "description": "Calculate lean body mass using multiple formulas",
+      "metaDescription": "Calculate your lean body mass (fat-free mass) using multiple medical formulas"
+    },
+    "body-surface-area": {
+      "name": "Body Surface Area Calculator",
+      "description": "Calculate BSA using multiple medical formulas",
+      "metaDescription": "Calculate body surface area for medical dosing using multiple formulas"
+    },
+    "ideal-weight": {
+      "name": "Ideal Weight Calculator",
+      "description": "Calculate ideal body weight using multiple formulas",
+      "metaDescription": "Calculate your ideal body weight using Robinson, Miller, Devine, and Hamwi formulas"
+    },
+    "bmr-calculator": {
+      "name": "BMR Calculator",
+      "description": "Calculate Basal Metabolic Rate for calorie planning",
+      "metaDescription": "Calculate your Basal Metabolic Rate using Harris-Benedict and Mifflin-St Jeor formulas"
+    },
+    "tdee-calculator": {
+      "name": "TDEE Calculator",
+      "description": "Calculate Total Daily Energy Expenditure",
+      "metaDescription": "Calculate your Total Daily Energy Expenditure based on activity level"
+    },
+    "calorie-calculator": {
+      "name": "Calorie Calculator",
+      "description": "Calculate daily calorie needs for weight goals",
+      "metaDescription": "Calculate daily calorie needs and macros for your weight loss or gain goals"
+    },
+    "calories-burned": {
+      "name": "Calories Burned Calculator",
+      "description": "Calculate calories burned during various activities",
+      "metaDescription": "Calculate calories burned during exercise and daily activities using MET values"
+    },
+    "target-heart-rate": {
+      "name": "Target Heart Rate Calculator",
+      "description": "Calculate target heart rate zones for exercise",
+      "metaDescription": "Calculate your target heart rate zones for fat burning and cardio exercise"
+    },
+    "one-rep-max": {
+      "name": "One Rep Max Calculator",
+      "description": "Calculate your one-rep max from submaximal lifts",
+      "metaDescription": "Calculate your 1RM using various formulas from your submaximal lifts"
+    },
+    "pace-calculator": {
+      "name": "Pace Calculator",
+      "description": "Calculate running pace, speed, and race times",
+      "metaDescription": "Calculate your running pace, predict race times, and plan your training"
+    },
+    "macro-calculator": {
+      "name": "Macro Calculator",
+      "description": "Calculate daily macronutrient targets",
+      "metaDescription": "Calculate your optimal protein, carbs, and fat intake for your fitness goals"
+    },
+    "protein-calculator": {
+      "name": "Protein Calculator",
+      "description": "Calculate daily protein requirements",
+      "metaDescription": "Calculate your daily protein needs based on your weight and goals"
+    },
+    "carb-calculator": {
+      "name": "Carbohydrate Calculator",
+      "description": "Calculate daily carbohydrate needs",
+      "metaDescription": "Calculate your optimal daily carbohydrate intake for energy and performance"
+    },
+    "fat-intake": {
+      "name": "Fat Intake Calculator",
+      "description": "Calculate daily fat intake requirements",
+      "metaDescription": "Calculate your daily fat intake needs including healthy fat sources"
+    },
+    "water-intake": {
+      "name": "Water Intake Calculator",
+      "description": "Calculate daily water intake needs",
+      "metaDescription": "Calculate how much water you should drink daily based on your lifestyle"
+    },
+    "body-type": {
+      "name": "Body Type Calculator",
+      "description": "Determine your body type (ectomorph, mesomorph, endomorph)",
+      "metaDescription": "Discover your body type and get personalized training and nutrition advice"
+    },
+    "healthy-weight": {
+      "name": "Healthy Weight Calculator",
+      "description": "Calculate your healthy weight range based on height",
+      "metaDescription": "Find your healthy weight range based on your height, age, and frame size"
+    },
+    "army-body-fat": {
+      "name": "Army Body Fat Calculator",
+      "description": "Calculate body fat using US Army standards",
+      "metaDescription": "Calculate your body fat percentage using the official US Army tape test method"
+    },
+    "bac-calculator": {
+      "name": "BAC Calculator",
+      "description": "Calculate blood alcohol content",
+      "metaDescription": "Estimate your blood alcohol content based on drinks consumed"
+    },
+    "gfr-calculator": {
+      "name": "GFR Calculator",
+      "description": "Calculate glomerular filtration rate for kidney function",
+      "metaDescription": "Calculate your eGFR to assess kidney function using CKD-EPI formula"
+    },
+    "sleep-calculator": {
+      "name": "Sleep Calculator",
+      "description": "Calculate optimal sleep and wake times",
+      "metaDescription": "Find the best times to sleep and wake up based on sleep cycles"
+    },
+    "due-date": {
+      "name": "Due Date Calculator",
+      "description": "Calculate pregnancy due date and milestones",
+      "metaDescription": "Calculate your pregnancy due date and track important milestones"
+    },
+    "ovulation-calculator": {
+      "name": "Ovulation Calculator",
+      "description": "Calculate ovulation date and fertile window",
+      "metaDescription": "Calculate your ovulation date and most fertile days"
+    },
+    "period-calculator": {
+      "name": "Period Calculator",
+      "description": "Track menstrual cycle and predict next period",
+      "metaDescription": "Track your menstrual cycle and predict your next period"
+    },
+    "pregnancy-weight-gain": {
+      "name": "Pregnancy Weight Gain Calculator",
+      "description": "Calculate recommended weight gain during pregnancy",
+      "metaDescription": "Calculate healthy weight gain recommendations during pregnancy"
     }
   },
   "calculator": {
@@ -552,7 +682,35 @@
       "filingStatus": "Filing Status",
       "state": "State",
       "preTaxDeductions": "Pre-Tax Deductions",
-      "postTaxDeductions": "Post-Tax Deductions"
+      "postTaxDeductions": "Post-Tax Deductions",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "age": "Age",
+      "weight": "Weight (kg)",
+      "height": "Height (cm)",
+      "neck": "Neck Circumference (cm)",
+      "waist": "Waist Circumference (cm)",
+      "hip": "Hip Circumference (cm)",
+      "frameSize": "Frame Size",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "activityLevel": "Activity Level",
+      "sedentary": "Sedentary (little or no exercise)",
+      "light": "Light (exercise 1-3 days/week)",
+      "moderate": "Moderate (exercise 3-5 days/week)",
+      "active": "Active (hard exercise 6-7 days/week)",
+      "veryActive": "Very Active (very hard exercise & physical job)",
+      "goal": "Goal",
+      "loseWeight": "Lose Weight",
+      "maintain": "Maintain Weight",
+      "gainWeight": "Gain Weight",
+      "targetWeight": "Target Weight (kg)",
+      "weeksToGoal": "Weeks to Goal",
+      "activity": "Activity",
+      "duration": "Duration (minutes)",
+      "restingHeartRate": "Resting Heart Rate (optional)"
     },
     "sections": {
       "input": "Input",
@@ -593,7 +751,35 @@
       "monthlyIncome": "Monthly Income",
       "yearsUntilRetirement": "Years Until Retirement",
       "incomeBreakdown": "Income Breakdown",
-      "taxBreakdown": "Tax Breakdown"
+      "taxBreakdown": "Tax Breakdown",
+      "bodyFatPercentage": "Body Fat Percentage",
+      "fatMass": "Fat Mass",
+      "leanMass": "Lean Mass",
+      "category": "Category",
+      "essential": "Essential Fat",
+      "athletes": "Athletes",
+      "fitness": "Fitness",
+      "average": "Average",
+      "obese": "Obese",
+      "bodySurfaceArea": "Body Surface Area",
+      "idealWeight": "Ideal Weight",
+      "bmr": "Basal Metabolic Rate",
+      "tdee": "Total Daily Energy Expenditure",
+      "targetCalories": "Target Calories",
+      "proteinGrams": "Protein",
+      "carbsGrams": "Carbohydrates",
+      "fatGrams": "Fat",
+      "caloriesBurned": "Calories Burned",
+      "caloriesPerMinute": "Calories per Minute",
+      "fatBurned": "Fat Burned",
+      "maxHeartRate": "Max Heart Rate",
+      "heartRateReserve": "Heart Rate Reserve",
+      "heartRateZones": "Heart Rate Zones",
+      "heartRateZone": "Heart Rate Zone",
+      "fatBurningZone": "Fat Burning Zone",
+      "cardioZone": "Cardio Zone",
+      "bpm": "bpm",
+      "kcal": "kcal"
     },
     "time": {
       "yearsMonthsDays": "{years} years, {months} months, {days} days",

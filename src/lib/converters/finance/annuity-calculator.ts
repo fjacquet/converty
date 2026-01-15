@@ -38,14 +38,14 @@ export function calculateAnnuity(input: AnnuityInput): AnnuityResult | null {
 
   const periodsPerYear = paymentFrequency;
   const totalPayoutPeriods = payoutYears * periodsPerYear;
-  const ratePerPeriod = (annualInterestRate / 100) / periodsPerYear;
+  const ratePerPeriod = annualInterestRate / 100 / periodsPerYear;
 
   // Calculate present value at start of payout
   let presentValue = principal;
 
   // If deferred annuity, grow principal during deferral period
   if (annuityType === "deferred" && deferralYears > 0) {
-    presentValue = principal * Math.pow(1 + annualInterestRate / 100, deferralYears);
+    presentValue = principal * (1 + annualInterestRate / 100) ** deferralYears;
   }
 
   // Calculate periodic payment using present value of annuity formula
@@ -56,15 +56,15 @@ export function calculateAnnuity(input: AnnuityInput): AnnuityResult | null {
   if (ratePerPeriod === 0) {
     periodicPayment = presentValue / totalPayoutPeriods;
   } else {
-    periodicPayment = (presentValue * ratePerPeriod) /
-      (1 - Math.pow(1 + ratePerPeriod, -totalPayoutPeriods));
+    periodicPayment =
+      (presentValue * ratePerPeriod) / (1 - (1 + ratePerPeriod) ** -totalPayoutPeriods);
   }
 
   const totalPayments = periodicPayment * totalPayoutPeriods;
   const totalInterestEarned = totalPayments - principal;
 
   // Effective annual rate
-  const effectiveRate = Math.pow(1 + ratePerPeriod, periodsPerYear) - 1;
+  const effectiveRate = (1 + ratePerPeriod) ** periodsPerYear - 1;
 
   // Calculate future value at start of payout
   const futureValue = presentValue;

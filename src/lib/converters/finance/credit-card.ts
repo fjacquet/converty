@@ -82,8 +82,8 @@ export function calculateCreditCard(input: CreditCardInput): CreditCardResult | 
       paymentForTarget = balance / targetMonths;
     } else {
       paymentForTarget =
-        (balance * monthlyRate * Math.pow(1 + monthlyRate, targetMonths)) /
-        (Math.pow(1 + monthlyRate, targetMonths) - 1);
+        (balance * monthlyRate * (1 + monthlyRate) ** targetMonths) /
+        ((1 + monthlyRate) ** targetMonths - 1);
     }
   }
 

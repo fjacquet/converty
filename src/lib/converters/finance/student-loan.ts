@@ -22,13 +22,8 @@ export interface StudentLoanResult {
 }
 
 export function calculateStudentLoan(input: StudentLoanInput): StudentLoanResult | null {
-  const {
-    loanAmount,
-    annualInterestRate,
-    loanTermYears,
-    gracePeriodMonths,
-    interestCapitalized,
-  } = input;
+  const { loanAmount, annualInterestRate, loanTermYears, gracePeriodMonths, interestCapitalized } =
+    input;
 
   if (loanAmount <= 0 || loanTermYears <= 0) {
     return null;
@@ -41,21 +36,20 @@ export function calculateStudentLoan(input: StudentLoanInput): StudentLoanResult
   const gracePeriodInterest = loanAmount * monthlyRate * gracePeriodMonths;
 
   // Principal after grace period (if interest is capitalized)
-  const principalAfterGrace = interestCapitalized
-    ? loanAmount + gracePeriodInterest
-    : loanAmount;
+  const principalAfterGrace = interestCapitalized ? loanAmount + gracePeriodInterest : loanAmount;
 
   let monthlyPayment: number;
   if (monthlyRate === 0) {
     monthlyPayment = principalAfterGrace / loanTermMonths;
   } else {
     monthlyPayment =
-      (principalAfterGrace * monthlyRate * Math.pow(1 + monthlyRate, loanTermMonths)) /
-      (Math.pow(1 + monthlyRate, loanTermMonths) - 1);
+      (principalAfterGrace * monthlyRate * (1 + monthlyRate) ** loanTermMonths) /
+      ((1 + monthlyRate) ** loanTermMonths - 1);
   }
 
   const totalPaid = monthlyPayment * loanTermMonths;
-  const totalInterest = totalPaid - principalAfterGrace + (interestCapitalized ? 0 : gracePeriodInterest);
+  const totalInterest =
+    totalPaid - principalAfterGrace + (interestCapitalized ? 0 : gracePeriodInterest);
   const totalCost = loanAmount + totalInterest + gracePeriodInterest;
 
   // Calculate payoff date

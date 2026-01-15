@@ -58,8 +58,8 @@ export function calculateAutoLoan(input: AutoLoanInput): AutoLoanResult | null {
     monthlyPayment = loanAmount / loanTermMonths;
   } else {
     monthlyPayment =
-      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, loanTermMonths)) /
-      (Math.pow(1 + monthlyRate, loanTermMonths) - 1);
+      (loanAmount * monthlyRate * (1 + monthlyRate) ** loanTermMonths) /
+      ((1 + monthlyRate) ** loanTermMonths - 1);
   }
 
   const totalPaid = monthlyPayment * loanTermMonths;

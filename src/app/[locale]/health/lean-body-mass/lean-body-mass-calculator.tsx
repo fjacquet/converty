@@ -1,0 +1,124 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import { InputField, ResultGrid } from "@/components/converter";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useConverter } from "@/hooks";
+import {
+  calculateLeanBodyMass,
+  type LeanBodyMassInput,
+  type LeanBodyMassResult,
+} from "@/lib/converters/health/lean-body-mass";
+
+interface FormValues {
+  gender: "male" | "female";
+  weight: string;
+  height: string;
+}
+
+export function LeanBodyMassCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
+
+  const { values, setValue, result } = useConverter<FormValues, LeanBodyMassResult | null>({
+    initialValues: {
+      gender: "male",
+      weight: "80",
+      height: "175",
+    },
+    calculate: (vals) => {
+      const input: LeanBodyMassInput = {
+        gender: vals.gender,
+        weight: parseFloat(vals.weight) || 0,
+        height: parseFloat(vals.height) || 0,
+      };
+      return { value: calculateLeanBodyMass(input) };
+    },
+  });
+
+  const lbmResult = result?.value;
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label>{t("gender")}</Label>
+          <Select
+            value={values.gender}
+            onValueChange={(v) => setValue("gender", v as "male" | "female")}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="male">{t("male")}</SelectItem>
+              <SelectItem value="female">{t("female")}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <InputField
+          id="weight"
+          label={t("weight")}
+          value={values.weight}
+          onChange={(v) => setValue("weight", v)}
+          min={0}
+          step="0.1"
+          placeholder="80"
+        />
+
+        <InputField
+          id="height"
+          label={t("height")}
+          value={values.height}
+          onChange={(v) => setValue("height", v)}
+          min={0}
+          step="0.1"
+          placeholder="175"
+        />
+      </div>
+
+      {lbmResult && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">{tResults("leanMass")} (Multiple Formulas)</h3>
+          <ResultGrid
+            results={[
+              {
+                label: "Boer Formula",
+                value: lbmResult.boerFormula.toFixed(1),
+                unit: "kg",
+              },
+              {
+                label: "James Formula",
+                value: lbmResult.jamesFormula.toFixed(1),
+                unit: "kg",
+              },
+              {
+                label: "Hume Formula",
+                value: lbmResult.humeFormula.toFixed(1),
+                unit: "kg",
+              },
+              {
+                label: tResults("average"),
+                value: lbmResult.average.toFixed(1),
+                unit: "kg",
+              },
+              {
+                label: tResults("bodyFatPercentage") + " (estimated)",
+                value: lbmResult.bodyFatPercentEstimate.toFixed(1),
+                unit: "%",
+              },
+            ]}
+          />
+        </div>
+      )}
+    </div>
+  );
+}

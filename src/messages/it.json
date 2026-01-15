@@ -506,6 +506,136 @@
       "name": "Calcolatore Rendita",
       "description": "Calcola i pagamenti della rendita e il reddito pensionistico",
       "metaDescription": "Calcola i pagamenti della rendita e le proiezioni di reddito pensionistico"
+    },
+    "body-fat": {
+      "name": "Calcolatore Massa Grassa",
+      "description": "Calcola la percentuale di grasso corporeo con il metodo US Navy",
+      "metaDescription": "Calcola la tua percentuale di grasso corporeo con il metodo US Navy"
+    },
+    "lean-body-mass": {
+      "name": "Calcolatore Massa Magra",
+      "description": "Calcola la massa magra con diverse formule",
+      "metaDescription": "Calcola la tua massa magra (massa senza grasso) con formule mediche"
+    },
+    "body-surface-area": {
+      "name": "Calcolatore Superficie Corporea",
+      "description": "Calcola la SC con diverse formule mediche",
+      "metaDescription": "Calcola la superficie corporea per il dosaggio medico con diverse formule"
+    },
+    "ideal-weight": {
+      "name": "Calcolatore Peso Ideale",
+      "description": "Calcola il peso corporeo ideale con diverse formule",
+      "metaDescription": "Calcola il tuo peso ideale con le formule Robinson, Miller, Devine e Hamwi"
+    },
+    "bmr-calculator": {
+      "name": "Calcolatore Metabolismo Basale",
+      "description": "Calcola il metabolismo basale per pianificare le calorie",
+      "metaDescription": "Calcola il tuo metabolismo basale con Harris-Benedict e Mifflin-St Jeor"
+    },
+    "tdee-calculator": {
+      "name": "Calcolatore TDEE",
+      "description": "Calcola il dispendio energetico totale giornaliero",
+      "metaDescription": "Calcola il tuo dispendio energetico totale in base al livello di attivita"
+    },
+    "calorie-calculator": {
+      "name": "Calcolatore Calorie",
+      "description": "Calcola il fabbisogno calorico per obiettivi di peso",
+      "metaDescription": "Calcola il fabbisogno calorico e i macro per perdere o aumentare peso"
+    },
+    "calories-burned": {
+      "name": "Calcolatore Calorie Bruciate",
+      "description": "Calcola le calorie bruciate durante varie attivita",
+      "metaDescription": "Calcola le calorie bruciate durante l'esercizio con i valori MET"
+    },
+    "target-heart-rate": {
+      "name": "Calcolatore Frequenza Cardiaca Target",
+      "description": "Calcola le zone di frequenza cardiaca per l'esercizio",
+      "metaDescription": "Calcola le tue zone di frequenza cardiaca per bruciare grassi e cardio"
+    },
+    "one-rep-max": {
+      "name": "Calcolatore 1RM",
+      "description": "Calcola il tuo massimale da carichi submassimali",
+      "metaDescription": "Calcola il tuo 1RM con varie formule dai tuoi carichi submassimali"
+    },
+    "pace-calculator": {
+      "name": "Calcolatore Andatura",
+      "description": "Calcola andatura di corsa, tempi intermedi e previsioni",
+      "metaDescription": "Calcola andatura di corsa, tempi intermedi e prevedi i tempi di gara"
+    },
+    "macro-calculator": {
+      "name": "Calcolatore Macro",
+      "description": "Calcola il tuo fabbisogno giornaliero di macronutrienti",
+      "metaDescription": "Calcola i tuoi obiettivi di proteine, carboidrati e grassi per i tuoi obiettivi"
+    },
+    "bac-calculator": {
+      "name": "Calcolatore Tasso Alcolemico",
+      "description": "Stima il tuo tasso alcolemico e il tempo di smaltimento",
+      "metaDescription": "Calcola il tuo tasso alcolemico nel sangue e il tempo di smaltimento"
+    },
+    "due-date": {
+      "name": "Calcolatore Data Parto",
+      "description": "Calcola la data prevista del parto",
+      "metaDescription": "Calcola la data del parto con vari metodi"
+    },
+    "ovulation-calculator": {
+      "name": "Calcolatore Ovulazione",
+      "description": "Prevedi l'ovulazione e la finestra fertile",
+      "metaDescription": "Prevedi i tuoi giorni di ovulazione e la finestra fertile"
+    },
+    "pregnancy-weight-gain": {
+      "name": "Calcolatore Aumento Peso Gravidanza",
+      "description": "Calcola l'aumento di peso raccomandato in gravidanza",
+      "metaDescription": "Calcola l'aumento di peso sano in gravidanza in base al tuo BMI"
+    },
+    "gfr-calculator": {
+      "name": "Calcolatore GFR",
+      "description": "Calcola il tasso di filtrazione glomerulare per la funzione renale",
+      "metaDescription": "Calcola il tuo GFR per valutare la funzione renale"
+    },
+    "body-type": {
+      "name": "Calcolatore Tipo Corporeo",
+      "description": "Determina il tuo somatotipo (ecto, meso, endomorfo)",
+      "metaDescription": "Scopri il tuo tipo corporeo e ricevi consigli di allenamento personalizzati"
+    },
+    "healthy-weight": {
+      "name": "Calcolatore Peso Forma",
+      "description": "Trova il tuo intervallo di peso sano in base all'altezza",
+      "metaDescription": "Calcola il tuo intervallo di peso sano in base all'altezza"
+    },
+    "protein-calculator": {
+      "name": "Calcolatore Proteine",
+      "description": "Calcola il tuo fabbisogno giornaliero di proteine",
+      "metaDescription": "Calcola il tuo fabbisogno proteico in base agli obiettivi e attivita"
+    },
+    "water-intake": {
+      "name": "Calcolatore Idratazione",
+      "description": "Calcola il tuo fabbisogno giornaliero di acqua",
+      "metaDescription": "Calcola quanta acqua dovresti bere ogni giorno"
+    },
+    "sleep-calculator": {
+      "name": "Calcolatore Sonno",
+      "description": "Trova gli orari ottimali per dormire e svegliarsi",
+      "metaDescription": "Calcola gli orari ottimali di sonno e sveglia in base ai cicli del sonno"
+    },
+    "army-body-fat": {
+      "name": "Calcolatore Grasso Corporeo US Army",
+      "description": "Calcola il grasso corporeo con il metodo del nastro dell'esercito USA",
+      "metaDescription": "Calcola la tua percentuale di grasso corporeo secondo gli standard dell'esercito USA"
+    },
+    "period-calculator": {
+      "name": "Calcolatore Ciclo Mestruale",
+      "description": "Traccia il tuo ciclo mestruale e prevedi le prossime mestruazioni",
+      "metaDescription": "Traccia e prevedi il tuo ciclo mestruale"
+    },
+    "fat-intake": {
+      "name": "Calcolatore Grassi",
+      "description": "Calcola il tuo fabbisogno giornaliero di grassi",
+      "metaDescription": "Calcola il tuo fabbisogno ottimale di grassi in base ai tuoi obiettivi"
+    },
+    "carb-calculator": {
+      "name": "Calcolatore Carboidrati",
+      "description": "Calcola il tuo fabbisogno giornaliero di carboidrati",
+      "metaDescription": "Calcola il tuo fabbisogno ottimale di carboidrati in base ai tuoi obiettivi"
     }
   },
   "calculator": {
@@ -552,7 +682,35 @@
       "filingStatus": "Stato Fiscale",
       "state": "Cantone",
       "preTaxDeductions": "Deduzioni Pre-Tasse",
-      "postTaxDeductions": "Deduzioni Post-Tasse"
+      "postTaxDeductions": "Deduzioni Post-Tasse",
+      "gender": "Sesso",
+      "male": "Maschio",
+      "female": "Femmina",
+      "age": "Eta",
+      "weight": "Peso (kg)",
+      "height": "Altezza (cm)",
+      "neck": "Circonferenza Collo (cm)",
+      "waist": "Circonferenza Vita (cm)",
+      "hip": "Circonferenza Fianchi (cm)",
+      "frameSize": "Corporatura",
+      "small": "Piccola",
+      "medium": "Media",
+      "large": "Grande",
+      "activityLevel": "Livello di Attivita",
+      "sedentary": "Sedentario (poco o nessun esercizio)",
+      "light": "Leggero (esercizio 1-3 giorni/settimana)",
+      "moderate": "Moderato (esercizio 3-5 giorni/settimana)",
+      "active": "Attivo (esercizio intenso 6-7 giorni/settimana)",
+      "veryActive": "Molto Attivo (esercizio molto intenso e lavoro fisico)",
+      "goal": "Obiettivo",
+      "loseWeight": "Perdere Peso",
+      "maintain": "Mantenere il Peso",
+      "gainWeight": "Aumentare Peso",
+      "targetWeight": "Peso Obiettivo (kg)",
+      "weeksToGoal": "Settimane all'Obiettivo",
+      "activity": "Attivita",
+      "duration": "Durata (minuti)",
+      "restingHeartRate": "Frequenza Cardiaca a Riposo (opzionale)"
     },
     "sections": {
       "input": "Input",
@@ -593,7 +751,35 @@
       "monthlyIncome": "Reddito Mensile",
       "yearsUntilRetirement": "Anni al Pensionamento",
       "incomeBreakdown": "Ripartizione Reddito",
-      "taxBreakdown": "Ripartizione Tasse"
+      "taxBreakdown": "Ripartizione Tasse",
+      "bodyFatPercentage": "Percentuale Grasso Corporeo",
+      "fatMass": "Massa Grassa",
+      "leanMass": "Massa Magra",
+      "category": "Categoria",
+      "essential": "Grasso Essenziale",
+      "athletes": "Atleti",
+      "fitness": "Fitness",
+      "average": "Media",
+      "obese": "Obeso",
+      "bodySurfaceArea": "Superficie Corporea",
+      "idealWeight": "Peso Ideale",
+      "bmr": "Metabolismo Basale",
+      "tdee": "Dispendio Energetico Totale",
+      "targetCalories": "Calorie Obiettivo",
+      "proteinGrams": "Proteine",
+      "carbsGrams": "Carboidrati",
+      "fatGrams": "Grassi",
+      "caloriesBurned": "Calorie Bruciate",
+      "caloriesPerMinute": "Calorie al Minuto",
+      "fatBurned": "Grasso Bruciato",
+      "maxHeartRate": "Frequenza Cardiaca Massima",
+      "heartRateReserve": "Riserva di Frequenza Cardiaca",
+      "heartRateZones": "Zone di Frequenza Cardiaca",
+      "heartRateZone": "Zona di Frequenza Cardiaca",
+      "fatBurningZone": "Zona Brucia Grassi",
+      "cardioZone": "Zona Cardio",
+      "bpm": "bpm",
+      "kcal": "kcal"
     },
     "time": {
       "yearsMonthsDays": "{years} anni, {months} mesi, {days} giorni",

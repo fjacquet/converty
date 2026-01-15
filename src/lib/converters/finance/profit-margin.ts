@@ -44,18 +44,12 @@ export function calculateProfitMargin(input: ProfitMarginInput): ProfitMarginRes
   return {
     grossProfit: Math.round(grossProfit * 100) / 100,
     grossMargin: Math.round(grossMargin * 100) / 100,
-    operatingProfit: operatingProfit !== undefined
-      ? Math.round(operatingProfit * 100) / 100
-      : undefined,
-    operatingMargin: operatingMargin !== undefined
-      ? Math.round(operatingMargin * 100) / 100
-      : undefined,
-    netProfit: netProfit !== undefined
-      ? Math.round(netProfit * 100) / 100
-      : undefined,
-    netMargin: netMargin !== undefined
-      ? Math.round(netMargin * 100) / 100
-      : undefined,
+    operatingProfit:
+      operatingProfit !== undefined ? Math.round(operatingProfit * 100) / 100 : undefined,
+    operatingMargin:
+      operatingMargin !== undefined ? Math.round(operatingMargin * 100) / 100 : undefined,
+    netProfit: netProfit !== undefined ? Math.round(netProfit * 100) / 100 : undefined,
+    netMargin: netMargin !== undefined ? Math.round(netMargin * 100) / 100 : undefined,
     markup: Math.round(markup * 100) / 100,
   };
 }

@@ -27,7 +27,7 @@ export function calculateRoi(input: RoiInput): RoiResult | null {
   let annualizedRoiPercent: number | undefined;
 
   if (years && years > 0) {
-    annualizedRoi = Math.pow(finalValue / initialInvestment, 1 / years) - 1;
+    annualizedRoi = (finalValue / initialInvestment) ** (1 / years) - 1;
     annualizedRoiPercent = annualizedRoi * 100;
   }
 

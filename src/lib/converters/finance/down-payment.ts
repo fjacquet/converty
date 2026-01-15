@@ -22,13 +22,8 @@ export interface DownPaymentResult {
 }
 
 export function calculateDownPayment(input: DownPaymentInput): DownPaymentResult | null {
-  const {
-    homePrice,
-    downPaymentPercent,
-    savingsGoalMonths,
-    currentSavings,
-    annualReturnRate,
-  } = input;
+  const { homePrice, downPaymentPercent, savingsGoalMonths, currentSavings, annualReturnRate } =
+    input;
 
   if (homePrice <= 0 || downPaymentPercent < 0 || savingsGoalMonths <= 0) {
     return null;
@@ -60,7 +55,7 @@ export function calculateDownPayment(input: DownPaymentInput): DownPaymentResult
     // Future Value of Annuity formula solved for payment
     // FV = PMT * ((1 + r)^n - 1) / r
     // PMT = FV * r / ((1 + r)^n - 1)
-    const fvFactor = (Math.pow(1 + monthlyRate, savingsGoalMonths) - 1) / monthlyRate;
+    const fvFactor = ((1 + monthlyRate) ** savingsGoalMonths - 1) / monthlyRate;
     monthlyContribution = amountNeeded / fvFactor;
   }
 

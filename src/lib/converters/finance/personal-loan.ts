@@ -35,8 +35,8 @@ export function calculatePersonalLoan(input: PersonalLoanInput): PersonalLoanRes
     monthlyPayment = loanAmount / loanTermMonths;
   } else {
     monthlyPayment =
-      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, loanTermMonths)) /
-      (Math.pow(1 + monthlyRate, loanTermMonths) - 1);
+      (loanAmount * monthlyRate * (1 + monthlyRate) ** loanTermMonths) /
+      ((1 + monthlyRate) ** loanTermMonths - 1);
   }
 
   const totalPaid = monthlyPayment * loanTermMonths;
@@ -51,8 +51,8 @@ export function calculatePersonalLoan(input: PersonalLoanInput): PersonalLoanRes
     const effectiveMonthlyRate =
       monthlyRate > 0
         ? (monthlyPayment / effectiveLoanAmount -
-            monthlyPayment / (effectiveLoanAmount * Math.pow(1 + monthlyRate, loanTermMonths))) /
-          (1 - 1 / Math.pow(1 + monthlyRate, loanTermMonths))
+            monthlyPayment / (effectiveLoanAmount * (1 + monthlyRate) ** loanTermMonths)) /
+          (1 - 1 / (1 + monthlyRate) ** loanTermMonths)
         : monthlyPayment / effectiveLoanAmount / loanTermMonths;
     apr = effectiveMonthlyRate * 12 * 100;
   }

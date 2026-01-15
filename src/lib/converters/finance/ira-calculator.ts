@@ -95,9 +95,10 @@ export function calculateIra(input: IraInput): IraResult | null {
   }
 
   // Monthly income in retirement (4% withdrawal rule)
-  const monthlyInRetirement = iraType === "traditional"
-    ? (balance * 0.04 * (1 - retirementTaxRate)) / 12
-    : (balance * 0.04) / 12;
+  const monthlyInRetirement =
+    iraType === "traditional"
+      ? (balance * 0.04 * (1 - retirementTaxRate)) / 12
+      : (balance * 0.04) / 12;
 
   return {
     totalAtRetirement: balance,

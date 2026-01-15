@@ -24,13 +24,7 @@ export interface BondResult {
 }
 
 export function calculateBond(input: BondInput): BondResult | null {
-  const {
-    faceValue,
-    couponRate,
-    yearsToMaturity,
-    paymentFrequency,
-    marketRate,
-  } = input;
+  const { faceValue, couponRate, yearsToMaturity, paymentFrequency, marketRate } = input;
 
   if (faceValue <= 0 || yearsToMaturity <= 0 || paymentFrequency < 1) {
     return null;
@@ -39,7 +33,7 @@ export function calculateBond(input: BondInput): BondResult | null {
   const periodsPerYear = paymentFrequency;
   const totalPeriods = yearsToMaturity * periodsPerYear;
   const couponPaymentPerPeriod = (faceValue * (couponRate / 100)) / periodsPerYear;
-  const marketRatePerPeriod = (marketRate / 100) / periodsPerYear;
+  const marketRatePerPeriod = marketRate / 100 / periodsPerYear;
 
   // Calculate bond price using present value formula
   // PV = C × [1 - (1 + r)^-n] / r + F / (1 + r)^n
@@ -49,9 +43,10 @@ export function calculateBond(input: BondInput): BondResult | null {
     // If market rate is 0, price is sum of all payments
     bondPrice = couponPaymentPerPeriod * totalPeriods + faceValue;
   } else {
-    const pvCoupons = couponPaymentPerPeriod *
-      (1 - Math.pow(1 + marketRatePerPeriod, -totalPeriods)) / marketRatePerPeriod;
-    const pvFaceValue = faceValue / Math.pow(1 + marketRatePerPeriod, totalPeriods);
+    const pvCoupons =
+      (couponPaymentPerPeriod * (1 - (1 + marketRatePerPeriod) ** -totalPeriods)) /
+      marketRatePerPeriod;
+    const pvFaceValue = faceValue / (1 + marketRatePerPeriod) ** totalPeriods;
     bondPrice = pvCoupons + pvFaceValue;
   }
 

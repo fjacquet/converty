@@ -24,14 +24,14 @@ export function calculateInflation(input: InflationInput): InflationResult | nul
   }
 
   const rate = inflationRate / 100;
-  const futureValue = amount * Math.pow(1 + rate, years);
+  const futureValue = amount * (1 + rate) ** years;
   const purchasingPowerLoss = futureValue - amount;
   const purchasingPowerLossPercent = (purchasingPowerLoss / amount) * 100;
-  const equivalentPastValue = amount / Math.pow(1 + rate, years);
+  const equivalentPastValue = amount / (1 + rate) ** years;
 
   const yearlyBreakdown: InflationResult["yearlyBreakdown"] = [];
   for (let year = 1; year <= years; year++) {
-    const value = amount * Math.pow(1 + rate, year);
+    const value = amount * (1 + rate) ** year;
     yearlyBreakdown.push({
       year,
       value: Math.round(value * 100) / 100,

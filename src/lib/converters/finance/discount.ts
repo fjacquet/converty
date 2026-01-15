@@ -28,7 +28,11 @@ export function calculateDiscount(input: DiscountInput): DiscountResult | null {
     calculatedDiscountPercent = discountPercent;
     calculatedDiscountAmount = originalPrice * (discountPercent / 100);
     calculatedFinalPrice = originalPrice - calculatedDiscountAmount;
-  } else if (discountAmount !== undefined && discountAmount >= 0 && discountAmount <= originalPrice) {
+  } else if (
+    discountAmount !== undefined &&
+    discountAmount >= 0 &&
+    discountAmount <= originalPrice
+  ) {
     calculatedDiscountAmount = discountAmount;
     calculatedDiscountPercent = (discountAmount / originalPrice) * 100;
     calculatedFinalPrice = originalPrice - discountAmount;
