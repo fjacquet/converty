@@ -486,6 +486,26 @@
       "name": "Anzahlungsrechner",
       "description": "Berechnen Sie wie viel Sie fuer eine Anzahlung sparen muessen",
       "metaDescription": "Berechnen Sie die monatlichen Sparbetraege fuer Ihr Anzahlungsziel"
+    },
+    "retirement-401k": {
+      "name": "401(k)-Rechner",
+      "description": "Berechnen Sie Altersvorsorge mit Arbeitgeberzuschuss",
+      "metaDescription": "Berechnen Sie 401k Altersvorsorge mit Arbeitgeberzuschuss und Prognosen"
+    },
+    "ira-calculator": {
+      "name": "IRA-Rechner",
+      "description": "Vergleichen Sie Traditional vs Roth IRA Altersvorsorgekonten",
+      "metaDescription": "Vergleichen Sie Traditional und Roth IRA Altersvorsorge und Steuervorteile"
+    },
+    "bond-calculator": {
+      "name": "Anleihenrechner",
+      "description": "Berechnen Sie Anleihenpreise, Renditen und Ertraege",
+      "metaDescription": "Berechnen Sie Anleihenpreise, aktuelle Rendite und Endfaelligkeitsrendite"
+    },
+    "annuity-calculator": {
+      "name": "Rentenrechner",
+      "description": "Berechnen Sie Rentenzahlungen und Ruhestandseinkommen",
+      "metaDescription": "Berechnen Sie Rentenzahlungen und Ruhestandseinkommensprognosen"
     }
   },
   "calculator": {

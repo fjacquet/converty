@@ -486,6 +486,26 @@
       "name": "Calcolatore Acconto",
       "description": "Calcola quanto risparmiare per un acconto",
       "metaDescription": "Calcola i risparmi mensili necessari per il tuo obiettivo di acconto"
+    },
+    "retirement-401k": {
+      "name": "Calcolatore 401(k)",
+      "description": "Calcola i risparmi pensionistici con contributo del datore di lavoro",
+      "metaDescription": "Calcola i risparmi 401k con contributo datore di lavoro e proiezioni"
+    },
+    "ira-calculator": {
+      "name": "Calcolatore IRA",
+      "description": "Confronta i conti pensionistici IRA Tradizionale vs Roth",
+      "metaDescription": "Confronta i conti IRA Tradizionale e Roth e i benefici fiscali"
+    },
+    "bond-calculator": {
+      "name": "Calcolatore Obbligazioni",
+      "description": "Calcola prezzi, rendimenti e ritorni delle obbligazioni",
+      "metaDescription": "Calcola i prezzi delle obbligazioni, rendimento attuale e rendimento a scadenza"
+    },
+    "annuity-calculator": {
+      "name": "Calcolatore Rendita",
+      "description": "Calcola i pagamenti della rendita e il reddito pensionistico",
+      "metaDescription": "Calcola i pagamenti della rendita e le proiezioni di reddito pensionistico"
     }
   },
   "calculator": {

@@ -486,6 +486,26 @@
       "name": "Down Payment Calculator",
       "description": "Calculate how much to save for a down payment",
       "metaDescription": "Calculate monthly savings needed for your down payment goal"
+    },
+    "retirement-401k": {
+      "name": "401(k) Calculator",
+      "description": "Calculate retirement savings with employer matching",
+      "metaDescription": "Calculate 401k retirement savings with employer match and projections"
+    },
+    "ira-calculator": {
+      "name": "IRA Calculator",
+      "description": "Compare Traditional vs Roth IRA retirement accounts",
+      "metaDescription": "Compare Traditional and Roth IRA retirement accounts and tax benefits"
+    },
+    "bond-calculator": {
+      "name": "Bond Calculator",
+      "description": "Calculate bond prices, yields, and returns",
+      "metaDescription": "Calculate bond prices, current yield, and yield to maturity"
+    },
+    "annuity-calculator": {
+      "name": "Annuity Calculator",
+      "description": "Calculate annuity payments and retirement income",
+      "metaDescription": "Calculate annuity payments and retirement income projections"
     }
   },
   "calculator": {

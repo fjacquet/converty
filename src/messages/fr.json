@@ -486,6 +486,26 @@
       "name": "Calculateur d'Apport Personnel",
       "description": "Calculez combien epargner pour un apport personnel",
       "metaDescription": "Calculez l'epargne mensuelle necessaire pour votre objectif d'apport"
+    },
+    "retirement-401k": {
+      "name": "Calculateur 401(k)",
+      "description": "Calculez l'epargne retraite avec abondement employeur",
+      "metaDescription": "Calculez l'epargne retraite 401k avec abondement et projections"
+    },
+    "ira-calculator": {
+      "name": "Calculateur IRA",
+      "description": "Comparez les comptes retraite IRA Traditionnel vs Roth",
+      "metaDescription": "Comparez les comptes IRA Traditionnel et Roth et leurs avantages fiscaux"
+    },
+    "bond-calculator": {
+      "name": "Calculateur d'Obligations",
+      "description": "Calculez les prix, rendements et retours des obligations",
+      "metaDescription": "Calculez le prix des obligations, le rendement actuel et le rendement a echeance"
+    },
+    "annuity-calculator": {
+      "name": "Calculateur de Rente",
+      "description": "Calculez les paiements de rente et les revenus de retraite",
+      "metaDescription": "Calculez les paiements de rente et les projections de revenus de retraite"
     }
   },
   "calculator": {
