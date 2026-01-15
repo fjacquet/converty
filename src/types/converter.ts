@@ -6,6 +6,7 @@ export interface ConverterMeta {
   name: string;
   description: string;
   category: string;
+  subcategory?: string;
   keywords: string[];
   icon: LucideIcon;
   featured?: boolean;

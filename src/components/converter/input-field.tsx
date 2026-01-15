@@ -25,9 +25,9 @@ interface InputFieldProps {
   units?: UnitOption[];
   selectedUnit?: string;
   onUnitChange?: (unit: string) => void;
-  type?: "text" | "number";
-  min?: number;
-  max?: number;
+  type?: "text" | "number" | "date" | "time" | "datetime-local";
+  min?: number | string;
+  max?: number | string;
   step?: number | string;
   placeholder?: string;
   helperText?: string;

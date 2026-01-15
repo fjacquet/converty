@@ -1,0 +1,538 @@
+{
+  "common": {
+    "siteName": "Converty",
+    "tagline": "Kostenlose Online-Rechner und Konverter",
+    "allTools": "Alle Werkzeuge",
+    "home": "Startseite",
+    "search": "Rechner suchen...",
+    "noResults": "Keine Ergebnisse gefunden",
+    "loading": "Laden...",
+    "error": "Fehler",
+    "close": "Schliessen",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "reset": "Zuruecksetzen",
+    "calculate": "Berechnen",
+    "clear": "Loeschen",
+    "selectLanguage": "Sprache waehlen",
+    "footer": {
+      "builtWith": "Erstellt mit Next.js und Tailwind CSS",
+      "copyright": "Alle Rechte vorbehalten"
+    },
+    "navigation": {
+      "categories": "Kategorien",
+      "featured": "Empfohlen",
+      "moreTools": "Weitere Werkzeuge"
+    }
+  },
+  "categories": {
+    "color": {
+      "name": "Farbe",
+      "description": "Farbkonvertierung und Paletten"
+    },
+    "data": {
+      "name": "Daten",
+      "description": "Bandbreiten- und Dateigroessenrechner"
+    },
+    "datetime": {
+      "name": "Datum und Zeit",
+      "description": "Datum-, Zeit- und Dauerrechner"
+    },
+    "finance": {
+      "name": "Finanzen",
+      "description": "Finanzrechner und Konverter"
+    },
+    "health": {
+      "name": "Gesundheit",
+      "description": "Gesundheits- und Fitnessrechner"
+    },
+    "math": {
+      "name": "Mathematik",
+      "description": "Mathematische Rechner"
+    },
+    "music": {
+      "name": "Musik",
+      "description": "Musiktheorie und Audio-Werkzeuge"
+    },
+    "other": {
+      "name": "Sonstiges",
+      "description": "Verschiedene Rechner und Werkzeuge"
+    },
+    "photo": {
+      "name": "Foto",
+      "description": "Fotografie-Rechner"
+    },
+    "physics": {
+      "name": "Physik",
+      "description": "Physikalische Einheitenkonverter"
+    },
+    "video": {
+      "name": "Video",
+      "description": "Video- und Medienrechner"
+    },
+    "web": {
+      "name": "Web",
+      "description": "Webentwicklungs-Werkzeuge"
+    }
+  },
+  "subcategories": {
+    "date-time": "Datum und Zeit",
+    "loans": "Kredite und Hypotheken",
+    "interest": "Zinsen und effektiver Jahreszins",
+    "payments": "Zahlungen und Schulden",
+    "investments": "Ruhestand und Investitionen",
+    "taxes": "Einkommen und Steuern",
+    "real-estate": "Immobilien",
+    "savings": "Sparen und Waehrung",
+    "body": "Koerperzusammensetzung",
+    "nutrition": "Ernaehrung",
+    "fitness": "Fitness",
+    "pregnancy": "Schwangerschaft und Fruchtbarkeit",
+    "medical": "Medizinisch",
+    "basic": "Grundlegende Mathematik",
+    "algebra": "Algebra",
+    "geometry": "Geometrie",
+    "statistics": "Statistik",
+    "numbers": "Zahlensysteme",
+    "advanced": "Fortgeschritten",
+    "education": "Bildung",
+    "construction": "Bau und Haus",
+    "tech": "Technik und Netzwerk",
+    "weather": "Wetter",
+    "automotive": "Automobil",
+    "engineering": "Ingenieurwesen und Elektrik",
+    "science": "Wissenschaft",
+    "games": "Spiele und Unterhaltung",
+    "uncategorized": "Allgemein"
+  },
+  "converters": {
+    "bmi": {
+      "name": "BMI-Rechner",
+      "description": "Berechnen Sie Ihren Body-Mass-Index und Ihre Gesundheitskategorie",
+      "metaDescription": "Berechnen Sie Ihren Body-Mass-Index (BMI) und verstehen Sie Ihre Gesundheitskategorie"
+    },
+    "corpulence": {
+      "name": "Korpulenz-Rechner",
+      "description": "Berechnen Sie Ihren Korpulenz-Index (Ponderal-Index)",
+      "metaDescription": "Berechnen Sie Ihren Ponderal-Index fuer eine genauere Koerperzusammensetzungsbewertung"
+    },
+    "age": {
+      "name": "Altersrechner",
+      "description": "Berechnen Sie das genaue Alter ab Geburtsdatum in Jahren, Monaten und Tagen",
+      "metaDescription": "Berechnen Sie Ihr genaues Alter in Jahren, Monaten, Tagen, Stunden und Minuten"
+    },
+    "date": {
+      "name": "Datumsrechner",
+      "description": "Addieren oder subtrahieren Sie Tage, Wochen, Monate und Jahre von einem Datum",
+      "metaDescription": "Addieren oder subtrahieren Sie Zeitraeume von einem beliebigen Datum"
+    },
+    "time": {
+      "name": "Zeitrechner",
+      "description": "Addieren oder subtrahieren Sie Stunden, Minuten und Sekunden",
+      "metaDescription": "Fuehren Sie Zeitberechnungen mit Stunden, Minuten und Sekunden durch"
+    },
+    "hours": {
+      "name": "Stundenrechner",
+      "description": "Berechnen Sie die Stunden zwischen zwei Zeiten oder Daten",
+      "metaDescription": "Berechnen Sie die Anzahl der Stunden zwischen zwei Zeiten oder Daten"
+    },
+    "time-duration": {
+      "name": "Dauerrechner",
+      "description": "Berechnen Sie die Dauer zwischen zwei Daten und Zeiten",
+      "metaDescription": "Berechnen Sie die genaue Dauer zwischen zwei Daten und Zeiten"
+    },
+    "time-zone": {
+      "name": "Zeitzonen-Rechner",
+      "description": "Konvertieren Sie Zeiten zwischen verschiedenen Zeitzonen",
+      "metaDescription": "Konvertieren Sie Zeiten zwischen verschiedenen Zeitzonen weltweit"
+    },
+    "day-counter": {
+      "name": "Tageszaehler",
+      "description": "Zaehlen Sie Tage zwischen Daten oder bis zu einem zukuenftigen Datum",
+      "metaDescription": "Zaehlen Sie die Tage zwischen zwei Daten oder bis zu einem bevorstehenden Ereignis"
+    },
+    "day-of-week": {
+      "name": "Wochentag-Rechner",
+      "description": "Finden Sie heraus, auf welchen Wochentag ein beliebiges Datum faellt",
+      "metaDescription": "Finden Sie heraus, auf welchen Wochentag ein beliebiges Datum faellt"
+    },
+    "rgb": {
+      "name": "RGB-Konverter",
+      "description": "Konvertieren Sie zwischen RGB-, HEX-, HSL- und CMYK-Farbformaten",
+      "metaDescription": "Konvertieren Sie Farben zwischen RGB-, HEX-, HSL- und CMYK-Formaten"
+    },
+    "data-size": {
+      "name": "Datengroessen-Rechner",
+      "description": "Konvertieren Sie zwischen Bytes, KB, MB, GB, TB und mehr",
+      "metaDescription": "Konvertieren Sie Datengroessen zwischen Bytes, Kilobytes, Megabytes und mehr"
+    },
+    "bandwidth": {
+      "name": "Bandbreiten-Konverter",
+      "description": "Konvertieren Sie Mbps in KB/s, GB/Tag, TB/Woche und mehr",
+      "metaDescription": "Konvertieren Sie Bandbreite zwischen verschiedenen Einheiten"
+    },
+    "download-calculator": {
+      "name": "Download-Rechner",
+      "description": "Berechnen Sie die Download-Zeit aus Bandbreite und Dateigroesse",
+      "metaDescription": "Berechnen Sie, wie lange ein Datei-Download dauern wird"
+    },
+    "speed": {
+      "name": "Geschwindigkeits-Konverter",
+      "description": "Konvertieren Sie zwischen m/s, km/h, mph, Knoten und mehr",
+      "metaDescription": "Konvertieren Sie Geschwindigkeit zwischen Meter pro Sekunde, km/h, mph und mehr"
+    },
+    "aspect-ratio": {
+      "name": "Seitenverhaeltnis-Rechner",
+      "description": "Berechnen Sie Seitenverhaeltnisse aus Breite und Hoehe",
+      "metaDescription": "Berechnen und konvertieren Sie Seitenverhaeltnisse fuer Bilder und Video"
+    },
+    "aspect-fit": {
+      "name": "Aspect-Fit-Rechner",
+      "description": "Passen Sie ein Bild mit Letterboxing auf einen Bildschirm an",
+      "metaDescription": "Berechnen Sie Letterboxing und Pillarboxing fuer Bildanpassung"
+    },
+    "composition": {
+      "name": "Kompositions-Rechner",
+      "description": "Berechnen Sie das Sichtfeld aus Brennweite und Entfernung",
+      "metaDescription": "Berechnen Sie fotografisches Sichtfeld und Komposition"
+    },
+    "depth-of-field": {
+      "name": "Schaerfentiefe-Rechner",
+      "description": "Berechnen Sie die Schaerfentiefe aus Blende, Brennweite und Entfernung",
+      "metaDescription": "Berechnen Sie die Schaerfentiefe fuer die Fotografie"
+    },
+    "dpi": {
+      "name": "DPI-Rechner",
+      "description": "Berechnen Sie Megapixel aus Druckgroesse und DPI",
+      "metaDescription": "Berechnen Sie DPI und Aufloesung fuer den Druck"
+    },
+    "image-filesize": {
+      "name": "Bilddateigroessen-Rechner",
+      "description": "Schaetzen Sie die Bilddateigroesse fuer JPEG-, PNG-, RAW-Formate",
+      "metaDescription": "Schaetzen Sie Bilddateigroessen fuer verschiedene Formate"
+    },
+    "light-ev": {
+      "name": "Licht-EV-Rechner",
+      "description": "Berechnen Sie den Belichtungswert aus Kameraeinstellungen",
+      "metaDescription": "Berechnen Sie den Belichtungswert aus Kameraeinstellungen"
+    },
+    "megapixels": {
+      "name": "Megapixel-Rechner",
+      "description": "Berechnen Sie Megapixel aus Breite und Hoehe",
+      "metaDescription": "Berechnen Sie Megapixel aus Bildabmessungen"
+    },
+    "megapixel-aspects": {
+      "name": "Megapixel-Aspekte",
+      "description": "Zeigen Sie Megapixel in verschiedenen Seitenverhaeltnissen an",
+      "metaDescription": "Zeigen Sie Megapixel-Zahlen in verschiedenen Seitenverhaeltnissen an"
+    },
+    "portrait-distance": {
+      "name": "Portrait-Entfernungs-Rechner",
+      "description": "Berechnen Sie die ideale Aufnahmeentfernung fuer Portraits",
+      "metaDescription": "Berechnen Sie die ideale Entfernung fuer Portraitfotografie"
+    },
+    "star-trails": {
+      "name": "Sternspuren-Rechner",
+      "description": "Berechnen Sie die Belichtungszeit fuer Sternenspuren-Rotation",
+      "metaDescription": "Berechnen Sie Belichtungszeiten fuer Sternenspuren-Fotografie"
+    },
+    "spot-stars": {
+      "name": "Punktsterne-Rechner",
+      "description": "Berechnen Sie die maximale Belichtung zur Vermeidung von Sternenspuren (NPF-Regel)",
+      "metaDescription": "Berechnen Sie die maximale Belichtungszeit fuer scharfe Sterne"
+    },
+    "time-lapse": {
+      "name": "Zeitraffer-Rechner",
+      "description": "Berechnen Sie Intervall, Cliplaenge und Speicher fuer Zeitraffer",
+      "metaDescription": "Planen Sie Ihre Zeitraffer-Fotografie-Projekte"
+    },
+    "focal-equivalent": {
+      "name": "Brennweiten-Aequivalent",
+      "description": "Gleichen Sie Einstellungen zwischen verschiedenen Sensorgroessen an",
+      "metaDescription": "Berechnen Sie aequivalente Brennweiten ueber Sensorgroessen hinweg"
+    },
+    "hyperfocal": {
+      "name": "Hyperfokale-Entfernungs-Rechner",
+      "description": "Berechnen Sie die hyperfokale Entfernung fuer maximale Schaerfentiefe",
+      "metaDescription": "Berechnen Sie die hyperfokale Entfernung fuer Landschaftsfotografie"
+    },
+    "nd-filter": {
+      "name": "ND-Filter-Rechner",
+      "description": "Berechnen Sie die Belichtungszeit mit ND-Filtern",
+      "metaDescription": "Berechnen Sie Belichtungszeiten mit Neutraldichtefiltern"
+    },
+    "golden-hour": {
+      "name": "Goldene-Stunde-Guide",
+      "description": "Berechnen Sie die Zeiten der goldenen Stunde basierend auf Ihrem Standort",
+      "metaDescription": "Finden Sie Zeiten der goldenen und blauen Stunde fuer Ihren Standort"
+    },
+    "circle-of-confusion": {
+      "name": "Zerstreuungskreis-Rechner",
+      "description": "Berechnen Sie den Zerstreuungskreis aus Sensor, Druckgroesse und Betrachtungsabstand",
+      "metaDescription": "Berechnen Sie den Zerstreuungskreis fuer die Schaerfentiefe"
+    },
+    "advanced-dof": {
+      "name": "Erweiterter Schaerfentiefe-Rechner",
+      "description": "Schaerfentiefe mit einstellbarem Zerstreuungskreis fuer Druckgroesse und Betrachtung",
+      "metaDescription": "Erweiterte Schaerfentiefe-Berechnungen"
+    },
+    "macro-dof": {
+      "name": "Makro-Schaerfentiefe-Rechner",
+      "description": "Genaue Schaerfentiefe fuer Makrofotografie",
+      "metaDescription": "Berechnen Sie die Schaerfentiefe fuer Makrofotografie"
+    },
+    "dof-table": {
+      "name": "Schaerfentiefe-Tabelle",
+      "description": "Interaktive Tabelle mit Schaerfentiefe ueber Blenden und Entfernungen",
+      "metaDescription": "Referenztabelle fuer Schaerfentiefe"
+    },
+    "diffraction": {
+      "name": "Beugungsrechner",
+      "description": "Berechnen Sie, wann Ihre Kamera beugungsbegrenzt wird",
+      "metaDescription": "Berechnen Sie Beugungsgrenzen fuer Ihre Kamera"
+    },
+    "macro-diffraction": {
+      "name": "Makro-Beugungsrechner",
+      "description": "Berechnen Sie die effektive Blende und Beugung in der Makrofotografie",
+      "metaDescription": "Berechnen Sie Beugungseffekte in der Makrofotografie"
+    },
+    "bpm": {
+      "name": "BPM-Rechner",
+      "description": "Konvertieren Sie BPM in Hz, Taktlaenge und Notendauern",
+      "metaDescription": "Konvertieren Sie Schlaege pro Minute in andere musikalische Zeiteinheiten"
+    },
+    "video-file-size": {
+      "name": "Videodateigroessen-Rechner",
+      "description": "Schaetzen Sie die Videodateigroesse aus Aufloesung und Dauer",
+      "metaDescription": "Schaetzen Sie Videodateigroessen basierend auf Einstellungen"
+    },
+    "audio-filesize": {
+      "name": "Audiodateigroessen-Rechner",
+      "description": "Schaetzen Sie die Audiodateigroesse aus Dauer und Format",
+      "metaDescription": "Schaetzen Sie Audiodateigroessen fuer verschiedene Formate"
+    },
+    "common-bitrates": {
+      "name": "Gaengige Bitraten-Referenz",
+      "description": "Referenzhandbuch fuer ProRes-, DNxHD-, DCP- und MPEG-Bitraten",
+      "metaDescription": "Referenzhandbuch fuer Video-Codec-Bitraten"
+    },
+    "dcp-filesize": {
+      "name": "DCP-Dateigroessen-Rechner",
+      "description": "Berechnen Sie Digital Cinema Package-Dateigroessen",
+      "metaDescription": "Berechnen Sie DCP-Dateigroessen fuer Kinovertrieb"
+    },
+    "foot-lambert": {
+      "name": "Foot-Lambert-Rechner",
+      "description": "Berechnen Sie die Bildschirmleuchtdichte fuer Kinoprojektion",
+      "metaDescription": "Berechnen Sie die Bildschirmhelligkeit fuer Kinoprojektion"
+    },
+    "screen-size": {
+      "name": "Bildschirmgroessen-Rechner",
+      "description": "Berechnen Sie Bildschirmabmessungen aus Diagonale und Seitenverhaeltnis",
+      "metaDescription": "Berechnen Sie Bildschirmabmessungen aus der Diagonalgroesse"
+    },
+    "video-bitrate": {
+      "name": "Video-Bitraten-Rechner",
+      "description": "Schaetzen Sie die Videobitrate basierend auf Aufloesung und Codec",
+      "metaDescription": "Berechnen Sie optimale Videobitraten"
+    },
+    "frame-rate": {
+      "name": "Bildrate-Konverter",
+      "description": "Konvertieren Sie zwischen Bildraten mit ffmpeg-Befehlen",
+      "metaDescription": "Konvertieren Sie Video zwischen Bildraten"
+    },
+    "url-encoder": {
+      "name": "URL-Encoder",
+      "description": "Kodieren und dekodieren Sie URLs und Sonderzeichen",
+      "metaDescription": "Kodieren und dekodieren Sie URLs und URI-Komponenten"
+    },
+    "csp": {
+      "name": "CSP-Generator",
+      "description": "Generieren Sie Content Security Policy-Header",
+      "metaDescription": "Generieren Sie Content Security Policy-Header fuer Websicherheit"
+    },
+    "redirect-check": {
+      "name": "Weiterleitungs-Pruefer",
+      "description": "Ueberpruefen Sie HTTP-Weiterleitungsketten und Statuscodes",
+      "metaDescription": "Ueberpruefen Sie URL-Weiterleitungsketten und HTTP-Statuscodes"
+    },
+    "spf-check": {
+      "name": "SPF-Eintrag-Pruefer",
+      "description": "Analysieren Sie SPF-Eintraege fuer E-Mail-Authentifizierung",
+      "metaDescription": "Analysieren Sie SPF-Eintraege fuer E-Mail-Sicherheit"
+    },
+    "https-check": {
+      "name": "HTTPS-Sicherheits-Pruefer",
+      "description": "Ueberpruefen Sie Sicherheits-Header und TLS-Konfiguration",
+      "metaDescription": "Ueberpruefen Sie Website-HTTPS und Sicherheits-Header"
+    },
+    "html-encoder": {
+      "name": "HTML-Encoder",
+      "description": "Kodieren und dekodieren Sie HTML-Entitaeten",
+      "metaDescription": "Kodieren und dekodieren Sie HTML-Sonderzeichen"
+    },
+    "html-chars": {
+      "name": "HTML-Zeichentabelle",
+      "description": "Durchsuchen und kopieren Sie HTML-Zeichenentitaeten",
+      "metaDescription": "Referenzhandbuch fuer HTML-Zeichenentitaeten"
+    },
+    "emoji-chars": {
+      "name": "Emoji-Zeichentabelle",
+      "description": "Durchsuchen und kopieren Sie Emoji mit Codes",
+      "metaDescription": "Durchsuchen und kopieren Sie Emoji-Zeichen"
+    },
+    "seo-performance": {
+      "name": "SEO-Leistungsanalysator",
+      "description": "Analysieren Sie Seiten-SEO-Metriken und erhalten Sie Empfehlungen",
+      "metaDescription": "Analysieren Sie SEO-Leistung und erhalten Sie Optimierungstipps"
+    },
+    "mortgage": {
+      "name": "Hypothekenrechner",
+      "description": "Berechnen Sie monatliche Zahlungen, sehen Sie den Tilgungsplan und visualisieren Sie Ihr Darlehen",
+      "metaDescription": "Berechnen Sie Hypothekenzahlungen mit Tilgungsplan"
+    },
+    "compound-interest": {
+      "name": "Zinseszins-Rechner",
+      "description": "Berechnen Sie Zinseszinsen auf Investitionen mit regelmaessigen Beitraegen",
+      "metaDescription": "Berechnen Sie das Zinseszinswachstum ueber die Zeit"
+    },
+    "loan": {
+      "name": "Kreditrechner",
+      "description": "Berechnen Sie monatliche Zahlungen fuer Privat-, Auto- oder jede Art von Kredit",
+      "metaDescription": "Berechnen Sie Kreditzahlungen und Tilgung"
+    },
+    "retirement": {
+      "name": "Rentenrechner",
+      "description": "Planen Sie Ihren Ruhestand mit Sparprognosen und Einkommensplanung",
+      "metaDescription": "Planen Sie Ihre Altersvorsoge und Ihr Einkommen"
+    },
+    "salary": {
+      "name": "Gehalts- und Steuerrechner",
+      "description": "Berechnen Sie das Nettogehalt nach Bundes-, Kantonssteuern und Sozialabgaben",
+      "metaDescription": "Berechnen Sie Ihr Nettogehalt nach Steuern"
+    }
+  },
+  "calculator": {
+    "labels": {
+      "value": "Wert",
+      "amount": "Betrag",
+      "result": "Ergebnis",
+      "from": "Von",
+      "to": "Nach",
+      "date": "Datum",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum",
+      "birthDate": "Geburtsdatum",
+      "years": "Jahre",
+      "months": "Monate",
+      "weeks": "Wochen",
+      "days": "Tage",
+      "hours": "Stunden",
+      "minutes": "Minuten",
+      "seconds": "Sekunden",
+      "timezone": "Zeitzone",
+      "operation": "Operation",
+      "add": "Addieren",
+      "subtract": "Subtrahieren",
+      "homePrice": "Immobilienpreis",
+      "downPayment": "Anzahlung",
+      "loanAmount": "Darlehensbetrag",
+      "interestRate": "Zinssatz",
+      "loanTerm": "Darlehenslaufzeit",
+      "monthlyPayment": "Monatliche Zahlung",
+      "totalInterest": "Gesamtzinsen",
+      "totalPayment": "Gesamtzahlung",
+      "principal": "Kapital",
+      "initialAmount": "Anfangsbetrag",
+      "contribution": "Beitrag",
+      "compoundFrequency": "Zinseszins-Haeufigkeit",
+      "currentAge": "Aktuelles Alter",
+      "retirementAge": "Rentenalter",
+      "currentSavings": "Aktuelle Ersparnisse",
+      "monthlySavings": "Monatliche Ersparnisse",
+      "expectedReturn": "Erwartete Rendite",
+      "salary": "Gehalt",
+      "payFrequency": "Zahlungshaeufigkeit",
+      "filingStatus": "Steuerstatus",
+      "state": "Kanton",
+      "preTaxDeductions": "Abzuege vor Steuern",
+      "postTaxDeductions": "Abzuege nach Steuern"
+    },
+    "sections": {
+      "input": "Eingabe",
+      "results": "Ergebnisse",
+      "details": "Details",
+      "breakdown": "Aufschluesselung",
+      "loanDetails": "Darlehensdetails",
+      "paymentSchedule": "Zahlungsplan",
+      "amortization": "Tilgungsplan",
+      "incomeDetails": "Einkommensdetails",
+      "taxInfo": "Steuerinformationen",
+      "deductions": "Abzuege",
+      "takeHomePay": "Nettogehalt",
+      "summary": "Zusammenfassung"
+    },
+    "results": {
+      "perMonth": "pro Monat",
+      "perYear": "pro Jahr",
+      "perWeek": "pro Woche",
+      "total": "Gesamt",
+      "annual": "Jaehrlich",
+      "monthly": "Monatlich",
+      "biweekly": "Zweiwochentlich",
+      "weekly": "Woechentlich",
+      "daily": "Taeglich",
+      "hourly": "Stuendlich",
+      "grossIncome": "Bruttoeinkommen",
+      "netIncome": "Nettoeinkommen",
+      "taxableIncome": "Steuerpflichtiges Einkommen",
+      "federalTax": "Bundessteuer",
+      "stateTax": "Kantonssteuer",
+      "socialSecurity": "Sozialversicherung",
+      "medicare": "Krankenversicherung",
+      "totalTax": "Gesamtsteuern",
+      "effectiveTaxRate": "Effektiver Steuersatz",
+      "marginalTaxRate": "Grenzsteuersatz",
+      "projectedSavings": "Prognostizierte Ersparnisse",
+      "monthlyIncome": "Monatliches Einkommen",
+      "yearsUntilRetirement": "Jahre bis zur Rente",
+      "incomeBreakdown": "Einkommensaufschluesselung",
+      "taxBreakdown": "Steueraufschluesselung"
+    },
+    "time": {
+      "yearsMonthsDays": "{years} Jahre, {months} Monate, {days} Tage",
+      "hoursMinutesSeconds": "{hours}h {minutes}m {seconds}s",
+      "daysAgo": "vor {days} Tagen",
+      "daysUntil": "in {days} Tagen",
+      "today": "Heute"
+    },
+    "frequency": {
+      "annual": "Jaehrlich",
+      "semiannual": "Halbjaehrlich",
+      "quarterly": "Vierteljaehrlich",
+      "monthly": "Monatlich",
+      "biweekly": "Zweiwochentlich",
+      "weekly": "Woechentlich",
+      "daily": "Taeglich",
+      "hourly": "Stuendlich"
+    },
+    "filingStatus": {
+      "single": "Ledig",
+      "marriedJoint": "Verheiratet - Gemeinsame Veranlagung",
+      "marriedSeparate": "Verheiratet - Getrennte Veranlagung",
+      "headOfHousehold": "Haushaltsvorstand"
+    }
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "invalidNumber": "Bitte geben Sie eine gueltige Zahl ein",
+    "positiveNumber": "Bitte geben Sie eine positive Zahl ein",
+    "invalidDate": "Bitte geben Sie ein gueltiges Datum ein",
+    "endDateAfterStart": "Das Enddatum muss nach dem Startdatum liegen",
+    "invalidUrl": "Bitte geben Sie eine gueltige URL ein"
+  },
+  "metadata": {
+    "titleSuffix": "Converty",
+    "defaultDescription": "Kostenlose Online-Rechner und Konverter fuer den taeglichen Bedarf"
+  }
+}

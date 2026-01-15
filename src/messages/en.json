@@ -1,0 +1,538 @@
+{
+  "common": {
+    "siteName": "Converty",
+    "tagline": "Free online calculators and converters",
+    "allTools": "All Tools",
+    "home": "Home",
+    "search": "Search calculators...",
+    "noResults": "No results found",
+    "loading": "Loading...",
+    "error": "Error",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "reset": "Reset",
+    "calculate": "Calculate",
+    "clear": "Clear",
+    "selectLanguage": "Select language",
+    "footer": {
+      "builtWith": "Built with Next.js and Tailwind CSS",
+      "copyright": "All rights reserved"
+    },
+    "navigation": {
+      "categories": "Categories",
+      "featured": "Featured",
+      "moreTools": "More Tools"
+    }
+  },
+  "categories": {
+    "color": {
+      "name": "Color",
+      "description": "Color conversion and palettes"
+    },
+    "data": {
+      "name": "Data",
+      "description": "Bandwidth and file size calculators"
+    },
+    "datetime": {
+      "name": "Date & Time",
+      "description": "Date, time, and duration calculators"
+    },
+    "finance": {
+      "name": "Finance",
+      "description": "Financial calculators and converters"
+    },
+    "health": {
+      "name": "Health",
+      "description": "Health and fitness calculators"
+    },
+    "math": {
+      "name": "Math",
+      "description": "Mathematical calculators"
+    },
+    "music": {
+      "name": "Music",
+      "description": "Music theory and audio tools"
+    },
+    "other": {
+      "name": "Other",
+      "description": "Miscellaneous calculators and tools"
+    },
+    "photo": {
+      "name": "Photo",
+      "description": "Photography calculators"
+    },
+    "physics": {
+      "name": "Physics",
+      "description": "Physics and unit converters"
+    },
+    "video": {
+      "name": "Video",
+      "description": "Video and media calculators"
+    },
+    "web": {
+      "name": "Web",
+      "description": "Web development tools"
+    }
+  },
+  "subcategories": {
+    "date-time": "Date & Time",
+    "loans": "Loans & Mortgages",
+    "interest": "Interest & APR",
+    "payments": "Payments & Debt",
+    "investments": "Retirement & Investments",
+    "taxes": "Income & Taxes",
+    "real-estate": "Real Estate",
+    "savings": "Savings & Currency",
+    "body": "Body Composition",
+    "nutrition": "Nutrition",
+    "fitness": "Fitness",
+    "pregnancy": "Pregnancy & Fertility",
+    "medical": "Medical",
+    "basic": "Basic Math",
+    "algebra": "Algebra",
+    "geometry": "Geometry",
+    "statistics": "Statistics",
+    "numbers": "Number Systems",
+    "advanced": "Advanced",
+    "education": "Education",
+    "construction": "Construction & Home",
+    "tech": "Tech & Network",
+    "weather": "Weather",
+    "automotive": "Automotive",
+    "engineering": "Engineering & Electrical",
+    "science": "Science",
+    "games": "Games & Fun",
+    "uncategorized": "General"
+  },
+  "converters": {
+    "bmi": {
+      "name": "BMI Calculator",
+      "description": "Calculate your Body Mass Index and health category",
+      "metaDescription": "Calculate your Body Mass Index (BMI) and understand your health category"
+    },
+    "corpulence": {
+      "name": "Corpulence Calculator",
+      "description": "Calculate your Corpulence Index (Ponderal Index)",
+      "metaDescription": "Calculate your Ponderal Index for a more accurate body composition assessment"
+    },
+    "age": {
+      "name": "Age Calculator",
+      "description": "Calculate exact age from birthdate in years, months, and days",
+      "metaDescription": "Calculate your exact age in years, months, days, hours, and minutes"
+    },
+    "date": {
+      "name": "Date Calculator",
+      "description": "Add or subtract days, weeks, months, and years from a date",
+      "metaDescription": "Add or subtract time periods from any date"
+    },
+    "time": {
+      "name": "Time Calculator",
+      "description": "Add or subtract hours, minutes, and seconds",
+      "metaDescription": "Perform time calculations with hours, minutes, and seconds"
+    },
+    "hours": {
+      "name": "Hours Calculator",
+      "description": "Calculate hours between two times or dates",
+      "metaDescription": "Calculate the number of hours between two times or dates"
+    },
+    "time-duration": {
+      "name": "Time Duration Calculator",
+      "description": "Calculate duration between two dates and times",
+      "metaDescription": "Calculate the exact duration between two dates and times"
+    },
+    "time-zone": {
+      "name": "Time Zone Calculator",
+      "description": "Convert times between different time zones",
+      "metaDescription": "Convert times across different time zones worldwide"
+    },
+    "day-counter": {
+      "name": "Day Counter",
+      "description": "Count days between dates or until a future date",
+      "metaDescription": "Count the days between two dates or until an upcoming event"
+    },
+    "day-of-week": {
+      "name": "Day of the Week Calculator",
+      "description": "Find what day of the week any date falls on",
+      "metaDescription": "Find out what day of the week any date falls on"
+    },
+    "rgb": {
+      "name": "RGB Converter",
+      "description": "Convert between RGB, HEX, HSL, and CMYK color formats",
+      "metaDescription": "Convert colors between RGB, HEX, HSL, and CMYK formats"
+    },
+    "data-size": {
+      "name": "Data Size Calculator",
+      "description": "Convert between bytes, KB, MB, GB, TB and more",
+      "metaDescription": "Convert data sizes between bytes, kilobytes, megabytes, and more"
+    },
+    "bandwidth": {
+      "name": "Bandwidth Converter",
+      "description": "Convert Mbps to KB/s, GB/day, TB/week and more",
+      "metaDescription": "Convert bandwidth between different units"
+    },
+    "download-calculator": {
+      "name": "Download Calculator",
+      "description": "Calculate download time from bandwidth and file size",
+      "metaDescription": "Calculate how long a file download will take"
+    },
+    "speed": {
+      "name": "Speed Converter",
+      "description": "Convert between m/s, km/h, mph, knots, and more",
+      "metaDescription": "Convert speed between meters per second, km/h, mph, and more"
+    },
+    "aspect-ratio": {
+      "name": "Aspect Ratio Calculator",
+      "description": "Calculate aspect ratios from width and height",
+      "metaDescription": "Calculate and convert aspect ratios for images and video"
+    },
+    "aspect-fit": {
+      "name": "Aspect Fit Calculator",
+      "description": "Fit an image on a screen with letterboxing",
+      "metaDescription": "Calculate letterboxing and pillarboxing for image fitting"
+    },
+    "composition": {
+      "name": "Composition Calculator",
+      "description": "Calculate field of view from focal length and distance",
+      "metaDescription": "Calculate photographic field of view and composition"
+    },
+    "depth-of-field": {
+      "name": "Depth of Field Calculator",
+      "description": "Calculate DoF from aperture, focal length, and distance",
+      "metaDescription": "Calculate depth of field for photography"
+    },
+    "dpi": {
+      "name": "DPI Calculator",
+      "description": "Calculate megapixels from print size and DPI",
+      "metaDescription": "Calculate DPI and resolution for printing"
+    },
+    "image-filesize": {
+      "name": "Image Filesize Calculator",
+      "description": "Estimate image file size for JPEG, PNG, RAW formats",
+      "metaDescription": "Estimate image file sizes for different formats"
+    },
+    "light-ev": {
+      "name": "Light EV Calculator",
+      "description": "Calculate Exposure Value from camera settings",
+      "metaDescription": "Calculate exposure value from camera settings"
+    },
+    "megapixels": {
+      "name": "Megapixel Calculator",
+      "description": "Calculate megapixels from width and height",
+      "metaDescription": "Calculate megapixels from image dimensions"
+    },
+    "megapixel-aspects": {
+      "name": "Megapixel Aspects",
+      "description": "View megapixels in different aspect ratios",
+      "metaDescription": "View megapixel counts across different aspect ratios"
+    },
+    "portrait-distance": {
+      "name": "Portrait Distance Calculator",
+      "description": "Calculate ideal shooting distance for portraits",
+      "metaDescription": "Calculate the ideal distance for portrait photography"
+    },
+    "star-trails": {
+      "name": "Star Trails Calculator",
+      "description": "Calculate exposure time for star trail rotation",
+      "metaDescription": "Calculate exposure times for star trail photography"
+    },
+    "spot-stars": {
+      "name": "Spot Stars Calculator",
+      "description": "Calculate max exposure to prevent star trailing (NPF Rule)",
+      "metaDescription": "Calculate maximum exposure time for sharp stars"
+    },
+    "time-lapse": {
+      "name": "Time Lapse Calculator",
+      "description": "Calculate interval, clip length, and memory for time lapse",
+      "metaDescription": "Plan your time lapse photography projects"
+    },
+    "focal-equivalent": {
+      "name": "Focal Length Equivalent",
+      "description": "Match settings between different sensor sizes",
+      "metaDescription": "Calculate equivalent focal lengths across sensor sizes"
+    },
+    "hyperfocal": {
+      "name": "Hyperfocal Distance Calculator",
+      "description": "Calculate hyperfocal distance for maximum depth of field",
+      "metaDescription": "Calculate hyperfocal distance for landscape photography"
+    },
+    "nd-filter": {
+      "name": "ND Filter Calculator",
+      "description": "Calculate exposure time with ND filters",
+      "metaDescription": "Calculate exposure times with neutral density filters"
+    },
+    "golden-hour": {
+      "name": "Golden Hour Guide",
+      "description": "Calculate golden hour times based on your location",
+      "metaDescription": "Find golden hour and blue hour times for your location"
+    },
+    "circle-of-confusion": {
+      "name": "Circle of Confusion Calculator",
+      "description": "Calculate CoC from sensor, print size, and viewing distance",
+      "metaDescription": "Calculate circle of confusion for depth of field"
+    },
+    "advanced-dof": {
+      "name": "Advanced DoF Calculator",
+      "description": "Depth of field with adjustable CoC for print size and viewing",
+      "metaDescription": "Advanced depth of field calculations"
+    },
+    "macro-dof": {
+      "name": "Macro DoF Calculator",
+      "description": "Accurate depth of field for macro photography",
+      "metaDescription": "Calculate depth of field for macro photography"
+    },
+    "dof-table": {
+      "name": "DoF Table",
+      "description": "Interactive table showing DoF across apertures and distances",
+      "metaDescription": "Reference table for depth of field"
+    },
+    "diffraction": {
+      "name": "Diffraction Calculator",
+      "description": "Calculate when your camera becomes diffraction-limited",
+      "metaDescription": "Calculate diffraction limits for your camera"
+    },
+    "macro-diffraction": {
+      "name": "Macro Diffraction Calculator",
+      "description": "Calculate effective aperture and diffraction in macro photography",
+      "metaDescription": "Calculate diffraction effects in macro photography"
+    },
+    "bpm": {
+      "name": "BPM Calculator",
+      "description": "Convert BPM to Hz, bar length, and note durations",
+      "metaDescription": "Convert beats per minute to other musical timing units"
+    },
+    "video-file-size": {
+      "name": "Video File Size Calculator",
+      "description": "Estimate video file size from resolution and duration",
+      "metaDescription": "Estimate video file sizes based on settings"
+    },
+    "audio-filesize": {
+      "name": "Audio File Size Calculator",
+      "description": "Estimate audio file size from duration and format",
+      "metaDescription": "Estimate audio file sizes for different formats"
+    },
+    "common-bitrates": {
+      "name": "Common Bitrates Reference",
+      "description": "Reference guide for ProRes, DNxHD, DCP, and MPEG bitrates",
+      "metaDescription": "Reference guide for video codec bitrates"
+    },
+    "dcp-filesize": {
+      "name": "DCP File Size Calculator",
+      "description": "Calculate Digital Cinema Package file sizes",
+      "metaDescription": "Calculate DCP file sizes for cinema distribution"
+    },
+    "foot-lambert": {
+      "name": "Foot-Lambert Calculator",
+      "description": "Calculate screen luminance for cinema projection",
+      "metaDescription": "Calculate screen brightness for cinema projection"
+    },
+    "screen-size": {
+      "name": "Screen Size Calculator",
+      "description": "Calculate screen dimensions from diagonal and aspect ratio",
+      "metaDescription": "Calculate screen dimensions from diagonal size"
+    },
+    "video-bitrate": {
+      "name": "Video Bitrate Calculator",
+      "description": "Estimate video bitrate based on resolution and codec",
+      "metaDescription": "Calculate optimal video bitrates"
+    },
+    "frame-rate": {
+      "name": "Frame Rate Converter",
+      "description": "Convert between frame rates with ffmpeg commands",
+      "metaDescription": "Convert video between frame rates"
+    },
+    "url-encoder": {
+      "name": "URL Encoder",
+      "description": "Encode and decode URLs and special characters",
+      "metaDescription": "Encode and decode URLs and URI components"
+    },
+    "csp": {
+      "name": "CSP Generator",
+      "description": "Generate Content Security Policy headers",
+      "metaDescription": "Generate Content Security Policy headers for web security"
+    },
+    "redirect-check": {
+      "name": "Redirect Checker",
+      "description": "Check HTTP redirect chains and status codes",
+      "metaDescription": "Check URL redirect chains and HTTP status codes"
+    },
+    "spf-check": {
+      "name": "SPF Record Checker",
+      "description": "Analyze SPF records for email authentication",
+      "metaDescription": "Analyze SPF records for email security"
+    },
+    "https-check": {
+      "name": "HTTPS Security Checker",
+      "description": "Check security headers and TLS configuration",
+      "metaDescription": "Check website HTTPS and security headers"
+    },
+    "html-encoder": {
+      "name": "HTML Encoder",
+      "description": "Encode and decode HTML entities",
+      "metaDescription": "Encode and decode HTML special characters"
+    },
+    "html-chars": {
+      "name": "HTML Character Map",
+      "description": "Browse and copy HTML character entities",
+      "metaDescription": "Reference guide for HTML character entities"
+    },
+    "emoji-chars": {
+      "name": "Emoji Character Map",
+      "description": "Browse and copy emoji with codes",
+      "metaDescription": "Browse and copy emoji characters"
+    },
+    "seo-performance": {
+      "name": "SEO Performance Analyzer",
+      "description": "Analyze page SEO metrics and get recommendations",
+      "metaDescription": "Analyze SEO performance and get optimization tips"
+    },
+    "mortgage": {
+      "name": "Mortgage Calculator",
+      "description": "Calculate monthly payments, view amortization schedule, and visualize your loan",
+      "metaDescription": "Calculate mortgage payments with amortization schedule"
+    },
+    "compound-interest": {
+      "name": "Compound Interest Calculator",
+      "description": "Calculate compound interest on investments with regular contributions",
+      "metaDescription": "Calculate compound interest growth over time"
+    },
+    "loan": {
+      "name": "Loan Calculator",
+      "description": "Calculate monthly payments for personal, auto, or any loan type",
+      "metaDescription": "Calculate loan payments and amortization"
+    },
+    "retirement": {
+      "name": "Retirement Calculator",
+      "description": "Plan your retirement with savings projections and income planning",
+      "metaDescription": "Plan your retirement savings and income"
+    },
+    "salary": {
+      "name": "Salary & Tax Calculator",
+      "description": "Calculate take-home pay after federal, state taxes, and FICA",
+      "metaDescription": "Calculate your take-home pay after taxes"
+    }
+  },
+  "calculator": {
+    "labels": {
+      "value": "Value",
+      "amount": "Amount",
+      "result": "Result",
+      "from": "From",
+      "to": "To",
+      "date": "Date",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "birthDate": "Birth Date",
+      "years": "Years",
+      "months": "Months",
+      "weeks": "Weeks",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds",
+      "timezone": "Time Zone",
+      "operation": "Operation",
+      "add": "Add",
+      "subtract": "Subtract",
+      "homePrice": "Home Price",
+      "downPayment": "Down Payment",
+      "loanAmount": "Loan Amount",
+      "interestRate": "Interest Rate",
+      "loanTerm": "Loan Term",
+      "monthlyPayment": "Monthly Payment",
+      "totalInterest": "Total Interest",
+      "totalPayment": "Total Payment",
+      "principal": "Principal",
+      "initialAmount": "Initial Amount",
+      "contribution": "Contribution",
+      "compoundFrequency": "Compound Frequency",
+      "currentAge": "Current Age",
+      "retirementAge": "Retirement Age",
+      "currentSavings": "Current Savings",
+      "monthlySavings": "Monthly Savings",
+      "expectedReturn": "Expected Return",
+      "salary": "Salary",
+      "payFrequency": "Pay Frequency",
+      "filingStatus": "Filing Status",
+      "state": "State",
+      "preTaxDeductions": "Pre-Tax Deductions",
+      "postTaxDeductions": "Post-Tax Deductions"
+    },
+    "sections": {
+      "input": "Input",
+      "results": "Results",
+      "details": "Details",
+      "breakdown": "Breakdown",
+      "loanDetails": "Loan Details",
+      "paymentSchedule": "Payment Schedule",
+      "amortization": "Amortization Schedule",
+      "incomeDetails": "Income Details",
+      "taxInfo": "Tax Information",
+      "deductions": "Deductions",
+      "takeHomePay": "Take-Home Pay",
+      "summary": "Summary"
+    },
+    "results": {
+      "perMonth": "per month",
+      "perYear": "per year",
+      "perWeek": "per week",
+      "total": "Total",
+      "annual": "Annual",
+      "monthly": "Monthly",
+      "biweekly": "Bi-weekly",
+      "weekly": "Weekly",
+      "daily": "Daily",
+      "hourly": "Hourly",
+      "grossIncome": "Gross Income",
+      "netIncome": "Net Income",
+      "taxableIncome": "Taxable Income",
+      "federalTax": "Federal Tax",
+      "stateTax": "State Tax",
+      "socialSecurity": "Social Security",
+      "medicare": "Medicare",
+      "totalTax": "Total Tax",
+      "effectiveTaxRate": "Effective Tax Rate",
+      "marginalTaxRate": "Marginal Tax Rate",
+      "projectedSavings": "Projected Savings",
+      "monthlyIncome": "Monthly Income",
+      "yearsUntilRetirement": "Years Until Retirement",
+      "incomeBreakdown": "Income Breakdown",
+      "taxBreakdown": "Tax Breakdown"
+    },
+    "time": {
+      "yearsMonthsDays": "{years} years, {months} months, {days} days",
+      "hoursMinutesSeconds": "{hours}h {minutes}m {seconds}s",
+      "daysAgo": "{days} days ago",
+      "daysUntil": "{days} days until",
+      "today": "Today"
+    },
+    "frequency": {
+      "annual": "Annual",
+      "semiannual": "Semi-annual",
+      "quarterly": "Quarterly",
+      "monthly": "Monthly",
+      "biweekly": "Bi-weekly",
+      "weekly": "Weekly",
+      "daily": "Daily",
+      "hourly": "Hourly"
+    },
+    "filingStatus": {
+      "single": "Single",
+      "marriedJoint": "Married Filing Jointly",
+      "marriedSeparate": "Married Filing Separately",
+      "headOfHousehold": "Head of Household"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidNumber": "Please enter a valid number",
+    "positiveNumber": "Please enter a positive number",
+    "invalidDate": "Please enter a valid date",
+    "endDateAfterStart": "End date must be after start date",
+    "invalidUrl": "Please enter a valid URL"
+  },
+  "metadata": {
+    "titleSuffix": "Converty",
+    "defaultDescription": "Free online calculators and converters for everyday needs"
+  }
+}

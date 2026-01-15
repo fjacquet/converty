@@ -1,22 +1,26 @@
 "use client";
 
 import { Calculator, Menu } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/lib/registry/categories";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageSwitcher } from "./language-switcher";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = useTranslations("common");
+  const tc = useTranslations("categories");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
         <Link href="/" className="flex items-center space-x-2 mr-6">
           <Calculator className="h-6 w-6" />
-          <span className="font-bold">Converty</span>
+          <span className="font-bold">{t("siteName")}</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -27,18 +31,19 @@ export function Header() {
               href={`/${category.slug}`}
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
-              {category.name}
+              {tc(`${category.id}.name`)}
             </Link>
           ))}
           <Link
             href="/all"
             className="transition-colors hover:text-foreground/80 text-foreground/60"
           >
-            All Tools
+            {t("allTools")}
           </Link>
         </nav>
 
         <div className="flex items-center space-x-2 ml-auto">
+          <LanguageSwitcher />
           <ThemeToggle />
           <Button
             variant="ghost"
@@ -63,7 +68,7 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               <category.icon className="h-4 w-4" />
-              {category.name}
+              {tc(`${category.id}.name`)}
             </Link>
           ))}
         </nav>

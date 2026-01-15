@@ -1,0 +1,538 @@
+{
+  "common": {
+    "siteName": "Converty",
+    "tagline": "Calcolatrici e convertitori online gratuiti",
+    "allTools": "Tutti gli strumenti",
+    "home": "Home",
+    "search": "Cerca calcolatrici...",
+    "noResults": "Nessun risultato trovato",
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "close": "Chiudi",
+    "copy": "Copia",
+    "copied": "Copiato!",
+    "reset": "Reimposta",
+    "calculate": "Calcola",
+    "clear": "Cancella",
+    "selectLanguage": "Seleziona lingua",
+    "footer": {
+      "builtWith": "Costruito con Next.js e Tailwind CSS",
+      "copyright": "Tutti i diritti riservati"
+    },
+    "navigation": {
+      "categories": "Categorie",
+      "featured": "In evidenza",
+      "moreTools": "Altri strumenti"
+    }
+  },
+  "categories": {
+    "color": {
+      "name": "Colore",
+      "description": "Conversione colori e palette"
+    },
+    "data": {
+      "name": "Dati",
+      "description": "Calcolatori di banda e dimensione file"
+    },
+    "datetime": {
+      "name": "Data e Ora",
+      "description": "Calcolatori di data, ora e durata"
+    },
+    "finance": {
+      "name": "Finanza",
+      "description": "Calcolatori e convertitori finanziari"
+    },
+    "health": {
+      "name": "Salute",
+      "description": "Calcolatori salute e fitness"
+    },
+    "math": {
+      "name": "Matematica",
+      "description": "Calcolatori matematici"
+    },
+    "music": {
+      "name": "Musica",
+      "description": "Teoria musicale e strumenti audio"
+    },
+    "other": {
+      "name": "Altro",
+      "description": "Calcolatori e strumenti vari"
+    },
+    "photo": {
+      "name": "Foto",
+      "description": "Calcolatori fotografici"
+    },
+    "physics": {
+      "name": "Fisica",
+      "description": "Convertitori unita fisiche"
+    },
+    "video": {
+      "name": "Video",
+      "description": "Calcolatori video e media"
+    },
+    "web": {
+      "name": "Web",
+      "description": "Strumenti per sviluppo web"
+    }
+  },
+  "subcategories": {
+    "date-time": "Data e Ora",
+    "loans": "Prestiti e Mutui",
+    "interest": "Interessi e TAEG",
+    "payments": "Pagamenti e Debiti",
+    "investments": "Pensione e Investimenti",
+    "taxes": "Reddito e Tasse",
+    "real-estate": "Immobiliare",
+    "savings": "Risparmio e Valuta",
+    "body": "Composizione Corporea",
+    "nutrition": "Nutrizione",
+    "fitness": "Fitness",
+    "pregnancy": "Gravidanza e Fertilita",
+    "medical": "Medico",
+    "basic": "Matematica di Base",
+    "algebra": "Algebra",
+    "geometry": "Geometria",
+    "statistics": "Statistica",
+    "numbers": "Sistemi Numerici",
+    "advanced": "Avanzato",
+    "education": "Istruzione",
+    "construction": "Costruzione e Casa",
+    "tech": "Tech e Rete",
+    "weather": "Meteo",
+    "automotive": "Automotive",
+    "engineering": "Ingegneria ed Elettrica",
+    "science": "Scienza",
+    "games": "Giochi e Divertimento",
+    "uncategorized": "Generale"
+  },
+  "converters": {
+    "bmi": {
+      "name": "Calcolatore BMI",
+      "description": "Calcola il tuo Indice di Massa Corporea e la categoria di salute",
+      "metaDescription": "Calcola il tuo Indice di Massa Corporea (BMI) e comprendi la tua categoria di salute"
+    },
+    "corpulence": {
+      "name": "Calcolatore di Corpulenza",
+      "description": "Calcola il tuo Indice di Corpulenza (Indice Ponderale)",
+      "metaDescription": "Calcola il tuo Indice Ponderale per una valutazione piu accurata della composizione corporea"
+    },
+    "age": {
+      "name": "Calcolatore di Eta",
+      "description": "Calcola l'eta esatta dalla data di nascita in anni, mesi e giorni",
+      "metaDescription": "Calcola la tua eta esatta in anni, mesi, giorni, ore e minuti"
+    },
+    "date": {
+      "name": "Calcolatore di Data",
+      "description": "Aggiungi o sottrai giorni, settimane, mesi e anni da una data",
+      "metaDescription": "Aggiungi o sottrai periodi di tempo da qualsiasi data"
+    },
+    "time": {
+      "name": "Calcolatore di Tempo",
+      "description": "Aggiungi o sottrai ore, minuti e secondi",
+      "metaDescription": "Esegui calcoli temporali con ore, minuti e secondi"
+    },
+    "hours": {
+      "name": "Calcolatore di Ore",
+      "description": "Calcola le ore tra due orari o date",
+      "metaDescription": "Calcola il numero di ore tra due orari o date"
+    },
+    "time-duration": {
+      "name": "Calcolatore di Durata",
+      "description": "Calcola la durata tra due date e orari",
+      "metaDescription": "Calcola la durata esatta tra due date e orari"
+    },
+    "time-zone": {
+      "name": "Calcolatore Fuso Orario",
+      "description": "Converti gli orari tra diversi fusi orari",
+      "metaDescription": "Converti gli orari tra diversi fusi orari nel mondo"
+    },
+    "day-counter": {
+      "name": "Contatore di Giorni",
+      "description": "Conta i giorni tra date o fino a una data futura",
+      "metaDescription": "Conta i giorni tra due date o fino a un evento imminente"
+    },
+    "day-of-week": {
+      "name": "Calcolatore Giorno della Settimana",
+      "description": "Trova in quale giorno della settimana cade qualsiasi data",
+      "metaDescription": "Scopri in quale giorno della settimana cade qualsiasi data"
+    },
+    "rgb": {
+      "name": "Convertitore RGB",
+      "description": "Converti tra formati colore RGB, HEX, HSL e CMYK",
+      "metaDescription": "Converti i colori tra formati RGB, HEX, HSL e CMYK"
+    },
+    "data-size": {
+      "name": "Calcolatore Dimensione Dati",
+      "description": "Converti tra byte, KB, MB, GB, TB e altro",
+      "metaDescription": "Converti le dimensioni dei dati tra byte, kilobyte, megabyte e altro"
+    },
+    "bandwidth": {
+      "name": "Convertitore Banda",
+      "description": "Converti Mbps in KB/s, GB/giorno, TB/settimana e altro",
+      "metaDescription": "Converti la banda tra diverse unita"
+    },
+    "download-calculator": {
+      "name": "Calcolatore Download",
+      "description": "Calcola il tempo di download da banda e dimensione file",
+      "metaDescription": "Calcola quanto tempo impieghera un download"
+    },
+    "speed": {
+      "name": "Convertitore Velocita",
+      "description": "Converti tra m/s, km/h, mph, nodi e altro",
+      "metaDescription": "Converti la velocita tra metri al secondo, km/h, mph e altro"
+    },
+    "aspect-ratio": {
+      "name": "Calcolatore Rapporto Aspetto",
+      "description": "Calcola i rapporti d'aspetto da larghezza e altezza",
+      "metaDescription": "Calcola e converti i rapporti d'aspetto per immagini e video"
+    },
+    "aspect-fit": {
+      "name": "Calcolatore Aspect Fit",
+      "description": "Adatta un'immagine allo schermo con letterboxing",
+      "metaDescription": "Calcola letterboxing e pillarboxing per l'adattamento immagine"
+    },
+    "composition": {
+      "name": "Calcolatore Composizione",
+      "description": "Calcola il campo visivo da lunghezza focale e distanza",
+      "metaDescription": "Calcola il campo visivo fotografico e la composizione"
+    },
+    "depth-of-field": {
+      "name": "Calcolatore Profondita di Campo",
+      "description": "Calcola la PdC da apertura, lunghezza focale e distanza",
+      "metaDescription": "Calcola la profondita di campo per la fotografia"
+    },
+    "dpi": {
+      "name": "Calcolatore DPI",
+      "description": "Calcola i megapixel da dimensione stampa e DPI",
+      "metaDescription": "Calcola DPI e risoluzione per la stampa"
+    },
+    "image-filesize": {
+      "name": "Calcolatore Dimensione File Immagine",
+      "description": "Stima la dimensione file immagine per formati JPEG, PNG, RAW",
+      "metaDescription": "Stima le dimensioni dei file immagine per diversi formati"
+    },
+    "light-ev": {
+      "name": "Calcolatore EV Luce",
+      "description": "Calcola il Valore di Esposizione dalle impostazioni della fotocamera",
+      "metaDescription": "Calcola il valore di esposizione dalle impostazioni della fotocamera"
+    },
+    "megapixels": {
+      "name": "Calcolatore Megapixel",
+      "description": "Calcola i megapixel da larghezza e altezza",
+      "metaDescription": "Calcola i megapixel dalle dimensioni dell'immagine"
+    },
+    "megapixel-aspects": {
+      "name": "Aspetti Megapixel",
+      "description": "Visualizza i megapixel in diversi rapporti d'aspetto",
+      "metaDescription": "Visualizza i conteggi megapixel in diversi rapporti d'aspetto"
+    },
+    "portrait-distance": {
+      "name": "Calcolatore Distanza Ritratto",
+      "description": "Calcola la distanza ideale di scatto per i ritratti",
+      "metaDescription": "Calcola la distanza ideale per la fotografia ritrattistica"
+    },
+    "star-trails": {
+      "name": "Calcolatore Scie Stellari",
+      "description": "Calcola il tempo di esposizione per la rotazione delle scie stellari",
+      "metaDescription": "Calcola i tempi di esposizione per la fotografia di scie stellari"
+    },
+    "spot-stars": {
+      "name": "Calcolatore Stelle Puntiformi",
+      "description": "Calcola l'esposizione massima per evitare scie stellari (Regola NPF)",
+      "metaDescription": "Calcola il tempo massimo di esposizione per stelle nitide"
+    },
+    "time-lapse": {
+      "name": "Calcolatore Time Lapse",
+      "description": "Calcola intervallo, durata clip e memoria per time lapse",
+      "metaDescription": "Pianifica i tuoi progetti di fotografia time lapse"
+    },
+    "focal-equivalent": {
+      "name": "Equivalente Lunghezza Focale",
+      "description": "Abbina le impostazioni tra diverse dimensioni del sensore",
+      "metaDescription": "Calcola le lunghezze focali equivalenti tra dimensioni del sensore"
+    },
+    "hyperfocal": {
+      "name": "Calcolatore Distanza Iperfocale",
+      "description": "Calcola la distanza iperfocale per la massima profondita di campo",
+      "metaDescription": "Calcola la distanza iperfocale per la fotografia paesaggistica"
+    },
+    "nd-filter": {
+      "name": "Calcolatore Filtro ND",
+      "description": "Calcola il tempo di esposizione con filtri ND",
+      "metaDescription": "Calcola i tempi di esposizione con filtri a densita neutra"
+    },
+    "golden-hour": {
+      "name": "Guida Ora d'Oro",
+      "description": "Calcola gli orari dell'ora d'oro in base alla tua posizione",
+      "metaDescription": "Trova gli orari dell'ora d'oro e dell'ora blu per la tua posizione"
+    },
+    "circle-of-confusion": {
+      "name": "Calcolatore Cerchio di Confusione",
+      "description": "Calcola il CdC da sensore, dimensione stampa e distanza di visione",
+      "metaDescription": "Calcola il cerchio di confusione per la profondita di campo"
+    },
+    "advanced-dof": {
+      "name": "Calcolatore PdC Avanzato",
+      "description": "Profondita di campo con CdC regolabile per dimensione stampa e visione",
+      "metaDescription": "Calcoli avanzati di profondita di campo"
+    },
+    "macro-dof": {
+      "name": "Calcolatore PdC Macro",
+      "description": "Profondita di campo precisa per la macrofotografia",
+      "metaDescription": "Calcola la profondita di campo per la macrofotografia"
+    },
+    "dof-table": {
+      "name": "Tabella PdC",
+      "description": "Tabella interattiva che mostra la PdC attraverso aperture e distanze",
+      "metaDescription": "Tabella di riferimento per la profondita di campo"
+    },
+    "diffraction": {
+      "name": "Calcolatore Diffrazione",
+      "description": "Calcola quando la tua fotocamera diventa limitata dalla diffrazione",
+      "metaDescription": "Calcola i limiti di diffrazione per la tua fotocamera"
+    },
+    "macro-diffraction": {
+      "name": "Calcolatore Diffrazione Macro",
+      "description": "Calcola l'apertura effettiva e la diffrazione nella macrofotografia",
+      "metaDescription": "Calcola gli effetti della diffrazione nella macrofotografia"
+    },
+    "bpm": {
+      "name": "Calcolatore BPM",
+      "description": "Converti BPM in Hz, durata battuta e durate delle note",
+      "metaDescription": "Converti i battiti al minuto in altre unita temporali musicali"
+    },
+    "video-file-size": {
+      "name": "Calcolatore Dimensione File Video",
+      "description": "Stima la dimensione del file video da risoluzione e durata",
+      "metaDescription": "Stima le dimensioni dei file video in base alle impostazioni"
+    },
+    "audio-filesize": {
+      "name": "Calcolatore Dimensione File Audio",
+      "description": "Stima la dimensione del file audio da durata e formato",
+      "metaDescription": "Stima le dimensioni dei file audio per diversi formati"
+    },
+    "common-bitrates": {
+      "name": "Riferimento Bitrate Comuni",
+      "description": "Guida di riferimento per bitrate ProRes, DNxHD, DCP e MPEG",
+      "metaDescription": "Guida di riferimento per i bitrate dei codec video"
+    },
+    "dcp-filesize": {
+      "name": "Calcolatore Dimensione File DCP",
+      "description": "Calcola le dimensioni dei file Digital Cinema Package",
+      "metaDescription": "Calcola le dimensioni dei file DCP per la distribuzione cinematografica"
+    },
+    "foot-lambert": {
+      "name": "Calcolatore Foot-Lambert",
+      "description": "Calcola la luminanza dello schermo per la proiezione cinematografica",
+      "metaDescription": "Calcola la luminosita dello schermo per la proiezione cinematografica"
+    },
+    "screen-size": {
+      "name": "Calcolatore Dimensione Schermo",
+      "description": "Calcola le dimensioni dello schermo da diagonale e rapporto d'aspetto",
+      "metaDescription": "Calcola le dimensioni dello schermo dalla dimensione diagonale"
+    },
+    "video-bitrate": {
+      "name": "Calcolatore Bitrate Video",
+      "description": "Stima il bitrate video basato su risoluzione e codec",
+      "metaDescription": "Calcola i bitrate video ottimali"
+    },
+    "frame-rate": {
+      "name": "Convertitore Frame Rate",
+      "description": "Converti tra frame rate con comandi ffmpeg",
+      "metaDescription": "Converti video tra frame rate"
+    },
+    "url-encoder": {
+      "name": "Codificatore URL",
+      "description": "Codifica e decodifica URL e caratteri speciali",
+      "metaDescription": "Codifica e decodifica URL e componenti URI"
+    },
+    "csp": {
+      "name": "Generatore CSP",
+      "description": "Genera intestazioni Content Security Policy",
+      "metaDescription": "Genera intestazioni Content Security Policy per la sicurezza web"
+    },
+    "redirect-check": {
+      "name": "Controllo Reindirizzamenti",
+      "description": "Controlla catene di reindirizzamento HTTP e codici di stato",
+      "metaDescription": "Controlla catene di reindirizzamento URL e codici di stato HTTP"
+    },
+    "spf-check": {
+      "name": "Controllo Record SPF",
+      "description": "Analizza i record SPF per l'autenticazione email",
+      "metaDescription": "Analizza i record SPF per la sicurezza email"
+    },
+    "https-check": {
+      "name": "Controllo Sicurezza HTTPS",
+      "description": "Controlla le intestazioni di sicurezza e la configurazione TLS",
+      "metaDescription": "Controlla HTTPS del sito web e intestazioni di sicurezza"
+    },
+    "html-encoder": {
+      "name": "Codificatore HTML",
+      "description": "Codifica e decodifica entita HTML",
+      "metaDescription": "Codifica e decodifica caratteri speciali HTML"
+    },
+    "html-chars": {
+      "name": "Mappa Caratteri HTML",
+      "description": "Sfoglia e copia entita caratteri HTML",
+      "metaDescription": "Guida di riferimento per le entita caratteri HTML"
+    },
+    "emoji-chars": {
+      "name": "Mappa Caratteri Emoji",
+      "description": "Sfoglia e copia emoji con codici",
+      "metaDescription": "Sfoglia e copia caratteri emoji"
+    },
+    "seo-performance": {
+      "name": "Analizzatore Prestazioni SEO",
+      "description": "Analizza le metriche SEO della pagina e ottieni raccomandazioni",
+      "metaDescription": "Analizza le prestazioni SEO e ottieni suggerimenti di ottimizzazione"
+    },
+    "mortgage": {
+      "name": "Calcolatore Mutuo",
+      "description": "Calcola i pagamenti mensili, visualizza il piano di ammortamento e il tuo prestito",
+      "metaDescription": "Calcola i pagamenti del mutuo con piano di ammortamento"
+    },
+    "compound-interest": {
+      "name": "Calcolatore Interesse Composto",
+      "description": "Calcola l'interesse composto sugli investimenti con contributi regolari",
+      "metaDescription": "Calcola la crescita dell'interesse composto nel tempo"
+    },
+    "loan": {
+      "name": "Calcolatore Prestito",
+      "description": "Calcola i pagamenti mensili per prestiti personali, auto o qualsiasi tipo di prestito",
+      "metaDescription": "Calcola i pagamenti e l'ammortamento del prestito"
+    },
+    "retirement": {
+      "name": "Calcolatore Pensione",
+      "description": "Pianifica la tua pensione con proiezioni di risparmio e pianificazione del reddito",
+      "metaDescription": "Pianifica i tuoi risparmi e il tuo reddito pensionistico"
+    },
+    "salary": {
+      "name": "Calcolatore Stipendio e Tasse",
+      "description": "Calcola lo stipendio netto dopo tasse federali, cantonali e contributi sociali",
+      "metaDescription": "Calcola il tuo stipendio netto dopo le tasse"
+    }
+  },
+  "calculator": {
+    "labels": {
+      "value": "Valore",
+      "amount": "Importo",
+      "result": "Risultato",
+      "from": "Da",
+      "to": "A",
+      "date": "Data",
+      "startDate": "Data di Inizio",
+      "endDate": "Data di Fine",
+      "birthDate": "Data di Nascita",
+      "years": "Anni",
+      "months": "Mesi",
+      "weeks": "Settimane",
+      "days": "Giorni",
+      "hours": "Ore",
+      "minutes": "Minuti",
+      "seconds": "Secondi",
+      "timezone": "Fuso Orario",
+      "operation": "Operazione",
+      "add": "Aggiungi",
+      "subtract": "Sottrai",
+      "homePrice": "Prezzo Immobile",
+      "downPayment": "Anticipo",
+      "loanAmount": "Importo Prestito",
+      "interestRate": "Tasso di Interesse",
+      "loanTerm": "Durata Prestito",
+      "monthlyPayment": "Pagamento Mensile",
+      "totalInterest": "Interessi Totali",
+      "totalPayment": "Pagamento Totale",
+      "principal": "Capitale",
+      "initialAmount": "Importo Iniziale",
+      "contribution": "Contributo",
+      "compoundFrequency": "Frequenza Capitalizzazione",
+      "currentAge": "Eta Attuale",
+      "retirementAge": "Eta Pensionamento",
+      "currentSavings": "Risparmi Attuali",
+      "monthlySavings": "Risparmi Mensili",
+      "expectedReturn": "Rendimento Atteso",
+      "salary": "Stipendio",
+      "payFrequency": "Frequenza Pagamento",
+      "filingStatus": "Stato Fiscale",
+      "state": "Cantone",
+      "preTaxDeductions": "Deduzioni Pre-Tasse",
+      "postTaxDeductions": "Deduzioni Post-Tasse"
+    },
+    "sections": {
+      "input": "Input",
+      "results": "Risultati",
+      "details": "Dettagli",
+      "breakdown": "Ripartizione",
+      "loanDetails": "Dettagli Prestito",
+      "paymentSchedule": "Piano Pagamenti",
+      "amortization": "Piano di Ammortamento",
+      "incomeDetails": "Dettagli Reddito",
+      "taxInfo": "Informazioni Fiscali",
+      "deductions": "Deduzioni",
+      "takeHomePay": "Stipendio Netto",
+      "summary": "Riepilogo"
+    },
+    "results": {
+      "perMonth": "al mese",
+      "perYear": "all'anno",
+      "perWeek": "a settimana",
+      "total": "Totale",
+      "annual": "Annuale",
+      "monthly": "Mensile",
+      "biweekly": "Bisettimanale",
+      "weekly": "Settimanale",
+      "daily": "Giornaliero",
+      "hourly": "Orario",
+      "grossIncome": "Reddito Lordo",
+      "netIncome": "Reddito Netto",
+      "taxableIncome": "Reddito Imponibile",
+      "federalTax": "Imposta Federale",
+      "stateTax": "Imposta Cantonale",
+      "socialSecurity": "Previdenza Sociale",
+      "medicare": "Assicurazione Sanitaria",
+      "totalTax": "Tasse Totali",
+      "effectiveTaxRate": "Aliquota Fiscale Effettiva",
+      "marginalTaxRate": "Aliquota Fiscale Marginale",
+      "projectedSavings": "Risparmi Previsti",
+      "monthlyIncome": "Reddito Mensile",
+      "yearsUntilRetirement": "Anni al Pensionamento",
+      "incomeBreakdown": "Ripartizione Reddito",
+      "taxBreakdown": "Ripartizione Tasse"
+    },
+    "time": {
+      "yearsMonthsDays": "{years} anni, {months} mesi, {days} giorni",
+      "hoursMinutesSeconds": "{hours}h {minutes}m {seconds}s",
+      "daysAgo": "{days} giorni fa",
+      "daysUntil": "tra {days} giorni",
+      "today": "Oggi"
+    },
+    "frequency": {
+      "annual": "Annuale",
+      "semiannual": "Semestrale",
+      "quarterly": "Trimestrale",
+      "monthly": "Mensile",
+      "biweekly": "Bisettimanale",
+      "weekly": "Settimanale",
+      "daily": "Giornaliero",
+      "hourly": "Orario"
+    },
+    "filingStatus": {
+      "single": "Celibe/Nubile",
+      "marriedJoint": "Sposato/a - Dichiarazione Congiunta",
+      "marriedSeparate": "Sposato/a - Dichiarazione Separata",
+      "headOfHousehold": "Capofamiglia"
+    }
+  },
+  "validation": {
+    "required": "Questo campo e obbligatorio",
+    "invalidNumber": "Inserisci un numero valido",
+    "positiveNumber": "Inserisci un numero positivo",
+    "invalidDate": "Inserisci una data valida",
+    "endDateAfterStart": "La data di fine deve essere successiva alla data di inizio",
+    "invalidUrl": "Inserisci un URL valido"
+  },
+  "metadata": {
+    "titleSuffix": "Converty",
+    "defaultDescription": "Calcolatrici e convertitori online gratuiti per le esigenze quotidiane"
+  }
+}

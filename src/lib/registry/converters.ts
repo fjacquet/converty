@@ -1,4 +1,4 @@
-import { Database, Gauge, Globe, Heart, ImageIcon, Music, Palette, Video } from "lucide-react";
+import { Calendar, Database, DollarSign, Gauge, Globe, Heart, ImageIcon, Music, Palette, Video } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const converterRegistry: Record<string, ConverterMeta> = {
@@ -21,6 +21,96 @@ export const converterRegistry: Record<string, ConverterMeta> = {
     category: "health",
     keywords: ["corpulence", "ponderal index", "body composition", "weight"],
     icon: Heart,
+    featured: false,
+  },
+
+  // Date & Time
+  age: {
+    id: "age",
+    slug: "age",
+    name: "Age Calculator",
+    description: "Calculate exact age from birthdate in years, months, and days",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["age", "birthday", "years", "months", "days", "birth date"],
+    icon: Calendar,
+    featured: true,
+  },
+  date: {
+    id: "date",
+    slug: "date",
+    name: "Date Calculator",
+    description: "Add or subtract days, weeks, months, and years from a date",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["date", "add", "subtract", "days", "weeks", "months", "years"],
+    icon: Calendar,
+    featured: false,
+  },
+  time: {
+    id: "time",
+    slug: "time",
+    name: "Time Calculator",
+    description: "Add or subtract hours, minutes, and seconds",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["time", "add", "subtract", "hours", "minutes", "seconds"],
+    icon: Calendar,
+    featured: false,
+  },
+  hours: {
+    id: "hours",
+    slug: "hours",
+    name: "Hours Calculator",
+    description: "Calculate hours between two times or dates",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["hours", "time", "duration", "work hours", "between"],
+    icon: Calendar,
+    featured: false,
+  },
+  "time-duration": {
+    id: "time-duration",
+    slug: "time-duration",
+    name: "Time Duration Calculator",
+    description: "Calculate duration between two dates and times",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["duration", "time", "between", "difference", "elapsed"],
+    icon: Calendar,
+    featured: false,
+  },
+  "time-zone": {
+    id: "time-zone",
+    slug: "time-zone",
+    name: "Time Zone Calculator",
+    description: "Convert times between different time zones",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["time zone", "convert", "utc", "gmt", "timezone"],
+    icon: Calendar,
+    featured: false,
+  },
+  "day-counter": {
+    id: "day-counter",
+    slug: "day-counter",
+    name: "Day Counter",
+    description: "Count days between dates or until a future date",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["days", "count", "between", "until", "countdown"],
+    icon: Calendar,
+    featured: false,
+  },
+  "day-of-week": {
+    id: "day-of-week",
+    slug: "day-of-week",
+    name: "Day of the Week Calculator",
+    description: "Find what day of the week any date falls on",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: ["day", "week", "monday", "tuesday", "date", "weekday"],
+    icon: Calendar,
     featured: false,
   },
 
@@ -497,6 +587,63 @@ export const converterRegistry: Record<string, ConverterMeta> = {
     icon: Globe,
     featured: false,
   },
+
+  // Finance
+  mortgage: {
+    id: "mortgage",
+    slug: "mortgage",
+    name: "Mortgage Calculator",
+    description: "Calculate monthly payments, view amortization schedule, and visualize your loan",
+    category: "finance",
+    subcategory: "loans",
+    keywords: ["mortgage", "home loan", "amortization", "monthly payment", "interest rate", "down payment"],
+    icon: DollarSign,
+    featured: true,
+  },
+  "compound-interest": {
+    id: "compound-interest",
+    slug: "compound-interest",
+    name: "Compound Interest Calculator",
+    description: "Calculate compound interest on investments with regular contributions",
+    category: "finance",
+    subcategory: "interest",
+    keywords: ["compound interest", "investment", "savings", "growth", "contributions"],
+    icon: DollarSign,
+    featured: true,
+  },
+  loan: {
+    id: "loan",
+    slug: "loan",
+    name: "Loan Calculator",
+    description: "Calculate monthly payments for personal, auto, or any loan type",
+    category: "finance",
+    subcategory: "loans",
+    keywords: ["loan", "personal loan", "auto loan", "monthly payment", "amortization"],
+    icon: DollarSign,
+    featured: false,
+  },
+  retirement: {
+    id: "retirement",
+    slug: "retirement",
+    name: "Retirement Calculator",
+    description: "Plan your retirement with savings projections and income planning",
+    category: "finance",
+    subcategory: "investments",
+    keywords: ["retirement", "401k", "pension", "savings", "social security", "investment"],
+    icon: DollarSign,
+    featured: true,
+  },
+  salary: {
+    id: "salary",
+    slug: "salary",
+    name: "Salary & Tax Calculator",
+    description: "Calculate take-home pay after federal, state taxes, and FICA",
+    category: "finance",
+    subcategory: "taxes",
+    keywords: ["salary", "tax", "paycheck", "take home", "income", "net pay", "federal", "state"],
+    icon: DollarSign,
+    featured: true,
+  },
 };
 
 export function getConverterById(id: string): ConverterMeta | undefined {
@@ -509,4 +656,23 @@ export function getConvertersByCategory(categoryId: string): ConverterMeta[] {
 
 export function getFeaturedConverters(): ConverterMeta[] {
   return Object.values(converterRegistry).filter((c) => c.featured);
+}
+
+export function getConvertersBySubcategory(categoryId: string, subcategoryId: string): ConverterMeta[] {
+  return Object.values(converterRegistry).filter(
+    (converter) => converter.category === categoryId && converter.subcategory === subcategoryId
+  );
+}
+
+export function getConvertersByCategoryGrouped(categoryId: string): Map<string, ConverterMeta[]> {
+  const converters = getConvertersByCategory(categoryId);
+  const grouped = new Map<string, ConverterMeta[]>();
+
+  for (const converter of converters) {
+    const subcategory = converter.subcategory ?? "uncategorized";
+    const existing = grouped.get(subcategory) ?? [];
+    grouped.set(subcategory, [...existing, converter]);
+  }
+
+  return grouped;
 }
