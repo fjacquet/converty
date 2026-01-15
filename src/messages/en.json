@@ -471,6 +471,21 @@
       "name": "Home Equity Calculator",
       "description": "Calculate home equity loan or HELOC payments",
       "metaDescription": "Calculate home equity loan and HELOC payments"
+    },
+    "debt-payoff": {
+      "name": "Debt Payoff Calculator",
+      "description": "Calculate how long to pay off debt with extra payments",
+      "metaDescription": "Calculate debt payoff time and savings from extra payments"
+    },
+    "credit-card": {
+      "name": "Credit Card Calculator",
+      "description": "Calculate credit card payoff time and interest",
+      "metaDescription": "Calculate credit card payoff time and total interest cost"
+    },
+    "down-payment": {
+      "name": "Down Payment Calculator",
+      "description": "Calculate how much to save for a down payment",
+      "metaDescription": "Calculate monthly savings needed for your down payment goal"
     }
   },
   "calculator": {

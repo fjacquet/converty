@@ -471,6 +471,21 @@
       "name": "Calcolatore Patrimonio Immobiliare",
       "description": "Calcola i pagamenti del prestito ipotecario o HELOC",
       "metaDescription": "Calcola i pagamenti del prestito ipotecario ed HELOC"
+    },
+    "debt-payoff": {
+      "name": "Calcolatore Estinzione Debito",
+      "description": "Calcola il tempo di estinzione con pagamenti extra",
+      "metaDescription": "Calcola il tempo di estinzione e i risparmi con pagamenti extra"
+    },
+    "credit-card": {
+      "name": "Calcolatore Carta di Credito",
+      "description": "Calcola il tempo di estinzione e gli interessi della carta",
+      "metaDescription": "Calcola il tempo di estinzione e il costo totale degli interessi"
+    },
+    "down-payment": {
+      "name": "Calcolatore Acconto",
+      "description": "Calcola quanto risparmiare per un acconto",
+      "metaDescription": "Calcola i risparmi mensili necessari per il tuo obiettivo di acconto"
     }
   },
   "calculator": {

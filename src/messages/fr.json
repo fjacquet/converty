@@ -471,6 +471,21 @@
       "name": "Calculateur de Valeur Nette Immobiliere",
       "description": "Calculez les paiements de pret sur valeur domiciliaire ou HELOC",
       "metaDescription": "Calculez les paiements de pret sur valeur domiciliaire"
+    },
+    "debt-payoff": {
+      "name": "Calculateur de Remboursement de Dette",
+      "description": "Calculez le temps de remboursement avec des paiements supplementaires",
+      "metaDescription": "Calculez le temps de remboursement et les economies avec des paiements supplementaires"
+    },
+    "credit-card": {
+      "name": "Calculateur de Carte de Credit",
+      "description": "Calculez le temps de remboursement et les interets de carte de credit",
+      "metaDescription": "Calculez le temps de remboursement et le cout total des interets de carte"
+    },
+    "down-payment": {
+      "name": "Calculateur d'Apport Personnel",
+      "description": "Calculez combien epargner pour un apport personnel",
+      "metaDescription": "Calculez l'epargne mensuelle necessaire pour votre objectif d'apport"
     }
   },
   "calculator": {

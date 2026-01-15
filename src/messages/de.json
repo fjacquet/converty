@@ -471,6 +471,21 @@
       "name": "Eigenkapital-Rechner",
       "description": "Berechnen Sie Eigenheimkredit- oder HELOC-Zahlungen",
       "metaDescription": "Berechnen Sie Eigenheimkredit- und HELOC-Zahlungen"
+    },
+    "debt-payoff": {
+      "name": "Schulden-Tilgungsrechner",
+      "description": "Berechnen Sie die Tilgungszeit mit Sonderzahlungen",
+      "metaDescription": "Berechnen Sie die Tilgungszeit und Ersparnisse durch Sonderzahlungen"
+    },
+    "credit-card": {
+      "name": "Kreditkarten-Rechner",
+      "description": "Berechnen Sie die Kreditkarten-Tilgungszeit und Zinsen",
+      "metaDescription": "Berechnen Sie Tilgungszeit und Gesamtzinskosten der Kreditkarte"
+    },
+    "down-payment": {
+      "name": "Anzahlungsrechner",
+      "description": "Berechnen Sie wie viel Sie fuer eine Anzahlung sparen muessen",
+      "metaDescription": "Berechnen Sie die monatlichen Sparbetraege fuer Ihr Anzahlungsziel"
     }
   },
   "calculator": {
