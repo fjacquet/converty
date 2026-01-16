@@ -11,7 +11,6 @@ import {
   Music,
   Palette,
   Video,
-  Wrench,
 } from "lucide-react";
 
 export interface Subcategory {
@@ -43,6 +42,10 @@ export const categories: Category[] = [
     name: "Data",
     description: "Bandwidth and file size calculators",
     icon: Database,
+    subcategories: [
+      { id: "storage", name: "Storage & Files", description: "File size and data storage" },
+      { id: "network", name: "Network", description: "Bandwidth, throughput, and network tools" },
+    ],
   },
   {
     id: "datetime",
@@ -107,32 +110,19 @@ export const categories: Category[] = [
     icon: Music,
   },
   {
-    id: "other",
-    slug: "other",
-    name: "Other",
-    description: "Miscellaneous calculators and tools",
-    icon: Wrench,
-    subcategories: [
-      { id: "education", name: "Education", description: "GPA, grade calculators" },
-      { id: "construction", name: "Construction & Home", description: "Building materials" },
-      { id: "tech", name: "Tech & Network", description: "IP, bandwidth tools" },
-      { id: "weather", name: "Weather", description: "Weather calculations" },
-      { id: "automotive", name: "Automotive", description: "Vehicle calculators" },
-      {
-        id: "engineering",
-        name: "Engineering & Electrical",
-        description: "Electrical calculations",
-      },
-      { id: "science", name: "Science", description: "Scientific calculators" },
-      { id: "games", name: "Games & Fun", description: "Fun calculators" },
-    ],
-  },
-  {
     id: "photo",
     slug: "photo",
     name: "Photo",
     description: "Photography calculators",
     icon: Camera,
+    subcategories: [
+      { id: "dof", name: "Depth of Field", description: "DoF and focus calculations" },
+      { id: "exposure", name: "Exposure & Light", description: "Exposure values and lighting" },
+      { id: "resolution", name: "Resolution & Format", description: "Pixels, DPI, and formats" },
+      { id: "composition", name: "Composition & Framing", description: "Framing and lens tools" },
+      { id: "astro", name: "Astrophotography", description: "Night sky and star photography" },
+      { id: "optics", name: "Optics", description: "Diffraction and optical effects" },
+    ],
   },
   {
     id: "physics",

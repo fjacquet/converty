@@ -94,8 +94,8 @@ export function RedirectChecker() {
           </div>
 
           <div className="space-y-2">
-            {chain.map((redirect, index) => (
-              <div key={index} className="p-3 rounded-lg border bg-background">
+            {chain.map((redirect) => (
+              <div key={redirect.url} className="p-3 rounded-lg border bg-background">
                 <div className="flex items-center gap-2">
                   <span
                     className={`px-2 py-0.5 rounded text-xs font-medium ${

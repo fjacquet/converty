@@ -135,8 +135,8 @@ export function SleepCalculatorComponent() {
 
           <h3 className="text-lg font-semibold">{tResults("sleepTips")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {sleepResult.tips.map((tip, index) => (
-              <li key={index} className="text-sm">{tip}</li>
+            {sleepResult.tips.map((tip) => (
+              <li key={tip} className="text-sm">{tip}</li>
             ))}
           </ul>
         </div>

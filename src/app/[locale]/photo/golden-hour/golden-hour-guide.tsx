@@ -2,13 +2,13 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {
-  CAMERA_SETTINGS,
-  COLOR_TEMPERATURES,
-  LIGHT_PHASES,
-  PLANNING_TIPS,
-  SEASONAL_NOTES,
-  TWILIGHT_DURATION_EXAMPLES,
-} from "@/lib/converters/photo/golden-hour";
+  CameraSettingsCards,
+  ColorTemperatureTable,
+  LightPhasesReference,
+  PlanningTipsCard,
+  SeasonalNotesCards,
+  TwilightDurationTable,
+} from "./components";
 import {
   formatDuration,
   formatSunTime,
@@ -377,168 +377,22 @@ export function GoldenHourGuide() {
       )}
 
       {/* Light Phases Reference */}
-      <div className="space-y-4">
-        <p className="text-sm font-medium">Light Phases by Sun Elevation</p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {LIGHT_PHASES.map((phase) => (
-            <div
-              key={phase.name}
-              className={`p-4 rounded-lg border ${
-                phase.name === "Golden Hour"
-                  ? "bg-amber-500/10 border-amber-500/30"
-                  : phase.name.includes("Blue") || phase.name.includes("Civil")
-                    ? "bg-blue-500/10 border-blue-500/30"
-                    : phase.name === "Night"
-                      ? "bg-slate-900/20 border-slate-500/30"
-                      : "bg-muted/30"
-              }`}
-            >
-              <p className="font-medium">{phase.name}</p>
-              <p className="text-sm text-muted-foreground">{phase.sunElevation}</p>
-              <p className="text-xs mt-2">{phase.description}</p>
-              <ul className="text-xs text-muted-foreground mt-2 space-y-1">
-                {phase.photographyTips.map((tip, i) => (
-                  <li key={i}>&#8226; {tip}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
+      <LightPhasesReference />
 
       {/* Color Temperature */}
-      <div className="space-y-4">
-        <p className="text-sm font-medium">Color Temperature Reference</p>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b">
-                <th className="text-left py-2">Phase</th>
-                <th className="text-left py-2">Temperature</th>
-                <th className="text-left py-2">Color</th>
-              </tr>
-            </thead>
-            <tbody>
-              {COLOR_TEMPERATURES.map((temp) => (
-                <tr key={temp.phase} className="border-b border-muted">
-                  <td className="py-2">{temp.phase}</td>
-                  <td className="py-2">{temp.kelvin}</td>
-                  <td className="py-2 text-muted-foreground">{temp.color}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <ColorTemperatureTable />
 
       {/* Camera Settings */}
-      <div className="grid gap-4 sm:grid-cols-3">
-        <div className="p-4 rounded-lg border bg-amber-500/10">
-          <p className="font-medium mb-2">Golden Hour Settings</p>
-          <ul className="text-sm text-muted-foreground space-y-1">
-            <li>
-              <strong>WB:</strong> {CAMERA_SETTINGS.goldenHour.whiteBalance}
-            </li>
-            <li>
-              <strong>ISO:</strong> {CAMERA_SETTINGS.goldenHour.iso}
-            </li>
-            <li className="text-xs mt-2">{CAMERA_SETTINGS.goldenHour.notes}</li>
-          </ul>
-        </div>
-        <div className="p-4 rounded-lg border bg-blue-500/10">
-          <p className="font-medium mb-2">Blue Hour Settings</p>
-          <ul className="text-sm text-muted-foreground space-y-1">
-            <li>
-              <strong>WB:</strong> {CAMERA_SETTINGS.blueHour.whiteBalance}
-            </li>
-            <li>
-              <strong>ISO:</strong> {CAMERA_SETTINGS.blueHour.iso}
-            </li>
-            <li className="text-xs mt-2">{CAMERA_SETTINGS.blueHour.notes}</li>
-          </ul>
-        </div>
-        <div className="p-4 rounded-lg border bg-slate-500/10">
-          <p className="font-medium mb-2">Night Settings</p>
-          <ul className="text-sm text-muted-foreground space-y-1">
-            <li>
-              <strong>WB:</strong> {CAMERA_SETTINGS.night.whiteBalance}
-            </li>
-            <li>
-              <strong>ISO:</strong> {CAMERA_SETTINGS.night.iso}
-            </li>
-            <li className="text-xs mt-2">{CAMERA_SETTINGS.night.notes}</li>
-          </ul>
-        </div>
-      </div>
+      <CameraSettingsCards />
 
       {/* Duration by Latitude */}
-      <div className="space-y-4">
-        <p className="text-sm font-medium">Twilight Duration by Latitude</p>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b">
-                <th className="text-left py-2">Latitude</th>
-                <th className="text-left py-2">Season</th>
-                <th className="text-left py-2">Golden Hour</th>
-                <th className="text-left py-2">Blue Hour</th>
-              </tr>
-            </thead>
-            <tbody>
-              {TWILIGHT_DURATION_EXAMPLES.map((ex, i) => (
-                <tr key={i} className="border-b border-muted">
-                  <td className="py-2">{ex.latitude}°</td>
-                  <td className="py-2 capitalize">{ex.season}</td>
-                  <td className="py-2">{ex.goldenHour}</td>
-                  <td className="py-2">{ex.blueHour}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <TwilightDurationTable />
 
       {/* Planning Tips */}
-      <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-2">Planning Tips</p>
-        <ul className="text-sm text-muted-foreground space-y-1">
-          {PLANNING_TIPS.map((tip, i) => (
-            <li key={i}>&#8226; {tip}</li>
-          ))}
-        </ul>
-      </div>
+      <PlanningTipsCard />
 
       {/* Seasonal Notes */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="p-4 rounded-lg border bg-amber-500/10">
-          <p className="font-medium mb-2">Summer Considerations</p>
-          <ul className="text-sm text-muted-foreground space-y-1">
-            <li>
-              <strong>High Latitude:</strong> {SEASONAL_NOTES.summer.highLatitude}
-            </li>
-            <li>
-              <strong>Mid Latitude:</strong> {SEASONAL_NOTES.summer.midLatitude}
-            </li>
-            <li>
-              <strong>Low Latitude:</strong> {SEASONAL_NOTES.summer.lowLatitude}
-            </li>
-          </ul>
-        </div>
-        <div className="p-4 rounded-lg border bg-blue-500/10">
-          <p className="font-medium mb-2">Winter Considerations</p>
-          <ul className="text-sm text-muted-foreground space-y-1">
-            <li>
-              <strong>High Latitude:</strong> {SEASONAL_NOTES.winter.highLatitude}
-            </li>
-            <li>
-              <strong>Mid Latitude:</strong> {SEASONAL_NOTES.winter.midLatitude}
-            </li>
-            <li>
-              <strong>Low Latitude:</strong> {SEASONAL_NOTES.winter.lowLatitude}
-            </li>
-          </ul>
-        </div>
-      </div>
+      <SeasonalNotesCards />
     </div>
   );
 }

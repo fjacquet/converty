@@ -179,22 +179,22 @@ export function CarbCalculatorComponent() {
 
           <h3 className="text-lg font-semibold">{tResults("complexCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
-            {carbResult.foodSources.complex.map((source, index) => (
-              <li key={index} className="text-sm text-green-700 dark:text-green-300">{source}</li>
+            {carbResult.foodSources.complex.map((source) => (
+              <li key={source} className="text-sm text-green-700 dark:text-green-300">{source}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("simpleCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
-            {carbResult.foodSources.simple.map((source, index) => (
-              <li key={index} className="text-sm text-blue-700 dark:text-blue-300">{source}</li>
+            {carbResult.foodSources.simple.map((source) => (
+              <li key={source} className="text-sm text-blue-700 dark:text-blue-300">{source}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("avoidTheseCarbs")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-red-50 dark:bg-red-950 p-4 rounded-lg">
-            {carbResult.foodSources.avoid.map((source, index) => (
-              <li key={index} className="text-sm text-red-700 dark:text-red-300">{source}</li>
+            {carbResult.foodSources.avoid.map((source) => (
+              <li key={source} className="text-sm text-red-700 dark:text-red-300">{source}</li>
             ))}
           </ul>
         </div>

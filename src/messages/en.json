@@ -54,10 +54,6 @@
       "name": "Music",
       "description": "Music theory and audio tools"
     },
-    "other": {
-      "name": "Other",
-      "description": "Miscellaneous calculators and tools"
-    },
     "photo": {
       "name": "Photo",
       "description": "Photography calculators"
@@ -96,14 +92,14 @@
     "statistics": "Statistics",
     "numbers": "Number Systems",
     "advanced": "Advanced",
-    "education": "Education",
-    "construction": "Construction & Home",
-    "tech": "Tech & Network",
-    "weather": "Weather",
-    "automotive": "Automotive",
-    "engineering": "Engineering & Electrical",
-    "science": "Science",
-    "games": "Games & Fun",
+    "storage": "Storage & Files",
+    "network": "Network",
+    "dof": "Depth of Field",
+    "exposure": "Exposure & Light",
+    "resolution": "Resolution & Format",
+    "composition": "Composition & Framing",
+    "astro": "Astrophotography",
+    "optics": "Optics",
     "uncategorized": "General"
   },
   "converters": {

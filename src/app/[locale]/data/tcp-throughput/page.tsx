@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { BandwidthDelayProductCalculator } from "./bandwidth-delay-product-calculator";
+import { TcpThroughputCalculator } from "./tcp-throughput-calculator";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -16,16 +16,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.bandwidth-delay-product" });
+  const t = await getTranslations({ locale, namespace: "converters.tcp-throughput" });
 
   return {
     title: t("name"),
     description: t("metaDescription"),
-    keywords: ["bandwidth", "delay", "product", "bdp", "tcp", "buffer", "window size", "network"],
+    keywords: ["tcp", "throughput", "network", "bandwidth", "mathis formula", "mss", "rtt", "packet loss"],
   };
 }
 
-export default async function BandwidthDelayProductPage({
+export default async function TcpThroughputPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -33,14 +33,14 @@ export default async function BandwidthDelayProductPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.bandwidth-delay-product");
+  const t = await getTranslations("converters.tcp-throughput");
   const tc = await getTranslations("categories");
-  const category = getCategoryBySlug("other")!;
+  const category = getCategoryBySlug("data")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("other.name")}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("data.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
-        <BandwidthDelayProductCalculator />
+        <TcpThroughputCalculator />
       </Suspense>
     </ConverterLayout>
   );

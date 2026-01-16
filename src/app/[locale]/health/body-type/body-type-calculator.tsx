@@ -150,22 +150,22 @@ export function BodyTypeCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("characteristics")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {bodyTypeResult.characteristics.map((char, index) => (
-              <li key={index} className="text-sm">{char}</li>
+            {bodyTypeResult.characteristics.map((char) => (
+              <li key={char} className="text-sm">{char}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("trainingRecommendations")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {bodyTypeResult.trainingRecommendations.map((rec, index) => (
-              <li key={index} className="text-sm">{rec}</li>
+            {bodyTypeResult.trainingRecommendations.map((rec) => (
+              <li key={rec} className="text-sm">{rec}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("nutritionRecommendations")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {bodyTypeResult.nutritionRecommendations.map((rec, index) => (
-              <li key={index} className="text-sm">{rec}</li>
+            {bodyTypeResult.nutritionRecommendations.map((rec) => (
+              <li key={rec} className="text-sm">{rec}</li>
             ))}
           </ul>
         </div>

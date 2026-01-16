@@ -54,10 +54,6 @@
       "name": "Musique",
       "description": "Theorie musicale et outils audio"
     },
-    "other": {
-      "name": "Autre",
-      "description": "Calculateurs et outils divers"
-    },
     "photo": {
       "name": "Photo",
       "description": "Calculateurs photographiques"
@@ -96,14 +92,14 @@
     "statistics": "Statistiques",
     "numbers": "Systemes Numeriques",
     "advanced": "Avance",
-    "education": "Education",
-    "construction": "Construction et Maison",
-    "tech": "Tech et Reseau",
-    "weather": "Meteo",
-    "automotive": "Automobile",
-    "engineering": "Ingenierie et Electrique",
-    "science": "Science",
-    "games": "Jeux et Divertissement",
+    "storage": "Stockage et Fichiers",
+    "network": "Reseau",
+    "dof": "Profondeur de Champ",
+    "exposure": "Exposition et Lumiere",
+    "resolution": "Resolution et Format",
+    "composition": "Composition et Cadrage",
+    "astro": "Astrophotographie",
+    "optics": "Optique",
     "uncategorized": "General"
   },
   "converters": {

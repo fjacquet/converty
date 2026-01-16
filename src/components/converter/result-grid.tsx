@@ -23,8 +23,8 @@ export function ResultGrid({ results, columns = 2, className }: ResultGridProps)
         className
       )}
     >
-      {results.map((result, index) => (
-        <div key={index} className="rounded-lg border bg-card p-4 text-card-foreground">
+      {results.map((result) => (
+        <div key={result.label} className="rounded-lg border bg-card p-4 text-card-foreground">
           <p className="text-sm font-medium text-muted-foreground mb-1">{result.label}</p>
           <p className="text-lg font-semibold font-mono">
             {result.value}

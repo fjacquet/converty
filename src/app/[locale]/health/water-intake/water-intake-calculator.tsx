@@ -190,8 +190,8 @@ export function WaterIntakeCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("hydrationTips")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {waterResult.tips.map((tip, index) => (
-              <li key={index} className="text-sm">{tip}</li>
+            {waterResult.tips.map((tip) => (
+              <li key={tip} className="text-sm">{tip}</li>
             ))}
           </ul>
         </div>

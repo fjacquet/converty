@@ -164,8 +164,8 @@ export function BacCalculatorComponent() {
           <div className="p-4 bg-muted rounded-lg">
             <h4 className="font-semibold mb-2">{tResults("currentEffects")}</h4>
             <ul className="list-disc list-inside space-y-1">
-              {bacResult.effects.map((effect, index) => (
-                <li key={index} className="text-sm">{effect}</li>
+              {bacResult.effects.map((effect) => (
+                <li key={effect} className="text-sm">{effect}</li>
               ))}
             </ul>
           </div>
