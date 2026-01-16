@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   BITRATE_PRESETS,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/converters/video/video-file-size";
 
 export function VideoFileSizeCalculator() {
+  const t = useTranslations("calculator.labels");
   const [hours, setHours] = useState("0");
   const [minutes, setMinutes] = useState("5");
   const [seconds, setSeconds] = useState("0");
@@ -40,7 +42,7 @@ export function VideoFileSizeCalculator() {
         <div className="grid gap-4 grid-cols-3">
           <InputField
             id="hours"
-            label="Hours"
+            label={t("hours")}
             value={hours}
             onChange={setHours}
             min={0}
@@ -50,7 +52,7 @@ export function VideoFileSizeCalculator() {
           />
           <InputField
             id="minutes"
-            label="Minutes"
+            label={t("minutes")}
             value={minutes}
             onChange={setMinutes}
             min={0}
@@ -60,7 +62,7 @@ export function VideoFileSizeCalculator() {
           />
           <InputField
             id="seconds"
-            label="Seconds"
+            label={t("seconds")}
             value={seconds}
             onChange={setSeconds}
             min={0}
@@ -105,7 +107,7 @@ export function VideoFileSizeCalculator() {
         <div className="space-y-2">
           <InputField
             id="bitrate"
-            label="Video Bitrate"
+            label={t("videoBitrate")}
             value={bitrate}
             onChange={setBitrate}
             unit="Mbps"
@@ -139,7 +141,7 @@ export function VideoFileSizeCalculator() {
         </div>
         <InputField
           id="audioBitrate"
-          label="Audio Bitrate"
+          label={t("audioBitrate")}
           value={audioBitrate}
           onChange={setAudioBitrate}
           unit="Kbps"
@@ -153,7 +155,7 @@ export function VideoFileSizeCalculator() {
       {/* Results */}
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label="Estimated File Size" value={result.formatted} size="lg" />
+          <OutputDisplay label={t("estimatedFileSize")} value={result.formatted} size="lg" />
 
           <ResultGrid
             results={[

@@ -32,7 +32,7 @@ export function RoiCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="initialInvestment">Initial Investment</Label>
+            <Label htmlFor="initialInvestment">{t("finance.initialInvestment")}</Label>
             <Input
               id="initialInvestment"
               type="number"
@@ -44,7 +44,7 @@ export function RoiCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="finalValue">Final Value</Label>
+            <Label htmlFor="finalValue">{t("finance.finalValue")}</Label>
             <Input
               id="finalValue"
               type="number"
@@ -56,7 +56,7 @@ export function RoiCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="years">Investment Period (Years)</Label>
+            <Label htmlFor="years">{t("finance.investmentPeriodYears")}</Label>
             <Input
               id="years"
               type="number"
@@ -65,7 +65,7 @@ export function RoiCalculator() {
               value={years}
               onChange={(e) => setYears(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">Leave at 0 to calculate simple ROI only</p>
+            <p className="text-xs text-muted-foreground">{t("finance.leaveZeroForSimpleRoi")}</p>
           </div>
         </CardContent>
       </Card>
@@ -81,7 +81,7 @@ export function RoiCalculator() {
                 className={`p-4 rounded-lg ${result.profit >= 0 ? "bg-green-500/10" : "bg-red-500/10"}`}
               >
                 <p className="text-sm text-muted-foreground">
-                  {result.profit >= 0 ? "Profit" : "Loss"}
+                  {result.profit >= 0 ? t("finance.profit") : t("finance.loss")}
                 </p>
                 <p
                   className={`text-3xl font-bold ${result.profit >= 0 ? "text-green-600" : "text-red-600"}`}
@@ -92,7 +92,7 @@ export function RoiCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total ROI</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.totalRoi")}</p>
                   <p
                     className={`text-xl font-bold ${result.roiPercent >= 0 ? "text-green-600" : "text-red-600"}`}
                   >
@@ -102,7 +102,7 @@ export function RoiCalculator() {
                 </div>
                 {result.annualizedRoiPercent !== undefined && (
                   <div className="p-4 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground">Annualized ROI</p>
+                    <p className="text-sm text-muted-foreground">{t("finance.annualizedRoi")}</p>
                     <p
                       className={`text-xl font-bold ${result.annualizedRoiPercent >= 0 ? "text-green-600" : "text-red-600"}`}
                     >
@@ -115,25 +115,25 @@ export function RoiCalculator() {
 
               <div className="border-t pt-4 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Initial Investment</span>
+                  <span className="text-muted-foreground">{t("finance.initialInvestment")}</span>
                   <span>{formatCurrency(initialInvestment)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Final Value</span>
+                  <span className="text-muted-foreground">{t("finance.finalValue")}</span>
                   <span>{formatCurrency(finalValue)}</span>
                 </div>
                 {years > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Period</span>
+                    <span className="text-muted-foreground">{t("labels.period")}</span>
                     <span>
-                      {years} {years === 1 ? "year" : "years"}
+                      {t("finance.yearsCount", { count: years })}
                     </span>
                   </div>
                 )}
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{t("labels.enterValues")}</p>
           )}
         </CardContent>
       </Card>

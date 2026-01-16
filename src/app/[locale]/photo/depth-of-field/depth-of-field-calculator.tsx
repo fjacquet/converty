@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { CROP_FACTORS } from "@/lib/converters/photo/composition";
 import { COMMON_APERTURES, calculateDepthOfField } from "@/lib/converters/photo/depth-of-field";
 
 export function DepthOfFieldCalculator() {
+  const t = useTranslations("calculator.labels");
   const [aperture, setAperture] = useState("2.8");
   const [focalLength, setFocalLength] = useState("50");
   const [distance, setDistance] = useState("3");
@@ -26,7 +28,7 @@ export function DepthOfFieldCalculator() {
         <div className="space-y-2">
           <InputField
             id="aperture"
-            label="Aperture"
+            label={t("aperture")}
             value={aperture}
             onChange={setAperture}
             unit="f/"
@@ -47,7 +49,7 @@ export function DepthOfFieldCalculator() {
         </div>
         <InputField
           id="focalLength"
-          label="Focal Length"
+          label={t("focalLength")}
           value={focalLength}
           onChange={setFocalLength}
           unit="mm"
@@ -55,7 +57,7 @@ export function DepthOfFieldCalculator() {
         />
         <InputField
           id="distance"
-          label="Subject Distance"
+          label={t("subjectDistance")}
           value={distance}
           onChange={setDistance}
           unit="m"

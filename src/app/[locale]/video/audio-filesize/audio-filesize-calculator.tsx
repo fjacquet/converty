@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   AUDIO_FORMATS,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/converters/video/audio-filesize";
 
 export function AudioFilesizeCalculator() {
+  const t = useTranslations("calculator.labels");
   const [duration, setDuration] = useState("180");
   const [format, setFormat] = useState<AudioFormat>("mp3");
   const [quality, setQuality] = useState<"low" | "typical" | "high">("typical");
@@ -23,7 +25,7 @@ export function AudioFilesizeCalculator() {
         <div className="space-y-2">
           <InputField
             id="duration"
-            label="Duration"
+            label={t("duration")}
             value={duration}
             onChange={setDuration}
             unit="sec"
@@ -82,7 +84,7 @@ export function AudioFilesizeCalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label="Estimated File Size" value={result.formatted} size="lg" />
+          <OutputDisplay label={t("estimatedFileSize")} value={result.formatted} size="lg" />
           <ResultGrid
             results={[
               { label: "Bitrate", value: result.bitrate, unit: "kbps" },

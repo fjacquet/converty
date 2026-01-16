@@ -29,7 +29,7 @@ export function calculateLogarithm(input: LogarithmInput): LogarithmResult | nul
   const log2 = Math.log2(value);
 
   // Antilog (base^result)
-  const antilog = Math.pow(base, result);
+  const antilog = base ** result;
 
   // Formula
   const formula = `log_${base}(${value}) = ${result.toFixed(6)}`;

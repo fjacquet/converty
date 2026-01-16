@@ -25,6 +25,7 @@ interface FormValues {
 }
 
 export function RoundingCalculator() {
+  const t = useTranslations("calculator.labels");
   const tMath = useTranslations("calculator.math");
 
   const { values, setValue, result } = useConverter<FormValues, RoundingResult | null>({
@@ -93,7 +94,7 @@ export function RoundingCalculator() {
         ) : (
           <InputField
             id="significantFigures"
-            label="Significant Figures"
+            label={t("significantFigures")}
             value={values.significantFigures}
             onChange={(v) => setValue("significantFigures", v)}
             step="1"

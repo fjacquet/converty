@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import {
   COMMON_ASPECT_RATIOS,
@@ -9,6 +10,8 @@ import {
 } from "@/lib/converters/video/screen-size";
 
 export function ScreenSizeCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tMath = useTranslations("calculator.math");
   const [diagonal, setDiagonal] = useState("55");
   const [aspectW, setAspectW] = useState("16");
   const [aspectH, setAspectH] = useState("9");
@@ -25,7 +28,7 @@ export function ScreenSizeCalculator() {
         <div className="space-y-2">
           <InputField
             id="diagonal"
-            label="Diagonal"
+            label={t("diagonal")}
             value={diagonal}
             onChange={setDiagonal}
             unit="in"
@@ -63,8 +66,8 @@ export function ScreenSizeCalculator() {
           </select>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <InputField id="aspectW" label="Width" value={aspectW} onChange={setAspectW} min={1} />
-          <InputField id="aspectH" label="Height" value={aspectH} onChange={setAspectH} min={1} />
+          <InputField id="aspectW" label={tMath("width")} value={aspectW} onChange={setAspectW} min={1} />
+          <InputField id="aspectH" label={tMath("height")} value={aspectH} onChange={setAspectH} min={1} />
         </div>
       </div>
 

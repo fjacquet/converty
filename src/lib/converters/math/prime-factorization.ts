@@ -94,7 +94,7 @@ export function calculatePrimeFactorization(input: PrimeFactorizationInput): Pri
       return;
     }
     for (let p = 0; p <= factors[index].power; p++) {
-      generateDivisors(index + 1, current * Math.pow(factors[index].prime, p));
+      generateDivisors(index + 1, current * factors[index].prime ** p);
     }
   }
 

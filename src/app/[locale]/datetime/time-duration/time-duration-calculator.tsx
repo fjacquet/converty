@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -21,26 +22,28 @@ const useTimeDurationStore = createCalculatorStore<TimeDurationInput, TimeDurati
 });
 
 export function TimeDurationCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tSections = useTranslations("calculator.sections");
   const { values, setValue, result } = useTimeDurationStore();
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Start Date & Time</CardTitle>
+          <CardTitle className="text-lg">{t("from")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="startDate"
-              label="Start Date"
+              label={t("startDate")}
               type="date"
               value={values.startDate}
               onChange={(value) => setValue("startDate", value)}
             />
             <InputField
               id="startTime"
-              label="Start Time"
+              label={t("time")}
               type="time"
               value={values.startTime}
               onChange={(value) => setValue("startTime", value)}
@@ -51,20 +54,20 @@ export function TimeDurationCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">End Date & Time</CardTitle>
+          <CardTitle className="text-lg">{t("to")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="endDate"
-              label="End Date"
+              label={t("endDate")}
               type="date"
               value={values.endDate}
               onChange={(value) => setValue("endDate", value)}
             />
             <InputField
               id="endTime"
-              label="End Time"
+              label={t("time")}
               type="time"
               value={values.endTime}
               onChange={(value) => setValue("endTime", value)}
@@ -77,7 +80,7 @@ export function TimeDurationCalculator() {
         <>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Duration</CardTitle>
+              <CardTitle className="text-lg">{tSections("results")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
@@ -85,12 +88,12 @@ export function TimeDurationCalculator() {
               </div>
               <ResultGrid
                 results={[
-                  { label: "Years", value: result.years },
-                  { label: "Months", value: result.months },
-                  { label: "Days", value: result.days },
-                  { label: "Hours", value: result.hours },
-                  { label: "Minutes", value: result.minutes },
-                  { label: "Seconds", value: result.seconds },
+                  { label: t("years"), value: result.years },
+                  { label: t("months"), value: result.months },
+                  { label: t("days"), value: result.days },
+                  { label: t("hours"), value: result.hours },
+                  { label: t("minutes"), value: result.minutes },
+                  { label: t("seconds"), value: result.seconds },
                 ]}
                 columns={3}
               />
@@ -99,15 +102,15 @@ export function TimeDurationCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Totals</CardTitle>
+              <CardTitle className="text-lg">{tSections("summary")}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: "Total Days", value: result.totalDays.toLocaleString() },
-                  { label: "Total Hours", value: result.totalHours.toLocaleString() },
-                  { label: "Total Minutes", value: result.totalMinutes.toLocaleString() },
-                  { label: "Total Seconds", value: result.totalSeconds.toLocaleString() },
+                  { label: `${t("days")} (${tSections("summary")})`, value: result.totalDays.toLocaleString() },
+                  { label: `${t("hours")} (${tSections("summary")})`, value: result.totalHours.toLocaleString() },
+                  { label: `${t("minutes")} (${tSections("summary")})`, value: result.totalMinutes.toLocaleString() },
+                  { label: `${t("seconds")} (${tSections("summary")})`, value: result.totalSeconds.toLocaleString() },
                 ]}
                 columns={2}
               />

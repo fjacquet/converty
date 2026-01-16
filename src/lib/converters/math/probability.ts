@@ -119,7 +119,7 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
       const q = 1 - p;
 
       const coeff = combination(n, k);
-      result = coeff * Math.pow(p, k) * Math.pow(q, n - k);
+      result = coeff * p ** k * q ** (n - k);
       formula = "P(X = k) = C(n,k) × p^k × (1-p)^(n-k)";
       explanation = `Probability of exactly ${k} successes in ${n} trials`;
       steps.push(`C(${n},${k}) = ${coeff}`);

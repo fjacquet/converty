@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { useConverter } from "@/hooks";
 import {
@@ -32,6 +33,9 @@ interface FormValues {
 }
 
 export function BMICalculator() {
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
+
   const { values, setValue, result } = useConverter<FormValues, BMIResult | null>({
     initialValues: {
       weight: "70",
@@ -58,7 +62,7 @@ export function BMICalculator() {
       <div className="grid gap-4 sm:grid-cols-2">
         <InputField
           id="weight"
-          label="Weight"
+          label={t("weightSimple")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
           units={WEIGHT_UNITS}
@@ -66,12 +70,12 @@ export function BMICalculator() {
           onUnitChange={(u) => setValue("weightUnit", u as WeightUnit)}
           min={0}
           step="0.1"
-          placeholder="Enter weight"
+          placeholder={t("enterWeight")}
         />
 
         <InputField
           id="height"
-          label="Height"
+          label={t("heightSimple")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
           units={HEIGHT_UNITS}
@@ -79,16 +83,16 @@ export function BMICalculator() {
           onUnitChange={(u) => setValue("heightUnit", u as HeightUnit)}
           min={0}
           step="0.1"
-          placeholder="Enter height"
+          placeholder={t("enterHeight")}
         />
       </div>
 
       {bmiResult && (
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <OutputDisplay label="Your BMI" value={bmiResult.bmi} size="lg" className="flex-1" />
+            <OutputDisplay label={tResults("yourBmi")} value={bmiResult.bmi} size="lg" className="flex-1" />
             <div className="flex-1">
-              <p className="text-sm font-medium text-muted-foreground mb-2">Category</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">{tResults("category")}</p>
               <div className={cn("rounded-md border bg-muted/50 px-3 py-4", categoryInfo?.color)}>
                 <span className="text-2xl font-bold">{bmiResult.categoryLabel}</span>
               </div>
@@ -98,7 +102,7 @@ export function BMICalculator() {
           <ResultGrid
             results={[
               {
-                label: "Healthy Weight Range",
+                label: tResults("healthyWeightRange"),
                 value: `${bmiResult.healthyWeightRange.min} - ${bmiResult.healthyWeightRange.max}`,
                 unit: "kg",
               },
@@ -106,7 +110,7 @@ export function BMICalculator() {
                 ? [
                     {
                       label:
-                        bmiResult.category === "underweight" ? "Weight to gain" : "Weight to lose",
+                        bmiResult.category === "underweight" ? tResults("weightToGain") : tResults("weightToLose"),
                       value: Math.abs(bmiResult.weightToHealthy),
                       unit: "kg",
                     },
@@ -117,15 +121,15 @@ export function BMICalculator() {
 
           {/* BMI Scale Visualization */}
           <div className="space-y-2">
-            <p className="text-sm font-medium text-muted-foreground">BMI Scale</p>
+            <p className="text-sm font-medium text-muted-foreground">{tResults("bmiScale")}</p>
             <div className="relative h-8 rounded-full overflow-hidden">
               <div className="absolute inset-0 flex">
-                <div className="flex-1 bg-blue-400" title="Underweight" />
-                <div className="flex-1 bg-green-400" title="Normal" />
-                <div className="flex-1 bg-yellow-400" title="Overweight" />
-                <div className="flex-1 bg-orange-400" title="Obese I" />
-                <div className="flex-1 bg-red-400" title="Obese II" />
-                <div className="flex-1 bg-red-600" title="Obese III" />
+                <div className="flex-1 bg-blue-400" title={tResults("underweight")} />
+                <div className="flex-1 bg-green-400" title={tResults("normal")} />
+                <div className="flex-1 bg-yellow-400" title={tResults("overweight")} />
+                <div className="flex-1 bg-orange-400" title={tResults("obeseI")} />
+                <div className="flex-1 bg-red-400" title={tResults("obeseII")} />
+                <div className="flex-1 bg-red-600" title={tResults("obeseIII")} />
               </div>
               {/* BMI Indicator */}
               <div

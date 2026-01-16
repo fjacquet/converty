@@ -43,6 +43,7 @@ export default async function RgbConverterPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.rgb");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("color")!;
 
   return (
@@ -50,6 +51,7 @@ export default async function RgbConverterPage({
       title={t("name")}
       description={t("description")}
       category={category}
+      categoryName={tc("color.name")}
     >
       <Suspense
         fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}

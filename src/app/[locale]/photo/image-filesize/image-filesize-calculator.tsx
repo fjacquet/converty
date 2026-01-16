@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   COMMON_RESOLUTIONS,
@@ -10,6 +11,8 @@ import {
 } from "@/lib/converters/photo/image-filesize";
 
 export function ImageFilesizeCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tMath = useTranslations("calculator.math");
   const [width, setWidth] = useState("4000");
   const [height, setHeight] = useState("3000");
   const [format, setFormat] = useState<ImageFormat>("jpeg");
@@ -25,10 +28,10 @@ export function ImageFilesizeCalculator() {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <InputField id="width" label="Width" value={width} onChange={setWidth} unit="px" min={1} />
+        <InputField id="width" label={tMath("width")} value={width} onChange={setWidth} unit="px" min={1} />
         <InputField
           id="height"
-          label="Height"
+          label={tMath("height")}
           value={height}
           onChange={setHeight}
           unit="px"
@@ -79,7 +82,7 @@ export function ImageFilesizeCalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label="Estimated File Size" value={result.formatted} size="lg" />
+          <OutputDisplay label={t("estimatedFileSize")} value={result.formatted} size="lg" />
           <ResultGrid
             results={[
               { label: "Megapixels", value: result.megapixels, unit: "MP" },

@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField } from "@/components/converter";
 import { BANDWIDTH_UNITS, convertBandwidth } from "@/lib/converters/data/bandwidth";
 
 export function BandwidthConverter() {
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
   const [value, setValue] = useState("100");
   const [unit, setUnit] = useState("mbps");
 
@@ -17,12 +20,11 @@ export function BandwidthConverter() {
       <div className="grid gap-4 sm:grid-cols-2">
         <InputField
           id="bandwidth"
-          label="Bandwidth"
+          label={t("value")}
           value={value}
           onChange={setValue}
           min={0}
           step={1}
-          placeholder="Enter bandwidth"
         />
         <div className="space-y-2">
           <label className="text-sm font-medium">Unit</label>
@@ -82,17 +84,17 @@ export function BandwidthConverter() {
                 </thead>
                 <tbody>
                   <tr className="border-b border-muted">
-                    <td className="py-2">Per Day</td>
+                    <td className="py-2">{tResults("daily")}</td>
                     <td className="py-2 text-right font-mono">{result.perDay.GB.toFixed(2)}</td>
                     <td className="py-2 text-right font-mono">{result.perDay.TB.toFixed(4)}</td>
                   </tr>
                   <tr className="border-b border-muted">
-                    <td className="py-2">Per Week</td>
+                    <td className="py-2">{tResults("weekly")}</td>
                     <td className="py-2 text-right font-mono">{result.perWeek.GB.toFixed(2)}</td>
                     <td className="py-2 text-right font-mono">{result.perWeek.TB.toFixed(3)}</td>
                   </tr>
                   <tr className="border-b border-muted">
-                    <td className="py-2">Per Month (30 days)</td>
+                    <td className="py-2">{tResults("monthly")}</td>
                     <td className="py-2 text-right font-mono">{result.perMonth.GB.toFixed(2)}</td>
                     <td className="py-2 text-right font-mono">{result.perMonth.TB.toFixed(2)}</td>
                   </tr>

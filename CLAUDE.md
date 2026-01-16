@@ -45,7 +45,8 @@ npx tsc --noEmit     # Check TypeScript types
    - No React dependencies
 
 2. **Register in** `src/lib/registry/converters.ts`
-   - Add metadata: id (kebab-case), slug, name, description, category, subcategory, keywords, icon
+   - Add metadata: id (kebab-case), slug, category, subcategory (optional), keywords, icon
+   - Note: `name` and `description` come from translations, not the registry
 
 3. **Add translations** to all 4 locale files in `src/messages/`
    - Add to `converters` section with kebab-case key matching registry id

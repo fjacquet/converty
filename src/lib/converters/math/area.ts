@@ -106,7 +106,7 @@ export function calculateArea(input: AreaInput): AreaResult | null {
       if (!radiusA || !radiusB || radiusA <= 0 || radiusB <= 0) return null;
       area = Math.PI * radiusA * radiusB;
       // Approximate perimeter using Ramanujan's formula
-      const h = Math.pow(radiusA - radiusB, 2) / Math.pow(radiusA + radiusB, 2);
+      const h = (radiusA - radiusB) ** 2 / (radiusA + radiusB) ** 2;
       perimeter = Math.PI * (radiusA + radiusB) * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
       formula = "A = π × a × b";
       steps.push(`A = π × ${radiusA} × ${radiusB}`);
@@ -131,7 +131,7 @@ export function calculateArea(input: AreaInput): AreaResult | null {
       const { diagonal1, diagonal2 } = input;
       if (!diagonal1 || !diagonal2 || diagonal1 <= 0 || diagonal2 <= 0) return null;
       area = 0.5 * diagonal1 * diagonal2;
-      const side = Math.sqrt(Math.pow(diagonal1 / 2, 2) + Math.pow(diagonal2 / 2, 2));
+      const side = Math.sqrt((diagonal1 / 2) ** 2 + (diagonal2 / 2) ** 2);
       perimeter = 4 * side;
       formula = "A = ½ × d₁ × d₂";
       steps.push(`A = ½ × ${diagonal1} × ${diagonal2}`);

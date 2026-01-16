@@ -26,10 +26,11 @@ export default async function StudentLoanPage({ params }: { params: Promise<{ lo
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "converters.student-loan" });
+  const tc = await getTranslations({ locale, namespace: "categories" });
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
       <StudentLoanCalculator />
     </ConverterLayout>
   );

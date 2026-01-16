@@ -36,7 +36,7 @@ export function BondCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="faceValue">Face Value (Par)</Label>
+            <Label htmlFor="faceValue">{t("labels.faceValue")}</Label>
             <Input
               id="faceValue"
               type="number"
@@ -48,7 +48,7 @@ export function BondCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="couponRate">Coupon Rate (%)</Label>
+            <Label htmlFor="couponRate">{t("labels.couponRate")}</Label>
             <Input
               id="couponRate"
               type="number"
@@ -58,11 +58,11 @@ export function BondCalculator() {
               value={couponRate}
               onChange={(e) => setCouponRate(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">Annual interest rate paid by the bond</p>
+            <p className="text-xs text-muted-foreground">{t("descriptions.couponRateHelper")}</p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="yearsToMaturity">Years to Maturity</Label>
+            <Label htmlFor="yearsToMaturity">{t("labels.yearsToMaturity")}</Label>
             <Input
               id="yearsToMaturity"
               type="number"
@@ -75,21 +75,21 @@ export function BondCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="paymentFrequency">Payment Frequency</Label>
+            <Label htmlFor="paymentFrequency">{t("labels.paymentFrequency")}</Label>
             <select
               id="paymentFrequency"
               value={paymentFrequency}
               onChange={(e) => setPaymentFrequency(Number(e.target.value))}
               className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
             >
-              <option value={1}>Annual</option>
-              <option value={2}>Semi-Annual</option>
-              <option value={4}>Quarterly</option>
+              <option value={1}>{t("labels.frequencyAnnual")}</option>
+              <option value={2}>{t("labels.frequencySemiAnnual")}</option>
+              <option value={4}>{t("labels.frequencyQuarterly")}</option>
             </select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="marketRate">Market Interest Rate (%)</Label>
+            <Label htmlFor="marketRate">{t("labels.marketRate")}</Label>
             <Input
               id="marketRate"
               type="number"
@@ -100,7 +100,7 @@ export function BondCalculator() {
               onChange={(e) => setMarketRate(Number(e.target.value))}
             />
             <p className="text-xs text-muted-foreground">
-              Current market yield for comparable bonds
+              {t("descriptions.marketRateHelper")}
             </p>
           </div>
         </CardContent>
@@ -114,26 +114,26 @@ export function BondCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Bond Price</p>
+                <p className="text-sm text-muted-foreground">{t("results.bondPrice")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.bondPrice)}</p>
                 <p
                   className={`text-xs mt-1 ${result.isPremium ? "text-red-600" : "text-green-600"}`}
                 >
-                  {result.isPremium ? "Premium" : "Discount"}:{" "}
+                  {result.isPremium ? t("results.premium") : t("results.discount")}:{" "}
                   {formatCurrency(result.premiumOrDiscount)}
-                  {result.isPremium ? " above" : " below"} par
+                  {result.isPremium ? t("results.above") : t("results.below")} {t("results.par")}
                 </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-blue-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Current Yield</p>
+                  <p className="text-sm text-muted-foreground">{t("results.currentYield")}</p>
                   <p className="text-xl font-bold text-blue-600">
                     {result.currentYield.toFixed(2)}%
                   </p>
                 </div>
                 <div className="p-4 bg-green-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Yield to Maturity</p>
+                  <p className="text-sm text-muted-foreground">{t("results.yieldToMaturity")}</p>
                   <p className="text-xl font-bold text-green-600">
                     {result.yieldToMaturity.toFixed(2)}%
                   </p>
@@ -142,46 +142,46 @@ export function BondCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Annual Coupon</p>
+                  <p className="text-sm text-muted-foreground">{t("results.annualCoupon")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.couponPayment)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Coupons</p>
+                  <p className="text-sm text-muted-foreground">{t("results.totalCoupons")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.totalCouponPayments)}</p>
                 </div>
               </div>
 
               <div className="p-4 bg-green-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Total Return</p>
+                <p className="text-sm text-muted-foreground">{t("results.totalReturn")}</p>
                 <p className="text-xl font-bold text-green-600">
                   {formatCurrency(result.totalReturn)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Coupon payments + face value - purchase price
+                  {t("descriptions.totalReturnHelper")}
                 </p>
               </div>
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Purchase Price</span>
+                  <span className="text-muted-foreground">{t("results.purchasePrice")}</span>
                   <span>{formatCurrency(result.bondPrice)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Total Coupons Received</span>
+                  <span className="text-muted-foreground">{t("results.totalCouponsReceived")}</span>
                   <span>{formatCurrency(result.totalCouponPayments)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Face Value at Maturity</span>
+                  <span className="text-muted-foreground">{t("results.faceValueAtMaturity")}</span>
                   <span>{formatCurrency(faceValue)}</span>
                 </div>
                 <div className="flex justify-between font-bold pt-2">
-                  <span>Total Return</span>
+                  <span>{t("results.totalReturn")}</span>
                   <span className="text-green-600">{formatCurrency(result.totalReturn)}</span>
                 </div>
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter valid values to calculate</p>
+            <p className="text-muted-foreground">{t("labels.enterValidValues")}</p>
           )}
         </CardContent>
       </Card>

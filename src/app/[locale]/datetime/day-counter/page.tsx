@@ -30,10 +30,11 @@ export default async function DayCounterPage({ params }: { params: Promise<{ loc
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.day-counter");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("datetime")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("datetime.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <DayCounterCalculator />
       </Suspense>

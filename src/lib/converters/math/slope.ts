@@ -117,7 +117,7 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
   let distance: number | null = null;
   let midpoint: { x: number; y: number } | null = null;
   if (x2 !== undefined && y2 !== undefined) {
-    distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     midpoint = { x: (x1 + x2) / 2, y: (y1 + y2) / 2 };
     steps.push(`Distance = √[(x₂-x₁)² + (y₂-y₁)²] = ${distance.toFixed(6)}`);
     steps.push(`Midpoint = ((x₁+x₂)/2, (y₁+y₂)/2) = (${midpoint.x}, ${midpoint.y})`);

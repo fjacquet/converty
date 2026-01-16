@@ -6,6 +6,7 @@ interface ConverterLayoutProps {
   title: string;
   description: string;
   category: Category;
+  categoryName?: string; // Translated category name (preferred over category.name)
   children: React.ReactNode;
   infoContent?: React.ReactNode;
 }
@@ -14,12 +15,13 @@ export function ConverterLayout({
   title,
   description,
   category,
+  categoryName,
   children,
   infoContent,
 }: ConverterLayoutProps) {
   return (
     <div className="container max-w-4xl py-8">
-      <Breadcrumbs category={category} current={title} />
+      <Breadcrumbs category={category} current={title} categoryName={categoryName} />
 
       <div className="space-y-2 mb-8">
         <h1 className="text-3xl font-bold tracking-tight">{title}</h1>

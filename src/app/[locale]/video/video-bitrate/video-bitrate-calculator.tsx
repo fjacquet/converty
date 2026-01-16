@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   COMMON_FRAMERATES,
@@ -9,6 +10,8 @@ import {
 } from "@/lib/converters/video/video-bitrate";
 
 export function VideoBitrateCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tMath = useTranslations("calculator.math");
   const [width, setWidth] = useState("1920");
   const [height, setHeight] = useState("1080");
   const [fps, setFps] = useState("30");
@@ -32,7 +35,7 @@ export function VideoBitrateCalculator() {
           <div className="grid grid-cols-2 gap-2">
             <InputField
               id="width"
-              label="Width"
+              label={tMath("width")}
               value={width}
               onChange={setWidth}
               unit="px"
@@ -40,7 +43,7 @@ export function VideoBitrateCalculator() {
             />
             <InputField
               id="height"
-              label="Height"
+              label={tMath("height")}
               value={height}
               onChange={setHeight}
               unit="px"
@@ -118,7 +121,7 @@ export function VideoBitrateCalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label="Estimated Bitrate" value={`${result.bitrateMbps} Mbps`} size="lg" />
+          <OutputDisplay label={t("estimatedBitrate")} value={`${result.bitrateMbps} Mbps`} size="lg" />
 
           <ResultGrid
             results={[

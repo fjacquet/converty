@@ -147,7 +147,7 @@ function evaluatePostfix(postfix: string[], angleMode: "degrees" | "radians", st
         case "-": result = a - b; break;
         case "*": result = a * b; break;
         case "/": result = a / b; break;
-        case "^": result = Math.pow(a, b); break;
+        case "^": result = a ** b; break;
         case "%": result = a % b; break;
         default: result = NaN;
       }

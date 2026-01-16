@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { OutputDisplay } from "@/components/converter";
 import {
   decodeBase64,
@@ -15,6 +16,8 @@ import {
 type Mode = "encode" | "decode";
 
 export function URLEncoderConverter() {
+  const t = useTranslations("calculator.labels");
+  const tSections = useTranslations("calculator.sections");
   const [input, setInput] = useState("Hello World! How are you?");
   const [mode, setMode] = useState<Mode>("encode");
 
@@ -47,7 +50,7 @@ export function URLEncoderConverter() {
       {/* Input */}
       <div className="space-y-2">
         <label htmlFor="input" className="text-sm font-medium">
-          {mode === "encode" ? "Text to Encode" : "Text to Decode"}
+          {tSections("input")}
         </label>
         <textarea
           id="input"
@@ -67,16 +70,16 @@ export function URLEncoderConverter() {
       {/* Results */}
       <div className="space-y-4">
         <OutputDisplay
-          label="URL Encoded"
+          label={t("urlEncoded")}
           value={mode === "encode" ? urlResult.encoded : urlResult.decoded}
           copyable
           className="font-mono text-sm"
         />
 
-        <OutputDisplay label="Base64" value={base64Result} copyable className="font-mono text-sm" />
+        <OutputDisplay label={t("base64")} value={base64Result} copyable className="font-mono text-sm" />
 
         <OutputDisplay
-          label="HTML Entities"
+          label={t("htmlEntities")}
           value={htmlResult}
           copyable
           className="font-mono text-sm"

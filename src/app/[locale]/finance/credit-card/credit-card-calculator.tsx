@@ -38,7 +38,7 @@ export function CreditCardCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="balance">Current Balance</Label>
+            <Label htmlFor="balance">{t("finance.currentBalance")}</Label>
             <Input
               id="balance"
               type="number"
@@ -50,7 +50,7 @@ export function CreditCardCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualInterestRate">Annual Interest Rate (%)</Label>
+            <Label htmlFor="annualInterestRate">{t("finance.interestRatePercent")}</Label>
             <Input
               id="annualInterestRate"
               type="number"
@@ -63,7 +63,7 @@ export function CreditCardCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="minimumPaymentPercent">Minimum Payment (%)</Label>
+            <Label htmlFor="minimumPaymentPercent">{t("finance.minimumPaymentPercent")}</Label>
             <Input
               id="minimumPaymentPercent"
               type="number"
@@ -74,12 +74,12 @@ export function CreditCardCalculator() {
               onChange={(e) => setMinimumPaymentPercent(Number(e.target.value))}
             />
             <p className="text-xs text-muted-foreground">
-              Percentage of balance for minimum payment
+              {t("finance.minimumPaymentDescription")}
             </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="minimumPaymentFixed">Minimum Payment Floor</Label>
+            <Label htmlFor="minimumPaymentFixed">{t("finance.minimumPaymentFloor")}</Label>
             <Input
               id="minimumPaymentFixed"
               type="number"
@@ -89,12 +89,12 @@ export function CreditCardCalculator() {
               onChange={(e) => setMinimumPaymentFixed(Number(e.target.value))}
             />
             <p className="text-xs text-muted-foreground">
-              Minimum payment cannot go below this amount
+              {t("finance.minimumPaymentFloorDescription")}
             </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="additionalPayment">Additional Payment</Label>
+            <Label htmlFor="additionalPayment">{t("finance.additionalPayment")}</Label>
             <Input
               id="additionalPayment"
               type="number"
@@ -106,7 +106,7 @@ export function CreditCardCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="targetMonths">Target Payoff (months)</Label>
+            <Label htmlFor="targetMonths">{t("finance.targetPayoffMonths")}</Label>
             <Input
               id="targetMonths"
               type="number"
@@ -117,7 +117,7 @@ export function CreditCardCalculator() {
               onChange={(e) => setTargetMonths(Number(e.target.value))}
             />
             <p className="text-xs text-muted-foreground">
-              Optional: Calculate payment needed to pay off in this time
+              {t("finance.targetPayoffDescription")}
             </p>
           </div>
         </CardContent>
@@ -131,27 +131,27 @@ export function CreditCardCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">First Payment</p>
+                <p className="text-sm text-muted-foreground">{t("finance.firstPayment")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.firstPayment)}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Average: {formatCurrency(result.averagePayment)}
+                  {t("finance.average")}: {formatCurrency(result.averagePayment)}
                 </p>
               </div>
 
               <div className="p-4 bg-yellow-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Time to Payoff</p>
+                <p className="text-sm text-muted-foreground">{t("finance.timeToPayoff")}</p>
                 <p className="text-xl font-bold text-yellow-600">
-                  {Math.floor(result.yearsToPayoff)} years, {result.monthsToPayoff % 12} months
+                  {t("finance.yearsMonthsFormat", { years: Math.floor(result.yearsToPayoff), months: result.monthsToPayoff % 12 })}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  ({result.monthsToPayoff} total months)
+                  ({t("finance.totalMonthsCount", { count: result.monthsToPayoff })})
                 </p>
               </div>
 
               {result.paymentForTarget && (
                 <div className="p-4 bg-blue-500/10 rounded-lg">
                   <p className="text-sm text-muted-foreground">
-                    Payment for {targetMonths}-Month Payoff
+                    {t("finance.paymentForTargetPayoff", { months: targetMonths })}
                   </p>
                   <p className="text-xl font-bold text-blue-600">
                     {formatCurrency(result.paymentForTarget)}
@@ -161,35 +161,35 @@ export function CreditCardCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-red-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Interest</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.totalInterest")}</p>
                   <p className="text-xl font-bold text-red-600">
                     {formatCurrency(result.totalInterest)}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Paid</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.totalPaid")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.totalPaid)}</p>
                 </div>
               </div>
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Current Balance</span>
+                  <span className="text-muted-foreground">{t("finance.currentBalance")}</span>
                   <span>{formatCurrency(balance)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">+ Total Interest</span>
+                  <span className="text-muted-foreground">{t("finance.plusTotalInterest")}</span>
                   <span>{formatCurrency(result.totalInterest)}</span>
                 </div>
                 <div className="flex justify-between font-bold pt-2">
-                  <span>= Total Cost</span>
+                  <span>{t("finance.equalsTotalCost")}</span>
                   <span>{formatCurrency(result.totalPaid)}</span>
                 </div>
               </div>
             </div>
           ) : (
             <p className="text-muted-foreground">
-              Enter valid values to calculate. Payment must cover interest.
+              {t("finance.enterValidValuesCreditCard")}
             </p>
           )}
         </CardContent>

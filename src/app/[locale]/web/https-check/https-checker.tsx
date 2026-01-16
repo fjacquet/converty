@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   analyzeSecurityHeaders,
   SECURITY_HEADERS,
@@ -8,6 +9,8 @@ import {
 } from "@/lib/converters/web/https-check";
 
 export function HTTPSChecker() {
+  const _t = useTranslations("calculator.labels");
+  const _tSections = useTranslations("calculator.sections");
   const [headers, setHeaders] = useState<Record<string, string>>({
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
     "Content-Security-Policy": "default-src 'self'",

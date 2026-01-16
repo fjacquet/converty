@@ -42,7 +42,7 @@ export function IraCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label>IRA Type</Label>
+            <Label>{t("finance.iraType")}</Label>
             <div className="flex gap-4">
               <label className="flex items-center gap-2">
                 <input
@@ -52,7 +52,7 @@ export function IraCalculator() {
                   onChange={() => setIraType("traditional")}
                   className="h-4 w-4"
                 />
-                <span>Traditional</span>
+                <span>{t("finance.traditional")}</span>
               </label>
               <label className="flex items-center gap-2">
                 <input
@@ -62,14 +62,14 @@ export function IraCalculator() {
                   onChange={() => setIraType("roth")}
                   className="h-4 w-4"
                 />
-                <span>Roth</span>
+                <span>{t("finance.roth")}</span>
               </label>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="currentAge">Current Age</Label>
+              <Label htmlFor="currentAge">{t("finance.currentAge")}</Label>
               <Input
                 id="currentAge"
                 type="number"
@@ -80,7 +80,7 @@ export function IraCalculator() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="retirementAge">Retirement Age</Label>
+              <Label htmlFor="retirementAge">{t("finance.retirementAge")}</Label>
               <Input
                 id="retirementAge"
                 type="number"
@@ -93,7 +93,7 @@ export function IraCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="currentBalance">Current Balance</Label>
+            <Label htmlFor="currentBalance">{t("finance.currentBalance")}</Label>
             <Input
               id="currentBalance"
               type="number"
@@ -105,7 +105,7 @@ export function IraCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualContribution">Annual Contribution</Label>
+            <Label htmlFor="annualContribution">{t("finance.annualContributionLabel")}</Label>
             <Input
               id="annualContribution"
               type="number"
@@ -116,12 +116,12 @@ export function IraCalculator() {
               onChange={(e) => setAnnualContribution(Number(e.target.value))}
             />
             <p className="text-xs text-muted-foreground">
-              Limit: {currentAge >= 50 ? "CHF 8,000" : "CHF 7,000"}/year
+              {t("finance.limitLabel")}: {currentAge >= 50 ? "CHF 8,000" : "CHF 7,000"}/year
             </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualReturnRate">Expected Return (%)</Label>
+            <Label htmlFor="annualReturnRate">{t("labels.expectedReturn")}</Label>
             <Input
               id="annualReturnRate"
               type="number"
@@ -135,7 +135,7 @@ export function IraCalculator() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="taxBracket">Current Tax Bracket (%)</Label>
+              <Label htmlFor="taxBracket">{t("finance.currentTaxBracket")}</Label>
               <Input
                 id="taxBracket"
                 type="number"
@@ -147,7 +147,7 @@ export function IraCalculator() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="retirementTaxBracket">Retirement Tax (%)</Label>
+              <Label htmlFor="retirementTaxBracket">{t("finance.retirementTax")}</Label>
               <Input
                 id="retirementTaxBracket"
                 type="number"
@@ -170,34 +170,34 @@ export function IraCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Total at Retirement</p>
+                <p className="text-sm text-muted-foreground">{t("finance.totalAtRetirement")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.totalAtRetirement)}</p>
               </div>
 
               <div className="p-4 bg-green-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Effective Value (After Tax)</p>
+                <p className="text-sm text-muted-foreground">{t("finance.effectiveValue")}</p>
                 <p className="text-xl font-bold text-green-600">
                   {formatCurrency(result.effectiveValue)}
                 </p>
               </div>
 
               <div className="p-4 bg-blue-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Monthly Retirement Income</p>
+                <p className="text-sm text-muted-foreground">{t("finance.monthlyRetirementIncome")}</p>
                 <p className="text-xl font-bold text-blue-600">
                   {formatCurrency(result.monthlyInRetirement)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Based on 4% withdrawal rule{iraType === "traditional" ? ", after tax" : ""}
+                  {t("finance.basedOn4Percent")}{iraType === "traditional" ? t("finance.afterTax") : ""}
                 </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-3 bg-muted rounded-lg">
-                  <p className="text-xs text-muted-foreground">Total Contributions</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.contributions")}</p>
                   <p className="text-lg font-bold">{formatCurrency(result.totalContributions)}</p>
                 </div>
                 <div className="p-3 bg-green-500/10 rounded-lg">
-                  <p className="text-xs text-muted-foreground">Investment Growth</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.investmentGrowth")}</p>
                   <p className="text-lg font-bold text-green-600">
                     {formatCurrency(result.totalGrowth)}
                   </p>
@@ -206,18 +206,18 @@ export function IraCalculator() {
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <p className="font-medium">
-                  Tax Impact ({iraType === "traditional" ? "Traditional" : "Roth"})
+                  {t("finance.taxImpact")} ({iraType === "traditional" ? t("finance.traditional") : t("finance.roth")})
                 </p>
                 {iraType === "traditional" ? (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Tax Savings Now</span>
+                      <span className="text-muted-foreground">{t("finance.taxSavingsNow")}</span>
                       <span className="text-green-600">
                         +{formatCurrency(result.taxSavingsNow)}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Tax in Retirement</span>
+                      <span className="text-muted-foreground">{t("finance.taxInRetirement")}</span>
                       <span className="text-red-600">
                         -{formatCurrency(result.taxInRetirement)}
                       </span>
@@ -225,18 +225,18 @@ export function IraCalculator() {
                   </>
                 ) : (
                   <p className="text-muted-foreground">
-                    No tax deduction now, but all withdrawals are tax-free in retirement
+                    {t("finance.noTaxDeduction")}
                   </p>
                 )}
               </div>
 
               {result.projections.length > 0 && (
                 <div className="border-t pt-4">
-                  <p className="text-sm font-medium mb-2">Balance Projections</p>
+                  <p className="text-sm font-medium mb-2">{t("finance.balanceProjections")}</p>
                   <div className="space-y-2 text-sm">
                     {result.projections.map((proj) => (
                       <div key={proj.age} className="flex justify-between">
-                        <span className="text-muted-foreground">Age {proj.age}</span>
+                        <span className="text-muted-foreground">{t("labels.age")} {proj.age}</span>
                         <span>{formatCurrency(proj.balance)}</span>
                       </div>
                     ))}
@@ -245,7 +245,7 @@ export function IraCalculator() {
               )}
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter valid values to calculate</p>
+            <p className="text-muted-foreground">{t("finance.enterValuesToCalculate")}</p>
           )}
         </CardContent>
       </Card>

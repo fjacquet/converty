@@ -5,6 +5,7 @@
 ## Test Framework
 
 **Runner:**
+
 - No test framework currently installed
 - No test configuration files present
 - No test scripts in `package.json`
@@ -12,6 +13,7 @@
 **Status:** Testing infrastructure is not set up in this codebase.
 
 **Recommended setup (not yet implemented):**
+
 ```bash
 npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
 ```
@@ -21,10 +23,12 @@ npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
 **Current State:** No test files exist in the codebase.
 
 **Recommended Pattern:**
+
 - Location: Co-located with source files
 - Naming: `[name].test.ts` or `[name].test.tsx`
 
 **Suggested structure:**
+
 ```
 src/
 ├── lib/
@@ -49,6 +53,7 @@ src/
 **Recommended patterns for this codebase:**
 
 **Unit tests for calculation functions:**
+
 ```typescript
 // src/lib/converters/finance/mortgage.test.ts
 import { describe, it, expect } from "vitest";
@@ -96,6 +101,7 @@ describe("calculateMortgage", () => {
 ```
 
 **Component tests:**
+
 ```typescript
 // src/components/converter/input-field.test.tsx
 import { describe, it, expect, vi } from "vitest";
@@ -121,12 +127,7 @@ describe("InputField", () => {
     const handleChange = vi.fn();
 
     render(
-      <InputField
-        id="test"
-        label="Test"
-        value=""
-        onChange={handleChange}
-      />
+      <InputField id="test" label="Test" value="" onChange={handleChange} />
     );
 
     fireEvent.change(screen.getByRole("spinbutton"), {
@@ -145,6 +146,7 @@ describe("InputField", () => {
 **Recommended patterns:**
 
 **Mocking modules:**
+
 ```typescript
 import { vi } from "vitest";
 
@@ -157,6 +159,7 @@ vi.mock("next-intl", () => ({
 ```
 
 **Mocking Zustand stores:**
+
 ```typescript
 import { vi } from "vitest";
 
@@ -170,12 +173,14 @@ vi.mock("@/stores/calculator-store", () => ({
 ```
 
 **What to Mock:**
+
 - External APIs (none currently used)
 - Browser APIs (localStorage, URL)
 - next-intl hooks for translations
 - Zustand store implementations
 
 **What NOT to Mock:**
+
 - Pure calculation functions (test directly)
 - UI component rendering
 - CSS class application
@@ -211,6 +216,7 @@ export const validMortgageResult: MortgageResult = {
 ```
 
 **Location:**
+
 - `__fixtures__/` directories alongside test files
 - Or inline within test files for simple cases
 
@@ -219,11 +225,13 @@ export const validMortgageResult: MortgageResult = {
 **Requirements:** None enforced (no testing infrastructure)
 
 **Recommended targets for future:**
+
 - Calculation functions: 90%+ coverage
 - UI components: 70%+ coverage
 - Integration tests: Key user flows
 
 **View Coverage (when implemented):**
+
 ```bash
 npm run test:coverage
 ```
@@ -231,16 +239,19 @@ npm run test:coverage
 ## Test Types
 
 **Unit Tests:**
+
 - Scope: Pure calculation functions in `src/lib/converters/`
 - Approach: Test input/output, edge cases, null returns
 - Priority: HIGH - Most critical for correctness
 
 **Integration Tests:**
+
 - Scope: Calculator components with store
 - Approach: Test user interactions and state changes
 - Priority: MEDIUM
 
 **E2E Tests:**
+
 - Framework: Not used
 - Status: Could consider Playwright for critical paths
 - Priority: LOW
@@ -248,6 +259,7 @@ npm run test:coverage
 ## Common Patterns
 
 **Testing null returns:**
+
 ```typescript
 it("returns null for zero value", () => {
   const result = calculateBMI({ weight: 0, height: 170, ... });
@@ -256,6 +268,7 @@ it("returns null for zero value", () => {
 ```
 
 **Testing calculation accuracy:**
+
 ```typescript
 it("calculates BMI correctly", () => {
   const result = calculateBMI({
@@ -271,6 +284,7 @@ it("calculates BMI correctly", () => {
 ```
 
 **Testing with translations:**
+
 ```typescript
 // Mock the translation hook
 vi.mock("next-intl", () => ({
@@ -286,11 +300,13 @@ it("displays translated label", () => {
 ## Recommended Next Steps
 
 1. **Install test framework:**
+
    ```bash
    npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom @vitejs/plugin-react
    ```
 
 2. **Create vitest config:**
+
    ```typescript
    // vitest.config.ts
    import { defineConfig } from "vitest/config";
@@ -313,6 +329,7 @@ it("displays translated label", () => {
    ```
 
 3. **Add test scripts to package.json:**
+
    ```json
    {
      "scripts": {
@@ -330,4 +347,4 @@ it("displays translated label", () => {
 
 ---
 
-*Testing analysis: 2026-01-16*
+_Testing analysis: 2026-01-16_

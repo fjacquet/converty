@@ -27,10 +27,11 @@ export default async function DownPaymentPage({ params }: { params: Promise<{ lo
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "converters.down-payment" });
+  const tc = await getTranslations({ locale, namespace: "categories" });
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
       <DownPaymentCalculator />
     </ConverterLayout>
   );

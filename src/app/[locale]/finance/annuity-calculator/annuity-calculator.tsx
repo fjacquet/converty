@@ -33,13 +33,13 @@ export function AnnuityCalculator() {
   const getPaymentLabel = () => {
     switch (paymentFrequency) {
       case 12:
-        return "Monthly";
+        return t("options.monthly");
       case 4:
-        return "Quarterly";
+        return t("options.quarterly");
       case 1:
-        return "Annual";
+        return t("options.annual");
       default:
-        return "Periodic";
+        return t("options.periodic");
     }
   };
 
@@ -51,7 +51,7 @@ export function AnnuityCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label>Annuity Type</Label>
+            <Label>{t("labels.annuityType")}</Label>
             <div className="flex gap-4">
               <label className="flex items-center gap-2">
                 <input
@@ -61,7 +61,7 @@ export function AnnuityCalculator() {
                   onChange={() => setAnnuityType("immediate")}
                   className="h-4 w-4"
                 />
-                <span>Immediate</span>
+                <span>{t("options.immediate")}</span>
               </label>
               <label className="flex items-center gap-2">
                 <input
@@ -71,13 +71,13 @@ export function AnnuityCalculator() {
                   onChange={() => setAnnuityType("deferred")}
                   className="h-4 w-4"
                 />
-                <span>Deferred</span>
+                <span>{t("options.deferred")}</span>
               </label>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="principal">Principal Amount</Label>
+            <Label htmlFor="principal">{t("labels.principalAmount")}</Label>
             <Input
               id="principal"
               type="number"
@@ -86,11 +86,11 @@ export function AnnuityCalculator() {
               value={principal}
               onChange={(e) => setPrincipal(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">Amount invested in the annuity</p>
+            <p className="text-xs text-muted-foreground">{t("descriptions.principalAmountHelp")}</p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualInterestRate">Interest Rate (%)</Label>
+            <Label htmlFor="annualInterestRate">{t("labels.interestRate")}</Label>
             <Input
               id="annualInterestRate"
               type="number"
@@ -104,7 +104,7 @@ export function AnnuityCalculator() {
 
           {annuityType === "deferred" && (
             <div className="space-y-2">
-              <Label htmlFor="deferralYears">Deferral Period (years)</Label>
+              <Label htmlFor="deferralYears">{t("labels.deferralPeriod")}</Label>
               <Input
                 id="deferralYears"
                 type="number"
@@ -114,12 +114,12 @@ export function AnnuityCalculator() {
                 value={deferralYears}
                 onChange={(e) => setDeferralYears(Number(e.target.value))}
               />
-              <p className="text-xs text-muted-foreground">Years before payments begin</p>
+              <p className="text-xs text-muted-foreground">{t("descriptions.deferralPeriodHelp")}</p>
             </div>
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="payoutYears">Payout Period (years)</Label>
+            <Label htmlFor="payoutYears">{t("labels.payoutPeriod")}</Label>
             <Input
               id="payoutYears"
               type="number"
@@ -132,16 +132,16 @@ export function AnnuityCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="paymentFrequency">Payment Frequency</Label>
+            <Label htmlFor="paymentFrequency">{t("labels.paymentFrequency")}</Label>
             <select
               id="paymentFrequency"
               value={paymentFrequency}
               onChange={(e) => setPaymentFrequency(Number(e.target.value))}
               className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
             >
-              <option value={12}>Monthly</option>
-              <option value={4}>Quarterly</option>
-              <option value={1}>Annual</option>
+              <option value={12}>{t("options.monthly")}</option>
+              <option value={4}>{t("options.quarterly")}</option>
+              <option value={1}>{t("options.annual")}</option>
             </select>
           </div>
         </CardContent>
@@ -155,54 +155,54 @@ export function AnnuityCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">{getPaymentLabel()} Payment</p>
+                <p className="text-sm text-muted-foreground">{getPaymentLabel()} {t("results.payment")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.periodicPayment)}</p>
-                <p className="text-xs text-muted-foreground mt-1">For {payoutYears} years</p>
+                <p className="text-xs text-muted-foreground mt-1">{t("results.forYears", { years: payoutYears })}</p>
               </div>
 
               {annuityType === "deferred" && (
                 <div className="p-4 bg-blue-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Value at Payout Start</p>
+                  <p className="text-sm text-muted-foreground">{t("results.valueAtPayoutStart")}</p>
                   <p className="text-xl font-bold text-blue-600">
                     {formatCurrency(result.presentValue)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    After {deferralYears} years of growth
+                    {t("results.afterYearsOfGrowth", { years: deferralYears })}
                   </p>
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-green-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Payments</p>
+                  <p className="text-sm text-muted-foreground">{t("results.totalPayments")}</p>
                   <p className="text-xl font-bold text-green-600">
                     {formatCurrency(result.totalPayments)}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Interest Earned</p>
+                  <p className="text-sm text-muted-foreground">{t("results.interestEarned")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.totalInterestEarned)}</p>
                 </div>
               </div>
 
               <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">Effective Annual Rate</p>
+                <p className="text-sm text-muted-foreground">{t("results.effectiveAnnualRate")}</p>
                 <p className="text-xl font-bold">{result.effectiveRate.toFixed(2)}%</p>
               </div>
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Initial Investment</span>
+                  <span className="text-muted-foreground">{t("results.initialInvestment")}</span>
                   <span>{formatCurrency(principal)}</span>
                 </div>
                 {annuityType === "deferred" && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">+ Growth During Deferral</span>
+                    <span className="text-muted-foreground">{t("results.growthDuringDeferral")}</span>
                     <span>{formatCurrency(result.presentValue - principal)}</span>
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">+ Interest During Payout</span>
+                  <span className="text-muted-foreground">{t("results.interestDuringPayout")}</span>
                   <span>
                     {formatCurrency(
                       result.totalInterestEarned -
@@ -211,24 +211,24 @@ export function AnnuityCalculator() {
                   </span>
                 </div>
                 <div className="flex justify-between font-bold pt-2">
-                  <span>= Total Received</span>
+                  <span>{t("results.totalReceived")}</span>
                   <span className="text-green-600">{formatCurrency(result.totalPayments)}</span>
                 </div>
               </div>
 
               {result.schedule.length > 0 && (
                 <div className="border-t pt-4">
-                  <p className="text-sm font-medium mb-2">Annual Summary</p>
+                  <p className="text-sm font-medium mb-2">{t("results.annualSummary")}</p>
                   <div className="space-y-2 text-sm max-h-40 overflow-y-auto">
                     {result.schedule.slice(0, 10).map((item) => (
                       <div key={item.period} className="flex justify-between">
-                        <span className="text-muted-foreground">Year {item.period}</span>
+                        <span className="text-muted-foreground">{t("results.yearLabel", { year: item.period })}</span>
                         <span>{formatCurrency(item.payment)}</span>
                       </div>
                     ))}
                     {result.schedule.length > 10 && (
                       <p className="text-xs text-muted-foreground">
-                        + {result.schedule.length - 10} more years...
+                        {t("results.moreYears", { count: result.schedule.length - 10 })}
                       </p>
                     )}
                   </div>
@@ -236,7 +236,7 @@ export function AnnuityCalculator() {
               )}
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter valid values to calculate</p>
+            <p className="text-muted-foreground">{t("descriptions.enterValidValues")}</p>
           )}
         </CardContent>
       </Card>

@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { COMMON_DPI, COMMON_PRINT_SIZES, calculateDPI } from "@/lib/converters/photo/dpi";
 
 export function DPICalculator() {
+  const t = useTranslations("calculator.labels");
   const [printWidth, setPrintWidth] = useState("8");
   const [printHeight, setPrintHeight] = useState("10");
   const [dpi, setDpi] = useState("300");
@@ -35,7 +37,7 @@ export function DPICalculator() {
       <div className="grid gap-4 sm:grid-cols-3">
         <InputField
           id="printWidth"
-          label="Print Width"
+          label={t("printWidth")}
           value={printWidth}
           onChange={setPrintWidth}
           unit="in"
@@ -44,7 +46,7 @@ export function DPICalculator() {
         />
         <InputField
           id="printHeight"
-          label="Print Height"
+          label={t("printHeight")}
           value={printHeight}
           onChange={setPrintHeight}
           unit="in"
@@ -52,7 +54,7 @@ export function DPICalculator() {
           step={0.1}
         />
         <div className="space-y-2">
-          <InputField id="dpi" label="DPI" value={dpi} onChange={setDpi} min={1} />
+          <InputField id="dpi" label={t("dpiLabel")} value={dpi} onChange={setDpi} min={1} />
           <div className="flex flex-wrap gap-1">
             {COMMON_DPI.map((d) => (
               <button
@@ -85,7 +87,7 @@ export function DPICalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label="Required Resolution" value={`${result.megapixels} MP`} size="lg" />
+          <OutputDisplay label={t("requiredResolution")} value={`${result.megapixels} MP`} size="lg" />
 
           <ResultGrid
             results={[

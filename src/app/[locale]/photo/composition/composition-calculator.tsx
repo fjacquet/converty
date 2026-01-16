@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import {
   COMMON_FOCAL_LENGTHS,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/converters/photo/composition";
 
 export function CompositionCalculator() {
+  const t = useTranslations("calculator.labels");
   const [focalLength, setFocalLength] = useState("50");
   const [distance, setDistance] = useState("3");
   const [cropFactor, setCropFactor] = useState("1");
@@ -25,7 +27,7 @@ export function CompositionCalculator() {
         <div className="space-y-2">
           <InputField
             id="focalLength"
-            label="Focal Length"
+            label={t("focalLength")}
             value={focalLength}
             onChange={setFocalLength}
             unit="mm"
@@ -45,7 +47,7 @@ export function CompositionCalculator() {
         </div>
         <InputField
           id="distance"
-          label="Subject Distance"
+          label={t("subjectDistance")}
           value={distance}
           onChange={setDistance}
           unit="m"

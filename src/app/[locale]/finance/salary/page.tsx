@@ -37,10 +37,11 @@ export default async function SalaryPage({ params }: { params: Promise<{ locale:
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.salary");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <SalaryCalculator />
       </Suspense>

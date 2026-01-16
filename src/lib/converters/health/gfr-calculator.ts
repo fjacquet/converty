@@ -35,16 +35,16 @@ export function calculateGfr(input: GfrInput): GfrResult | null {
   const alpha = gender === "female" ? -0.241 : -0.302;
 
   const scrOverKappa = creatinineMgdl / kappa;
-  const minTerm = Math.pow(Math.min(scrOverKappa, 1), alpha);
-  const maxTerm = Math.pow(Math.max(scrOverKappa, 1), -1.2);
-  const ageTerm = Math.pow(0.9938, age);
+  const minTerm = Math.min(scrOverKappa, 1) ** alpha;
+  const maxTerm = Math.max(scrOverKappa, 1) ** -1.2;
+  const ageTerm = 0.9938 ** age;
   const genderMultiplier = gender === "female" ? 1.012 : 1;
 
   const egfrCkdEpi = 142 * minTerm * maxTerm * ageTerm * genderMultiplier;
 
   // MDRD equation (original with race adjustment for comparison)
   // GFR = 175 × Scr^-1.154 × age^-0.203 × 0.742 (if female) × 1.212 (if Black)
-  let egfrMdrd = 175 * Math.pow(creatinineMgdl, -1.154) * Math.pow(age, -0.203);
+  let egfrMdrd = 175 * creatinineMgdl ** -1.154 * age ** -0.203;
   if (gender === "female") egfrMdrd *= 0.742;
   if (race === "black") egfrMdrd *= 1.212;
 

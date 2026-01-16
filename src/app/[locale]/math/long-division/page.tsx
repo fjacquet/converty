@@ -43,6 +43,7 @@ export default async function LongDivisionCalculatorPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.long-division");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("math")!;
 
   return (
@@ -50,6 +51,7 @@ export default async function LongDivisionCalculatorPage({
       title={t("name")}
       description={t("description")}
       category={category}
+      categoryName={tc("math.name")}
     >
       <Suspense
         fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}

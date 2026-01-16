@@ -30,10 +30,11 @@ export default async function EmojiCharsPage({ params }: { params: Promise<{ loc
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.emoji-chars");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("web")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("web.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <EmojiMap />
       </Suspense>

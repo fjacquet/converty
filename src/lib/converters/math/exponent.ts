@@ -20,7 +20,7 @@ export function calculateExponent(input: ExponentInput): ExponentResult | null {
     return null; // 0^0 and 0^negative are undefined
   }
 
-  const result = Math.pow(base, exponent);
+  const result = base ** exponent;
 
   if (!isFinite(result)) {
     return null; // Result too large or invalid
@@ -32,7 +32,7 @@ export function calculateExponent(input: ExponentInput): ExponentResult | null {
     scientificNotation = "0";
   } else {
     const exp = Math.floor(Math.log10(Math.abs(result)));
-    const mantissa = result / Math.pow(10, exp);
+    const mantissa = result / 10 ** exp;
     scientificNotation = `${mantissa.toFixed(4)} × 10^${exp}`;
   }
 

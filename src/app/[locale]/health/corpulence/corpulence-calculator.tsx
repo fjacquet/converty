@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { calculateCorpulence, compareToBMI } from "@/lib/converters/health/corpulence";
 
 export function CorpulenceCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
+
   const [weight, setWeight] = useState("70");
   const [height, setHeight] = useState("175");
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
@@ -60,23 +64,23 @@ export function CorpulenceCalculator() {
       <div className="grid gap-4 sm:grid-cols-2">
         <InputField
           id="weight"
-          label="Weight"
+          label={t("weightSimple")}
           value={weight}
           onChange={setWeight}
           unit={unit === "metric" ? "kg" : "lbs"}
           min={1}
           step={0.1}
-          placeholder="Enter weight"
+          placeholder={t("enterWeight")}
         />
         <InputField
           id="height"
-          label="Height"
+          label={t("heightSimple")}
           value={height}
           onChange={setHeight}
           unit={unit === "metric" ? "cm" : "in"}
           min={1}
           step={0.1}
-          placeholder="Enter height"
+          placeholder={t("enterHeight")}
         />
       </div>
 
@@ -85,12 +89,12 @@ export function CorpulenceCalculator() {
         <div className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
             <OutputDisplay
-              label="Corpulence Index"
+              label={t("corpulenceIndex")}
               value={`${result.corpulenceIndex} kg/m³`}
               size="lg"
             />
             <div className="p-4 rounded-lg border bg-muted/50">
-              <p className="text-sm text-muted-foreground mb-1">Category</p>
+              <p className="text-sm text-muted-foreground mb-1">{tResults("category")}</p>
               <p className={`text-xl font-semibold ${getCategoryColor(result.category)}`}>
                 {result.category}
               </p>

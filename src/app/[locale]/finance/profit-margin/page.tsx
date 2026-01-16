@@ -30,10 +30,11 @@ export default async function ProfitMarginPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "converters.profit-margin" });
+  const tc = await getTranslations({ locale, namespace: "categories" });
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
       <ProfitMarginCalculator />
     </ConverterLayout>
   );

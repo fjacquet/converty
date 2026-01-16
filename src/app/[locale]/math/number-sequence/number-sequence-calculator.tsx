@@ -31,7 +31,6 @@ const modes: { value: Mode; label: string }[] = [
 
 export function NumberSequenceCalculator() {
   const t = useTranslations("calculator.labels");
-  const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
   const [mode, setMode] = useState<Mode>("arithmetic");
@@ -86,12 +85,12 @@ export function NumberSequenceCalculator() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {tMath("numberSequence") || "Number Sequence Calculator"}
+            {tMath("numberSequence")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label>{t("sequenceType") || "Sequence Type"}</Label>
+            <Label>{t("sequenceType")}</Label>
             <Select
               value={mode}
               onValueChange={(v) => {
@@ -114,7 +113,7 @@ export function NumberSequenceCalculator() {
 
           {needsFirstTerm && (
             <div className="space-y-2">
-              <Label>{t("firstTerm") || "First Term (a₁)"}</Label>
+              <Label>{t("firstTerm")}</Label>
               <Input
                 type="number"
                 value={firstTerm}
@@ -128,7 +127,7 @@ export function NumberSequenceCalculator() {
 
           {needsDifference && (
             <div className="space-y-2">
-              <Label>{t("commonDifference") || "Common Difference (d)"}</Label>
+              <Label>{t("commonDifference")}</Label>
               <Input
                 type="number"
                 value={commonDifference}
@@ -142,7 +141,7 @@ export function NumberSequenceCalculator() {
 
           {needsRatio && (
             <div className="space-y-2">
-              <Label>{t("commonRatio") || "Common Ratio (r)"}</Label>
+              <Label>{t("commonRatio")}</Label>
               <Input
                 type="number"
                 step="0.1"
@@ -157,7 +156,7 @@ export function NumberSequenceCalculator() {
 
           {needsCustomTerms && (
             <div className="space-y-2">
-              <Label>{t("customTerms") || "Enter Terms (comma-separated)"}</Label>
+              <Label>{tMath("enterNumbers")}</Label>
               <Input
                 type="text"
                 value={customTerms}
@@ -171,7 +170,7 @@ export function NumberSequenceCalculator() {
           )}
 
           <div className="space-y-2">
-            <Label>{t("numberOfTerms") || "Number of Terms (n)"}</Label>
+            <Label>{t("numberOfTerms")}</Label>
             <Input
               type="number"
               min={1}
@@ -185,7 +184,7 @@ export function NumberSequenceCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label>{t("findNthTerm") || "Find Specific Term (optional)"}</Label>
+            <Label>{t("findNthTerm")}</Label>
             <Input
               type="number"
               min={1}
@@ -205,7 +204,7 @@ export function NumberSequenceCalculator() {
             onClick={calculate}
             className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
           >
-            {t("calculate") || "Calculate"}
+            {t("calculate")}
           </button>
         </CardContent>
       </Card>
@@ -238,7 +237,7 @@ export function NumberSequenceCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{tResults("sequence") || "Sequence"}</CardTitle>
+              <CardTitle>{tMath("sequence")}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-mono text-sm break-all">
@@ -250,16 +249,16 @@ export function NumberSequenceCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{tResults("details") || "Details"}</CardTitle>
+              <CardTitle>{tMath("result")}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: "First Term", value: result.firstTerm.toString() },
+                  { label: tMath("firstTerm"), value: result.firstTerm.toString() },
                   ...(result.commonDifference !== undefined
                     ? [
                         {
-                          label: "Common Difference (d)",
+                          label: tMath("commonDifference"),
                           value: result.commonDifference.toString(),
                         },
                       ]
@@ -267,16 +266,16 @@ export function NumberSequenceCalculator() {
                   ...(result.commonRatio !== undefined
                     ? [
                         {
-                          label: "Common Ratio (r)",
+                          label: tMath("commonRatio"),
                           value: result.commonRatio.toFixed(6),
                         },
                       ]
                     : []),
-                  { label: "Sum of Terms", value: result.sum.toLocaleString() },
+                  { label: tMath("sumOfTerms"), value: result.sum.toLocaleString() },
                   ...(result.nthTerm !== undefined
                     ? [
                         {
-                          label: `Term ${findNthTerm}`,
+                          label: tMath("nthTerm"),
                           value: result.nthTerm.toLocaleString(),
                         },
                       ]
@@ -304,7 +303,7 @@ export function NumberSequenceCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{tResults("steps") || "Calculation Steps"}</CardTitle>
+              <CardTitle>{tMath("steps")}</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-1 text-sm font-mono">

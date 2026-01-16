@@ -3,8 +3,6 @@ import type { LucideIcon } from "lucide-react";
 export interface ConverterMeta {
   id: string;
   slug: string;
-  name: string;
-  description: string;
   category: string;
   subcategory?: string;
   keywords: string[];

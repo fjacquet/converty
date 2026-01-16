@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { calculateBPM, getTempoMarking } from "@/lib/converters/music/bpm";
 
 export function BPMCalculator() {
+  const t = useTranslations("calculator.labels");
   const [bpm, setBpm] = useState("120");
 
   const numBpm = parseFloat(bpm) || 0;
@@ -16,7 +18,7 @@ export function BPMCalculator() {
       <div className="grid gap-4 sm:grid-cols-2">
         <InputField
           id="bpm"
-          label="Tempo"
+          label={t("tempo")}
           value={bpm}
           onChange={setBpm}
           unit="BPM"

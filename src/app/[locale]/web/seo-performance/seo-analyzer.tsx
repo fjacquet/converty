@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   analyzeSEO,
   generateRecommendations,
@@ -9,6 +10,8 @@ import {
 } from "@/lib/converters/web/seo-performance";
 
 export function SEOAnalyzer() {
+  const _t = useTranslations("calculator.labels");
+  const _tSections = useTranslations("calculator.sections");
   const [metrics, setMetrics] = useState<SEOMetrics>({
     titleLength: 55,
     descriptionLength: 155,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   decodeHTML,
   type EncodingMode,
@@ -9,6 +10,8 @@ import {
 } from "@/lib/converters/web/html-encoder";
 
 export function HTMLEncoderTool() {
+  const tSections = useTranslations("calculator.sections");
+  const tCommon = useTranslations("common");
   const [input, setInput] = useState("<script>alert('Hello & Goodbye')</script>");
   const [mode, setMode] = useState<EncodingMode>("minimal");
   const [direction, setDirection] = useState<"encode" | "decode">("encode");
@@ -49,15 +52,13 @@ export function HTMLEncoderTool() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Input</label>
+        <label className="text-sm font-medium">{tSections("input")}</label>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           rows={5}
           className="w-full px-3 py-2 rounded-md border bg-background font-mono text-sm"
-          placeholder={
-            direction === "encode" ? "Enter HTML to encode..." : "Enter encoded HTML to decode..."
-          }
+          placeholder={tSections("input")}
         />
       </div>
 
@@ -74,12 +75,12 @@ export function HTMLEncoderTool() {
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium">Output</label>
+          <label className="text-sm font-medium">{tSections("output")}</label>
           <button
             onClick={() => navigator.clipboard.writeText(result)}
             className="text-xs px-2 py-1 rounded border hover:bg-muted/50"
           >
-            Copy
+            {tCommon("copy")}
           </button>
         </div>
         <textarea

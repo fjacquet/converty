@@ -55,14 +55,12 @@ getFeaturedCategories() // => CategoryMeta[]
 
 ### `converters.ts`
 
-Defines all calculator metadata.
+Defines all calculator metadata. Note: `name` and `description` come from translations, not the registry.
 
 ```typescript
 export interface ConverterMeta {
   id: string;           // Unique ID (kebab-case, matches translation key)
   slug: string;         // URL path segment
-  name: string;         // Display name (translate in UI)
-  description: string;  // Short description
   category: string;     // Parent category ID
   subcategory?: string; // Optional grouping within category
   keywords: string[];   // Search terms
@@ -98,8 +96,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "new-calculator": {
     id: "new-calculator",        // kebab-case, unique
     slug: "new-calculator",      // URL segment
-    name: "New Calculator",
-    description: "Calculate something useful",
     category: "math",            // Must match category ID
     subcategory: "algebra",      // Optional
     keywords: ["new", "calculate", "useful"],
@@ -109,7 +105,22 @@ export const converterRegistry: Record<string, ConverterMeta> = {
 };
 ```
 
-### 2. Add to `categories.ts` (if new category)
+### 2. Add translations to all locale files
+
+```json
+// src/messages/en.json (and fr.json, de.json, it.json)
+{
+  "converters": {
+    "new-calculator": {
+      "name": "New Calculator",
+      "description": "Calculate something useful",
+      "metaDescription": "SEO description for search engines"
+    }
+  }
+}
+```
+
+### 3. Add to `categories.ts` (if new category)
 
 ```typescript
 export const categoryRegistry: Record<string, CategoryMeta> = {

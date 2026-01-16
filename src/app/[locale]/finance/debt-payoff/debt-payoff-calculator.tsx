@@ -34,7 +34,7 @@ export function DebtPayoffCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="totalDebt">Total Debt</Label>
+            <Label htmlFor="totalDebt">{t("labels.totalDebt")}</Label>
             <Input
               id="totalDebt"
               type="number"
@@ -46,7 +46,7 @@ export function DebtPayoffCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="interestRate">Interest Rate (%)</Label>
+            <Label htmlFor="interestRate">{t("labels.interestRate")}</Label>
             <Input
               id="interestRate"
               type="number"
@@ -59,7 +59,7 @@ export function DebtPayoffCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="minimumPayment">Minimum Payment</Label>
+            <Label htmlFor="minimumPayment">{t("labels.minimumPayment")}</Label>
             <Input
               id="minimumPayment"
               type="number"
@@ -71,7 +71,7 @@ export function DebtPayoffCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="extraPayment">Extra Payment</Label>
+            <Label htmlFor="extraPayment">{t("labels.extraPayment")}</Label>
             <Input
               id="extraPayment"
               type="number"
@@ -80,7 +80,7 @@ export function DebtPayoffCalculator() {
               value={extraPayment}
               onChange={(e) => setExtraPayment(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">Additional amount to pay each month</p>
+            <p className="text-xs text-muted-foreground">{t("labels.extraPaymentHelp")}</p>
           </div>
         </CardContent>
       </Card>
@@ -93,12 +93,12 @@ export function DebtPayoffCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Monthly Payment</p>
+                <p className="text-sm text-muted-foreground">{t("labels.monthlyPayment")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.monthlyPayment)}</p>
               </div>
 
               <div className="p-4 bg-green-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Time to Payoff</p>
+                <p className="text-sm text-muted-foreground">{t("labels.timeToPayoff")}</p>
                 <p className="text-xl font-bold text-green-600">
                   {Math.floor(result.yearsToPayoff)} years, {result.monthsToPayoff % 12} months
                 </p>
@@ -107,11 +107,11 @@ export function DebtPayoffCalculator() {
               {extraPayment > 0 && result.monthsSaved > 0 && (
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 bg-blue-500/10 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Time Saved</p>
+                    <p className="text-sm text-muted-foreground">{t("labels.timeSaved")}</p>
                     <p className="text-xl font-bold text-blue-600">{result.monthsSaved} months</p>
                   </div>
                   <div className="p-4 bg-blue-500/10 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Interest Saved</p>
+                    <p className="text-sm text-muted-foreground">{t("labels.interestSaved")}</p>
                     <p className="text-xl font-bold text-blue-600">
                       {formatCurrency(result.interestSaved)}
                     </p>
@@ -121,35 +121,35 @@ export function DebtPayoffCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-red-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Interest</p>
+                  <p className="text-sm text-muted-foreground">{t("labels.totalInterest")}</p>
                   <p className="text-xl font-bold text-red-600">
                     {formatCurrency(result.totalInterest)}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Paid</p>
+                  <p className="text-sm text-muted-foreground">{t("labels.totalPaid")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.totalPaid)}</p>
                 </div>
               </div>
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Original Debt</span>
+                  <span className="text-muted-foreground">{t("labels.originalDebt")}</span>
                   <span>{formatCurrency(totalDebt)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">+ Total Interest</span>
+                  <span className="text-muted-foreground">{t("labels.plusTotalInterest")}</span>
                   <span>{formatCurrency(result.totalInterest)}</span>
                 </div>
                 <div className="flex justify-between font-bold pt-2">
-                  <span>= Total Repayment</span>
+                  <span>{t("labels.equalsTotalRepayment")}</span>
                   <span>{formatCurrency(result.totalPaid)}</span>
                 </div>
               </div>
             </div>
           ) : (
             <p className="text-muted-foreground">
-              Enter valid values to calculate. Payment must cover interest.
+              {t("labels.enterValidValues")}
             </p>
           )}
         </CardContent>

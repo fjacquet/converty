@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField } from "@/components/converter";
 import {
   calculateMegapixelAspects,
@@ -8,6 +9,7 @@ import {
 } from "@/lib/converters/photo/megapixel-aspects";
 
 export function MegapixelAspectsCalculator() {
+  const t = useTranslations("calculator.labels");
   const [megapixels, setMegapixels] = useState("24");
 
   const results = calculateMegapixelAspects(parseFloat(megapixels) || 0);
@@ -17,7 +19,7 @@ export function MegapixelAspectsCalculator() {
       <div className="grid gap-4 sm:grid-cols-2">
         <InputField
           id="megapixels"
-          label="Target Megapixels"
+          label={t("targetMegapixels")}
           value={megapixels}
           onChange={setMegapixels}
           unit="MP"

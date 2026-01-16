@@ -34,10 +34,11 @@ export default async function VideoFileSizePage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.video-file-size");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("video")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("video.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <VideoFileSizeCalculator />
       </Suspense>

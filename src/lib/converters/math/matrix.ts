@@ -98,7 +98,7 @@ function determinant(m: number[][]): number {
   let det = 0;
   for (let j = 0; j < n; j++) {
     const minor = getMinor(m, 0, j);
-    det += Math.pow(-1, j) * m[0][j] * determinant(minor);
+    det += (-1) ** j * m[0][j] * determinant(minor);
   }
   return det;
 }
@@ -111,7 +111,7 @@ function cofactorMatrix(m: number[][]): number[][] {
     result[i] = [];
     for (let j = 0; j < n; j++) {
       const minor = getMinor(m, i, j);
-      result[i][j] = Math.pow(-1, i + j) * determinant(minor);
+      result[i][j] = (-1) ** (i + j) * determinant(minor);
     }
   }
   return result;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -29,25 +30,27 @@ const useTimeZoneStore = createCalculatorStore<TimeZoneInput, TimeZoneResult>({
 });
 
 export function TimeZoneCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tSections = useTranslations("calculator.sections");
   const { values, setValue, result } = useTimeZoneStore();
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Source</CardTitle>
+          <CardTitle className="text-lg">{t("from")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <InputField
             id="dateTime"
-            label="Date & Time"
+            label={t("date")}
             type="datetime-local"
             value={values.dateTime}
             onChange={(value) => setValue("dateTime", value)}
           />
 
           <div className="space-y-2">
-            <Label>From Time Zone</Label>
+            <Label>{t("timezone")}</Label>
             <Select
               value={values.fromTimezone}
               onValueChange={(value) => setValue("fromTimezone", value)}
@@ -69,11 +72,11 @@ export function TimeZoneCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Destination</CardTitle>
+          <CardTitle className="text-lg">{t("to")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            <Label>To Time Zone</Label>
+            <Label>{t("timezone")}</Label>
             <Select
               value={values.toTimezone}
               onValueChange={(value) => setValue("toTimezone", value)}
@@ -96,7 +99,7 @@ export function TimeZoneCalculator() {
       {result && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Converted Time</CardTitle>
+            <CardTitle className="text-lg">{tSections("results")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center p-4 bg-primary/10 rounded-lg">
@@ -105,8 +108,8 @@ export function TimeZoneCalculator() {
             </div>
             <ResultGrid
               results={[
-                { label: "Time Zone Offset", value: result.offset },
-                { label: "ISO Date", value: result.convertedDateTime.toISOString().split("T")[0] },
+                { label: t("timezone"), value: result.offset },
+                { label: t("date"), value: result.convertedDateTime.toISOString().split("T")[0] },
               ]}
               columns={2}
             />

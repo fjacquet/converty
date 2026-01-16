@@ -78,7 +78,7 @@ export function CurrencyConverter() {
               type="button"
               onClick={swapCurrencies}
               className="p-2 rounded-full border hover:bg-accent"
-              title="Swap currencies"
+              title={t("labels.swapCurrencies")}
             >
               ⇅
             </button>
@@ -120,14 +120,14 @@ export function CurrencyConverter() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Exchange Rate</p>
+                  <p className="text-sm text-muted-foreground">{t("labels.exchangeRate")}</p>
                   <p className="text-lg font-medium">
                     1 {fromCurrency} ={" "}
                     {format.number(result.exchangeRate, { maximumFractionDigits: 4 })} {toCurrency}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Inverse Rate</p>
+                  <p className="text-sm text-muted-foreground">{t("labels.inverseRate")}</p>
                   <p className="text-lg font-medium">
                     1 {toCurrency} ={" "}
                     {format.number(result.inverseRate, { maximumFractionDigits: 4 })} {fromCurrency}
@@ -136,12 +136,11 @@ export function CurrencyConverter() {
               </div>
 
               <p className="text-xs text-muted-foreground">
-                Note: Exchange rates are for demonstration purposes only and may not reflect current
-                market rates.
+                {t("labels.exchangeRateNote")}
               </p>
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to convert</p>
+            <p className="text-muted-foreground">{t("labels.enterValuesToConvert")}</p>
           )}
         </CardContent>
       </Card>

@@ -37,7 +37,7 @@ export function calculateOneRepMax(input: OneRepMaxInput): OneRepMaxResult | nul
   const lander = (100 * weight) / (101.3 - 2.67123 * reps);
 
   // Lombardi Formula: weight × reps^0.10
-  const lombardi = weight * Math.pow(reps, 0.1);
+  const lombardi = weight * reps ** 0.1;
 
   // Mayhew Formula: (100 × weight) / (52.2 + 41.9 × e^(-0.055 × reps))
   const mayhew = (100 * weight) / (52.2 + 41.9 * Math.exp(-0.055 * reps));

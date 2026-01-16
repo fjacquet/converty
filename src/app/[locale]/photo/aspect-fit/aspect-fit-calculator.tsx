@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { COMMON_SCREENS, calculateAspectFit } from "@/lib/converters/photo/aspect-fit";
 
 export function AspectFitCalculator() {
+  const tMath = useTranslations("calculator.math");
   const [imageWidth, setImageWidth] = useState("1920");
   const [imageHeight, setImageHeight] = useState("1080");
   const [screenWidth, setScreenWidth] = useState("2560");
@@ -24,7 +26,7 @@ export function AspectFitCalculator() {
           <h3 className="font-medium">Image Dimensions</h3>
           <InputField
             id="imageWidth"
-            label="Width"
+            label={tMath("width")}
             value={imageWidth}
             onChange={setImageWidth}
             unit="px"
@@ -32,7 +34,7 @@ export function AspectFitCalculator() {
           />
           <InputField
             id="imageHeight"
-            label="Height"
+            label={tMath("height")}
             value={imageHeight}
             onChange={setImageHeight}
             unit="px"
@@ -43,7 +45,7 @@ export function AspectFitCalculator() {
           <h3 className="font-medium">Screen Dimensions</h3>
           <InputField
             id="screenWidth"
-            label="Width"
+            label={tMath("width")}
             value={screenWidth}
             onChange={setScreenWidth}
             unit="px"
@@ -51,7 +53,7 @@ export function AspectFitCalculator() {
           />
           <InputField
             id="screenHeight"
-            label="Height"
+            label={tMath("height")}
             value={screenHeight}
             onChange={setScreenHeight}
             unit="px"

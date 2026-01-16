@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getSubcategoriesByCategoryId } from "@/lib/registry/categories";
 import { getConvertersByCategoryGrouped } from "@/lib/registry/converters";
@@ -18,6 +19,7 @@ interface ConverterCardProps {
 
 function ConverterCard({ converter, categorySlug }: ConverterCardProps) {
   const Icon = converter.icon;
+  const tConverters = useTranslations("converters");
 
   return (
     <Link href={`/${categorySlug}/${converter.slug}`} className="block group">
@@ -26,13 +28,13 @@ function ConverterCard({ converter, categorySlug }: ConverterCardProps) {
           <div className="flex items-center gap-2">
             <Icon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
             <CardTitle className="text-sm font-medium group-hover:text-primary transition-colors">
-              {converter.name}
+              {tConverters(`${converter.id}.name`)}
             </CardTitle>
           </div>
         </CardHeader>
         <CardContent>
           <CardDescription className="text-xs line-clamp-2">
-            {converter.description}
+            {tConverters(`${converter.id}.description`)}
           </CardDescription>
         </CardContent>
       </Card>
@@ -73,6 +75,7 @@ function SubcategorySection({
 export function SubcategoryNav({ categoryId, categorySlug }: SubcategoryNavProps) {
   const subcategories = getSubcategoriesByCategoryId(categoryId);
   const groupedConverters = getConvertersByCategoryGrouped(categoryId);
+  const tSub = useTranslations("subcategories");
 
   // If no subcategories defined, show all converters in a flat list
   if (subcategories.length === 0) {
@@ -100,8 +103,7 @@ export function SubcategoryNav({ categoryId, categorySlug }: SubcategoryNavProps
         return (
           <SubcategorySection
             key={subcategory.id}
-            title={subcategory.name}
-            description={subcategory.description}
+            title={tSub(subcategory.id)}
             converters={converters}
             categorySlug={categorySlug}
           />
@@ -111,7 +113,7 @@ export function SubcategoryNav({ categoryId, categorySlug }: SubcategoryNavProps
       {/* Show uncategorized converters if any */}
       {groupedConverters.has("uncategorized") && (
         <SubcategorySection
-          title="Other"
+          title={tSub("uncategorized")}
           converters={groupedConverters.get("uncategorized") ?? []}
           categorySlug={categorySlug}
         />

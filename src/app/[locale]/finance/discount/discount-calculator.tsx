@@ -30,7 +30,7 @@ export function DiscountCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="originalPrice">Original Price</Label>
+            <Label htmlFor="originalPrice">{t("finance.original-price")}</Label>
             <Input
               id="originalPrice"
               type="number"
@@ -42,7 +42,7 @@ export function DiscountCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="discountPercent">Discount %</Label>
+            <Label htmlFor="discountPercent">{t("finance.discount-percent")}</Label>
             <Input
               id="discountPercent"
               type="number"
@@ -80,7 +80,7 @@ export function DiscountCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-                <p className="text-sm text-muted-foreground">Sale Price</p>
+                <p className="text-sm text-muted-foreground">{t("finance.sale-price")}</p>
                 <p className="text-3xl font-bold text-green-600">
                   {formatCurrency(result.finalPrice)}
                 </p>
@@ -88,24 +88,24 @@ export function DiscountCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">You Save</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.you-save")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.savings)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Discount</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.discount")}</p>
                   <p className="text-xl font-bold">{result.discountPercent}%</p>
                 </div>
               </div>
 
               <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">Original Price</p>
+                <p className="text-sm text-muted-foreground">{t("finance.original-price")}</p>
                 <p className="text-xl font-bold line-through text-muted-foreground">
                   {formatCurrency(result.originalPrice)}
                 </p>
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{t("finance.enter-values")}</p>
           )}
         </CardContent>
       </Card>

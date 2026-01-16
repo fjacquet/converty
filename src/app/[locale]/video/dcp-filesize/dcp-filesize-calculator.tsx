@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   AUDIO_CONFIGS,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/converters/video/dcp-filesize";
 
 export function DCPFilesizeCalculator() {
+  const t = useTranslations("calculator.labels");
   const [duration, setDuration] = useState("120");
   const [resolution, setResolution] = useState<"2k" | "4k">("2k");
   const [audioChannels, setAudioChannels] = useState("6");
@@ -26,7 +28,7 @@ export function DCPFilesizeCalculator() {
         <div className="space-y-2">
           <InputField
             id="duration"
-            label="Duration"
+            label={t("duration")}
             value={duration}
             onChange={setDuration}
             unit="min"
@@ -79,7 +81,7 @@ export function DCPFilesizeCalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label="Total DCP Size" value={result.formatted} size="lg" />
+          <OutputDisplay label={t("totalDcpSize")} value={result.formatted} size="lg" />
 
           <ResultGrid
             results={[

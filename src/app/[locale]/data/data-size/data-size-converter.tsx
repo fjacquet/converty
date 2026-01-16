@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { convertToAll, DATA_UNITS, type DataUnit } from "@/lib/converters/data/data-size";
 
@@ -10,6 +11,8 @@ const UNIT_OPTIONS = DATA_UNITS.map((u) => ({
 }));
 
 export function DataSizeConverter() {
+  const t = useTranslations("calculator.labels");
+  const _tResults = useTranslations("calculator.results");
   const [value, setValue] = useState("1");
   const [unit, setUnit] = useState<DataUnit>("gb");
 
@@ -28,7 +31,7 @@ export function DataSizeConverter() {
     <div className="space-y-6">
       <InputField
         id="value"
-        label="Value"
+        label={t("value")}
         value={value}
         onChange={setValue}
         units={UNIT_OPTIONS}
@@ -36,7 +39,6 @@ export function DataSizeConverter() {
         onUnitChange={(u) => setUnit(u as DataUnit)}
         min={0}
         step="any"
-        placeholder="Enter value"
       />
 
       {result && (

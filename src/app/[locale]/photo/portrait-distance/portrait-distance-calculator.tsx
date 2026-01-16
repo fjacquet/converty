@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { CROP_FACTORS } from "@/lib/converters/photo/composition";
 import {
@@ -11,6 +12,7 @@ import {
 } from "@/lib/converters/photo/portrait-distance";
 
 export function PortraitDistanceCalculator() {
+  const t = useTranslations("calculator.labels");
   const [focalLength, setFocalLength] = useState("85");
   const [portraitType, setPortraitType] = useState<PortraitType>("head-shoulders");
   const [cropFactor, setCropFactor] = useState("1");
@@ -35,7 +37,7 @@ export function PortraitDistanceCalculator() {
         <div className="space-y-2">
           <InputField
             id="focalLength"
-            label="Focal Length"
+            label={t("focalLength")}
             value={focalLength}
             onChange={setFocalLength}
             unit="mm"
@@ -86,7 +88,7 @@ export function PortraitDistanceCalculator() {
       {result && (
         <div className="space-y-6">
           <OutputDisplay
-            label="Recommended Distance"
+            label={t("recommendedDistance")}
             value={`${result.recommendedDistance} m`}
             size="lg"
           />

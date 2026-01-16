@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay } from "@/components/converter";
 import {
   BANDWIDTH_PRESETS,
@@ -11,6 +12,8 @@ import {
 } from "@/lib/converters/data/download-calculator";
 
 export function DownloadCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
   const [fileSize, setFileSize] = useState("4");
   const [fileSizeUnit, setFileSizeUnit] = useState("GB");
   const [bandwidth, setBandwidth] = useState("100");
@@ -110,31 +113,31 @@ export function DownloadCalculator() {
       {/* Result */}
       {result && (
         <div className="space-y-4">
-          <OutputDisplay label="Estimated Download Time" value={result.formatted} size="lg" />
+          <OutputDisplay label={t("result")} value={result.formatted} size="lg" />
 
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-4">
             <div className="p-3 rounded-md border bg-muted/50 text-center">
               <p className="text-2xl font-mono font-bold">{result.days}</p>
-              <p className="text-sm text-muted-foreground">Days</p>
+              <p className="text-sm text-muted-foreground">{t("days")}</p>
             </div>
             <div className="p-3 rounded-md border bg-muted/50 text-center">
               <p className="text-2xl font-mono font-bold">{result.hours}</p>
-              <p className="text-sm text-muted-foreground">Hours</p>
+              <p className="text-sm text-muted-foreground">{t("hours")}</p>
             </div>
             <div className="p-3 rounded-md border bg-muted/50 text-center">
               <p className="text-2xl font-mono font-bold">{result.minutes}</p>
-              <p className="text-sm text-muted-foreground">Minutes</p>
+              <p className="text-sm text-muted-foreground">{t("minutes")}</p>
             </div>
             <div className="p-3 rounded-md border bg-muted/50 text-center">
               <p className="text-2xl font-mono font-bold">{result.seconds}</p>
-              <p className="text-sm text-muted-foreground">Seconds</p>
+              <p className="text-sm text-muted-foreground">{t("seconds")}</p>
             </div>
           </div>
 
           <div className="p-4 rounded-lg border bg-muted/50">
             <p className="text-sm text-muted-foreground">
-              Total: {result.totalSeconds.toLocaleString(undefined, { maximumFractionDigits: 1 })}{" "}
-              seconds
+              {tResults("total")}: {result.totalSeconds.toLocaleString(undefined, { maximumFractionDigits: 1 })}{" "}
+              {t("seconds")}
             </p>
           </div>
         </div>

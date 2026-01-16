@@ -34,10 +34,11 @@ export default async function TimeDurationPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.time-duration");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("datetime")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("datetime.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <TimeDurationCalculator />
       </Suspense>

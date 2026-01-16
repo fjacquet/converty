@@ -58,7 +58,7 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       decayConstant = Math.LN2 / halfLife;
 
       // N(t) = N₀ × (1/2)^(t/t½) = N₀ × e^(-λt)
-      remainingAmount = initialAmount * Math.pow(0.5, time / halfLife);
+      remainingAmount = initialAmount * 0.5 ** (time / halfLife);
       formula = "N(t) = N₀ × (1/2)^(t/t½)";
 
       steps.push(`Initial amount (N₀) = ${initialAmount}`);
@@ -197,7 +197,7 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
   const decayTable: Array<{ time: number; amount: number; halfLives: number }> = [];
   for (let hl = 0; hl <= Math.max(5, Math.ceil(numberOfHalfLives)); hl++) {
     const t = hl * halfLife;
-    const amt = initialAmount * Math.pow(0.5, hl);
+    const amt = initialAmount * 0.5 ** hl;
     decayTable.push({ time: t, amount: amt, halfLives: hl });
   }
 

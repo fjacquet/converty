@@ -30,10 +30,11 @@ export default async function ConfidenceIntervalCalculatorPage({ params }: { par
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.confidence-interval");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("math")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("math.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <ConfidenceIntervalCalculator />
       </Suspense>

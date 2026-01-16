@@ -19,8 +19,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   bmi: {
     id: "bmi",
     slug: "bmi",
-    name: "BMI Calculator",
-    description: "Calculate your Body Mass Index and health category",
     category: "health",
     keywords: ["bmi", "body mass index", "weight", "health", "obesity"],
     icon: Heart,
@@ -29,8 +27,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   corpulence: {
     id: "corpulence",
     slug: "corpulence",
-    name: "Corpulence Calculator",
-    description: "Calculate your Corpulence Index (Ponderal Index)",
     category: "health",
     keywords: ["corpulence", "ponderal index", "body composition", "weight"],
     icon: Heart,
@@ -39,8 +35,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "body-fat": {
     id: "body-fat",
     slug: "body-fat",
-    name: "Body Fat Calculator",
-    description: "Calculate body fat percentage using the US Navy method",
     category: "health",
     subcategory: "body",
     keywords: ["body fat", "body composition", "navy method", "fat percentage"],
@@ -50,8 +44,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "lean-body-mass": {
     id: "lean-body-mass",
     slug: "lean-body-mass",
-    name: "Lean Body Mass Calculator",
-    description: "Calculate lean body mass using multiple formulas",
     category: "health",
     subcategory: "body",
     keywords: ["lean body mass", "lbm", "fat-free mass", "muscle mass"],
@@ -61,8 +53,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "body-surface-area": {
     id: "body-surface-area",
     slug: "body-surface-area",
-    name: "Body Surface Area Calculator",
-    description: "Calculate BSA using multiple medical formulas",
     category: "health",
     subcategory: "body",
     keywords: ["body surface area", "bsa", "du bois", "mosteller"],
@@ -72,8 +62,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "ideal-weight": {
     id: "ideal-weight",
     slug: "ideal-weight",
-    name: "Ideal Weight Calculator",
-    description: "Calculate ideal body weight using multiple formulas",
     category: "health",
     subcategory: "body",
     keywords: ["ideal weight", "ideal body weight", "ibw", "healthy weight"],
@@ -83,8 +71,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "bmr-calculator": {
     id: "bmr-calculator",
     slug: "bmr-calculator",
-    name: "BMR Calculator",
-    description: "Calculate Basal Metabolic Rate for calorie planning",
     category: "health",
     subcategory: "nutrition",
     keywords: ["bmr", "basal metabolic rate", "metabolism", "calories"],
@@ -94,8 +80,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "tdee-calculator": {
     id: "tdee-calculator",
     slug: "tdee-calculator",
-    name: "TDEE Calculator",
-    description: "Calculate Total Daily Energy Expenditure",
     category: "health",
     subcategory: "nutrition",
     keywords: ["tdee", "total daily energy expenditure", "calories", "activity"],
@@ -105,8 +89,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "calorie-calculator": {
     id: "calorie-calculator",
     slug: "calorie-calculator",
-    name: "Calorie Calculator",
-    description: "Calculate daily calorie needs for weight goals",
     category: "health",
     subcategory: "nutrition",
     keywords: ["calories", "weight loss", "weight gain", "diet", "macros"],
@@ -116,8 +98,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "calories-burned": {
     id: "calories-burned",
     slug: "calories-burned",
-    name: "Calories Burned Calculator",
-    description: "Calculate calories burned during various activities",
     category: "health",
     subcategory: "fitness",
     keywords: ["calories burned", "exercise", "activity", "met", "workout"],
@@ -127,8 +107,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "target-heart-rate": {
     id: "target-heart-rate",
     slug: "target-heart-rate",
-    name: "Target Heart Rate Calculator",
-    description: "Calculate target heart rate zones for exercise",
     category: "health",
     subcategory: "fitness",
     keywords: ["heart rate", "cardio zones", "fat burning", "exercise intensity"],
@@ -138,8 +116,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "one-rep-max": {
     id: "one-rep-max",
     slug: "one-rep-max",
-    name: "One Rep Max Calculator",
-    description: "Calculate your one-rep max from submaximal lifts",
     category: "health",
     subcategory: "fitness",
     keywords: ["one rep max", "1rm", "strength", "weightlifting", "powerlifting"],
@@ -149,8 +125,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "pace-calculator": {
     id: "pace-calculator",
     slug: "pace-calculator",
-    name: "Pace Calculator",
-    description: "Calculate running pace, speed, and race times",
     category: "health",
     subcategory: "fitness",
     keywords: ["pace", "running", "speed", "marathon", "race time"],
@@ -160,8 +134,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "macro-calculator": {
     id: "macro-calculator",
     slug: "macro-calculator",
-    name: "Macro Calculator",
-    description: "Calculate daily macronutrient targets",
     category: "health",
     subcategory: "nutrition",
     keywords: ["macros", "protein", "carbs", "fat", "nutrition", "diet"],
@@ -171,8 +143,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "protein-calculator": {
     id: "protein-calculator",
     slug: "protein-calculator",
-    name: "Protein Calculator",
-    description: "Calculate daily protein requirements",
     category: "health",
     subcategory: "nutrition",
     keywords: ["protein", "nutrition", "muscle", "diet", "amino acids"],
@@ -182,8 +152,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "carb-calculator": {
     id: "carb-calculator",
     slug: "carb-calculator",
-    name: "Carbohydrate Calculator",
-    description: "Calculate daily carbohydrate needs",
     category: "health",
     subcategory: "nutrition",
     keywords: ["carbs", "carbohydrates", "nutrition", "diet", "fiber"],
@@ -193,8 +161,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "fat-intake": {
     id: "fat-intake",
     slug: "fat-intake",
-    name: "Fat Intake Calculator",
-    description: "Calculate daily fat intake requirements",
     category: "health",
     subcategory: "nutrition",
     keywords: ["fat", "lipids", "nutrition", "omega-3", "saturated fat"],
@@ -204,8 +170,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "water-intake": {
     id: "water-intake",
     slug: "water-intake",
-    name: "Water Intake Calculator",
-    description: "Calculate daily water intake needs",
     category: "health",
     subcategory: "nutrition",
     keywords: ["water", "hydration", "fluid intake", "dehydration"],
@@ -215,8 +179,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "body-type": {
     id: "body-type",
     slug: "body-type",
-    name: "Body Type Calculator",
-    description: "Determine your body type (ectomorph, mesomorph, endomorph)",
     category: "health",
     subcategory: "body",
     keywords: ["body type", "somatotype", "ectomorph", "mesomorph", "endomorph"],
@@ -226,8 +188,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "healthy-weight": {
     id: "healthy-weight",
     slug: "healthy-weight",
-    name: "Healthy Weight Calculator",
-    description: "Calculate your healthy weight range based on height",
     category: "health",
     subcategory: "body",
     keywords: ["healthy weight", "ideal weight", "weight range", "BMI"],
@@ -237,8 +197,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "army-body-fat": {
     id: "army-body-fat",
     slug: "army-body-fat",
-    name: "Army Body Fat Calculator",
-    description: "Calculate body fat using US Army standards",
     category: "health",
     subcategory: "body",
     keywords: ["army", "body fat", "military", "tape test", "fitness standards"],
@@ -248,8 +206,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "bac-calculator": {
     id: "bac-calculator",
     slug: "bac-calculator",
-    name: "BAC Calculator",
-    description: "Calculate blood alcohol content",
     category: "health",
     subcategory: "medical",
     keywords: ["blood alcohol", "BAC", "drinking", "alcohol", "impairment"],
@@ -259,8 +215,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "gfr-calculator": {
     id: "gfr-calculator",
     slug: "gfr-calculator",
-    name: "GFR Calculator",
-    description: "Calculate glomerular filtration rate for kidney function",
     category: "health",
     subcategory: "medical",
     keywords: ["GFR", "kidney", "creatinine", "renal function", "CKD"],
@@ -270,8 +224,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "sleep-calculator": {
     id: "sleep-calculator",
     slug: "sleep-calculator",
-    name: "Sleep Calculator",
-    description: "Calculate optimal sleep and wake times",
     category: "health",
     subcategory: "medical",
     keywords: ["sleep", "sleep cycle", "bedtime", "wake time", "REM"],
@@ -281,8 +233,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "due-date": {
     id: "due-date",
     slug: "due-date",
-    name: "Due Date Calculator",
-    description: "Calculate pregnancy due date and milestones",
     category: "health",
     subcategory: "pregnancy",
     keywords: ["due date", "pregnancy", "conception", "trimester", "EDD"],
@@ -292,8 +242,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "ovulation-calculator": {
     id: "ovulation-calculator",
     slug: "ovulation-calculator",
-    name: "Ovulation Calculator",
-    description: "Calculate ovulation date and fertile window",
     category: "health",
     subcategory: "pregnancy",
     keywords: ["ovulation", "fertility", "fertile window", "conception", "cycle"],
@@ -303,8 +251,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "period-calculator": {
     id: "period-calculator",
     slug: "period-calculator",
-    name: "Period Calculator",
-    description: "Track menstrual cycle and predict next period",
     category: "health",
     subcategory: "pregnancy",
     keywords: ["period", "menstrual cycle", "PMS", "menstruation"],
@@ -314,8 +260,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "pregnancy-weight-gain": {
     id: "pregnancy-weight-gain",
     slug: "pregnancy-weight-gain",
-    name: "Pregnancy Weight Gain Calculator",
-    description: "Calculate recommended weight gain during pregnancy",
     category: "health",
     subcategory: "pregnancy",
     keywords: ["pregnancy", "weight gain", "prenatal", "trimester", "BMI"],
@@ -327,8 +271,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   age: {
     id: "age",
     slug: "age",
-    name: "Age Calculator",
-    description: "Calculate exact age from birthdate in years, months, and days",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["age", "birthday", "years", "months", "days", "birth date"],
@@ -338,8 +280,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   date: {
     id: "date",
     slug: "date",
-    name: "Date Calculator",
-    description: "Add or subtract days, weeks, months, and years from a date",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["date", "add", "subtract", "days", "weeks", "months", "years"],
@@ -349,8 +289,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   time: {
     id: "time",
     slug: "time",
-    name: "Time Calculator",
-    description: "Add or subtract hours, minutes, and seconds",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["time", "add", "subtract", "hours", "minutes", "seconds"],
@@ -360,8 +298,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   hours: {
     id: "hours",
     slug: "hours",
-    name: "Hours Calculator",
-    description: "Calculate hours between two times or dates",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["hours", "time", "duration", "work hours", "between"],
@@ -371,8 +307,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "time-duration": {
     id: "time-duration",
     slug: "time-duration",
-    name: "Time Duration Calculator",
-    description: "Calculate duration between two dates and times",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["duration", "time", "between", "difference", "elapsed"],
@@ -382,8 +316,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "time-zone": {
     id: "time-zone",
     slug: "time-zone",
-    name: "Time Zone Calculator",
-    description: "Convert times between different time zones",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["time zone", "convert", "utc", "gmt", "timezone"],
@@ -393,8 +325,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "day-counter": {
     id: "day-counter",
     slug: "day-counter",
-    name: "Day Counter",
-    description: "Count days between dates or until a future date",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["days", "count", "between", "until", "countdown"],
@@ -404,8 +334,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "day-of-week": {
     id: "day-of-week",
     slug: "day-of-week",
-    name: "Day of the Week Calculator",
-    description: "Find what day of the week any date falls on",
     category: "datetime",
     subcategory: "date-time",
     keywords: ["day", "week", "monday", "tuesday", "date", "weekday"],
@@ -417,8 +345,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   rgb: {
     id: "rgb",
     slug: "rgb",
-    name: "RGB Converter",
-    description: "Convert between RGB, HEX, HSL, and CMYK color formats",
     category: "color",
     keywords: ["rgb", "hex", "color", "convert", "hsl", "cmyk"],
     icon: Palette,
@@ -429,8 +355,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "data-size": {
     id: "data-size",
     slug: "data-size",
-    name: "Data Size Calculator",
-    description: "Convert between bytes, KB, MB, GB, TB and more",
     category: "data",
     keywords: ["data", "size", "bytes", "kilobytes", "megabytes", "gigabytes"],
     icon: Database,
@@ -439,8 +363,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   bandwidth: {
     id: "bandwidth",
     slug: "bandwidth",
-    name: "Bandwidth Converter",
-    description: "Convert Mbps to KB/s, GB/day, TB/week and more",
     category: "data",
     keywords: ["bandwidth", "mbps", "kbps", "network", "speed", "transfer"],
     icon: Database,
@@ -449,8 +371,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "download-calculator": {
     id: "download-calculator",
     slug: "download-calculator",
-    name: "Download Calculator",
-    description: "Calculate download time from bandwidth and file size",
     category: "data",
     keywords: ["download", "time", "bandwidth", "file size", "transfer"],
     icon: Database,
@@ -461,8 +381,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   speed: {
     id: "speed",
     slug: "speed",
-    name: "Speed Converter",
-    description: "Convert between m/s, km/h, mph, knots, and more",
     category: "physics",
     keywords: ["speed", "velocity", "mph", "kmh", "meters per second"],
     icon: Gauge,
@@ -473,8 +391,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "aspect-ratio": {
     id: "aspect-ratio",
     slug: "aspect-ratio",
-    name: "Aspect Ratio Calculator",
-    description: "Calculate aspect ratios from width and height",
     category: "photo",
     keywords: ["aspect ratio", "width", "height", "image", "video", "screen"],
     icon: ImageIcon,
@@ -483,8 +399,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "aspect-fit": {
     id: "aspect-fit",
     slug: "aspect-fit",
-    name: "Aspect Fit Calculator",
-    description: "Fit an image on a screen with letterboxing",
     category: "photo",
     keywords: ["aspect fit", "letterbox", "pillarbox", "screen", "resize"],
     icon: ImageIcon,
@@ -493,8 +407,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   composition: {
     id: "composition",
     slug: "composition",
-    name: "Composition Calculator",
-    description: "Calculate field of view from focal length and distance",
     category: "photo",
     keywords: ["composition", "focal length", "field of view", "crop factor"],
     icon: ImageIcon,
@@ -503,8 +415,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "depth-of-field": {
     id: "depth-of-field",
     slug: "depth-of-field",
-    name: "Depth of Field Calculator",
-    description: "Calculate DoF from aperture, focal length, and distance",
     category: "photo",
     keywords: ["depth of field", "dof", "aperture", "bokeh", "hyperfocal"],
     icon: ImageIcon,
@@ -513,8 +423,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   dpi: {
     id: "dpi",
     slug: "dpi",
-    name: "DPI Calculator",
-    description: "Calculate megapixels from print size and DPI",
     category: "photo",
     keywords: ["dpi", "ppi", "print", "resolution", "megapixels"],
     icon: ImageIcon,
@@ -523,8 +431,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "image-filesize": {
     id: "image-filesize",
     slug: "image-filesize",
-    name: "Image Filesize Calculator",
-    description: "Estimate image file size for JPEG, PNG, RAW formats",
     category: "photo",
     keywords: ["image", "file size", "jpeg", "png", "raw", "compression"],
     icon: ImageIcon,
@@ -533,8 +439,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "light-ev": {
     id: "light-ev",
     slug: "light-ev",
-    name: "Light EV Calculator",
-    description: "Calculate Exposure Value from camera settings",
     category: "photo",
     keywords: ["exposure", "ev", "aperture", "shutter", "iso", "light"],
     icon: ImageIcon,
@@ -543,8 +447,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   megapixels: {
     id: "megapixels",
     slug: "megapixels",
-    name: "Megapixel Calculator",
-    description: "Calculate megapixels from width and height",
     category: "photo",
     keywords: ["megapixel", "resolution", "pixels", "image size"],
     icon: ImageIcon,
@@ -553,8 +455,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "megapixel-aspects": {
     id: "megapixel-aspects",
     slug: "megapixel-aspects",
-    name: "Megapixel Aspects",
-    description: "View megapixels in different aspect ratios",
     category: "photo",
     keywords: ["megapixel", "aspect ratio", "resolution", "format"],
     icon: ImageIcon,
@@ -563,8 +463,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "portrait-distance": {
     id: "portrait-distance",
     slug: "portrait-distance",
-    name: "Portrait Distance Calculator",
-    description: "Calculate ideal shooting distance for portraits",
     category: "photo",
     keywords: ["portrait", "distance", "focal length", "headshot"],
     icon: ImageIcon,
@@ -573,8 +471,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "star-trails": {
     id: "star-trails",
     slug: "star-trails",
-    name: "Star Trails Calculator",
-    description: "Calculate exposure time for star trail rotation",
     category: "photo",
     keywords: ["star trails", "astrophotography", "long exposure", "night", "rotation"],
     icon: ImageIcon,
@@ -583,8 +479,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "spot-stars": {
     id: "spot-stars",
     slug: "spot-stars",
-    name: "Spot Stars Calculator",
-    description: "Calculate max exposure to prevent star trailing (NPF Rule)",
     category: "photo",
     keywords: ["spot stars", "npf rule", "milky way", "astrophotography", "500 rule"],
     icon: ImageIcon,
@@ -593,8 +487,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "time-lapse": {
     id: "time-lapse",
     slug: "time-lapse",
-    name: "Time Lapse Calculator",
-    description: "Calculate interval, clip length, and memory for time lapse",
     category: "photo",
     keywords: ["time lapse", "timelapse", "interval", "photography", "video"],
     icon: ImageIcon,
@@ -603,8 +495,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "focal-equivalent": {
     id: "focal-equivalent",
     slug: "focal-equivalent",
-    name: "Focal Length Equivalent",
-    description: "Match settings between different sensor sizes",
     category: "photo",
     keywords: ["focal length", "equivalent", "crop factor", "sensor", "field of view"],
     icon: ImageIcon,
@@ -613,8 +503,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   hyperfocal: {
     id: "hyperfocal",
     slug: "hyperfocal",
-    name: "Hyperfocal Distance Calculator",
-    description: "Calculate hyperfocal distance for maximum depth of field",
     category: "photo",
     keywords: ["hyperfocal", "depth of field", "landscape", "sharpness", "focus"],
     icon: ImageIcon,
@@ -623,8 +511,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "nd-filter": {
     id: "nd-filter",
     slug: "nd-filter",
-    name: "ND Filter Calculator",
-    description: "Calculate exposure time with ND filters",
     category: "photo",
     keywords: ["nd filter", "neutral density", "long exposure", "shutter speed"],
     icon: ImageIcon,
@@ -633,8 +519,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "golden-hour": {
     id: "golden-hour",
     slug: "golden-hour",
-    name: "Golden Hour Guide",
-    description: "Calculate golden hour times based on your location",
     category: "photo",
     keywords: ["golden hour", "blue hour", "twilight", "sunrise", "sunset", "geolocation"],
     icon: ImageIcon,
@@ -643,8 +527,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "sun-position": {
     id: "sun-position",
     slug: "sun-position",
-    name: "Sun Position Calculator",
-    description: "Calculate sun position, twilight times, and light phases for photography",
     category: "photo",
     keywords: ["sun position", "altitude", "azimuth", "twilight", "golden hour", "blue hour", "astrophotography"],
     icon: ImageIcon,
@@ -653,8 +535,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "circle-of-confusion": {
     id: "circle-of-confusion",
     slug: "circle-of-confusion",
-    name: "Circle of Confusion Calculator",
-    description: "Calculate CoC from sensor, print size, and viewing distance",
     category: "photo",
     keywords: ["circle of confusion", "coc", "depth of field", "print", "sharpness"],
     icon: ImageIcon,
@@ -663,8 +543,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "advanced-dof": {
     id: "advanced-dof",
     slug: "advanced-dof",
-    name: "Advanced DoF Calculator",
-    description: "Depth of field with adjustable CoC for print size and viewing",
     category: "photo",
     keywords: ["depth of field", "dof", "circle of confusion", "print", "viewing distance"],
     icon: ImageIcon,
@@ -673,8 +551,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "macro-dof": {
     id: "macro-dof",
     slug: "macro-dof",
-    name: "Macro DoF Calculator",
-    description: "Accurate depth of field for macro photography",
     category: "photo",
     keywords: ["macro", "depth of field", "magnification", "close-up", "focus stacking"],
     icon: ImageIcon,
@@ -683,8 +559,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "dof-table": {
     id: "dof-table",
     slug: "dof-table",
-    name: "DoF Table",
-    description: "Interactive table showing DoF across apertures and distances",
     category: "photo",
     keywords: ["depth of field", "table", "aperture", "distance", "reference"],
     icon: ImageIcon,
@@ -693,8 +567,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   diffraction: {
     id: "diffraction",
     slug: "diffraction",
-    name: "Diffraction Calculator",
-    description: "Calculate when your camera becomes diffraction-limited",
     category: "photo",
     keywords: ["diffraction", "airy disk", "aperture", "sharpness", "pixel pitch"],
     icon: ImageIcon,
@@ -703,8 +575,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "macro-diffraction": {
     id: "macro-diffraction",
     slug: "macro-diffraction",
-    name: "Macro Diffraction Calculator",
-    description: "Calculate effective aperture and diffraction in macro photography",
     category: "photo",
     keywords: ["macro", "diffraction", "effective aperture", "magnification", "sharpness"],
     icon: ImageIcon,
@@ -715,8 +585,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   bpm: {
     id: "bpm",
     slug: "bpm",
-    name: "BPM Calculator",
-    description: "Convert BPM to Hz, bar length, and note durations",
     category: "music",
     keywords: ["bpm", "tempo", "beats per minute", "music", "rhythm"],
     icon: Music,
@@ -727,8 +595,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "video-file-size": {
     id: "video-file-size",
     slug: "video-file-size",
-    name: "Video File Size Calculator",
-    description: "Estimate video file size from resolution and duration",
     category: "video",
     keywords: ["video", "file size", "bitrate", "duration", "resolution"],
     icon: Video,
@@ -737,8 +603,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "audio-filesize": {
     id: "audio-filesize",
     slug: "audio-filesize",
-    name: "Audio File Size Calculator",
-    description: "Estimate audio file size from duration and format",
     category: "video",
     keywords: ["audio", "file size", "mp3", "wav", "flac", "bitrate"],
     icon: Video,
@@ -747,8 +611,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "common-bitrates": {
     id: "common-bitrates",
     slug: "common-bitrates",
-    name: "Common Bitrates Reference",
-    description: "Reference guide for ProRes, DNxHD, DCP, and MPEG bitrates",
     category: "video",
     keywords: ["bitrate", "prores", "dnxhd", "dcp", "mpeg", "codec"],
     icon: Video,
@@ -757,8 +619,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "dcp-filesize": {
     id: "dcp-filesize",
     slug: "dcp-filesize",
-    name: "DCP File Size Calculator",
-    description: "Calculate Digital Cinema Package file sizes",
     category: "video",
     keywords: ["dcp", "digital cinema", "file size", "cinema"],
     icon: Video,
@@ -767,8 +627,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "foot-lambert": {
     id: "foot-lambert",
     slug: "foot-lambert",
-    name: "Foot-Lambert Calculator",
-    description: "Calculate screen luminance for cinema projection",
     category: "video",
     keywords: ["foot-lambert", "luminance", "nits", "projection", "cinema"],
     icon: Video,
@@ -777,8 +635,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "screen-size": {
     id: "screen-size",
     slug: "screen-size",
-    name: "Screen Size Calculator",
-    description: "Calculate screen dimensions from diagonal and aspect ratio",
     category: "video",
     keywords: ["screen", "diagonal", "width", "height", "aspect ratio"],
     icon: Video,
@@ -787,8 +643,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "video-bitrate": {
     id: "video-bitrate",
     slug: "video-bitrate",
-    name: "Video Bitrate Calculator",
-    description: "Estimate video bitrate based on resolution and codec",
     category: "video",
     keywords: ["bitrate", "video", "h264", "h265", "prores", "codec"],
     icon: Video,
@@ -797,8 +651,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "frame-rate": {
     id: "frame-rate",
     slug: "frame-rate",
-    name: "Frame Rate Converter",
-    description: "Convert between frame rates with ffmpeg commands",
     category: "video",
     keywords: ["frame rate", "fps", "ffmpeg", "convert", "video"],
     icon: Video,
@@ -809,8 +661,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "url-encoder": {
     id: "url-encoder",
     slug: "url-encoder",
-    name: "URL Encoder",
-    description: "Encode and decode URLs and special characters",
     category: "web",
     keywords: ["url", "encode", "decode", "uri", "percent encoding"],
     icon: Globe,
@@ -819,8 +669,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   csp: {
     id: "csp",
     slug: "csp",
-    name: "CSP Generator",
-    description: "Generate Content Security Policy headers",
     category: "web",
     keywords: ["csp", "content security policy", "security", "headers", "xss"],
     icon: Globe,
@@ -829,8 +677,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "redirect-check": {
     id: "redirect-check",
     slug: "redirect-check",
-    name: "Redirect Checker",
-    description: "Check HTTP redirect chains and status codes",
     category: "web",
     keywords: ["redirect", "http", "301", "302", "url", "seo"],
     icon: Globe,
@@ -839,8 +685,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "spf-check": {
     id: "spf-check",
     slug: "spf-check",
-    name: "SPF Record Checker",
-    description: "Analyze SPF records for email authentication",
     category: "web",
     keywords: ["spf", "email", "dns", "sender policy framework", "security"],
     icon: Globe,
@@ -849,8 +693,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "https-check": {
     id: "https-check",
     slug: "https-check",
-    name: "HTTPS Security Checker",
-    description: "Check security headers and TLS configuration",
     category: "web",
     keywords: ["https", "ssl", "tls", "security headers", "hsts"],
     icon: Globe,
@@ -859,8 +701,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "html-encoder": {
     id: "html-encoder",
     slug: "html-encoder",
-    name: "HTML Encoder",
-    description: "Encode and decode HTML entities",
     category: "web",
     keywords: ["html", "encode", "decode", "entities", "escape"],
     icon: Globe,
@@ -869,8 +709,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "html-chars": {
     id: "html-chars",
     slug: "html-chars",
-    name: "HTML Character Map",
-    description: "Browse and copy HTML character entities",
     category: "web",
     keywords: ["html", "entities", "characters", "symbols", "unicode"],
     icon: Globe,
@@ -879,8 +717,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "emoji-chars": {
     id: "emoji-chars",
     slug: "emoji-chars",
-    name: "Emoji Character Map",
-    description: "Browse and copy emoji with codes",
     category: "web",
     keywords: ["emoji", "unicode", "html", "copy", "emoticons"],
     icon: Globe,
@@ -889,8 +725,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "seo-performance": {
     id: "seo-performance",
     slug: "seo-performance",
-    name: "SEO Performance Analyzer",
-    description: "Analyze page SEO metrics and get recommendations",
     category: "web",
     keywords: ["seo", "performance", "optimization", "meta tags", "content"],
     icon: Globe,
@@ -901,8 +735,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   mortgage: {
     id: "mortgage",
     slug: "mortgage",
-    name: "Mortgage Calculator",
-    description: "Calculate monthly payments, view amortization schedule, and visualize your loan",
     category: "finance",
     subcategory: "loans",
     keywords: [
@@ -919,8 +751,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "compound-interest": {
     id: "compound-interest",
     slug: "compound-interest",
-    name: "Compound Interest Calculator",
-    description: "Calculate compound interest on investments with regular contributions",
     category: "finance",
     subcategory: "interest",
     keywords: ["compound interest", "investment", "savings", "growth", "contributions"],
@@ -930,8 +760,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   loan: {
     id: "loan",
     slug: "loan",
-    name: "Loan Calculator",
-    description: "Calculate monthly payments for personal, auto, or any loan type",
     category: "finance",
     subcategory: "loans",
     keywords: ["loan", "personal loan", "auto loan", "monthly payment", "amortization"],
@@ -941,8 +769,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   retirement: {
     id: "retirement",
     slug: "retirement",
-    name: "Retirement Calculator",
-    description: "Plan your retirement with savings projections and income planning",
     category: "finance",
     subcategory: "investments",
     keywords: ["retirement", "401k", "pension", "savings", "social security", "investment"],
@@ -952,8 +778,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   salary: {
     id: "salary",
     slug: "salary",
-    name: "Salary & Tax Calculator",
-    description: "Calculate take-home pay after federal, state taxes, and FICA",
     category: "finance",
     subcategory: "taxes",
     keywords: ["salary", "tax", "paycheck", "take home", "income", "net pay", "federal", "state"],
@@ -963,8 +787,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   tip: {
     id: "tip",
     slug: "tip",
-    name: "Tip Calculator",
-    description: "Calculate tip amount and split bills between multiple people",
     category: "finance",
     subcategory: "everyday",
     keywords: ["tip", "gratuity", "restaurant", "bill split", "service"],
@@ -974,8 +796,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "savings-goal": {
     id: "savings-goal",
     slug: "savings-goal",
-    name: "Savings Goal Calculator",
-    description: "Calculate how long to reach your savings goal with regular contributions",
     category: "finance",
     subcategory: "investments",
     keywords: ["savings", "goal", "investment", "planning", "future"],
@@ -985,8 +805,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   inflation: {
     id: "inflation",
     slug: "inflation",
-    name: "Inflation Calculator",
-    description: "Calculate the impact of inflation on purchasing power over time",
     category: "finance",
     subcategory: "investments",
     keywords: ["inflation", "purchasing power", "CPI", "cost of living"],
@@ -996,8 +814,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   roi: {
     id: "roi",
     slug: "roi",
-    name: "ROI Calculator",
-    description: "Calculate return on investment and annualized returns",
     category: "finance",
     subcategory: "investments",
     keywords: ["roi", "return on investment", "profit", "investment return"],
@@ -1007,8 +823,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "break-even": {
     id: "break-even",
     slug: "break-even",
-    name: "Break-Even Calculator",
-    description: "Calculate break-even point for your business",
     category: "finance",
     subcategory: "business",
     keywords: ["break even", "business", "costs", "revenue", "profit"],
@@ -1018,8 +832,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "profit-margin": {
     id: "profit-margin",
     slug: "profit-margin",
-    name: "Profit Margin Calculator",
-    description: "Calculate gross, operating, and net profit margins",
     category: "finance",
     subcategory: "business",
     keywords: ["profit margin", "gross margin", "net margin", "markup"],
@@ -1029,8 +841,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   discount: {
     id: "discount",
     slug: "discount",
-    name: "Discount Calculator",
-    description: "Calculate discounts, sale prices, and savings",
     category: "finance",
     subcategory: "everyday",
     keywords: ["discount", "sale", "percent off", "savings", "price"],
@@ -1040,8 +850,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   currency: {
     id: "currency",
     slug: "currency",
-    name: "Currency Converter",
-    description: "Convert between major world currencies",
     category: "finance",
     subcategory: "conversion",
     keywords: ["currency", "exchange rate", "forex", "money", "conversion"],
@@ -1053,8 +861,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "auto-loan": {
     id: "auto-loan",
     slug: "auto-loan",
-    name: "Auto Loan Calculator",
-    description: "Calculate car loan payments, interest, and total cost",
     category: "finance",
     subcategory: "loans",
     keywords: ["auto loan", "car loan", "vehicle financing", "car payment"],
@@ -1064,8 +870,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "personal-loan": {
     id: "personal-loan",
     slug: "personal-loan",
-    name: "Personal Loan Calculator",
-    description: "Calculate personal loan payments with fees and APR",
     category: "finance",
     subcategory: "loans",
     keywords: ["personal loan", "loan payment", "APR", "origination fee"],
@@ -1075,8 +879,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "student-loan": {
     id: "student-loan",
     slug: "student-loan",
-    name: "Student Loan Calculator",
-    description: "Calculate student loan payments with grace period options",
     category: "finance",
     subcategory: "loans",
     keywords: ["student loan", "education loan", "grace period", "college"],
@@ -1086,8 +888,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "home-equity": {
     id: "home-equity",
     slug: "home-equity",
-    name: "Home Equity Calculator",
-    description: "Calculate home equity loan or HELOC payments",
     category: "finance",
     subcategory: "loans",
     keywords: ["home equity", "HELOC", "second mortgage", "equity loan"],
@@ -1097,8 +897,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "debt-payoff": {
     id: "debt-payoff",
     slug: "debt-payoff",
-    name: "Debt Payoff Calculator",
-    description: "Calculate how long to pay off debt with extra payments",
     category: "finance",
     subcategory: "payments",
     keywords: ["debt payoff", "extra payments", "debt free", "pay off debt"],
@@ -1108,8 +906,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "credit-card": {
     id: "credit-card",
     slug: "credit-card",
-    name: "Credit Card Calculator",
-    description: "Calculate credit card payoff time and interest",
     category: "finance",
     subcategory: "payments",
     keywords: ["credit card", "minimum payment", "card debt", "payoff"],
@@ -1119,8 +915,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "down-payment": {
     id: "down-payment",
     slug: "down-payment",
-    name: "Down Payment Calculator",
-    description: "Calculate how much to save for a down payment",
     category: "finance",
     subcategory: "payments",
     keywords: ["down payment", "savings goal", "home savings", "house deposit"],
@@ -1130,8 +924,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "retirement-401k": {
     id: "retirement-401k",
     slug: "retirement-401k",
-    name: "401(k) Calculator",
-    description: "Calculate retirement savings with employer matching",
     category: "finance",
     subcategory: "investments",
     keywords: ["401k", "retirement", "employer match", "retirement savings"],
@@ -1141,8 +933,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "ira-calculator": {
     id: "ira-calculator",
     slug: "ira-calculator",
-    name: "IRA Calculator",
-    description: "Compare Traditional vs Roth IRA retirement accounts",
     category: "finance",
     subcategory: "investments",
     keywords: ["IRA", "Roth IRA", "Traditional IRA", "retirement account"],
@@ -1152,8 +942,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "bond-calculator": {
     id: "bond-calculator",
     slug: "bond-calculator",
-    name: "Bond Calculator",
-    description: "Calculate bond prices, yields, and returns",
     category: "finance",
     subcategory: "investments",
     keywords: ["bond", "yield", "coupon", "fixed income"],
@@ -1163,8 +951,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "annuity-calculator": {
     id: "annuity-calculator",
     slug: "annuity-calculator",
-    name: "Annuity Calculator",
-    description: "Calculate annuity payments and retirement income",
     category: "finance",
     subcategory: "investments",
     keywords: ["annuity", "retirement income", "periodic payment", "pension"],
@@ -1176,8 +962,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "basic-calculator": {
     id: "basic-calculator",
     slug: "basic-calculator",
-    name: "Basic Calculator",
-    description: "Perform arithmetic calculations with expression support",
     category: "math",
     subcategory: "basic",
     keywords: ["calculator", "arithmetic", "math", "add", "subtract", "multiply", "divide"],
@@ -1187,8 +971,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "fraction-calculator": {
     id: "fraction-calculator",
     slug: "fraction-calculator",
-    name: "Fraction Calculator",
-    description: "Add, subtract, multiply, divide, and simplify fractions",
     category: "math",
     subcategory: "basic",
     keywords: ["fraction", "numerator", "denominator", "simplify", "mixed number"],
@@ -1198,8 +980,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "percentage-calculator": {
     id: "percentage-calculator",
     slug: "percentage-calculator",
-    name: "Percentage Calculator",
-    description: "Calculate percentages, percent change, and percent difference",
     category: "math",
     subcategory: "basic",
     keywords: ["percentage", "percent", "percent change", "percent difference"],
@@ -1209,8 +989,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "percent-error": {
     id: "percent-error",
     slug: "percent-error",
-    name: "Percent Error Calculator",
-    description: "Calculate percent error between experimental and actual values",
     category: "math",
     subcategory: "basic",
     keywords: ["percent error", "error", "experimental", "actual", "accuracy"],
@@ -1220,8 +998,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "rounding-calculator": {
     id: "rounding-calculator",
     slug: "rounding-calculator",
-    name: "Rounding Calculator",
-    description: "Round numbers using different methods and precision",
     category: "math",
     subcategory: "basic",
     keywords: ["round", "ceil", "floor", "truncate", "significant figures"],
@@ -1231,8 +1007,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "average-calculator": {
     id: "average-calculator",
     slug: "average-calculator",
-    name: "Average Calculator",
-    description: "Calculate mean, median, mode, and other averages",
     category: "math",
     subcategory: "basic",
     keywords: ["average", "mean", "median", "mode", "weighted average"],
@@ -1242,8 +1016,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "long-division": {
     id: "long-division",
     slug: "long-division",
-    name: "Long Division Calculator",
-    description: "Perform long division with step-by-step solution",
     category: "math",
     subcategory: "basic",
     keywords: ["long division", "divide", "remainder", "quotient", "step by step"],
@@ -1255,8 +1027,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "exponent-calculator": {
     id: "exponent-calculator",
     slug: "exponent-calculator",
-    name: "Exponent Calculator",
-    description: "Calculate powers and exponential expressions",
     category: "math",
     subcategory: "algebra",
     keywords: ["exponent", "power", "base", "exponential", "squared", "cubed"],
@@ -1266,8 +1036,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "root-calculator": {
     id: "root-calculator",
     slug: "root-calculator",
-    name: "Root Calculator",
-    description: "Calculate square roots, cube roots, and nth roots",
     category: "math",
     subcategory: "algebra",
     keywords: ["root", "square root", "cube root", "nth root", "radical"],
@@ -1277,8 +1045,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "logarithm-calculator": {
     id: "logarithm-calculator",
     slug: "logarithm-calculator",
-    name: "Logarithm Calculator",
-    description: "Calculate logarithms with any base",
     category: "math",
     subcategory: "algebra",
     keywords: ["logarithm", "log", "natural log", "ln", "log10", "base"],
@@ -1288,8 +1054,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "quadratic-calculator": {
     id: "quadratic-calculator",
     slug: "quadratic-calculator",
-    name: "Quadratic Formula Calculator",
-    description: "Solve quadratic equations and find roots",
     category: "math",
     subcategory: "algebra",
     keywords: ["quadratic", "equation", "roots", "discriminant", "parabola", "vertex"],
@@ -1299,8 +1063,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "factor-calculator": {
     id: "factor-calculator",
     slug: "factor-calculator",
-    name: "Factor Calculator",
-    description: "Find all factors of a number",
     category: "math",
     subcategory: "algebra",
     keywords: ["factor", "divisor", "factor pairs", "common factors"],
@@ -1310,8 +1072,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "gcd-calculator": {
     id: "gcd-calculator",
     slug: "gcd-calculator",
-    name: "GCD Calculator",
-    description: "Calculate Greatest Common Divisor of multiple numbers",
     category: "math",
     subcategory: "algebra",
     keywords: ["gcd", "greatest common divisor", "gcf", "hcf", "euclidean"],
@@ -1321,8 +1081,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "lcm-calculator": {
     id: "lcm-calculator",
     slug: "lcm-calculator",
-    name: "LCM Calculator",
-    description: "Calculate Least Common Multiple of multiple numbers",
     category: "math",
     subcategory: "algebra",
     keywords: ["lcm", "least common multiple", "common multiple"],
@@ -1332,8 +1090,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "prime-factorization": {
     id: "prime-factorization",
     slug: "prime-factorization",
-    name: "Prime Factorization Calculator",
-    description: "Find prime factors and divisors of any number",
     category: "math",
     subcategory: "algebra",
     keywords: ["prime", "factorization", "prime factors", "divisors", "factor tree"],
@@ -1345,8 +1101,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "triangle-calculator": {
     id: "triangle-calculator",
     slug: "triangle-calculator",
-    name: "Triangle Calculator",
-    description: "Calculate triangle properties from sides and angles",
     category: "math",
     subcategory: "geometry",
     keywords: ["triangle", "sides", "angles", "area", "perimeter", "law of cosines"],
@@ -1356,8 +1110,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "right-triangle": {
     id: "right-triangle",
     slug: "right-triangle",
-    name: "Right Triangle Calculator",
-    description: "Calculate right triangle sides and angles",
     category: "math",
     subcategory: "geometry",
     keywords: ["right triangle", "hypotenuse", "legs", "trigonometry", "90 degrees"],
@@ -1367,8 +1119,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "pythagorean-calculator": {
     id: "pythagorean-calculator",
     slug: "pythagorean-calculator",
-    name: "Pythagorean Theorem Calculator",
-    description: "Calculate missing side using Pythagorean theorem",
     category: "math",
     subcategory: "geometry",
     keywords: ["pythagorean", "theorem", "a² + b² = c²", "hypotenuse"],
@@ -1378,8 +1128,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "circle-calculator": {
     id: "circle-calculator",
     slug: "circle-calculator",
-    name: "Circle Calculator",
-    description: "Calculate circle properties from radius, diameter, or circumference",
     category: "math",
     subcategory: "geometry",
     keywords: ["circle", "radius", "diameter", "circumference", "area", "pi"],
@@ -1389,8 +1137,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "area-calculator": {
     id: "area-calculator",
     slug: "area-calculator",
-    name: "Area Calculator",
-    description: "Calculate area of various shapes",
     category: "math",
     subcategory: "geometry",
     keywords: ["area", "square", "rectangle", "circle", "triangle", "trapezoid"],
@@ -1400,8 +1146,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "surface-area-calculator": {
     id: "surface-area-calculator",
     slug: "surface-area-calculator",
-    name: "Surface Area Calculator",
-    description: "Calculate surface area of 3D shapes",
     category: "math",
     subcategory: "geometry",
     keywords: ["surface area", "cube", "sphere", "cylinder", "cone", "pyramid"],
@@ -1411,8 +1155,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "volume-calculator": {
     id: "volume-calculator",
     slug: "volume-calculator",
-    name: "Volume Calculator",
-    description: "Calculate volume of 3D shapes",
     category: "math",
     subcategory: "geometry",
     keywords: ["volume", "cube", "sphere", "cylinder", "cone", "prism"],
@@ -1422,8 +1164,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "slope-calculator": {
     id: "slope-calculator",
     slug: "slope-calculator",
-    name: "Slope Calculator",
-    description: "Calculate slope, equation, and angle of a line",
     category: "math",
     subcategory: "geometry",
     keywords: ["slope", "line", "gradient", "rise over run", "linear equation"],
@@ -1435,8 +1175,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "standard-deviation": {
     id: "standard-deviation",
     slug: "standard-deviation",
-    name: "Standard Deviation Calculator",
-    description: "Calculate standard deviation and variance",
     category: "math",
     subcategory: "statistics",
     keywords: ["standard deviation", "variance", "population", "sample", "spread"],
@@ -1446,8 +1184,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "statistics-calculator": {
     id: "statistics-calculator",
     slug: "statistics-calculator",
-    name: "Statistics Calculator",
-    description: "Calculate comprehensive statistics for a data set",
     category: "math",
     subcategory: "statistics",
     keywords: ["statistics", "mean", "median", "mode", "quartiles", "skewness"],
@@ -1457,8 +1193,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "probability-calculator": {
     id: "probability-calculator",
     slug: "probability-calculator",
-    name: "Probability Calculator",
-    description: "Calculate probability of events and combinations",
     category: "math",
     subcategory: "statistics",
     keywords: ["probability", "odds", "events", "combinations", "likelihood"],
@@ -1468,8 +1202,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "sample-size": {
     id: "sample-size",
     slug: "sample-size",
-    name: "Sample Size Calculator",
-    description: "Calculate required sample size for surveys and studies",
     category: "math",
     subcategory: "statistics",
     keywords: ["sample size", "survey", "confidence level", "margin of error"],
@@ -1479,8 +1211,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "z-score-calculator": {
     id: "z-score-calculator",
     slug: "z-score-calculator",
-    name: "Z-Score Calculator",
-    description: "Calculate z-score and normal distribution probabilities",
     category: "math",
     subcategory: "statistics",
     keywords: ["z-score", "standard score", "normal distribution", "probability"],
@@ -1490,8 +1220,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "p-value-calculator": {
     id: "p-value-calculator",
     slug: "p-value-calculator",
-    name: "P-Value Calculator",
-    description: "Calculate p-values for statistical hypothesis testing",
     category: "math",
     subcategory: "statistics",
     keywords: ["p-value", "hypothesis testing", "significance", "t-test", "chi-square"],
@@ -1501,8 +1229,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "confidence-interval": {
     id: "confidence-interval",
     slug: "confidence-interval",
-    name: "Confidence Interval Calculator",
-    description: "Calculate confidence intervals for means and proportions",
     category: "math",
     subcategory: "statistics",
     keywords: ["confidence interval", "margin of error", "CI", "estimation"],
@@ -1512,8 +1238,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "permutation-combination": {
     id: "permutation-combination",
     slug: "permutation-combination",
-    name: "Permutation & Combination Calculator",
-    description: "Calculate permutations and combinations with and without repetition",
     category: "math",
     subcategory: "statistics",
     keywords: ["permutation", "combination", "nPr", "nCr", "factorial", "arrangements"],
@@ -1523,8 +1247,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "ratio-calculator": {
     id: "ratio-calculator",
     slug: "ratio-calculator",
-    name: "Ratio Calculator",
-    description: "Calculate and simplify ratios, find equivalent ratios",
     category: "math",
     subcategory: "statistics",
     keywords: ["ratio", "proportion", "scale", "equivalent", "simplify"],
@@ -1536,8 +1258,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "binary-calculator": {
     id: "binary-calculator",
     slug: "binary-calculator",
-    name: "Binary Calculator",
-    description: "Convert and perform operations in binary",
     category: "math",
     subcategory: "numbers",
     keywords: ["binary", "base 2", "decimal", "convert", "bit operations"],
@@ -1547,8 +1267,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "hex-calculator": {
     id: "hex-calculator",
     slug: "hex-calculator",
-    name: "Hexadecimal Calculator",
-    description: "Convert and calculate in hexadecimal",
     category: "math",
     subcategory: "numbers",
     keywords: ["hexadecimal", "hex", "base 16", "convert", "0x"],
@@ -1558,8 +1276,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "scientific-notation": {
     id: "scientific-notation",
     slug: "scientific-notation",
-    name: "Scientific Notation Calculator",
-    description: "Convert to/from scientific notation and perform operations",
     category: "math",
     subcategory: "numbers",
     keywords: ["scientific notation", "exponent", "mantissa", "engineering notation"],
@@ -1569,8 +1285,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "big-number": {
     id: "big-number",
     slug: "big-number",
-    name: "Big Number Calculator",
-    description: "Perform arithmetic on arbitrarily large integers",
     category: "math",
     subcategory: "numbers",
     keywords: ["big number", "large integer", "arbitrary precision", "big int"],
@@ -1580,8 +1294,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "number-sequence": {
     id: "number-sequence",
     slug: "number-sequence",
-    name: "Number Sequence Calculator",
-    description: "Analyze and generate arithmetic, geometric, and Fibonacci sequences",
     category: "math",
     subcategory: "numbers",
     keywords: ["sequence", "arithmetic", "geometric", "fibonacci", "pattern"],
@@ -1593,8 +1305,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "matrix-calculator": {
     id: "matrix-calculator",
     slug: "matrix-calculator",
-    name: "Matrix Calculator",
-    description: "Perform matrix operations: add, multiply, transpose, determinant",
     category: "math",
     subcategory: "advanced",
     keywords: ["matrix", "determinant", "transpose", "inverse", "multiplication"],
@@ -1604,8 +1314,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "half-life-calculator": {
     id: "half-life-calculator",
     slug: "half-life-calculator",
-    name: "Half-Life Calculator",
-    description: "Calculate radioactive decay and remaining quantity",
     category: "math",
     subcategory: "advanced",
     keywords: ["half-life", "decay", "radioactive", "carbon dating", "exponential"],
@@ -1615,8 +1323,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "distance-calculator": {
     id: "distance-calculator",
     slug: "distance-calculator",
-    name: "Distance Calculator",
-    description: "Calculate distances between points in 2D, 3D, and on Earth",
     category: "math",
     subcategory: "advanced",
     keywords: ["distance", "euclidean", "haversine", "manhattan", "coordinates"],
@@ -1626,8 +1332,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "random-number": {
     id: "random-number",
     slug: "random-number",
-    name: "Random Number Generator",
-    description: "Generate random numbers with various distributions",
     category: "math",
     subcategory: "advanced",
     keywords: ["random", "generator", "dice", "lottery", "shuffle"],
@@ -1639,8 +1343,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "tcp-throughput": {
     id: "tcp-throughput",
     slug: "tcp-throughput",
-    name: "TCP Throughput Calculator",
-    description: "Calculate theoretical TCP throughput using the Mathis formula",
     category: "other",
     subcategory: "tech",
     keywords: ["tcp", "throughput", "network", "bandwidth", "mathis", "mss", "rtt", "packet loss"],
@@ -1650,8 +1352,6 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   "bandwidth-delay-product": {
     id: "bandwidth-delay-product",
     slug: "bandwidth-delay-product",
-    name: "Bandwidth-Delay Product Calculator",
-    description: "Calculate BDP and optimal TCP buffer size",
     category: "other",
     subcategory: "tech",
     keywords: ["bandwidth", "delay", "product", "bdp", "tcp", "buffer", "window size"],

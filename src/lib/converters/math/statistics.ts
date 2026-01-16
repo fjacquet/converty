@@ -107,7 +107,7 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
   }
 
   // Variance and Standard Deviation
-  const sumOfSquares = data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0);
+  const sumOfSquares = data.reduce((acc, val) => acc + (val - mean) ** 2, 0);
   const denominator = population ? n : n - 1;
   const variance = sumOfSquares / denominator;
   const standardDeviation = Math.sqrt(variance);
@@ -142,7 +142,7 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
   }
 
   // Skewness (Fisher-Pearson)
-  const skewness = data.reduce((acc, val) => acc + Math.pow((val - mean) / standardDeviation, 3), 0) / n;
+  const skewness = data.reduce((acc, val) => acc + ((val - mean) / standardDeviation) ** 3, 0) / n;
   steps.push(`Skewness: ${skewness.toFixed(6)}`);
   if (skewness < -0.5) {
     steps.push("Distribution is negatively (left) skewed");
@@ -153,7 +153,7 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
   }
 
   // Kurtosis (excess kurtosis)
-  const kurtosis = data.reduce((acc, val) => acc + Math.pow((val - mean) / standardDeviation, 4), 0) / n - 3;
+  const kurtosis = data.reduce((acc, val) => acc + ((val - mean) / standardDeviation) ** 4, 0) / n - 3;
   steps.push(`Excess Kurtosis: ${kurtosis.toFixed(6)}`);
 
   // Geometric Mean (only for positive numbers)

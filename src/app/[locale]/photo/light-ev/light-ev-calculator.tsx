@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   COMMON_APERTURES,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/converters/photo/light-ev";
 
 export function LightEVCalculator() {
+  const t = useTranslations("calculator.labels");
   const [aperture, setAperture] = useState("5.6");
   const [shutterSpeed, setShutterSpeed] = useState((1 / 125).toString());
   const [iso, setIso] = useState("100");
@@ -70,8 +72,8 @@ export function LightEVCalculator() {
       {result && (
         <div className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
-            <OutputDisplay label="Exposure Value" value={`EV ${result.ev}`} size="lg" />
-            <OutputDisplay label="EV at ISO 100" value={`EV100 ${result.ev100}`} size="lg" />
+            <OutputDisplay label={t("exposureValue")} value={`EV ${result.ev}`} size="lg" />
+            <OutputDisplay label={t("evAtIso100")} value={`EV100 ${result.ev100}`} size="lg" />
           </div>
 
           <ResultGrid

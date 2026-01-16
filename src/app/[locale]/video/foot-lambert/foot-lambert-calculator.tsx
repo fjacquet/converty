@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { calculateFootLambert, REFERENCE_VALUES } from "@/lib/converters/video/foot-lambert";
 
 export function FootLambertCalculator() {
+  const t = useTranslations("calculator.labels");
   const [value, setValue] = useState("14");
   const [unit, setUnit] = useState<"fl" | "nits" | "lumens">("fl");
   const [screenWidth, setScreenWidth] = useState("40");
@@ -22,7 +24,7 @@ export function FootLambertCalculator() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <InputField
           id="value"
-          label="Value"
+          label={t("value")}
           value={value}
           onChange={setValue}
           min={0.1}
@@ -44,7 +46,7 @@ export function FootLambertCalculator() {
           <>
             <InputField
               id="screenWidth"
-              label="Screen Width"
+              label={t("screenWidth")}
               value={screenWidth}
               onChange={setScreenWidth}
               unit="ft"
@@ -52,7 +54,7 @@ export function FootLambertCalculator() {
             />
             <InputField
               id="screenHeight"
-              label="Screen Height"
+              label={t("screenHeight")}
               value={screenHeight}
               onChange={setScreenHeight}
               unit="ft"

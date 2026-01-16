@@ -66,7 +66,7 @@ export function calculateAverage(input: AverageInput): AverageResult | null {
   let geometricMean: number | null = null;
   if (numbers.every((n) => n > 0)) {
     const product = numbers.reduce((a, b) => a * b, 1);
-    geometricMean = Math.pow(product, 1 / count);
+    geometricMean = product ** (1 / count);
   }
 
   // Harmonic mean (only for positive numbers)
@@ -77,7 +77,7 @@ export function calculateAverage(input: AverageInput): AverageResult | null {
   }
 
   // Variance and standard deviation
-  const variance = numbers.reduce((acc, num) => acc + Math.pow(num - mean, 2), 0) / count;
+  const variance = numbers.reduce((acc, num) => acc + (num - mean) ** 2, 0) / count;
   const standardDeviation = Math.sqrt(variance);
 
   return {

@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { CSP_DIRECTIVES, CSP_PRESETS, type CSPConfig, generateCSP } from "@/lib/converters/web/csp";
 
 export function CSPGenerator() {
+  const _t = useTranslations("calculator.labels");
+  const tSections = useTranslations("calculator.sections");
   const [config, setConfig] = useState<CSPConfig>(CSP_PRESETS.moderate);
   const [preset, setPreset] = useState<string>("moderate");
 
@@ -70,7 +73,7 @@ export function CSPGenerator() {
 
       <div className="space-y-4">
         <div className="space-y-2">
-          <p className="text-sm font-medium">HTTP Header</p>
+          <p className="text-sm font-medium">{tSections("output")}</p>
           <pre className="p-3 rounded-lg bg-muted text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
             {result.header}
           </pre>

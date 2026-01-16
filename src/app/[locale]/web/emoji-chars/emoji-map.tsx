@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   EMOJI_CATEGORIES,
   EMOJI_DATA,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/converters/web/emoji-chars";
 
 export function EmojiMap() {
+  const t = useTranslations("calculator.labels");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<EmojiCategory | "all">("all");
   const [copied, setCopied] = useState<string | null>(null);
@@ -30,17 +32,17 @@ export function EmojiMap() {
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Search</label>
+          <label className="text-sm font-medium">{t("search")}</label>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by name or keyword..."
+            placeholder={t("search")}
             className="w-full h-10 px-3 rounded-md border bg-background"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Category</label>
+          <label className="text-sm font-medium">{t("category")}</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value as EmojiCategory | "all")}

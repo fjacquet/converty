@@ -38,7 +38,7 @@ export function AutoLoanCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="vehiclePrice">Vehicle Price</Label>
+            <Label htmlFor="vehiclePrice">{t("finance.vehiclePrice")}</Label>
             <Input
               id="vehiclePrice"
               type="number"
@@ -50,7 +50,7 @@ export function AutoLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="downPayment">Down Payment</Label>
+            <Label htmlFor="downPayment">{t("labels.downPayment")}</Label>
             <Input
               id="downPayment"
               type="number"
@@ -62,7 +62,7 @@ export function AutoLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="tradeInValue">Trade-In Value</Label>
+            <Label htmlFor="tradeInValue">{t("finance.tradeInValue")}</Label>
             <Input
               id="tradeInValue"
               type="number"
@@ -74,7 +74,7 @@ export function AutoLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="salesTaxRate">Sales Tax Rate (%)</Label>
+            <Label htmlFor="salesTaxRate">{t("finance.salesTaxRate")}</Label>
             <Input
               id="salesTaxRate"
               type="number"
@@ -87,7 +87,7 @@ export function AutoLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualInterestRate">Interest Rate (%)</Label>
+            <Label htmlFor="annualInterestRate">{t("finance.interestRatePercent")}</Label>
             <Input
               id="annualInterestRate"
               type="number"
@@ -100,7 +100,7 @@ export function AutoLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="loanTermMonths">Loan Term (months)</Label>
+            <Label htmlFor="loanTermMonths">{t("finance.loanTermMonths")}</Label>
             <Input
               id="loanTermMonths"
               type="number"
@@ -122,61 +122,61 @@ export function AutoLoanCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Monthly Payment</p>
+                <p className="text-sm text-muted-foreground">{t("finance.monthlyPayment")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.monthlyPayment)}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Loan Amount</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.loanAmount")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.loanAmount)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Sales Tax</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.salesTax")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.salesTax)}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-red-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Interest</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.totalInterest")}</p>
                   <p className="text-xl font-bold text-red-600">
                     {formatCurrency(result.totalInterest)}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Cost</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.totalCost")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.totalCost)}</p>
                 </div>
               </div>
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Vehicle Price</span>
+                  <span className="text-muted-foreground">{t("finance.vehiclePrice")}</span>
                   <span>{formatCurrency(vehiclePrice)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">+ Sales Tax</span>
+                  <span className="text-muted-foreground">{t("finance.plusSalesTax")}</span>
                   <span>{formatCurrency(result.salesTax)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">- Down Payment</span>
+                  <span className="text-muted-foreground">{t("finance.minusDownPayment")}</span>
                   <span>{formatCurrency(downPayment)}</span>
                 </div>
                 {tradeInValue > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">- Trade-In</span>
+                    <span className="text-muted-foreground">{t("finance.minusTradeIn")}</span>
                     <span>{formatCurrency(tradeInValue)}</span>
                   </div>
                 )}
                 <div className="flex justify-between font-bold">
-                  <span>= Amount Financed</span>
+                  <span>{t("finance.amountFinanced")}</span>
                   <span>{formatCurrency(result.loanAmount)}</span>
                 </div>
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{t("labels.enterValues")}</p>
           )}
         </CardContent>
       </Card>

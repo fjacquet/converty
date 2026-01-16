@@ -43,6 +43,7 @@ export default async function BigNumberCalculatorPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.big-number");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("math")!;
 
   return (
@@ -50,6 +51,7 @@ export default async function BigNumberCalculatorPage({
       title={t("name")}
       description={t("description")}
       category={category}
+      categoryName={tc("math.name")}
     >
       <Suspense
         fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}

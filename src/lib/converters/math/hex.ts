@@ -76,7 +76,7 @@ export function calculateHex(input: HexInput): HexResult | null {
         const value = parseInt(digit, 16);
         if (value > 0) {
           terms.push(`${value} × 16^${i}`);
-          steps.push(`Position ${i}: ${digit} (${value}) × 16^${i} = ${value * Math.pow(16, i)}`);
+          steps.push(`Position ${i}: ${digit} (${value}) × 16^${i} = ${value * 16 ** i}`);
         }
       });
       steps.push(`Sum: ${terms.join(" + ")} = ${decimal}`);

@@ -29,7 +29,7 @@ export default async function MathPage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
 
   const t = await getTranslations("categories.math");
-  const tc = await getTranslations("converters");
+  const tConverters = await getTranslations("converters");
 
   const category = getCategoryBySlug("math")!;
   const converters = getConvertersByCategory("math");
@@ -59,8 +59,8 @@ export default async function MathPage({ params }: { params: Promise<{ locale: s
               <Link key={converter.id} href={`/math/${converter.slug}`}>
                 <Card className="h-full transition-colors hover:bg-muted/50">
                   <CardHeader>
-                    <CardTitle className="text-lg">{tc(`${converter.id}.name`)}</CardTitle>
-                    <CardDescription>{tc(`${converter.id}.description`)}</CardDescription>
+                    <CardTitle className="text-lg">{tConverters(`${converter.id}.name`)}</CardTitle>
+                    <CardDescription>{tConverters(`${converter.id}.description`)}</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>

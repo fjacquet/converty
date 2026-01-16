@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations, useFormatter } from "next-intl";
 import {
   Area,
   AreaChart,
@@ -36,39 +37,41 @@ const useRetirementStore = createCalculatorStore<RetirementInput, RetirementResu
   calculate: calculateRetirement,
 });
 
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
-};
-
-const formatCompact = (value: number) => {
-  if (value >= 1000000) {
-    return `$${(value / 1000000).toFixed(1)}M`;
-  }
-  if (value >= 1000) {
-    return `$${(value / 1000).toFixed(0)}k`;
-  }
-  return `$${value.toFixed(0)}`;
-};
-
 export function RetirementCalculator() {
+  const t = useTranslations("calculator");
+  const format = useFormatter();
   const { values, setValue, result } = useRetirementStore();
+
+  const formatCurrency = (value: number) => {
+    return format.number(value, {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
+
+  const formatCompact = (value: number) => {
+    if (value >= 1000000) {
+      return `$${(value / 1000000).toFixed(1)}M`;
+    }
+    if (value >= 1000) {
+      return `$${(value / 1000).toFixed(0)}k`;
+    }
+    return `$${value.toFixed(0)}`;
+  };
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Personal Information</CardTitle>
+          <CardTitle className="text-lg">{t("finance.personalInformation")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InputField
               id="currentAge"
-              label="Current Age"
+              label={t("finance.currentAge")}
               type="number"
               value={values.currentAge.toString()}
               onChange={(value) => setValue("currentAge", Number.parseFloat(value) || 0)}
@@ -77,7 +80,7 @@ export function RetirementCalculator() {
             />
             <InputField
               id="retirementAge"
-              label="Retirement Age"
+              label={t("finance.retirementAge")}
               type="number"
               value={values.retirementAge.toString()}
               onChange={(value) => setValue("retirementAge", Number.parseFloat(value) || 0)}
@@ -86,7 +89,7 @@ export function RetirementCalculator() {
             />
             <InputField
               id="lifeExpectancy"
-              label="Life Expectancy"
+              label={t("finance.lifeExpectancy")}
               type="number"
               value={values.lifeExpectancy.toString()}
               onChange={(value) => setValue("lifeExpectancy", Number.parseFloat(value) || 0)}
@@ -99,13 +102,13 @@ export function RetirementCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Savings & Contributions</CardTitle>
+          <CardTitle className="text-lg">{t("finance.savingsContributions")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="currentSavings"
-              label="Current Retirement Savings"
+              label={t("finance.currentRetirementSavings")}
               type="number"
               value={values.currentSavings.toString()}
               onChange={(value) => setValue("currentSavings", Number.parseFloat(value) || 0)}
@@ -113,7 +116,7 @@ export function RetirementCalculator() {
             />
             <InputField
               id="monthlyContribution"
-              label="Monthly Contribution"
+              label={t("finance.monthlyContribution")}
               type="number"
               value={values.monthlyContribution.toString()}
               onChange={(value) => setValue("monthlyContribution", Number.parseFloat(value) || 0)}
@@ -125,13 +128,13 @@ export function RetirementCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Returns & Income</CardTitle>
+          <CardTitle className="text-lg">{t("finance.returnsIncome")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="expectedReturn"
-              label="Expected Annual Return (%)"
+              label={t("finance.expectedAnnualReturn")}
               type="number"
               value={values.expectedReturn.toString()}
               onChange={(value) => setValue("expectedReturn", Number.parseFloat(value) || 0)}
@@ -140,7 +143,7 @@ export function RetirementCalculator() {
             />
             <InputField
               id="inflationRate"
-              label="Expected Inflation (%)"
+              label={t("finance.expectedInflation")}
               type="number"
               value={values.inflationRate.toString()}
               onChange={(value) => setValue("inflationRate", Number.parseFloat(value) || 0)}
@@ -152,7 +155,7 @@ export function RetirementCalculator() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="desiredAnnualIncome"
-              label="Desired Annual Income in Retirement"
+              label={t("finance.desiredAnnualIncome")}
               type="number"
               value={values.desiredAnnualIncome.toString()}
               onChange={(value) => setValue("desiredAnnualIncome", Number.parseFloat(value) || 0)}
@@ -160,7 +163,7 @@ export function RetirementCalculator() {
             />
             <InputField
               id="socialSecurityBenefit"
-              label="Expected Social Security (monthly)"
+              label={t("finance.expectedSocialSecurity")}
               type="number"
               value={values.socialSecurityBenefit.toString()}
               onChange={(value) => setValue("socialSecurityBenefit", Number.parseFloat(value) || 0)}
@@ -174,7 +177,7 @@ export function RetirementCalculator() {
         <>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Retirement Projection</CardTitle>
+              <CardTitle className="text-lg">{t("finance.retirementProjection")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
@@ -182,34 +185,34 @@ export function RetirementCalculator() {
                   {formatCurrency(result.retirementSavings)}
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Projected Savings at Retirement
+                  {t("finance.projectedSavingsAtRetirement")}
                 </p>
               </div>
 
               {result.hasSufficientFunds ? (
                 <div className="p-4 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200 rounded-lg text-center">
-                  You&apos;re on track for a comfortable retirement!
+                  {t("finance.onTrackMessage")}
                 </div>
               ) : (
                 <div className="p-4 bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 rounded-lg text-center">
-                  Consider increasing contributions. Gap: {formatCurrency(result.savingsGap)}
+                  {t("finance.considerIncreasingContributions")} {formatCurrency(result.savingsGap)}
                 </div>
               )}
 
               <ResultGrid
                 results={[
                   {
-                    label: "Total Contributions",
+                    label: t("finance.totalContributions"),
                     value: formatCurrency(result.totalContributions),
                   },
-                  { label: "Total Growth", value: formatCurrency(result.totalGrowth) },
+                  { label: t("finance.totalGrowth"), value: formatCurrency(result.totalGrowth) },
                   {
-                    label: "Inflation-Adjusted Value",
+                    label: t("finance.inflationAdjustedValue"),
                     value: formatCurrency(result.inflationAdjustedSavings),
                   },
-                  { label: "Years in Retirement", value: result.yearsInRetirement },
+                  { label: t("finance.yearsInRetirement"), value: result.yearsInRetirement },
                   {
-                    label: "Monthly Retirement Income",
+                    label: t("finance.monthlyRetirementIncome"),
                     value: formatCurrency(result.monthlyRetirementIncome),
                   },
                 ]}
@@ -220,24 +223,24 @@ export function RetirementCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Savings Growth Over Time</CardTitle>
+              <CardTitle className="text-lg">{t("finance.savingsGrowthOverTime")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[400px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={result.projections}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="age" tickFormatter={(v) => `Age ${v}`} />
+                    <XAxis dataKey="age" tickFormatter={(v) => `${t("labels.age")} ${v}`} />
                     <YAxis tickFormatter={(value) => formatCompact(value)} />
                     <Tooltip
                       formatter={(value) => formatCurrency(Number(value ?? 0))}
-                      labelFormatter={(label) => `Age ${label}`}
+                      labelFormatter={(label) => `${t("labels.age")} ${label}`}
                     />
                     <ReferenceLine
                       x={values.retirementAge}
                       stroke="hsl(var(--destructive))"
                       strokeDasharray="3 3"
-                      label={{ value: "Retirement", position: "top" }}
+                      label={{ value: t("finance.retirement"), position: "top" }}
                     />
                     <Area
                       type="monotone"
@@ -245,7 +248,7 @@ export function RetirementCalculator() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.3}
-                      name="Total Savings"
+                      name={t("finance.totalSavings")}
                     />
                     <Legend />
                   </AreaChart>
@@ -256,17 +259,17 @@ export function RetirementCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Accumulation Phase Details</CardTitle>
+              <CardTitle className="text-lg">{t("finance.accumulationPhaseDetails")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-2 px-2">Age</th>
-                      <th className="text-right py-2 px-2">Contributions</th>
-                      <th className="text-right py-2 px-2">Growth</th>
-                      <th className="text-right py-2 px-2">Balance</th>
+                      <th className="text-left py-2 px-2">{t("labels.age")}</th>
+                      <th className="text-right py-2 px-2">{t("finance.contributions")}</th>
+                      <th className="text-right py-2 px-2">{t("finance.growth")}</th>
+                      <th className="text-right py-2 px-2">{t("finance.balance")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -289,7 +292,7 @@ export function RetirementCalculator() {
                 </table>
                 {result.projections.filter((p) => p.phase === "accumulation").length > 20 && (
                   <p className="text-sm text-muted-foreground mt-2 text-center">
-                    Showing first 20 years...
+                    {t("finance.showingFirst20Years")}
                   </p>
                 )}
               </div>

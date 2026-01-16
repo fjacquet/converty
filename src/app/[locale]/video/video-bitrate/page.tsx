@@ -34,10 +34,11 @@ export default async function VideoBitratePage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.video-bitrate");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("video")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("video.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <VideoBitrateCalculator />
       </Suspense>

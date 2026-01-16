@@ -20,8 +20,8 @@ function simplifyRadical(radicand: number, index: number): { coefficient: number
   let remaining = radicand;
 
   // Find perfect nth powers that divide the radicand
-  for (let i = 2; i <= Math.pow(radicand, 1 / index); i++) {
-    const power = Math.pow(i, index);
+  for (let i = 2; i <= radicand ** (1 / index); i++) {
+    const power = i ** index;
     while (remaining % power === 0) {
       coefficient *= i;
       remaining /= power;
@@ -48,9 +48,9 @@ export function calculateRoot(input: RootInput): RootResult | null {
   let result: number;
   if (radicand < 0) {
     // Odd root of negative number
-    result = -Math.pow(-radicand, 1 / index);
+    result = -((-radicand) ** (1 / index));
   } else {
-    result = Math.pow(radicand, 1 / index);
+    result = radicand ** (1 / index);
   }
 
   // Check if result is rational (approximately an integer)
@@ -76,14 +76,14 @@ export function calculateRoot(input: RootInput): RootResult | null {
   }
 
   // Verification
-  const verification = `${result.toFixed(6)}^${index} = ${Math.pow(result, index).toFixed(6)} ≈ ${radicand}`;
+  const verification = `${result.toFixed(6)}^${index} = ${(result ** index).toFixed(6)} ≈ ${radicand}`;
 
   // Related roots
   const relatedRoots: Array<{ index: number; result: number }> = [];
   if (radicand >= 0) {
     relatedRoots.push({ index: 2, result: Math.sqrt(radicand) });
     relatedRoots.push({ index: 3, result: Math.cbrt(radicand) });
-    relatedRoots.push({ index: 4, result: Math.pow(radicand, 0.25) });
+    relatedRoots.push({ index: 4, result: radicand ** 0.25 });
   }
 
   return {

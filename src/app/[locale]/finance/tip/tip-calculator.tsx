@@ -44,7 +44,7 @@ export function TipCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="tipPercentage">Tip %</Label>
+            <Label htmlFor="tipPercentage">{t("finance.tipPercentage")}</Label>
             <Input
               id="tipPercentage"
               type="number"
@@ -73,7 +73,7 @@ export function TipCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="numberOfPeople">Number of People</Label>
+            <Label htmlFor="numberOfPeople">{t("finance.numberOfPeople")}</Label>
             <Input
               id="numberOfPeople"
               type="number"
@@ -95,7 +95,7 @@ export function TipCalculator() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Tip Amount</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.tipAmount")}</p>
                   <p className="text-2xl font-bold">{formatCurrency(result.tipAmount)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
@@ -106,14 +106,14 @@ export function TipCalculator() {
 
               {numberOfPeople > 1 && (
                 <div className="border-t pt-4">
-                  <h4 className="font-medium mb-3">Per Person</h4>
+                  <h4 className="font-medium mb-3">{t("finance.perPerson")}</h4>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground">Tip per Person</p>
+                      <p className="text-sm text-muted-foreground">{t("finance.tipPerPerson")}</p>
                       <p className="text-xl font-bold">{formatCurrency(result.tipPerPerson)}</p>
                     </div>
                     <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground">Total per Person</p>
+                      <p className="text-sm text-muted-foreground">{t("finance.totalPerPerson")}</p>
                       <p className="text-xl font-bold">{formatCurrency(result.totalPerPerson)}</p>
                     </div>
                   </div>
@@ -121,7 +121,7 @@ export function TipCalculator() {
               )}
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{t("labels.enterValues")}</p>
           )}
         </CardContent>
       </Card>

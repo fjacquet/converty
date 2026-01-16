@@ -135,7 +135,7 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
       resultRatio = commonRatio;
 
       for (let i = 0; i < numberOfTerms; i++) {
-        sequence.push(firstTerm * Math.pow(commonRatio, i));
+        sequence.push(firstTerm * commonRatio ** i);
       }
 
       // Sum formula
@@ -143,7 +143,7 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
         sum = firstTerm * numberOfTerms;
         sumFormula = `S_n = n × a_1 (when r = 1)`;
       } else {
-        sum = firstTerm * (1 - Math.pow(commonRatio, numberOfTerms)) / (1 - commonRatio);
+        sum = firstTerm * (1 - commonRatio ** numberOfTerms) / (1 - commonRatio);
         sumFormula = `S_n = a_1 × (1 - r^n) / (1 - r)`;
       }
 
@@ -164,7 +164,7 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
       steps.push(`Sum = ${sum.toFixed(6)}`);
 
       if (findNthTerm) {
-        nthTerm = firstTerm * Math.pow(commonRatio, findNthTerm - 1);
+        nthTerm = firstTerm * commonRatio ** (findNthTerm - 1);
         steps.push(`a_${findNthTerm} = ${firstTerm} × ${commonRatio}^${findNthTerm - 1} = ${nthTerm}`);
       }
       break;
@@ -232,7 +232,7 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
 
         if (numberOfTerms > terms.length) {
           for (let i = terms.length; i < numberOfTerms; i++) {
-            sequence.push(terms[0] * Math.pow(pattern.ratio!, i));
+            sequence.push(terms[0] * pattern.ratio! ** i);
           }
         }
       } else if (pattern.type === "fibonacci") {

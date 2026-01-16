@@ -30,10 +30,11 @@ export default async function DataSizePage({ params }: { params: Promise<{ local
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.data-size");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("data")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("data.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <DataSizeConverter />
       </Suspense>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations, useFormatter } from "next-intl";
 import {
   Area,
   AreaChart,
@@ -39,19 +40,21 @@ const useMortgageStore = createCalculatorStore<MortgageInput, MortgageResult>({
   calculate: calculateMortgage,
 });
 
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
-};
-
 const COLORS = ["hsl(var(--primary))", "hsl(var(--destructive))", "hsl(var(--muted-foreground))"];
 
 export function MortgageCalculator() {
+  const t = useTranslations("calculator");
+  const format = useFormatter();
   const { values, setValue, result } = useMortgageStore();
+
+  const formatCurrency = (value: number) => {
+    return format.number(value, {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
 
   const handleDownPaymentChange = (value: string) => {
     const amount = Number.parseFloat(value) || 0;
@@ -75,18 +78,18 @@ export function MortgageCalculator() {
 
   const pieData = result
     ? [
-        { name: "Principal", value: result.loanAmount },
-        { name: "Interest", value: result.totalInterest },
+        { name: t("labels.principal"), value: result.loanAmount },
+        { name: t("labels.interest"), value: result.totalInterest },
       ]
     : [];
 
   const monthlyPieData = result
     ? [
-        { name: "Principal & Interest", value: result.monthlyPrincipalInterest },
-        { name: "Property Tax", value: result.monthlyPropertyTax },
-        { name: "Insurance", value: result.monthlyInsurance },
-        ...(result.monthlyPmi > 0 ? [{ name: "PMI", value: result.monthlyPmi }] : []),
-        ...(result.monthlyHoa > 0 ? [{ name: "HOA", value: result.monthlyHoa }] : []),
+        { name: t("finance.principalAndInterest"), value: result.monthlyPrincipalInterest },
+        { name: t("finance.propertyTax"), value: result.monthlyPropertyTax },
+        { name: t("finance.insurance"), value: result.monthlyInsurance },
+        ...(result.monthlyPmi > 0 ? [{ name: t("finance.pmi"), value: result.monthlyPmi }] : []),
+        ...(result.monthlyHoa > 0 ? [{ name: t("finance.hoaFees"), value: result.monthlyHoa }] : []),
       ]
     : [];
 
@@ -94,12 +97,12 @@ export function MortgageCalculator() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Loan Details</CardTitle>
+          <CardTitle className="text-lg">{t("finance.loanDetails")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <InputField
             id="homePrice"
-            label="Home Price"
+            label={t("finance.homePrice")}
             type="number"
             value={values.homePrice.toString()}
             onChange={handleHomePriceChange}
@@ -109,7 +112,7 @@ export function MortgageCalculator() {
           <div className="grid grid-cols-2 gap-4">
             <InputField
               id="downPayment"
-              label="Down Payment ($)"
+              label={t("finance.downPaymentDollar")}
               type="number"
               value={values.downPayment.toString()}
               onChange={handleDownPaymentChange}
@@ -117,7 +120,7 @@ export function MortgageCalculator() {
             />
             <InputField
               id="downPaymentPercent"
-              label="Down Payment (%)"
+              label={t("finance.downPaymentPercent")}
               type="number"
               value={values.downPaymentPercent.toFixed(1)}
               onChange={handleDownPaymentPercentChange}
@@ -129,7 +132,7 @@ export function MortgageCalculator() {
           <div className="grid grid-cols-2 gap-4">
             <InputField
               id="loanTerm"
-              label="Loan Term (years)"
+              label={t("finance.loanTermYears")}
               type="number"
               value={values.loanTerm.toString()}
               onChange={(value) => setValue("loanTerm", Number.parseFloat(value) || 0)}
@@ -138,7 +141,7 @@ export function MortgageCalculator() {
             />
             <InputField
               id="interestRate"
-              label="Interest Rate (%)"
+              label={t("finance.interestRatePercent")}
               type="number"
               value={values.interestRate.toString()}
               onChange={(value) => setValue("interestRate", Number.parseFloat(value) || 0)}
@@ -149,7 +152,7 @@ export function MortgageCalculator() {
 
           <InputField
             id="startDate"
-            label="Start Date"
+            label={t("labels.startDate")}
             type="date"
             value={values.startDate}
             onChange={(value) => setValue("startDate", value)}
@@ -159,13 +162,13 @@ export function MortgageCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Additional Costs (Optional)</CardTitle>
+          <CardTitle className="text-lg">{t("finance.additionalCosts")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <InputField
               id="propertyTax"
-              label="Property Tax (annual)"
+              label={t("finance.propertyTaxAnnual")}
               type="number"
               value={values.propertyTax.toString()}
               onChange={(value) => setValue("propertyTax", Number.parseFloat(value) || 0)}
@@ -173,7 +176,7 @@ export function MortgageCalculator() {
             />
             <InputField
               id="homeInsurance"
-              label="Home Insurance (annual)"
+              label={t("finance.homeInsuranceAnnual")}
               type="number"
               value={values.homeInsurance.toString()}
               onChange={(value) => setValue("homeInsurance", Number.parseFloat(value) || 0)}
@@ -184,7 +187,7 @@ export function MortgageCalculator() {
           <div className="grid grid-cols-2 gap-4">
             <InputField
               id="pmi"
-              label="PMI (monthly)"
+              label={t("finance.pmiMonthly")}
               type="number"
               value={values.pmi.toString()}
               onChange={(value) => setValue("pmi", Number.parseFloat(value) || 0)}
@@ -192,7 +195,7 @@ export function MortgageCalculator() {
             />
             <InputField
               id="hoaFees"
-              label="HOA Fees (monthly)"
+              label={t("finance.hoaFeesMonthly")}
               type="number"
               value={values.hoaFees.toString()}
               onChange={(value) => setValue("hoaFees", Number.parseFloat(value) || 0)}
@@ -206,29 +209,29 @@ export function MortgageCalculator() {
         <>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Monthly Payment</CardTitle>
+              <CardTitle className="text-lg">{t("finance.monthlyPayment")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
                 <p className="text-4xl font-bold text-primary">
                   {formatCurrency(result.totalMonthlyPayment)}
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">per month</p>
+                <p className="text-sm text-muted-foreground mt-1">{t("finance.perMonth")}</p>
               </div>
 
               <ResultGrid
                 results={[
                   {
-                    label: "Principal & Interest",
+                    label: t("finance.principalAndInterest"),
                     value: formatCurrency(result.monthlyPrincipalInterest),
                   },
-                  { label: "Property Tax", value: formatCurrency(result.monthlyPropertyTax) },
-                  { label: "Insurance", value: formatCurrency(result.monthlyInsurance) },
+                  { label: t("finance.propertyTax"), value: formatCurrency(result.monthlyPropertyTax) },
+                  { label: t("finance.insurance"), value: formatCurrency(result.monthlyInsurance) },
                   ...(result.monthlyPmi > 0
-                    ? [{ label: "PMI", value: formatCurrency(result.monthlyPmi) }]
+                    ? [{ label: t("finance.pmi"), value: formatCurrency(result.monthlyPmi) }]
                     : []),
                   ...(result.monthlyHoa > 0
-                    ? [{ label: "HOA Fees", value: formatCurrency(result.monthlyHoa) }]
+                    ? [{ label: t("finance.hoaFees"), value: formatCurrency(result.monthlyHoa) }]
                     : []),
                 ]}
                 columns={2}
@@ -238,7 +241,7 @@ export function MortgageCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Monthly Payment Breakdown</CardTitle>
+              <CardTitle className="text-lg">{t("finance.monthlyPaymentBreakdown")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -267,16 +270,16 @@ export function MortgageCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Loan Summary</CardTitle>
+              <CardTitle className="text-lg">{t("finance.loanSummary")}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: "Loan Amount", value: formatCurrency(result.loanAmount) },
-                  { label: "Total Interest", value: formatCurrency(result.totalInterest) },
-                  { label: "Total Payments", value: formatCurrency(result.totalPayments) },
-                  { label: "Total Cost", value: formatCurrency(result.totalCost) },
-                  { label: "Payoff Date", value: result.payoffDate },
+                  { label: t("finance.loanAmount"), value: formatCurrency(result.loanAmount) },
+                  { label: t("finance.totalInterest"), value: formatCurrency(result.totalInterest) },
+                  { label: t("finance.totalPayments"), value: formatCurrency(result.totalPayments) },
+                  { label: t("finance.totalCost"), value: formatCurrency(result.totalCost) },
+                  { label: t("labels.payoffDate"), value: result.payoffDate },
                 ]}
                 columns={2}
               />
@@ -285,7 +288,7 @@ export function MortgageCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Principal vs Interest</CardTitle>
+              <CardTitle className="text-lg">{t("labels.principal")} vs {t("labels.interest")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -314,7 +317,7 @@ export function MortgageCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Balance Over Time</CardTitle>
+              <CardTitle className="text-lg">{t("labels.balanceOverTime")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -325,7 +328,7 @@ export function MortgageCalculator() {
                     <YAxis tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatCurrency(Number(value ?? 0))}
-                      labelFormatter={(label) => `Year ${label}`}
+                      labelFormatter={(label) => `${t("labels.year")} ${label}`}
                     />
                     <Area
                       type="monotone"
@@ -333,7 +336,7 @@ export function MortgageCalculator() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.3}
-                      name="Remaining Balance"
+                      name={t("labels.remainingBalance")}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -343,7 +346,7 @@ export function MortgageCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Yearly Principal vs Interest</CardTitle>
+              <CardTitle className="text-lg">{t("labels.yearlyPrincipalVsInterest")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -354,7 +357,7 @@ export function MortgageCalculator() {
                     <YAxis tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatCurrency(Number(value ?? 0))}
-                      labelFormatter={(label) => `Year ${label}`}
+                      labelFormatter={(label) => `${t("labels.year")} ${label}`}
                     />
                     <Area
                       type="monotone"
@@ -363,7 +366,7 @@ export function MortgageCalculator() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.6}
-                      name="Principal"
+                      name={t("labels.principal")}
                     />
                     <Area
                       type="monotone"
@@ -372,7 +375,7 @@ export function MortgageCalculator() {
                       stroke="hsl(var(--destructive))"
                       fill="hsl(var(--destructive))"
                       fillOpacity={0.6}
-                      name="Interest"
+                      name={t("labels.interest")}
                     />
                     <Legend />
                   </AreaChart>

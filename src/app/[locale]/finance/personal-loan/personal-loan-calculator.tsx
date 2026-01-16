@@ -37,7 +37,7 @@ export function PersonalLoanCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="loanAmount">Loan Amount</Label>
+            <Label htmlFor="loanAmount">{t("labels.loanAmount")}</Label>
             <Input
               id="loanAmount"
               type="number"
@@ -49,7 +49,7 @@ export function PersonalLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualInterestRate">Interest Rate (%)</Label>
+            <Label htmlFor="annualInterestRate">{t("labels.interestRate")}</Label>
             <Input
               id="annualInterestRate"
               type="number"
@@ -62,7 +62,7 @@ export function PersonalLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="loanTermMonths">Loan Term (months)</Label>
+            <Label htmlFor="loanTermMonths">{t("results.loanTermMonths")}</Label>
             <Input
               id="loanTermMonths"
               type="number"
@@ -75,7 +75,7 @@ export function PersonalLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="originationFee">Origination Fee (%)</Label>
+            <Label htmlFor="originationFee">{t("finance.originationFee")}</Label>
             <Input
               id="originationFee"
               type="number"
@@ -86,7 +86,7 @@ export function PersonalLoanCalculator() {
               onChange={(e) => setOriginationFee(Number(e.target.value))}
             />
             <p className="text-xs text-muted-foreground">
-              One-time fee deducted from loan proceeds
+              {t("finance.originationFeeHelp")}
             </p>
           </div>
         </CardContent>
@@ -100,59 +100,59 @@ export function PersonalLoanCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Monthly Payment</p>
+                <p className="text-sm text-muted-foreground">{t("labels.monthlyPayment")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.monthlyPayment)}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Origination Fee</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.originationFeeLabel")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.originationFeeAmount)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">True APR</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.trueApr")}</p>
                   <p className="text-xl font-bold">{result.apr.toFixed(2)}%</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-red-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Interest</p>
+                  <p className="text-sm text-muted-foreground">{t("labels.totalInterest")}</p>
                   <p className="text-xl font-bold text-red-600">
                     {formatCurrency(result.totalInterest)}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Cost</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.totalCost")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.totalCost)}</p>
                 </div>
               </div>
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Loan Amount</span>
+                  <span className="text-muted-foreground">{t("finance.breakdownLoanAmount")}</span>
                   <span>{formatCurrency(loanAmount)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">- Origination Fee</span>
+                  <span className="text-muted-foreground">{t("finance.breakdownOriginationFee")}</span>
                   <span>{formatCurrency(result.originationFeeAmount)}</span>
                 </div>
                 <div className="flex justify-between font-medium">
-                  <span>= You Receive</span>
+                  <span>{t("finance.youReceive")}</span>
                   <span>{formatCurrency(loanAmount - result.originationFeeAmount)}</span>
                 </div>
                 <div className="flex justify-between pt-2">
-                  <span className="text-muted-foreground">Total Payments</span>
+                  <span className="text-muted-foreground">{t("finance.totalPayments")}</span>
                   <span>{formatCurrency(result.monthlyPayment * loanTermMonths)}</span>
                 </div>
                 <div className="flex justify-between font-bold">
-                  <span>Total Cost (incl. fee)</span>
+                  <span>{t("finance.totalCostInclFee")}</span>
                   <span>{formatCurrency(result.totalCost)}</span>
                 </div>
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{t("finance.enterValuesToCalculate")}</p>
           )}
         </CardContent>
       </Card>

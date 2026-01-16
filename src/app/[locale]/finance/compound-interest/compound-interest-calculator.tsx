@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations, useFormatter } from "next-intl";
 import {
   Area,
   AreaChart,
@@ -47,29 +48,31 @@ const useCompoundInterestStore = createCalculatorStore<
   calculate: calculateCompoundInterest,
 });
 
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
-};
-
 export function CompoundInterestCalculator() {
+  const t = useTranslations("calculator");
+  const format = useFormatter();
   const { values, setValue, result } = useCompoundInterestStore();
+
+  const formatCurrency = (value: number) => {
+    return format.number(value, {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Investment Details</CardTitle>
+          <CardTitle className="text-lg">{t("finance.investmentDetails")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="principal"
-              label="Initial Investment"
+              label={t("finance.initialInvestment")}
               type="number"
               value={values.principal.toString()}
               onChange={(value) => setValue("principal", Number.parseFloat(value) || 0)}
@@ -77,7 +80,7 @@ export function CompoundInterestCalculator() {
             />
             <InputField
               id="interestRate"
-              label="Annual Interest Rate (%)"
+              label={t("finance.annualInterestRate")}
               type="number"
               value={values.interestRate.toString()}
               onChange={(value) => setValue("interestRate", Number.parseFloat(value) || 0)}
@@ -89,7 +92,7 @@ export function CompoundInterestCalculator() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="years"
-              label="Investment Period (years)"
+              label={t("finance.investmentPeriod")}
               type="number"
               value={values.years.toString()}
               onChange={(value) => setValue("years", Number.parseFloat(value) || 0)}
@@ -97,7 +100,7 @@ export function CompoundInterestCalculator() {
               max={100}
             />
             <div className="space-y-2">
-              <Label>Compound Frequency</Label>
+              <Label>{t("finance.compoundFrequency")}</Label>
               <Select
                 value={values.compoundFrequency}
                 onValueChange={(value) => setValue("compoundFrequency", value as CompoundFrequency)}
@@ -108,7 +111,7 @@ export function CompoundInterestCalculator() {
                 <SelectContent>
                   {COMPOUND_FREQUENCIES.map((freq) => (
                     <SelectItem key={freq.value} value={freq.value}>
-                      {freq.label}
+                      {t(`finance.${freq.value}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -120,20 +123,20 @@ export function CompoundInterestCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Regular Contributions</CardTitle>
+          <CardTitle className="text-lg">{t("finance.regularContributions")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="monthlyContribution"
-              label="Monthly Contribution"
+              label={t("finance.monthlyContribution")}
               type="number"
               value={values.monthlyContribution.toString()}
               onChange={(value) => setValue("monthlyContribution", Number.parseFloat(value) || 0)}
               min={0}
             />
             <div className="space-y-2">
-              <Label>Contribution Timing</Label>
+              <Label>{t("finance.contributionTiming")}</Label>
               <Select
                 value={values.contributionTiming}
                 onValueChange={(value) =>
@@ -144,8 +147,8 @@ export function CompoundInterestCalculator() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="beginning">Beginning of Month</SelectItem>
-                  <SelectItem value="end">End of Month</SelectItem>
+                  <SelectItem value="beginning">{t("finance.beginningOfMonth")}</SelectItem>
+                  <SelectItem value="end">{t("finance.endOfMonth")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -157,26 +160,26 @@ export function CompoundInterestCalculator() {
         <>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Results</CardTitle>
+              <CardTitle className="text-lg">{t("labels.results")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
                 <p className="text-4xl font-bold text-primary">
                   {formatCurrency(result.finalBalance)}
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">Final Balance</p>
+                <p className="text-sm text-muted-foreground mt-1">{t("finance.finalBalance")}</p>
               </div>
 
               <ResultGrid
                 results={[
-                  { label: "Initial Investment", value: formatCurrency(result.totalPrincipal) },
+                  { label: t("finance.initialInvestment"), value: formatCurrency(result.totalPrincipal) },
                   {
-                    label: "Total Contributions",
+                    label: t("finance.totalContributions"),
                     value: formatCurrency(result.totalContributions),
                   },
-                  { label: "Total Interest Earned", value: formatCurrency(result.totalInterest) },
+                  { label: t("finance.totalInterestEarned"), value: formatCurrency(result.totalInterest) },
                   {
-                    label: "Effective Annual Rate",
+                    label: t("finance.effectiveAnnualRate"),
                     value: `${result.effectiveAnnualRate.toFixed(2)}%`,
                   },
                 ]}
@@ -187,18 +190,18 @@ export function CompoundInterestCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Growth Over Time</CardTitle>
+              <CardTitle className="text-lg">{t("finance.growthOverTime")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[350px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={result.yearlyBreakdown}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="year" tickFormatter={(v) => `Year ${v}`} />
+                    <XAxis dataKey="year" tickFormatter={(v) => `${t("labels.year")} ${v}`} />
                     <YAxis tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatCurrency(Number(value ?? 0))}
-                      labelFormatter={(label) => `Year ${label}`}
+                      labelFormatter={(label) => `${t("labels.year")} ${label}`}
                     />
                     <Area
                       type="monotone"
@@ -207,7 +210,7 @@ export function CompoundInterestCalculator() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.8}
-                      name="Initial Investment"
+                      name={t("finance.initialInvestment")}
                     />
                     <Area
                       type="monotone"
@@ -216,7 +219,7 @@ export function CompoundInterestCalculator() {
                       stroke="hsl(var(--chart-2))"
                       fill="hsl(var(--chart-2))"
                       fillOpacity={0.6}
-                      name="Contributions"
+                      name={t("finance.contributions")}
                     />
                     <Area
                       type="monotone"
@@ -225,7 +228,7 @@ export function CompoundInterestCalculator() {
                       stroke="hsl(var(--chart-3))"
                       fill="hsl(var(--chart-3))"
                       fillOpacity={0.6}
-                      name="Interest"
+                      name={t("labels.interest")}
                     />
                     <Legend />
                   </AreaChart>
@@ -236,7 +239,7 @@ export function CompoundInterestCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Balance Growth by Year</CardTitle>
+              <CardTitle className="text-lg">{t("finance.balanceGrowthByYear")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -247,9 +250,9 @@ export function CompoundInterestCalculator() {
                     <YAxis tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatCurrency(Number(value ?? 0))}
-                      labelFormatter={(label) => `Year ${label}`}
+                      labelFormatter={(label) => `${t("labels.year")} ${label}`}
                     />
-                    <Bar dataKey="balance" fill="hsl(var(--primary))" name="Balance" />
+                    <Bar dataKey="balance" fill="hsl(var(--primary))" name={t("labels.balance")} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -258,17 +261,17 @@ export function CompoundInterestCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Year-by-Year Breakdown</CardTitle>
+              <CardTitle className="text-lg">{t("finance.yearByYearBreakdown")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-2 px-2">Year</th>
-                      <th className="text-right py-2 px-2">Contributions</th>
-                      <th className="text-right py-2 px-2">Interest</th>
-                      <th className="text-right py-2 px-2">Balance</th>
+                      <th className="text-left py-2 px-2">{t("labels.year")}</th>
+                      <th className="text-right py-2 px-2">{t("finance.contributions")}</th>
+                      <th className="text-right py-2 px-2">{t("labels.interest")}</th>
+                      <th className="text-right py-2 px-2">{t("labels.balance")}</th>
                     </tr>
                   </thead>
                   <tbody>

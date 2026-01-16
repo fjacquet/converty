@@ -30,10 +30,11 @@ export default async function HyperfocalPage({ params }: { params: Promise<{ loc
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.hyperfocal");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("photo")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("photo.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <HyperfocalCalculator />
       </Suspense>

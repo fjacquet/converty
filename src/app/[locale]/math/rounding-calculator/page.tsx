@@ -30,10 +30,11 @@ export default async function RoundingCalculatorPage({ params }: { params: Promi
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.rounding-calculator");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("math")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("math.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <RoundingCalculator />
       </Suspense>

@@ -24,7 +24,7 @@ function countDecimalPlaces(num: number): number {
 function roundToSignificantFigures(num: number, sigFigs: number): number {
   if (num === 0) return 0;
   const magnitude = Math.floor(Math.log10(Math.abs(num)));
-  const scale = Math.pow(10, sigFigs - magnitude - 1);
+  const scale = 10 ** (sigFigs - magnitude - 1);
   return Math.round(num * scale) / scale;
 }
 
@@ -41,7 +41,7 @@ export function calculateRounding(input: RoundingInput): RoundingResult | null {
 
   switch (mode) {
     case "round": {
-      const factor = Math.pow(10, decimalPlaces);
+      const factor = 10 ** decimalPlaces;
       rounded = Math.round(number * factor) / factor;
       method = `Round to ${decimalPlaces} decimal places`;
       steps.push(`Multiply by 10^${decimalPlaces}: ${number * factor}`);
@@ -51,7 +51,7 @@ export function calculateRounding(input: RoundingInput): RoundingResult | null {
     }
 
     case "ceil": {
-      const factor = Math.pow(10, decimalPlaces);
+      const factor = 10 ** decimalPlaces;
       rounded = Math.ceil(number * factor) / factor;
       method = `Ceiling to ${decimalPlaces} decimal places`;
       steps.push(`Multiply by 10^${decimalPlaces}: ${number * factor}`);
@@ -61,7 +61,7 @@ export function calculateRounding(input: RoundingInput): RoundingResult | null {
     }
 
     case "floor": {
-      const factor = Math.pow(10, decimalPlaces);
+      const factor = 10 ** decimalPlaces;
       rounded = Math.floor(number * factor) / factor;
       method = `Floor to ${decimalPlaces} decimal places`;
       steps.push(`Multiply by 10^${decimalPlaces}: ${number * factor}`);
@@ -71,7 +71,7 @@ export function calculateRounding(input: RoundingInput): RoundingResult | null {
     }
 
     case "truncate": {
-      const factor = Math.pow(10, decimalPlaces);
+      const factor = 10 ** decimalPlaces;
       rounded = Math.trunc(number * factor) / factor;
       method = `Truncate to ${decimalPlaces} decimal places`;
       steps.push(`Truncate (remove decimal part): ${rounded}`);

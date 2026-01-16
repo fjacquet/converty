@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -26,25 +27,27 @@ const useTimeStore = createCalculatorStore<TimeInput, TimeResult>({
 });
 
 export function TimeCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tSections = useTranslations("calculator.sections");
   const { values, setValue, result } = useTimeStore();
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Start Time</CardTitle>
+          <CardTitle className="text-lg">{t("time")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <InputField
             id="startTime"
-            label="Start Time"
+            label={t("time")}
             type="time"
             value={values.startTime}
             onChange={(value) => setValue("startTime", value)}
           />
 
           <div className="space-y-2">
-            <Label>Operation</Label>
+            <Label>{t("operation")}</Label>
             <Select
               value={values.operation}
               onValueChange={(value) => setValue("operation", value as "add" | "subtract")}
@@ -53,8 +56,8 @@ export function TimeCalculator() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="add">Add</SelectItem>
-                <SelectItem value="subtract">Subtract</SelectItem>
+                <SelectItem value="add">{t("add")}</SelectItem>
+                <SelectItem value="subtract">{t("subtract")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -64,14 +67,14 @@ export function TimeCalculator() {
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">
-            Duration to {values.operation === "add" ? "Add" : "Subtract"}
+            {values.operation === "add" ? t("add") : t("subtract")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-3 gap-4">
             <InputField
               id="hours"
-              label="Hours"
+              label={t("hours")}
               type="number"
               value={values.hours}
               onChange={(value) => setValue("hours", value)}
@@ -79,7 +82,7 @@ export function TimeCalculator() {
             />
             <InputField
               id="minutes"
-              label="Minutes"
+              label={t("minutes")}
               type="number"
               value={values.minutes}
               onChange={(value) => setValue("minutes", value)}
@@ -87,7 +90,7 @@ export function TimeCalculator() {
             />
             <InputField
               id="seconds"
-              label="Seconds"
+              label={t("seconds")}
               type="number"
               value={values.seconds}
               onChange={(value) => setValue("seconds", value)}
@@ -100,7 +103,7 @@ export function TimeCalculator() {
       {result && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Result</CardTitle>
+            <CardTitle className="text-lg">{tSections("results")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center p-4 bg-primary/10 rounded-lg">
@@ -111,16 +114,16 @@ export function TimeCalculator() {
               <div className="text-center p-2 bg-yellow-500/10 rounded-lg">
                 <p className="text-sm font-medium">
                   {result.dayChange > 0
-                    ? `+${result.dayChange} day(s)`
-                    : `${result.dayChange} day(s)`}
+                    ? `+${result.dayChange} ${t("days")}`
+                    : `${result.dayChange} ${t("days")}`}
                 </p>
               </div>
             )}
             <ResultGrid
               results={[
-                { label: "24-Hour Format", value: result.formatted24h },
-                { label: "12-Hour Format", value: result.formatted12h },
-                { label: "Total Seconds", value: result.totalSeconds.toLocaleString() },
+                { label: "24h", value: result.formatted24h },
+                { label: "12h", value: result.formatted12h },
+                { label: `${t("seconds")} (${tSections("summary")})`, value: result.totalSeconds.toLocaleString() },
               ]}
               columns={3}
             />

@@ -32,8 +32,8 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
     case "cube": {
       const { length } = input;
       if (!length || length <= 0) return null;
-      volume = Math.pow(length, 3);
-      surfaceArea = 6 * Math.pow(length, 2);
+      volume = length ** 3;
+      surfaceArea = 6 * length ** 2;
       formula = "V = s³";
       steps.push(`V = ${length}³`);
       steps.push(`V = ${volume}`);
@@ -54,11 +54,11 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
     case "sphere": {
       const { radius } = input;
       if (!radius || radius <= 0) return null;
-      volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
-      surfaceArea = 4 * Math.PI * Math.pow(radius, 2);
+      volume = (4 / 3) * Math.PI * radius ** 3;
+      surfaceArea = 4 * Math.PI * radius ** 2;
       formula = "V = (4/3)πr³";
       steps.push(`V = (4/3) × π × ${radius}³`);
-      steps.push(`V = (4/3) × π × ${Math.pow(radius, 3)}`);
+      steps.push(`V = (4/3) × π × ${radius ** 3}`);
       steps.push(`V = ${volume.toFixed(6)}`);
       break;
     }
@@ -66,11 +66,11 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
     case "cylinder": {
       const { radius, height } = input;
       if (!radius || !height || radius <= 0 || height <= 0) return null;
-      volume = Math.PI * Math.pow(radius, 2) * height;
+      volume = Math.PI * radius ** 2 * height;
       surfaceArea = 2 * Math.PI * radius * (radius + height);
       formula = "V = πr²h";
       steps.push(`V = π × ${radius}² × ${height}`);
-      steps.push(`V = π × ${Math.pow(radius, 2)} × ${height}`);
+      steps.push(`V = π × ${radius ** 2} × ${height}`);
       steps.push(`V = ${volume.toFixed(6)}`);
       break;
     }
@@ -78,8 +78,8 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
     case "cone": {
       const { radius, height } = input;
       if (!radius || !height || radius <= 0 || height <= 0) return null;
-      volume = (1 / 3) * Math.PI * Math.pow(radius, 2) * height;
-      const slantHeight = Math.sqrt(Math.pow(radius, 2) + Math.pow(height, 2));
+      volume = (1 / 3) * Math.PI * radius ** 2 * height;
+      const slantHeight = Math.sqrt(radius ** 2 + height ** 2);
       surfaceArea = Math.PI * radius * (radius + slantHeight);
       formula = "V = (1/3)πr²h";
       steps.push(`V = (1/3) × π × ${radius}² × ${height}`);
@@ -114,7 +114,7 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
       const { majorRadius, minorRadius } = input;
       if (!majorRadius || !minorRadius || majorRadius <= 0 || minorRadius <= 0) return null;
       if (minorRadius >= majorRadius) return null; // Invalid torus
-      volume = 2 * Math.PI * Math.PI * majorRadius * Math.pow(minorRadius, 2);
+      volume = 2 * Math.PI * Math.PI * majorRadius * minorRadius ** 2;
       surfaceArea = 4 * Math.PI * Math.PI * majorRadius * minorRadius;
       formula = "V = 2π²Rr²";
       steps.push(`V = 2π² × ${majorRadius} × ${minorRadius}²`);

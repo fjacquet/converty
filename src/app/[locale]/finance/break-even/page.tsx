@@ -26,10 +26,11 @@ export default async function BreakEvenPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "converters.break-even" });
+  const tc = await getTranslations({ locale, namespace: "categories" });
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
       <BreakEvenCalculator />
     </ConverterLayout>
   );

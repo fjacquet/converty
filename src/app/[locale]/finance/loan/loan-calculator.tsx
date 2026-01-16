@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations, useFormatter } from "next-intl";
 import {
   Area,
   AreaChart,
@@ -29,22 +30,24 @@ const useLoanStore = createCalculatorStore<LoanInput, LoanResult>({
   calculate: calculateLoan,
 });
 
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
-};
-
 export function LoanCalculator() {
+  const t = useTranslations("calculator");
+  const format = useFormatter();
   const { values, setValue, result } = useLoanStore();
+
+  const formatCurrency = (value: number) => {
+    return format.number(value, {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
 
   const pieData = result
     ? [
-        { name: "Principal", value: values.loanAmount },
-        { name: "Interest", value: result.totalInterest },
+        { name: t("labels.principal"), value: values.loanAmount },
+        { name: t("labels.interest"), value: result.totalInterest },
       ]
     : [];
 
@@ -52,12 +55,12 @@ export function LoanCalculator() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Loan Details</CardTitle>
+          <CardTitle className="text-lg">{t("finance.loanDetails")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <InputField
             id="loanAmount"
-            label="Loan Amount"
+            label={t("finance.loanAmount")}
             type="number"
             value={values.loanAmount.toString()}
             onChange={(value) => setValue("loanAmount", Number.parseFloat(value) || 0)}
@@ -67,7 +70,7 @@ export function LoanCalculator() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="interestRate"
-              label="Annual Interest Rate (%)"
+              label={t("finance.annualInterestRate")}
               type="number"
               value={values.interestRate.toString()}
               onChange={(value) => setValue("interestRate", Number.parseFloat(value) || 0)}
@@ -76,7 +79,7 @@ export function LoanCalculator() {
             />
             <InputField
               id="loanTerm"
-              label="Loan Term (months)"
+              label={t("finance.loanTermMonths")}
               type="number"
               value={values.loanTerm.toString()}
               onChange={(value) => setValue("loanTerm", Number.parseFloat(value) || 0)}
@@ -87,7 +90,7 @@ export function LoanCalculator() {
 
           <InputField
             id="startDate"
-            label="Start Date"
+            label={t("labels.startDate")}
             type="date"
             value={values.startDate}
             onChange={(value) => setValue("startDate", value)}
@@ -99,23 +102,23 @@ export function LoanCalculator() {
         <>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Monthly Payment</CardTitle>
+              <CardTitle className="text-lg">{t("finance.monthlyPayment")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
                 <p className="text-4xl font-bold text-primary">
                   {formatCurrency(result.monthlyPayment)}
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">per month</p>
+                <p className="text-sm text-muted-foreground mt-1">{t("finance.perMonth")}</p>
               </div>
 
               <ResultGrid
                 results={[
-                  { label: "Loan Amount", value: formatCurrency(values.loanAmount) },
-                  { label: "Total Interest", value: formatCurrency(result.totalInterest) },
-                  { label: "Total Payment", value: formatCurrency(result.totalPayment) },
-                  { label: "Payoff Date", value: result.payoffDate },
-                  { label: "Effective Rate", value: `${result.effectiveRate.toFixed(2)}%` },
+                  { label: t("finance.loanAmount"), value: formatCurrency(values.loanAmount) },
+                  { label: t("finance.totalInterest"), value: formatCurrency(result.totalInterest) },
+                  { label: t("finance.totalPayment"), value: formatCurrency(result.totalPayment) },
+                  { label: t("labels.payoffDate"), value: result.payoffDate },
+                  { label: t("labels.effectiveRate"), value: `${result.effectiveRate.toFixed(2)}%` },
                 ]}
                 columns={2}
               />
@@ -124,7 +127,7 @@ export function LoanCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Principal vs Interest</CardTitle>
+              <CardTitle className="text-lg">{t("labels.principal")} vs {t("labels.interest")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -153,7 +156,7 @@ export function LoanCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Balance Over Time</CardTitle>
+              <CardTitle className="text-lg">{t("labels.balanceOverTime")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -164,7 +167,7 @@ export function LoanCalculator() {
                     <YAxis tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatCurrency(Number(value ?? 0))}
-                      labelFormatter={(label) => `Year ${label}`}
+                      labelFormatter={(label) => `${t("labels.year")} ${label}`}
                     />
                     <Area
                       type="monotone"
@@ -172,7 +175,7 @@ export function LoanCalculator() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.3}
-                      name="Remaining Balance"
+                      name={t("labels.remainingBalance")}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -182,7 +185,7 @@ export function LoanCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Yearly Principal vs Interest</CardTitle>
+              <CardTitle className="text-lg">{t("labels.yearlyPrincipalVsInterest")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -193,7 +196,7 @@ export function LoanCalculator() {
                     <YAxis tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`} />
                     <Tooltip
                       formatter={(value) => formatCurrency(Number(value ?? 0))}
-                      labelFormatter={(label) => `Year ${label}`}
+                      labelFormatter={(label) => `${t("labels.year")} ${label}`}
                     />
                     <Area
                       type="monotone"
@@ -202,7 +205,7 @@ export function LoanCalculator() {
                       stroke="hsl(var(--primary))"
                       fill="hsl(var(--primary))"
                       fillOpacity={0.6}
-                      name="Principal"
+                      name={t("labels.principal")}
                     />
                     <Area
                       type="monotone"
@@ -211,7 +214,7 @@ export function LoanCalculator() {
                       stroke="hsl(var(--destructive))"
                       fill="hsl(var(--destructive))"
                       fillOpacity={0.6}
-                      name="Interest"
+                      name={t("labels.interest")}
                     />
                     <Legend />
                   </AreaChart>

@@ -28,7 +28,7 @@ function toScientific(num: number): { mantissa: number; exponent: number } {
   if (num === 0) return { mantissa: 0, exponent: 0 };
 
   const exponent = Math.floor(Math.log10(Math.abs(num)));
-  const mantissa = num / Math.pow(10, exponent);
+  const mantissa = num / 10 ** exponent;
 
   return { mantissa, exponent };
 }
@@ -39,7 +39,7 @@ function toEngineering(num: number): { mantissa: number; exponent: number } {
   let exponent = Math.floor(Math.log10(Math.abs(num)));
   // Round exponent down to nearest multiple of 3
   exponent = Math.floor(exponent / 3) * 3;
-  const mantissa = num / Math.pow(10, exponent);
+  const mantissa = num / 10 ** exponent;
 
   return { mantissa, exponent };
 }
@@ -83,10 +83,10 @@ export function calculateScientificNotation(input: ScientificNotationInput): Sci
 
       mantissa = inputMantissa;
       exponent = inputExponent;
-      standardForm = mantissa * Math.pow(10, exponent);
+      standardForm = mantissa * 10 ** exponent;
 
       steps.push(`${mantissa} × 10^${exponent}`);
-      steps.push(`= ${mantissa} × ${Math.pow(10, exponent)}`);
+      steps.push(`= ${mantissa} × ${10 ** exponent}`);
       steps.push(`= ${standardForm}`);
       break;
     }
@@ -97,8 +97,8 @@ export function calculateScientificNotation(input: ScientificNotationInput): Sci
         return null;
       }
 
-      const num1 = m1 * Math.pow(10, e1);
-      const num2 = m2 * Math.pow(10, e2);
+      const num1 = m1 * 10 ** e1;
+      const num2 = m2 * 10 ** e2;
 
       standardForm = num1;
       mantissa = m1;

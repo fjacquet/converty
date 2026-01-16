@@ -115,7 +115,7 @@ export function calculateBinary(input: BinaryInput): BinaryResult | null {
       bits.forEach((bit, i) => {
         if (bit === "1") {
           terms.push(`2^${i}`);
-          steps.push(`Position ${i}: ${bit} × 2^${i} = ${Math.pow(2, i)}`);
+          steps.push(`Position ${i}: ${bit} × 2^${i} = ${2 ** i}`);
         }
       });
       steps.push(`Sum: ${terms.join(" + ")} = ${decimal}`);

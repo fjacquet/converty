@@ -30,10 +30,11 @@ export default async function DayOfWeekPage({ params }: { params: Promise<{ loca
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.day-of-week");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("datetime")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("datetime.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <DayOfWeekCalculator />
       </Suspense>

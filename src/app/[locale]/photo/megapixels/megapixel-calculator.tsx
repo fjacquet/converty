@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   COMMON_MEGAPIXELS,
@@ -9,6 +10,8 @@ import {
 } from "@/lib/converters/photo/megapixels";
 
 export function MegapixelCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tMath = useTranslations("calculator.math");
   const [width, setWidth] = useState("6000");
   const [height, setHeight] = useState("4000");
 
@@ -17,10 +20,10 @@ export function MegapixelCalculator() {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
-        <InputField id="width" label="Width" value={width} onChange={setWidth} unit="px" min={1} />
+        <InputField id="width" label={tMath("width")} value={width} onChange={setWidth} unit="px" min={1} />
         <InputField
           id="height"
-          label="Height"
+          label={tMath("height")}
           value={height}
           onChange={setHeight}
           unit="px"
@@ -45,7 +48,7 @@ export function MegapixelCalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label="Megapixels" value={`${result.megapixels} MP`} size="lg" />
+          <OutputDisplay label={t("megapixels")} value={`${result.megapixels} MP`} size="lg" />
 
           <ResultGrid
             results={[

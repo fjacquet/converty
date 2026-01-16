@@ -62,7 +62,7 @@ function gamma(z: number): number {
   }
 
   const t = z + g + 0.5;
-  return Math.sqrt(2 * Math.PI) * Math.pow(t, z + 0.5) * Math.exp(-t) * x;
+  return Math.sqrt(2 * Math.PI) * t ** (z + 0.5) * Math.exp(-t) * x;
 }
 
 // Incomplete beta function (regularized)

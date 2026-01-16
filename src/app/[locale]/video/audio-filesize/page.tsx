@@ -34,10 +34,11 @@ export default async function AudioFilesizePage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.audio-filesize");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("video")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("video.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <AudioFilesizeCalculator />
       </Suspense>

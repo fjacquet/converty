@@ -46,7 +46,7 @@ export function Retirement401kCalculator() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="currentAge">Current Age</Label>
+              <Label htmlFor="currentAge">{t("finance.currentAge")}</Label>
               <Input
                 id="currentAge"
                 type="number"
@@ -57,7 +57,7 @@ export function Retirement401kCalculator() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="retirementAge">Retirement Age</Label>
+              <Label htmlFor="retirementAge">{t("finance.retirementAge")}</Label>
               <Input
                 id="retirementAge"
                 type="number"
@@ -70,7 +70,7 @@ export function Retirement401kCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="currentBalance">Current Balance</Label>
+            <Label htmlFor="currentBalance">{t("finance.currentBalance")}</Label>
             <Input
               id="currentBalance"
               type="number"
@@ -82,7 +82,7 @@ export function Retirement401kCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualContribution">Annual Contribution</Label>
+            <Label htmlFor="annualContribution">{t("finance.annualContributionLabel")}</Label>
             <Input
               id="annualContribution"
               type="number"
@@ -95,7 +95,7 @@ export function Retirement401kCalculator() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="employerMatch">Employer Match (%)</Label>
+              <Label htmlFor="employerMatch">{t("finance.employerMatch")}</Label>
               <Input
                 id="employerMatch"
                 type="number"
@@ -107,7 +107,7 @@ export function Retirement401kCalculator() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="employerMatchLimit">Match Limit (%)</Label>
+              <Label htmlFor="employerMatchLimit">{t("finance.matchLimit")}</Label>
               <Input
                 id="employerMatchLimit"
                 type="number"
@@ -122,7 +122,7 @@ export function Retirement401kCalculator() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="annualReturnRate">Return Rate (%)</Label>
+              <Label htmlFor="annualReturnRate">{t("finance.returnRate")}</Label>
               <Input
                 id="annualReturnRate"
                 type="number"
@@ -134,7 +134,7 @@ export function Retirement401kCalculator() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="annualSalaryGrowth">Salary Growth (%)</Label>
+              <Label htmlFor="annualSalaryGrowth">{t("finance.salaryGrowth")}</Label>
               <Input
                 id="annualSalaryGrowth"
                 type="number"
@@ -157,34 +157,34 @@ export function Retirement401kCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Total at Retirement</p>
+                <p className="text-sm text-muted-foreground">{t("finance.totalAtRetirement")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.totalAtRetirement)}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  In {result.yearsToRetirement} years at age {retirementAge}
+                  {t("finance.yearsToRetirement", { years: result.yearsToRetirement, age: retirementAge })}
                 </p>
               </div>
 
               <div className="p-4 bg-green-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Monthly Retirement Income</p>
+                <p className="text-sm text-muted-foreground">{t("finance.monthlyRetirementIncome")}</p>
                 <p className="text-xl font-bold text-green-600">
                   {formatCurrency(result.monthlyInRetirement)}
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">Based on 4% withdrawal rule</p>
+                <p className="text-xs text-muted-foreground mt-1">{t("finance.withdrawalRule")}</p>
               </div>
 
               <div className="grid grid-cols-3 gap-2">
                 <div className="p-3 bg-muted rounded-lg">
-                  <p className="text-xs text-muted-foreground">Your Contributions</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.contributions")}</p>
                   <p className="text-lg font-bold">{formatCurrency(result.totalContributions)}</p>
                 </div>
                 <div className="p-3 bg-blue-500/10 rounded-lg">
-                  <p className="text-xs text-muted-foreground">Employer Match</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.employerMatchLabel")}</p>
                   <p className="text-lg font-bold text-blue-600">
                     {formatCurrency(result.totalEmployerMatch)}
                   </p>
                 </div>
                 <div className="p-3 bg-green-500/10 rounded-lg">
-                  <p className="text-xs text-muted-foreground">Growth</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.growth")}</p>
                   <p className="text-lg font-bold text-green-600">
                     {formatCurrency(result.totalGrowth)}
                   </p>
@@ -193,11 +193,11 @@ export function Retirement401kCalculator() {
 
               {result.projections.length > 0 && (
                 <div className="border-t pt-4">
-                  <p className="text-sm font-medium mb-2">Balance Projections</p>
+                  <p className="text-sm font-medium mb-2">{t("finance.balanceProjections")}</p>
                   <div className="space-y-2 text-sm">
                     {result.projections.map((proj) => (
                       <div key={proj.age} className="flex justify-between">
-                        <span className="text-muted-foreground">Age {proj.age}</span>
+                        <span className="text-muted-foreground">{t("finance.ageLabelWithValue", { age: proj.age })}</span>
                         <span>{formatCurrency(proj.balance)}</span>
                       </div>
                     ))}
@@ -206,7 +206,7 @@ export function Retirement401kCalculator() {
               )}
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter valid values to calculate</p>
+            <p className="text-muted-foreground">{t("finance.enterValuesToCalculate")}</p>
           )}
         </CardContent>
       </Card>

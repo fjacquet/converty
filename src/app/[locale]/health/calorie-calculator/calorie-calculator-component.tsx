@@ -156,7 +156,7 @@ export function CalorieCalculatorComponent() {
               unit={tResults("kcal") + "/day"}
             />
             <OutputDisplay
-              label="Maintenance"
+              label={t("maintenance")}
               value={Math.round(calorieResult.maintenanceCalories)}
               unit={tResults("kcal") + "/day"}
             />

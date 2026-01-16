@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { locales } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
-import { categories, getCategoryById } from "@/lib/registry/categories";
+import { categories } from "@/lib/registry/categories";
 import { converters } from "@/lib/registry/converters";
 
 export function generateStaticParams() {

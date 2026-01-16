@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { parseSPF, SPF_MECHANISMS, SPF_QUALIFIERS } from "@/lib/converters/web/spf-check";
 
 export function SPFChecker() {
+  const _t = useTranslations("calculator.labels");
+  const _tSections = useTranslations("calculator.sections");
   const [record, setRecord] = useState("v=spf1 include:_spf.google.com ~all");
 
   const result = parseSPF(record);

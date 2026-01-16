@@ -37,7 +37,7 @@ export function SavingsGoalCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="goalAmount">Savings Goal</Label>
+            <Label htmlFor="goalAmount">{t("finance.savingsGoal")}</Label>
             <Input
               id="goalAmount"
               type="number"
@@ -49,7 +49,7 @@ export function SavingsGoalCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="currentSavings">Current Savings</Label>
+            <Label htmlFor="currentSavings">{t("finance.currentSavings")}</Label>
             <Input
               id="currentSavings"
               type="number"
@@ -61,7 +61,7 @@ export function SavingsGoalCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="monthlyContribution">Monthly Contribution</Label>
+            <Label htmlFor="monthlyContribution">{t("finance.monthlyContribution")}</Label>
             <Input
               id="monthlyContribution"
               type="number"
@@ -73,7 +73,7 @@ export function SavingsGoalCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualInterestRate">Annual Interest Rate (%)</Label>
+            <Label htmlFor="annualInterestRate">{t("finance.interestRatePercent")}</Label>
             <Input
               id="annualInterestRate"
               type="number"
@@ -97,22 +97,22 @@ export function SavingsGoalCalculator() {
               {result.goalReachable ? (
                 <>
                   <div className="p-4 bg-green-500/10 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Time to Reach Goal</p>
+                    <p className="text-sm text-muted-foreground">{t("finance.timeToReachGoal")}</p>
                     <p className="text-3xl font-bold text-green-600">
-                      {result.yearsToGoal.toFixed(1)} years
+                      {t("finance.yearsCount", { count: Math.round(result.yearsToGoal * 10) / 10 })}
                     </p>
-                    <p className="text-sm text-muted-foreground">({result.monthsToGoal} months)</p>
+                    <p className="text-sm text-muted-foreground">({t("finance.totalMonthsCount", { count: result.monthsToGoal })})</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground">Total Contributions</p>
+                      <p className="text-sm text-muted-foreground">{t("finance.totalContributions")}</p>
                       <p className="text-xl font-bold">
                         {formatCurrency(result.totalContributions)}
                       </p>
                     </div>
                     <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground">Interest Earned</p>
+                      <p className="text-sm text-muted-foreground">{t("finance.interestEarned")}</p>
                       <p className="text-xl font-bold text-green-600">
                         {formatCurrency(result.totalInterestEarned)}
                       </p>
@@ -120,28 +120,27 @@ export function SavingsGoalCalculator() {
                   </div>
 
                   <div className="p-4 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground">Final Balance</p>
+                    <p className="text-sm text-muted-foreground">{t("finance.finalBalance")}</p>
                     <p className="text-xl font-bold">{formatCurrency(result.finalBalance)}</p>
                   </div>
                 </>
               ) : (
                 <div className="p-4 bg-yellow-500/10 rounded-lg">
-                  <p className="text-lg font-medium text-yellow-600">Goal may not be reachable</p>
+                  <p className="text-lg font-medium text-yellow-600">{t("finance.goalNotReachable")}</p>
                   <p className="text-sm text-muted-foreground mt-2">
-                    With current contributions, it would take more than 50 years to reach your goal.
-                    Consider increasing your monthly contribution or reducing your goal.
+                    {t("finance.goalNotReachableDescription")}
                   </p>
                 </div>
               )}
 
               {result.projections.length > 0 && result.goalReachable && (
                 <div className="border-t pt-4">
-                  <h4 className="font-medium mb-3">Yearly Progress</h4>
+                  <h4 className="font-medium mb-3">{t("finance.yearlyProgress")}</h4>
                   <div className="max-h-48 overflow-y-auto space-y-1">
                     {result.projections.map((item) => (
                       <div key={item.month} className="flex justify-between text-sm py-1">
                         <span className="text-muted-foreground">
-                          {Math.floor(item.month / 12)} years
+                          {t("finance.yearsCount", { count: Math.floor(item.month / 12) })}
                         </span>
                         <span>{formatCurrency(item.balance)}</span>
                       </div>
@@ -151,7 +150,7 @@ export function SavingsGoalCalculator() {
               )}
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{t("labels.enterValues")}</p>
           )}
         </CardContent>
       </Card>

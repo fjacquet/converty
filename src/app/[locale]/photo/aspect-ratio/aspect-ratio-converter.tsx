@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { COMMON_RATIOS, calculateAspectRatio } from "@/lib/converters/photo/aspect-ratio";
 
 export function AspectRatioConverter() {
+  const t = useTranslations("calculator.labels");
+  const tMath = useTranslations("calculator.math");
   const [width, setWidth] = useState("1920");
   const [height, setHeight] = useState("1080");
 
@@ -17,7 +20,7 @@ export function AspectRatioConverter() {
       <div className="grid gap-4 sm:grid-cols-2">
         <InputField
           id="width"
-          label="Width"
+          label={tMath("width")}
           value={width}
           onChange={setWidth}
           unit="px"
@@ -27,7 +30,7 @@ export function AspectRatioConverter() {
         />
         <InputField
           id="height"
-          label="Height"
+          label={tMath("height")}
           value={height}
           onChange={setHeight}
           unit="px"
@@ -40,8 +43,8 @@ export function AspectRatioConverter() {
       {result && (
         <div className="space-y-6">
           <div className="flex items-center gap-6">
-            <OutputDisplay label="Aspect Ratio" value={result.ratio} size="lg" className="flex-1" />
-            <OutputDisplay label="Decimal" value={result.decimal} className="flex-1" />
+            <OutputDisplay label={t("aspectRatio")} value={result.ratio} size="lg" className="flex-1" />
+            <OutputDisplay label={t("decimal")} value={result.decimal} className="flex-1" />
           </div>
 
           <ResultGrid

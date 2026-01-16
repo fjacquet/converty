@@ -84,7 +84,7 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
       // n = (z × σ / E)²
       if (!standardDeviation || standardDeviation <= 0) return null;
 
-      sampleSize = Math.ceil(Math.pow((z * standardDeviation) / marginOfError, 2));
+      sampleSize = Math.ceil(((z * standardDeviation) / marginOfError) ** 2);
       formula = "n = (z × σ / E)²";
 
       steps.push(`Confidence Level: ${confidenceLevel}%, Z-score = ${z}`);

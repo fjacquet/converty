@@ -39,7 +39,7 @@ export function StudentLoanCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="loanAmount">Loan Amount</Label>
+            <Label htmlFor="loanAmount">{t("labels.loanAmount")}</Label>
             <Input
               id="loanAmount"
               type="number"
@@ -51,7 +51,7 @@ export function StudentLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="annualInterestRate">Interest Rate (%)</Label>
+            <Label htmlFor="annualInterestRate">{t("labels.interestRate")}</Label>
             <Input
               id="annualInterestRate"
               type="number"
@@ -64,7 +64,7 @@ export function StudentLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="loanTermYears">Repayment Term (years)</Label>
+            <Label htmlFor="loanTermYears">{t("finance.repaymentTerm")}</Label>
             <Input
               id="loanTermYears"
               type="number"
@@ -77,7 +77,7 @@ export function StudentLoanCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="gracePeriodMonths">Grace Period (months)</Label>
+            <Label htmlFor="gracePeriodMonths">{t("finance.gracePeriod")}</Label>
             <Input
               id="gracePeriodMonths"
               type="number"
@@ -88,7 +88,7 @@ export function StudentLoanCalculator() {
               onChange={(e) => setGracePeriodMonths(Number(e.target.value))}
             />
             <p className="text-xs text-muted-foreground">
-              Period after graduation before payments begin
+              {t("finance.gracePeriodDescription")}
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export function StudentLoanCalculator() {
               className="h-4 w-4 rounded border-gray-300"
             />
             <Label htmlFor="interestCapitalized" className="text-sm font-normal">
-              Capitalize interest during grace period
+              {t("finance.capitalizeInterest")}
             </Label>
           </div>
         </CardContent>
@@ -115,65 +115,65 @@ export function StudentLoanCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">Monthly Payment</p>
+                <p className="text-sm text-muted-foreground">{t("labels.monthlyPayment")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.monthlyPayment)}</p>
               </div>
 
               <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">Estimated Payoff Date</p>
+                <p className="text-sm text-muted-foreground">{t("finance.payoffDate")}</p>
                 <p className="text-xl font-bold">{result.payoffDate}</p>
               </div>
 
               {gracePeriodMonths > 0 && (
                 <div className="p-4 bg-yellow-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Interest During Grace Period</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.gracePeriodInterest")}</p>
                   <p className="text-xl font-bold text-yellow-600">
                     {formatCurrency(result.gracePeriodInterest)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {interestCapitalized ? "Added to principal" : "Will need to be paid separately"}
+                    {interestCapitalized ? t("labels.interest-capitalized") : t("labels.interest-not-capitalized")}
                   </p>
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-red-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Interest</p>
+                  <p className="text-sm text-muted-foreground">{t("labels.totalInterest")}</p>
                   <p className="text-xl font-bold text-red-600">
                     {formatCurrency(result.totalInterest)}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Cost</p>
+                  <p className="text-sm text-muted-foreground">{t("finance.totalCost")}</p>
                   <p className="text-xl font-bold">{formatCurrency(result.totalCost)}</p>
                 </div>
               </div>
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Original Loan</span>
+                  <span className="text-muted-foreground">{t("labels.original-loan")}</span>
                   <span>{formatCurrency(loanAmount)}</span>
                 </div>
                 {interestCapitalized && gracePeriodMonths > 0 && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">+ Grace Period Interest</span>
+                      <span className="text-muted-foreground">{t("finance.gracePeriodInterestDetail")}</span>
                       <span>{formatCurrency(result.gracePeriodInterest)}</span>
                     </div>
                     <div className="flex justify-between font-medium">
-                      <span>= Principal at Repayment</span>
+                      <span>{t("labels.principal-at-repayment")}</span>
                       <span>{formatCurrency(result.principalAfterGrace)}</span>
                     </div>
                   </>
                 )}
                 <div className="flex justify-between pt-2 font-bold">
-                  <span>Total Repayment</span>
+                  <span>{t("labels.total-repayment")}</span>
                   <span>{formatCurrency(result.totalCost)}</span>
                 </div>
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{t("labels.enter-values")}</p>
           )}
         </CardContent>
       </Card>

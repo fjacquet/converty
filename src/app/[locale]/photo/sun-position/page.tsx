@@ -44,6 +44,7 @@ export default async function SunPositionPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.sun-position");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("photo")!;
 
   return (
@@ -51,6 +52,7 @@ export default async function SunPositionPage({
       title={t("name")}
       description={t("description")}
       category={category}
+      categoryName={tc("photo.name")}
     >
       <Suspense
         fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}

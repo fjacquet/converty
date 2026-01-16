@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   analyzeRedirectChain,
   COMMON_STATUS_CODES,
@@ -8,6 +9,8 @@ import {
 } from "@/lib/converters/web/redirect-check";
 
 export function RedirectChecker() {
+  const _t = useTranslations("calculator.labels");
+  const _tSections = useTranslations("calculator.sections");
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [chain, setChain] = useState<RedirectInfo[]>([]);

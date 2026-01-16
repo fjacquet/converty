@@ -31,10 +31,11 @@ export default async function AnnuityCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "converters.annuity-calculator" });
+  const tc = await getTranslations({ locale, namespace: "categories" });
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
       <AnnuityCalculator />
     </ConverterLayout>
   );

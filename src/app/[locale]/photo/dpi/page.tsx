@@ -30,10 +30,11 @@ export default async function DPIPage({ params }: { params: Promise<{ locale: st
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.dpi");
+  const tc = await getTranslations("categories");
   const category = getCategoryBySlug("photo")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category}>
+    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("photo.name")}>
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <DPICalculator />
       </Suspense>

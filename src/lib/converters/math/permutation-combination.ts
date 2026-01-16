@@ -130,7 +130,7 @@ export function calculatePermutationCombination(input: PermutationCombinationInp
 
     case "permutationRepetition": {
       // n^r
-      result = Math.pow(n, r);
+      result = n ** r;
       if (!Number.isFinite(result)) result = Infinity;
 
       formula = "P'(n,r) = n^r";

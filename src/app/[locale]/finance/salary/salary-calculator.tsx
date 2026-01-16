@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations, useFormatter } from "next-intl";
 import {
   Bar,
   BarChart,
@@ -49,15 +50,6 @@ const useSalaryStore = createCalculatorStore<SalaryInput, SalaryResult>({
   calculate: calculateSalary,
 });
 
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
-};
-
 const COLORS = [
   "hsl(var(--primary))",
   "hsl(var(--chart-2))",
@@ -66,14 +58,25 @@ const COLORS = [
 ];
 
 export function SalaryCalculator() {
+  const t = useTranslations("calculator");
+  const format = useFormatter();
   const { values, setValue, result } = useSalaryStore();
+
+  const formatCurrency = (value: number) => {
+    return format.number(value, {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
 
   const taxPieData = result
     ? [
-        { name: "Take Home", value: result.netAnnual },
-        { name: "Federal Tax", value: result.federalTax },
-        { name: "State Tax", value: result.stateTax },
-        { name: "FICA", value: result.socialSecurity + result.medicare },
+        { name: t("finance.takeHome"), value: result.netAnnual },
+        { name: t("finance.federalTax"), value: result.federalTax },
+        { name: t("finance.stateTax"), value: result.stateTax },
+        { name: t("finance.fica"), value: result.socialSecurity + result.medicare },
       ]
     : [];
 
@@ -81,20 +84,20 @@ export function SalaryCalculator() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Income Details</CardTitle>
+          <CardTitle className="text-lg">{t("finance.incomeDetails")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="salary"
-              label="Salary Amount"
+              label={t("finance.salaryAmount")}
               type="number"
               value={values.salary.toString()}
               onChange={(value) => setValue("salary", Number.parseFloat(value) || 0)}
               min={0}
             />
             <div className="space-y-2">
-              <Label>Pay Frequency</Label>
+              <Label>{t("labels.payFrequency")}</Label>
               <Select
                 value={values.payFrequency}
                 onValueChange={(value) => setValue("payFrequency", value as PayFrequency)}
@@ -105,7 +108,7 @@ export function SalaryCalculator() {
                 <SelectContent>
                   {PAY_FREQUENCIES.map((freq) => (
                     <SelectItem key={freq.value} value={freq.value}>
-                      {freq.label}
+                      {t(`finance.${freq.value}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -116,7 +119,7 @@ export function SalaryCalculator() {
           {values.payFrequency === "hourly" && (
             <InputField
               id="hoursPerWeek"
-              label="Hours Per Week"
+              label={t("finance.hoursPerWeek")}
               type="number"
               value={values.hoursPerWeek.toString()}
               onChange={(value) => setValue("hoursPerWeek", Number.parseFloat(value) || 0)}
@@ -129,12 +132,12 @@ export function SalaryCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Tax Information</CardTitle>
+          <CardTitle className="text-lg">{t("finance.taxInformation")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Filing Status</Label>
+              <Label>{t("finance.filingStatus")}</Label>
               <Select
                 value={values.filingStatus}
                 onValueChange={(value) => setValue("filingStatus", value as FilingStatus)}
@@ -145,14 +148,14 @@ export function SalaryCalculator() {
                 <SelectContent>
                   {FILING_STATUSES.map((status) => (
                     <SelectItem key={status.value} value={status.value}>
-                      {status.label}
+                      {t(`filingStatus.${status.value}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>State</Label>
+              <Label>{t("finance.state")}</Label>
               <Select
                 value={values.stateCode}
                 onValueChange={(value) => setValue("stateCode", value)}
@@ -175,13 +178,13 @@ export function SalaryCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Deductions</CardTitle>
+          <CardTitle className="text-lg">{t("finance.deductions")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="preTaxDeductions"
-              label="Pre-Tax Deductions (monthly)"
+              label={t("finance.preTaxDeductions")}
               type="number"
               value={values.preTaxDeductions.toString()}
               onChange={(value) => setValue("preTaxDeductions", Number.parseFloat(value) || 0)}
@@ -189,7 +192,7 @@ export function SalaryCalculator() {
             />
             <InputField
               id="postTaxDeductions"
-              label="Post-Tax Deductions (monthly)"
+              label={t("finance.postTaxDeductions")}
               type="number"
               value={values.postTaxDeductions.toString()}
               onChange={(value) => setValue("postTaxDeductions", Number.parseFloat(value) || 0)}
@@ -197,8 +200,7 @@ export function SalaryCalculator() {
             />
           </div>
           <p className="text-sm text-muted-foreground">
-            Pre-tax deductions include 401(k), HSA, FSA contributions. Post-tax deductions include
-            Roth 401(k), life insurance, etc.
+            {t("finance.deductionsDescription")}
           </p>
         </CardContent>
       </Card>
@@ -207,32 +209,32 @@ export function SalaryCalculator() {
         <>
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Take-Home Pay</CardTitle>
+              <CardTitle className="text-lg">{t("finance.takeHomePay")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
                 <p className="text-4xl font-bold text-primary">
                   {formatCurrency(result.netMonthly)}
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">per month</p>
+                <p className="text-sm text-muted-foreground mt-1">{t("finance.perMonth")}</p>
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div className="p-3 bg-muted rounded-lg">
                   <p className="text-lg font-semibold">{formatCurrency(result.netAnnual)}</p>
-                  <p className="text-xs text-muted-foreground">Annual</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.annual")}</p>
                 </div>
                 <div className="p-3 bg-muted rounded-lg">
                   <p className="text-lg font-semibold">{formatCurrency(result.netMonthly)}</p>
-                  <p className="text-xs text-muted-foreground">Monthly</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.monthly")}</p>
                 </div>
                 <div className="p-3 bg-muted rounded-lg">
                   <p className="text-lg font-semibold">{formatCurrency(result.netBiweekly)}</p>
-                  <p className="text-xs text-muted-foreground">Bi-weekly</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.biweekly")}</p>
                 </div>
                 <div className="p-3 bg-muted rounded-lg">
                   <p className="text-lg font-semibold">{formatCurrency(result.netWeekly)}</p>
-                  <p className="text-xs text-muted-foreground">Weekly</p>
+                  <p className="text-xs text-muted-foreground">{t("finance.weekly")}</p>
                 </div>
               </div>
             </CardContent>
@@ -240,7 +242,7 @@ export function SalaryCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Income Breakdown</CardTitle>
+              <CardTitle className="text-lg">{t("finance.incomeBreakdown")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
@@ -270,7 +272,7 @@ export function SalaryCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Tax Breakdown</CardTitle>
+              <CardTitle className="text-lg">{t("finance.taxBreakdown")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[250px]">
@@ -289,17 +291,17 @@ export function SalaryCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Summary</CardTitle>
+              <CardTitle className="text-lg">{t("finance.summary")}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: "Gross Annual", value: formatCurrency(result.grossAnnual) },
-                  { label: "Taxable Income", value: formatCurrency(result.taxableIncome) },
-                  { label: "Total Tax", value: formatCurrency(result.totalTax) },
-                  { label: "Net Annual", value: formatCurrency(result.netAnnual) },
-                  { label: "Effective Tax Rate", value: `${result.effectiveTaxRate.toFixed(1)}%` },
-                  { label: "Marginal Tax Rate", value: `${result.marginalTaxRate.toFixed(0)}%` },
+                  { label: t("finance.grossAnnual"), value: formatCurrency(result.grossAnnual) },
+                  { label: t("finance.taxableIncome"), value: formatCurrency(result.taxableIncome) },
+                  { label: t("finance.totalTax"), value: formatCurrency(result.totalTax) },
+                  { label: t("finance.netAnnual"), value: formatCurrency(result.netAnnual) },
+                  { label: t("finance.effectiveTaxRate"), value: `${result.effectiveTaxRate.toFixed(1)}%` },
+                  { label: t("finance.marginalTaxRate"), value: `${result.marginalTaxRate.toFixed(0)}%` },
                 ]}
                 columns={3}
               />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -27,25 +28,27 @@ const useDateStore = createCalculatorStore<DateInput, DateResult>({
 });
 
 export function DateCalculator() {
+  const t = useTranslations("calculator.labels");
+  const tSections = useTranslations("calculator.sections");
   const { values, setValue, result } = useDateStore();
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Start Date</CardTitle>
+          <CardTitle className="text-lg">{t("startDate")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <InputField
             id="startDate"
-            label="Start Date"
+            label={t("startDate")}
             type="date"
             value={values.startDate}
             onChange={(value) => setValue("startDate", value)}
           />
 
           <div className="space-y-2">
-            <Label>Operation</Label>
+            <Label>{t("operation")}</Label>
             <Select
               value={values.operation}
               onValueChange={(value) => setValue("operation", value as "add" | "subtract")}
@@ -54,8 +57,8 @@ export function DateCalculator() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="add">Add</SelectItem>
-                <SelectItem value="subtract">Subtract</SelectItem>
+                <SelectItem value="add">{t("add")}</SelectItem>
+                <SelectItem value="subtract">{t("subtract")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -65,14 +68,14 @@ export function DateCalculator() {
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">
-            Duration to {values.operation === "add" ? "Add" : "Subtract"}
+            {values.operation === "add" ? t("add") : t("subtract")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <InputField
               id="years"
-              label="Years"
+              label={t("years")}
               type="number"
               value={values.years}
               onChange={(value) => setValue("years", value)}
@@ -80,7 +83,7 @@ export function DateCalculator() {
             />
             <InputField
               id="months"
-              label="Months"
+              label={t("months")}
               type="number"
               value={values.months}
               onChange={(value) => setValue("months", value)}
@@ -88,7 +91,7 @@ export function DateCalculator() {
             />
             <InputField
               id="weeks"
-              label="Weeks"
+              label={t("weeks")}
               type="number"
               value={values.weeks}
               onChange={(value) => setValue("weeks", value)}
@@ -96,7 +99,7 @@ export function DateCalculator() {
             />
             <InputField
               id="days"
-              label="Days"
+              label={t("days")}
               type="number"
               value={values.days}
               onChange={(value) => setValue("days", value)}
@@ -109,7 +112,7 @@ export function DateCalculator() {
       {result && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Result</CardTitle>
+            <CardTitle className="text-lg">{tSections("results")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center p-4 bg-primary/10 rounded-lg">
@@ -118,7 +121,7 @@ export function DateCalculator() {
             <ResultGrid
               results={[
                 { label: "Day of Week", value: result.dayOfWeek },
-                { label: "Days Difference", value: result.daysFromStart },
+                { label: `${t("days")} Difference`, value: result.daysFromStart },
                 { label: "ISO Date", value: result.resultDate.toISOString().split("T")[0] },
               ]}
               columns={3}
