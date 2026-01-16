@@ -37,7 +37,6 @@ interface FormValues {
 }
 
 export function DistanceCalculator() {
-  const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 

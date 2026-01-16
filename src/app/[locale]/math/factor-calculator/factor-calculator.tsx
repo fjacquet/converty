@@ -15,8 +15,6 @@ interface FormValues {
 }
 
 export function FactorCalculator() {
-  const t = useTranslations("calculator.labels");
-  const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
   const { values, setValue, result } = useConverter<FormValues, FactorResult | null>({

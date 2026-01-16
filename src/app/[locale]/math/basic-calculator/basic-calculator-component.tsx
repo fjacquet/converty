@@ -18,7 +18,6 @@ interface FormValues {
 }
 
 export function BasicCalculatorComponent() {
-  const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 

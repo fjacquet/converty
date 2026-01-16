@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
+import { InputField, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -29,8 +29,6 @@ interface FormValues {
 }
 
 export function ConfidenceIntervalCalculator() {
-  const t = useTranslations("calculator.labels");
-  const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
   const { values, setValue, result } = useConverter<FormValues, ConfidenceIntervalResult | null>({

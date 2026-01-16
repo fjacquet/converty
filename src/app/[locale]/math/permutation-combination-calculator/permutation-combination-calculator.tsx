@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
+import { InputField, OutputDisplay } from "@/components/converter";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -26,7 +26,6 @@ interface FormValues {
 }
 
 export function PermutationCombinationCalculator() {
-  const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 

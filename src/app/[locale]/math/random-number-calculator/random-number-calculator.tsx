@@ -30,7 +30,6 @@ interface FormValues {
 }
 
 export function RandomNumberCalculator() {
-  const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 

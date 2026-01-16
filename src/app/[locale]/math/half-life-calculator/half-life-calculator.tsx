@@ -29,8 +29,6 @@ interface FormValues {
 }
 
 export function HalfLifeCalculator() {
-  const t = useTranslations("calculator.labels");
-  const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
   const { values, setValue, result } = useConverter<FormValues, HalfLifeResult | null>({
