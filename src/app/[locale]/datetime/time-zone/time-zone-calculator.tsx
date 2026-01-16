@@ -1,23 +1,30 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   calculateTimeZone,
-  TIMEZONES,
+  getTimezonesByRegion,
   type TimeZoneInput,
   type TimeZoneResult,
+  type TimezoneGroup,
 } from "@/lib/converters/datetime/time-zone";
 import { createCalculatorStore } from "@/stores/calculator-store";
+import { cn } from "@/lib/utils";
 
 const useTimeZoneStore = createCalculatorStore<TimeZoneInput, TimeZoneResult>({
   name: "time-zone-calculator",
@@ -29,10 +36,89 @@ const useTimeZoneStore = createCalculatorStore<TimeZoneInput, TimeZoneResult>({
   calculate: calculateTimeZone,
 });
 
+interface TimezoneComboboxProps {
+  value: string;
+  onValueChange: (value: string) => void;
+  groups: TimezoneGroup[];
+  label: string;
+  placeholder?: string;
+}
+
+function TimezoneCombobox({
+  value,
+  onValueChange,
+  groups,
+  label,
+  placeholder = "Search timezone...",
+}: TimezoneComboboxProps) {
+  const [open, setOpen] = useState(false);
+
+  // Find the current timezone's label for display
+  const currentLabel = useMemo(() => {
+    for (const group of groups) {
+      const found = group.timezones.find((tz) => tz.value === value);
+      if (found) return found.label;
+    }
+    return value;
+  }, [groups, value]);
+
+  return (
+    <div className="space-y-2">
+      <Label>{label}</Label>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between font-normal"
+          >
+            <span className="truncate">{currentLabel}</span>
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+          <Command>
+            <CommandInput placeholder={placeholder} />
+            <CommandList>
+              <CommandEmpty>No timezone found.</CommandEmpty>
+              {groups.map((group) => (
+                <CommandGroup key={group.region} heading={group.region}>
+                  {group.timezones.map((tz) => (
+                    <CommandItem
+                      key={tz.value}
+                      value={`${tz.value} ${tz.label}`}
+                      onSelect={() => {
+                        onValueChange(tz.value);
+                        setOpen(false);
+                      }}
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === tz.value ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                      {tz.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              ))}
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+
 export function TimeZoneCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const { values, setValue, result } = useTimeZoneStore();
+
+  // Get timezone groups (memoized since it's computed)
+  const timezoneGroups = useMemo(() => getTimezonesByRegion(), []);
 
   return (
     <div className="space-y-6">
@@ -49,24 +135,12 @@ export function TimeZoneCalculator() {
             onChange={(value) => setValue("dateTime", value)}
           />
 
-          <div className="space-y-2">
-            <Label>{t("timezone")}</Label>
-            <Select
-              value={values.fromTimezone}
-              onValueChange={(value) => setValue("fromTimezone", value)}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {TIMEZONES.map((tz) => (
-                  <SelectItem key={tz.value} value={tz.value}>
-                    {tz.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <TimezoneCombobox
+            value={values.fromTimezone}
+            onValueChange={(value) => setValue("fromTimezone", value)}
+            groups={timezoneGroups}
+            label={t("timezone")}
+          />
         </CardContent>
       </Card>
 
@@ -75,24 +149,12 @@ export function TimeZoneCalculator() {
           <CardTitle className="text-lg">{t("to")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-2">
-            <Label>{t("timezone")}</Label>
-            <Select
-              value={values.toTimezone}
-              onValueChange={(value) => setValue("toTimezone", value)}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {TIMEZONES.map((tz) => (
-                  <SelectItem key={tz.value} value={tz.value}>
-                    {tz.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <TimezoneCombobox
+            value={values.toTimezone}
+            onValueChange={(value) => setValue("toTimezone", value)}
+            groups={timezoneGroups}
+            label={t("timezone")}
+          />
         </CardContent>
       </Card>
 
