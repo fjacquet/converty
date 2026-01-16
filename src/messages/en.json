@@ -851,6 +851,16 @@
       "name": "Random Number Generator",
       "description": "Generate random numbers with various distributions",
       "metaDescription": "Generate random numbers, roll dice, and shuffle lists"
+    },
+    "tcp-throughput": {
+      "name": "TCP Throughput Calculator",
+      "description": "Calculate theoretical TCP throughput using the Mathis formula",
+      "metaDescription": "Calculate maximum TCP throughput based on MSS, RTT, and packet loss rate using the Mathis formula"
+    },
+    "bandwidth-delay-product": {
+      "name": "Bandwidth-Delay Product Calculator",
+      "description": "Calculate BDP and optimal TCP buffer size",
+      "metaDescription": "Calculate bandwidth-delay product and required TCP window size for optimal network performance"
     }
   },
   "calculator": {
@@ -938,7 +948,15 @@
       "sequenceType": "Sequence Type",
       "firstTerm": "First Term",
       "commonDifference": "Common Difference",
-      "commonRatio": "Common Ratio"
+      "commonRatio": "Common Ratio",
+      "maintenance": "Maintenance",
+      "muscleGain": "Muscle Gain",
+      "fatLoss": "Fat Loss",
+      "athlete": "Athlete",
+      "endurance": "Endurance",
+      "mealsPerDay": "meals/day",
+      "food": "Food",
+      "serving": "Serving"
     },
     "sections": {
       "input": "Input",
@@ -1007,7 +1025,15 @@
       "fatBurningZone": "Fat Burning Zone",
       "cardioZone": "Cardio Zone",
       "bpm": "bpm",
-      "kcal": "kcal"
+      "kcal": "kcal",
+      "dailyProtein": "Daily Protein Intake",
+      "proteinRange": "Protein Range",
+      "proteinPerKg": "Protein per kg",
+      "percentOfCalories": "% of Calories",
+      "perMealBreakdown": "Per Meal Breakdown",
+      "foodSources": "Protein Food Sources",
+      "protein": "Protein",
+      "servingsNeeded": "Servings Needed"
     },
     "time": {
       "yearsMonthsDays": "{years} years, {months} months, {days} days",
@@ -1273,6 +1299,43 @@
       "nauticalTwilight": "Nautical Twilight",
       "astronomicalTwilight": "Astronomical Twilight",
       "dayLength": "Day Length"
+    },
+    "inflation": {
+      "currentAmount": "Current Amount",
+      "inflationRate": "Annual Inflation Rate (%)",
+      "numberOfYears": "Number of Years",
+      "inYearsNeed": "In {years} years, you'll need",
+      "samePurchasingPower": "to have the same purchasing power as {amount} today",
+      "purchasingPowerLoss": "Purchasing Power Loss",
+      "lossPercentage": "Loss Percentage",
+      "todayEquivalent": "{amount} today is equivalent to",
+      "inTodaysDollars": "in today's value, {years} years from now",
+      "yearByYearImpact": "Year-by-Year Impact",
+      "year": "Year {year}",
+      "enterValues": "Enter values to calculate"
+    },
+    "network": {
+      "mss": "MSS (Maximum Segment Size) in bytes",
+      "rtt": "RTT (Round Trip Time) in ms",
+      "lossRate": "Packet Loss Rate (%)",
+      "cFactor": "C Factor (0.87-1.31)",
+      "bandwidth": "Bandwidth (Mbps)",
+      "windowSize": "TCP Window Size (KB)",
+      "maxThroughput": "Maximum Throughput",
+      "throughputGbps": "Throughput (Gbps)",
+      "throughputMbps": "Throughput (Mbps)",
+      "throughputKbps": "Throughput (Kbps)",
+      "throughputMBs": "Throughput (MB/s)",
+      "formula": "Formula",
+      "calculationSteps": "Calculation Steps",
+      "recommendations": "Recommendations",
+      "bdp": "Bandwidth-Delay Product",
+      "bdpBits": "BDP (bits)",
+      "bdpBytes": "BDP (bytes)",
+      "requiredWindow": "Required Window Size",
+      "windowUtilization": "Window Utilization",
+      "windowSufficient": "Current window size is sufficient for full bandwidth utilization",
+      "windowInsufficient": "Current window size is insufficient - increase TCP buffer"
     }
   },
   "validation": {

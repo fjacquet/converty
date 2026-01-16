@@ -851,6 +851,16 @@
       "name": "Generatore Numeri Casuali",
       "description": "Genera numeri casuali con varie distribuzioni",
       "metaDescription": "Genera numeri casuali, lancia dadi e mescola liste"
+    },
+    "tcp-throughput": {
+      "name": "Calcolatore Throughput TCP",
+      "description": "Calcola il throughput TCP teorico con la formula di Mathis",
+      "metaDescription": "Calcola il throughput TCP massimo basato su MSS, RTT e tasso di perdita pacchetti"
+    },
+    "bandwidth-delay-product": {
+      "name": "Calcolatore Prodotto Banda-Ritardo",
+      "description": "Calcola il BDP e la dimensione ottimale del buffer TCP",
+      "metaDescription": "Calcola il prodotto banda-ritardo e la dimensione finestra TCP richiesta"
     }
   },
   "calculator": {
@@ -938,7 +948,15 @@
       "sequenceType": "Tipo di Sequenza",
       "firstTerm": "Primo Termine",
       "commonDifference": "Ragione (differenza)",
-      "commonRatio": "Ragione (rapporto)"
+      "commonRatio": "Ragione (rapporto)",
+      "maintenance": "Mantenimento",
+      "muscleGain": "Aumento Muscolare",
+      "fatLoss": "Perdita di Grasso",
+      "athlete": "Atleta",
+      "endurance": "Resistenza",
+      "mealsPerDay": "pasti/giorno",
+      "food": "Alimento",
+      "serving": "Porzione"
     },
     "sections": {
       "input": "Input",
@@ -1007,7 +1025,15 @@
       "fatBurningZone": "Zona Brucia Grassi",
       "cardioZone": "Zona Cardio",
       "bpm": "bpm",
-      "kcal": "kcal"
+      "kcal": "kcal",
+      "dailyProtein": "Apporto Proteico Giornaliero",
+      "proteinRange": "Range Proteico",
+      "proteinPerKg": "Proteine per kg",
+      "percentOfCalories": "% delle Calorie",
+      "perMealBreakdown": "Ripartizione per Pasto",
+      "foodSources": "Fonti di Proteine",
+      "protein": "Proteine",
+      "servingsNeeded": "Porzioni Necessarie"
     },
     "time": {
       "yearsMonthsDays": "{years} anni, {months} mesi, {days} giorni",
@@ -1273,6 +1299,43 @@
       "nauticalTwilight": "Crepuscolo Nautico",
       "astronomicalTwilight": "Crepuscolo Astronomico",
       "dayLength": "Durata del Giorno"
+    },
+    "inflation": {
+      "currentAmount": "Importo Attuale",
+      "inflationRate": "Tasso d'Inflazione Annuale (%)",
+      "numberOfYears": "Numero di Anni",
+      "inYearsNeed": "Tra {years} anni, avrai bisogno di",
+      "samePurchasingPower": "per avere lo stesso potere d'acquisto di {amount} oggi",
+      "purchasingPowerLoss": "Perdita Potere d'Acquisto",
+      "lossPercentage": "Percentuale di Perdita",
+      "todayEquivalent": "{amount} oggi equivale a",
+      "inTodaysDollars": "al valore odierno, tra {years} anni",
+      "yearByYearImpact": "Impatto Anno per Anno",
+      "year": "Anno {year}",
+      "enterValues": "Inserire i valori per calcolare"
+    },
+    "network": {
+      "mss": "MSS (Dim. Max Segmento) in byte",
+      "rtt": "RTT (Tempo Andata-Ritorno) in ms",
+      "lossRate": "Tasso Perdita Pacchetti (%)",
+      "cFactor": "Fattore C (0.87-1.31)",
+      "bandwidth": "Larghezza Banda (Mbps)",
+      "windowSize": "Dim. Finestra TCP (KB)",
+      "maxThroughput": "Throughput Massimo",
+      "throughputGbps": "Throughput (Gbps)",
+      "throughputMbps": "Throughput (Mbps)",
+      "throughputKbps": "Throughput (Kbps)",
+      "throughputMBs": "Throughput (MB/s)",
+      "formula": "Formula",
+      "calculationSteps": "Passaggi di Calcolo",
+      "recommendations": "Raccomandazioni",
+      "bdp": "Prodotto Banda-Ritardo",
+      "bdpBits": "BDP (bit)",
+      "bdpBytes": "BDP (byte)",
+      "requiredWindow": "Dim. Finestra Richiesta",
+      "windowUtilization": "Utilizzo Finestra",
+      "windowSufficient": "La dimensione finestra attuale e sufficiente per l'utilizzo massimo",
+      "windowInsufficient": "Dimensione finestra insufficiente - aumentare il buffer TCP"
     }
   },
   "validation": {

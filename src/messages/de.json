@@ -851,6 +851,16 @@
       "name": "Zufallszahlen-Generator",
       "description": "Generieren Sie Zufallszahlen mit verschiedenen Verteilungen",
       "metaDescription": "Generieren Sie Zufallszahlen, wuerfeln Sie und mischen Sie Listen"
+    },
+    "tcp-throughput": {
+      "name": "TCP-Durchsatz-Rechner",
+      "description": "Berechnen Sie den theoretischen TCP-Durchsatz mit der Mathis-Formel",
+      "metaDescription": "Berechnen Sie maximalen TCP-Durchsatz basierend auf MSS, RTT und Paketverlustrate"
+    },
+    "bandwidth-delay-product": {
+      "name": "Bandbreite-Verzoegerung-Produkt Rechner",
+      "description": "Berechnen Sie BDP und optimale TCP-Puffergroesse",
+      "metaDescription": "Berechnen Sie das Bandbreite-Verzoegerung-Produkt und TCP-Fenstergroesse"
     }
   },
   "calculator": {
@@ -938,7 +948,15 @@
       "sequenceType": "Folgentyp",
       "firstTerm": "Erstes Glied",
       "commonDifference": "Differenz",
-      "commonRatio": "Quotient"
+      "commonRatio": "Quotient",
+      "maintenance": "Erhaltung",
+      "muscleGain": "Muskelaufbau",
+      "fatLoss": "Fettabbau",
+      "athlete": "Sportler",
+      "endurance": "Ausdauer",
+      "mealsPerDay": "Mahlzeiten/Tag",
+      "food": "Lebensmittel",
+      "serving": "Portion"
     },
     "sections": {
       "input": "Eingabe",
@@ -1007,7 +1025,15 @@
       "fatBurningZone": "Fettverbrennungszone",
       "cardioZone": "Cardiozone",
       "bpm": "bpm",
-      "kcal": "kcal"
+      "kcal": "kcal",
+      "dailyProtein": "Taegliche Proteinzufuhr",
+      "proteinRange": "Proteinbereich",
+      "proteinPerKg": "Protein pro kg",
+      "percentOfCalories": "% der Kalorien",
+      "perMealBreakdown": "Aufteilung pro Mahlzeit",
+      "foodSources": "Proteinquellen",
+      "protein": "Protein",
+      "servingsNeeded": "Benoedigte Portionen"
     },
     "time": {
       "yearsMonthsDays": "{years} Jahre, {months} Monate, {days} Tage",
@@ -1273,6 +1299,43 @@
       "nauticalTwilight": "Nautische Daemmerung",
       "astronomicalTwilight": "Astronomische Daemmerung",
       "dayLength": "Tageslaenge"
+    },
+    "inflation": {
+      "currentAmount": "Aktueller Betrag",
+      "inflationRate": "Jaehrliche Inflationsrate (%)",
+      "numberOfYears": "Anzahl Jahre",
+      "inYearsNeed": "In {years} Jahren benoetigen Sie",
+      "samePurchasingPower": "um die gleiche Kaufkraft wie {amount} heute zu haben",
+      "purchasingPowerLoss": "Kaufkraftverlust",
+      "lossPercentage": "Verlustprozentsatz",
+      "todayEquivalent": "{amount} heute entspricht",
+      "inTodaysDollars": "zum heutigen Wert, in {years} Jahren",
+      "yearByYearImpact": "Jaehrliche Auswirkung",
+      "year": "Jahr {year}",
+      "enterValues": "Werte eingeben zum Berechnen"
+    },
+    "network": {
+      "mss": "MSS (Max Segmentgroesse) in Bytes",
+      "rtt": "RTT (Umlaufzeit) in ms",
+      "lossRate": "Paketverlustrate (%)",
+      "cFactor": "C-Faktor (0.87-1.31)",
+      "bandwidth": "Bandbreite (Mbps)",
+      "windowSize": "TCP-Fenstergroesse (KB)",
+      "maxThroughput": "Maximaler Durchsatz",
+      "throughputGbps": "Durchsatz (Gbps)",
+      "throughputMbps": "Durchsatz (Mbps)",
+      "throughputKbps": "Durchsatz (Kbps)",
+      "throughputMBs": "Durchsatz (MB/s)",
+      "formula": "Formel",
+      "calculationSteps": "Berechnungsschritte",
+      "recommendations": "Empfehlungen",
+      "bdp": "Bandbreite-Verzoegerung-Produkt",
+      "bdpBits": "BDP (Bits)",
+      "bdpBytes": "BDP (Bytes)",
+      "requiredWindow": "Erforderliche Fenstergroesse",
+      "windowUtilization": "Fensterauslastung",
+      "windowSufficient": "Aktuelle Fenstergroesse ist ausreichend fuer maximale Bandbreitennutzung",
+      "windowInsufficient": "Fenstergroesse unzureichend - erhoehen Sie den TCP-Puffer"
     }
   },
   "validation": {

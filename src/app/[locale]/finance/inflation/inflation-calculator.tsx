@@ -9,6 +9,7 @@ import { calculateInflation, type InflationResult } from "@/lib/converters/finan
 
 export function InflationCalculator() {
   const t = useTranslations("calculator");
+  const tInflation = useTranslations("calculator.inflation");
   const format = useFormatter();
 
   const [amount, setAmount] = useState<number>(1000);
@@ -32,7 +33,7 @@ export function InflationCalculator() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="amount">Current Amount</Label>
+            <Label htmlFor="amount">{tInflation("currentAmount")}</Label>
             <Input
               id="amount"
               type="number"
@@ -44,7 +45,7 @@ export function InflationCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="inflationRate">Annual Inflation Rate (%)</Label>
+            <Label htmlFor="inflationRate">{tInflation("inflationRate")}</Label>
             <Input
               id="inflationRate"
               type="number"
@@ -57,7 +58,7 @@ export function InflationCalculator() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="years">Number of Years</Label>
+            <Label htmlFor="years">{tInflation("numberOfYears")}</Label>
             <Input
               id="years"
               type="number"
@@ -79,24 +80,26 @@ export function InflationCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-red-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">In {years} years, you&apos;ll need</p>
+                <p className="text-sm text-muted-foreground">
+                  {tInflation("inYearsNeed", { years })}
+                </p>
                 <p className="text-3xl font-bold text-red-600">
                   {formatCurrency(result.futureValue)}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  to have the same purchasing power as {formatCurrency(amount)} today
+                  {tInflation("samePurchasingPower", { amount: formatCurrency(amount) })}
                 </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Purchasing Power Loss</p>
+                  <p className="text-sm text-muted-foreground">{tInflation("purchasingPowerLoss")}</p>
                   <p className="text-xl font-bold text-red-600">
                     {formatCurrency(result.purchasingPowerLoss)}
                   </p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Loss Percentage</p>
+                  <p className="text-sm text-muted-foreground">{tInflation("lossPercentage")}</p>
                   <p className="text-xl font-bold text-red-600">
                     {result.purchasingPowerLossPercent.toFixed(1)}%
                   </p>
@@ -105,21 +108,23 @@ export function InflationCalculator() {
 
               <div className="p-4 bg-muted rounded-lg">
                 <p className="text-sm text-muted-foreground">
-                  {formatCurrency(amount)} today is equivalent to
+                  {tInflation("todayEquivalent", { amount: formatCurrency(amount) })}
                 </p>
                 <p className="text-xl font-bold">{formatCurrency(result.equivalentPastValue)}</p>
                 <p className="text-sm text-muted-foreground">
-                  in today&apos;s dollars, {years} years from now
+                  {tInflation("inTodaysDollars", { years })}
                 </p>
               </div>
 
               {result.yearlyBreakdown.length > 0 && (
                 <div className="border-t pt-4">
-                  <h4 className="font-medium mb-3">Year-by-Year Impact</h4>
+                  <h4 className="font-medium mb-3">{tInflation("yearByYearImpact")}</h4>
                   <div className="max-h-48 overflow-y-auto space-y-1">
                     {result.yearlyBreakdown.map((item) => (
                       <div key={item.year} className="flex justify-between text-sm py-1">
-                        <span className="text-muted-foreground">Year {item.year}</span>
+                        <span className="text-muted-foreground">
+                          {tInflation("year", { year: item.year })}
+                        </span>
                         <span>{formatCurrency(item.value)}</span>
                       </div>
                     ))}
@@ -128,7 +133,7 @@ export function InflationCalculator() {
               )}
             </div>
           ) : (
-            <p className="text-muted-foreground">Enter values to calculate</p>
+            <p className="text-muted-foreground">{tInflation("enterValues")}</p>
           )}
         </CardContent>
       </Card>

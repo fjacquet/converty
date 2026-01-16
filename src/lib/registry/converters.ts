@@ -8,6 +8,7 @@ import {
   Heart,
   ImageIcon,
   Music,
+  Network,
   Palette,
   Video,
 } from "lucide-react";
@@ -1633,6 +1634,30 @@ export const converterRegistry: Record<string, ConverterMeta> = {
     icon: Calculator,
     featured: false,
   },
+
+  // Other - Network
+  "tcp-throughput": {
+    id: "tcp-throughput",
+    slug: "tcp-throughput",
+    name: "TCP Throughput Calculator",
+    description: "Calculate theoretical TCP throughput using the Mathis formula",
+    category: "other",
+    subcategory: "tech",
+    keywords: ["tcp", "throughput", "network", "bandwidth", "mathis", "mss", "rtt", "packet loss"],
+    icon: Network,
+    featured: false,
+  },
+  "bandwidth-delay-product": {
+    id: "bandwidth-delay-product",
+    slug: "bandwidth-delay-product",
+    name: "Bandwidth-Delay Product Calculator",
+    description: "Calculate BDP and optimal TCP buffer size",
+    category: "other",
+    subcategory: "tech",
+    keywords: ["bandwidth", "delay", "product", "bdp", "tcp", "buffer", "window size"],
+    icon: Network,
+    featured: false,
+  },
 };
 
 export function getConverterById(id: string): ConverterMeta | undefined {
@@ -1657,10 +1682,10 @@ export function getConvertersBySubcategory(
 }
 
 export function getConvertersByCategoryGrouped(categoryId: string): Map<string, ConverterMeta[]> {
-  const converters = getConvertersByCategory(categoryId);
+  const categoryConverters = getConvertersByCategory(categoryId);
   const grouped = new Map<string, ConverterMeta[]>();
 
-  for (const converter of converters) {
+  for (const converter of categoryConverters) {
     const subcategory = converter.subcategory ?? "uncategorized";
     const existing = grouped.get(subcategory) ?? [];
     grouped.set(subcategory, [...existing, converter]);
@@ -1668,3 +1693,6 @@ export function getConvertersByCategoryGrouped(categoryId: string): Map<string, 
 
   return grouped;
 }
+
+// Export all converters as an array
+export const converters: ConverterMeta[] = Object.values(converterRegistry);
