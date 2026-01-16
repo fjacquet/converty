@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
   // For GitHub Pages deployment with custom base path
   basePath: "/converty",
   assetPrefix: "/converty",
+  // Allow cross-origin requests in development
+  allowedDevOrigins: ["172.16.86.102"],
 };
 
 export default withNextIntl(nextConfig);
