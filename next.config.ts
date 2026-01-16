@@ -6,7 +6,8 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const isProd = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // Only use static export in production to avoid dev server issues
+  ...(isProd && { output: "export" }),
   images: {
     unoptimized: true,
   },
