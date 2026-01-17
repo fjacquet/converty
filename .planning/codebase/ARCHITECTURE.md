@@ -1,240 +1,192 @@
 # Architecture
 
-**Analysis Date:** 2026-01-16
+**Analysis Date:** 2026-01-17
 
 ## Pattern Overview
 
-**Overall:** Feature-Sliced Layered Architecture with Static Site Generation
+**Overall:** Static Site Generation (SSG) with Next.js 16 App Router + Server/Client Component Split
 
 **Key Characteristics:**
 
-- Static Site Generation (SSG) via Next.js 16 App Router with `output: "export"`
-- Layered separation: Pages (server) -> Components (client) -> Logic (pure functions)
-- Registry-based metadata system for calculators and categories
-- Internationalization-first with locale-prefixed routes (`/[locale]/...`)
-- Client-side state management via Zustand or `useConverter` hook
-- URL state synchronization for shareable calculator links
+- Next.js 16 with static export for GitHub Pages deployment
+- Server components for metadata and data fetching, client components for interactivity
+- Pure function layer (calculation logic) completely decoupled from UI layer
+- Centralized metadata registry system for dynamic routing and categorization
+- Multi-locale static generation with next-intl for 4 Swiss languages (en, fr, de, it)
 
 ## Layers
 
-**Pages Layer (Server Components):**
+**Presentation Layer (React Components):**
 
-- Purpose: Route handling, metadata generation, static params, layout composition
-- Location: `src/app/[locale]/`
-- Contains: Server components that fetch translations and render layouts
-- Depends on: Components layer, Registry, i18n
-- Used by: Next.js routing system
+- Purpose: Render UI, handle user interaction, display results
+- Location: `src/app/[locale]/`, `src/components/`
+- Contains: Server components (pages), client components (calculators), UI primitives
+- Depends on: Business Logic Layer, State Management Layer, i18n Layer
+- Used by: End users via browser
 
-**Components Layer (Client Components):**
+**Business Logic Layer (Pure Functions):**
 
-- Purpose: Interactive UI components and calculator state management
-- Location: `src/components/`, `src/app/[locale]/*/[calculator]-calculator.tsx`
-- Contains: React components with client-side interactivity
-- Depends on: Hooks/Stores, Converters (logic), UI primitives
-- Used by: Pages layer
-
-**Logic Layer (Pure Functions):**
-
-- Purpose: All calculation logic, isolated from React
-- Location: `src/lib/converters/[category]/`
-- Contains: Pure TypeScript functions with typed interfaces
+- Purpose: Perform calculations, transformations, validations
+- Location: `src/lib/converters/`
+- Contains: Pure TypeScript functions organized by category (health, finance, math, photo, video, web, datetime, data, physics, music, color)
 - Depends on: Nothing (framework-agnostic)
-- Used by: Components layer via hooks/stores
+- Used by: Presentation Layer, State Management Layer
 
-**Registry Layer:**
+**State Management Layer:**
 
-- Purpose: Metadata for categories and converters
+- Purpose: Manage calculator state, sync to URL, handle validation
+- Location: `src/stores/`, `src/hooks/`
+- Contains: Zustand stores (preferred), legacy useConverter hook
+- Depends on: Business Logic Layer
+- Used by: Client components
+
+**Metadata Registry Layer:**
+
+- Purpose: Centralized metadata for categories and calculators
 - Location: `src/lib/registry/`
 - Contains: Category definitions, converter metadata, helper functions
-- Depends on: Types, lucide-react icons
-- Used by: Pages, Components, Navigation
+- Depends on: Nothing
+- Used by: Presentation Layer, routing, search, navigation
 
-**State Layer:**
+**Internationalization Layer:**
 
-- Purpose: Client-side state management with URL sync
-- Location: `src/stores/`, `src/hooks/`
-- Contains: Zustand stores and React hooks
-- Depends on: Logic layer (converters)
-- Used by: Calculator components
+- Purpose: Multi-locale support with static generation
+- Location: `src/i18n/`, `src/messages/`
+- Contains: Locale config, translation files (en.json, fr.json, de.json, it.json), next-intl setup
+- Depends on: Nothing
+- Used by: All presentation components
+
+**Styling Layer:**
+
+- Purpose: Consistent design system and theming
+- Location: `src/app/globals.css`, `src/components/ui/`, Tailwind config
+- Contains: CSS variables for light/dark themes, Radix UI primitives, shadcn/ui style components
+- Depends on: Nothing
+- Used by: All components
 
 ## Data Flow
 
-**Page Load (Static):**
+**Static Page Generation Flow:**
 
-1. Next.js generates static HTML at build time using `generateStaticParams()`
-2. `setRequestLocale(locale)` enables static rendering for next-intl
-3. Server component fetches translations via `getTranslations()`
-4. Layout (`ConverterLayout`) and calculator component rendered
-5. Calculator component hydrates with client-side interactivity
+1. Next.js reads `generateStaticParams()` from all page.tsx files
+2. For each locale (en, fr, de, it), generates static HTML pages
+3. Pages load translations from `src/messages/[locale].json` via next-intl
+4. Metadata comes from registry (`src/lib/registry/`) + translations
+5. Static HTML includes all server-rendered content
 
-**Calculator Interaction:**
+**Calculator Interaction Flow:**
 
-1. User inputs value in `InputField` component
-2. `setValue()` updates Zustand store or `useConverter` state
-3. State change triggers `calculate()` function with debounce
-4. Pure calculation function in `src/lib/converters/` executes
-5. Result displayed via `OutputDisplay` or `ResultGrid`
-6. URL params updated (debounced) for shareability
+1. User interacts with InputField component (client component)
+2. InputField calls `setValue()` from Zustand store or useConverter hook
+3. Store/hook updates state, syncs to URL query params (debounced)
+4. Store/hook calls calculation function from `src/lib/converters/[category]/[name].ts`
+5. Calculation function returns result or null (if invalid)
+6. Result propagates to UI via store/hook state
+7. OutputDisplay and ResultGrid components render updated results
 
 **State Management:**
 
-- **Zustand Pattern (newer):** `createCalculatorStore()` factory in `src/stores/calculator-store.ts`
-- **Hook Pattern (legacy):** `useConverter()` hook in `src/hooks/use-converter.ts`
-- Both patterns support URL state synchronization and validation
+- Zustand stores (preferred): `createCalculatorStore()` factory creates store with URL sync middleware
+- Legacy useConverter hook: React hook with useUrlState and useDebounce
+- Both patterns: values → calculate → result, with automatic URL sync for shareability
 
 ## Key Abstractions
 
 **ConverterMeta:**
 
-- Purpose: Describes a calculator's metadata for registry and navigation
-- Examples: `src/lib/registry/converters.ts`
-- Pattern: Record keyed by converter ID (kebab-case)
-
-```typescript
-interface ConverterMeta {
-  id: string; // "compound-interest"
-  slug: string; // "compound-interest" (URL segment)
-  name: string; // "Compound Interest Calculator"
-  description: string;
-  category: string; // "finance"
-  subcategory?: string; // "interest"
-  keywords: string[];
-  icon: LucideIcon;
-  featured?: boolean;
-}
-```
+- Purpose: Metadata for each calculator (id, slug, category, subcategory, keywords, icon, featured)
+- Examples: `src/lib/registry/health-converters.ts`, `src/lib/registry/finance-converters.ts`
+- Pattern: Record<string, ConverterMeta> exported per category, merged in `converters.ts`
 
 **Category:**
 
-- Purpose: Groups converters into navigable sections
+- Purpose: Top-level grouping with optional subcategories
 - Examples: `src/lib/registry/categories.ts`
-- Pattern: Array of category objects with optional subcategories
-
-```typescript
-interface Category {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
-  icon: LucideIcon;
-  subcategories?: Subcategory[];
-}
-```
+- Pattern: Array of Category objects with id, slug, name, description, icon, subcategories[]
 
 **Calculator Store:**
 
-- Purpose: Generic state management for calculators
-- Examples: `src/stores/calculator-store.ts`
-- Pattern: Factory function creating typed Zustand stores
+- Purpose: Generic state container for calculator inputs/outputs
+- Examples: `src/stores/calculator-store.ts` (factory), `src/app/[locale]/datetime/age/age-calculator.tsx` (usage)
+- Pattern: `createCalculatorStore<InputType, ResultType>({ name, initialValues, calculate, validate? })`
 
-```typescript
-const useStore = createCalculatorStore({
-  name: "calculator-name",
-  initialValues: { ... },
-  calculate: (values) => result,
-});
-```
+**Pure Calculation Function:**
 
-**Converter Logic:**
+- Purpose: Framework-agnostic business logic
+- Examples: `src/lib/converters/datetime/age.ts`, `src/lib/converters/health/bmi.ts`
+- Pattern: `export function calculateX(input: XInput): XResult | null`
 
-- Purpose: Pure calculation functions with typed I/O
-- Examples: `src/lib/converters/health/bmi.ts`
-- Pattern: Export `Input` interface, `Result` interface, `calculate()` function
+**Converter Components:**
 
-```typescript
-export interface BMIInput {
-  weight: number;
-  height: number;
-}
-export interface BMIResult {
-  bmi: number;
-  category: string;
-}
-export function calculateBMI(input: BMIInput): BMIResult | null;
-```
+- Purpose: Reusable UI building blocks for calculators
+- Examples: `src/components/converter/input-field.tsx`, `src/components/converter/result-grid.tsx`
+- Pattern: Composable components that accept labels from translations
 
 ## Entry Points
 
-**Root Layout:**
+**Root HTML Entry:**
 
 - Location: `src/app/layout.tsx`
-- Triggers: All page requests
-- Responsibilities: HTML structure, global styles, font loading
+- Triggers: Next.js build process
+- Responsibilities: HTML shell, font loading, suppress hydration warning
 
-**Locale Layout:**
+**Locale Layout Entry:**
 
 - Location: `src/app/[locale]/layout.tsx`
-- Triggers: All locale-prefixed routes
-- Responsibilities: i18n provider, theme provider, header/footer, metadata
+- Triggers: For each locale during static generation
+- Responsibilities: NextIntlClientProvider setup, theme provider, Header/Footer layout, metadata generation
 
-**Homepage:**
+**Homepage Entry:**
 
 - Location: `src/app/[locale]/page.tsx`
-- Triggers: `/[locale]` routes
-- Responsibilities: Category grid display
+- Triggers: Root path for each locale (e.g., /en, /fr)
+- Responsibilities: Display category grid, load category metadata from registry
 
 **Category Pages:**
 
-- Location: `src/app/[locale]/[category]/page.tsx`
-- Triggers: `/[locale]/[category]` routes
-- Responsibilities: Calculator listing for category
+- Location: `src/app/[locale]/[category]/page.tsx` (e.g., `src/app/[locale]/finance/page.tsx`)
+- Triggers: Category paths (e.g., /en/finance)
+- Responsibilities: List calculators in category, grouped by subcategory
 
 **Calculator Pages:**
 
 - Location: `src/app/[locale]/[category]/[calculator]/page.tsx`
-- Triggers: `/[locale]/[category]/[calculator]` routes
-- Responsibilities: Metadata, layout wrapper, calculator component render
+- Triggers: Calculator-specific paths (e.g., /en/finance/mortgage)
+- Responsibilities: Load metadata, render ConverterLayout, mount calculator component in Suspense
+
+**i18n Request Entry:**
+
+- Location: `src/i18n/request.ts`
+- Triggers: Every page request during build
+- Responsibilities: Load appropriate translation file based on locale
 
 ## Error Handling
 
-**Strategy:** Return null for invalid inputs, validate before calculate
+**Strategy:** Graceful degradation with null returns and validation
 
 **Patterns:**
 
-- Calculation functions return `null` instead of throwing for invalid inputs
-- Store/hook validation via optional `validate` function
-- Errors stored in state as `Partial<Record<keyof T, string>>`
-- UI displays error text via `InputField` error prop
-
-```typescript
-// Converter pattern
-export function calculateBMI(input: BMIInput): BMIResult | null {
-  if (input.weight <= 0 || input.height <= 0) return null;
-  // ... calculation
-}
-
-// Store pattern
-const errors = validate?.(values) ?? {};
-const result = Object.keys(errors).length === 0 ? calculate(values) : null;
-```
+- Calculation functions return `null` for invalid inputs (no throwing)
+- Stores/hooks check for null results before rendering output
+- Validation errors stored in `errors` object by field key
+- UI shows validation messages when errors present
+- Client-side validation prevents invalid submissions
+- Server components use `notFound()` for invalid routes/locales
 
 ## Cross-Cutting Concerns
 
-**Logging:** No structured logging; console.log in development only
+**Logging:** Browser console only (no backend)
 
-**Validation:** Per-calculator validation functions, no global validation library
+**Validation:** Optional validate function in stores/hooks, per-field error messages
 
-**Authentication:** None (static site, no auth required)
+**Authentication:** Not applicable (public static site)
 
-**Internationalization:**
+**Theming:** CSS variables with next-themes, light/dark mode support, system preference detection
 
-- next-intl for translations
-- Locale-prefixed routes (`/en/`, `/fr/`, `/de/`, `/it/`)
-- Swiss locale formats (CHF currency, CH date/number formats)
-- Translation keys match converter IDs (kebab-case)
+**URL State Sync:** Automatic via Zustand middleware or useUrlState hook, debounced at 150ms
 
-**Theming:**
-
-- next-themes for dark/light mode
-- CSS variables in `globals.css`
-- Tailwind CSS with theme-aware classes
-
-**URL State:**
-
-- Calculator inputs synced to URL query params
-- Enables shareable calculator links
-- Debounced updates (150ms default)
+**Static Generation:** All pages generated at build time via `generateStaticParams()`, no runtime server
 
 ---
 
-_Architecture analysis: 2026-01-16_
+_Architecture analysis: 2026-01-17_

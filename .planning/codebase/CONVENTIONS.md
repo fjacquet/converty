@@ -1,143 +1,204 @@
 # Coding Conventions
 
-**Analysis Date:** 2026-01-16
+**Analysis Date:** 2026-01-17
 
 ## Naming Patterns
 
 **Files:**
 
-- Component files: kebab-case (`mortgage-calculator.tsx`, `input-field.tsx`)
-- Utility files: kebab-case (`calculator-store.ts`, `use-converter.ts`)
-- Page files: `page.tsx` in kebab-case directories
+- kebab-case for all files: `mortgage-calculator.tsx`, `bmi.ts`, `use-converter.ts`
+- Calculator components: `[name]-calculator.tsx` (e.g., `mortgage-calculator.tsx`)
+- Pure calculation logic: `[name].ts` (e.g., `mortgage.ts`, `bmi.ts`)
+- Hooks: `use-[name].ts` (e.g., `use-debounce.ts`, `use-converter.ts`)
+- Component files match component name in kebab-case
 
 **Functions:**
 
-- camelCase for all functions (`calculateMortgage`, `setValue`, `handleDownPaymentChange`)
-- Prefix event handlers with `handle` (`handleHomePriceChange`)
-- Prefix hooks with `use` (`useConverter`, `useMortgageStore`)
+- camelCase for all functions: `calculateMortgage`, `convertWeightToKg`, `getBMICategory`
+- Calculate functions: `calculate[Name]` (e.g., `calculateBMI`, `calculateMortgage`)
+- Getter functions: `get[Name]` (e.g., `getConverterById`, `getBMICategoryInfo`)
+- Handler functions: `handle[Action]Change` (e.g., `handleDownPaymentChange`)
+- Boolean functions: `is[Condition]` or verb (e.g., `isValid`, `hasErrors`)
 
 **Variables:**
 
-- camelCase for variables (`monthlyRate`, `numberOfPayments`)
-- SCREAMING_SNAKE_CASE for constants (`COLORS`, `BMI_CATEGORIES`)
+- camelCase for variables: `loanAmount`, `monthlyRate`, `pieData`
+- Boolean variables: descriptive names (`isValid`, `hasError`, `syncUrl`)
+- React state: descriptive names matching domain (`values`, `result`, `errors`)
+
+**Constants:**
+
+- UPPER_SNAKE_CASE for true constants: `COLORS`, `CONSTANTS`, `BMI_CATEGORIES`, `RESOLUTIONS`
+- Arrays of configuration data: UPPER_SNAKE_CASE (e.g., `COMMON_BITRATES`)
+- Color theme references use hsl CSS variables: `hsl(var(--primary))`
 
 **Types/Interfaces:**
 
-- PascalCase for types and interfaces (`MortgageInput`, `BMIResult`, `CalculatorState`)
-- Suffix input types with `Input` (`MortgageInput`, `BMIInput`, `StatisticsInput`)
-- Suffix result types with `Result` (`MortgageResult`, `BMIResult`, `StatisticsResult`)
-- Use `type` for union types, `interface` for object shapes
+- PascalCase for all types and interfaces: `MortgageInput`, `BMIResult`, `CalculatorState`
+- Input interfaces: `[Name]Input` (e.g., `MortgageInput`, `BMIInput`)
+- Result interfaces: `[Name]Result` (e.g., `MortgageResult`, `BMIResult`)
+- Props interfaces: `[ComponentName]Props` (e.g., `InputFieldProps`, `ButtonProps`)
+- Union types: descriptive names (e.g., `WeightUnit`, `HeightUnit`, `BMICategory`)
 
 **Components:**
 
-- PascalCase (`MortgageCalculator`, `InputField`, `ResultGrid`)
-- Match filename (kebab-case) to component name (PascalCase)
+- PascalCase for components: `MortgageCalculator`, `InputField`, `Button`
+- Calculator components: `[Name]Calculator` (e.g., `MortgageCalculator`, `AgeCalculator`)
+- UI components: descriptive names (`Button`, `Card`, `InputField`)
+- Layout components: descriptive names (`Header`, `Footer`, `ConverterLayout`)
 
 ## Code Style
 
 **Formatting:**
 
-- Tool: Biome (configured in `biome.json`)
+- Tool: Biome v2.3.11 (`biome.json`)
 - Indent: 2 spaces
 - Line width: 100 characters
+- Quote style: double quotes (`"`)
 - Semicolons: always required
-- Quotes: double quotes for strings
-- Trailing commas: ES5 style (in arrays and objects)
+- Trailing commas: ES5 style (arrays, objects)
+- Run: `npm run format` or `npm run check:fix`
 
 **Linting:**
 
-- Tools: Biome + ESLint (configured in `biome.json` and `eslint.config.mjs`)
-- Key rules enforced:
-  - No unused imports (warning)
-  - No unused function parameters (warning)
-  - Exhaustive React hook dependencies (warning)
-  - No explicit `any` (warning, not error)
-  - No non-null assertions allowed in style
-  - No `dangerouslySetInnerHTML`
-  - React hooks rules strictly enforced
+- Tools: ESLint (v9) + Biome
+- ESLint config: `eslint.config.mjs` (flat config)
+- Biome config: `biome.json`
+- Run: `npm run lint` (ESLint), `npm run lint:biome` (Biome), `npm run check` (Biome comprehensive)
+- Auto-fix: `npm run lint:fix`, `npm run check:fix`
 
-**Run commands:**
+**Key ESLint Rules:**
 
-```bash
-npm run lint         # Run ESLint
-npm run lint:biome   # Run Biome linter
-npm run format       # Format with Biome
-npm run check:fix    # Fix all issues
-```
+- `react/react-in-jsx-scope`: off (React 19)
+- `react/prop-types`: off (TypeScript)
+- `react-hooks/rules-of-hooks`: error
+- `react-hooks/exhaustive-deps`: warn
+- `@typescript-eslint/no-unused-vars`: warn (allow `_` prefix for intentionally unused)
+- `@typescript-eslint/no-explicit-any`: warn
+- `@next/next/no-html-link-for-pages`: error
+- `@next/next/no-img-element`: warn
+
+**Key Biome Rules:**
+
+- `noUnusedImports`: warn
+- `noUnusedFunctionParameters`: warn
+- `useExhaustiveDependencies`: warn
+- `noExplicitAny`: off (TypeScript handles this)
+- `useBlockStatements`: off (allows single-line arrow functions)
+- `noNonNullAssertion`: off (allowed when needed)
+- Organize imports automatically: enabled
 
 ## Import Organization
 
 **Order:**
 
-1. React and Next.js imports
-2. Third-party libraries (radix-ui, recharts, lucide-react)
-3. Internal aliases (`@/components/*`, `@/lib/*`, `@/stores/*`)
-4. Relative imports (same directory)
+1. React imports: `import { useState } from "react";`
+2. Third-party libraries: `import { useTranslations } from "next-intl";`
+3. Internal components: `import { InputField } from "@/components/converter";`
+4. Internal utilities: `import { cn } from "@/lib/utils";`
+5. Types: `import type { Metadata } from "next";` (can be mixed or at end)
 
 **Path Aliases:**
 
-- `@/*` maps to `./src/*` (configured in `tsconfig.json`)
+- `@/*` maps to `src/*` (configured in `tsconfig.json`)
+- Always use alias for internal imports: `@/components/ui/button` not `../../components/ui/button`
 
 **Example:**
 
 ```typescript
-import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
-import { ConverterLayout } from "@/components/converter/converter-layout";
-import { locales } from "@/i18n/config";
-import { getCategoryBySlug } from "@/lib/registry/categories";
-import { MortgageCalculator } from "./mortgage-calculator";
+"use client";
+
+import { useFormatter, useTranslations } from "next-intl";
+import { Area, AreaChart } from "recharts";
+import { InputField, ResultGrid } from "@/components/converter";
+import { Card, CardContent } from "@/components/ui/card";
+import { calculateMortgage, type MortgageInput } from "@/lib/converters/finance/mortgage";
+import { createCalculatorStore } from "@/stores/calculator-store";
 ```
 
 ## Error Handling
 
 **Patterns:**
 
-- Return `null` for invalid inputs instead of throwing errors
-- Validate inputs at the start of calculation functions
-- Use early returns for validation failures
+- Return `null` for invalid inputs (preferred in calculation functions)
+- Rarely throw errors (only for truly exceptional cases)
+- Validate inputs early, return null immediately for invalid cases
+- No try-catch unless calling external APIs or browser APIs
 
-**Calculation functions:**
+**Example (calculation function):**
 
 ```typescript
-export function calculateMortgage(input: MortgageInput): MortgageResult | null {
-  const { homePrice, loanTerm, interestRate } = input;
-
-  // Return null for invalid inputs
-  if (homePrice <= 0 || loanTerm <= 0 || interestRate < 0) {
-    return null;
+export function calculateBMI(input: BMIInput): BMIResult | null {
+  if (weight <= 0 || height <= 0) {
+    return null;  // Invalid input
   }
-
-  // Proceed with calculation...
+  // ... calculation
+  return { bmi, category, ... };
 }
 ```
 
-**UI handling:**
+**Example (browser API):**
 
-- Conditionally render results only when `result` is not null
-- Use optional chaining for safe property access
-- Display loading states with Suspense fallbacks
+```typescript
+try {
+  await navigator.clipboard.writeText(text);
+} catch (error) {
+  console.error("Failed to copy:", error);
+}
+```
 
 ## Logging
 
-**Framework:** Browser console (no dedicated logging library)
+**Framework:** Console (no logging library)
 
 **Patterns:**
 
-- No logging in production code
-- Remove `console.log` statements before committing
-- Use React DevTools for state debugging
+- Development only: `console.log`, `console.error`
+- Minimal logging in production builds
+- Error logging for caught exceptions: `console.error("Failed to copy:", error)`
+- No verbose debug logging
 
 ## Comments
 
 **When to Comment:**
 
-- Complex calculation formulas
-- Non-obvious business logic
-- TypeScript interfaces (JSDoc style for public APIs)
+- Complex calculations: explain algorithm or formula
+- Business logic: clarify non-obvious requirements
+- Workarounds: explain why workaround is needed
+- Type definitions: JSDoc for public APIs (optional)
+
+**When NOT to Comment:**
+
+- Self-explanatory code
+- Obvious variable names
+- Simple calculations
+- Standard patterns
+
+**Examples:**
+
+```typescript
+// Good: explains formula
+// Calculate monthly principal and interest payment using standard mortgage formula
+const monthlyPrincipalInterest =
+  (loanAmount * (monthlyRate * (1 + monthlyRate) ** numberOfPayments)) /
+  ((1 + monthlyRate) ** numberOfPayments - 1);
+
+// Good: explains constant value
+const PHI = (1 + Math.sqrt(5)) / 2; // Golden ratio
+
+// Bad: restates code
+// Set the loan amount
+const loanAmount = homePrice - downPayment;
+```
 
 **JSDoc/TSDoc:**
+
+- Used for Zustand store factory: `createCalculatorStore`
+- Used for complex utility functions
+- Optional for most component props (TypeScript interfaces are self-documenting)
+- Include `@param`, `@returns`, `@example` when helpful
+
+**Example:**
 
 ```typescript
 /**
@@ -150,179 +211,179 @@ export interface CalculatorState<T extends object, R> {
   values: T;
   /** Calculated result (null if invalid inputs) */
   result: R | null;
+  // ...
 }
 ```
-
-**Inline comments:**
-
-- Use `//` for single-line explanations
-- Place above the code being explained
 
 ## Function Design
 
 **Size:**
 
-- Keep functions focused on single responsibility
-- Extract helper functions for complex calculations
-- Calculation files typically 50-200 lines
+- Keep functions focused and single-purpose
+- Large calculator functions (100+ lines) acceptable if doing complex calculations
+- Extract helper functions for repeated logic
+- Component render functions can be large if structured with cards/sections
 
 **Parameters:**
 
-- Use object destructuring for multiple parameters
-- Define explicit input interfaces
-- Optional parameters use `?` suffix
-
-**Return Values:**
-
-- Always define explicit return types
-- Return `null` for invalid inputs (not `undefined`)
-- Include `steps: string[]` array in results for showing calculation work
+- Use interface for multiple related parameters
+- Prefer object parameters over positional for >2 params
+- Make optional params explicit with `?`
 
 **Example:**
 
 ```typescript
-export function calculateBMI(input: BMIInput): BMIResult | null {
-  const { weight, weightUnit, height, heightUnit } = input;
+// Good: interface for related params
+export function calculateMortgage(input: MortgageInput): MortgageResult | null;
 
-  if (weight <= 0 || height <= 0) {
-    return null;
-  }
-
-  // ... calculation
-  return { bmi, category, categoryLabel, healthyWeightRange, weightToHealthy };
-}
+// Bad: many positional params
+export function calculateMortgage(
+  homePrice: number,
+  downPayment: number,
+  loanTerm: number
+  // ... 8 more params
+): MortgageResult | null;
 ```
+
+**Return Values:**
+
+- Return `null` for error states in calculations
+- Return typed objects or primitives
+- Avoid returning `any` or `unknown` unless necessary
+- Use union types for multiple return possibilities: `Result | null`
 
 ## Module Design
 
 **Exports:**
 
-- Named exports for all public APIs
+- Named exports preferred: `export function calculateBMI(...)`
+- Default export for React components in pages: `export default function Page(...)`
 - Export types alongside implementations
-- No default exports (except Next.js pages)
+
+**Example:**
+
+```typescript
+// Converter file (lib/converters/health/bmi.ts)
+export interface BMIInput { ... }
+export interface BMIResult { ... }
+export function calculateBMI(input: BMIInput): BMIResult | null { ... }
+```
 
 **Barrel Files:**
 
-- Use `index.ts` for directory exports
-- Example: `src/hooks/index.ts`, `src/components/converter/index.ts`
+- Used extensively: `index.ts` re-exports from directory
+- Simplifies imports: `import { Button, Card } from "@/components/ui"`
+- Pattern: `export * from "./module-name"`
 
-**Pattern:**
-
-```typescript
-// src/hooks/index.ts
-export * from "./use-converter";
-export * from "./use-copy-to-clipboard";
-export * from "./use-debounce";
-export * from "./use-url-state";
-```
-
-## Component Patterns
-
-**Client vs Server:**
-
-- Mark client components with `"use client"` directive at top of file
-- Pages are server components by default
-- Calculator logic components are always client components
-
-**Props interface:**
+**Example (components/ui/index.ts):**
 
 ```typescript
-interface InputFieldProps {
-  id: string;
-  label: string;
-  value: string | number;
-  onChange: (value: string) => void;
-  type?: "text" | "number" | "date";
-  min?: number | string;
-  className?: string;
-}
+export * from "./button";
+export * from "./card";
+export * from "./input";
+// ...
 ```
 
-**Component structure:**
+## TypeScript
 
-```typescript
-export function InputField({
-  id,
-  label,
-  value,
-  onChange,
-  type = "number",
-  min,
-  className,
-}: InputFieldProps) {
-  return <div className={cn("space-y-2", className)}>{/* ... */}</div>;
-}
-```
+**Configuration:**
+
+- Strict mode: enabled (`strict: true`)
+- No emit: enabled (Next.js handles compilation)
+- Module resolution: bundler
+- JSX: react-jsx (React 19, no React import needed)
+- Target: ES2017
+
+**Type Safety:**
+
+- Avoid `any` (warn level in ESLint)
+- Use `unknown` for truly unknown types
+- Explicit return types on exported functions preferred
+- Interface over type alias for object shapes (style preference)
+- Use union types for enums: `type Mode = "add" | "subtract"`
+
+**Generic Usage:**
+
+- Generic stores: `createCalculatorStore<Input, Result>`
+- Generic hooks: `useConverter<FormValues, Result>`
+- Constrain generics when needed: `<T extends object>`
+
+## Client vs Server Components
+
+**Directive:**
+
+- Client components: `"use client"` at top of file
+- Server components: no directive (default)
+
+**When to use Client:**
+
+- Uses React hooks (`useState`, `useEffect`, etc.)
+- Uses browser APIs (`window`, `navigator`, etc.)
+- Interactive components (buttons, inputs, calculators)
+- Uses next-intl client hooks (`useTranslations`, `useFormatter`)
+
+**When to use Server:**
+
+- Static pages
+- Metadata generation
+- Server-side data fetching
+- Uses next-intl server functions (`getTranslations`, `setRequestLocale`)
 
 ## State Management
 
-**Preferred: Zustand stores** (see `src/stores/calculator-store.ts`)
+**Zustand (Preferred):**
+
+- New calculators use `createCalculatorStore` factory
+- URL sync built-in via middleware
+- Type-safe with generics: `createCalculatorStore<Input, Result>`
+- Example: `src/stores/calculator-store.ts`
+
+**useConverter Hook (Legacy):**
+
+- Older pattern, being phased out
+- Still used in many calculators
+- Provides similar API to Zustand stores
+- Example: `src/hooks/use-converter.ts`
+
+**Pattern (Zustand):**
 
 ```typescript
-const useMortgageStore = createCalculatorStore<MortgageInput, MortgageResult>({
-  name: "mortgage-calculator",
+const useMyStore = createCalculatorStore<MyInput, MyResult>({
+  name: "my-calculator",
   initialValues: {
-    /* ... */
+    /* defaults */
   },
-  calculate: calculateMortgage,
+  calculate: calculateMy,
 });
 
-// Usage in component
-const { values, setValue, result } = useMortgageStore();
+// In component
+const { values, setValue, result } = useMyStore();
 ```
 
-**Legacy: useConverter hook** (being phased out)
+## Internationalization
 
-```typescript
-const { values, setValue, result } = useConverter<FormValues, Result>({
-  initialValues: {
-    /* ... */
-  },
-  calculate: (vals) => calculateSomething(vals),
-});
-```
+**Keys:**
 
-## Styling Conventions
+- kebab-case to match registry IDs: `"compound-interest"` not `"compoundInterest"`
+- Namespace-qualified: `t("calculator.labels.amount")`
+- Translation files: `src/messages/{locale}.json`
 
-**Framework:** Tailwind CSS v4 with CSS variables
+**Usage:**
 
-**Class merging:**
+- Server: `const t = await getTranslations("namespace")`
+- Client: `const t = useTranslations("namespace")`
+- Formatting: `const format = useFormatter()` then `format.number(value, options)`
 
-```typescript
-import { cn } from "@/lib/utils";
+## Accessibility
 
-<div
-  className={cn("base-classes", condition && "conditional-class", className)}
-/>;
-```
+**Practices:**
 
-**Spacing:** Use Tailwind spacing utilities (`space-y-4`, `gap-2`, `p-6`)
-
-**Responsive:** Mobile-first (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`)
-
-**Theme colors:** Use CSS variables (`bg-primary`, `text-muted-foreground`, `border-destructive`)
-
-## TypeScript Conventions
-
-**Strict mode:** Enabled in `tsconfig.json`
-
-**Type assertions:**
-
-- Avoid type assertions when possible
-- Use `as const` for literal types
-- Non-null assertions (`!`) are allowed but discouraged
-
-**Generics:**
-
-```typescript
-export function createCalculatorStore<T extends object, R>({
-  initialValues,
-  calculate,
-}: CreateCalculatorStoreOptions<T, R>) {
-  // ...
-}
-```
+- Use Radix UI primitives (built-in a11y)
+- Proper label associations: `<Label htmlFor="id">`
+- ARIA attributes when needed
+- Keyboard navigation supported by Radix components
+- Semantic HTML: `<button>` not `<div onClick>`
 
 ---
 
-_Convention analysis: 2026-01-16_
+_Convention analysis: 2026-01-17_

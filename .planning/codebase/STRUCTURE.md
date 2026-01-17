@@ -1,260 +1,278 @@
 # Codebase Structure
 
-**Analysis Date:** 2026-01-16
+**Analysis Date:** 2026-01-17
 
 ## Directory Layout
 
 ```
 converty/
-├── src/                    # Source code
-│   ├── app/               # Next.js App Router pages
-│   │   ├── [locale]/      # Locale-prefixed routes
-│   │   │   ├── layout.tsx # Locale layout with providers
-│   │   │   ├── page.tsx   # Homepage
-│   │   │   ├── all/       # All calculators listing
-│   │   │   ├── color/     # Color category
-│   │   │   ├── data/      # Data category
-│   │   │   ├── datetime/  # Date & Time category
-│   │   │   ├── finance/   # Finance category (24 calculators)
-│   │   │   ├── health/    # Health category (28 calculators)
-│   │   │   ├── math/      # Math category (38 calculators)
-│   │   │   ├── music/     # Music category
-│   │   │   ├── other/     # Other/misc category
-│   │   │   ├── photo/     # Photo category (22 calculators)
-│   │   │   ├── physics/   # Physics category
-│   │   │   ├── video/     # Video category (9 calculators)
-│   │   │   └── web/       # Web category (10 calculators)
-│   │   ├── layout.tsx     # Root HTML layout
-│   │   ├── page.tsx       # Root redirect
-│   │   └── globals.css    # Global styles + CSS variables
-│   ├── components/        # React components
-│   │   ├── converter/     # Calculator-specific components
-│   │   ├── layout/        # Header, Footer, Theme
-│   │   └── ui/            # Base UI primitives
-│   ├── lib/               # Core logic and utilities
-│   │   ├── converters/    # Pure calculation functions
-│   │   ├── registry/      # Category/converter metadata
-│   │   └── utils/         # Shared utilities (cn, format, pdf)
-│   ├── hooks/             # React hooks (useConverter, useDebounce)
-│   ├── stores/            # Zustand state stores
-│   ├── types/             # TypeScript type definitions
-│   ├── i18n/              # Internationalization config
-│   └── messages/          # Translation JSON files
-├── public/                # Static assets
-├── docs/                  # Documentation
-├── out/                   # Build output (static export)
-├── .planning/             # GSD planning documents
-├── next.config.ts         # Next.js configuration
-├── biome.json             # Biome linter/formatter config
-├── tsconfig.json          # TypeScript config
-├── tailwind.config.ts     # Tailwind CSS config
-└── package.json           # Dependencies and scripts
+├── .github/                    # GitHub Actions workflows
+├── .planning/                  # GSD planning artifacts
+│   └── codebase/              # Codebase documentation
+├── docs/                       # Project documentation
+│   └── ARCHITECTURE.md        # Detailed architecture doc
+├── public/                     # Static assets
+├── scripts/                    # Build/deployment scripts
+├── src/                        # Source code
+│   ├── app/                   # Next.js App Router pages
+│   │   ├── [locale]/          # Locale-specific routes
+│   │   ├── layout.tsx         # Root HTML layout
+│   │   └── globals.css        # Global styles + CSS variables
+│   ├── components/            # React components
+│   │   ├── converter/         # Calculator-specific components
+│   │   ├── layout/            # Header, Footer, ThemeProvider
+│   │   └── ui/                # Base UI primitives (shadcn style)
+│   ├── data/                  # Static data files
+│   ├── hooks/                 # React hooks (legacy pattern)
+│   ├── i18n/                  # i18n configuration
+│   │   ├── config.ts          # Locale definitions
+│   │   ├── navigation.ts      # Localized routing helpers
+│   │   └── request.ts         # next-intl server setup
+│   ├── lib/                   # Core utilities and business logic
+│   │   ├── converters/        # Pure calculation functions
+│   │   ├── registry/          # Category and converter metadata
+│   │   └── utils/             # Shared utilities (cn, etc.)
+│   ├── messages/              # Translation files
+│   │   ├── en.json            # English (source of truth)
+│   │   ├── fr.json            # French
+│   │   ├── de.json            # German
+│   │   └── it.json            # Italian
+│   ├── stores/                # Zustand state management
+│   └── types/                 # Shared TypeScript types
+├── biome.json                 # Biome linter/formatter config
+├── CLAUDE.md                  # AI assistant project guide
+├── eslint.config.mjs          # ESLint configuration
+├── next.config.ts             # Next.js configuration
+├── package.json               # Dependencies and scripts
+├── postcss.config.mjs         # PostCSS configuration
+├── tailwind.config.ts         # Tailwind CSS configuration
+└── tsconfig.json              # TypeScript configuration
 ```
 
 ## Directory Purposes
 
-**`src/app/[locale]/`:**
+**src/app/[locale]/**
 
-- Purpose: All user-facing pages with locale routing
-- Contains: Server components (page.tsx), client components (\*-calculator.tsx)
-- Key files: `layout.tsx` (providers), `page.tsx` (homepage), category directories
+- Purpose: Next.js pages with dynamic locale routing
+- Contains: Server component pages, client component calculators, category directories
+- Key files: `layout.tsx` (locale-specific layout), `page.tsx` (homepage)
+- Pattern: `[locale]/[category]/[calculator]/page.tsx` + `[calculator]-calculator.tsx`
 
-**`src/app/[locale]/[category]/[calculator]/`:**
+**src/app/[locale]/[category]/**
 
-- Purpose: Individual calculator pages
-- Contains: `page.tsx` (metadata + layout), `*-calculator.tsx` (interactive component)
-- Pattern: One directory per calculator, matching registry slug
+- Purpose: Category-specific calculators (11 categories: color, data, datetime, finance, health, math, music, photo, physics, video, web)
+- Contains: Calculator directories with page.tsx and component files
+- Example: `src/app/[locale]/finance/mortgage/` contains `page.tsx` and `mortgage-calculator.tsx`
 
-**`src/components/converter/`:**
+**src/components/converter/**
 
-- Purpose: Reusable components for calculator UIs
-- Contains: InputField, OutputDisplay, ResultGrid, ConverterLayout, Breadcrumbs
-- Key files: `input-field.tsx`, `converter-layout.tsx`, `result-grid.tsx`
+- Purpose: Reusable calculator UI components
+- Contains: InputField, OutputDisplay, ResultGrid, ConverterLayout, PdfExportButton, Breadcrumbs, SubcategoryNav
+- Key files: `input-field.tsx`, `result-grid.tsx`, `converter-layout.tsx`, `index.ts` (barrel export)
 
-**`src/components/layout/`:**
+**src/components/layout/**
 
-- Purpose: Page-level layout components
-- Contains: Header, Footer, ThemeProvider, LanguageSwitcher
-- Key files: `header.tsx`, `footer.tsx`, `theme-provider.tsx`
+- Purpose: Site-wide layout components
+- Contains: Header, Footer, ThemeProvider, ThemeToggle, LocaleHtmlLang
+- Mounted in: `src/app/[locale]/layout.tsx`
 
-**`src/components/ui/`:**
+**src/components/ui/**
 
-- Purpose: Base UI primitives (shadcn/ui style)
-- Contains: Button, Card, Input, Select, Label, Switch, Tabs, Badge
-- Key files: `button.tsx`, `card.tsx`, `select.tsx`, `input.tsx`
+- Purpose: Base UI primitives (shadcn/ui style with Radix UI)
+- Contains: Button, Card, Input, Label, Select, Switch, Tabs, Badge, Command, Popover, RadioGroup, Textarea
+- Pattern: Single component per file, direct exports (no barrel file except index.ts)
 
-**`src/lib/converters/`:**
+**src/lib/converters/**
 
-- Purpose: Pure calculation functions by category
-- Contains: TypeScript files with Input/Result interfaces and calculate functions
-- Key files: `health/bmi.ts`, `finance/mortgage.ts`, `math/quadratic.ts`
+- Purpose: Pure calculation functions organized by category
+- Contains: 11 category subdirectories matching app structure
+- Pattern: Each file exports interfaces (Input, Result) and pure function
+- Example: `src/lib/converters/health/bmi.ts` exports `BmiInput`, `BmiResult`, `calculateBmi`
 
-**`src/lib/registry/`:**
+**src/lib/registry/**
 
-- Purpose: Central metadata for categories and calculators
-- Contains: Category definitions, converter metadata, helper functions
-- Key files: `categories.ts`, `converters.ts`
+- Purpose: Centralized metadata for categories and converters
+- Contains: `categories.ts`, `converters.ts`, category-specific registries (e.g., `health-converters.ts`)
+- Key files: `categories.ts` (11 categories), `converters.ts` (merges all category registries)
 
-**`src/lib/utils/`:**
+**src/lib/utils/**
 
 - Purpose: Shared utility functions
-- Contains: Class name merger (cn), formatters, PDF export
-- Key files: `cn.ts`, `format.ts`, `pdf-export.ts`
+- Contains: `cn()` for class name merging (Tailwind utility)
 
-**`src/hooks/`:**
+**src/messages/**
 
-- Purpose: Custom React hooks
-- Contains: useConverter, useDebounce, useUrlState, useCopyToClipboard
-- Key files: `use-converter.ts`, `use-url-state.ts`
+- Purpose: i18n translation files (JSON)
+- Contains: en.json, fr.json, de.json, it.json (Swiss locales)
+- Structure: Nested JSON with common, categories, converters, calculator namespaces
+- Important: Keys must use kebab-case to match converter IDs
 
-**`src/stores/`:**
+**src/stores/**
 
 - Purpose: Zustand state management
-- Contains: Calculator store factory
-- Key files: `calculator-store.ts`
+- Contains: `calculator-store.ts` (factory function), `index.ts` (exports)
+- Pattern: `createCalculatorStore<InputType, ResultType>()` with URL sync middleware
 
-**`src/i18n/`:**
+**src/hooks/**
+
+- Purpose: React hooks (legacy pattern being phased out)
+- Contains: `use-converter.ts`, `use-url-state.ts`, `use-debounce.ts`
+- Note: New calculators prefer Zustand stores over useConverter hook
+
+**src/i18n/**
 
 - Purpose: Internationalization configuration
-- Contains: Locale config, navigation helpers, request setup
-- Key files: `config.ts`, `navigation.ts`, `request.ts`
+- Contains: `config.ts` (locale definitions), `request.ts` (next-intl setup), `navigation.ts` (localized routing)
+- Locales: en, fr, de, it (Swiss variants with CHF currency)
 
-**`src/messages/`:**
+**src/types/**
 
-- Purpose: Translation files for all 4 locales
-- Contains: JSON translation files
-- Key files: `en.json`, `fr.json`, `de.json`, `it.json`
+- Purpose: Shared TypeScript type definitions
+- Contains: `converter.ts` (ConverterMeta, CalculationStep), `index.ts`
+
+**docs/**
+
+- Purpose: Project documentation
+- Contains: `ARCHITECTURE.md` (detailed system design)
+
+**public/**
+
+- Purpose: Static assets served at root
+- Contains: Images, favicons, robots.txt, sitemap.xml
 
 ## Key File Locations
 
 **Entry Points:**
 
-- `src/app/layout.tsx`: Root HTML structure
-- `src/app/[locale]/layout.tsx`: Locale layout with providers
+- `src/app/layout.tsx`: Root HTML layout
+- `src/app/[locale]/layout.tsx`: Locale-specific layout with providers
 - `src/app/[locale]/page.tsx`: Homepage
+- `src/i18n/request.ts`: i18n request handler
 
 **Configuration:**
 
-- `next.config.ts`: Next.js config (static export, basePath, i18n plugin)
-- `biome.json`: Linter/formatter rules
-- `tsconfig.json`: TypeScript configuration
-- `tailwind.config.ts`: Tailwind CSS settings
+- `next.config.ts`: Next.js config (static export, basePath for GitHub Pages)
+- `biome.json`: Linter and formatter
+- `tailwind.config.ts`: Tailwind CSS
+- `tsconfig.json`: TypeScript compiler options
+- `package.json`: Dependencies and scripts
 
 **Core Logic:**
 
-- `src/lib/registry/converters.ts`: All calculator metadata (53KB, ~1400 lines)
+- `src/lib/converters/`: All calculation functions (538 total TypeScript files in project)
 - `src/lib/registry/categories.ts`: Category definitions
-- `src/stores/calculator-store.ts`: Zustand store factory
+- `src/lib/registry/converters.ts`: Converter metadata registry
 
 **Testing:**
 
-- No test files detected; no test configuration
+- No test files detected (testing not yet implemented)
 
 ## Naming Conventions
 
 **Files:**
 
-- kebab-case for all files: `bmi-calculator.tsx`, `compound-interest.ts`
-- Calculator components: `[name]-calculator.tsx`
+- kebab-case for all files: `mortgage-calculator.tsx`, `use-converter.ts`
+- Component files: `[name]-[type].tsx` (e.g., `age-calculator.tsx`)
 - Page files: `page.tsx` (Next.js convention)
+- Layout files: `layout.tsx` (Next.js convention)
 
 **Directories:**
 
-- kebab-case matching slugs: `compound-interest/`, `body-fat/`
-- Category directories match category.slug: `finance/`, `health/`
+- kebab-case: `datetime`, `finance`, `photo`
+- Dynamic segments: `[locale]`, `[category]` (Next.js convention)
+- Category slugs match directory names: finance category → `src/app/[locale]/finance/`
 
 **Components:**
 
-- PascalCase: `BMICalculator`, `ConverterLayout`, `InputField`
+- PascalCase: `AgeCalculator`, `InputField`, `ConverterLayout`
 
 **Functions:**
 
-- camelCase: `calculateBMI`, `getBMICategoryInfo`, `createCalculatorStore`
+- camelCase: `calculateAge`, `getConverterById`, `createCalculatorStore`
 
 **Types/Interfaces:**
 
-- PascalCase: `BMIInput`, `BMIResult`, `ConverterMeta`
+- PascalCase: `AgeInput`, `BmiResult`, `ConverterMeta`, `Category`
 
-**Translation Keys:**
+**Constants:**
 
-- kebab-case matching converter IDs: `"compound-interest"`, `"body-fat"`
+- SCREAMING_SNAKE_CASE: `ZODIAC_SIGNS`, `CHINESE_ZODIAC` (in calculation files)
 
 ## Where to Add New Code
 
 **New Calculator:**
 
-1. Calculation logic: `src/lib/converters/[category]/[name].ts`
-2. Registry entry: `src/lib/registry/converters.ts`
-3. Translations: `src/messages/[en|fr|de|it].json` under `converters.[name]`
-4. Page: `src/app/[locale]/[category]/[name]/page.tsx`
-5. Component: `src/app/[locale]/[category]/[name]/[name]-calculator.tsx`
+- Primary code: `src/app/[locale]/[category]/[slug]/[slug]-calculator.tsx` (client component)
+- Page wrapper: `src/app/[locale]/[category]/[slug]/page.tsx` (server component)
+- Calculation logic: `src/lib/converters/[category]/[slug].ts` (pure function)
+- Registry entry: Add to `src/lib/registry/[category]-converters.ts`
+- Translations: Add to all 4 files in `src/messages/` with key matching slug
 
 **New Category:**
 
-1. Category definition: `src/lib/registry/categories.ts`
-2. Category page: `src/app/[locale]/[category]/page.tsx`
-3. Category translations: `src/messages/*.json` under `categories.[name]`
-4. Logic directory: `src/lib/converters/[category]/`
+- Category definition: Add to `src/lib/registry/categories.ts`
+- Category page: `src/app/[locale]/[category]/page.tsx`
+- Category registry: Create `src/lib/registry/[category]-converters.ts`
+- Converters directory: Create `src/lib/converters/[category]/`
+- Import in registry: Add to `src/lib/registry/converters.ts` imports and merge
+- Translations: Add to `categories` section in all 4 `src/messages/*.json`
 
-**New UI Component:**
+**New Component/Module:**
 
-- Primitive: `src/components/ui/[name].tsx`
-- Calculator-specific: `src/components/converter/[name].tsx`
-- Export from barrel: Update `src/components/[dir]/index.ts`
+- UI component: `src/components/ui/[name].tsx`
+- Converter component: `src/components/converter/[name].tsx`
+- Layout component: `src/components/layout/[name].tsx`
+- Utility: `src/lib/utils/[name].ts`
+- Hook: `src/hooks/use-[name].ts` (legacy pattern, prefer Zustand)
+- Store: `src/stores/[name]-store.ts` (preferred pattern)
 
-**New Utility:**
+**Utilities:**
 
-- `src/lib/utils/[name].ts`
-- Export from barrel: Update `src/lib/utils/index.ts`
+- Shared helpers: `src/lib/utils/`
+- React hooks: `src/hooks/` (legacy)
+- Zustand stores: `src/stores/` (preferred)
 
-**New Hook:**
+**Translations:**
 
-- `src/hooks/use-[name].ts`
-- Export from barrel: Update `src/hooks/index.ts`
-
-**New Store:**
-
-- Use `createCalculatorStore()` factory in component file
-- Or add to `src/stores/` for shared stores
+- Add to all 4 locale files: `src/messages/en.json`, `fr.json`, `de.json`, `it.json`
+- Use kebab-case keys matching converter IDs
+- Structure: `converters.[id].name`, `converters.[id].description`, `converters.[id].metaDescription`
 
 ## Special Directories
 
-**`out/`:**
+**out/**
 
-- Purpose: Static site export output
-- Generated: Yes (by `npm run build`)
+- Purpose: Next.js static export output
+- Generated: Yes (via `npm run build`)
+- Committed: No (in .gitignore)
+- Contents: Production-ready static HTML/CSS/JS
+
+**.next/**
+
+- Purpose: Next.js build cache and artifacts
+- Generated: Yes (during dev and build)
 - Committed: No (in .gitignore)
 
-**`.next/`:**
-
-- Purpose: Next.js build cache
-- Generated: Yes
-- Committed: No (in .gitignore)
-
-**`node_modules/`:**
+**node_modules/**
 
 - Purpose: npm dependencies
-- Generated: Yes (by `npm install`)
+- Generated: Yes (via `npm install`)
 - Committed: No (in .gitignore)
 
-**`public/`:**
+**.planning/codebase/**
 
-- Purpose: Static assets served at root
-- Generated: No
-- Committed: Yes
-
-**`.planning/`:**
-
-- Purpose: GSD planning and analysis documents
+- Purpose: GSD codebase analysis documents
 - Generated: By GSD commands
-- Committed: Typically no
-
-**`docs/`:**
-
-- Purpose: Project documentation
-- Contains: ARCHITECTURE.md, CALCULATORS.md
 - Committed: Yes
+- Contents: Architecture and planning documentation
+
+**.github/workflows/**
+
+- Purpose: CI/CD automation
+- Generated: No (manually maintained)
+- Committed: Yes
+- Contents: GitHub Actions workflow definitions
 
 ---
 
-_Structure analysis: 2026-01-16_
+_Structure analysis: 2026-01-17_
