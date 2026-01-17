@@ -953,6 +953,8 @@
       "bitrateQualityMedium": "Medium",
       "bitrateQualityHigh": "High",
       "bitrateQualityLossless": "Lossless",
+      "timeAM": "AM",
+      "timePM": "PM",
       "filingStatus": "Filing Status",
       "state": "State",
       "preTaxDeductions": "Pre-Tax Deductions",

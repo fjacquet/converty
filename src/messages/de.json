@@ -953,6 +953,8 @@
       "bitrateQualityMedium": "Mittel",
       "bitrateQualityHigh": "Hoch",
       "bitrateQualityLossless": "Verlustfrei",
+      "timeAM": "AM",
+      "timePM": "PM",
       "filingStatus": "Steuerstatus",
       "state": "Kanton",
       "preTaxDeductions": "Abzuege vor Steuern",
