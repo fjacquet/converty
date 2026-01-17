@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/header";
 import { LocaleHtmlLang } from "@/components/layout/locale-html-lang";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { type Locale, locales } from "@/i18n/config";
+import { SWRegistration } from "./sw-registration";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -70,6 +71,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <LocaleHtmlLang />
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <SWRegistration />
         <div className="relative flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">{children}</main>
