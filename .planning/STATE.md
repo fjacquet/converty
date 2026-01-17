@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** Phase 5 — Documentation
+**Current focus:** Phase 6 — Dependency Upgrade
 
 ## Current Position
 
@@ -161,6 +161,22 @@ All objectives achieved:
 - Created: `scripts/generate-sw.js` - Post-build SW generation script
 - Modified: `src/app/[locale]/layout.tsx` - Integrated PWA components
 - Modified: `package.json` - Updated build script for SW generation
+
+**Phase 5: Documentation - IN PROGRESS**
+
+Current progress (2/4 plans complete):
+
+- ✓ Plan 05-01: Research phase (RESEARCH.md created)
+- ✓ Plan 05-02: Architecture Decision Records created (4 ADRs in MADR 4.0.0 format)
+- ⏳ Plan 05-03: Update CONTRIBUTING.md (pending)
+- ⏳ Plan 05-04: Create CHANGELOG.md (pending)
+
+**Key Artifacts:**
+
+- Created: `.planning/decisions/0001-zustand-migration.md` - ADR documenting Zustand choice
+- Created: `.planning/decisions/0002-pwa-service-worker.md` - ADR documenting PWA architecture
+- Created: `.planning/decisions/0003-typescript-strict.md` - ADR documenting type safety enforcement
+- Created: `.planning/decisions/0004-jspdf-upgrade.md` - ADR documenting planned jsPDF upgrade
 
 **Phase 5: Documentation - COMPLETE ✓**
 

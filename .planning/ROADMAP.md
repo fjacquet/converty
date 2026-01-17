@@ -121,10 +121,9 @@ Plans:
 **Plans:** 3 plans in 1 wave
 
 Plans:
-
-- [ ] 05-01-PLAN.md — Create CHANGELOG.md and backfill recent changes
-- [ ] 05-02-PLAN.md — Create Architecture Decision Records (ADRs)
-- [ ] 05-03-PLAN.md — Update CONTRIBUTING.md with Zustand pattern
+- [x] 05-01-PLAN.md — Create CHANGELOG.md and backfill recent changes
+- [x] 05-02-PLAN.md — Create Architecture Decision Records (ADRs)
+- [x] 05-03-PLAN.md — Update CONTRIBUTING.md with Zustand pattern
 
 ---
 
@@ -172,7 +171,7 @@ Plans:
 | 2 - URL Sync Infrastructure | Complete    | 2026-01-17 |
 | 3 - State Migration         | Complete    | 2026-01-17 |
 | 4 - Progressive Web App     | Complete    | 2026-01-17 |
-| 5 - Documentation           | Not started | —          |
+| 5 - Documentation           | Complete    | 2026-01-17 |
 | 6 - Dependency Upgrade      | Not started | —          |
 | 7 - Code Quality Validation | Not started | —          |
 
