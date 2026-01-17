@@ -96,7 +96,7 @@ export function PeriodCalculatorComponent() {
         <div className="space-y-4">
           <div className={`p-4 rounded-lg text-center ${getPhaseColor(result.currentPhase)}`}>
             <p className="text-sm text-muted-foreground">{tResults("currentPhase")}</p>
-            <p className="text-2xl font-bold capitalize">{result.currentPhase}</p>
+            <p className="text-2xl font-bold">{tResults(result.currentPhase)}</p>
             <p className="text-sm">
               {tResults("day")} {result.phaseDay}
             </p>
@@ -138,12 +138,12 @@ export function PeriodCalculatorComponent() {
             {result.cyclePhases.map((phase) => (
               <div key={phase.phase} className="p-3 bg-muted rounded-lg">
                 <div className="flex justify-between">
-                  <span className="font-medium">{phase.phase}</span>
+                  <span className="font-medium">{tResults(phase.phase)}</span>
                   <span className="text-sm text-muted-foreground">
                     {tResults("days")} {phase.startDay} - {phase.endDay}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground">{phase.description}</p>
+                <p className="text-sm text-muted-foreground">{tResults(phase.description)}</p>
               </div>
             ))}
           </div>

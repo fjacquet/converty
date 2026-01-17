@@ -95,31 +95,31 @@ export function calculatePeriod(input: PeriodInput): PeriodResult | null {
     phaseDay = currentCycleDay - ovulationDay - 1;
   }
 
-  // Cycle phases breakdown
+  // Cycle phases breakdown (use translation keys)
   const cyclePhases = [
     {
-      phase: "Menstrual Phase",
+      phase: "period_phase_menstrual_name",
       startDay: 1,
       endDay: periodLength,
-      description: "Uterine lining sheds, bleeding occurs",
+      description: "period_phase_menstrual_desc",
     },
     {
-      phase: "Follicular Phase",
+      phase: "period_phase_follicular_name",
       startDay: periodLength + 1,
       endDay: ovulationDay - 2,
-      description: "Estrogen rises, follicles develop",
+      description: "period_phase_follicular_desc",
     },
     {
-      phase: "Ovulation",
+      phase: "period_phase_ovulation_name",
       startDay: ovulationDay - 1,
       endDay: ovulationDay + 1,
-      description: "Egg released, peak fertility",
+      description: "period_phase_ovulation_desc",
     },
     {
-      phase: "Luteal Phase",
+      phase: "period_phase_luteal_name",
       startDay: ovulationDay + 2,
       endDay: cycleLength,
-      description: "Progesterone rises, PMS symptoms may occur",
+      description: "period_phase_luteal_desc",
     },
   ];
 
