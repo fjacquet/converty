@@ -17,7 +17,7 @@ All requirements are **user-centric** (testable, specific, atomic) and mapped to
 
 **Goal:** Consolidate state management pattern, eliminate dual implementation, fix debounce bug
 
-- [ ] **STATE-01**: All 74 calculators migrated from useConverter to Zustand stores
+- [ ] **STATE-01**: All 117 calculators migrated from useConverter to Zustand stores
 
   - _Success criteria:_ Every calculator component imports from `src/stores/`, zero imports from `src/hooks/use-converter.ts`
 
@@ -324,7 +324,7 @@ Explicitly excluded from infrastructure upgrade:
 **Infrastructure upgrade is complete when:**
 
 ✅ All v1 requirements checked (32 requirements)
-✅ All 74 calculators using Zustand stores
+✅ All 117 calculators using Zustand stores
 ✅ useConverter hook deleted from codebase
 ✅ URL sync middleware consolidated
 ✅ Per-store debounce timers (global timer bug fixed)
