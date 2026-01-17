@@ -10,8 +10,8 @@ import {
 } from "@/lib/converters/web/seo-performance";
 
 export function SEOAnalyzer() {
-  const _t = useTranslations("calculator.labels");
-  const _tSections = useTranslations("calculator.sections");
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
   const [metrics, setMetrics] = useState<SEOMetrics>({
     titleLength: 55,
     descriptionLength: 155,
@@ -35,7 +35,7 @@ export function SEOAnalyzer() {
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Title Length</label>
+          <label className="text-sm font-medium">{t("seoTitleLength")}</label>
           <input
             type="number"
             value={metrics.titleLength}
@@ -43,10 +43,10 @@ export function SEOAnalyzer() {
             min={0}
             className="w-full h-10 px-3 rounded-md border bg-background"
           />
-          <p className="text-xs text-muted-foreground">Optimal: 50-60 characters</p>
+          <p className="text-xs text-muted-foreground">{t("seoOptimalTitle")}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Description Length</label>
+          <label className="text-sm font-medium">{t("seoDescriptionLength")}</label>
           <input
             type="number"
             value={metrics.descriptionLength}
@@ -54,10 +54,10 @@ export function SEOAnalyzer() {
             min={0}
             className="w-full h-10 px-3 rounded-md border bg-background"
           />
-          <p className="text-xs text-muted-foreground">Optimal: 150-160 characters</p>
+          <p className="text-xs text-muted-foreground">{t("seoOptimalDescription")}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">H1 Tags</label>
+          <label className="text-sm font-medium">{t("seoH1Tags")}</label>
           <input
             type="number"
             value={metrics.h1Count}
@@ -65,10 +65,10 @@ export function SEOAnalyzer() {
             min={0}
             className="w-full h-10 px-3 rounded-md border bg-background"
           />
-          <p className="text-xs text-muted-foreground">Optimal: exactly 1</p>
+          <p className="text-xs text-muted-foreground">{t("seoOptimalH1")}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Total Images</label>
+          <label className="text-sm font-medium">{t("seoTotalImages")}</label>
           <input
             type="number"
             value={metrics.imageCount}
@@ -78,7 +78,7 @@ export function SEOAnalyzer() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Images with Alt</label>
+          <label className="text-sm font-medium">{t("seoImagesWithAlt")}</label>
           <input
             type="number"
             value={metrics.imagesWithAlt}
@@ -89,7 +89,7 @@ export function SEOAnalyzer() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Word Count</label>
+          <label className="text-sm font-medium">{t("seoWordCount")}</label>
           <input
             type="number"
             value={metrics.wordCount}
@@ -97,10 +97,10 @@ export function SEOAnalyzer() {
             min={0}
             className="w-full h-10 px-3 rounded-md border bg-background"
           />
-          <p className="text-xs text-muted-foreground">Optimal: 300+ words</p>
+          <p className="text-xs text-muted-foreground">{t("seoOptimalWords")}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Total Links</label>
+          <label className="text-sm font-medium">{t("seoTotalLinks")}</label>
           <input
             type="number"
             value={metrics.linkCount}
@@ -110,7 +110,7 @@ export function SEOAnalyzer() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Internal Links</label>
+          <label className="text-sm font-medium">{t("seoInternalLinks")}</label>
           <input
             type="number"
             value={metrics.internalLinks}
@@ -121,7 +121,7 @@ export function SEOAnalyzer() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">External Links</label>
+          <label className="text-sm font-medium">{t("seoExternalLinks")}</label>
           <input
             type="number"
             value={metrics.externalLinks}
@@ -134,7 +134,7 @@ export function SEOAnalyzer() {
       </div>
 
       <div className="p-6 rounded-lg border bg-muted/50 text-center">
-        <p className="text-sm text-muted-foreground mb-2">Overall SEO Score</p>
+        <p className="text-sm text-muted-foreground mb-2">{t("seoOverallScore")}</p>
         <p
           className={`text-5xl font-bold ${
             score.overall >= 80
@@ -146,7 +146,7 @@ export function SEOAnalyzer() {
         >
           {score.overall}
         </p>
-        <p className="text-sm text-muted-foreground mt-2">out of 100</p>
+        <p className="text-sm text-muted-foreground mt-2">{t("seoOutOf100")}</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -168,14 +168,14 @@ export function SEOAnalyzer() {
                   {value.score}
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground">{value.feedback}</p>
+              <p className="text-sm text-muted-foreground">{tResults(value.feedback)}</p>
             </div>
           ))}
       </div>
 
       {recommendations.length > 0 && (
         <div className="space-y-4">
-          <p className="text-sm font-medium">Recommendations</p>
+          <p className="text-sm font-medium">{t("seoRecommendations")}</p>
           {recommendations.map((rec) => (
             <div
               key={`${rec.category}-${rec.issue}`}
@@ -197,56 +197,56 @@ export function SEOAnalyzer() {
                         : "bg-blue-500/20 text-blue-600"
                   }`}
                 >
-                  {rec.priority}
+                  {t(`seoPriority${rec.priority.charAt(0).toUpperCase() + rec.priority.slice(1)}`)}
                 </span>
-                <span className="font-medium">{rec.category}</span>
+                <span className="font-medium">{tResults(rec.category)}</span>
               </div>
-              <p className="text-sm text-muted-foreground">{rec.issue}</p>
-              <p className="text-sm mt-1">{rec.recommendation}</p>
+              <p className="text-sm text-muted-foreground">{tResults(rec.issue)}</p>
+              <p className="text-sm mt-1">{tResults(rec.recommendation)}</p>
             </div>
           ))}
         </div>
       )}
 
       <div className="space-y-4">
-        <p className="text-sm font-medium">SEO Best Practices</p>
+        <p className="text-sm font-medium">{t("seoBestPractices")}</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2">Element</th>
-                <th className="text-left py-2">Optimal</th>
+                <th className="text-left py-2">{t("seoElement")}</th>
+                <th className="text-left py-2">{t("seoOptimal")}</th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b border-muted">
-                <td className="py-2">Title</td>
+                <td className="py-2">{tResults("seo_category_title")}</td>
                 <td className="py-2 text-muted-foreground">
-                  {SEO_BEST_PRACTICES.title.optimalLength}
+                  {tResults(SEO_BEST_PRACTICES.title.optimalLength)}
                 </td>
               </tr>
               <tr className="border-b border-muted">
-                <td className="py-2">Description</td>
+                <td className="py-2">{tResults("seo_category_description")}</td>
                 <td className="py-2 text-muted-foreground">
-                  {SEO_BEST_PRACTICES.description.optimalLength}
+                  {tResults(SEO_BEST_PRACTICES.description.optimalLength)}
                 </td>
               </tr>
               <tr className="border-b border-muted">
-                <td className="py-2">Content</td>
+                <td className="py-2">{tResults("seo_category_content")}</td>
                 <td className="py-2 text-muted-foreground">
-                  {SEO_BEST_PRACTICES.content.optimalWords}
+                  {tResults(SEO_BEST_PRACTICES.content.optimalWords)}
                 </td>
               </tr>
               <tr className="border-b border-muted">
-                <td className="py-2">Images</td>
+                <td className="py-2">{tResults("seo_category_images")}</td>
                 <td className="py-2 text-muted-foreground">
-                  {SEO_BEST_PRACTICES.images.requirement}
+                  {tResults(SEO_BEST_PRACTICES.images.requirement)}
                 </td>
               </tr>
               <tr className="border-b border-muted">
-                <td className="py-2">Headings</td>
+                <td className="py-2">{tResults("seo_category_headings")}</td>
                 <td className="py-2 text-muted-foreground">
-                  {SEO_BEST_PRACTICES.headings.requirement}
+                  {tResults(SEO_BEST_PRACTICES.headings.requirement)}
                 </td>
               </tr>
             </tbody>
