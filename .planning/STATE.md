@@ -9,25 +9,26 @@ See: .planning/PROJECT.md
 
 ## Current Position
 
-Phase: 1 of 7 (Type Safety Foundation)
-Plan: 4 of 4 complete
+Phase: 2 of 7 (URL Sync Infrastructure)
+Plan: 1 of 1 complete
 Status: Phase complete ✓
-Last activity: 2026-01-17 — Completed 01-04-PLAN.md (Type Safety Foundation Verification)
+Last activity: 2026-01-17 — Completed 02-01-PLAN.md (URL Sync Middleware)
 
-Progress: ████████████ 100% (4/4 plans in current phase)
+Progress: ████████████ 100% (1/1 plans in current phase)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
-- Average duration: 1.9 min
+- Total plans completed: 5
+- Average duration: 2.3 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 | ----- | ----- | ----- | -------- |
 | 01-type-safety-foundation | 4/4 | 7.5 min | 1.9 min |
+| 02-url-sync-infrastructure | 1/1 | 4 min | 4 min |
 
 ## Accumulated Context
 
@@ -43,18 +44,21 @@ Progress: ████████████ 100% (4/4 plans in current phase)
 | Use 'unknown' as generic default type for better type safety | 01-03 | Requires explicit type narrowing, prevents accidental unsafe operations |
 | Centralize URL parsing through helper functions | 01-03 | Consistency across codebase, single source of truth for parsing logic |
 | Defer global debounce timer fix to Phase 2 | 01-03 | Global timer is a known issue (STATE-04) but fixing now would expand scope |
+| Use closure pattern over WeakMap for timer isolation | 02-01 | Simpler mental model, more explicit, easier to debug |
+| Use replaceState instead of pushState for URL sync | 02-01 | Avoids flooding browser history with every keystroke |
+| Add selectState option to middleware | 02-01 | Enables syncing nested state (e.g., only values from CalculatorState) |
 
 ### Pending Todos
 
-- Fix global debounce timer issue (STATE-04) - deferred to Phase 2
+None - STATE-04 resolved in Phase 2.
 
 ### Blockers/Concerns
 
-None - Phase 1 complete, ready for Phase 2.
+None - Phase 2 complete, ready for Phase 3.
 
-### Phase 1 Completion Summary
+### Phase Completion Summaries
 
-**Type Safety Foundation: COMPLETE ✓**
+**Phase 1: Type Safety Foundation - COMPLETE ✓**
 
 All objectives achieved:
 - Zero TypeScript compilation errors in critical paths (hooks, stores, URL parsing)
@@ -69,12 +73,23 @@ All objectives achieved:
 - `src/stores/calculator-store.ts` - Store with safe URL parsing
 - `src/hooks/use-url-state.ts` - URL state hook with safe parsing
 - `biome.json` - noExplicitAny at error level
-- `.planning/phases/01-type-safety-foundation/01-04-verification-results.md` - Complete verification results
 
-**Ready for Phase 2: State Management Consolidation**
+**Phase 2: URL Sync Infrastructure - COMPLETE ✓**
+
+All objectives achieved:
+- Created reusable URL sync middleware with closure-based timer isolation (STATE-04 fixed)
+- Eliminated duplicated URL sync logic across stores (STATE-03 fixed)
+- Per-instance debounce timers prevent conflicts between multiple calculators
+- Backward compatible - existing stores work unchanged
+
+**Key Artifacts:**
+- `src/lib/middleware/url-sync.ts` - URL sync middleware factory (135 lines)
+- `src/stores/calculator-store.ts` - Integrated middleware, removed 49 lines of duplicate logic
+
+**Ready for Phase 3: State Management Consolidation**
 
 ## Session Continuity
 
-Last session: 2026-01-17T10:32:59Z
-Stopped at: Completed Phase 1 - All 4 plans complete
+Last session: 2026-01-17T12:42:57Z
+Stopped at: Completed Phase 2 - All 1 plans complete
 Resume file: None
