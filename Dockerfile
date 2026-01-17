@@ -43,12 +43,20 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy static files from builder
 COPY --from=builder /app/out /usr/share/nginx/html
 
-# Add healthcheck
+# Create cache and run directories for non-root nginx
+RUN mkdir -p /var/cache/nginx /var/run && \
+    chown -R nginx:nginx /var/cache/nginx /var/run /usr/share/nginx/html && \
+    chmod -R 755 /var/cache/nginx /var/run
+
+# Switch to non-root user
+USER nginx
+
+# Add healthcheck (using port 8080 for non-root)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
 
-# Expose port
-EXPOSE 80
+# Expose non-privileged port
+EXPOSE 8080
 
-# nginx runs as non-root by default in nginx:alpine
+# Run nginx as non-root user
 CMD ["nginx", "-g", "daemon off;"]

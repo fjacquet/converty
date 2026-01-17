@@ -3,7 +3,8 @@
         docker-build docker-run docker-stop docker-push docker-compose-up docker-compose-down \
         export static-serve release version-patch version-minor version-major \
         check ci pre-commit info routes \
-        security security-lint security-audit security-trivy security-all
+        security security-lint security-audit security-trivy security-all \
+        i18n-check i18n-sync routes-manifest sitemap i18n-routes
 
 # Project configuration
 PROJECT_NAME := converty
@@ -80,12 +81,19 @@ help:
 	@echo "  make version-major  Bump major version (x.0.0)"
 	@echo "  make release        Create release (build + tag)"
 	@echo ""
+	@echo "$(GREEN)I18N & Routes:$(NC)"
+	@echo "  make i18n-check     Check for missing translation keys"
+	@echo "  make i18n-sync      Verify translations match across locales"
+	@echo "  make routes         List all application routes"
+	@echo "  make routes-manifest Generate routes.json manifest"
+	@echo "  make sitemap        Generate sitemap.xml"
+	@echo "  make i18n-routes    Run full i18n and routes check"
+	@echo ""
 	@echo "$(GREEN)Utilities:$(NC)"
 	@echo "  make clean          Remove build artifacts"
 	@echo "  make clean-all      Remove all generated files + node_modules"
 	@echo "  make analyze        Analyze bundle size"
 	@echo "  make info           Show project information"
-	@echo "  make routes         List all routes"
 	@echo "  make ci             Run full CI pipeline"
 	@echo ""
 
@@ -241,7 +249,7 @@ docker-build:
 # Run Docker container
 docker-run:
 	@echo "$(CYAN)Running Docker container on port $(DOCKER_PORT)...$(NC)"
-	docker run -d --name $(PROJECT_NAME) -p $(DOCKER_PORT):3000 $(DOCKER_IMAGE):$(DOCKER_TAG)
+	docker run -d --name $(PROJECT_NAME) -p $(DOCKER_PORT):8080 $(DOCKER_IMAGE):$(DOCKER_TAG)
 	@echo "$(GREEN)✓ Container running at http://localhost:$(DOCKER_PORT)$(NC)"
 
 # Stop Docker container
@@ -504,6 +512,38 @@ deploy-netlify:
 	else \
 		echo "$(YELLOW)Install Netlify CLI: npm i -g netlify-cli$(NC)"; \
 	fi
+
+# ============================================================================
+# I18N & ROUTES
+# ============================================================================
+
+# Check for missing translation keys (fast - no build required)
+i18n-check:
+	@echo "$(CYAN)Checking for missing translation keys...$(NC)"
+	@node scripts/check-i18n.js
+	@echo "$(GREEN)✓ Translation check complete$(NC)"
+
+# Verify translations match across all locales
+i18n-sync:
+	@echo "$(CYAN)Checking translation sync across locales...$(NC)"
+	@node scripts/check-i18n.js --sync
+	@echo "$(GREEN)✓ Translation sync check complete$(NC)"
+
+# Generate routes manifest (JSON file with all routes)
+routes-manifest:
+	@echo "$(CYAN)Generating routes manifest...$(NC)"
+	@node scripts/generate-routes.js
+	@echo "$(GREEN)✓ Routes manifest generated at routes.json$(NC)"
+
+# Generate sitemap.xml for all routes and locales
+sitemap:
+	@echo "$(CYAN)Generating sitemap...$(NC)"
+	@node scripts/generate-sitemap.js
+	@echo "$(GREEN)✓ Sitemap generated at public/sitemap.xml$(NC)"
+
+# Full i18n and routes check
+i18n-routes: i18n-check routes-manifest
+	@echo "$(GREEN)✓ i18n and routes check complete$(NC)"
 
 # ============================================================================
 # SHORTCUTS
