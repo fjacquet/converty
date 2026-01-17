@@ -129,19 +129,22 @@ Plans:
 
 ### Phase 6: Dependency Upgrade
 
-**Goal:** jsPDF upgraded to latest stable version with verified PDF export
-**Depends on:** Phase 3 (state migration complete to avoid conflicts)
+**Goal:** jsPDF verified current (v4.0.0) with working PDF export functionality
+**Depends on:** Phase 5 (documentation complete)
 **Requirements:** DEP-01, DEP-02, DEP-03
 
 **Success Criteria:**
 
-1. Command `npm list jspdf` shows version 2.5.2 or later (not v4.0.0)
-2. Developer can export calculator results to PDF (e.g., DoF table) and PDF opens correctly
-3. PDF font rendering unchanged from previous version (visual comparison)
-4. Code uses current jsPDF API (no deprecated method calls, TypeScript types resolve)
-5. File size of generated PDFs remains reasonable (no massive increase)
+1. Command `npm list jspdf` confirms version 4.0.0 (latest as of Jan 2025)
+2. Developer can export Age Calculator results to PDF and PDF opens correctly
+3. Code uses current jsPDF v4.0.0 API (named import, standard methods, built-in TypeScript types)
+4. TypeScript compilation succeeds with zero jsPDF-related errors
+5. Documentation accurately reflects jsPDF version history and current status
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 1 plan in 1 wave
+
+Plans:
+- [ ] 06-01-PLAN.md — Correct jsPDF documentation and verify implementation
 
 ---
 
