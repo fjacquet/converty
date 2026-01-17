@@ -146,16 +146,16 @@ export function HyperfocalCalculator() {
           <p className="font-medium mb-2">What is Hyperfocal Distance?</p>
           <p className="text-sm text-muted-foreground">{HYPERFOCAL_INFO.definition}</p>
           <ul className="text-sm text-muted-foreground space-y-1 mt-2">
-            {HYPERFOCAL_INFO.usage.map((tip, i) => (
-              <li key={i}>• {tip}</li>
+            {HYPERFOCAL_INFO.usage.map((tip) => (
+              <li key={tip}>• {tip}</li>
             ))}
           </ul>
         </div>
         <div className="p-4 rounded-lg border bg-muted/30">
           <p className="font-medium mb-2">Tips</p>
           <ul className="text-sm text-muted-foreground space-y-1">
-            {HYPERFOCAL_INFO.tips.map((tip, i) => (
-              <li key={i}>• {tip}</li>
+            {HYPERFOCAL_INFO.tips.map((tip) => (
+              <li key={tip}>• {tip}</li>
             ))}
           </ul>
         </div>
@@ -164,8 +164,8 @@ export function HyperfocalCalculator() {
       <div className="p-4 rounded-lg border bg-yellow-500/10">
         <p className="font-medium mb-2">Common Mistakes</p>
         <ul className="text-sm text-muted-foreground space-y-1">
-          {HYPERFOCAL_INFO.commonMistakes.map((tip, i) => (
-            <li key={i}>• {tip}</li>
+          {HYPERFOCAL_INFO.commonMistakes.map((tip) => (
+            <li key={tip}>• {tip}</li>
           ))}
         </ul>
       </div>

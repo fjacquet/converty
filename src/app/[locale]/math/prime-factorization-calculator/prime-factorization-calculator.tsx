@@ -67,8 +67,8 @@ export function PrimeFactorizationCalculator() {
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("factorTree")}:</p>
             <div className="text-sm text-muted-foreground font-mono space-y-1">
-              {primeResult.factorTree.map((step, i) => (
-                <p key={i}>{step}</p>
+              {primeResult.factorTree.map((step) => (
+                <p key={step}>{step}</p>
               ))}
             </div>
           </div>

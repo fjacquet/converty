@@ -308,7 +308,7 @@ export function calculateBasicCalculator(
       if (tokens[i] === "-" && (i === 0 || "+-*/^(%".includes(tokens[i - 1]))) {
         // Negative sign
         if (i + 1 < tokens.length && /^[\d.]/.test(tokens[i + 1])) {
-          processedTokens.push("-" + tokens[i + 1]);
+          processedTokens.push(`-${tokens[i + 1]}`);
           i++;
         } else {
           processedTokens.push("-1");

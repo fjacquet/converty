@@ -103,9 +103,9 @@ export function BmrCalculatorComponent() {
       {result && (
         <div className="space-y-4">
           <OutputDisplay
-            label={tResults("bmr") + " (Average)"}
+            label={`${tResults("bmr")} (Average)`}
             value={Math.round(result.average)}
-            unit={tResults("kcal") + "/day"}
+            unit={`${tResults("kcal")}/day`}
             size="lg"
           />
 

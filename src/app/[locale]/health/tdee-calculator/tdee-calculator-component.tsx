@@ -148,13 +148,13 @@ export function TdeeCalculatorComponent() {
             <OutputDisplay
               label={tResults("bmr")}
               value={Math.round(result.bmr)}
-              unit={tResults("kcal") + "/day"}
+              unit={`${tResults("kcal")}/day`}
               size="lg"
             />
             <OutputDisplay
               label={tResults("tdee")}
               value={Math.round(result.tdee)}
-              unit={tResults("kcal") + "/day"}
+              unit={`${tResults("kcal")}/day`}
               size="lg"
             />
           </div>
@@ -162,7 +162,7 @@ export function TdeeCalculatorComponent() {
           <OutputDisplay
             label={tResults("targetCalories")}
             value={Math.round(result.targetCalories)}
-            unit={tResults("kcal") + "/day"}
+            unit={`${tResults("kcal")}/day`}
             size="lg"
           />
 

@@ -178,16 +178,16 @@ export function StarTrailsCalculator() {
           <div className="p-4 rounded-lg border bg-muted/30">
             <p className="font-medium mb-2">Best Conditions</p>
             <ul className="text-sm text-muted-foreground space-y-1">
-              {STAR_TRAILS_INFO.bestConditions.map((tip, i) => (
-                <li key={i}>• {tip}</li>
+              {STAR_TRAILS_INFO.bestConditions.map((tip) => (
+                <li key={tip}>• {tip}</li>
               ))}
             </ul>
           </div>
           <div className="p-4 rounded-lg border bg-muted/30">
             <p className="font-medium mb-2">Techniques</p>
             <ul className="text-sm text-muted-foreground space-y-1">
-              {STAR_TRAILS_INFO.techniques.map((tip, i) => (
-                <li key={i}>• {tip}</li>
+              {STAR_TRAILS_INFO.techniques.map((tip) => (
+                <li key={tip}>• {tip}</li>
               ))}
             </ul>
           </div>

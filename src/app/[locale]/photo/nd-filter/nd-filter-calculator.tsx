@@ -123,8 +123,8 @@ export function NDFilterCalculator() {
         <div className="p-4 rounded-lg border bg-muted/30">
           <p className="font-medium mb-2">Common Uses</p>
           <div className="space-y-2">
-            {ND_FILTER_INFO.commonUses.map((use, i) => (
-              <div key={i} className="flex justify-between text-sm">
+            {ND_FILTER_INFO.commonUses.map((use) => (
+              <div key={`${use.effect}-${use.shutter}`} className="flex justify-between text-sm">
                 <span>{use.effect}</span>
                 <span className="text-muted-foreground">{use.shutter}</span>
               </div>
@@ -134,8 +134,8 @@ export function NDFilterCalculator() {
         <div className="p-4 rounded-lg border bg-muted/30">
           <p className="font-medium mb-2">Why Use ND Filters?</p>
           <ul className="text-sm text-muted-foreground space-y-1">
-            {ND_FILTER_INFO.purpose.map((purpose, i) => (
-              <li key={i}>• {purpose}</li>
+            {ND_FILTER_INFO.purpose.map((purpose) => (
+              <li key={purpose}>• {purpose}</li>
             ))}
           </ul>
         </div>
@@ -159,8 +159,8 @@ export function NDFilterCalculator() {
       <div className="p-4 rounded-lg border bg-muted/30">
         <p className="font-medium mb-2">Tips</p>
         <ul className="text-sm text-muted-foreground space-y-1">
-          {ND_FILTER_INFO.tips.map((tip, i) => (
-            <li key={i}>• {tip}</li>
+          {ND_FILTER_INFO.tips.map((tip) => (
+            <li key={tip}>• {tip}</li>
           ))}
         </ul>
       </div>

@@ -104,8 +104,8 @@ export function RootCalculator() {
           {rootResult.relatedRoots.length > 0 && (
             <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
               <p className="text-sm font-medium">Related Roots:</p>
-              {rootResult.relatedRoots.map((root, i) => (
-                <p key={i} className="text-sm text-muted-foreground font-mono">
+              {rootResult.relatedRoots.map((root) => (
+                <p key={`root-${root.index}`} className="text-sm text-muted-foreground font-mono">
                   {root.index === 2 ? "√" : root.index === 3 ? "∛" : `${root.index}√`}
                   {values.radicand} = {root.result.toFixed(6)}
                 </p>

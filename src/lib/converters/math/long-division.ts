@@ -114,7 +114,7 @@ export function calculateLongDivision(input: LongDivisionInput): LongDivisionRes
       const repeatStart = seen.get(rem)!;
       const nonRepeating = decimalPart.substring(0, repeatStart);
       const repeating = decimalPart.substring(repeatStart);
-      repeatingDecimal = nonRepeating + "(" + repeating + ")";
+      repeatingDecimal = `${nonRepeating}(${repeating})`;
       break;
     }
     seen.set(rem, pos);

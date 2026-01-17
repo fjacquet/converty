@@ -172,8 +172,8 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
     result,
     percentage,
     odds: {
-      for: isFinite(oddsFor) ? `${oddsFor.toFixed(2)} to 1` : "∞",
-      against: isFinite(oddsAgainst) ? `${oddsAgainst.toFixed(2)} to 1` : "∞",
+      for: Number.isFinite(oddsFor) ? `${oddsFor.toFixed(2)} to 1` : "∞",
+      against: Number.isFinite(oddsAgainst) ? `${oddsAgainst.toFixed(2)} to 1` : "∞",
     },
     formula,
     explanation,

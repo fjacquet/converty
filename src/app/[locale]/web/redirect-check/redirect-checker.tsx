@@ -130,8 +130,8 @@ export function RedirectChecker() {
                     Issues
                   </p>
                   <ul className="text-sm space-y-1">
-                    {analysis.issues.map((issue, i) => (
-                      <li key={i}>• {issue}</li>
+                    {analysis.issues.map((issue) => (
+                      <li key={issue}>• {issue}</li>
                     ))}
                   </ul>
                 </div>
@@ -143,8 +143,8 @@ export function RedirectChecker() {
                     Recommendations
                   </p>
                   <ul className="text-sm space-y-1">
-                    {analysis.recommendations.map((rec, i) => (
-                      <li key={i}>• {rec}</li>
+                    {analysis.recommendations.map((rec) => (
+                      <li key={rec}>• {rec}</li>
                     ))}
                   </ul>
                 </div>

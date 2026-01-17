@@ -112,7 +112,7 @@ export function LeanBodyMassCalculator() {
                 unit: "kg",
               },
               {
-                label: tResults("bodyFatPercentage") + " (estimated)",
+                label: `${tResults("bodyFatPercentage")} (estimated)`,
                 value: result.bodyFatPercentEstimate.toFixed(1),
                 unit: "%",
               },

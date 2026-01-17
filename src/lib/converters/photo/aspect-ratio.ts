@@ -83,5 +83,5 @@ export const COMMON_RATIOS = [
   { name: "Classic Film", ratio: "3:2", decimal: 1.5 },
   { name: "Instagram Portrait", ratio: "4:5", decimal: 0.8 },
   { name: "Cinema", ratio: "2.39:1", decimal: 2.39 },
-  { name: "A4 Paper", ratio: "1:1.414", decimal: 0.707 },
+  { name: "A4 Paper", ratio: "1:1.414", decimal: Math.SQRT1_2 },
 ];

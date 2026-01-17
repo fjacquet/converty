@@ -114,7 +114,7 @@ export function DoFTableCalculator() {
                   <td className="py-2 px-2 font-medium sticky left-0 bg-background">
                     f/{aperture}
                   </td>
-                  {row.map((cell, colIndex) => {
+                  {row.map((cell) => {
                     let value: number;
                     switch (displayMode) {
                       case "near":
@@ -134,7 +134,7 @@ export function DoFTableCalculator() {
 
                     return (
                       <td
-                        key={colIndex}
+                        key={`cell-${cell.distance}`}
                         className={`py-2 px-2 text-center ${
                           isInfinity
                             ? "bg-green-500/10 text-green-600 dark:text-green-400"

@@ -96,7 +96,14 @@ export function GoldenHourGuide() {
     if (manualMode) {
       const lat = parseFloat(manualLat);
       const lng = parseFloat(manualLng);
-      if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+      if (
+        !Number.isNaN(lat) &&
+        !Number.isNaN(lng) &&
+        lat >= -90 &&
+        lat <= 90 &&
+        lng >= -180 &&
+        lng <= 180
+      ) {
         return { lat, lng };
       }
       return null;

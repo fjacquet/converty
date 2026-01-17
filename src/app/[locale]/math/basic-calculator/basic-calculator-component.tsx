@@ -81,8 +81,8 @@ export function BasicCalculatorComponent() {
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("calculationSteps")}:</p>
             <div className="text-sm text-muted-foreground font-mono space-y-1">
-              {calcResult.steps.map((step, i) => (
-                <p key={i}>{step}</p>
+              {calcResult.steps.map((step) => (
+                <p key={step}>{step}</p>
               ))}
             </div>
           </div>

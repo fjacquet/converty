@@ -160,8 +160,8 @@ export function ZScoreCalculator() {
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("calculationSteps")}:</p>
             <div className="text-sm text-muted-foreground font-mono space-y-1">
-              {zResult.steps.map((step, i) => (
-                <p key={i}>{step}</p>
+              {zResult.steps.map((step) => (
+                <p key={step}>{step}</p>
               ))}
             </div>
           </div>

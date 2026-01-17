@@ -33,7 +33,7 @@ export function calculateDueDate(input: DueDateInput): DueDateResult | null {
   } = input;
 
   const inputDate = new Date(date);
-  if (isNaN(inputDate.getTime())) {
+  if (Number.isNaN(inputDate.getTime())) {
     return null;
   }
 

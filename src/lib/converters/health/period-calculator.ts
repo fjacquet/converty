@@ -32,7 +32,7 @@ export function calculatePeriod(input: PeriodInput): PeriodResult | null {
 
   const lmpDate = new Date(lastPeriodDate);
   if (
-    isNaN(lmpDate.getTime()) ||
+    Number.isNaN(lmpDate.getTime()) ||
     cycleLength < 21 ||
     cycleLength > 40 ||
     periodLength < 2 ||

@@ -176,9 +176,9 @@ export function SEOAnalyzer() {
       {recommendations.length > 0 && (
         <div className="space-y-4">
           <p className="text-sm font-medium">Recommendations</p>
-          {recommendations.map((rec, i) => (
+          {recommendations.map((rec) => (
             <div
-              key={i}
+              key={`${rec.category}-${rec.issue}`}
               className={`p-4 rounded-lg border ${
                 rec.priority === "high"
                   ? "border-red-500/50 bg-red-500/10"

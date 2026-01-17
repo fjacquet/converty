@@ -193,8 +193,8 @@ export function FocalEquivalentCalculator() {
         <div className="p-4 rounded-lg border bg-muted/30">
           <p className="font-medium mb-2">Examples</p>
           <ul className="text-sm text-muted-foreground space-y-1">
-            {FOCAL_EQUIVALENT_INFO.examples.map((ex, i) => (
-              <li key={i}>
+            {FOCAL_EQUIVALENT_INFO.examples.map((ex) => (
+              <li key={`${ex.source}-${ex.target}`}>
                 <span className="text-foreground">{ex.source}</span> = {ex.target}
               </li>
             ))}

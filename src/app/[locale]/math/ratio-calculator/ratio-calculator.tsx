@@ -217,8 +217,11 @@ export function RatioCalculator() {
           <div className="rounded-lg border p-4">
             <p className="text-sm font-medium mb-3">{tMath("equivalentRatios")}:</p>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-sm">
-              {ratioResult.equivalentRatios.slice(0, 10).map((ratio, i) => (
-                <div key={i} className="bg-muted rounded p-2 text-center font-mono">
+              {ratioResult.equivalentRatios.slice(0, 10).map((ratio) => (
+                <div
+                  key={`ratio-${ratio.a}-${ratio.b}`}
+                  className="bg-muted rounded p-2 text-center font-mono"
+                >
                   {ratio.a} : {ratio.b}
                 </div>
               ))}
@@ -228,8 +231,8 @@ export function RatioCalculator() {
           {ratioResult.steps.length > 0 && (
             <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
               <p className="text-sm font-medium">{tMath("steps")}:</p>
-              {ratioResult.steps.map((step, i) => (
-                <p key={i} className="text-sm text-muted-foreground font-mono">
+              {ratioResult.steps.map((step) => (
+                <p key={step} className="text-sm text-muted-foreground font-mono">
                   {step}
                 </p>
               ))}

@@ -23,7 +23,7 @@ export function StatisticsCalculator() {
     const data = dataInput
       .split(/[,\s\n]+/)
       .map((s) => parseFloat(s.trim()))
-      .filter((n) => !isNaN(n));
+      .filter((n) => !Number.isNaN(n));
 
     if (data.length > 0) {
       const input: StatisticsInput = {

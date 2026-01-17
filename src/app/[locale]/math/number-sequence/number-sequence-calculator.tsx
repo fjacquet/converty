@@ -52,7 +52,7 @@ export function NumberSequenceCalculator() {
       ? customTerms
           .split(",")
           .map((s) => parseFloat(s.trim()))
-          .filter((n) => !isNaN(n))
+          .filter((n) => !Number.isNaN(n))
       : undefined;
 
     const input: NumberSequenceInput = {
@@ -301,8 +301,8 @@ export function NumberSequenceCalculator() {
             </CardHeader>
             <CardContent>
               <ul className="space-y-1 text-sm font-mono">
-                {result.steps.map((step, i) => (
-                  <li key={i} className="text-muted-foreground">
+                {result.steps.map((step) => (
+                  <li key={step} className="text-muted-foreground">
                     {step}
                   </li>
                 ))}

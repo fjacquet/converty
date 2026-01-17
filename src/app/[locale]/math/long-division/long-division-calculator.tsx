@@ -142,8 +142,8 @@ export function LongDivisionCalculator() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {result.steps.map((step, i) => (
-                    <div key={i} className="border-l-2 border-primary pl-4 py-2">
+                  {result.steps.map((step) => (
+                    <div key={`step-${step.step}`} className="border-l-2 border-primary pl-4 py-2">
                       <p className="font-semibold">Step {step.step}</p>
                       <ul className="text-sm text-muted-foreground space-y-1 font-mono">
                         <li>{step.bring}</li>

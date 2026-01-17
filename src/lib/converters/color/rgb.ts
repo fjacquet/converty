@@ -83,7 +83,7 @@ export function hslToRgb(h: number, s: number, l: number): RGBColor {
   s /= 100;
   l /= 100;
 
-  let r, g, b;
+  let r: number, g: number, b: number;
 
   if (s === 0) {
     r = g = b = l;

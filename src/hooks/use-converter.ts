@@ -41,8 +41,7 @@ export function useConverter<T extends object, R = any>({
         setValues((prev) => ({ ...prev, ...urlValues }) as T);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getFromUrl, syncUrl]);
 
   // Update URL when values change
   useEffect(() => {

@@ -132,22 +132,22 @@ export function ProteinCalculatorComponent() {
           <ResultGrid
             results={[
               {
-                label: "3 " + t("mealsPerDay"),
+                label: `3 ${t("mealsPerDay")}`,
                 value: Math.round(result.perMeal.meals3),
                 unit: "g",
               },
               {
-                label: "4 " + t("mealsPerDay"),
+                label: `4 ${t("mealsPerDay")}`,
                 value: Math.round(result.perMeal.meals4),
                 unit: "g",
               },
               {
-                label: "5 " + t("mealsPerDay"),
+                label: `5 ${t("mealsPerDay")}`,
                 value: Math.round(result.perMeal.meals5),
                 unit: "g",
               },
               {
-                label: "6 " + t("mealsPerDay"),
+                label: `6 ${t("mealsPerDay")}`,
                 value: Math.round(result.perMeal.meals6),
                 unit: "g",
               },

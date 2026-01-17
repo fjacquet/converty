@@ -53,7 +53,7 @@ export function calculateVideoBitrate(
 function getQualityAssessment(
   bitrateMbps: number,
   width: number,
-  height: number,
+  _height: number,
   codec: string
 ): { qualityLevel: string; recommendation: string } {
   const is4K = width >= 3840;

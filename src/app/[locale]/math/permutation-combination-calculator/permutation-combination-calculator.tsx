@@ -116,8 +116,8 @@ export function PermutationCombinationCalculator() {
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("calculationSteps")}:</p>
             <div className="text-sm text-muted-foreground font-mono space-y-1">
-              {pcResult.steps.map((step, i) => (
-                <p key={i}>{step}</p>
+              {pcResult.steps.map((step) => (
+                <p key={step}>{step}</p>
               ))}
             </div>
           </div>
@@ -131,8 +131,8 @@ export function PermutationCombinationCalculator() {
             <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
               <p className="text-sm font-medium">{tMath("realWorldExamples")}:</p>
               <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                {pcResult.examples.map((example, i) => (
-                  <li key={i}>{example}</li>
+                {pcResult.examples.map((example) => (
+                  <li key={example}>{example}</li>
                 ))}
               </ul>
             </div>

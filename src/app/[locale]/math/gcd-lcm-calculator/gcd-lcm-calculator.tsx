@@ -21,7 +21,7 @@ export function GcdLcmCalculator() {
     const numbers = numbersInput
       .split(/[,\s\n]+/)
       .map((s) => parseInt(s.trim()))
-      .filter((n) => !isNaN(n) && n !== 0);
+      .filter((n) => !Number.isNaN(n) && n !== 0);
 
     if (numbers.length > 0) {
       const input: GcdLcmInput = { numbers };
@@ -61,8 +61,8 @@ export function GcdLcmCalculator() {
           <div className="rounded-lg border p-4">
             <p className="text-sm font-medium mb-3">{tMath("primeFactorizations")}:</p>
             <div className="space-y-2">
-              {result.primeFactorizations.map((pf, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm">
+              {result.primeFactorizations.map((pf) => (
+                <div key={`pf-${pf.number}`} className="flex items-center gap-2 text-sm">
                   <span className="font-medium min-w-[60px]">{pf.number} =</span>
                   <span className="font-mono text-muted-foreground">{pf.factorString}</span>
                 </div>
@@ -73,16 +73,16 @@ export function GcdLcmCalculator() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
               <p className="text-sm font-medium">{tMath("gcdSteps")}:</p>
-              {result.gcdSteps.map((step, i) => (
-                <p key={i} className="text-sm text-muted-foreground font-mono">
+              {result.gcdSteps.map((step) => (
+                <p key={step} className="text-sm text-muted-foreground font-mono">
                   {step}
                 </p>
               ))}
             </div>
             <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
               <p className="text-sm font-medium">{tMath("lcmSteps")}:</p>
-              {result.lcmSteps.map((step, i) => (
-                <p key={i} className="text-sm text-muted-foreground font-mono">
+              {result.lcmSteps.map((step) => (
+                <p key={step} className="text-sm text-muted-foreground font-mono">
                   {step}
                 </p>
               ))}

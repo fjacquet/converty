@@ -150,7 +150,7 @@ function toScientificNotation(num: string, precision: number = 6): string {
   if (num === "0") return "0";
 
   const exponent = num.length - 1;
-  const mantissa = num[0] + "." + num.slice(1, precision + 1).padEnd(precision, "0");
+  const mantissa = `${num[0]}.${num.slice(1, precision + 1).padEnd(precision, "0")}`;
 
   return `${mantissa} × 10^${exponent}`;
 }
@@ -182,7 +182,7 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
       if (isNegativeA === isNegativeB) {
         // Same sign: add and keep sign
         result = addBigIntegers(absA, absB);
-        if (isNegativeA) result = "-" + result;
+        if (isNegativeA) result = `-${result}`;
       } else {
         // Different signs: subtract
         const cmp = compareBigIntegers(absA, absB);
@@ -190,10 +190,10 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
           result = "0";
         } else if (cmp > 0) {
           result = subtractBigIntegers(absA, absB);
-          if (isNegativeA) result = "-" + result;
+          if (isNegativeA) result = `-${result}`;
         } else {
           result = subtractBigIntegers(absB, absA);
-          if (isNegativeB) result = "-" + result;
+          if (isNegativeB) result = `-${result}`;
         }
       }
 
@@ -212,17 +212,17 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
 
       if (isNegativeA === effectiveNegB) {
         result = addBigIntegers(absA, absB);
-        if (isNegativeA) result = "-" + result;
+        if (isNegativeA) result = `-${result}`;
       } else {
         const cmp = compareBigIntegers(absA, absB);
         if (cmp === 0) {
           result = "0";
         } else if (cmp > 0) {
           result = subtractBigIntegers(absA, absB);
-          if (isNegativeA) result = "-" + result;
+          if (isNegativeA) result = `-${result}`;
         } else {
           result = subtractBigIntegers(absB, absA);
-          if (!isNegativeA) result = "-" + result;
+          if (!isNegativeA) result = `-${result}`;
         }
       }
 
@@ -239,7 +239,7 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
 
       // Determine sign
       if (isNegativeA !== isNegativeB && result !== "0") {
-        result = "-" + result;
+        result = `-${result}`;
       }
 
       steps.push(`Multiplying ${numberA} by ${numberB}`);
@@ -288,7 +288,7 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
 
         // Handle sign
         if (isNegativeA && exp % 2 === 1) {
-          result = "-" + result;
+          result = `-${result}`;
         }
       }
 

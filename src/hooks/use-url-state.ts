@@ -34,7 +34,7 @@ export function useUrlState() {
     searchParams.forEach((value, key) => {
       // Try to parse as number, otherwise keep as string
       const numValue = Number(value);
-      result[key] = isNaN(numValue) ? value : numValue;
+      result[key] = Number.isNaN(numValue) ? value : numValue;
     });
 
     return Object.keys(result).length > 0 ? (result as Partial<T>) : null;

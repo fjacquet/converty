@@ -207,8 +207,8 @@ export function SpotStarsCalculator() {
         <div className="p-4 rounded-lg border bg-muted/30">
           <p className="font-medium mb-2">Tips</p>
           <ul className="text-sm text-muted-foreground space-y-1">
-            {SPOT_STARS_INFO.tips.map((tip, i) => (
-              <li key={i}>• {tip}</li>
+            {SPOT_STARS_INFO.tips.map((tip) => (
+              <li key={tip}>• {tip}</li>
             ))}
           </ul>
         </div>

@@ -64,8 +64,8 @@ export function CSPGenerator() {
             Security Issues
           </p>
           <ul className="text-sm space-y-1">
-            {result.issues.map((issue, i) => (
-              <li key={i}>• {issue}</li>
+            {result.issues.map((issue) => (
+              <li key={issue}>• {issue}</li>
             ))}
           </ul>
         </div>

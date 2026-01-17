@@ -183,7 +183,9 @@ export function SlopeCalculator() {
             <OutputDisplay
               label={tMath("yIntercept")}
               value={
-                !isNaN(slopeResult.yIntercept) ? slopeResult.yIntercept.toFixed(4) : "undefined"
+                !Number.isNaN(slopeResult.yIntercept)
+                  ? slopeResult.yIntercept.toFixed(4)
+                  : "undefined"
               }
               size="lg"
             />
@@ -246,8 +248,8 @@ export function SlopeCalculator() {
           {slopeResult.steps.length > 0 && (
             <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
               <p className="text-sm font-medium">{tMath("steps")}:</p>
-              {slopeResult.steps.map((step, i) => (
-                <p key={i} className="text-sm text-muted-foreground font-mono">
+              {slopeResult.steps.map((step) => (
+                <p key={step} className="text-sm text-muted-foreground font-mono">
                   {step}
                 </p>
               ))}

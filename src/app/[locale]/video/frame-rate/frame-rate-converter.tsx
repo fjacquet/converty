@@ -80,8 +80,8 @@ export function FrameRateConverter() {
                 Warnings
               </p>
               <ul className="text-sm space-y-1">
-                {result.warnings.map((w, i) => (
-                  <li key={i}>• {w}</li>
+                {result.warnings.map((w) => (
+                  <li key={w}>• {w}</li>
                 ))}
               </ul>
             </div>

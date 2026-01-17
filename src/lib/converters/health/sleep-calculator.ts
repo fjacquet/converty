@@ -30,7 +30,7 @@ export function calculateSleep(input: SleepInput): SleepResult | null {
 
   // Parse target time
   const [hours, minutes] = targetTime.split(":").map(Number);
-  if (isNaN(hours) || isNaN(minutes)) {
+  if (Number.isNaN(hours) || Number.isNaN(minutes)) {
     return null;
   }
 

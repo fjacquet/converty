@@ -182,8 +182,8 @@ export function MacroDoFCalculator() {
             <div className="p-4 rounded-lg border bg-amber-500/10">
               <p className="font-medium mb-2">Notes</p>
               <ul className="text-sm text-muted-foreground space-y-1">
-                {result.notes.map((note, i) => (
-                  <li key={i}>&#8226; {note}</li>
+                {result.notes.map((note) => (
+                  <li key={note}>&#8226; {note}</li>
                 ))}
               </ul>
             </div>

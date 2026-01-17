@@ -64,8 +64,11 @@ export function SPFChecker() {
                 </tr>
               </thead>
               <tbody>
-                {result.mechanisms.map((mech, i) => (
-                  <tr key={i} className="border-b border-muted">
+                {result.mechanisms.map((mech) => (
+                  <tr
+                    key={`${mech.type}-${mech.value || "none"}-${mech.qualifier}`}
+                    className="border-b border-muted"
+                  >
                     <td className="py-2">
                       <span
                         className={`px-2 py-0.5 rounded text-xs font-medium ${
@@ -98,8 +101,8 @@ export function SPFChecker() {
         <div className="p-4 rounded-lg border border-red-500/50 bg-red-500/10">
           <p className="text-sm font-medium text-red-600 dark:text-red-400 mb-2">Issues</p>
           <ul className="text-sm space-y-1">
-            {result.issues.map((issue, i) => (
-              <li key={i}>• {issue}</li>
+            {result.issues.map((issue) => (
+              <li key={issue}>• {issue}</li>
             ))}
           </ul>
         </div>
@@ -111,8 +114,8 @@ export function SPFChecker() {
             Recommendations
           </p>
           <ul className="text-sm space-y-1">
-            {result.recommendations.map((rec, i) => (
-              <li key={i}>• {rec}</li>
+            {result.recommendations.map((rec) => (
+              <li key={rec}>• {rec}</li>
             ))}
           </ul>
         </div>

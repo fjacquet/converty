@@ -318,8 +318,8 @@ export function AreaCalculator() {
           {areaResult.steps.length > 0 && (
             <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
               <p className="text-sm font-medium">{tMath("steps")}:</p>
-              {areaResult.steps.map((step, i) => (
-                <p key={i} className="text-sm text-muted-foreground font-mono">
+              {areaResult.steps.map((step) => (
+                <p key={step} className="text-sm text-muted-foreground font-mono">
                   {step}
                 </p>
               ))}

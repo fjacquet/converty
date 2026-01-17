@@ -21,7 +21,7 @@ export function AverageCalculator() {
     const numbers = numbersInput
       .split(/[,\s]+/)
       .map((n) => parseFloat(n.trim()))
-      .filter((n) => !isNaN(n));
+      .filter((n) => !Number.isNaN(n));
 
     if (numbers.length > 0) {
       const input: AverageInput = { numbers };

@@ -122,7 +122,7 @@ export function TriangleCalculator() {
           {(values.mode === "asaAngles" || values.mode === "aasAngles") && (
             <InputField
               id="angleA"
-              label={tMath("angleA") + " (°)"}
+              label={`${tMath("angleA")} (°)`}
               value={values.angleA}
               onChange={(v) => setValue("angleA", v)}
               step="any"
@@ -135,7 +135,7 @@ export function TriangleCalculator() {
           {(values.mode === "asaAngles" || values.mode === "aasAngles") && (
             <InputField
               id="angleB"
-              label={tMath("angleB") + " (°)"}
+              label={`${tMath("angleB")} (°)`}
               value={values.angleB}
               onChange={(v) => setValue("angleB", v)}
               step="any"
@@ -148,7 +148,7 @@ export function TriangleCalculator() {
           {values.mode === "sasAngle" && (
             <InputField
               id="angleC"
-              label={tMath("angleC") + " (°)"}
+              label={`${tMath("angleC")} (°)`}
               value={values.angleC}
               onChange={(v) => setValue("angleC", v)}
               step="any"

@@ -86,8 +86,8 @@ export function ExponentCalculator() {
             {expResult.rules.length > 0 && (
               <>
                 <p className="text-sm font-medium mt-4">Rules:</p>
-                {expResult.rules.map((rule, i) => (
-                  <p key={i} className="text-sm text-muted-foreground">
+                {expResult.rules.map((rule) => (
+                  <p key={rule} className="text-sm text-muted-foreground">
                     {rule}
                   </p>
                 ))}

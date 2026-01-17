@@ -71,8 +71,8 @@ export function LogarithmCalculator() {
 
           <ResultGrid
             results={[
-              { label: tMath("naturalLog") + " (ln)", value: logResult.naturalLog.toFixed(6) },
-              { label: tMath("commonLog") + " (log₁₀)", value: logResult.log10.toFixed(6) },
+              { label: `${tMath("naturalLog")} (ln)`, value: logResult.naturalLog.toFixed(6) },
+              { label: `${tMath("commonLog")} (log₁₀)`, value: logResult.log10.toFixed(6) },
               { label: "log₂", value: logResult.log2.toFixed(6) },
               { label: "Antilog", value: logResult.antilog.toFixed(6) },
             ]}
@@ -86,8 +86,8 @@ export function LogarithmCalculator() {
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">Logarithm Properties:</p>
-            {logResult.properties.map((prop, i) => (
-              <p key={i} className="text-sm text-muted-foreground font-mono">
+            {logResult.properties.map((prop) => (
+              <p key={prop} className="text-sm text-muted-foreground font-mono">
                 {prop}
               </p>
             ))}

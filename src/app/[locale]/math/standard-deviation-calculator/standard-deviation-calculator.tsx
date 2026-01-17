@@ -23,7 +23,7 @@ export function StandardDeviationCalculator() {
     const numbers = dataInput
       .split(/[,\s\n]+/)
       .map((s) => parseFloat(s.trim()))
-      .filter((n) => !isNaN(n));
+      .filter((n) => !Number.isNaN(n));
 
     if (numbers.length > 0) {
       const input: StandardDeviationInput = {
@@ -108,8 +108,8 @@ export function StandardDeviationCalculator() {
                     </tr>
                   </thead>
                   <tbody>
-                    {result.deviations.map((d, i) => (
-                      <tr key={i} className="border-b">
+                    {result.deviations.map((d) => (
+                      <tr key={`dev-${d.value}`} className="border-b">
                         <td className="p-2">{d.value}</td>
                         <td className="p-2">{d.deviation.toFixed(4)}</td>
                         <td className="p-2">{d.squaredDeviation.toFixed(4)}</td>
@@ -125,8 +125,8 @@ export function StandardDeviationCalculator() {
             <div className="rounded-lg border p-4">
               <p className="text-sm font-medium mb-3">{tMath("zScores")}:</p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
-                {result.zScores.map((z, i) => (
-                  <div key={i} className="bg-muted rounded p-2 text-center">
+                {result.zScores.map((z) => (
+                  <div key={`zscore-${z.value}`} className="bg-muted rounded p-2 text-center">
                     {z.value} → z = {z.zScore.toFixed(3)}
                   </div>
                 ))}

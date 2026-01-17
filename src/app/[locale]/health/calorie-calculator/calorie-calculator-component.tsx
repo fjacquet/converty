@@ -154,19 +154,19 @@ export function CalorieCalculatorComponent() {
             <OutputDisplay
               label={tResults("bmr")}
               value={Math.round(result.bmr)}
-              unit={tResults("kcal") + "/day"}
+              unit={`${tResults("kcal")}/day`}
             />
             <OutputDisplay
               label={t("maintenance")}
               value={Math.round(result.maintenanceCalories)}
-              unit={tResults("kcal") + "/day"}
+              unit={`${tResults("kcal")}/day`}
             />
           </div>
 
           <OutputDisplay
             label={tResults("targetCalories")}
             value={Math.round(result.targetCalories)}
-            unit={tResults("kcal") + "/day"}
+            unit={`${tResults("kcal")}/day`}
             size="lg"
           />
 

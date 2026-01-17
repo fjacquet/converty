@@ -29,7 +29,7 @@ export function calculateOvulation(input: OvulationInput): OvulationResult | nul
   const { lastPeriodDate, cycleLength, periodLength: _periodLength = 5 } = input;
 
   const lmpDate = new Date(lastPeriodDate);
-  if (isNaN(lmpDate.getTime()) || cycleLength < 21 || cycleLength > 40) {
+  if (Number.isNaN(lmpDate.getTime()) || cycleLength < 21 || cycleLength > 40) {
     return null;
   }
 

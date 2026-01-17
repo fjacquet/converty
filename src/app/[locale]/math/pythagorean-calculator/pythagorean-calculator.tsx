@@ -160,8 +160,11 @@ export function PythagoreanCalculator() {
           <div className="rounded-lg border p-4">
             <p className="text-sm font-medium mb-3">{tMath("commonPythagoreanTriples")}:</p>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-sm">
-              {pythagoreanResult.pythagoreanTriples.slice(0, 5).map((triple, i) => (
-                <div key={i} className="bg-muted rounded p-2 text-center">
+              {pythagoreanResult.pythagoreanTriples.slice(0, 5).map((triple) => (
+                <div
+                  key={`triple-${triple.a}-${triple.b}-${triple.c}`}
+                  className="bg-muted rounded p-2 text-center"
+                >
                   {triple.a}, {triple.b}, {triple.c}
                 </div>
               ))}

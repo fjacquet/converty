@@ -187,8 +187,8 @@ export function BigNumberCalculator() {
             </CardHeader>
             <CardContent>
               <ul className="space-y-1 text-sm font-mono">
-                {result.steps.map((step, i) => (
-                  <li key={i} className="text-muted-foreground">
+                {result.steps.map((step) => (
+                  <li key={step} className="text-muted-foreground">
                     {step}
                   </li>
                 ))}

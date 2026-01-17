@@ -236,9 +236,9 @@ export function SunPositionCalculator() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {phases.map((phase, i) => (
+              {phases.map((phase) => (
                 <div
-                  key={i}
+                  key={phase.name}
                   className={`p-3 rounded-md ${
                     phase.isCurrent ? "bg-primary text-primary-foreground" : "bg-muted"
                   }`}

@@ -22,7 +22,7 @@ export function calculateExponent(input: ExponentInput): ExponentResult | null {
 
   const result = base ** exponent;
 
-  if (!isFinite(result)) {
+  if (!Number.isFinite(result)) {
     return null; // Result too large or invalid
   }
 
