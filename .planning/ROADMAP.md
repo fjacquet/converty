@@ -71,8 +71,8 @@ Plans:
 **Plans:** 2 plans in 2 waves
 
 Plans:
-- [ ] 03-01-PLAN.md — Verify and remove legacy hooks
-- [ ] 03-02-PLAN.md — Verify calculator functionality
+- [x] 03-01-PLAN.md — Verify and remove legacy hooks
+- [x] 03-02-PLAN.md — Verify calculator functionality
 
 ---
 
@@ -154,7 +154,7 @@ Plans:
 | --------------------------- | ----------- | ---------- |
 | 1 - Type Safety Foundation  | Complete    | 2026-01-17 |
 | 2 - URL Sync Infrastructure | Complete    | 2026-01-17 |
-| 3 - State Migration         | Not started | —         |
+| 3 - State Migration         | Complete    | 2026-01-17 |
 | 4 - Progressive Web App     | Not started | —         |
 | 5 - Documentation           | Not started | —         |
 | 6 - Dependency Upgrade      | Not started | —         |

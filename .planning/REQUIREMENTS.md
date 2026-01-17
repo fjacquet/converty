@@ -291,9 +291,9 @@ Explicitly excluded from infrastructure upgrade:
 | TYPE-06        | Phase 1 | 01-01   | Complete |
 | STATE-03       | Phase 2 | 02-01   | Complete |
 | STATE-04       | Phase 2 | 02-01   | Complete |
-| STATE-01       | Phase 3 | TBD     | Pending |
-| STATE-02       | Phase 3 | TBD     | Pending |
-| STATE-05       | Phase 3 | TBD     | Pending |
+| STATE-01       | Phase 3 | 03-01   | Complete |
+| STATE-02       | Phase 3 | 03-01   | Complete |
+| STATE-05       | Phase 3 | 03-01   | Complete |
 | PWA-01         | Phase 4 | TBD     | Pending |
 | PWA-02         | Phase 4 | TBD     | Pending |
 | PWA-03         | Phase 4 | TBD     | Pending |
