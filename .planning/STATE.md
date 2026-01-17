@@ -10,18 +10,18 @@ See: .planning/PROJECT.md
 ## Current Position
 
 Phase: 4 of 7 (Progressive Web App) - IN PROGRESS
-Plan: 2 of 4 complete
-Status: Plans 04-01 and 04-02 complete
-Last activity: 2026-01-17 — Completed 04-01-PLAN.md (PWA Manifest & Icons) and 04-02-PLAN.md (Service Worker & Offline Detection)
+Plan: 3 of 4 complete
+Status: Plans 04-01, 04-02, and 04-03 complete
+Last activity: 2026-01-17 — Completed 04-03-PLAN.md (PWA Registration & Build Integration)
 
-Progress: ██████░░░░░░ 50% (2/4 plans in current phase)
+Progress: █████████░░░ 75% (3/4 plans in current phase)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 8
-- Average duration: 5.2 min
+- Total plans completed: 9
+- Average duration: 5.4 min
 
 **By Phase:**
 
@@ -30,36 +30,43 @@ Progress: ██████░░░░░░ 50% (2/4 plans in current phase)
 | 01-type-safety-foundation  | 4/4   | 7.5 min  | 1.9 min  |
 | 02-url-sync-infrastructure | 1/1   | 4 min    | 4 min    |
 | 03-state-migration         | 2/2   | 26.8 min | 13.4 min |
-| 04-progressive-web-app     | 2/4   | 6 min    | 3 min    |
+| 04-progressive-web-app     | 3/4   | 10.3 min | 3.4 min  |
 
 ## Accumulated Context
 
 ### Decisions
 
-| Decision                                                     | Phase | Rationale                                                                  |
-| ------------------------------------------------------------ | ----- | -------------------------------------------------------------------------- |
-| Use Number.isNaN() instead of global isNaN()                 | 01-01 | Strict check without type coercion prevents false positives                |
-| Boolean parsing accepts only "true" and "1"                  | 01-01 | Explicit is better than implicit - avoid ambiguity                         |
-| Empty string triggers fallback (same as null)                | 01-01 | Empty string in URL typically means "not provided"                         |
-| Enabled noExplicitAny at error level (not warning)           | 01-02 | Strict enforcement makes type safety violations blocking                   |
-| Document strict mode flags inline in tsconfig.json           | 01-02 | Helps future developers understand configuration without external docs     |
-| Use 'unknown' as generic default type for better type safety | 01-03 | Requires explicit type narrowing, prevents accidental unsafe operations    |
-| Centralize URL parsing through helper functions              | 01-03 | Consistency across codebase, single source of truth for parsing logic      |
-| Defer global debounce timer fix to Phase 2                   | 01-03 | Global timer is a known issue (STATE-04) but fixing now would expand scope |
-| Use closure pattern over WeakMap for timer isolation         | 02-01 | Simpler mental model, more explicit, easier to debug                       |
-| Use replaceState instead of pushState for URL sync           | 02-01 | Avoids flooding browser history with every keystroke                       |
-| Add selectState option to middleware                         | 02-01 | Enables syncing nested state (e.g., only values from CalculatorState)      |
-| Verify functional approach before deleting legacy hooks      | 03-01 | Ensure STATE-05 requirements met (pure functions, immutability)            |
-| Manual immutable patterns used instead of Immer middleware   | 03-01 | Spread operators provide equivalent immutability with less overhead        |
+| Decision                                                     | Phase | Rationale                                                                     |
+| ------------------------------------------------------------ | ----- | ----------------------------------------------------------------------------- |
+| Use Number.isNaN() instead of global isNaN()                 | 01-01 | Strict check without type coercion prevents false positives                   |
+| Boolean parsing accepts only "true" and "1"                  | 01-01 | Explicit is better than implicit - avoid ambiguity                            |
+| Empty string triggers fallback (same as null)                | 01-01 | Empty string in URL typically means "not provided"                            |
+| Enabled noExplicitAny at error level (not warning)           | 01-02 | Strict enforcement makes type safety violations blocking                      |
+| Document strict mode flags inline in tsconfig.json           | 01-02 | Helps future developers understand configuration without external docs        |
+| Use 'unknown' as generic default type for better type safety | 01-03 | Requires explicit type narrowing, prevents accidental unsafe operations       |
+| Centralize URL parsing through helper functions              | 01-03 | Consistency across codebase, single source of truth for parsing logic         |
+| Defer global debounce timer fix to Phase 2                   | 01-03 | Global timer is a known issue (STATE-04) but fixing now would expand scope    |
+| Use closure pattern over WeakMap for timer isolation         | 02-01 | Simpler mental model, more explicit, easier to debug                          |
+| Use replaceState instead of pushState for URL sync           | 02-01 | Avoids flooding browser history with every keystroke                          |
+| Add selectState option to middleware                         | 02-01 | Enables syncing nested state (e.g., only values from CalculatorState)         |
+| Verify functional approach before deleting legacy hooks      | 03-01 | Ensure STATE-05 requirements met (pure functions, immutability)               |
+| Manual immutable patterns used instead of Immer middleware   | 03-01 | Spread operators provide equivalent immutability with less overhead           |
 | Use Next.js App Router manifest.ts over static manifest.json | 04-01 | Type safety via MetadataRoute.Manifest, aligns with Next.js 16 best practices |
-| Automate icon generation instead of manual creation          | 04-01 | Ensures correct dimensions, proper maskable safe zones, reproducibility    |
-| Create placeholder gradient icon design                      | 04-01 | Functional PWA immediately, replaceable with branded assets later          |
-| Add force-static export declaration to manifest              | 04-01 | Required for Next.js static export mode (output: "export")                 |
-| Use Workbox CDN via importScripts instead of bundling        | 04-02 | Standard Workbox v7 pattern, avoids bundling issues, easier updates        |
-| NetworkFirst strategy for HTML/documents                     | 04-02 | Fresh content when online, 7-day cache fallback for offline                |
-| CacheFirst strategy for static assets                        | 04-02 | Next.js content-hashed assets are immutable, aggressive caching optimal    |
-| StaleWhileRevalidate for fonts                               | 04-02 | Instant rendering with background updates, balanced freshness              |
-| Manual service worker instead of generated (for now)         | 04-02 | Runtime caching only, build integration with precaching deferred to Plan 03|
+| Automate icon generation instead of manual creation          | 04-01 | Ensures correct dimensions, proper maskable safe zones, reproducibility       |
+| Create placeholder gradient icon design                      | 04-01 | Functional PWA immediately, replaceable with branded assets later             |
+| Add force-static export declaration to manifest              | 04-01 | Required for Next.js static export mode (output: "export")                    |
+| Use Workbox CDN via importScripts instead of bundling        | 04-02 | Standard Workbox v7 pattern, avoids bundling issues, easier updates           |
+| NetworkFirst strategy for HTML/documents                     | 04-02 | Fresh content when online, 7-day cache fallback for offline                   |
+| CacheFirst strategy for static assets                        | 04-02 | Next.js content-hashed assets are immutable, aggressive caching optimal       |
+| StaleWhileRevalidate for fonts                               | 04-02 | Instant rendering with background updates, balanced freshness                 |
+| Manual service worker instead of generated (for now)         | 04-02 | Runtime caching only, build integration with precaching deferred to Plan 03   |
+| Production-only SW registration                              | 04-03 | Service worker caching breaks hot reload in development                       |
+| Separate client component for SW registration                | 04-03 | Clean server/client boundary for browser APIs                                 |
+| generateSW instead of injectManifest                         | 04-03 | Simpler approach for static exports, creates complete SW file                 |
+| Post-build script integration for SW generation              | 04-03 | Workbox needs static files to exist before generating precache manifest       |
+| Platform detection for install prompt                        | 04-03 | iOS needs manual instructions, Android/Desktop support programmatic prompt    |
+| Root scope (/) for service worker                            | 04-03 | Covers all locale routes (/en/, /fr/, /de/, /it/)                             |
+| Combined PWA UI in SWRegistration component                  | 04-03 | Groups related PWA concerns (registration, offline, install) together         |
 
 ### Pending Todos
 
@@ -125,6 +132,6 @@ All objectives achieved:
 
 ## Session Continuity
 
-Last session: 2026-01-17T18:26:00Z
-Stopped at: Completed 04-01-PLAN.md (PWA Manifest & Icons) and 04-02-PLAN.md (Service Worker & Offline Detection)
+Last session: 2026-01-17T17:33:46Z
+Stopped at: Completed 04-03-PLAN.md (PWA Registration & Build Integration)
 Resume file: None
