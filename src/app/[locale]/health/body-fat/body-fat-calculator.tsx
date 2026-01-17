@@ -156,7 +156,7 @@ export function BodyFatCalculator() {
                 {tResults("category")}
               </p>
               <div className="rounded-md border bg-muted/50 px-3 py-4">
-                <span className="text-2xl font-bold">{result.category}</span>
+                <span className="text-2xl font-bold">{tResults(result.category)}</span>
               </div>
             </div>
           </div>
