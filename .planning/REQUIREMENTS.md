@@ -281,14 +281,14 @@ Explicitly excluded from infrastructure upgrade:
 
 **Requirements → Phases Mapping**
 
-| Requirement ID | Phase   | Plan(s) | Status  |
-| -------------- | ------- | ------- | ------- |
-| TYPE-01        | Phase 1 | TBD     | Pending |
-| TYPE-02        | Phase 1 | TBD     | Pending |
-| TYPE-03        | Phase 1 | TBD     | Pending |
-| TYPE-04        | Phase 1 | TBD     | Pending |
-| TYPE-05        | Phase 1 | TBD     | Pending |
-| TYPE-06        | Phase 1 | TBD     | Pending |
+| Requirement ID | Phase   | Plan(s) | Status   |
+| -------------- | ------- | ------- | -------- |
+| TYPE-01        | Phase 1 | 01-02   | Complete |
+| TYPE-02        | Phase 1 | 01-03   | Complete |
+| TYPE-03        | Phase 1 | 01-03   | Complete |
+| TYPE-04        | Phase 1 | 01-03   | Complete |
+| TYPE-05        | Phase 1 | 01-02   | Complete |
+| TYPE-06        | Phase 1 | 01-01   | Complete |
 | STATE-03       | Phase 2 | TBD     | Pending |
 | STATE-04       | Phase 2 | TBD     | Pending |
 | STATE-01       | Phase 3 | TBD     | Pending |
