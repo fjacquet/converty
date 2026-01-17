@@ -68,7 +68,11 @@ Plans:
 4. Calculator state updates correctly and URL parameters sync when values change
 5. All 200+ calculators still work exactly as before (functionality preserved)
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 2 plans in 2 waves
+
+Plans:
+- [ ] 03-01-PLAN.md — Verify and remove legacy hooks
+- [ ] 03-02-PLAN.md — Verify calculator functionality
 
 ---
 
