@@ -154,8 +154,8 @@ Chosen option: **"Workbox generateSW with post-build script"** because it provid
 **Solution:** Environment check before registration
 
 ```typescript
-if (process.env.NODE_ENV === 'production') {
-  navigator.serviceWorker.register('/sw.js', { scope: '/' });
+if (process.env.NODE_ENV === "production") {
+  navigator.serviceWorker.register("/sw.js", { scope: "/" });
 }
 ```
 

@@ -2,7 +2,17 @@
 phase: 05-documentation
 plan: 02
 subsystem: docs
-tags: [adr, madr, architecture-decisions, documentation, zustand, pwa, typescript, jspdf]
+tags:
+  [
+    adr,
+    madr,
+    architecture-decisions,
+    documentation,
+    zustand,
+    pwa,
+    typescript,
+    jspdf,
+  ]
 
 # Dependency graph
 requires:
@@ -92,15 +102,19 @@ Each task was committed atomically:
 ## Decisions Made
 
 **1. Use MADR 4.0.0 format for all ADRs**
+
 - **Rationale:** MADR is lightweight, Markdown-based, well-documented, and recognized across open-source projects. Minimal overhead compared to ADR Tools CLI approach.
 
 **2. Document both completed and planned decisions**
+
 - **Rationale:** ADR 0004 (jsPDF upgrade) is proposed (not yet executed) but documents the decision rationale before Phase 6 implementation. This provides context for future work.
 
 **3. Include comprehensive context from phase summaries**
+
 - **Rationale:** Each ADR references specific phase summaries, STATE.md decisions, implementation files, and commit hashes. This creates traceable links between decisions and actual implementation.
 
 **4. Four-digit zero-padded numbering**
+
 - **Rationale:** MADR recommendation (NNNN-title.md) prevents sorting issues and allows up to 9,999 ADRs. Consistent with established open-source practices.
 
 ## Deviations from Plan
@@ -118,6 +132,7 @@ None - no external service configuration required.
 ## Next Phase Readiness
 
 **ADR foundation complete:**
+
 - Four comprehensive ADRs document key infrastructure decisions
 - Future contributors can read ADRs to understand rationale behind Zustand, PWA, TypeScript, and jsPDF choices
 - MADR 4.0.0 format established as pattern for future architectural decisions
@@ -127,6 +142,7 @@ None - no external service configuration required.
 **Ready for Plan 05-03 (Update CONTRIBUTING.md) and remaining Phase 5 work.**
 
 **Links between ADRs and codebase verified:**
+
 - ADR 0001 references: Phase 3 summaries, createCalculatorStore implementation, age calculator example
 - ADR 0002 references: Phase 4 summaries, service worker file, build script, registration helper
 - ADR 0003 references: Phase 1 summaries, URL parsing helpers, biome.json, tsconfig.json
@@ -135,5 +151,6 @@ None - no external service configuration required.
 **No blockers or concerns.**
 
 ---
-*Phase: 05-documentation*
-*Completed: 2026-01-17*
+
+_Phase: 05-documentation_
+_Completed: 2026-01-17_

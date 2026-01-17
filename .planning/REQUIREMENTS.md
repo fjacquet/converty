@@ -307,13 +307,13 @@ Explicitly excluded from infrastructure upgrade:
 | DEP-01         | Phase 6 | 06-01   | Complete |
 | DEP-02         | Phase 6 | 06-01   | Complete |
 | DEP-03         | Phase 6 | 06-01   | Complete |
-| QUAL-01        | Phase 7 | TBD     | Pending |
-| QUAL-02        | Phase 7 | TBD     | Pending |
-| QUAL-03        | Phase 7 | TBD     | Pending |
-| QUAL-04        | Phase 7 | TBD     | Pending |
-| QUAL-05        | Phase 7 | TBD     | Pending |
-| QUAL-06        | Phase 7 | TBD     | Pending |
-| QUAL-07        | Phase 7 | TBD     | Pending |
+| QUAL-01        | Phase 7 | TBD     | Pending  |
+| QUAL-02        | Phase 7 | TBD     | Pending  |
+| QUAL-03        | Phase 7 | TBD     | Pending  |
+| QUAL-04        | Phase 7 | TBD     | Pending  |
+| QUAL-05        | Phase 7 | TBD     | Pending  |
+| QUAL-06        | Phase 7 | TBD     | Pending  |
+| QUAL-07        | Phase 7 | TBD     | Pending  |
 
 **Coverage:** 32/32 v1 requirements mapped (100%)
 

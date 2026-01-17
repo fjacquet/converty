@@ -97,30 +97,37 @@ Each task was committed atomically:
 ## Decisions Made
 
 **1. Production-only service worker registration**
+
 - **Rationale:** Service worker caching breaks hot reload in development. Development needs fresh code on every change. This is a known PWA pitfall (see 04-RESEARCH.md Pitfall 5).
 - **Implementation:** Check `process.env.NODE_ENV === 'production'` before calling navigator.serviceWorker.register()
 
 **2. Separate client component for SW registration**
+
 - **Rationale:** Root layout is server component. Service worker registration requires browser APIs (navigator, useEffect) only available in client components. Separate client component provides clean boundary.
 - **Implementation:** Created `src/app/[locale]/sw-registration.tsx` with "use client" directive
 
 **3. generateSW instead of injectManifest**
+
 - **Rationale:** Simpler approach that creates complete SW file with precaching. No template needed. Perfect for static exports with predictable file structure.
 - **Implementation:** Workbox's generateSW creates out/sw.js with precacheAndRoute + runtime caching strategies
 
 **4. Post-build script integration**
+
 - **Rationale:** Workbox needs static files to exist before generating precache manifest. Next.js build creates files in out/, then script scans and injects manifest.
 - **Implementation:** `build: "next build && node scripts/generate-sw.js"`
 
 **5. Platform detection for install prompt**
+
 - **Rationale:** iOS doesn't support beforeinstallprompt event - must show manual instructions. Android/Desktop Chrome support programmatic prompt.
 - **Implementation:** Detect iOS via user agent, listen for beforeinstallprompt on other platforms, show appropriate UI for each
 
 **6. Root scope for service worker**
+
 - **Rationale:** Converty uses locale routing (/en/, /fr/, /de/, /it/). Service worker at root scope (/) intercepts all requests. If scope was /en/, would miss /fr/ requests.
 - **Implementation:** navigator.serviceWorker.register('/sw.js', { scope: '/' })
 
 **7. Combined PWA UI in one component**
+
 - **Rationale:** SW registration, offline detection, and install prompt are all PWA concerns. Grouping in SWRegistration component keeps related functionality together and ensures they're rendered together.
 - **Implementation:** SWRegistration renders both <OfflineBanner /> and <InstallPrompt />
 
@@ -135,6 +142,7 @@ None - all tasks executed smoothly with expected behavior.
 ## Next Phase Readiness
 
 **PWA infrastructure complete:**
+
 - ✓ Manifest with icons (04-01)
 - ✓ Service worker with caching strategies (04-02)
 - ✓ Offline detection UI (04-02)
@@ -145,6 +153,7 @@ None - all tasks executed smoothly with expected behavior.
 **Phase 4 complete. Ready for Phase 5 (next roadmap phase).**
 
 **Verification steps for production deployment:**
+
 1. Build production bundle: `npm run build`
 2. Verify out/sw.js exists with precache manifest
 3. Serve production build and check console for "Service worker registered" message
@@ -152,10 +161,12 @@ None - all tasks executed smoothly with expected behavior.
 5. Check for install prompt on compatible browsers
 
 **Known limitations:**
+
 - Service worker only registers in production builds (by design)
 - iOS install prompt requires manual "Add to Home Screen" (platform limitation)
 - First visit requires network to cache resources (standard PWA behavior)
 
 ---
-*Phase: 04-progressive-web-app*
-*Completed: 2026-01-17*
+
+_Phase: 04-progressive-web-app_
+_Completed: 2026-01-17_

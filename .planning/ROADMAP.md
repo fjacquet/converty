@@ -121,6 +121,7 @@ Plans:
 **Plans:** 3 plans in 1 wave
 
 Plans:
+
 - [x] 05-01-PLAN.md — Create CHANGELOG.md and backfill recent changes
 - [x] 05-02-PLAN.md — Create Architecture Decision Records (ADRs)
 - [x] 05-03-PLAN.md — Update CONTRIBUTING.md with Zustand pattern
@@ -144,6 +145,7 @@ Plans:
 **Plans:** 1 plan in 1 wave
 
 Plans:
+
 - [x] 06-01-PLAN.md — Correct jsPDF documentation and verify implementation
 
 ---

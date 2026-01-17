@@ -20,25 +20,26 @@ human_verification:
 
 ### Observable Truths
 
-| # | Truth | Status | Evidence |
-|---|-------|--------|----------|
-| 1 | Multiple calculator instances maintain independent debounce timers | ✓ VERIFIED | Factory function creates closure-scoped timer (line 47 in url-sync.ts) |
-| 2 | URL updates are debounced (not immediate on every keystroke) | ✓ VERIFIED | setTimeout with 150ms default (line 78 in url-sync.ts) |
-| 3 | Calculator state syncs to URL parameters for shareability | ✓ VERIFIED | Middleware calls syncStateToUrl on state changes (lines 78-82) |
-| 4 | No global timer conflicts when switching between calculators | ? HUMAN | Code structure correct, but requires functional testing with browser tabs |
+| #   | Truth                                                              | Status     | Evidence                                                                  |
+| --- | ------------------------------------------------------------------ | ---------- | ------------------------------------------------------------------------- |
+| 1   | Multiple calculator instances maintain independent debounce timers | ✓ VERIFIED | Factory function creates closure-scoped timer (line 47 in url-sync.ts)    |
+| 2   | URL updates are debounced (not immediate on every keystroke)       | ✓ VERIFIED | setTimeout with 150ms default (line 78 in url-sync.ts)                    |
+| 3   | Calculator state syncs to URL parameters for shareability          | ✓ VERIFIED | Middleware calls syncStateToUrl on state changes (lines 78-82)            |
+| 4   | No global timer conflicts when switching between calculators       | ? HUMAN    | Code structure correct, but requires functional testing with browser tabs |
 
 **Score:** 3/4 truths verified (75%)
 
 ### Required Artifacts
 
-| Artifact | Expected | Status | Details |
-|----------|----------|--------|---------|
-| `src/lib/middleware/url-sync.ts` | URL sync middleware factory with closure-based timer | ✓ VERIFIED | 141 lines, exports createUrlSyncMiddleware & UrlSyncOptions, timer in factory scope (line 47) |
-| `src/stores/calculator-store.ts` | Calculator store factory using URL sync middleware | ✓ VERIFIED | 170 lines, imports middleware (line 4), applies conditionally (lines 154-160), no global timer |
+| Artifact                         | Expected                                             | Status     | Details                                                                                        |
+| -------------------------------- | ---------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------- |
+| `src/lib/middleware/url-sync.ts` | URL sync middleware factory with closure-based timer | ✓ VERIFIED | 141 lines, exports createUrlSyncMiddleware & UrlSyncOptions, timer in factory scope (line 47)  |
+| `src/stores/calculator-store.ts` | Calculator store factory using URL sync middleware   | ✓ VERIFIED | 170 lines, imports middleware (line 4), applies conditionally (lines 154-160), no global timer |
 
 **Artifact Verification Details:**
 
 **1. src/lib/middleware/url-sync.ts**
+
 - Level 1 (Existence): ✓ EXISTS
 - Level 2 (Substantive): ✓ SUBSTANTIVE
   - Line count: 141 lines (requirement: 100+ lines)
@@ -51,6 +52,7 @@ human_verification:
   - Applied to 74+ calculators via createCalculatorStore factory
 
 **2. src/stores/calculator-store.ts**
+
 - Level 1 (Existence): ✓ EXISTS
 - Level 2 (Substantive): ✓ SUBSTANTIVE
   - Line count: 170 lines
@@ -64,12 +66,12 @@ human_verification:
 
 ### Key Link Verification
 
-| From | To | Via | Status | Details |
-|------|-----|-----|--------|---------|
-| calculator-store.ts | middleware/url-sync.ts | import statement | ✓ WIRED | Line 4: `import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync"` |
-| calculator-store.ts | middleware application | conditional apply | ✓ WIRED | Lines 154-160: Middleware applied when syncUrl=true with selectState option |
-| middleware | closure-captured timer | factory scope | ✓ WIRED | Line 47: `let debounceTimeout` declared inside createUrlSyncMiddleware function (NOT module scope) |
-| middleware | window.history | debounced update | ✓ WIRED | Line 139: `window.history.replaceState({}, "", newUrl)` called after debounce delay |
+| From                | To                     | Via               | Status  | Details                                                                                            |
+| ------------------- | ---------------------- | ----------------- | ------- | -------------------------------------------------------------------------------------------------- |
+| calculator-store.ts | middleware/url-sync.ts | import statement  | ✓ WIRED | Line 4: `import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync"`                      |
+| calculator-store.ts | middleware application | conditional apply | ✓ WIRED | Lines 154-160: Middleware applied when syncUrl=true with selectState option                        |
+| middleware          | closure-captured timer | factory scope     | ✓ WIRED | Line 47: `let debounceTimeout` declared inside createUrlSyncMiddleware function (NOT module scope) |
+| middleware          | window.history         | debounced update  | ✓ WIRED | Line 139: `window.history.replaceState({}, "", newUrl)` called after debounce delay                |
 
 **Key Link Analysis:**
 
@@ -80,10 +82,10 @@ human_verification:
 
 ### Requirements Coverage
 
-| Requirement | Status | Evidence |
-|-------------|--------|----------|
-| STATE-03: Consolidated URL sync middleware (single implementation) | ✓ SATISFIED | Only one file contains window.history calls (middleware), no duplicated URL sync logic found |
-| STATE-04: Per-store debounce timers (fix global timer bug) | ✓ SATISFIED | No global timer in calculator-store.ts, middleware uses closure pattern (line 47 in factory scope) |
+| Requirement                                                        | Status      | Evidence                                                                                           |
+| ------------------------------------------------------------------ | ----------- | -------------------------------------------------------------------------------------------------- |
+| STATE-03: Consolidated URL sync middleware (single implementation) | ✓ SATISFIED | Only one file contains window.history calls (middleware), no duplicated URL sync logic found       |
+| STATE-04: Per-store debounce timers (fix global timer bug)         | ✓ SATISFIED | No global timer in calculator-store.ts, middleware uses closure pattern (line 47 in factory scope) |
 
 **Requirements Verification:**
 
@@ -96,6 +98,7 @@ human_verification:
 None detected.
 
 **Anti-Pattern Scan Results:**
+
 - ✓ No TODO/FIXME/placeholder comments in middleware or store
 - ✓ No console.log-only implementations
 - ✓ No empty return statements (except SSR guard `return {}` on line 96, which is appropriate)
@@ -109,6 +112,7 @@ None detected.
 #### 1. Multiple Calculator Timer Independence Test
 
 **Test:**
+
 1. Start dev server: `npm run dev`
 2. Open Tab 1: http://localhost:3000/en/math/volume-calculator
 3. Enter values in Tab 1 (e.g., change shape, dimensions)
@@ -119,6 +123,7 @@ None detected.
 8. Check URL bar in both tabs
 
 **Expected:**
+
 - Tab 1 URL contains volume calculator parameters (e.g., `?shape=cube&length=5&width=4&height=3`)
 - Tab 2 URL contains BMI calculator parameters (e.g., `?weight=75&height=180`)
 - Both URLs update after debounce delay (150ms)
@@ -130,6 +135,7 @@ This requires functional testing with real browser environment, multiple tabs, a
 
 **Verification from SUMMARY.md:**
 The user approved this test during Task 3 checkpoint in 02-01-SUMMARY.md (lines 122-125). User confirmed:
+
 - Single calculator URL sync: APPROVED
 - Multiple calculators (no timer conflicts): APPROVED
 - Fast navigation (no lost updates): APPROVED
@@ -140,33 +146,43 @@ The user approved this test during Task 3 checkpoint in 02-01-SUMMARY.md (lines 
 ## Code Quality Verification
 
 **TypeScript Compilation:**
+
 ```bash
 npx tsc --noEmit
 ```
+
 ✓ PASS (zero errors)
 
 **Biome Lint:**
+
 ```bash
 npm run lint -- src/lib/middleware/url-sync.ts src/stores/calculator-store.ts
 ```
+
 ✓ PASS (zero errors, zero warnings)
 
 **Global Timer Check:**
+
 ```bash
 grep -n "^let debounceTimeout" src/stores/calculator-store.ts
 ```
+
 ✓ PASS (no global timer found)
 
 **Closure Pattern Verification:**
+
 ```bash
 head -50 src/lib/middleware/url-sync.ts | grep -n "let debounceTimeout"
 ```
+
 ✓ PASS (timer declared at line 47 inside factory function)
 
 **Duplicated Logic Check:**
+
 ```bash
 grep -r "window.history" src/ --include="*.ts" --include="*.tsx"
 ```
+
 ✓ PASS (only found in middleware/url-sync.ts)
 
 ## Architecture Verification
@@ -177,10 +193,12 @@ The middleware uses the factory function pattern to create isolated closures:
 
 ```typescript
 // Factory function (line 39)
-export function createUrlSyncMiddleware<T extends object>(options: UrlSyncOptions<T> = {}) {
+export function createUrlSyncMiddleware<T extends object>(
+  options: UrlSyncOptions<T> = {}
+) {
   // CLOSURE: Timer declared HERE creates NEW closure per factory call (line 47)
   let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
-  
+
   // Return middleware function...
   return (config: StateCreator<T, [], []>): StateCreator<T, [], []> => {
     // Middleware has access to debounceTimeout via closure
@@ -190,6 +208,7 @@ export function createUrlSyncMiddleware<T extends object>(options: UrlSyncOption
 ```
 
 **Why this fixes STATE-04:**
+
 - Each call to `createUrlSyncMiddleware()` creates a **new function scope**
 - Each new scope has its **own `debounceTimeout` variable**
 - 74 calculators × 1 middleware call each = 74 independent timers
@@ -220,12 +239,15 @@ if (syncUrl) {
 From ROADMAP.md Phase 2 success criteria:
 
 1. ✓ **File `src/lib/middleware/url-sync.ts` exists and exports URL sync middleware**
+
    - Verified: File exists, 141 lines, exports createUrlSyncMiddleware and UrlSyncOptions
 
 2. ? **Developer can open two calculators on the same page and both URL states update correctly (no timer conflicts)**
+
    - Needs human: Functional test required (code structure verified, user approved in SUMMARY)
 
 3. ✓ **All Zustand stores import and use the URL sync middleware (no duplicated URL logic)**
+
    - Verified: Only one store file (calculator-store.ts), it imports and uses middleware, no duplicated URL logic found
 
 4. ✓ **Code inspection shows each store has its own debounce timer (closure, not global variable)**
@@ -234,9 +256,11 @@ From ROADMAP.md Phase 2 success criteria:
 **Additional criteria from PLAN frontmatter:**
 
 5. ✓ **TypeScript strict mode compilation passes with zero errors**
+
    - Verified: npx tsc --noEmit passes
 
 6. ✓ **Biome lint passes with zero errors**
+
    - Verified: npm run lint passes
 
 7. ✓ **Existing calculator functionality preserved (backward compatible)**
@@ -250,6 +274,7 @@ From ROADMAP.md Phase 2 success criteria:
 **Status:** HUMAN_NEEDED → User approved functional tests in 02-01-SUMMARY.md
 
 **Automated Verification:** 100% PASS
+
 - All code checks pass
 - All artifacts verified (exists, substantive, wired)
 - All key links verified
@@ -258,6 +283,7 @@ From ROADMAP.md Phase 2 success criteria:
 - TypeScript and Biome pass
 
 **Human Verification:** APPROVED (per SUMMARY.md lines 122-125)
+
 - User tested and approved all functional criteria during plan execution
 - Multiple calculator timer independence: APPROVED
 - URL sync behavior: APPROVED

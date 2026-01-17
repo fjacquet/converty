@@ -12,17 +12,20 @@
 This ADR was originally created based on incorrect research that claimed jsPDF v4.0.0 was outdated (from 2018) and needed upgrading to v2.5.2. Further investigation revealed this was completely wrong:
 
 **The Truth:**
+
 - jsPDF v4.0.0 is the **LATEST STABLE VERSION** (released January 3, 2025)
 - Version progression follows semantic versioning: v1.x → v2.x → v3.x → v4.0.0
 - Version 4 is NEWER than version 2 (not a rollback)
 - The current implementation already uses the correct v4.0.0 API
 
 **What Went Wrong:**
+
 - Initial research misread version numbers (assumed v2.5.2 > v4.0.0 numerically)
 - No verification against npm registry or GitHub releases
 - Error cascaded to Phase 6 roadmap and requirements planning
 
 **Actual Situation:**
+
 - Converty uses jsPDF v4.0.0 (correct, latest, released Jan 2025)
 - Implementation uses named import pattern (correct for v4.0.0)
 - TypeScript types are built-in (no @types/jspdf needed)
@@ -38,17 +41,20 @@ This ADR is being **superseded** because it was based on false premises. The dec
 ### What Was Verified (Phase 6 Plan 06-01)
 
 1. **Version check:**
+
    - `package.json` shows `"jspdf": "^4.0.0"`
    - npm registry confirms v4.0.0 is latest stable (published 2025-01-03)
    - GitHub releases: https://github.com/parallax/jsPDF/releases/tag/v4.0.0
 
 2. **Code patterns (src/lib/utils/pdf-export.ts):**
+
    - Uses named import: `import { jsPDF } from "jspdf"` ✓ (correct for v4.0.0)
    - Instance creation: `const doc = new jsPDF()` ✓
    - Standard API methods: `setFontSize()`, `setFont()`, `text()`, `addPage()`, `save()` ✓
    - No deprecated methods detected ✓
 
 3. **TypeScript integration:**
+
    - Built-in TypeScript types (no @types/jspdf in package.json) ✓
    - Compilation succeeds with zero jsPDF-related errors ✓
    - Type definitions current and accurate ✓
@@ -61,16 +67,19 @@ This ADR is being **superseded** because it was based on false premises. The dec
 ### Consequences
 
 **Positive:**
+
 - No migration effort required (saves ~5 hours planned work)
 - No risk of breaking changes or layout differences
 - Current implementation already follows best practices
 - Documentation corrected to prevent future confusion
 
 **Neutral:**
+
 - Phase 6 scope changed from "upgrade" to "verification"
 - Roadmap and requirements updated to reflect reality
 
 **Negative:**
+
 - Wasted planning time on incorrect assumptions
 - Misinformation in roadmap/requirements needed correction
 
@@ -79,7 +88,7 @@ This ADR is being **superseded** because it was based on false premises. The dec
 **Correct import pattern (v4.0.0):**
 
 ```typescript
-import { jsPDF } from "jspdf";  // Named import
+import { jsPDF } from "jspdf"; // Named import
 ```
 
 **Creating PDF instance:**
@@ -132,14 +141,17 @@ export interface PdfItem {
 ## Sources
 
 - **npm registry:** https://www.npmjs.com/package/jspdf
+
   - Latest version: 4.0.0 (published 2025-01-03)
   - Download stats: 500k+ weekly downloads
 
 - **GitHub releases:** https://github.com/parallax/jsPDF/releases/tag/v4.0.0
+
   - Release date: January 3, 2025
   - Changelog shows v4.0.0 is latest stable
 
 - **Official documentation:** https://raw.githack.com/MrRio/jsPDF/master/docs/index.html
+
   - Documents v4.0.0 API (named imports, TypeScript support)
 
 - **Current implementation:**
@@ -167,12 +179,15 @@ export interface PdfItem {
 For historical reference, the original ADR incorrectly claimed:
 
 - ❌ "jsPDF v4.0.0 released in 2018 - 6+ years old"
+
   - **Reality:** v4.0.0 released January 3, 2025 (days old, not years)
 
 - ❌ "v4.0.0 is older than v2.5.2 (version rollback)"
+
   - **Reality:** v4.0.0 is NEWER - semantic versioning v4 > v2
 
 - ❌ "Need to upgrade to v2.5.2+ for security patches"
+
   - **Reality:** v4.0.0 IS the latest with all security patches
 
 - ❌ "Version rollback indicates breaking changes"

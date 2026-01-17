@@ -18,7 +18,12 @@ affects: [04-03-service-worker-registration, 04-04-web-manifest]
 # Tech tracking
 tech-stack:
   added: [workbox-window@7.4.0, workbox-build@7.4.0]
-  patterns: [CDN-based Workbox loading, Runtime caching strategies, Offline-first architecture]
+  patterns:
+    [
+      CDN-based Workbox loading,
+      Runtime caching strategies,
+      Offline-first architecture,
+    ]
 
 key-files:
   created:
@@ -75,38 +80,46 @@ Each task was committed atomically:
 ## Files Created/Modified
 
 **Created:**
+
 - `public/sw.js` - Service worker with Workbox caching strategies (NetworkFirst for HTML, CacheFirst for static assets, StaleWhileRevalidate for fonts), offline fallback page
 - `src/lib/pwa/offline-detector.ts` - React hook for online/offline status detection using navigator.onLine + event listeners
 - `src/components/ui/offline-banner.tsx` - Fixed banner component showing offline status with WifiOff icon, auto-hides when online
 
 **Modified:**
+
 - `.gitignore` - Removed public/sw.js from ignore list (manual service worker should be committed)
 - `package.json` - Added workbox-window@7.4.0 and workbox-build@7.4.0
 
 ## Decisions Made
 
 **1. Workbox CDN via importScripts instead of bundling**
+
 - **Rationale:** Research (04-RESEARCH.md) shows importScripts is Workbox v7 standard pattern, avoids bundling issues with Next.js static export, provides automatic cache versioning
 - **Impact:** Service worker loads Workbox from CDN, smaller file size, easier updates
 
 **2. NetworkFirst strategy for HTML/documents**
+
 - **Rationale:** Users expect latest calculator features when online, but offline functionality is critical for PWA
 - **Impact:** Fresh content when online with 7-day cache fallback, max 50 pages cached
 
 **3. CacheFirst strategy for static assets**
+
 - **Rationale:** Next.js content-hashes static assets (immutable), cache hit = instant load
 - **Impact:** Aggressive caching (30-day expiration, max 100 entries) for optimal performance
 
 **4. StaleWhileRevalidate for fonts**
+
 - **Rationale:** Fonts rarely change but users shouldn't wait for network
 - **Impact:** Instant font rendering with background updates, balanced freshness
 
 **5. Manual service worker instead of generated**
-- **Rationale:** Build integration (precacheAndRoute with self.__WB_MANIFEST) deferred to Plan 03
+
+- **Rationale:** Build integration (precacheAndRoute with self.\_\_WB_MANIFEST) deferred to Plan 03
 - **Impact:** Runtime caching only for now, build-time manifest generation comes later
 
 **6. Updated .gitignore to commit service worker**
-- **Rationale:** Manual service worker should be version controlled, generated files (workbox-*.js) still ignored
+
+- **Rationale:** Manual service worker should be version controlled, generated files (workbox-\*.js) still ignored
 - **Impact:** Service worker tracked in git, build artifacts excluded
 
 ## Deviations from Plan
@@ -114,9 +127,10 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 3 - Blocking] Updated .gitignore to allow service worker commit**
+
 - **Found during:** Task 1 (Service worker creation)
 - **Issue:** public/sw.js was in .gitignore from previous setup assumption (generated file), blocking git add
-- **Fix:** Removed public/sw.js from .gitignore (kept public/workbox-*.js for generated files), added clarifying comment
+- **Fix:** Removed public/sw.js from .gitignore (kept public/workbox-\*.js for generated files), added clarifying comment
 - **Files modified:** .gitignore
 - **Verification:** git add succeeded, service worker committed
 - **Committed in:** 6182255 (Task 1 commit)
@@ -137,11 +151,13 @@ None - no external service configuration required. Service worker registration w
 ## Next Phase Readiness
 
 **Ready for Plan 03:**
+
 - Service worker file exists with complete caching strategies
 - Offline detection infrastructure ready for layout integration
 - Offline banner component ready to add to root layout
 
 **What Plan 03 needs to do:**
+
 - Register service worker in layout using workbox-window
 - Add OfflineBanner component to layout
 - Add production-only check (avoid SW in development)
@@ -150,5 +166,6 @@ None - no external service configuration required. Service worker registration w
 **No blockers.** All artifacts tested and verified working.
 
 ---
-*Phase: 04-progressive-web-app*
-*Completed: 2026-01-17*
+
+_Phase: 04-progressive-web-app_
+_Completed: 2026-01-17_

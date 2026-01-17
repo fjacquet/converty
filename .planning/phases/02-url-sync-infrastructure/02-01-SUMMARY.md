@@ -79,15 +79,19 @@ Each task was committed atomically:
 ## Decisions Made
 
 **1. Closure pattern over WeakMap for timer isolation**
+
 - **Rationale:** Simpler mental model, more explicit, easier to debug. Factory function scope naturally creates closure per invocation.
 
 **2. Use replaceState instead of pushState**
+
 - **Rationale:** Avoids flooding browser history with every keystroke. Calculator URL changes are state updates, not navigation events.
 
 **3. Add selectState option to middleware**
+
 - **Rationale:** Calculator store has nested structure (values, result, errors, methods). Only values should sync to URL. This allows middleware to extract the relevant portion.
 
 **4. Keep type-safe URL parameter loading in store**
+
 - **Rationale:** Middleware handles sync TO url. Store initialization handles loading FROM url with type-safe parsing (parseNumberParam/parseStringParam). Clear separation of concerns.
 
 ## Deviations from Plan
@@ -95,6 +99,7 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 2 - Missing Critical] Added selectState option to middleware**
+
 - **Found during:** Task 2 (Integrating middleware into calculator store)
 - **Issue:** CalculatorState has nested structure: `{ values: T, result: R, errors: {}, setValue: fn, ... }`. Plan's middleware would sync entire state including functions, errors, and result to URL. Only the `values` object should be synced.
 - **Fix:** Added `selectState?: (state: T) => object` option to UrlSyncOptions, allowing stores to specify which part of state to sync. Calculator store passes `selectState: (state) => state.values`.
@@ -114,17 +119,20 @@ None - implementation followed plan smoothly.
 ## Verification Results
 
 **Code Quality:**
+
 - TypeScript compilation: PASS (npx tsc --noEmit)
 - Biome lint: PASS (npm run lint)
 - No global debounceTimeout variable: VERIFIED
 
 **Functional Testing:**
+
 - Single calculator URL sync: APPROVED by user
 - Multiple calculators (no timer conflicts): APPROVED by user
 - Fast navigation (no lost updates): APPROVED by user
 - Debounce delay works correctly: APPROVED by user
 
 **Architecture Review:**
+
 - Timer in factory scope (not module scope): VERIFIED (line 47 in url-sync.ts)
 - Each store gets own middleware instance: VERIFIED (conditional apply in calculator-store.ts:154-160)
 - Closure creates isolated timer per invocation: VERIFIED
@@ -132,11 +140,13 @@ None - implementation followed plan smoothly.
 ## Next Phase Readiness
 
 **Ready for Phase 2 Plan 2:**
+
 - URL sync infrastructure complete
 - Calculator stores can now use `createCalculatorStore({ syncUrl: true })` without implementing URL logic
 - Per-store timer isolation prevents conflicts when multiple calculators exist
 
 **Key patterns for future use:**
+
 - Import `createUrlSyncMiddleware` from `@/lib/middleware/url-sync`
 - Apply conditionally: `if (syncUrl) { return create()(middleware(storeCreator)) }`
 - Use `selectState` option for nested state structures
@@ -145,5 +155,6 @@ None - implementation followed plan smoothly.
 **No blockers** - ready to proceed with Phase 2 remaining plans.
 
 ---
-*Phase: 02-url-sync-infrastructure*
-*Completed: 2026-01-17*
+
+_Phase: 02-url-sync-infrastructure_
+_Completed: 2026-01-17_

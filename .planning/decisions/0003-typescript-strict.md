@@ -107,19 +107,28 @@ Chosen option: **"Full strict mode immediately with noExplicitAny enforcement"**
 
 ```typescript
 // parseNumberParam - NaN-safe number parsing
-export function parseNumberParam(value: string | null, fallback: number): number {
+export function parseNumberParam(
+  value: string | null,
+  fallback: number
+): number {
   if (value === null || value === "") return fallback;
   const parsed = Number(value);
   return Number.isNaN(parsed) ? fallback : parsed;
 }
 
 // parseStringParam - null/empty string handling
-export function parseStringParam(value: string | null, fallback: string): string {
+export function parseStringParam(
+  value: string | null,
+  fallback: string
+): string {
   return value === null || value === "" ? fallback : value;
 }
 
 // parseBooleanParam - explicit boolean parsing
-export function parseBooleanParam(value: string | null, fallback: boolean): boolean {
+export function parseBooleanParam(
+  value: string | null,
+  fallback: boolean
+): boolean {
   if (value === "true" || value === "1") return true;
   if (value === "false" || value === "0") return false;
   return fallback;
@@ -155,7 +164,7 @@ export function parseBooleanParam(value: string | null, fallback: boolean): bool
   "linter": {
     "rules": {
       "suspicious": {
-        "noExplicitAny": "error"  // Changed from "off"
+        "noExplicitAny": "error" // Changed from "off"
       }
     }
   }
@@ -175,7 +184,7 @@ export function parseBooleanParam(value: string | null, fallback: boolean): bool
 ```json
 {
   "compilerOptions": {
-    "strict": true  // Enables 8 strict checks
+    "strict": true // Enables 8 strict checks
   }
 }
 ```

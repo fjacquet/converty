@@ -35,58 +35,59 @@ human_verification:
 
 ### Observable Truths
 
-| # | Truth | Status | Evidence |
-|---|-------|--------|----------|
-| 1 | Calculation functions are pure | ✓ VERIFIED | 159 files in src/lib/converters/, no window globals, no side effects detected |
-| 2 | State updates use immutable patterns | ✓ VERIFIED (note) | Spread operators used (manual immutability), not Immer middleware as planned |
-| 3 | No global mutable state in calculator stores | ✓ VERIFIED | Zero module-level `let` variables in src/stores/ |
-| 4 | Developer searches for useConverter finds zero imports | ✓ VERIFIED | Zero matches in src/app/**/*.tsx |
-| 5 | Files use-converter.ts and use-url-state.ts deleted | ✓ VERIFIED | Both files do not exist |
-| 6 | TypeScript compilation passes with zero errors | ✓ VERIFIED | `npx tsc --noEmit` passed |
-| 7 | Calculators load without errors | ? NEEDS HUMAN | Visual/functional testing required |
-| 8 | Input values update calculator state | ? NEEDS HUMAN | Interactive testing required |
-| 9 | Calculations return correct results | ? NEEDS HUMAN | Functional testing required |
-| 10 | URL parameters sync when values change | ? NEEDS HUMAN | Real-time behavior testing required |
-| 11 | Page refresh preserves values from URL | ? NEEDS HUMAN | Browser interaction testing required |
-| 12 | Reset button restores initial state | ? NEEDS HUMAN | Interactive feature testing required |
+| #   | Truth                                                  | Status            | Evidence                                                                      |
+| --- | ------------------------------------------------------ | ----------------- | ----------------------------------------------------------------------------- |
+| 1   | Calculation functions are pure                         | ✓ VERIFIED        | 159 files in src/lib/converters/, no window globals, no side effects detected |
+| 2   | State updates use immutable patterns                   | ✓ VERIFIED (note) | Spread operators used (manual immutability), not Immer middleware as planned  |
+| 3   | No global mutable state in calculator stores           | ✓ VERIFIED        | Zero module-level `let` variables in src/stores/                              |
+| 4   | Developer searches for useConverter finds zero imports | ✓ VERIFIED        | Zero matches in src/app/\*_/_.tsx                                             |
+| 5   | Files use-converter.ts and use-url-state.ts deleted    | ✓ VERIFIED        | Both files do not exist                                                       |
+| 6   | TypeScript compilation passes with zero errors         | ✓ VERIFIED        | `npx tsc --noEmit` passed                                                     |
+| 7   | Calculators load without errors                        | ? NEEDS HUMAN     | Visual/functional testing required                                            |
+| 8   | Input values update calculator state                   | ? NEEDS HUMAN     | Interactive testing required                                                  |
+| 9   | Calculations return correct results                    | ? NEEDS HUMAN     | Functional testing required                                                   |
+| 10  | URL parameters sync when values change                 | ? NEEDS HUMAN     | Real-time behavior testing required                                           |
+| 11  | Page refresh preserves values from URL                 | ? NEEDS HUMAN     | Browser interaction testing required                                          |
+| 12  | Reset button restores initial state                    | ? NEEDS HUMAN     | Interactive feature testing required                                          |
 
 **Score:** 12/18 truths verified (6 automated + 6 human-dependent)
 
 ### Required Artifacts
 
-| Artifact | Expected | Status | Details |
-|----------|----------|--------|---------|
-| `src/lib/converters/**/*.ts` | Pure calculation functions (117+) | ✓ VERIFIED | 159 files exist, sample review shows pure functions |
-| `src/stores/calculator-store.ts` | Zustand store factory with Immer | ✓ VERIFIED (note) | 169 lines, uses spread operators not Immer |
-| `src/hooks/use-converter.ts` | DELETED | ✓ VERIFIED | File does not exist |
-| `src/hooks/use-url-state.ts` | DELETED | ✓ VERIFIED | File does not exist |
-| `src/lib/middleware/url-sync.ts` | URL sync middleware | ✓ VERIFIED | 140 lines, exports createUrlSyncMiddleware |
+| Artifact                         | Expected                          | Status            | Details                                             |
+| -------------------------------- | --------------------------------- | ----------------- | --------------------------------------------------- |
+| `src/lib/converters/**/*.ts`     | Pure calculation functions (117+) | ✓ VERIFIED        | 159 files exist, sample review shows pure functions |
+| `src/stores/calculator-store.ts` | Zustand store factory with Immer  | ✓ VERIFIED (note) | 169 lines, uses spread operators not Immer          |
+| `src/hooks/use-converter.ts`     | DELETED                           | ✓ VERIFIED        | File does not exist                                 |
+| `src/hooks/use-url-state.ts`     | DELETED                           | ✓ VERIFIED        | File does not exist                                 |
+| `src/lib/middleware/url-sync.ts` | URL sync middleware               | ✓ VERIFIED        | 140 lines, exports createUrlSyncMiddleware          |
 
 **Immer Note:** Plan expected Immer middleware for immutability, but codebase uses manual immutable patterns (spread operators). This equally satisfies STATE-05 requirement for immutable state updates.
 
 ### Key Link Verification
 
-| From | To | Via | Status | Details |
-|------|----|----|--------|---------|
-| Calculator components | calculator-store.ts | `import createCalculatorStore` | ✓ WIRED | 120 imports found across 60 files (2 per file typically) |
-| Calculator stores | Immer middleware | Zustand immer integration | ⚠️ NOT FOUND | Uses spread operators instead (acceptable alternative) |
-| Calculator components | use-converter.ts | N/A (zero imports expected) | ✓ VERIFIED | Zero imports of use-converter or use-url-state found |
-| Calculator stores | URL sync middleware | Factory integration | ✓ WIRED | calculator-store.ts line 154-160 applies middleware |
-| Input changes | URL updates | Debounced middleware | ✓ WIRED | url-sync.ts line 73-82 debounce pattern (150ms) |
+| From                  | To                  | Via                            | Status       | Details                                                  |
+| --------------------- | ------------------- | ------------------------------ | ------------ | -------------------------------------------------------- |
+| Calculator components | calculator-store.ts | `import createCalculatorStore` | ✓ WIRED      | 120 imports found across 60 files (2 per file typically) |
+| Calculator stores     | Immer middleware    | Zustand immer integration      | ⚠️ NOT FOUND | Uses spread operators instead (acceptable alternative)   |
+| Calculator components | use-converter.ts    | N/A (zero imports expected)    | ✓ VERIFIED   | Zero imports of use-converter or use-url-state found     |
+| Calculator stores     | URL sync middleware | Factory integration            | ✓ WIRED      | calculator-store.ts line 154-160 applies middleware      |
+| Input changes         | URL updates         | Debounced middleware           | ✓ WIRED      | url-sync.ts line 73-82 debounce pattern (150ms)          |
 
 ### Requirements Coverage
 
-| Requirement | Status | Blocking Issue |
-|-------------|--------|----------------|
-| STATE-01: All calculators using Zustand | ✓ SATISFIED | 117 calculator files, 120 createCalculatorStore usages |
-| STATE-02: useConverter hook removed | ✓ SATISFIED | Both hook files deleted, zero imports remain |
-| STATE-05: Functional approach | ✓ SATISFIED | Pure functions verified, immutable patterns via spread operators, no global mutable state |
+| Requirement                             | Status      | Blocking Issue                                                                            |
+| --------------------------------------- | ----------- | ----------------------------------------------------------------------------------------- |
+| STATE-01: All calculators using Zustand | ✓ SATISFIED | 117 calculator files, 120 createCalculatorStore usages                                    |
+| STATE-02: useConverter hook removed     | ✓ SATISFIED | Both hook files deleted, zero imports remain                                              |
+| STATE-05: Functional approach           | ✓ SATISFIED | Pure functions verified, immutable patterns via spread operators, no global mutable state |
 
 ### Anti-Patterns Found
 
 No blocking anti-patterns detected.
 
 **Checked:**
+
 - ✓ No TODO/FIXME in calculator-store.ts or url-sync.ts
 - ✓ No stub patterns (empty returns, placeholder content)
 - ✓ No global mutable state
@@ -100,6 +101,7 @@ Plan 03-02 is a manual verification checkpoint. The following items require huma
 #### 1. Calculator Page Load
 
 **Test:** Start dev server (`npm run dev`), navigate to sample calculators:
+
 - /en/datetime/age
 - /en/finance/mortgage
 - /en/math/percentage
@@ -151,6 +153,7 @@ Plan 03-02 is a manual verification checkpoint. The following items require huma
 ### Implementation Notes
 
 **Immutability Pattern Deviation:**
+
 - Plan 03-01 expected Immer middleware for immutable state updates
 - Actual implementation uses manual immutable patterns (spread operators)
 - Lines 121, 139, 143-147 in calculator-store.ts show spread operator usage
@@ -158,11 +161,13 @@ Plan 03-02 is a manual verification checkpoint. The following items require huma
 - No functional difference, both prevent mutation
 
 **Per-Store Debounce:**
+
 - url-sync.ts line 47 declares timer in factory scope (closure)
 - Each createUrlSyncMiddleware() invocation creates NEW timer
 - Fixes STATE-04 global timer bug from Phase 2
 
 **URL Sync Integration:**
+
 - calculator-store.ts conditionally applies middleware (lines 154-160)
 - Middleware integrated via factory pattern (automatic)
 - No manual URL sync logic in calculator components (DRY principle)
