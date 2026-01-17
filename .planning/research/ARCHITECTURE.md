@@ -38,7 +38,11 @@ src/
 "use client";
 
 useEffect(() => {
-  if (typeof window !== "undefined" && "serviceWorker" in navigator && process.env.NODE_ENV === "production") {
+  if (
+    typeof window !== "undefined" &&
+    "serviceWorker" in navigator &&
+    process.env.NODE_ENV === "production"
+  ) {
     navigator.serviceWorker.register("/service-worker.js").then(
       (registration) => console.log("SW registered:", registration.scope),
       (err) => console.log("SW registration failed:", err)
@@ -89,6 +93,7 @@ useEffect(() => {
 **Incremental Migration (Industry Standard):**
 
 The recommended approach for large codebases is incremental migration:
+
 - Migrate small portions at a time
 - Old and new code coexist during transition
 - Feature flags to switch between implementations
@@ -122,6 +127,7 @@ Phase 3: Remove Legacy Hook
 **Per-Category Approach:**
 
 Each category migration is atomic:
+
 1. Migrate all calculators in category
 2. Test category thoroughly
 3. Commit category as single unit
@@ -162,6 +168,7 @@ This catches ~80% of type safety issues with minimal effort.
 **Phase 2: Fix Core Infrastructure**
 
 Priority order:
+
 1. `src/hooks/use-converter.ts` (has eslint-disable comments)
 2. `src/hooks/use-url-state.ts` (type coercion from URL strings)
 3. URL sync middleware (new code, fix immediately)
@@ -170,6 +177,7 @@ Priority order:
 **Phase 3: Fix Calculator Files**
 
 Systematic file-by-file approach:
+
 1. Run `npx tsc --noEmit` to see all errors
 2. Fix calculators by category (same as state migration)
 3. Track progress: compliant files list
@@ -262,11 +270,13 @@ Big bang migration by category: migrate all 74 calculators, remove useConverter 
 ## Consequences
 
 **Positive:**
+
 - Single state management pattern
 - Fixes concurrent calculator bug
 - No dual patterns to maintain
 
 **Negative:**
+
 - Higher migration risk (mitigated by category-level testing)
 - All calculators changed at once
 
@@ -292,20 +302,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - PWA support with offline calculator functionality
 - Service worker for static asset caching
 - Web manifest for install prompt
 
 ### Changed
+
 - Migrated 74 calculators from useConverter to Zustand
 - Consolidated URL sync middleware
 - Upgraded jsPDF from v4.0.0 to v2.5.2
 
 ### Fixed
+
 - Global debounce timer bug (now per-store instance)
 - Type safety with strict TypeScript enabled
 
 ### Removed
+
 - useConverter hook (replaced by Zustand stores)
 
 ## [Previous versions...]
@@ -314,6 +328,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Backfilling:**
 
 Recent commits to include:
+
 - "feat: add duration converter and fix biome lint errors"
 - "fix: translate age calculator results to all locales"
 - "refactor: split converters.ts into per-category registry files"
@@ -331,7 +346,7 @@ Recent commits to include:
 
 **Calculator Pattern Documentation:**
 
-```markdown
+````markdown
 ## Adding a Calculator
 
 ### 1. Create Zustand Store
@@ -363,10 +378,12 @@ export const useMyCalculatorStore = create(
   )
 );
 ```
+````
 
 ### 2. Create Calculator Component
 
 Use the store in your component...
+
 ```
 
 ---
@@ -376,6 +393,7 @@ Use the store in your component...
 **Critical Path:**
 
 ```
+
 1. TypeScript strict mode (blocks everything else)
    ├─> Fix use-converter.ts first
    ├─> Fix use-url-state.ts
@@ -401,6 +419,7 @@ Use the store in your component...
    ├─> npm install jspdf@latest
    ├─> Update pdf-export.ts
    └─> Test PDF generation
+
 ```
 
 **Parallelization Opportunities:**
@@ -460,3 +479,4 @@ ALL changes must preserve static export compatibility. No server-side features c
 **Key Insight:**
 
 This is a **brownfield refactor** of an existing application, not a greenfield build. The architecture must preserve all 200+ existing calculators while eliminating technical debt. The big bang state migration is justified because calculators are isolated and dual patterns are the problem.
+```
