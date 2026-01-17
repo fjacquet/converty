@@ -1159,6 +1159,36 @@
       "summary": "Resume",
       "output": "Sortie"
     },
+    "zodiac": {
+      "western": {
+        "capricorn": "Capricorne",
+        "aquarius": "Verseau",
+        "pisces": "Poissons",
+        "aries": "Bélier",
+        "taurus": "Taureau",
+        "gemini": "Gémeaux",
+        "cancer": "Cancer",
+        "leo": "Lion",
+        "virgo": "Vierge",
+        "libra": "Balance",
+        "scorpio": "Scorpion",
+        "sagittarius": "Sagittaire"
+      },
+      "chinese": {
+        "rat": "Rat",
+        "ox": "Boeuf",
+        "tiger": "Tigre",
+        "rabbit": "Lapin",
+        "dragon": "Dragon",
+        "snake": "Serpent",
+        "horse": "Cheval",
+        "goat": "Chèvre",
+        "monkey": "Singe",
+        "rooster": "Coq",
+        "dog": "Chien",
+        "pig": "Cochon"
+      }
+    },
     "results": {
       "perMonth": "par mois",
       "perYear": "par an",

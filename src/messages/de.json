@@ -1159,6 +1159,36 @@
       "summary": "Zusammenfassung",
       "output": "Ausgabe"
     },
+    "zodiac": {
+      "western": {
+        "capricorn": "Steinbock",
+        "aquarius": "Wassermann",
+        "pisces": "Fische",
+        "aries": "Widder",
+        "taurus": "Stier",
+        "gemini": "Zwillinge",
+        "cancer": "Krebs",
+        "leo": "Löwe",
+        "virgo": "Jungfrau",
+        "libra": "Waage",
+        "scorpio": "Skorpion",
+        "sagittarius": "Schütze"
+      },
+      "chinese": {
+        "rat": "Ratte",
+        "ox": "Ochse",
+        "tiger": "Tiger",
+        "rabbit": "Hase",
+        "dragon": "Drache",
+        "snake": "Schlange",
+        "horse": "Pferd",
+        "goat": "Ziege",
+        "monkey": "Affe",
+        "rooster": "Hahn",
+        "dog": "Hund",
+        "pig": "Schwein"
+      }
+    },
     "results": {
       "perMonth": "pro Monat",
       "perYear": "pro Jahr",

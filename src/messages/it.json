@@ -1159,6 +1159,36 @@
       "summary": "Riepilogo",
       "output": "Output"
     },
+    "zodiac": {
+      "western": {
+        "capricorn": "Capricorno",
+        "aquarius": "Acquario",
+        "pisces": "Pesci",
+        "aries": "Ariete",
+        "taurus": "Toro",
+        "gemini": "Gemelli",
+        "cancer": "Cancro",
+        "leo": "Leone",
+        "virgo": "Vergine",
+        "libra": "Bilancia",
+        "scorpio": "Scorpione",
+        "sagittarius": "Sagittario"
+      },
+      "chinese": {
+        "rat": "Topo",
+        "ox": "Bue",
+        "tiger": "Tigre",
+        "rabbit": "Coniglio",
+        "dragon": "Drago",
+        "snake": "Serpente",
+        "horse": "Cavallo",
+        "goat": "Capra",
+        "monkey": "Scimmia",
+        "rooster": "Gallo",
+        "dog": "Cane",
+        "pig": "Maiale"
+      }
+    },
     "results": {
       "perMonth": "al mese",
       "perYear": "all'anno",
