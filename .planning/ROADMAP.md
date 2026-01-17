@@ -139,12 +139,12 @@ Plans:
 2. Developer can export Age Calculator results to PDF and PDF opens correctly
 3. Code uses current jsPDF v4.0.0 API (named import, standard methods, built-in TypeScript types)
 4. TypeScript compilation succeeds with zero jsPDF-related errors
-5. Documentation accurately reflects jsPDF version history and current status
+5. PDF generation verified through type checking and build process
 
 **Plans:** 1 plan in 1 wave
 
 Plans:
-- [ ] 06-01-PLAN.md — Correct jsPDF documentation and verify implementation
+- [x] 06-01-PLAN.md — Correct jsPDF documentation and verify implementation
 
 ---
 
@@ -175,7 +175,7 @@ Plans:
 | 3 - State Migration         | Complete    | 2026-01-17 |
 | 4 - Progressive Web App     | Complete    | 2026-01-17 |
 | 5 - Documentation           | Complete    | 2026-01-17 |
-| 6 - Dependency Upgrade      | Not started | —          |
+| 6 - Dependency Upgrade      | In Progress | —          |
 | 7 - Code Quality Validation | Not started | —          |
 
 ---

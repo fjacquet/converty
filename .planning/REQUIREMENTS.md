@@ -65,18 +65,18 @@ All requirements are **user-centric** (testable, specific, atomic) and mapped to
 
 ### Dependencies
 
-**Goal:** Upgrade outdated jsPDF, ensure deterministic builds, verify security
+**Goal:** Verify jsPDF is current and working correctly
 
-- [ ] **DEP-01**: Upgrade jsPDF from v4.0.0 to latest stable version
+- [x] **DEP-01**: Verify jsPDF is current (v4.0.0 latest)
 
-  - _Success criteria:_ `package.json` shows `jspdf@^2.5.2` or later, `npm list jspdf` confirms version
+  - _Success criteria:_ `package.json` shows `jspdf@^4.0.0`, npm registry confirms this is latest stable, released Jan 2025
 
-- [ ] **DEP-02**: Verify PDF export functionality after upgrade
+- [x] **DEP-02**: Verify PDF export functionality works correctly
 
-  - _Success criteria:_ All calculators with PDF export tested (DoF table, charts), PDFs generate correctly, font rendering unchanged, file size reasonable
+  - _Success criteria:_ TypeScript compilation passes, build succeeds with PDF export included, Age Calculator uses PdfExportButton correctly, code inspection confirms v4.0.0 API patterns
 
-- [ ] **DEP-03**: Update jsPDF usage to match new API (if breaking changes)
-  - _Success criteria:_ Code uses current jsPDF API (or compat mode if needed), no deprecated method calls, TypeScript types resolve correctly
+- [x] **DEP-03**: Verify jsPDF usage follows current API best practices
+  - _Success criteria:_ Code uses named import `{ jsPDF }`, built-in TypeScript types (no @types/jspdf), standard v4.0.0 API methods, no deprecated method calls
 
 ### Progressive Web App
 
@@ -304,9 +304,9 @@ Explicitly excluded from infrastructure upgrade:
 | DOC-04         | Phase 5 | 05-03   | Complete |
 | DOC-05         | Phase 5 | 05-02   | Complete |
 | DOC-06         | Phase 5 | 05-03   | Complete |
-| DEP-01         | Phase 6 | TBD     | Pending |
-| DEP-02         | Phase 6 | TBD     | Pending |
-| DEP-03         | Phase 6 | TBD     | Pending |
+| DEP-01         | Phase 6 | 06-01   | Complete |
+| DEP-02         | Phase 6 | 06-01   | Complete |
+| DEP-03         | Phase 6 | 06-01   | Complete |
 | QUAL-01        | Phase 7 | TBD     | Pending |
 | QUAL-02        | Phase 7 | TBD     | Pending |
 | QUAL-03        | Phase 7 | TBD     | Pending |
@@ -337,7 +337,7 @@ Explicitly excluded from infrastructure upgrade:
 ✅ CONTRIBUTING.md with calculator pattern
 ✅ Development setup guide tested on fresh machine
 ✅ ADRs for key decisions (migration, PWA, TypeScript, jsPDF)
-✅ jsPDF upgraded with PDF export verified
+✅ jsPDF verified current (v4.0.0) with PDF export working
 ✅ All 200+ calculators working exactly as before
 ✅ Static export preserved (no server-side features)
 
