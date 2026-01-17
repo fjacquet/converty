@@ -4,6 +4,9 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    // Strict mode enabled - includes: strictNullChecks, strictFunctionTypes,
+    // strictBindCallApply, strictPropertyInitialization, noImplicitAny,
+    // noImplicitThis, alwaysStrict, useUnknownInCatchVariables
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
