@@ -59,6 +59,7 @@ const COLORS = [
 
 export function SalaryCalculator() {
   const t = useTranslations("calculator");
+  const tResults = useTranslations("calculator.results");
   const format = useFormatter();
   const { values, setValue, result } = useSalaryStore();
 
@@ -278,7 +279,12 @@ export function SalaryCalculator() {
                   <BarChart data={result.taxBreakdown} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis type="number" tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
-                    <YAxis type="category" dataKey="category" width={150} />
+                    <YAxis
+                      type="category"
+                      dataKey="category"
+                      width={150}
+                      tickFormatter={(v) => tResults(v)}
+                    />
                     <Tooltip formatter={(value) => formatCurrency(Number(value ?? 0))} />
                     <Bar dataKey="amount" fill="hsl(var(--primary))" />
                   </BarChart>
