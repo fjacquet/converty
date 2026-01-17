@@ -1,3 +1,5 @@
+/* global workbox, importScripts */
+
 /**
  * Converty Service Worker
  *
