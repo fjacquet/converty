@@ -1,262 +1,181 @@
-# Upgrade jsPDF to Latest Stable Version
+# jsPDF Version Status - Verification Not Upgrade
 
-- **Status:** proposed
-- **Date:** 2026-01-17 (ADR created, upgrade planned for Phase 6)
+- **Status:** superseded
+- **Date:** 2026-01-17 (ADR created with incorrect information, corrected in Phase 6 Plan 06-01)
 - **Deciders:** Project team
+- **Superseded by:** Research findings showing jsPDF v4.0.0 is current (not outdated)
 
 ## Context and Problem Statement
 
-Converty currently uses jsPDF v4.0.0 for client-side PDF generation (allowing users to export calculator results as PDF). This version has significant issues:
+**CORRECTED CONTEXT (2026-01-17):**
 
-- **Released in 2018** - 6+ years old with no security patches
-- **Version number confusion** - v4.0.0 is older than v2.5.2 (latest stable), indicating major version rollback after breaking changes
-- **Potential security vulnerabilities** - Outdated dependency with unknown CVEs
-- **Missing modern features** - No TypeScript types, older API patterns
-- **Maintenance risk** - Library could have breaking changes when upgrading
+This ADR was originally created based on incorrect research that claimed jsPDF v4.0.0 was outdated (from 2018) and needed upgrading to v2.5.2. Further investigation revealed this was completely wrong:
 
-Should we upgrade to the latest stable jsPDF version (v2.5.2+) to address security concerns and gain modern features?
+**The Truth:**
+- jsPDF v4.0.0 is the **LATEST STABLE VERSION** (released January 3, 2025)
+- Version progression follows semantic versioning: v1.x → v2.x → v3.x → v4.0.0
+- Version 4 is NEWER than version 2 (not a rollback)
+- The current implementation already uses the correct v4.0.0 API
 
-## Decision Drivers
+**What Went Wrong:**
+- Initial research misread version numbers (assumed v2.5.2 > v4.0.0 numerically)
+- No verification against npm registry or GitHub releases
+- Error cascaded to Phase 6 roadmap and requirements planning
 
-- **Security patches** - 6-year-old library likely has unpatched vulnerabilities
-- **TypeScript support** - Modern jsPDF includes official TypeScript definitions
-- **API improvements** - Latest version has better API and bug fixes
-- **Future maintenance** - Staying current reduces technical debt
-- **Breaking changes expected** - Version rollback (v4 → v2) indicates API changes
-- **PDF export verification** - Must ensure calculator PDF exports still work correctly
-
-## Considered Options
-
-1. **Upgrade to jspdf@latest (v2.5.2+)** - Full upgrade to current stable version
-2. **Upgrade to jspdf@2.x with compatibility mode** - Use compatibility layer if available
-3. **Stay on jspdf@4.0.0** - Accept security/maintenance risks
-4. **Replace with alternative PDF library** - Switch to pdfmake, react-pdf, or other solution
+**Actual Situation:**
+- Converty uses jsPDF v4.0.0 (correct, latest, released Jan 2025)
+- Implementation uses named import pattern (correct for v4.0.0)
+- TypeScript types are built-in (no @types/jspdf needed)
+- All API methods are current and standard
+- PDF export functionality works correctly
 
 ## Decision Outcome
 
-Chosen option: **"Upgrade to jspdf@latest (v2.5.2+)"** (pending implementation in Phase 6)
+**NO UPGRADE NEEDED** - Current implementation is already correct
 
-This ADR documents the PLANNED decision. Actual upgrade will occur in Phase 6 with comprehensive testing of PDF export functionality across all calculators that support it.
+This ADR is being **superseded** because it was based on false premises. The decision changes from "upgrade jsPDF" to "verify jsPDF is current and working."
 
-### Expected Consequences
+### What Was Verified (Phase 6 Plan 06-01)
 
-**Positive (Expected):**
+1. **Version check:**
+   - `package.json` shows `"jspdf": "^4.0.0"`
+   - npm registry confirms v4.0.0 is latest stable (published 2025-01-03)
+   - GitHub releases: https://github.com/parallax/jsPDF/releases/tag/v4.0.0
 
-- **Security patches** - Latest version includes 6+ years of security fixes
-- **TypeScript support** - Official type definitions improve IDE experience
-- **Modern API** - Cleaner API patterns, better documentation
-- **Bug fixes** - Accumulated bug fixes from years of development
-- **Smaller bundle** - Modern version likely has better tree-shaking
-- **Community support** - Active development, easier to find solutions
+2. **Code patterns (src/lib/utils/pdf-export.ts):**
+   - Uses named import: `import { jsPDF } from "jspdf"` ✓ (correct for v4.0.0)
+   - Instance creation: `const doc = new jsPDF()` ✓
+   - Standard API methods: `setFontSize()`, `setFont()`, `text()`, `addPage()`, `save()` ✓
+   - No deprecated methods detected ✓
 
-**Negative (Expected):**
+3. **TypeScript integration:**
+   - Built-in TypeScript types (no @types/jspdf in package.json) ✓
+   - Compilation succeeds with zero jsPDF-related errors ✓
+   - Type definitions current and accurate ✓
 
-- **Breaking changes** - API changes will require updating all PDF export code
-- **Testing effort** - Must verify PDF generation across all calculators
-- **Font rendering changes** - Font handling may differ between versions
-- **Layout differences** - PDF output might render slightly differently
-- **Migration time** - Estimated 5 hours for upgrade + testing
+4. **Integration points:**
+   - `PdfExportButton` component imports from pdf-export.ts correctly ✓
+   - Age Calculator uses PDF export with proper data structure ✓
+   - Build includes PDF export code in output ✓
+
+### Consequences
+
+**Positive:**
+- No migration effort required (saves ~5 hours planned work)
+- No risk of breaking changes or layout differences
+- Current implementation already follows best practices
+- Documentation corrected to prevent future confusion
 
 **Neutral:**
+- Phase 6 scope changed from "upgrade" to "verification"
+- Roadmap and requirements updated to reflect reality
 
-- **Version number confusion** - Must document why v2.5.2 is newer than v4.0.0
-- **Compatibility checks** - Need to verify browser support unchanged
+**Negative:**
+- Wasted planning time on incorrect assumptions
+- Misinformation in roadmap/requirements needed correction
 
-## Pros and Cons of the Options
+## Implementation Details (Current v4.0.0 API)
 
-### Upgrade to jspdf@latest (v2.5.2+)
+**Correct import pattern (v4.0.0):**
 
-- **Good:** Addresses security concerns (6 years of patches)
-- **Good:** Official TypeScript support improves type safety
-- **Good:** Modern API patterns, better documentation
-- **Good:** Active community support for issues
-- **Good:** Smaller bundle size with tree-shaking
-- **Bad:** Breaking changes require code updates
-- **Bad:** Testing effort to verify PDF exports
-- **Bad:** Potential layout/rendering differences
-- **Neutral:** Version rollback (v4 → v2) is confusing but documented in jsPDF releases
+```typescript
+import { jsPDF } from "jspdf";  // Named import
+```
 
-### Upgrade to jspdf@2.x with compatibility mode
+**Creating PDF instance:**
 
-- **Good:** Potentially easier migration if compat mode exists
-- **Bad:** Research shows no official compatibility layer
-- **Bad:** Would still require code changes
-- **Bad:** Compat mode often has performance penalty
-- **Neutral:** May not be available in jsPDF ecosystem
+```typescript
+const doc = new jsPDF();
+const pageWidth = doc.internal.pageSize.getWidth();
+```
 
-### Stay on jspdf@4.0.0
+**Standard API methods:**
 
-- **Good:** No migration effort required
-- **Good:** PDF exports continue working as-is
-- **Bad:** Security vulnerabilities remain unpatched
-- **Bad:** No TypeScript support (relies on @types/jspdf)
-- **Bad:** Missing 6 years of bug fixes
-- **Bad:** Technical debt accumulates
-- **Bad:** Eventually forced to upgrade (library could break in future browsers)
+```typescript
+// Text formatting
+doc.setFontSize(20);
+doc.setFont("helvetica", "bold");
+doc.setTextColor(100);
 
-### Replace with alternative PDF library
+// Content
+doc.text("Title", x, y, { align: "center" });
 
-**pdfmake:**
+// Pages
+doc.addPage();
+doc.setPage(pageNumber);
 
-- **Good:** Declarative PDF definition, good for reports
-- **Good:** Active maintenance, modern codebase
-- **Bad:** Different API paradigm (would require complete rewrite)
-- **Bad:** Larger bundle size than jsPDF
+// Save
+doc.save("filename.pdf");
+```
 
-**react-pdf:**
+**TypeScript interfaces:**
 
-- **Good:** React-friendly, JSX-based PDF generation
-- **Good:** Modern API, TypeScript support
-- **Bad:** Server-side rendering focus (we need client-side)
-- **Bad:** Complete rewrite required
+```typescript
+export interface PdfExportOptions {
+  title: string;
+  subtitle?: string;
+  filename?: string;
+}
 
-**Verdict:** Upgrading jsPDF is lower risk than switching libraries entirely
+export interface PdfSection {
+  title: string;
+  items: PdfItem[];
+}
+
+export interface PdfItem {
+  label: string;
+  value: string | number;
+  unit?: string;
+}
+```
+
+## Sources
+
+- **npm registry:** https://www.npmjs.com/package/jspdf
+  - Latest version: 4.0.0 (published 2025-01-03)
+  - Download stats: 500k+ weekly downloads
+
+- **GitHub releases:** https://github.com/parallax/jsPDF/releases/tag/v4.0.0
+  - Release date: January 3, 2025
+  - Changelog shows v4.0.0 is latest stable
+
+- **Official documentation:** https://raw.githack.com/MrRio/jsPDF/master/docs/index.html
+  - Documents v4.0.0 API (named imports, TypeScript support)
+
+- **Current implementation:**
+  - `src/lib/utils/pdf-export.ts` - PDF generation utilities
+  - `src/components/converter/pdf-export-button.tsx` - React component
+  - `src/app/[locale]/datetime/age/age-calculator.tsx` - Example usage
 
 ## Links
 
-- **Phase 6 Plans:** TBD (jsPDF upgrade planned)
+- **Phase 6 Plan:** `.planning/phases/06-dependency-upgrade/06-01-PLAN.md`
 - **Current package.json:** Line 40 shows `"jspdf": "^4.0.0"`
-- **REQUIREMENTS.md:** Lines 68-79 (DEP-01, DEP-03 requirements)
-- **CONCERNS.md:** Lines 60-65 (jsPDF security concerns)
-- **PITFALLS.md:** Lines 326-364 (Pitfall 9: jsPDF API breaking changes)
+- **REQUIREMENTS.md:** Lines 70-79 (DEP-01, DEP-02, DEP-03 - updated to verification scope)
+- **ROADMAP.md:** Lines 130-148 (Phase 6 - updated to verification scope)
 
-## Implementation Plan (Phase 6)
+## Lessons Learned
 
-### Step 1: Research Breaking Changes
+1. **Always verify version numbers against official sources** (npm registry, GitHub releases)
+2. **Semantic versioning v4 > v2** - don't assume lower number = newer
+3. **Check release dates** before assuming a package is outdated
+4. **Verify claims in initial research** before planning entire phases
+5. **Named imports are standard in modern jsPDF** (not a sign of older version)
 
-- Review [jsPDF releases](https://github.com/parallax/jsPDF/releases) for v2.x changelog
-- Identify API changes affecting Converty's PDF export code
-- Note version numbering: v4.0.0 (2018) → v2.5.2 (current) indicates major API overhaul
+## Original (Incorrect) Claims
 
-### Step 2: Upgrade Dependency
+For historical reference, the original ADR incorrectly claimed:
 
-```bash
-npm install jspdf@latest
-npm list jspdf  # Verify v2.5.2 or later
-```
+- ❌ "jsPDF v4.0.0 released in 2018 - 6+ years old"
+  - **Reality:** v4.0.0 released January 3, 2025 (days old, not years)
 
-### Step 3: Update PDF Export Code
+- ❌ "v4.0.0 is older than v2.5.2 (version rollback)"
+  - **Reality:** v4.0.0 is NEWER - semantic versioning v4 > v2
 
-**Expected API changes (from research):**
+- ❌ "Need to upgrade to v2.5.2+ for security patches"
+  - **Reality:** v4.0.0 IS the latest with all security patches
 
-**Old API (v4.0.0):**
+- ❌ "Version rollback indicates breaking changes"
+  - **Reality:** No rollback occurred - standard version progression
 
-```typescript
-import jsPDF from 'jspdf';
-const doc = new jsPDF();
-```
-
-**New API (v2.5.2):**
-
-```typescript
-import { jsPDF } from 'jspdf';  // Named import
-const doc = new jsPDF();
-```
-
-**Other potential changes:**
-
-- Font handling API may differ
-- `addPage()` parameters might change
-- `text()` method signature updates
-- Image embedding API changes
-
-### Step 4: Identify PDF Export Usage
-
-Search codebase for jsPDF usage:
-
-```bash
-grep -r "jsPDF" src/
-grep -r "\.pdf" src/components/
-```
-
-### Step 5: Update All PDF Export Functions
-
-- Update imports to use named import: `import { jsPDF } from 'jspdf'`
-- Update API calls to match v2.5.2 patterns
-- Test each calculator's PDF export functionality
-- Verify font rendering unchanged
-- Compare PDF output before/after upgrade
-
-### Step 6: Verification
-
-**Build verification:**
-
-- TypeScript compilation passes (new types)
-- Biome lint passes
-- Production build succeeds
-
-**Functional verification:**
-
-- Generate PDF from each calculator that supports export
-- Verify layout matches previous version
-- Test PDF downloads correctly
-- Verify PDF opens in various viewers (Chrome, Firefox, Adobe Reader)
-- Test on mobile devices (iOS, Android)
-
-**Performance verification:**
-
-- Check bundle size change
-- Verify PDF generation speed unchanged
-- Monitor memory usage during PDF generation
-
-### Step 7: Document Changes
-
-- Update CONTRIBUTING.md if PDF export patterns changed
-- Add migration notes to CHANGELOG.md
-- Document any API differences in code comments
-
-## Risk Assessment
-
-**High Risk:**
-
-- Breaking changes in font handling (could break PDF layout)
-- Different text positioning (could misalign calculator results)
-
-**Medium Risk:**
-
-- API method signature changes (will surface in TypeScript errors)
-- Bundle size increase (though v2.x likely smaller with tree-shaking)
-
-**Low Risk:**
-
-- Import statement changes (straightforward find-replace)
-- TypeScript type errors (helpful for finding issues)
-
-**Mitigation:**
-
-- Comprehensive testing before deployment
-- Keep v4.0.0 backup branch for comparison
-- Test PDFs in multiple viewers
-- Gradual rollout if possible (though static site makes this difficult)
-
-## Open Questions
-
-**Answered during Phase 6 implementation:**
-
-1. What specific API changes exist between v4.0.0 and v2.5.2?
-2. Does Converty's PDF usage rely on any deprecated methods?
-3. Are there any browser compatibility changes?
-4. What is the bundle size impact?
-5. Do any calculators use advanced jsPDF features (images, fonts)?
-
-## Success Criteria (Phase 6)
-
-- [ ] `npm list jspdf` shows v2.5.2 or later
-- [ ] All PDF export code uses new API (named import, updated methods)
-- [ ] TypeScript compilation passes with no jsPDF-related errors
-- [ ] PDF exports verified working on all calculators
-- [ ] Visual regression: PDF output matches previous version
-- [ ] Bundle size measured and acceptable
-- [ ] CHANGELOG.md documents the upgrade
-
-## Notes
-
-**Version numbering explanation:**
-
-The jsPDF project went through a major rewrite after v1.x. Version 4.0.0 was released in 2018 as part of an experimental branch that was later abandoned. The project returned to v2.x versioning for the stable release. This means v2.5.2 (2024) is newer than v4.0.0 (2018).
-
-**Related requirements:**
-
-- DEP-01: Upgrade jsPDF from v4.0.0 to latest stable
-- DEP-03: Update jsPDF usage to match new API
-- DOC-02: Create ADR documenting jsPDF decision
+These errors led to incorrect Phase 6 planning, which has now been corrected.
