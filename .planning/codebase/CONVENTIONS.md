@@ -384,6 +384,52 @@ const { values, setValue, result } = useMyStore();
 - Keyboard navigation supported by Radix components
 - Semantic HTML: `<button>` not `<div onClick>`
 
+## AI Assistant Tools
+
+**Serena (Code Editing):**
+
+- **Preferred method** for all code editing operations
+- Provides semantic, symbol-level code manipulation
+- Use symbolic tools for precise modifications:
+  - `find_symbol`: locate classes, methods, functions by name path
+  - `replace_symbol_body`: replace entire symbol definitions
+  - `insert_before_symbol` / `insert_after_symbol`: add code around symbols
+  - `rename_symbol`: rename with automatic reference updates
+  - `replace_content`: regex-based replacements for targeted edits
+- Benefits:
+  - Type-aware editing (understands code structure)
+  - Automatic reference tracking
+  - No need to read entire files for small changes
+  - Reliable, no need to verify results
+- Avoids common pitfalls of text-based editing (indentation, syntax errors)
+
+**Web Search (Internet Research):**
+
+- Use WebSearch tool for:
+  - Current events and up-to-date information
+  - Documentation for libraries not in Context7
+  - Best practices and community solutions
+  - Troubleshooting errors and issues
+- Use WebFetch tool for:
+  - Fetching specific documentation pages
+  - Reading GitHub issues/discussions
+  - Accessing API documentation
+- Always include sources in responses
+
+**Context7 (Library Documentation):**
+
+- **Preferred method** for researching library features and APIs
+- Provides up-to-date, curated documentation for popular libraries
+- Workflow:
+  1. Use `resolve-library-id` to find the correct library ID
+  2. Use `get-library-docs` with the library ID and optional topic
+- Example use cases:
+  - Learning new Next.js features
+  - Understanding Zustand API changes
+  - Researching Radix UI component props
+  - Exploring TypeScript utility types
+- More reliable than web search for library-specific questions
+
 ---
 
 _Convention analysis: 2026-01-17_

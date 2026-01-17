@@ -19,23 +19,26 @@ The project uses Zustand 5.0.10 with a custom `createCalculatorStore` factory th
 The state management stack is already established and in use:
 
 ### Core
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| zustand | 5.0.10 | State management | Already in use, all calculators migrated, lightweight and performant |
-| TypeScript | 5.9.3 | Type safety | Ensures type safety through store chain, critical for factory pattern |
+
+| Library    | Version | Purpose          | Why Standard                                                          |
+| ---------- | ------- | ---------------- | --------------------------------------------------------------------- |
+| zustand    | 5.0.10  | State management | Already in use, all calculators migrated, lightweight and performant  |
+| TypeScript | 5.9.3   | Type safety      | Ensures type safety through store chain, critical for factory pattern |
 
 ### Supporting
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| URLSearchParams | Native | URL parameter parsing | Already integrated in URL sync middleware (Phase 2) |
-| window.history | Native | URL updates without reload | replaceState for parameter updates (already used) |
+
+| Library         | Version | Purpose                    | When to Use                                         |
+| --------------- | ------- | -------------------------- | --------------------------------------------------- |
+| URLSearchParams | Native  | URL parameter parsing      | Already integrated in URL sync middleware (Phase 2) |
+| window.history  | Native  | URL updates without reload | replaceState for parameter updates (already used)   |
 
 ### Alternatives Considered
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Zustand | Redux Toolkit | Redux requires more boilerplate, Zustand already integrated and working |
-| Zustand | Jotai | Jotai is atomic, would require different architecture, no benefit for this use case |
-| Factory pattern | Individual stores | Factory ensures consistency, reduces duplication, easier to maintain |
+
+| Instead of      | Could Use         | Tradeoff                                                                            |
+| --------------- | ----------------- | ----------------------------------------------------------------------------------- |
+| Zustand         | Redux Toolkit     | Redux requires more boilerplate, Zustand already integrated and working             |
+| Zustand         | Jotai             | Jotai is atomic, would require different architecture, no benefit for this use case |
+| Factory pattern | Individual stores | Factory ensures consistency, reduces duplication, easier to maintain                |
 
 **Installation:**
 No new packages needed. This phase uses existing dependencies.
@@ -45,6 +48,7 @@ No new packages needed. This phase uses existing dependencies.
 The project has established a proven Zustand architecture pattern through Phase 2 and the migration work.
 
 ### Recommended Project Structure
+
 ```
 src/
 ├── stores/
@@ -68,6 +72,7 @@ src/
 **When to use:** For every calculator component. This is the established pattern.
 
 **Example:**
+
 ```typescript
 // Source: src/stores/calculator-store.ts (current implementation)
 import { createCalculatorStore } from "@/stores/calculator-store";
@@ -82,7 +87,10 @@ interface CalculationResult {
   interest: number;
 }
 
-const useInterestStore = createCalculatorStore<FormValues, CalculationResult | null>({
+const useInterestStore = createCalculatorStore<
+  FormValues,
+  CalculationResult | null
+>({
   name: "interest-calculator",
   initialValues: {
     amount: "1000",
@@ -98,7 +106,7 @@ const useInterestStore = createCalculatorStore<FormValues, CalculationResult | n
       interest: amount * (rate / 100),
     };
   },
-  syncUrl: true,  // default, enables URL sync middleware
+  syncUrl: true, // default, enables URL sync middleware
   debounceMs: 150, // default
 });
 
@@ -115,6 +123,7 @@ export function InterestCalculator() {
 **When to use:** In every calculator component.
 
 **Example:**
+
 ```typescript
 // Source: Zustand best practices + existing calculator patterns
 "use client";
@@ -180,6 +189,7 @@ export function MortgageCalculator() {
 **When to use:** When input validation requires cross-field logic or complex rules.
 
 **Example:**
+
 ```typescript
 // Source: calculator-store.ts interface
 const useAgeStore = createCalculatorStore<FormValues, AgeResult | null>({
@@ -217,12 +227,12 @@ const useAgeStore = createCalculatorStore<FormValues, AgeResult | null>({
 
 Problems that already have established solutions in this codebase:
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Calculator state management | Custom useState with URL sync | `createCalculatorStore` factory | Already handles validation, calculation, URL sync, debouncing, type safety |
-| URL parameter parsing | String manipulation or split() | `parseNumberParam`, `parseStringParam` from Phase 1 | Type-safe, handles edge cases, consistent fallback behavior |
-| URL sync timing | Custom debounce or setTimeout | URL sync middleware from Phase 2 | Closure-based timer isolation, tested, integrated |
-| Store testing setup | Custom test utilities | Zustand testing patterns with vitest | Official approach, handles state reset between tests |
+| Problem                     | Don't Build                    | Use Instead                                         | Why                                                                        |
+| --------------------------- | ------------------------------ | --------------------------------------------------- | -------------------------------------------------------------------------- |
+| Calculator state management | Custom useState with URL sync  | `createCalculatorStore` factory                     | Already handles validation, calculation, URL sync, debouncing, type safety |
+| URL parameter parsing       | String manipulation or split() | `parseNumberParam`, `parseStringParam` from Phase 1 | Type-safe, handles edge cases, consistent fallback behavior                |
+| URL sync timing             | Custom debounce or setTimeout  | URL sync middleware from Phase 2                    | Closure-based timer isolation, tested, integrated                          |
+| Store testing setup         | Custom test utilities          | Zustand testing patterns with vitest                | Official approach, handles state reset between tests                       |
 
 **Key insight:** The migration to Zustand is already complete. The factory pattern (`createCalculatorStore`) is the established standard. Any calculator not using this pattern should be migrated to it, but current analysis shows 100% adoption.
 
@@ -235,12 +245,14 @@ Problems that already have established solutions in this codebase:
 **Why it happens:** Incomplete migration or missed imports in less-frequently-modified calculators.
 
 **How to avoid:**
+
 1. Run `grep -r "useConverter" src/app --include="*.tsx"` to verify ZERO imports
 2. Run `grep -r "useUrlState" src/app --include="*.tsx"` to verify ZERO imports
 3. Check TypeScript compilation succeeds before deletion: `npx tsc --noEmit`
 4. Delete files only after verification
 
 **Warning signs:**
+
 - TypeScript errors: "Cannot find module '@/hooks/use-converter'"
 - Build failures in Next.js production build
 - Tests failing due to missing imports
@@ -252,6 +264,7 @@ Problems that already have established solutions in this codebase:
 **Why it happens:** Not testing representative samples, not checking URL sync behavior, not verifying calculation accuracy.
 
 **How to avoid:**
+
 - Test calculators from each category (at least 10-15 representative samples)
 - Verify URL sync works: change values, refresh page, confirm values persist
 - Test validation: enter invalid inputs, confirm error handling
@@ -259,6 +272,7 @@ Problems that already have established solutions in this codebase:
 - Build static export: `npm run build` and verify no errors
 
 **Warning signs:**
+
 - URL parameters not syncing (middleware not applied)
 - Calculations returning null unexpectedly (validation logic broken)
 - State not resetting properly (reset function not working)
@@ -271,6 +285,7 @@ Problems that already have established solutions in this codebase:
 **Why it happens:** Trying to simplify types or work around TypeScript errors instead of fixing root cause.
 
 **How to avoid:**
+
 - Always provide explicit generics to `createCalculatorStore<FormValues, Result>`
 - Keep `FormValues` interface with string types (HTML inputs are strings)
 - Keep `Result` interface with computed types (numbers, dates, etc.)
@@ -278,6 +293,7 @@ Problems that already have established solutions in this codebase:
 - Run `npx tsc --noEmit` regularly to catch type errors
 
 **Warning signs:**
+
 - TypeScript showing `any` in store inference
 - Missing autocomplete for store properties
 - Errors not caught until runtime
@@ -289,12 +305,14 @@ Problems that already have established solutions in this codebase:
 **Why it happens:** Defining stores inside components or calling `createCalculatorStore` multiple times for the same calculator.
 
 **How to avoid:**
+
 - Define store once at module level: `const useMyStore = createCalculatorStore(...)`
 - Import and use the same store instance across all components
 - Never define stores inside React components
 - Never call `createCalculatorStore` conditionally
 
 **Warning signs:**
+
 - State changes in one component don't reflect in another
 - URL sync only working for one instance
 - Multiple store subscriptions showing in React DevTools
@@ -306,12 +324,14 @@ Problems that already have established solutions in this codebase:
 **Why it happens:** Zustand stores live outside React's lifecycle and persist in module scope.
 
 **How to avoid:**
+
 - Create `__mocks__/zustand.ts` that wraps Zustand's create function
 - Track store reset functions in a Set during test setup
 - Call all reset functions in `afterEach` hook
 - See "Testing Strategy" section for complete setup
 
 **Warning signs:**
+
 - Tests pass individually but fail when run together
 - Test order affects outcomes
 - Flaky test failures that resolve when running in isolation
@@ -542,6 +562,7 @@ if (calculators.length !== withZustand.length) {
 Since this is a static site without automated tests, verification relies on systematic manual testing:
 
 **Pre-deletion verification:**
+
 1. Run codebase search for imports:
    ```bash
    grep -r "from.*use-converter" src/app --include="*.tsx"
@@ -550,6 +571,7 @@ Since this is a static site without automated tests, verification relies on syst
 2. Confirm zero results for both searches
 
 **Post-deletion verification:**
+
 1. Run TypeScript compilation: `npx tsc --noEmit`
 2. Run build: `npm run build`
 3. Test representative calculators (suggested list):
@@ -561,6 +583,7 @@ Since this is a static site without automated tests, verification relies on syst
    - Video: Bitrate Calculator
 
 **For each tested calculator:**
+
 - [ ] Loads without errors
 - [ ] Accepts input values
 - [ ] Calculates correct results
@@ -583,14 +606,15 @@ See "Code Examples" section for complete testing setup.
 
 ## State of the Art
 
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| useConverter hook | Zustand stores with factory | Phase 2-3 (2026-01) | Centralized state, URL sync middleware, type safety |
-| Manual URL sync in hook | URL sync middleware | Phase 2 | Fixed global timer bug, reusable pattern |
-| Individual useState calls | createCalculatorStore factory | Phase 3 migration | Consistency across 117 calculators, easier maintenance |
-| Inline validation logic | Optional validate function in store | Current pattern | Centralized validation, reusable across stores |
+| Old Approach              | Current Approach                    | When Changed        | Impact                                                 |
+| ------------------------- | ----------------------------------- | ------------------- | ------------------------------------------------------ |
+| useConverter hook         | Zustand stores with factory         | Phase 2-3 (2026-01) | Centralized state, URL sync middleware, type safety    |
+| Manual URL sync in hook   | URL sync middleware                 | Phase 2             | Fixed global timer bug, reusable pattern               |
+| Individual useState calls | createCalculatorStore factory       | Phase 3 migration   | Consistency across 117 calculators, easier maintenance |
+| Inline validation logic   | Optional validate function in store | Current pattern     | Centralized validation, reusable across stores         |
 
 **Deprecated/outdated:**
+
 - **useConverter hook:** Replaced by createCalculatorStore, should be deleted
 - **useUrlState hook:** Replaced by URL sync middleware, should be deleted
 - **Manual useState + URL sync:** No longer needed, factory handles everything
@@ -600,11 +624,13 @@ See "Code Examples" section for complete testing setup.
 ### 1. Should we add automated tests before deleting legacy hooks?
 
 **What we know:**
+
 - No test suite exists currently (package.json has no test dependencies)
 - Manual testing is the current verification approach
 - Zustand has official testing patterns for vitest/jest
 
 **What's unclear:**
+
 - Whether automated tests are planned for this project
 - Time/effort available for test setup
 
@@ -613,12 +639,14 @@ See "Code Examples" section for complete testing setup.
 ### 2. How many calculators have actually been migrated?
 
 **What we know:**
+
 - 117 calculator files exist in `src/app/[locale]/`
 - Commit `c721265` migrated 60 calculators
 - grep shows 0 imports of `useConverter` in app directory
 - Phase description mentions 74 calculators need migration
 
 **What's unclear:**
+
 - Discrepancy between 60 (commit message) and 74 (phase description)
 - Whether some calculators were never using useConverter
 
@@ -627,11 +655,13 @@ See "Code Examples" section for complete testing setup.
 ### 3. Should we keep useConverter for documentation purposes?
 
 **What we know:**
+
 - Hook is not being used anywhere
 - Pattern is well-documented in git history
 - Code is straightforward and could be referenced if needed
 
 **What's unclear:**
+
 - Value of keeping dead code vs. clean codebase
 
 **Recommendation:** Delete the hooks. Git history preserves the implementation if ever needed for reference. Keeping dead code violates the DRY principle and creates confusion. Document the migration pattern in ARCHITECTURE.md instead.
@@ -639,6 +669,7 @@ See "Code Examples" section for complete testing setup.
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - [Zustand GitHub Repository](https://github.com/pmndrs/zustand) - Official source code and examples
 - [Working with Zustand - TkDodo's Blog](https://tkdodo.eu/blog/working-with-zustand) - Best practices from Zustand maintainer
 - [Zustand Testing Guide](https://zustand.docs.pmnd.rs/guides/testing) - Official testing documentation
@@ -647,6 +678,7 @@ See "Code Examples" section for complete testing setup.
 - Package.json inspection - Confirmed Zustand 5.0.10, TypeScript 5.9.3, no test dependencies
 
 ### Secondary (MEDIUM confidence)
+
 - [Data Migration Testing in 2026](https://blog.qasource.com/a-guide-to-data-migration-testing) - Migration verification strategies
 - [Automated Testing Strategies for Post-Migration Validation](https://dev.to/writerellinwinton/automated-testing-strategies-for-post-migration-validation-1ek1) - Testing approaches
 - [Reset Zustand state between tests - GitHub Discussion #1829](https://github.com/pmndrs/zustand/discussions/1829) - Testing patterns
@@ -654,6 +686,7 @@ See "Code Examples" section for complete testing setup.
 - [5 React State Management Tools Developers Actually Use in 2025](https://www.syncfusion.com/blogs/post/react-state-management-libraries) - Ecosystem context
 
 ### Tertiary (LOW confidence)
+
 - [Modernizing Your Old React Codebase](https://medium.com/codex/from-legacy-to-leading-modernizing-your-old-react-codebase-5bcc86bf808a) - General refactoring patterns
 - [7 React Maintenance Problems AI Actually Solves](https://www.augmentcode.com/learn/7-react-maintenance-problems-ai-actually-solves-in-enterprise-codebases) - Code quality patterns
 - Git history - Migration commit messages provide context but not technical details
@@ -661,6 +694,7 @@ See "Code Examples" section for complete testing setup.
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - Package.json inspection confirms versions, existing codebase uses Zustand extensively
 - Architecture patterns: HIGH - Patterns extracted from existing working calculators, factory pattern already implemented and tested
 - Pitfalls: HIGH - Derived from Zustand official docs, migration best practices, and codebase analysis
@@ -670,6 +704,7 @@ See "Code Examples" section for complete testing setup.
 **Valid until:** ~2026-02-17 (30 days - Zustand is stable, patterns are established)
 
 **Key findings:**
+
 - Migration is complete: 0/117 calculators using useConverter, 117/117 using Zustand
 - Safe to delete: No imports of useConverter or useUrlState found in app directory
 - Verification required: Manual testing before deletion, TypeScript compilation, production build
