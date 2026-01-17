@@ -43,7 +43,7 @@ next-env.d.ts
 .vercel
 
 # PWA
-public/sw.js
+# Note: public/sw.js is manually created, not generated
 public/workbox-*.js
 
 # Misc
