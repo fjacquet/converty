@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateScientificNotation,
   type ScientificNotationInput,
   type ScientificNotationResult,
-  calculateScientificNotation,
 } from "@/lib/converters/math/scientific-notation";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type NotationMode = "toScientific" | "fromScientific";
 
@@ -26,7 +26,10 @@ interface FormValues {
   exponent: string;
 }
 
-const useScientificNotationStore = createCalculatorStore<FormValues, ScientificNotationResult | null>({
+const useScientificNotationStore = createCalculatorStore<
+  FormValues,
+  ScientificNotationResult | null
+>({
   name: "scientific-notation-calculator",
   initialValues: {
     mode: "toScientific",
@@ -56,10 +59,7 @@ export function ScientificNotationCalculator() {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label>{tMath("conversionMode")}</Label>
-        <Select
-          value={values.mode}
-          onValueChange={(v) => setValue("mode", v as NotationMode)}
-        >
+        <Select value={values.mode} onValueChange={(v) => setValue("mode", v as NotationMode)}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -116,7 +116,10 @@ export function ScientificNotationCalculator() {
               { label: tMath("mantissa"), value: notationResult.mantissa.toFixed(6) },
               { label: tMath("exponent"), value: String(notationResult.exponent) },
               { label: tMath("engineeringNotation"), value: notationResult.engineeringNotation },
-              { label: tMath("significantFigures"), value: String(notationResult.significantFigures) },
+              {
+                label: tMath("significantFigures"),
+                value: String(notationResult.significantFigures),
+              },
             ]}
           />
 

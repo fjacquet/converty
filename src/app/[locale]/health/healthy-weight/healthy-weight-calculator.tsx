@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateHealthyWeight,
   type HealthyWeightInput,
   type HealthyWeightResult,
-  calculateHealthyWeight,
 } from "@/lib/converters/health/healthy-weight-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   height: string;
@@ -135,10 +135,26 @@ export function HealthyWeightCalculator() {
           <h3 className="text-lg font-semibold">{tResults("bmiThresholds")}</h3>
           <ResultGrid
             results={[
-              { label: tResults("underweight"), value: `< ${result.currentBmiThresholds.underweight.toFixed(1)}`, unit: "kg" },
-              { label: tResults("normalWeight"), value: `${result.currentBmiThresholds.underweight.toFixed(1)} - ${result.currentBmiThresholds.normal.toFixed(1)}`, unit: "kg" },
-              { label: tResults("overweight"), value: `${result.currentBmiThresholds.normal.toFixed(1)} - ${result.currentBmiThresholds.overweight.toFixed(1)}`, unit: "kg" },
-              { label: tResults("obese"), value: `> ${result.currentBmiThresholds.overweight.toFixed(1)}`, unit: "kg" },
+              {
+                label: tResults("underweight"),
+                value: `< ${result.currentBmiThresholds.underweight.toFixed(1)}`,
+                unit: "kg",
+              },
+              {
+                label: tResults("normalWeight"),
+                value: `${result.currentBmiThresholds.underweight.toFixed(1)} - ${result.currentBmiThresholds.normal.toFixed(1)}`,
+                unit: "kg",
+              },
+              {
+                label: tResults("overweight"),
+                value: `${result.currentBmiThresholds.normal.toFixed(1)} - ${result.currentBmiThresholds.overweight.toFixed(1)}`,
+                unit: "kg",
+              },
+              {
+                label: tResults("obese"),
+                value: `> ${result.currentBmiThresholds.overweight.toFixed(1)}`,
+                unit: "kg",
+              },
             ]}
           />
 
@@ -148,8 +164,12 @@ export function HealthyWeightCalculator() {
               <thead>
                 <tr>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{t("category")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("bmiRange")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("weightRange")}</th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("bmiRange")}
+                  </th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("weightRange")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -157,7 +177,9 @@ export function HealthyWeightCalculator() {
                   <tr key={cat.category}>
                     <td className="px-3 py-2 text-sm">{cat.category}</td>
                     <td className="px-3 py-2 text-sm">{cat.bmiRange}</td>
-                    <td className="px-3 py-2 text-sm">{cat.minWeight.toFixed(1)} - {cat.maxWeight.toFixed(1)} kg</td>
+                    <td className="px-3 py-2 text-sm">
+                      {cat.minWeight.toFixed(1)} - {cat.maxWeight.toFixed(1)} kg
+                    </td>
                   </tr>
                 ))}
               </tbody>

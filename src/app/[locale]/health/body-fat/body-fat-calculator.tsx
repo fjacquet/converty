@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BodyFatInput,
   type BodyFatResult,
   calculateBodyFat,
 } from "@/lib/converters/health/body-fat";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   gender: "male" | "female";

@@ -3,12 +3,8 @@
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
+import { calculateFactor, type FactorInput, type FactorResult } from "@/lib/converters/math/factor";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type FactorInput,
-  type FactorResult,
-  calculateFactor,
-} from "@/lib/converters/math/factor";
 
 interface FormValues {
   number: string;
@@ -71,7 +67,9 @@ export function FactorCalculator() {
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("primeFactorization")}:</p>
-            <p className="text-sm text-muted-foreground font-mono">{factorResult.primeFactorization}</p>
+            <p className="text-sm text-muted-foreground font-mono">
+              {factorResult.primeFactorization}
+            </p>
           </div>
 
           <ResultGrid

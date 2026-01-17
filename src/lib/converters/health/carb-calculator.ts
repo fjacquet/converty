@@ -95,9 +95,16 @@ export function calculateCarbs(input: CarbInput): CarbResult | null {
 
   // Carb timing for active individuals
   const timing = {
-    preworkout: activityLevel === "athlete" || activityLevel === "active" ? dailyCarbGrams * 0.25 : dailyCarbGrams * 0.15,
-    postworkout: activityLevel === "athlete" || activityLevel === "active" ? dailyCarbGrams * 0.35 : dailyCarbGrams * 0.2,
-    other: dailyCarbGrams * (activityLevel === "athlete" || activityLevel === "active" ? 0.4 : 0.65),
+    preworkout:
+      activityLevel === "athlete" || activityLevel === "active"
+        ? dailyCarbGrams * 0.25
+        : dailyCarbGrams * 0.15,
+    postworkout:
+      activityLevel === "athlete" || activityLevel === "active"
+        ? dailyCarbGrams * 0.35
+        : dailyCarbGrams * 0.2,
+    other:
+      dailyCarbGrams * (activityLevel === "athlete" || activityLevel === "active" ? 0.4 : 0.65),
   };
 
   // Carb type breakdown
@@ -127,12 +134,7 @@ export function calculateCarbs(input: CarbInput): CarbResult | null {
       "Vegetables",
       "Whole wheat pasta",
     ],
-    simple: [
-      "Fruits",
-      "Honey (in moderation)",
-      "Milk",
-      "Sports drinks (around workouts)",
-    ],
+    simple: ["Fruits", "Honey (in moderation)", "Milk", "Sports drinks (around workouts)"],
     avoid: [
       "White bread",
       "Sugary cereals",

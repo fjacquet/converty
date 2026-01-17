@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateLogarithm,
   type LogarithmInput,
   type LogarithmResult,
-  calculateLogarithm,
 } from "@/lib/converters/math/logarithm";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   value: string;
@@ -67,11 +67,7 @@ export function LogarithmCalculator() {
 
       {logResult && (
         <div className="space-y-4">
-          <OutputDisplay
-            label={tMath("result")}
-            value={logResult.result.toFixed(6)}
-            size="lg"
-          />
+          <OutputDisplay label={tMath("result")} value={logResult.result.toFixed(6)} size="lg" />
 
           <ResultGrid
             results={[

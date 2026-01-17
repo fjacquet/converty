@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   calculateTdee,
   type TdeeInput,
   type TdeeResult,
 } from "@/lib/converters/health/tdee-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   gender: "male" | "female";

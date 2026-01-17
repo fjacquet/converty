@@ -64,10 +64,13 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
     case "add": {
       if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) return null;
       const commonDenAdd = lcm(denominator1, denominator2);
-      resultNum = (numerator1 * (commonDenAdd / denominator1)) + (numerator2 * (commonDenAdd / denominator2));
+      resultNum =
+        numerator1 * (commonDenAdd / denominator1) + numerator2 * (commonDenAdd / denominator2);
       resultDen = commonDenAdd;
       steps.push(`${numerator1}/${denominator1} + ${numerator2}/${denominator2}`);
-      steps.push(`= ${numerator1 * (commonDenAdd / denominator1)}/${commonDenAdd} + ${numerator2 * (commonDenAdd / denominator2)}/${commonDenAdd}`);
+      steps.push(
+        `= ${numerator1 * (commonDenAdd / denominator1)}/${commonDenAdd} + ${numerator2 * (commonDenAdd / denominator2)}/${commonDenAdd}`
+      );
       steps.push(`= ${resultNum}/${resultDen}`);
       break;
     }
@@ -75,7 +78,8 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
     case "subtract": {
       if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) return null;
       const commonDenSub = lcm(denominator1, denominator2);
-      resultNum = (numerator1 * (commonDenSub / denominator1)) - (numerator2 * (commonDenSub / denominator2));
+      resultNum =
+        numerator1 * (commonDenSub / denominator1) - numerator2 * (commonDenSub / denominator2);
       resultDen = commonDenSub;
       steps.push(`${numerator1}/${denominator1} - ${numerator2}/${denominator2}`);
       steps.push(`= ${resultNum}/${resultDen}`);
@@ -124,7 +128,10 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
 
   // Calculate mixed number if improper fraction
   let mixedNumber = null;
-  if (Math.abs(simplified.numerator) >= Math.abs(simplified.denominator) && simplified.denominator !== 0) {
+  if (
+    Math.abs(simplified.numerator) >= Math.abs(simplified.denominator) &&
+    simplified.denominator !== 0
+  ) {
     const whole = Math.trunc(simplified.numerator / simplified.denominator);
     const remainder = Math.abs(simplified.numerator % simplified.denominator);
     if (remainder !== 0) {

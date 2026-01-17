@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePercentError,
   type PercentErrorInput,
   type PercentErrorResult,
-  calculatePercentError,
 } from "@/lib/converters/math/percent-error";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   experimental: string;

@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BodyTypeInput,
   type BodyTypeResult,
   calculateBodyType,
 } from "@/lib/converters/health/body-type-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   gender: "male" | "female";
@@ -129,7 +129,9 @@ export function BodyTypeCalculator() {
         <div className="space-y-4">
           <div className={`p-4 rounded-lg text-center ${getBodyTypeColor(result.bodyType)}`}>
             <h2 className="text-2xl font-bold capitalize">{result.bodyType}</h2>
-            <p className="text-sm">{tResults("frameSize")}: {result.frameSize}</p>
+            <p className="text-sm">
+              {tResults("frameSize")}: {result.frameSize}
+            </p>
           </div>
 
           <ResultGrid
@@ -140,11 +142,13 @@ export function BodyTypeCalculator() {
                 unit: "",
               },
               ...(result.shoulderToHipRatio
-                ? [{
-                    label: tResults("shoulderToHipRatio"),
-                    value: result.shoulderToHipRatio.toFixed(2),
-                    unit: "",
-                  }]
+                ? [
+                    {
+                      label: tResults("shoulderToHipRatio"),
+                      value: result.shoulderToHipRatio.toFixed(2),
+                      unit: "",
+                    },
+                  ]
                 : []),
             ]}
           />
@@ -152,21 +156,27 @@ export function BodyTypeCalculator() {
           <h3 className="text-lg font-semibold">{tResults("characteristics")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.characteristics.map((char) => (
-              <li key={char} className="text-sm">{char}</li>
+              <li key={char} className="text-sm">
+                {char}
+              </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("trainingRecommendations")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.trainingRecommendations.map((rec) => (
-              <li key={rec} className="text-sm">{rec}</li>
+              <li key={rec} className="text-sm">
+                {rec}
+              </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("nutritionRecommendations")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.nutritionRecommendations.map((rec) => (
-              <li key={rec} className="text-sm">{rec}</li>
+              <li key={rec} className="text-sm">
+                {rec}
+              </li>
             ))}
           </ul>
         </div>

@@ -87,9 +87,10 @@ export function calculateGcdLcm(input: GcdLcmInput): GcdLcmResult | null {
   // Prime factorizations
   const primeFactorizations = absNumbers.map((n) => {
     const factors = primeFactorization(n);
-    const factorString = factors.length > 0
-      ? factors.map((f) => f.power > 1 ? `${f.prime}^${f.power}` : `${f.prime}`).join(" × ")
-      : "1";
+    const factorString =
+      factors.length > 0
+        ? factors.map((f) => (f.power > 1 ? `${f.prime}^${f.power}` : `${f.prime}`)).join(" × ")
+        : "1";
     return { number: n, factors, factorString };
   });
 

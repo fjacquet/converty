@@ -111,9 +111,7 @@ export function HomeEquityCalculator() {
               {t("labels.heloc")}
             </Label>
           </div>
-          <p className="text-xs text-muted-foreground">
-            {t("labels.heloc-description")}
-          </p>
+          <p className="text-xs text-muted-foreground">{t("labels.heloc-description")}</p>
         </CardContent>
       </Card>
 
@@ -129,7 +127,8 @@ export function HomeEquityCalculator() {
                 <p className="text-3xl font-bold">{formatCurrency(result.monthlyPayment)}</p>
                 {isHELOC && result.interestOnlyPayment && (
                   <p className="text-sm text-muted-foreground mt-1">
-                    {t("results.interest-only-during-draw")} {formatCurrency(result.interestOnlyPayment)}
+                    {t("results.interest-only-during-draw")}{" "}
+                    {formatCurrency(result.interestOnlyPayment)}
                   </p>
                 )}
               </div>
@@ -180,7 +179,9 @@ export function HomeEquityCalculator() {
                   <span>{formatCurrency(homeValue)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t("results.mortgage-balance-label")}</span>
+                  <span className="text-muted-foreground">
+                    {t("results.mortgage-balance-label")}
+                  </span>
                   <span>{formatCurrency(mortgageBalance)}</span>
                 </div>
                 <div className="flex justify-between font-medium">

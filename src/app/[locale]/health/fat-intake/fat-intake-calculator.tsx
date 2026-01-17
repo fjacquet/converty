@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateFatIntake,
   type FatIntakeInput,
   type FatIntakeResult,
-  calculateFatIntake,
 } from "@/lib/converters/health/fat-intake-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   calories: string;
@@ -132,21 +132,27 @@ export function FatIntakeCalculator() {
           <h3 className="text-lg font-semibold">{tResults("healthyFatSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
             {result.foodSources.healthy.map((source) => (
-              <li key={source} className="text-sm text-green-700 dark:text-green-300">{source}</li>
+              <li key={source} className="text-sm text-green-700 dark:text-green-300">
+                {source}
+              </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("limitTheseFats")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-yellow-50 dark:bg-yellow-950 p-4 rounded-lg">
             {result.foodSources.limit.map((source) => (
-              <li key={source} className="text-sm text-yellow-700 dark:text-yellow-300">{source}</li>
+              <li key={source} className="text-sm text-yellow-700 dark:text-yellow-300">
+                {source}
+              </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("avoidTheseFats")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-red-50 dark:bg-red-950 p-4 rounded-lg">
             {result.foodSources.avoid.map((source) => (
-              <li key={source} className="text-sm text-red-700 dark:text-red-300">{source}</li>
+              <li key={source} className="text-sm text-red-700 dark:text-red-300">
+                {source}
+              </li>
             ))}
           </ul>
         </div>

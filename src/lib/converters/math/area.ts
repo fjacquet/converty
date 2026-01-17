@@ -1,5 +1,14 @@
 export interface AreaInput {
-  shape: "rectangle" | "square" | "triangle" | "circle" | "trapezoid" | "parallelogram" | "ellipse" | "sector" | "rhombus";
+  shape:
+    | "rectangle"
+    | "square"
+    | "triangle"
+    | "circle"
+    | "trapezoid"
+    | "parallelogram"
+    | "ellipse"
+    | "sector"
+    | "rhombus";
   // Rectangle/Square
   length?: number;
   width?: number;

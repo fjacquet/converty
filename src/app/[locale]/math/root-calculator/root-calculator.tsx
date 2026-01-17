@@ -2,12 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
+import { calculateRoot, type RootInput, type RootResult } from "@/lib/converters/math/root";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type RootInput,
-  type RootResult,
-  calculateRoot,
-} from "@/lib/converters/math/root";
 
 interface FormValues {
   radicand: string;
@@ -67,17 +63,14 @@ export function RootCalculator() {
 
       <div className="rounded-lg border bg-muted/50 p-4 text-center">
         <p className="text-lg font-mono">
-          {getRootSymbol()}{values.radicand}
+          {getRootSymbol()}
+          {values.radicand}
         </p>
       </div>
 
       {rootResult && (
         <div className="space-y-4">
-          <OutputDisplay
-            label={tMath("result")}
-            value={rootResult.result.toFixed(6)}
-            size="lg"
-          />
+          <OutputDisplay label={tMath("result")} value={rootResult.result.toFixed(6)} size="lg" />
 
           <ResultGrid
             results={[

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import { useLocale } from "next-intl";
+import { useEffect } from "react";
 
 /**
  * Client component that sets the lang attribute on the <html> element

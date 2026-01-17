@@ -38,19 +38,19 @@ function detectPattern(terms: number[]): { type: string; diff?: number; ratio?: 
   for (let i = 1; i < terms.length; i++) {
     differences.push(terms[i] - terms[i - 1]);
   }
-  const isArithmetic = differences.every(d => Math.abs(d - differences[0]) < 0.0001);
+  const isArithmetic = differences.every((d) => Math.abs(d - differences[0]) < 0.0001);
 
   if (isArithmetic) {
     return { type: "arithmetic", diff: differences[0] };
   }
 
   // Check geometric
-  if (terms.every(t => t !== 0)) {
+  if (terms.every((t) => t !== 0)) {
     const ratios: number[] = [];
     for (let i = 1; i < terms.length; i++) {
       ratios.push(terms[i] / terms[i - 1]);
     }
-    const isGeometric = ratios.every(r => Math.abs(r - ratios[0]) < 0.0001);
+    const isGeometric = ratios.every((r) => Math.abs(r - ratios[0]) < 0.0001);
 
     if (isGeometric) {
       return { type: "geometric", ratio: ratios[0] };
@@ -119,11 +119,15 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
       steps.push(`Number of terms (n) = ${numberOfTerms}`);
       steps.push(`nth term formula: a_n = a₁ + (n-1)d`);
       steps.push(`Sum formula: S_n = n/2 × (first + last)`);
-      steps.push(`Sum = ${numberOfTerms}/2 × (${sequence[0]} + ${sequence[sequence.length - 1]}) = ${sum}`);
+      steps.push(
+        `Sum = ${numberOfTerms}/2 × (${sequence[0]} + ${sequence[sequence.length - 1]}) = ${sum}`
+      );
 
       if (findNthTerm) {
         nthTerm = firstTerm + (findNthTerm - 1) * commonDifference;
-        steps.push(`a_${findNthTerm} = ${firstTerm} + (${findNthTerm}-1) × ${commonDifference} = ${nthTerm}`);
+        steps.push(
+          `a_${findNthTerm} = ${firstTerm} + (${findNthTerm}-1) × ${commonDifference} = ${nthTerm}`
+        );
       }
       break;
     }
@@ -143,7 +147,7 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
         sum = firstTerm * numberOfTerms;
         sumFormula = `S_n = n × a_1 (when r = 1)`;
       } else {
-        sum = firstTerm * (1 - commonRatio ** numberOfTerms) / (1 - commonRatio);
+        sum = (firstTerm * (1 - commonRatio ** numberOfTerms)) / (1 - commonRatio);
         sumFormula = `S_n = a_1 × (1 - r^n) / (1 - r)`;
       }
 
@@ -165,7 +169,9 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
 
       if (findNthTerm) {
         nthTerm = firstTerm * commonRatio ** (findNthTerm - 1);
-        steps.push(`a_${findNthTerm} = ${firstTerm} × ${commonRatio}^${findNthTerm - 1} = ${nthTerm}`);
+        steps.push(
+          `a_${findNthTerm} = ${firstTerm} × ${commonRatio}^${findNthTerm - 1} = ${nthTerm}`
+        );
       }
       break;
     }

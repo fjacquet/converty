@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
 import {
   COMMON_ASPECT_RATIOS,
@@ -66,8 +66,20 @@ export function ScreenSizeCalculator() {
           </select>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <InputField id="aspectW" label={tMath("width")} value={aspectW} onChange={setAspectW} min={1} />
-          <InputField id="aspectH" label={tMath("height")} value={aspectH} onChange={setAspectH} min={1} />
+          <InputField
+            id="aspectW"
+            label={tMath("width")}
+            value={aspectW}
+            onChange={setAspectW}
+            min={1}
+          />
+          <InputField
+            id="aspectH"
+            label={tMath("height")}
+            value={aspectH}
+            onChange={setAspectH}
+            min={1}
+          />
         </div>
       </div>
 

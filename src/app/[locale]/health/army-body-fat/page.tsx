@@ -21,7 +21,13 @@ export async function generateMetadata({
   return {
     title: t("name"),
     description: t("metaDescription"),
-    keywords: ["army body fat", "military fitness", "body fat percentage", "tape test", "US Army standards"],
+    keywords: [
+      "army body fat",
+      "military fitness",
+      "body fat percentage",
+      "tape test",
+      "US Army standards",
+    ],
   };
 }
 
@@ -34,7 +40,12 @@ export default async function ArmyBodyFatPage({ params }: { params: Promise<{ lo
   const category = getCategoryBySlug("health")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("health.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("health.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <ArmyBodyFatCalculator />
       </Suspense>

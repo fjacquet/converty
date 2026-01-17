@@ -148,9 +148,7 @@ export function DebtPayoffCalculator() {
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">
-              {t("labels.enterValidValues")}
-            </p>
+            <p className="text-muted-foreground">{t("labels.enterValidValues")}</p>
           )}
         </CardContent>
       </Card>

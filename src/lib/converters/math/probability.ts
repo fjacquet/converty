@@ -1,5 +1,13 @@
 export interface ProbabilityInput {
-  mode: "single" | "and" | "or" | "conditional" | "complement" | "binomial" | "permutation" | "combination";
+  mode:
+    | "single"
+    | "and"
+    | "or"
+    | "conditional"
+    | "complement"
+    | "binomial"
+    | "permutation"
+    | "combination";
   probabilityA?: number;
   probabilityB?: number;
   probabilityAandB?: number; // P(A and B) for conditional
@@ -109,7 +117,8 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
 
     case "binomial": {
       const { trials, successes, probabilityA } = input;
-      if (trials === undefined || successes === undefined || probabilityA === undefined) return null;
+      if (trials === undefined || successes === undefined || probabilityA === undefined)
+        return null;
       if (trials < 0 || successes < 0 || successes > trials) return null;
       if (probabilityA < 0 || probabilityA > 1) return null;
 

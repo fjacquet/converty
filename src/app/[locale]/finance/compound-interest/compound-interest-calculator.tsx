@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations, useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import {
   Area,
   AreaChart,
@@ -172,12 +172,18 @@ export function CompoundInterestCalculator() {
 
               <ResultGrid
                 results={[
-                  { label: t("finance.initialInvestment"), value: formatCurrency(result.totalPrincipal) },
+                  {
+                    label: t("finance.initialInvestment"),
+                    value: formatCurrency(result.totalPrincipal),
+                  },
                   {
                     label: t("finance.totalContributions"),
                     value: formatCurrency(result.totalContributions),
                   },
-                  { label: t("finance.totalInterestEarned"), value: formatCurrency(result.totalInterest) },
+                  {
+                    label: t("finance.totalInterestEarned"),
+                    value: formatCurrency(result.totalInterest),
+                  },
                   {
                     label: t("finance.effectiveAnnualRate"),
                     value: `${result.effectiveAnnualRate.toFixed(2)}%`,

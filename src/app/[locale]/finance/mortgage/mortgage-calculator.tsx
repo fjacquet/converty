@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations, useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import {
   Area,
   AreaChart,
@@ -89,7 +89,9 @@ export function MortgageCalculator() {
         { name: t("finance.propertyTax"), value: result.monthlyPropertyTax },
         { name: t("finance.insurance"), value: result.monthlyInsurance },
         ...(result.monthlyPmi > 0 ? [{ name: t("finance.pmi"), value: result.monthlyPmi }] : []),
-        ...(result.monthlyHoa > 0 ? [{ name: t("finance.hoaFees"), value: result.monthlyHoa }] : []),
+        ...(result.monthlyHoa > 0
+          ? [{ name: t("finance.hoaFees"), value: result.monthlyHoa }]
+          : []),
       ]
     : [];
 
@@ -225,7 +227,10 @@ export function MortgageCalculator() {
                     label: t("finance.principalAndInterest"),
                     value: formatCurrency(result.monthlyPrincipalInterest),
                   },
-                  { label: t("finance.propertyTax"), value: formatCurrency(result.monthlyPropertyTax) },
+                  {
+                    label: t("finance.propertyTax"),
+                    value: formatCurrency(result.monthlyPropertyTax),
+                  },
                   { label: t("finance.insurance"), value: formatCurrency(result.monthlyInsurance) },
                   ...(result.monthlyPmi > 0
                     ? [{ label: t("finance.pmi"), value: formatCurrency(result.monthlyPmi) }]
@@ -276,8 +281,14 @@ export function MortgageCalculator() {
               <ResultGrid
                 results={[
                   { label: t("finance.loanAmount"), value: formatCurrency(result.loanAmount) },
-                  { label: t("finance.totalInterest"), value: formatCurrency(result.totalInterest) },
-                  { label: t("finance.totalPayments"), value: formatCurrency(result.totalPayments) },
+                  {
+                    label: t("finance.totalInterest"),
+                    value: formatCurrency(result.totalInterest),
+                  },
+                  {
+                    label: t("finance.totalPayments"),
+                    value: formatCurrency(result.totalPayments),
+                  },
                   { label: t("finance.totalCost"), value: formatCurrency(result.totalCost) },
                   { label: t("labels.payoffDate"), value: result.payoffDate },
                 ]}
@@ -288,7 +299,9 @@ export function MortgageCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">{t("labels.principal")} vs {t("labels.interest")}</CardTitle>
+              <CardTitle className="text-lg">
+                {t("labels.principal")} vs {t("labels.interest")}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">

@@ -77,7 +77,26 @@ function toPostfix(tokens: string[]): string[] {
 
   const isOperator = (token: string) => token in precedence;
   const isFunction = (token: string) =>
-    ["sin", "cos", "tan", "asin", "acos", "atan", "sqrt", "cbrt", "log", "ln", "log10", "log2", "abs", "floor", "ceil", "round", "exp", "fact"].includes(token);
+    [
+      "sin",
+      "cos",
+      "tan",
+      "asin",
+      "acos",
+      "atan",
+      "sqrt",
+      "cbrt",
+      "log",
+      "ln",
+      "log10",
+      "log2",
+      "abs",
+      "floor",
+      "ceil",
+      "round",
+      "exp",
+      "fact",
+    ].includes(token);
 
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
@@ -91,7 +110,8 @@ function toPostfix(tokens: string[]): string[] {
         operators.length > 0 &&
         isOperator(operators[operators.length - 1]) &&
         (precedence[operators[operators.length - 1]] > precedence[token] ||
-          (precedence[operators[operators.length - 1]] === precedence[token] && !rightAssociative.has(token)))
+          (precedence[operators[operators.length - 1]] === precedence[token] &&
+            !rightAssociative.has(token)))
       ) {
         output.push(operators.pop()!);
       }
@@ -117,7 +137,11 @@ function toPostfix(tokens: string[]): string[] {
 }
 
 // Evaluate postfix expression
-function evaluatePostfix(postfix: string[], angleMode: "degrees" | "radians", steps: string[]): number {
+function evaluatePostfix(
+  postfix: string[],
+  angleMode: "degrees" | "radians",
+  steps: string[]
+): number {
   const stack: number[] = [];
 
   const toRadians = (deg: number) => deg * (Math.PI / 180);
@@ -143,13 +167,26 @@ function evaluatePostfix(postfix: string[], angleMode: "degrees" | "radians", st
       let result: number;
 
       switch (token) {
-        case "+": result = a + b; break;
-        case "-": result = a - b; break;
-        case "*": result = a * b; break;
-        case "/": result = a / b; break;
-        case "^": result = a ** b; break;
-        case "%": result = a % b; break;
-        default: result = NaN;
+        case "+":
+          result = a + b;
+          break;
+        case "-":
+          result = a - b;
+          break;
+        case "*":
+          result = a * b;
+          break;
+        case "/":
+          result = a / b;
+          break;
+        case "^":
+          result = a ** b;
+          break;
+        case "%":
+          result = a % b;
+          break;
+        default:
+          result = NaN;
       }
 
       steps.push(`${a} ${token} ${b} = ${result}`);
@@ -165,9 +202,15 @@ function evaluatePostfix(postfix: string[], angleMode: "degrees" | "radians", st
       }
 
       switch (token) {
-        case "sin": result = Math.sin(angle); break;
-        case "cos": result = Math.cos(angle); break;
-        case "tan": result = Math.tan(angle); break;
+        case "sin":
+          result = Math.sin(angle);
+          break;
+        case "cos":
+          result = Math.cos(angle);
+          break;
+        case "tan":
+          result = Math.tan(angle);
+          break;
         case "asin":
           result = Math.asin(a);
           if (angleMode === "degrees") result = toDegrees(result);
@@ -180,19 +223,44 @@ function evaluatePostfix(postfix: string[], angleMode: "degrees" | "radians", st
           result = Math.atan(a);
           if (angleMode === "degrees") result = toDegrees(result);
           break;
-        case "sqrt": result = Math.sqrt(a); break;
-        case "cbrt": result = Math.cbrt(a); break;
-        case "log": result = Math.log10(a); break;
-        case "ln": result = Math.log(a); break;
-        case "log10": result = Math.log10(a); break;
-        case "log2": result = Math.log2(a); break;
-        case "abs": result = Math.abs(a); break;
-        case "floor": result = Math.floor(a); break;
-        case "ceil": result = Math.ceil(a); break;
-        case "round": result = Math.round(a); break;
-        case "exp": result = Math.exp(a); break;
-        case "fact": result = factorial(a); break;
-        default: result = NaN;
+        case "sqrt":
+          result = Math.sqrt(a);
+          break;
+        case "cbrt":
+          result = Math.cbrt(a);
+          break;
+        case "log":
+          result = Math.log10(a);
+          break;
+        case "ln":
+          result = Math.log(a);
+          break;
+        case "log10":
+          result = Math.log10(a);
+          break;
+        case "log2":
+          result = Math.log2(a);
+          break;
+        case "abs":
+          result = Math.abs(a);
+          break;
+        case "floor":
+          result = Math.floor(a);
+          break;
+        case "ceil":
+          result = Math.ceil(a);
+          break;
+        case "round":
+          result = Math.round(a);
+          break;
+        case "exp":
+          result = Math.exp(a);
+          break;
+        case "fact":
+          result = factorial(a);
+          break;
+        default:
+          result = NaN;
       }
 
       steps.push(`${token}(${a}) = ${result}`);
@@ -203,7 +271,9 @@ function evaluatePostfix(postfix: string[], angleMode: "degrees" | "radians", st
   return stack[0] || 0;
 }
 
-export function calculateBasicCalculator(input: BasicCalculatorInput): BasicCalculatorResult | null {
+export function calculateBasicCalculator(
+  input: BasicCalculatorInput
+): BasicCalculatorResult | null {
   const { expression, precision = 10, angleMode = "radians" } = input;
 
   if (!expression || expression.trim().length === 0) return null;

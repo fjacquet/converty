@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateProtein,
   type ProteinInput,
   type ProteinResult,
-  calculateProtein,
 } from "@/lib/converters/health/protein-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   weight: string;
@@ -131,10 +131,26 @@ export function ProteinCalculatorComponent() {
           <h3 className="text-lg font-semibold">{tResults("perMealBreakdown")}</h3>
           <ResultGrid
             results={[
-              { label: "3 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals3), unit: "g" },
-              { label: "4 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals4), unit: "g" },
-              { label: "5 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals5), unit: "g" },
-              { label: "6 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals6), unit: "g" },
+              {
+                label: "3 " + t("mealsPerDay"),
+                value: Math.round(result.perMeal.meals3),
+                unit: "g",
+              },
+              {
+                label: "4 " + t("mealsPerDay"),
+                value: Math.round(result.perMeal.meals4),
+                unit: "g",
+              },
+              {
+                label: "5 " + t("mealsPerDay"),
+                value: Math.round(result.perMeal.meals5),
+                unit: "g",
+              },
+              {
+                label: "6 " + t("mealsPerDay"),
+                value: Math.round(result.perMeal.meals6),
+                unit: "g",
+              },
             ]}
           />
 
@@ -144,9 +160,13 @@ export function ProteinCalculatorComponent() {
               <thead>
                 <tr>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{t("food")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("protein")}</th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("protein")}
+                  </th>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{t("serving")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("servingsNeeded")}</th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("servingsNeeded")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">

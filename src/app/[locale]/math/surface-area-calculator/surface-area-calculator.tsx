@@ -10,15 +10,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateSurfaceArea,
   type SurfaceAreaInput,
   type SurfaceAreaResult,
-  calculateSurfaceArea,
 } from "@/lib/converters/math/surface-area";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
-  shape: "cube" | "rectangularPrism" | "sphere" | "cylinder" | "cone" | "pyramid" | "triangularPrism" | "hemisphere";
+  shape:
+    | "cube"
+    | "rectangularPrism"
+    | "sphere"
+    | "cylinder"
+    | "cone"
+    | "pyramid"
+    | "triangularPrism"
+    | "hemisphere";
   side: string;
   length: string;
   width: string;
@@ -273,9 +281,7 @@ export function SurfaceAreaCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-2">{renderInputs()}</div>
       </div>
 
       {surfaceAreaResult && (
@@ -289,8 +295,16 @@ export function SurfaceAreaCalculator() {
 
           <ResultGrid
             results={[
-              { label: tMath("lateralSurfaceArea"), value: surfaceAreaResult.lateralSurfaceArea.toFixed(4), unit: "sq units" },
-              { label: tMath("baseSurfaceArea"), value: surfaceAreaResult.baseSurfaceArea.toFixed(4), unit: "sq units" },
+              {
+                label: tMath("lateralSurfaceArea"),
+                value: surfaceAreaResult.lateralSurfaceArea.toFixed(4),
+                unit: "sq units",
+              },
+              {
+                label: tMath("baseSurfaceArea"),
+                value: surfaceAreaResult.baseSurfaceArea.toFixed(4),
+                unit: "sq units",
+              },
             ]}
           />
 

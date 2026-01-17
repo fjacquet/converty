@@ -128,9 +128,14 @@ export function calculateFactor(input: FactorInput): FactorResult | null {
   let commonFactors: number[] | undefined;
   let greatestCommonFactor: number | undefined;
 
-  if (mode === "commonFactors" && number2 !== undefined && Number.isInteger(number2) && number2 > 0) {
+  if (
+    mode === "commonFactors" &&
+    number2 !== undefined &&
+    Number.isInteger(number2) &&
+    number2 > 0
+  ) {
     const factors2 = getFactors(number2);
-    commonFactors = factors.filter(f => factors2.includes(f));
+    commonFactors = factors.filter((f) => factors2.includes(f));
     greatestCommonFactor = gcd(number, number2);
     steps.push(`Factors of ${number2}: ${factors2.join(", ")}`);
     steps.push(`Common factors: ${commonFactors.join(", ")}`);

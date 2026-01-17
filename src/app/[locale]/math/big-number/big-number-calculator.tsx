@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
+import { ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -12,7 +13,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ResultGrid } from "@/components/converter";
 import {
   type BigNumberInput,
   type BigNumberResult,
@@ -149,9 +149,7 @@ export function BigNumberCalculator() {
                 </div>
                 <div>
                   <Label className="text-muted-foreground">Result</Label>
-                  <p className="text-2xl font-bold font-mono break-all">
-                    {result.result}
-                  </p>
+                  <p className="text-2xl font-bold font-mono break-all">{result.result}</p>
                 </div>
                 {result.comparison && (
                   <div>

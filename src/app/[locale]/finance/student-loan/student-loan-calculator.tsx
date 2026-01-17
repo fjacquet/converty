@@ -87,9 +87,7 @@ export function StudentLoanCalculator() {
               value={gracePeriodMonths}
               onChange={(e) => setGracePeriodMonths(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">
-              {t("finance.gracePeriodDescription")}
-            </p>
+            <p className="text-xs text-muted-foreground">{t("finance.gracePeriodDescription")}</p>
           </div>
 
           <div className="flex items-center space-x-2">
@@ -126,12 +124,16 @@ export function StudentLoanCalculator() {
 
               {gracePeriodMonths > 0 && (
                 <div className="p-4 bg-yellow-500/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">{t("finance.gracePeriodInterest")}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t("finance.gracePeriodInterest")}
+                  </p>
                   <p className="text-xl font-bold text-yellow-600">
                     {formatCurrency(result.gracePeriodInterest)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {interestCapitalized ? t("labels.interest-capitalized") : t("labels.interest-not-capitalized")}
+                    {interestCapitalized
+                      ? t("labels.interest-capitalized")
+                      : t("labels.interest-not-capitalized")}
                   </p>
                 </div>
               )}
@@ -157,7 +159,9 @@ export function StudentLoanCalculator() {
                 {interestCapitalized && gracePeriodMonths > 0 && (
                   <>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">{t("finance.gracePeriodInterestDetail")}</span>
+                      <span className="text-muted-foreground">
+                        {t("finance.gracePeriodInterestDetail")}
+                      </span>
                       <span>{formatCurrency(result.gracePeriodInterest)}</span>
                     </div>
                     <div className="flex justify-between font-medium">

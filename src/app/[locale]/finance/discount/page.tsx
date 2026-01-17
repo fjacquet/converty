@@ -30,7 +30,12 @@ export default async function DiscountPage({ params }: { params: Promise<{ local
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("finance.name")}
+    >
       <DiscountCalculator />
     </ConverterLayout>
   );

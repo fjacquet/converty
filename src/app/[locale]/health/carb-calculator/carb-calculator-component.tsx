@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type CarbInput,
   type CarbResult,
   calculateCarbs,
 } from "@/lib/converters/health/carb-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   calories: string;
@@ -181,21 +181,27 @@ export function CarbCalculatorComponent() {
           <h3 className="text-lg font-semibold">{tResults("complexCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
             {result.foodSources.complex.map((source) => (
-              <li key={source} className="text-sm text-green-700 dark:text-green-300">{source}</li>
+              <li key={source} className="text-sm text-green-700 dark:text-green-300">
+                {source}
+              </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("simpleCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
             {result.foodSources.simple.map((source) => (
-              <li key={source} className="text-sm text-blue-700 dark:text-blue-300">{source}</li>
+              <li key={source} className="text-sm text-blue-700 dark:text-blue-300">
+                {source}
+              </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("avoidTheseCarbs")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-red-50 dark:bg-red-950 p-4 rounded-lg">
             {result.foodSources.avoid.map((source) => (
-              <li key={source} className="text-sm text-red-700 dark:text-red-300">{source}</li>
+              <li key={source} className="text-sm text-red-700 dark:text-red-300">
+                {source}
+              </li>
             ))}
           </ul>
         </div>

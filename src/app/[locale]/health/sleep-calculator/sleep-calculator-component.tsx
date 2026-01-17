@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateSleep,
   type SleepInput,
   type SleepResult,
-  calculateSleep,
 } from "@/lib/converters/health/sleep-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mode: "wakeTime" | "bedTime";
@@ -102,11 +102,15 @@ export function SleepCalculatorComponent() {
         <div className="space-y-4">
           <div className="p-4 bg-muted rounded-lg text-center">
             <p className="text-sm text-muted-foreground">{tResults("recommendedSleep")}</p>
-            <p className="text-2xl font-bold">{result.recommendedHours.min} - {result.recommendedHours.max} {t("hours")}</p>
+            <p className="text-2xl font-bold">
+              {result.recommendedHours.min} - {result.recommendedHours.max} {t("hours")}
+            </p>
           </div>
 
           <h3 className="text-lg font-semibold">
-            {values.mode === "wakeTime" ? tResults("suggestedBedtimes") : tResults("suggestedWakeTimes")}
+            {values.mode === "wakeTime"
+              ? tResults("suggestedBedtimes")
+              : tResults("suggestedWakeTimes")}
           </h3>
           <div className="grid gap-3 sm:grid-cols-2">
             {result.cycleTimes.map((cycle) => (
@@ -115,7 +119,9 @@ export function SleepCalculatorComponent() {
                 className={`p-4 rounded-lg ${getQualityColor(cycle.quality)}`}
               >
                 <p className="text-2xl font-bold">{cycle.time}</p>
-                <p className="text-sm">{cycle.cycles} {tResults("sleepCycles")} ({cycle.duration})</p>
+                <p className="text-sm">
+                  {cycle.cycles} {tResults("sleepCycles")} ({cycle.duration})
+                </p>
                 <p className="text-xs capitalize">{cycle.quality}</p>
               </div>
             ))}
@@ -137,7 +143,9 @@ export function SleepCalculatorComponent() {
           <h3 className="text-lg font-semibold">{tResults("sleepTips")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.tips.map((tip) => (
-              <li key={tip} className="text-sm">{tip}</li>
+              <li key={tip} className="text-sm">
+                {tip}
+              </li>
             ))}
           </ul>
         </div>

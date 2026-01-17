@@ -13,7 +13,10 @@ export interface RootResult {
   relatedRoots: Array<{ index: number; result: number }>;
 }
 
-function simplifyRadical(radicand: number, index: number): { coefficient: number; radicand: number } | null {
+function simplifyRadical(
+  radicand: number,
+  index: number
+): { coefficient: number; radicand: number } | null {
   if (radicand <= 0 || index < 2 || !Number.isInteger(index)) return null;
 
   let coefficient = 1;

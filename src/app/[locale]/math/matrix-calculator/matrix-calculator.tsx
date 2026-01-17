@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
+import { ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -12,12 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ResultGrid } from "@/components/converter";
-import {
-  type MatrixInput,
-  type MatrixResult,
-  calculateMatrix,
-} from "@/lib/converters/math/matrix";
+import { calculateMatrix, type MatrixInput, type MatrixResult } from "@/lib/converters/math/matrix";
 
 type Mode = MatrixInput["mode"];
 
@@ -175,9 +171,7 @@ export function MatrixCalculator() {
                 <div>
                   <Label className="text-muted-foreground">Result</Label>
                   <p className="text-3xl font-bold">
-                    {typeof result.result === "number"
-                      ? result.result.toFixed(6)
-                      : result.result}
+                    {typeof result.result === "number" ? result.result.toFixed(6) : result.result}
                   </p>
                 </div>
               )}

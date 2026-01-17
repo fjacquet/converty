@@ -8,9 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  calculateStandardDeviation,
   type StandardDeviationInput,
   type StandardDeviationResult,
-  calculateStandardDeviation,
 } from "@/lib/converters/math/standard-deviation";
 
 export function StandardDeviationCalculator() {
@@ -58,11 +58,7 @@ export function StandardDeviationCalculator() {
               {isPopulation ? tMath("populationVariance") : tMath("sampleVariance")}
             </p>
           </div>
-          <Switch
-            id="population-switch"
-            checked={isPopulation}
-            onCheckedChange={setIsPopulation}
-          />
+          <Switch id="population-switch" checked={isPopulation} onCheckedChange={setIsPopulation} />
         </div>
 
         <Button onClick={calculate} className="w-full">
@@ -78,11 +74,7 @@ export function StandardDeviationCalculator() {
               value={result.standardDeviation.toFixed(6)}
               size="lg"
             />
-            <OutputDisplay
-              label={tMath("variance")}
-              value={result.variance.toFixed(6)}
-              size="lg"
-            />
+            <OutputDisplay label={tMath("variance")} value={result.variance.toFixed(6)} size="lg" />
           </div>
 
           <ResultGrid
@@ -90,7 +82,11 @@ export function StandardDeviationCalculator() {
               { label: tMath("mean"), value: result.mean.toFixed(6) },
               { label: tMath("count"), value: result.count.toString() },
               { label: tMath("sum"), value: result.sum.toFixed(6) },
-              { label: tMath("coefficientOfVariation"), value: result.coefficientOfVariation.toFixed(2), unit: "%" },
+              {
+                label: tMath("coefficientOfVariation"),
+                value: result.coefficientOfVariation.toFixed(2),
+                unit: "%",
+              },
             ]}
           />
 

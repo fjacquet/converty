@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateDueDate,
   type DueDateInput,
   type DueDateResult,
-  calculateDueDate,
 } from "@/lib/converters/health/pregnancy-due-date";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   calculationMethod: "lmp" | "conception" | "ultrasound" | "ivf";
@@ -61,7 +61,9 @@ export function DueDateCalculator() {
           <Label>{t("calculationMethod")}</Label>
           <Select
             value={values.calculationMethod}
-            onValueChange={(v) => setValue("calculationMethod", v as typeof values.calculationMethod)}
+            onValueChange={(v) =>
+              setValue("calculationMethod", v as typeof values.calculationMethod)
+            }
           >
             <SelectTrigger>
               <SelectValue />

@@ -38,7 +38,12 @@ export default async function TimeDurationPage({
   const category = getCategoryBySlug("datetime")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("datetime.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("datetime.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <TimeDurationCalculator />
       </Suspense>

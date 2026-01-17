@@ -58,9 +58,7 @@ export function ProfitMarginCalculator() {
               value={costOfGoodsSold}
               onChange={(e) => setCostOfGoodsSold(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">
-              {t("finance.cogsDescription")}
-            </p>
+            <p className="text-xs text-muted-foreground">{t("finance.cogsDescription")}</p>
           </div>
 
           <div className="space-y-2">
@@ -117,13 +115,17 @@ export function ProfitMarginCalculator() {
                   <div className="p-4 bg-purple-500/10 rounded-lg">
                     <div className="flex justify-between items-center">
                       <div>
-                        <p className="text-sm text-muted-foreground">{t("finance.operatingProfit")}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {t("finance.operatingProfit")}
+                        </p>
                         <p className="text-xl font-bold">
                           {formatCurrency(result.operatingProfit)}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-muted-foreground">{t("finance.operatingMargin")}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {t("finance.operatingMargin")}
+                        </p>
                         <p className="text-xl font-bold text-purple-600">
                           {result.operatingMargin?.toFixed(1)}%
                         </p>
@@ -173,7 +175,9 @@ export function ProfitMarginCalculator() {
                   <span>{formatCurrency(result.grossProfit)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t("finance.minusOperatingExpenses")}</span>
+                  <span className="text-muted-foreground">
+                    {t("finance.minusOperatingExpenses")}
+                  </span>
                   <span>{formatCurrency(operatingExpenses)}</span>
                 </div>
                 <div className="flex justify-between font-medium">

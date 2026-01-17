@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n/config";
+import { Link } from "@/i18n/navigation";
 import { getCategoryBySlug } from "@/lib/registry/categories";
 import { getConvertersByCategory } from "@/lib/registry/converters";
-import { Link } from "@/i18n/navigation";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -67,9 +67,7 @@ export default async function ColorCategoryPage({
                 {converter.icon && <converter.icon className="h-6 w-6 text-primary" />}
                 <h2 className="text-lg font-semibold">{converterT("name")}</h2>
               </div>
-              <p className="text-sm text-muted-foreground">
-                {converterT("description")}
-              </p>
+              <p className="text-sm text-muted-foreground">{converterT("description")}</p>
             </Link>
           );
         })}

@@ -53,9 +53,7 @@ export default async function LongDivisionCalculatorPage({
       category={category}
       categoryName={tc("math.name")}
     >
-      <Suspense
-        fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}
-      >
+      <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <LongDivisionCalculator />
       </Suspense>
     </ConverterLayout>

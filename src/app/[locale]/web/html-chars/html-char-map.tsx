@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import {
   getCharsByCategory,
   HTML_CHAR_CATEGORIES,

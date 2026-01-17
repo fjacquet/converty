@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BacInput,
   type BacResult,
   calculateBac,
 } from "@/lib/converters/health/bac-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   gender: "male" | "female";
@@ -128,11 +128,19 @@ export function BacCalculatorComponent() {
             size="lg"
           />
 
-          <div className={`p-4 rounded-lg ${result.legalToDrive ? "bg-green-100 dark:bg-green-900" : "bg-red-100 dark:bg-red-900"}`}>
+          <div
+            className={`p-4 rounded-lg ${result.legalToDrive ? "bg-green-100 dark:bg-green-900" : "bg-red-100 dark:bg-red-900"}`}
+          >
             <p className="font-semibold">
               {tResults("status")}: {result.status}
             </p>
-            <p className={result.legalToDrive ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300"}>
+            <p
+              className={
+                result.legalToDrive
+                  ? "text-green-700 dark:text-green-300"
+                  : "text-red-700 dark:text-red-300"
+              }
+            >
               {result.legalToDrive ? tResults("legalToDrive") : tResults("notLegalToDrive")}
             </p>
           </div>
@@ -166,14 +174,14 @@ export function BacCalculatorComponent() {
             <h4 className="font-semibold mb-2">{tResults("currentEffects")}</h4>
             <ul className="list-disc list-inside space-y-1">
               {result.effects.map((effect) => (
-                <li key={effect} className="text-sm">{effect}</li>
+                <li key={effect} className="text-sm">
+                  {effect}
+                </li>
               ))}
             </ul>
           </div>
 
-          <p className="text-sm text-muted-foreground">
-            {tResults("bacDisclaimer")}
-          </p>
+          <p className="text-sm text-muted-foreground">{tResults("bacDisclaimer")}</p>
         </div>
       )}
     </div>

@@ -34,7 +34,12 @@ export default async function LoanPage({ params }: { params: Promise<{ locale: s
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("finance.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <LoanCalculator />
       </Suspense>

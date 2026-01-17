@@ -23,7 +23,15 @@ export interface PaceResult {
 }
 
 export function calculatePace(input: PaceInput): PaceResult | null {
-  const { mode, distance, hours = 0, minutes = 0, seconds = 0, paceMinutes = 0, paceSeconds = 0 } = input;
+  const {
+    mode,
+    distance,
+    hours = 0,
+    minutes = 0,
+    seconds = 0,
+    paceMinutes = 0,
+    paceSeconds = 0,
+  } = input;
 
   let totalSeconds: number;
   let distanceKm: number;
@@ -75,9 +83,10 @@ export function calculatePace(input: PaceInput): PaceResult | null {
     const h = Math.floor(splitSeconds / 3600);
     const m = Math.floor((splitSeconds % 3600) / 60);
     const s = Math.round(splitSeconds % 60);
-    const time = h > 0
-      ? `${h}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`
-      : `${m}:${s.toString().padStart(2, "0")}`;
+    const time =
+      h > 0
+        ? `${h}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`
+        : `${m}:${s.toString().padStart(2, "0")}`;
     splits.push({ km, time });
   }
 

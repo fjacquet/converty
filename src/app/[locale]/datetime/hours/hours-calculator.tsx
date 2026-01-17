@@ -80,7 +80,9 @@ export function HoursCalculator() {
           <CardContent className="space-y-4">
             <div className="text-center p-4 bg-primary/10 rounded-lg">
               <p className="text-3xl font-bold text-primary">{result.formattedDuration}</p>
-              <p className="text-sm text-muted-foreground mt-1">{result.totalHours} {t("hours")}</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                {result.totalHours} {t("hours")}
+              </p>
             </div>
             <ResultGrid
               results={[
@@ -88,8 +90,14 @@ export function HoursCalculator() {
                 { label: t("minutes"), value: result.minutes },
                 { label: t("seconds"), value: result.seconds },
                 { label: `${t("hours")} (${tSections("summary")})`, value: result.totalHours },
-                { label: `${t("minutes")} (${tSections("summary")})`, value: result.totalMinutes.toLocaleString() },
-                { label: `${t("seconds")} (${tSections("summary")})`, value: result.totalSeconds.toLocaleString() },
+                {
+                  label: `${t("minutes")} (${tSections("summary")})`,
+                  value: result.totalMinutes.toLocaleString(),
+                },
+                {
+                  label: `${t("seconds")} (${tSections("summary")})`,
+                  value: result.totalSeconds.toLocaleString(),
+                },
               ]}
               columns={3}
             />

@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -12,12 +11,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
+import { Switch } from "@/components/ui/switch";
 import {
+  calculatePValue,
   type PValueInput,
   type PValueResult,
-  calculatePValue,
 } from "@/lib/converters/math/p-value";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type PValueMode = "fromZScore" | "fromTScore" | "fromChiSquare" | "fromFScore";
 
@@ -62,10 +62,7 @@ export function PValueCalculator() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>{tMath("testType")}</Label>
-          <Select
-            value={values.mode}
-            onValueChange={(v) => setValue("mode", v as PValueMode)}
-          >
+          <Select value={values.mode} onValueChange={(v) => setValue("mode", v as PValueMode)}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -88,7 +85,9 @@ export function PValueCalculator() {
         />
       </div>
 
-      {(values.mode === "fromTScore" || values.mode === "fromChiSquare" || values.mode === "fromFScore") && (
+      {(values.mode === "fromTScore" ||
+        values.mode === "fromChiSquare" ||
+        values.mode === "fromFScore") && (
         <div className="grid gap-4 sm:grid-cols-2">
           <InputField
             id="degreesOfFreedom"
@@ -143,7 +142,10 @@ export function PValueCalculator() {
             results={[
               { label: tMath("testStatistic"), value: pResult.testStatistic.toFixed(4) },
               { label: tMath("statisticType"), value: pResult.statisticType },
-              { label: tMath("testTail"), value: pResult.twoTailed ? tMath("twoTailed") : tMath("oneTailed") },
+              {
+                label: tMath("testTail"),
+                value: pResult.twoTailed ? tMath("twoTailed") : tMath("oneTailed"),
+              },
             ]}
           />
 

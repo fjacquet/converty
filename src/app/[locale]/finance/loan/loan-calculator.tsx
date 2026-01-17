@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations, useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import {
   Area,
   AreaChart,
@@ -115,10 +115,16 @@ export function LoanCalculator() {
               <ResultGrid
                 results={[
                   { label: t("finance.loanAmount"), value: formatCurrency(values.loanAmount) },
-                  { label: t("finance.totalInterest"), value: formatCurrency(result.totalInterest) },
+                  {
+                    label: t("finance.totalInterest"),
+                    value: formatCurrency(result.totalInterest),
+                  },
                   { label: t("finance.totalPayment"), value: formatCurrency(result.totalPayment) },
                   { label: t("labels.payoffDate"), value: result.payoffDate },
-                  { label: t("labels.effectiveRate"), value: `${result.effectiveRate.toFixed(2)}%` },
+                  {
+                    label: t("labels.effectiveRate"),
+                    value: `${result.effectiveRate.toFixed(2)}%`,
+                  },
                 ]}
                 columns={2}
               />
@@ -127,7 +133,9 @@ export function LoanCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">{t("labels.principal")} vs {t("labels.interest")}</CardTitle>
+              <CardTitle className="text-lg">
+                {t("labels.principal")} vs {t("labels.interest")}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">

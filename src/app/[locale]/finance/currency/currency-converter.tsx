@@ -135,9 +135,7 @@ export function CurrencyConverter() {
                 </div>
               </div>
 
-              <p className="text-xs text-muted-foreground">
-                {t("labels.exchangeRateNote")}
-              </p>
+              <p className="text-xs text-muted-foreground">{t("labels.exchangeRateNote")}</p>
             </div>
           ) : (
             <p className="text-muted-foreground">{t("labels.enterValuesToConvert")}</p>

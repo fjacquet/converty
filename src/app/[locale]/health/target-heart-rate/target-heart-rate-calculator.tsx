@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   calculateTargetHeartRate,
   type TargetHeartRateInput,
   type TargetHeartRateResult,
 } from "@/lib/converters/health/target-heart-rate";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   age: string;

@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateZScore,
   type ZScoreInput,
   type ZScoreResult,
-  calculateZScore,
 } from "@/lib/converters/math/z-score";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type ZScoreMode = "calculate" | "fromZScore" | "probability";
 
@@ -59,10 +59,7 @@ export function ZScoreCalculator() {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label>{tMath("calculationMode")}</Label>
-        <Select
-          value={values.mode}
-          onValueChange={(v) => setValue("mode", v as ZScoreMode)}
-        >
+        <Select value={values.mode} onValueChange={(v) => setValue("mode", v as ZScoreMode)}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -133,24 +130,25 @@ export function ZScoreCalculator() {
       {zResult && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
-            <OutputDisplay
-              label={tMath("zScore")}
-              value={zResult.zScore.toFixed(4)}
-              size="lg"
-            />
-            <OutputDisplay
-              label={tMath("rawValue")}
-              value={zResult.value.toFixed(4)}
-              size="lg"
-            />
+            <OutputDisplay label={tMath("zScore")} value={zResult.zScore.toFixed(4)} size="lg" />
+            <OutputDisplay label={tMath("rawValue")} value={zResult.value.toFixed(4)} size="lg" />
           </div>
 
           <ResultGrid
             results={[
               { label: tMath("percentile"), value: `${zResult.percentile.toFixed(2)}%` },
-              { label: tMath("probabilityBelow"), value: `${(zResult.probabilityBelow * 100).toFixed(2)}%` },
-              { label: tMath("probabilityAbove"), value: `${(zResult.probabilityAbove * 100).toFixed(2)}%` },
-              { label: tMath("probabilityBetween"), value: `${((zResult.probabilityBetween || 0) * 100).toFixed(2)}%` },
+              {
+                label: tMath("probabilityBelow"),
+                value: `${(zResult.probabilityBelow * 100).toFixed(2)}%`,
+              },
+              {
+                label: tMath("probabilityAbove"),
+                value: `${(zResult.probabilityAbove * 100).toFixed(2)}%`,
+              },
+              {
+                label: tMath("probabilityBetween"),
+                value: `${((zResult.probabilityBetween || 0) * 100).toFixed(2)}%`,
+              },
             ]}
           />
 

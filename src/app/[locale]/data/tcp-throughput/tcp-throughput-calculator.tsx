@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateTcpThroughput,
   type TcpThroughputInput,
   type TcpThroughputResult,
-  calculateTcpThroughput,
 } from "@/lib/converters/network/tcp-throughput";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mss: string;
@@ -95,7 +95,11 @@ export function TcpThroughputCalculator() {
               { label: t("throughputGbps"), value: result.throughputGbps.toFixed(4), unit: "Gbps" },
               { label: t("throughputMbps"), value: result.throughputMbps.toFixed(2), unit: "Mbps" },
               { label: t("throughputKbps"), value: result.throughputKbps.toFixed(0), unit: "Kbps" },
-              { label: t("throughputMBs"), value: result.throughputMBPerSec.toFixed(2), unit: "MB/s" },
+              {
+                label: t("throughputMBs"),
+                value: result.throughputMBPerSec.toFixed(2),
+                unit: "MB/s",
+              },
             ]}
           />
 
@@ -107,8 +111,8 @@ export function TcpThroughputCalculator() {
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{t("calculationSteps")}:</p>
             <div className="text-sm text-muted-foreground font-mono space-y-1">
-              {result.steps.map((step, i) => (
-                <p key={i}>{step}</p>
+              {result.steps.map((step) => (
+                <p key={step}>{step}</p>
               ))}
             </div>
           </div>
@@ -117,8 +121,8 @@ export function TcpThroughputCalculator() {
             <div className="rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-4 space-y-2">
               <p className="text-sm font-medium">{t("recommendations")}:</p>
               <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                {result.recommendations.map((rec, i) => (
-                  <li key={i}>{rec}</li>
+                {result.recommendations.map((rec) => (
+                  <li key={rec}>{rec}</li>
                 ))}
               </ul>
             </div>

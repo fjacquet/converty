@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { OutputDisplay } from "@/components/converter";
 import {
   decodeBase64,
@@ -76,7 +76,12 @@ export function URLEncoderConverter() {
           className="font-mono text-sm"
         />
 
-        <OutputDisplay label={t("base64")} value={base64Result} copyable className="font-mono text-sm" />
+        <OutputDisplay
+          label={t("base64")}
+          value={base64Result}
+          copyable
+          className="font-mono text-sm"
+        />
 
         <OutputDisplay
           label={t("htmlEntities")}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { parseSPF, SPF_MECHANISMS, SPF_QUALIFIERS } from "@/lib/converters/web/spf-check";
 
 export function SPFChecker() {

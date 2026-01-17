@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, OutputDisplay } from "@/components/converter";
 import {
   BANDWIDTH_PRESETS,
@@ -136,7 +136,8 @@ export function DownloadCalculator() {
 
           <div className="p-4 rounded-lg border bg-muted/50">
             <p className="text-sm text-muted-foreground">
-              {tResults("total")}: {result.totalSeconds.toLocaleString(undefined, { maximumFractionDigits: 1 })}{" "}
+              {tResults("total")}:{" "}
+              {result.totalSeconds.toLocaleString(undefined, { maximumFractionDigits: 1 })}{" "}
               {t("seconds")}
             </p>
           </div>

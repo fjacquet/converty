@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateSampleSize,
   type SampleSizeInput,
   type SampleSizeResult,
-  calculateSampleSize,
 } from "@/lib/converters/math/sample-size";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type SampleSizeMode = "proportion" | "mean";
 
@@ -63,10 +63,7 @@ export function SampleSizeCalculator() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>{tMath("calculationType")}</Label>
-          <Select
-            value={values.mode}
-            onValueChange={(v) => setValue("mode", v as SampleSizeMode)}
-          >
+          <Select value={values.mode} onValueChange={(v) => setValue("mode", v as SampleSizeMode)}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -153,7 +150,10 @@ export function SampleSizeCalculator() {
 
           <ResultGrid
             results={[
-              { label: tMath("marginOfError"), value: `${(sizeResult.marginOfError * 100).toFixed(2)}%` },
+              {
+                label: tMath("marginOfError"),
+                value: `${(sizeResult.marginOfError * 100).toFixed(2)}%`,
+              },
               { label: tMath("confidenceLevel"), value: `${sizeResult.confidenceLevel}%` },
               { label: tMath("zScore"), value: sizeResult.zScore.toFixed(4) },
             ]}

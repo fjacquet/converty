@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { OutputDisplay, ResultGrid } from "@/components/converter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -58,11 +58,7 @@ export function AverageCalculator() {
 
       {result && (
         <div className="space-y-4">
-          <OutputDisplay
-            label={tMath("average")}
-            value={result.mean.toFixed(4)}
-            size="lg"
-          />
+          <OutputDisplay label={tMath("average")} value={result.mean.toFixed(4)} size="lg" />
 
           <ResultGrid
             results={[

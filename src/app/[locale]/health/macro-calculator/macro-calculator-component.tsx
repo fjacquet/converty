@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateMacros,
   type MacroInput,
   type MacroResult,
-  calculateMacros,
 } from "@/lib/converters/health/macro-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   calories: string;
@@ -126,7 +126,9 @@ export function MacroCalculatorComponent() {
               <thead>
                 <tr>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{t("meals")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("protein")}</th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("protein")}
+                  </th>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("carbs")}</th>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("fat")}</th>
                 </tr>
@@ -134,7 +136,9 @@ export function MacroCalculatorComponent() {
               <tbody className="divide-y divide-border">
                 {result.mealsBreakdown.map((meal) => (
                   <tr key={meal.meals}>
-                    <td className="px-3 py-2 text-sm">{meal.meals} {t("mealsPerDay")}</td>
+                    <td className="px-3 py-2 text-sm">
+                      {meal.meals} {t("mealsPerDay")}
+                    </td>
                     <td className="px-3 py-2 text-sm">{Math.round(meal.protein)}g</td>
                     <td className="px-3 py-2 text-sm">{Math.round(meal.carbs)}g</td>
                     <td className="px-3 py-2 text-sm">{Math.round(meal.fat)}g</td>

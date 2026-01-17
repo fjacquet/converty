@@ -10,13 +10,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type CaloriesBurnedInput,
   type CaloriesBurnedResult,
   calculateCaloriesBurned,
   getAvailableActivities,
 } from "@/lib/converters/health/calories-burned";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   weight: string;

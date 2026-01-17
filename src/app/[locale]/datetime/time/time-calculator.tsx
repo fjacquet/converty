@@ -123,7 +123,10 @@ export function TimeCalculator() {
               results={[
                 { label: "24h", value: result.formatted24h },
                 { label: "12h", value: result.formatted12h },
-                { label: `${t("seconds")} (${tSections("summary")})`, value: result.totalSeconds.toLocaleString() },
+                {
+                  label: `${t("seconds")} (${tSections("summary")})`,
+                  value: result.totalSeconds.toLocaleString(),
+                },
               ]}
               columns={3}
             />

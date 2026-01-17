@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BandwidthDelayProductInput,
   type BandwidthDelayProductResult,
   calculateBandwidthDelayProduct,
 } from "@/lib/converters/network/bandwidth-delay-product";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   bandwidth: string;
@@ -90,11 +90,17 @@ export function BandwidthDelayProductCalculator() {
               { label: t("bdpBits"), value: result.bdpBits.toLocaleString(), unit: "bits" },
               { label: t("bdpBytes"), value: result.bdpBytes.toLocaleString(), unit: "bytes" },
               { label: t("requiredWindow"), value: result.requiredWindowKB.toFixed(2), unit: "KB" },
-              { label: t("windowUtilization"), value: result.windowUtilization.toFixed(1), unit: "%" },
+              {
+                label: t("windowUtilization"),
+                value: result.windowUtilization.toFixed(1),
+                unit: "%",
+              },
             ]}
           />
 
-          <div className={`rounded-lg border p-4 ${result.isWindowSufficient ? "border-green-500/50 bg-green-500/10" : "border-red-500/50 bg-red-500/10"}`}>
+          <div
+            className={`rounded-lg border p-4 ${result.isWindowSufficient ? "border-green-500/50 bg-green-500/10" : "border-red-500/50 bg-red-500/10"}`}
+          >
             <p className="text-sm font-medium">
               {result.isWindowSufficient ? t("windowSufficient") : t("windowInsufficient")}
             </p>
@@ -103,8 +109,8 @@ export function BandwidthDelayProductCalculator() {
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{t("calculationSteps")}:</p>
             <div className="text-sm text-muted-foreground font-mono space-y-1">
-              {result.steps.map((step, i) => (
-                <p key={i}>{step}</p>
+              {result.steps.map((step) => (
+                <p key={step}>{step}</p>
               ))}
             </div>
           </div>
@@ -113,8 +119,8 @@ export function BandwidthDelayProductCalculator() {
             <div className="rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-4 space-y-2">
               <p className="text-sm font-medium">{t("recommendations")}:</p>
               <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                {result.recommendations.map((rec, i) => (
-                  <li key={i}>{rec}</li>
+                {result.recommendations.map((rec) => (
+                  <li key={rec}>{rec}</li>
                 ))}
               </ul>
             </div>

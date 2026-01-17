@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BMIInput,
   type BMIResult,
@@ -12,6 +11,7 @@ import {
   type WeightUnit,
 } from "@/lib/converters/health/bmi";
 import { cn } from "@/lib/utils";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const WEIGHT_UNITS = [
   { value: "kg", label: "kg" },
@@ -92,9 +92,16 @@ export function BMICalculator() {
       {result && (
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <OutputDisplay label={tResults("yourBmi")} value={result.bmi} size="lg" className="flex-1" />
+            <OutputDisplay
+              label={tResults("yourBmi")}
+              value={result.bmi}
+              size="lg"
+              className="flex-1"
+            />
             <div className="flex-1">
-              <p className="text-sm font-medium text-muted-foreground mb-2">{tResults("category")}</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                {tResults("category")}
+              </p>
               <div className={cn("rounded-md border bg-muted/50 px-3 py-4", categoryInfo?.color)}>
                 <span className="text-2xl font-bold">{result.categoryLabel}</span>
               </div>
@@ -112,7 +119,9 @@ export function BMICalculator() {
                 ? [
                     {
                       label:
-                        result.category === "underweight" ? tResults("weightToGain") : tResults("weightToLose"),
+                        result.category === "underweight"
+                          ? tResults("weightToGain")
+                          : tResults("weightToLose"),
                       value: Math.abs(result.weightToHealthy),
                       unit: "kg",
                     },

@@ -31,7 +31,12 @@ export default async function DownPaymentPage({ params }: { params: Promise<{ lo
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("finance.name")}
+    >
       <DownPaymentCalculator />
     </ConverterLayout>
   );

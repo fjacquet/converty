@@ -31,7 +31,13 @@ export function calculatePeriod(input: PeriodInput): PeriodResult | null {
   const { lastPeriodDate, cycleLength, periodLength } = input;
 
   const lmpDate = new Date(lastPeriodDate);
-  if (isNaN(lmpDate.getTime()) || cycleLength < 21 || cycleLength > 40 || periodLength < 2 || periodLength > 10) {
+  if (
+    isNaN(lmpDate.getTime()) ||
+    cycleLength < 21 ||
+    cycleLength > 40 ||
+    periodLength < 2 ||
+    periodLength > 10
+  ) {
     return null;
   }
 
@@ -39,12 +45,11 @@ export function calculatePeriod(input: PeriodInput): PeriodResult | null {
   today.setHours(0, 0, 0, 0);
 
   // Calculate days since last period
-  const daysSincePeriod = Math.floor(
-    (today.getTime() - lmpDate.getTime()) / (1000 * 60 * 60 * 24)
-  );
+  const daysSincePeriod = Math.floor((today.getTime() - lmpDate.getTime()) / (1000 * 60 * 60 * 24));
 
   // Calculate current cycle day (1-indexed)
-  const currentCycleDay = ((daysSincePeriod % cycleLength) + cycleLength) % cycleLength || cycleLength;
+  const currentCycleDay =
+    ((daysSincePeriod % cycleLength) + cycleLength) % cycleLength || cycleLength;
 
   // Next period date
   const daysUntilNextPeriod = cycleLength - currentCycleDay;
@@ -140,7 +145,8 @@ export function calculatePeriod(input: PeriodInput): PeriodResult | null {
 
   return {
     nextPeriodDate: nextPeriodDate.toISOString().split("T")[0],
-    daysUntilNextPeriod: daysUntilNextPeriod > 0 ? daysUntilNextPeriod : daysUntilNextPeriod + cycleLength,
+    daysUntilNextPeriod:
+      daysUntilNextPeriod > 0 ? daysUntilNextPeriod : daysUntilNextPeriod + cycleLength,
     currentPhase,
     phaseDay,
     ovulationDate: ovulationDate.toISOString().split("T")[0],

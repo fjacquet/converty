@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
 import { convertToAll, DATA_UNITS, type DataUnit } from "@/lib/converters/data/data-size";
 

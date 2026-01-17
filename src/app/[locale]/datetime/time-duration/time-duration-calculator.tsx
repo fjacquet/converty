@@ -107,10 +107,22 @@ export function TimeDurationCalculator() {
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: `${t("days")} (${tSections("summary")})`, value: result.totalDays.toLocaleString() },
-                  { label: `${t("hours")} (${tSections("summary")})`, value: result.totalHours.toLocaleString() },
-                  { label: `${t("minutes")} (${tSections("summary")})`, value: result.totalMinutes.toLocaleString() },
-                  { label: `${t("seconds")} (${tSections("summary")})`, value: result.totalSeconds.toLocaleString() },
+                  {
+                    label: `${t("days")} (${tSections("summary")})`,
+                    value: result.totalDays.toLocaleString(),
+                  },
+                  {
+                    label: `${t("hours")} (${tSections("summary")})`,
+                    value: result.totalHours.toLocaleString(),
+                  },
+                  {
+                    label: `${t("minutes")} (${tSections("summary")})`,
+                    value: result.totalMinutes.toLocaleString(),
+                  },
+                  {
+                    label: `${t("seconds")} (${tSections("summary")})`,
+                    value: result.totalSeconds.toLocaleString(),
+                  },
                 ]}
                 columns={2}
               />

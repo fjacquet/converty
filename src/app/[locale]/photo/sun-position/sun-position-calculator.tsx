@@ -1,20 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
 import { ResultGrid } from "@/components/converter";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
-  getSunPosition,
-  getSunTimes,
+  formatSunTime,
   getCurrentLightPhase,
   getLightPhasesForDay,
-  formatSunTime,
-  type SunTimes,
-  type SunPosition,
+  getSunPosition,
+  getSunTimes,
   type LightPhase,
+  type SunPosition,
+  type SunTimes,
 } from "@/lib/converters/photo/sun-position";
 
 export function SunPositionCalculator() {
@@ -25,9 +25,7 @@ export function SunPositionCalculator() {
   const [latitude, setLatitude] = useState(46.9481); // Bern, Switzerland
   const [longitude, setLongitude] = useState(7.4474);
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-  const [time, setTime] = useState(
-    new Date().toTimeString().slice(0, 5)
-  );
+  const [time, setTime] = useState(new Date().toTimeString().slice(0, 5));
 
   const [sunPosition, setSunPosition] = useState<SunPosition | null>(null);
   const [sunTimes, setSunTimes] = useState<SunTimes | null>(null);
@@ -60,9 +58,7 @@ export function SunPositionCalculator() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>
-            {tPhoto("sunPosition") || "Sun Position & Light Phases"}
-          </CardTitle>
+          <CardTitle>{tPhoto("sunPosition") || "Sun Position & Light Phases"}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -97,19 +93,11 @@ export function SunPositionCalculator() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>{t("date") || "Date"}</Label>
-              <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
+              <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>{t("time") || "Time"}</Label>
-              <Input
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-              />
+              <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
             </div>
           </div>
         </CardContent>
@@ -118,9 +106,7 @@ export function SunPositionCalculator() {
       {currentPhase && (
         <Card>
           <CardHeader>
-            <CardTitle>
-              {tResults("currentPhase") || "Current Light Phase"}
-            </CardTitle>
+            <CardTitle>{tResults("currentPhase") || "Current Light Phase"}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-center">
@@ -182,9 +168,7 @@ export function SunPositionCalculator() {
       {sunTimes && (
         <Card>
           <CardHeader>
-            <CardTitle>
-              {tPhoto("goldenBlueHour") || "Golden Hour & Blue Hour"}
-            </CardTitle>
+            <CardTitle>{tPhoto("goldenBlueHour") || "Golden Hour & Blue Hour"}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -248,9 +232,7 @@ export function SunPositionCalculator() {
       {phases.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>
-              {tPhoto("lightPhases") || "Light Phases Timeline"}
-            </CardTitle>
+            <CardTitle>{tPhoto("lightPhases") || "Light Phases Timeline"}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -258,26 +240,19 @@ export function SunPositionCalculator() {
                 <div
                   key={i}
                   className={`p-3 rounded-md ${
-                    phase.isCurrent
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
+                    phase.isCurrent ? "bg-primary text-primary-foreground" : "bg-muted"
                   }`}
                 >
                   <div className="flex justify-between items-center">
                     <span className="font-medium">{phase.name}</span>
                     <span className="text-sm">
-                      {phase.startsAt
-                        ? formatSunTime(phase.startsAt)
-                        : "Start"}{" "}
-                      -{" "}
+                      {phase.startsAt ? formatSunTime(phase.startsAt) : "Start"} -{" "}
                       {phase.endsAt ? formatSunTime(phase.endsAt) : "End"}
                     </span>
                   </div>
                   <p
                     className={`text-sm ${
-                      phase.isCurrent
-                        ? "text-primary-foreground/80"
-                        : "text-muted-foreground"
+                      phase.isCurrent ? "text-primary-foreground/80" : "text-muted-foreground"
                     }`}
                   >
                     {phase.description}

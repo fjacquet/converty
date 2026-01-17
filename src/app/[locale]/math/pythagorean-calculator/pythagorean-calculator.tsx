@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePythagorean,
   type PythagoreanInput,
   type PythagoreanResult,
-  calculatePythagorean,
 } from "@/lib/converters/math/pythagorean";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mode: "findHypotenuse" | "findLeg";
@@ -128,7 +128,11 @@ export function PythagoreanCalculator() {
           <ResultGrid
             results={[
               { label: tMath("area"), value: pythagoreanResult.area.toFixed(4), unit: "sq units" },
-              { label: tMath("perimeter"), value: pythagoreanResult.perimeter.toFixed(4), unit: "units" },
+              {
+                label: tMath("perimeter"),
+                value: pythagoreanResult.perimeter.toFixed(4),
+                unit: "units",
+              },
               { label: tMath("angleA"), value: pythagoreanResult.angles.A.toFixed(2), unit: "°" },
               { label: tMath("angleB"), value: pythagoreanResult.angles.B.toFixed(2), unit: "°" },
             ]}
@@ -136,9 +140,13 @@ export function PythagoreanCalculator() {
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("formula")}:</p>
-            <p className="text-sm text-muted-foreground font-mono whitespace-pre-wrap">{pythagoreanResult.formula}</p>
+            <p className="text-sm text-muted-foreground font-mono whitespace-pre-wrap">
+              {pythagoreanResult.formula}
+            </p>
             <p className="text-sm font-medium mt-2">{tMath("verification")}:</p>
-            <p className="text-sm text-muted-foreground font-mono">{pythagoreanResult.verification}</p>
+            <p className="text-sm text-muted-foreground font-mono">
+              {pythagoreanResult.verification}
+            </p>
           </div>
 
           {pythagoreanResult.isPythagoreanTriple && (

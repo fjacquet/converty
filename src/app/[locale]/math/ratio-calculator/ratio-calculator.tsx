@@ -10,12 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { calculateRatio, type RatioInput, type RatioResult } from "@/lib/converters/math/ratio";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type RatioInput,
-  type RatioResult,
-  calculateRatio,
-} from "@/lib/converters/math/ratio";
 
 interface FormValues {
   mode: "simplify" | "scale" | "findMissing" | "compare";
@@ -168,9 +164,7 @@ export function RatioCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-2">{renderInputs()}</div>
       </div>
 
       {ratioResult && (
@@ -192,21 +186,31 @@ export function RatioCalculator() {
           {ratioResult.scaled && (
             <div className="rounded-lg border border-primary bg-primary/5 p-4">
               <p className="text-sm font-medium mb-2">{tMath("scaledRatio")}:</p>
-              <p className="text-lg font-mono">{ratioResult.scaled.a} : {ratioResult.scaled.b}</p>
+              <p className="text-lg font-mono">
+                {ratioResult.scaled.a} : {ratioResult.scaled.b}
+              </p>
             </div>
           )}
 
           {ratioResult.missing !== undefined && (
             <div className="rounded-lg border border-green-500 bg-green-50 dark:bg-green-950 p-4">
-              <p className="text-sm font-medium mb-2 text-green-700 dark:text-green-300">{tMath("missingValue")}:</p>
-              <p className="text-2xl font-mono text-green-700 dark:text-green-300">{ratioResult.missing.toFixed(4)}</p>
+              <p className="text-sm font-medium mb-2 text-green-700 dark:text-green-300">
+                {tMath("missingValue")}:
+              </p>
+              <p className="text-2xl font-mono text-green-700 dark:text-green-300">
+                {ratioResult.missing.toFixed(4)}
+              </p>
             </div>
           )}
 
           {ratioResult.comparison && (
             <div className="rounded-lg border border-blue-500 bg-blue-50 dark:bg-blue-950 p-4">
-              <p className="text-sm font-medium mb-2 text-blue-700 dark:text-blue-300">{tMath("comparison")}:</p>
-              <p className="text-lg font-mono text-blue-700 dark:text-blue-300">{ratioResult.comparison}</p>
+              <p className="text-sm font-medium mb-2 text-blue-700 dark:text-blue-300">
+                {tMath("comparison")}:
+              </p>
+              <p className="text-lg font-mono text-blue-700 dark:text-blue-300">
+                {ratioResult.comparison}
+              </p>
             </div>
           )}
 

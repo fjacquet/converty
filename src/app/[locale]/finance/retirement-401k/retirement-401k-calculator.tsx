@@ -160,12 +160,17 @@ export function Retirement401kCalculator() {
                 <p className="text-sm text-muted-foreground">{t("finance.totalAtRetirement")}</p>
                 <p className="text-3xl font-bold">{formatCurrency(result.totalAtRetirement)}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {t("finance.yearsToRetirement", { years: result.yearsToRetirement, age: retirementAge })}
+                  {t("finance.yearsToRetirement", {
+                    years: result.yearsToRetirement,
+                    age: retirementAge,
+                  })}
                 </p>
               </div>
 
               <div className="p-4 bg-green-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">{t("finance.monthlyRetirementIncome")}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("finance.monthlyRetirementIncome")}
+                </p>
                 <p className="text-xl font-bold text-green-600">
                   {formatCurrency(result.monthlyInRetirement)}
                 </p>
@@ -197,7 +202,9 @@ export function Retirement401kCalculator() {
                   <div className="space-y-2 text-sm">
                     {result.projections.map((proj) => (
                       <div key={proj.age} className="flex justify-between">
-                        <span className="text-muted-foreground">{t("finance.ageLabelWithValue", { age: proj.age })}</span>
+                        <span className="text-muted-foreground">
+                          {t("finance.ageLabelWithValue", { age: proj.age })}
+                        </span>
                         <span>{formatCurrency(proj.balance)}</span>
                       </div>
                     ))}

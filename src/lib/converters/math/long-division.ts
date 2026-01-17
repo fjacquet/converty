@@ -42,7 +42,7 @@ export function calculateLongDivision(input: LongDivisionInput): LongDivisionRes
   if (divisor === 0) return null;
   if (!Number.isInteger(dividend) || !Number.isInteger(divisor)) return null;
 
-  const isNegative = (dividend < 0) !== (divisor < 0);
+  const isNegative = dividend < 0 !== divisor < 0;
   const absDividend = Math.abs(dividend);
   const absDivisor = Math.abs(divisor);
 

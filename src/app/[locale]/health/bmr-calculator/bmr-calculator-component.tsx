@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BmrInput,
   type BmrResult,
   calculateBmr,
 } from "@/lib/converters/health/bmr-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   gender: "male" | "female";

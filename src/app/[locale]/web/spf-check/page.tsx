@@ -34,7 +34,12 @@ export default async function SPFCheckPage({ params }: { params: Promise<{ local
   const category = getCategoryBySlug("web")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("web.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("web.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <SPFChecker />
       </Suspense>

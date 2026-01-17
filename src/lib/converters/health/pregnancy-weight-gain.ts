@@ -28,7 +28,9 @@ export interface PregnancyWeightGainResult {
   };
 }
 
-export function calculatePregnancyWeightGain(input: PregnancyWeightGainInput): PregnancyWeightGainResult | null {
+export function calculatePregnancyWeightGain(
+  input: PregnancyWeightGainInput
+): PregnancyWeightGainResult | null {
   const { prePregnancyWeight, currentWeight, height, weeksPregnant, twins } = input;
 
   if (prePregnancyWeight <= 0 || height <= 0 || weeksPregnant < 0 || weeksPregnant > 42) {
@@ -53,7 +55,7 @@ export function calculatePregnancyWeightGain(input: PregnancyWeightGainInput): P
     bmiCategory = "normal";
     recommendedGainMin = twins ? 16.8 : 11.3;
     recommendedGainMax = twins ? 24.5 : 15.9;
-    weeklyGainSecondThird = { min: 0.35, max: 0.50 };
+    weeklyGainSecondThird = { min: 0.35, max: 0.5 };
   } else if (prePregnancyBmi < 30) {
     bmiCategory = "overweight";
     recommendedGainMin = twins ? 14.1 : 6.8;

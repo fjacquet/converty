@@ -24,7 +24,13 @@ export interface DueDateResult {
 }
 
 export function calculateDueDate(input: DueDateInput): DueDateResult | null {
-  const { calculationMethod, date, cycleLength = 28, ultrasoundWeeks = 0, ultrasoundDays = 0 } = input;
+  const {
+    calculationMethod,
+    date,
+    cycleLength = 28,
+    ultrasoundWeeks = 0,
+    ultrasoundDays = 0,
+  } = input;
 
   const inputDate = new Date(date);
   if (isNaN(inputDate.getTime())) {
@@ -82,7 +88,10 @@ export function calculateDueDate(input: DueDateInput): DueDateResult | null {
   const currentWeeks = Math.floor(totalDays / 7);
   const currentDays = totalDays % 7;
 
-  const daysRemaining = Math.max(0, Math.floor((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+  const daysRemaining = Math.max(
+    0,
+    Math.floor((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+  );
 
   // Determine trimester
   let trimester: 1 | 2 | 3;

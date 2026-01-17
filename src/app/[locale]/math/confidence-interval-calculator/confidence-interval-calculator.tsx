@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ConfidenceIntervalInput,
   type ConfidenceIntervalResult,
   calculateConfidenceInterval,
 } from "@/lib/converters/math/confidence-interval";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type CIMode = "mean" | "proportion";
 
@@ -28,7 +28,10 @@ interface FormValues {
   successes: string;
 }
 
-const useConfidenceIntervalStore = createCalculatorStore<FormValues, ConfidenceIntervalResult | null>({
+const useConfidenceIntervalStore = createCalculatorStore<
+  FormValues,
+  ConfidenceIntervalResult | null
+>({
   name: "confidence-interval-calculator",
   initialValues: {
     mode: "mean",
@@ -63,10 +66,7 @@ export function ConfidenceIntervalCalculator() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>{tMath("intervalType")}</Label>
-          <Select
-            value={values.mode}
-            onValueChange={(v) => setValue("mode", v as CIMode)}
-          >
+          <Select value={values.mode} onValueChange={(v) => setValue("mode", v as CIMode)}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -152,7 +152,9 @@ export function ConfidenceIntervalCalculator() {
       {ciResult && (
         <div className="space-y-4">
           <div className="rounded-lg border bg-primary/10 p-4 text-center">
-            <p className="text-sm text-muted-foreground mb-1">{tMath("confidenceInterval")} ({ciResult.confidenceLevel}%)</p>
+            <p className="text-sm text-muted-foreground mb-1">
+              {tMath("confidenceInterval")} ({ciResult.confidenceLevel}%)
+            </p>
             <p className="text-2xl font-bold">
               ({ciResult.lowerBound.toFixed(4)}, {ciResult.upperBound.toFixed(4)})
             </p>

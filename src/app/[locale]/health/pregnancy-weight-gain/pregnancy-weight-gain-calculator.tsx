@@ -4,12 +4,12 @@ import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePregnancyWeightGain,
   type PregnancyWeightGainInput,
   type PregnancyWeightGainResult,
-  calculatePregnancyWeightGain,
 } from "@/lib/converters/health/pregnancy-weight-gain";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   prePregnancyWeight: string;
@@ -117,13 +117,19 @@ export function PregnancyWeightGainCalculator() {
         <div className="space-y-4">
           <div className={`p-4 rounded-lg ${getStatusColor(result.status)}`}>
             <p className="font-semibold">
-              {tResults("weightGainStatus")}: {result.status === "on-track" ? tResults("onTrack") : result.status === "under" ? tResults("underTarget") : tResults("overTarget")}
+              {tResults("weightGainStatus")}:{" "}
+              {result.status === "on-track"
+                ? tResults("onTrack")
+                : result.status === "under"
+                  ? tResults("underTarget")
+                  : tResults("overTarget")}
             </p>
             <p>
               {tResults("currentGain")}: {result.currentWeightGain.toFixed(1)} kg
             </p>
             <p>
-              {tResults("recommendedAtWeek")}: {result.recommendedGainAtWeek.min.toFixed(1)} - {result.recommendedGainAtWeek.max.toFixed(1)} kg
+              {tResults("recommendedAtWeek")}: {result.recommendedGainAtWeek.min.toFixed(1)} -{" "}
+              {result.recommendedGainAtWeek.max.toFixed(1)} kg
             </p>
           </div>
 

@@ -7,22 +7,22 @@
  */
 
 export interface TcpThroughputInput {
-  mss: number;      // Maximum Segment Size in bytes (typically MTU - 40B for TCP/IP header)
-  rtt: number;      // Round Trip Time in milliseconds
+  mss: number; // Maximum Segment Size in bytes (typically MTU - 40B for TCP/IP header)
+  rtt: number; // Round Trip Time in milliseconds
   lossRate: number; // Packet loss rate as percentage (e.g., 0.0001 for 0.0001%)
   cFactor?: number; // Constant factor (default: 1)
 }
 
 export interface TcpThroughputResult {
-  throughputBps: number;      // Throughput in bits per second
-  throughputKbps: number;     // Throughput in kilobits per second
-  throughputMbps: number;     // Throughput in megabits per second
-  throughputGbps: number;     // Throughput in gigabits per second
+  throughputBps: number; // Throughput in bits per second
+  throughputKbps: number; // Throughput in kilobits per second
+  throughputMbps: number; // Throughput in megabits per second
+  throughputGbps: number; // Throughput in gigabits per second
   throughputBytesPerSec: number; // Throughput in bytes per second
-  throughputMBPerSec: number;    // Throughput in megabytes per second
-  formula: string;            // The formula used
-  steps: string[];            // Calculation steps
-  recommendations: string[];  // Recommendations based on results
+  throughputMBPerSec: number; // Throughput in megabytes per second
+  formula: string; // The formula used
+  steps: string[]; // Calculation steps
+  recommendations: string[]; // Recommendations based on results
 }
 
 export function calculateTcpThroughput(input: TcpThroughputInput): TcpThroughputResult {
@@ -57,7 +57,9 @@ export function calculateTcpThroughput(input: TcpThroughputInput): TcpThroughput
 
   steps.push(`Throughput = (MSS / RTT) × (C / √Loss)`);
   steps.push(`Throughput = (${mss} / ${rttSeconds}) × (${cFactor} / √${lossDecimal})`);
-  steps.push(`Throughput = ${(mss / rttSeconds).toFixed(2)} × ${(cFactor / Math.sqrt(lossDecimal)).toFixed(2)}`);
+  steps.push(
+    `Throughput = ${(mss / rttSeconds).toFixed(2)} × ${(cFactor / Math.sqrt(lossDecimal)).toFixed(2)}`
+  );
   steps.push(`Throughput = ${throughputBytesPerSec.toFixed(2)} bytes/sec`);
 
   // Convert to various units
@@ -71,13 +73,19 @@ export function calculateTcpThroughput(input: TcpThroughputInput): TcpThroughput
   const recommendations: string[] = [];
 
   if (rtt > 100) {
-    recommendations.push("High RTT detected. Consider using TCP window scaling or WAN optimization.");
+    recommendations.push(
+      "High RTT detected. Consider using TCP window scaling or WAN optimization."
+    );
   }
   if (lossRate > 0.01) {
-    recommendations.push("High packet loss detected. Check for network congestion or faulty equipment.");
+    recommendations.push(
+      "High packet loss detected. Check for network congestion or faulty equipment."
+    );
   }
   if (throughputMbps < 10) {
-    recommendations.push("Low throughput. Consider reducing RTT or packet loss for better performance.");
+    recommendations.push(
+      "Low throughput. Consider reducing RTT or packet loss for better performance."
+    );
   }
   if (mss < 1460) {
     recommendations.push("MSS is below typical value. Check for MTU issues or tunneling overhead.");

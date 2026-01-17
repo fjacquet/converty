@@ -3,12 +3,12 @@
 import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateOvulation,
   type OvulationInput,
   type OvulationResult,
-  calculateOvulation,
 } from "@/lib/converters/health/ovulation-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   lastPeriodDate: string;
@@ -112,7 +112,9 @@ export function OvulationCalculatorComponent() {
               >
                 <span>{day.date}</span>
                 <span>Day {day.dayOfCycle}</span>
-                <span className={`px-2 py-1 rounded text-white text-sm ${getFertilityColor(day.fertility)}`}>
+                <span
+                  className={`px-2 py-1 rounded text-white text-sm ${getFertilityColor(day.fertility)}`}
+                >
                   {day.fertility}
                 </span>
               </div>
@@ -125,9 +127,15 @@ export function OvulationCalculatorComponent() {
               <thead>
                 <tr>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{t("cycle")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("periodStart")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("ovulation")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("fertileWindow")}</th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("periodStart")}
+                  </th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("ovulation")}
+                  </th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("fertileWindow")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -136,7 +144,9 @@ export function OvulationCalculatorComponent() {
                     <td className="px-3 py-2 text-sm">{cycle.cycleNumber}</td>
                     <td className="px-3 py-2 text-sm">{cycle.periodStart}</td>
                     <td className="px-3 py-2 text-sm font-medium">{cycle.ovulation}</td>
-                    <td className="px-3 py-2 text-sm">{cycle.fertileStart} - {cycle.fertileEnd}</td>
+                    <td className="px-3 py-2 text-sm">
+                      {cycle.fertileStart} - {cycle.fertileEnd}
+                    </td>
                   </tr>
                 ))}
               </tbody>

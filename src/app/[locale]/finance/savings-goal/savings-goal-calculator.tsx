@@ -101,12 +101,16 @@ export function SavingsGoalCalculator() {
                     <p className="text-3xl font-bold text-green-600">
                       {t("finance.yearsCount", { count: Math.round(result.yearsToGoal * 10) / 10 })}
                     </p>
-                    <p className="text-sm text-muted-foreground">({t("finance.totalMonthsCount", { count: result.monthsToGoal })})</p>
+                    <p className="text-sm text-muted-foreground">
+                      ({t("finance.totalMonthsCount", { count: result.monthsToGoal })})
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground">{t("finance.totalContributions")}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {t("finance.totalContributions")}
+                      </p>
                       <p className="text-xl font-bold">
                         {formatCurrency(result.totalContributions)}
                       </p>
@@ -126,7 +130,9 @@ export function SavingsGoalCalculator() {
                 </>
               ) : (
                 <div className="p-4 bg-yellow-500/10 rounded-lg">
-                  <p className="text-lg font-medium text-yellow-600">{t("finance.goalNotReachable")}</p>
+                  <p className="text-lg font-medium text-yellow-600">
+                    {t("finance.goalNotReachable")}
+                  </p>
                   <p className="text-sm text-muted-foreground mt-2">
                     {t("finance.goalNotReachableDescription")}
                   </p>

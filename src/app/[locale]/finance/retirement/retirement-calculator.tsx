@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations, useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import {
   Area,
   AreaChart,

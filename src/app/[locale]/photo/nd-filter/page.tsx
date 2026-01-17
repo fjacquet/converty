@@ -34,7 +34,12 @@ export default async function NDFilterPage({ params }: { params: Promise<{ local
   const category = getCategoryBySlug("photo")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("photo.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("photo.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <NDFilterCalculator />
       </Suspense>

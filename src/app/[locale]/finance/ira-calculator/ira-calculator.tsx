@@ -182,12 +182,15 @@ export function IraCalculator() {
               </div>
 
               <div className="p-4 bg-blue-500/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">{t("finance.monthlyRetirementIncome")}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("finance.monthlyRetirementIncome")}
+                </p>
                 <p className="text-xl font-bold text-blue-600">
                   {formatCurrency(result.monthlyInRetirement)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {t("finance.basedOn4Percent")}{iraType === "traditional" ? t("finance.afterTax") : ""}
+                  {t("finance.basedOn4Percent")}
+                  {iraType === "traditional" ? t("finance.afterTax") : ""}
                 </p>
               </div>
 
@@ -206,7 +209,8 @@ export function IraCalculator() {
 
               <div className="border-t pt-4 space-y-2 text-sm">
                 <p className="font-medium">
-                  {t("finance.taxImpact")} ({iraType === "traditional" ? t("finance.traditional") : t("finance.roth")})
+                  {t("finance.taxImpact")} (
+                  {iraType === "traditional" ? t("finance.traditional") : t("finance.roth")})
                 </p>
                 {iraType === "traditional" ? (
                   <>
@@ -224,9 +228,7 @@ export function IraCalculator() {
                     </div>
                   </>
                 ) : (
-                  <p className="text-muted-foreground">
-                    {t("finance.noTaxDeduction")}
-                  </p>
+                  <p className="text-muted-foreground">{t("finance.noTaxDeduction")}</p>
                 )}
               </div>
 
@@ -236,7 +238,9 @@ export function IraCalculator() {
                   <div className="space-y-2 text-sm">
                     {result.projections.map((proj) => (
                       <div key={proj.age} className="flex justify-between">
-                        <span className="text-muted-foreground">{t("labels.age")} {proj.age}</span>
+                        <span className="text-muted-foreground">
+                          {t("labels.age")} {proj.age}
+                        </span>
                         <span>{formatCurrency(proj.balance)}</span>
                       </div>
                     ))}

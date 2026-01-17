@@ -124,7 +124,8 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "cone": {
       const { radius, slantHeight } = input;
-      if (radius === undefined || slantHeight === undefined || radius <= 0 || slantHeight <= 0) return null;
+      if (radius === undefined || slantHeight === undefined || radius <= 0 || slantHeight <= 0)
+        return null;
 
       shapeName = "Cone";
       lateralSurfaceArea = Math.PI * radius * slantHeight;
@@ -142,7 +143,14 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "pyramid": {
       const { baseLength, baseWidth, slantHeight } = input;
-      if (!baseLength || !baseWidth || !slantHeight || baseLength <= 0 || baseWidth <= 0 || slantHeight <= 0) {
+      if (
+        !baseLength ||
+        !baseWidth ||
+        !slantHeight ||
+        baseLength <= 0 ||
+        baseWidth <= 0 ||
+        slantHeight <= 0
+      ) {
         return null;
       }
 
@@ -163,7 +171,14 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "triangularPrism": {
       const { triangleBase, triangleHeight, prismLength, side1, side2, side3 } = input;
-      if (!triangleBase || !triangleHeight || !prismLength || triangleBase <= 0 || triangleHeight <= 0 || prismLength <= 0) {
+      if (
+        !triangleBase ||
+        !triangleHeight ||
+        !prismLength ||
+        triangleBase <= 0 ||
+        triangleHeight <= 0 ||
+        prismLength <= 0
+      ) {
         return null;
       }
 

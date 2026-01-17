@@ -37,8 +37,12 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
 
   switch (mode) {
     case "twoPoints": {
-      if (input.x1 === undefined || input.y1 === undefined ||
-          input.x2 === undefined || input.y2 === undefined) {
+      if (
+        input.x1 === undefined ||
+        input.y1 === undefined ||
+        input.x2 === undefined ||
+        input.y2 === undefined
+      ) {
         return null;
       }
       x1 = input.x1;
@@ -160,7 +164,7 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
 
   // Parallel and perpendicular slopes
   const parallelSlope = slope;
-  const perpendicularSlope = slope !== null && slope !== 0 ? -1 / slope : (slope === 0 ? null : 0);
+  const perpendicularSlope = slope !== null && slope !== 0 ? -1 / slope : slope === 0 ? null : 0;
 
   return {
     slope,

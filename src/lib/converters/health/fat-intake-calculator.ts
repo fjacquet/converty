@@ -72,7 +72,7 @@ export function calculateFatIntake(input: FatIntakeInput): FatIntakeResult | nul
       percent: 45,
     },
     polyunsaturated: {
-      grams: dailyFatGrams * 0.30,
+      grams: dailyFatGrams * 0.3,
       percent: 30,
     },
   };
@@ -88,14 +88,7 @@ export function calculateFatIntake(input: FatIntakeInput): FatIntakeResult | nul
       "Dark chocolate (70%+ cocoa)",
       "Nut butters",
     ],
-    limit: [
-      "Butter",
-      "Cheese",
-      "Red meat",
-      "Coconut oil",
-      "Full-fat dairy",
-      "Palm oil",
-    ],
+    limit: ["Butter", "Cheese", "Red meat", "Coconut oil", "Full-fat dairy", "Palm oil"],
     avoid: [
       "Trans fats (partially hydrogenated oils)",
       "Deep-fried foods",

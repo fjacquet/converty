@@ -3,18 +3,21 @@
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePrimeFactorization,
   type PrimeFactorizationInput,
   type PrimeFactorizationResult,
-  calculatePrimeFactorization,
 } from "@/lib/converters/math/prime-factorization";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   number: string;
 }
 
-const usePrimeFactorizationStore = createCalculatorStore<FormValues, PrimeFactorizationResult | null>({
+const usePrimeFactorizationStore = createCalculatorStore<
+  FormValues,
+  PrimeFactorizationResult | null
+>({
   name: "prime-factorization-calculator",
   initialValues: {
     number: "84",
@@ -48,9 +51,7 @@ export function PrimeFactorizationCalculator() {
 
       {primeResult && (
         <div className="space-y-4">
-          {primeResult.isPrime && (
-            <Badge variant="secondary">{tMath("primeNumber")}</Badge>
-          )}
+          {primeResult.isPrime && <Badge variant="secondary">{tMath("primeNumber")}</Badge>}
 
           <OutputDisplay
             label={tMath("primeFactorization")}
@@ -74,9 +75,7 @@ export function PrimeFactorizationCalculator() {
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("allDivisors")}:</p>
-            <p className="text-sm text-muted-foreground">
-              {primeResult.allDivisors.join(", ")}
-            </p>
+            <p className="text-sm text-muted-foreground">{primeResult.allDivisors.join(", ")}</p>
           </div>
 
           <ResultGrid

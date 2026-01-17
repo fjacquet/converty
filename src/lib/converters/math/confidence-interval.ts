@@ -29,9 +29,9 @@ export interface ConfidenceIntervalResult {
 function getZScore(confidenceLevel: number): number {
   const zScores: Record<number, number> = {
     80: 1.282,
-    85: 1.440,
+    85: 1.44,
     90: 1.645,
-    95: 1.960,
+    95: 1.96,
     99: 2.576,
     99.9: 3.291,
   };
@@ -45,16 +45,51 @@ function getTValue(confidenceLevel: number, df: number): number {
 
   // Approximation for common confidence levels
   const tValues: Record<number, Record<number, number>> = {
-    90: { 1: 6.314, 2: 2.920, 3: 2.353, 4: 2.132, 5: 2.015, 10: 1.812, 15: 1.753, 20: 1.725, 25: 1.708, 30: 1.697 },
-    95: { 1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 10: 2.228, 15: 2.131, 20: 2.086, 25: 2.060, 30: 2.042 },
-    99: { 1: 63.657, 2: 9.925, 3: 5.841, 4: 4.604, 5: 4.032, 10: 3.169, 15: 2.947, 20: 2.845, 25: 2.787, 30: 2.750 },
+    90: {
+      1: 6.314,
+      2: 2.92,
+      3: 2.353,
+      4: 2.132,
+      5: 2.015,
+      10: 1.812,
+      15: 1.753,
+      20: 1.725,
+      25: 1.708,
+      30: 1.697,
+    },
+    95: {
+      1: 12.706,
+      2: 4.303,
+      3: 3.182,
+      4: 2.776,
+      5: 2.571,
+      10: 2.228,
+      15: 2.131,
+      20: 2.086,
+      25: 2.06,
+      30: 2.042,
+    },
+    99: {
+      1: 63.657,
+      2: 9.925,
+      3: 5.841,
+      4: 4.604,
+      5: 4.032,
+      10: 3.169,
+      15: 2.947,
+      20: 2.845,
+      25: 2.787,
+      30: 2.75,
+    },
   };
 
   const levelValues = tValues[confidenceLevel];
   if (!levelValues) return getZScore(confidenceLevel);
 
   // Find closest df
-  const dfs = Object.keys(levelValues).map(Number).sort((a, b) => a - b);
+  const dfs = Object.keys(levelValues)
+    .map(Number)
+    .sort((a, b) => a - b);
   let closestDf = dfs[0];
   for (const d of dfs) {
     if (d <= df) closestDf = d;
@@ -63,7 +98,9 @@ function getTValue(confidenceLevel: number, df: number): number {
   return levelValues[closestDf] || getZScore(confidenceLevel);
 }
 
-export function calculateConfidenceInterval(input: ConfidenceIntervalInput): ConfidenceIntervalResult | null {
+export function calculateConfidenceInterval(
+  input: ConfidenceIntervalInput
+): ConfidenceIntervalResult | null {
   const {
     mode,
     sampleMean,
@@ -102,7 +139,9 @@ export function calculateConfidenceInterval(input: ConfidenceIntervalInput): Con
       steps.push(`Sample mean (x̄) = ${sampleMean}`);
       steps.push(`Sample size (n) = ${sampleSize}`);
       steps.push(`Standard deviation = ${standardDeviation}`);
-      steps.push(`Standard error = ${standardDeviation}/√${sampleSize} = ${standardError.toFixed(4)}`);
+      steps.push(
+        `Standard error = ${standardDeviation}/√${sampleSize} = ${standardError.toFixed(4)}`
+      );
       steps.push(`Critical value = ${criticalValue.toFixed(4)}`);
       break;
     }
@@ -117,8 +156,12 @@ export function calculateConfidenceInterval(input: ConfidenceIntervalInput): Con
 
       steps.push(`Successes = ${successes}`);
       steps.push(`Sample size (n) = ${sampleSize}`);
-      steps.push(`Sample proportion (p̂) = ${successes}/${sampleSize} = ${pointEstimate.toFixed(4)}`);
-      steps.push(`Standard error = √(${pointEstimate.toFixed(4)} × ${(1 - pointEstimate).toFixed(4)} / ${sampleSize}) = ${standardError.toFixed(4)}`);
+      steps.push(
+        `Sample proportion (p̂) = ${successes}/${sampleSize} = ${pointEstimate.toFixed(4)}`
+      );
+      steps.push(
+        `Standard error = √(${pointEstimate.toFixed(4)} × ${(1 - pointEstimate).toFixed(4)} / ${sampleSize}) = ${standardError.toFixed(4)}`
+      );
       steps.push(`Z critical value = ${criticalValue.toFixed(4)}`);
       break;
     }
@@ -138,15 +181,14 @@ export function calculateConfidenceInterval(input: ConfidenceIntervalInput): Con
       pointEstimate = sampleMean - sampleMean2;
       standardError = Math.sqrt(
         (standardDeviation * standardDeviation) / sampleSize +
-        (standardDeviation2 * standardDeviation2) / sampleSize2
+          (standardDeviation2 * standardDeviation2) / sampleSize2
       );
 
       // Pooled degrees of freedom (Welch's approximation)
       const v1 = (standardDeviation * standardDeviation) / sampleSize;
       const v2 = (standardDeviation2 * standardDeviation2) / sampleSize2;
       const df = Math.floor(
-        ((v1 + v2) ** 2) /
-        ((v1 ** 2) / (sampleSize - 1) + (v2 ** 2) / (sampleSize2 - 1))
+        (v1 + v2) ** 2 / (v1 ** 2 / (sampleSize - 1) + v2 ** 2 / (sampleSize2 - 1))
       );
 
       criticalValue = df < 30 ? getTValue(confidenceLevel, df) : getZScore(confidenceLevel);
@@ -169,7 +211,9 @@ export function calculateConfidenceInterval(input: ConfidenceIntervalInput): Con
   const lowerBound = pointEstimate - marginOfError;
   const upperBound = pointEstimate + marginOfError;
 
-  steps.push(`Margin of error = ${criticalValue.toFixed(4)} × ${standardError.toFixed(4)} = ${marginOfError.toFixed(4)}`);
+  steps.push(
+    `Margin of error = ${criticalValue.toFixed(4)} × ${standardError.toFixed(4)} = ${marginOfError.toFixed(4)}`
+  );
   steps.push(`Confidence interval = ${pointEstimate.toFixed(4)} ± ${marginOfError.toFixed(4)}`);
   steps.push(`= (${lowerBound.toFixed(4)}, ${upperBound.toFixed(4)})`);
 

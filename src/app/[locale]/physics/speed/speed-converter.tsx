@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
 import { convertToAllSpeeds, SPEED_UNITS, type SpeedUnit } from "@/lib/converters/physics/speed";
 

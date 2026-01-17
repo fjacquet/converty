@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateExponent,
   type ExponentInput,
   type ExponentResult,
-  calculateExponent,
 } from "@/lib/converters/math/exponent";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   base: string;
@@ -59,17 +59,14 @@ export function ExponentCalculator() {
 
       <div className="rounded-lg border bg-muted/50 p-4 text-center">
         <p className="text-lg font-mono">
-          {values.base}<sup>{values.exponent}</sup>
+          {values.base}
+          <sup>{values.exponent}</sup>
         </p>
       </div>
 
       {expResult && (
         <div className="space-y-4">
-          <OutputDisplay
-            label={tMath("result")}
-            value={expResult.result.toString()}
-            size="lg"
-          />
+          <OutputDisplay label={tMath("result")} value={expResult.result.toString()} size="lg" />
 
           <ResultGrid
             results={[

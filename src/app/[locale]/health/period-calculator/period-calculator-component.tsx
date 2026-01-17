@@ -3,12 +3,12 @@
 import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePeriod,
   type PeriodInput,
   type PeriodResult,
-  calculatePeriod,
 } from "@/lib/converters/health/period-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   lastPeriodDate: string;
@@ -97,7 +97,9 @@ export function PeriodCalculatorComponent() {
           <div className={`p-4 rounded-lg text-center ${getPhaseColor(result.currentPhase)}`}>
             <p className="text-sm text-muted-foreground">{tResults("currentPhase")}</p>
             <p className="text-2xl font-bold capitalize">{result.currentPhase}</p>
-            <p className="text-sm">{tResults("day")} {result.phaseDay}</p>
+            <p className="text-sm">
+              {tResults("day")} {result.phaseDay}
+            </p>
           </div>
 
           <ResultGrid
@@ -123,7 +125,9 @@ export function PeriodCalculatorComponent() {
           />
 
           <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg">
-            <h3 className="text-lg font-semibold text-green-700 dark:text-green-300 mb-2">{tResults("fertileWindow")}</h3>
+            <h3 className="text-lg font-semibold text-green-700 dark:text-green-300 mb-2">
+              {tResults("fertileWindow")}
+            </h3>
             <p className="text-green-600 dark:text-green-400">
               {result.fertileWindowStart} - {result.fertileWindowEnd}
             </p>
@@ -150,9 +154,15 @@ export function PeriodCalculatorComponent() {
               <thead>
                 <tr>
                   <th className="px-3 py-2 text-left text-sm font-semibold">#</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("periodStart")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("periodEnd")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("ovulation")}</th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("periodStart")}
+                  </th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("periodEnd")}
+                  </th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("ovulation")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">

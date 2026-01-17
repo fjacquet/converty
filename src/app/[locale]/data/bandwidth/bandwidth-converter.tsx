@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField } from "@/components/converter";
 import { BANDWIDTH_UNITS, convertBandwidth } from "@/lib/converters/data/bandwidth";
 

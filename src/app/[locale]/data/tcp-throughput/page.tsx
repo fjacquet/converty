@@ -21,7 +21,16 @@ export async function generateMetadata({
   return {
     title: t("name"),
     description: t("metaDescription"),
-    keywords: ["tcp", "throughput", "network", "bandwidth", "mathis formula", "mss", "rtt", "packet loss"],
+    keywords: [
+      "tcp",
+      "throughput",
+      "network",
+      "bandwidth",
+      "mathis formula",
+      "mss",
+      "rtt",
+      "packet loss",
+    ],
   };
 }
 
@@ -38,7 +47,12 @@ export default async function TcpThroughputPage({
   const category = getCategoryBySlug("data")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("data.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("data.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <TcpThroughputCalculator />
       </Suspense>

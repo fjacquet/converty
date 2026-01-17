@@ -35,7 +35,12 @@ export default async function Retirement401kPage({
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("finance.name")}
+    >
       <Retirement401kCalculator />
     </ConverterLayout>
   );

@@ -5,12 +5,12 @@ import { OutputDisplay } from "@/components/converter";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BasicCalculatorInput,
   type BasicCalculatorResult,
   calculateBasicCalculator,
 } from "@/lib/converters/math/basic-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   expression: string;
@@ -76,11 +76,7 @@ export function BasicCalculatorComponent() {
 
       {calcResult && (
         <div className="space-y-4">
-          <OutputDisplay
-            label={tResults("result")}
-            value={calcResult.formattedResult}
-            size="lg"
-          />
+          <OutputDisplay label={tResults("result")} value={calcResult.formattedResult} size="lg" />
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("calculationSteps")}:</p>

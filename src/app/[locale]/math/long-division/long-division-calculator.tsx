@@ -1,14 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { InputField, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
+  calculateLongDivision,
   type LongDivisionInput,
   type LongDivisionResult,
-  calculateLongDivision,
 } from "@/lib/converters/math/long-division";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   dividend: string;
@@ -44,9 +44,7 @@ export function LongDivisionCalculator() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>
-            {tMath("longDivision") || "Long Division Calculator"}
-          </CardTitle>
+          <CardTitle>{tMath("longDivision") || "Long Division Calculator"}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <InputField
@@ -96,9 +94,7 @@ export function LongDivisionCalculator() {
                   },
                   {
                     label: tResults("decimal") || "Decimal",
-                    value: result.decimal.toFixed(
-                      parseInt(values.decimalPlaces) || 10
-                    ),
+                    value: result.decimal.toFixed(parseInt(values.decimalPlaces) || 10),
                   },
                   {
                     label: tResults("fraction") || "Fraction",
@@ -116,14 +112,10 @@ export function LongDivisionCalculator() {
           {result.repeatingDecimal && (
             <Card>
               <CardHeader>
-                <CardTitle>
-                  {tMath("repeatingDecimal") || "Repeating Decimal"}
-                </CardTitle>
+                <CardTitle>{tMath("repeatingDecimal") || "Repeating Decimal"}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-xl font-mono">
-                  0.{result.repeatingDecimal}
-                </p>
+                <p className="text-xl font-mono">0.{result.repeatingDecimal}</p>
                 <p className="text-sm text-muted-foreground mt-2">
                   Parentheses indicate repeating digits
                 </p>
@@ -133,16 +125,12 @@ export function LongDivisionCalculator() {
 
           <Card>
             <CardHeader>
-              <CardTitle>
-                {tResults("verification") || "Verification"}
-              </CardTitle>
+              <CardTitle>{tResults("verification") || "Verification"}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-mono">{result.verification}</p>
               <p className="text-sm text-muted-foreground mt-2">
-                {result.isExact
-                  ? "Division is exact (no remainder)"
-                  : "Division has a remainder"}
+                {result.isExact ? "Division is exact (no remainder)" : "Division has a remainder"}
               </p>
             </CardContent>
           </Card>
@@ -150,17 +138,12 @@ export function LongDivisionCalculator() {
           {result.steps.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>
-                  {tResults("divisionSteps") || "Division Steps"}
-                </CardTitle>
+                <CardTitle>{tResults("divisionSteps") || "Division Steps"}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {result.steps.map((step, i) => (
-                    <div
-                      key={i}
-                      className="border-l-2 border-primary pl-4 py-2"
-                    >
+                    <div key={i} className="border-l-2 border-primary pl-4 py-2">
                       <p className="font-semibold">Step {step.step}</p>
                       <ul className="text-sm text-muted-foreground space-y-1 font-mono">
                         <li>{step.bring}</li>

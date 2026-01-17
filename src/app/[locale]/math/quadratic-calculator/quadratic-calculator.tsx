@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateQuadratic,
   type QuadraticInput,
   type QuadraticResult,
-  calculateQuadratic,
 } from "@/lib/converters/math/quadratic";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   a: string;
@@ -108,7 +108,10 @@ export function QuadraticCalculator() {
                 label: tMath("vertex"),
                 value: `(${quadResult.vertex.x.toFixed(4)}, ${quadResult.vertex.y.toFixed(4)})`,
               },
-              { label: tMath("axisOfSymmetry"), value: `x = ${quadResult.axisOfSymmetry.toFixed(4)}` },
+              {
+                label: tMath("axisOfSymmetry"),
+                value: `x = ${quadResult.axisOfSymmetry.toFixed(4)}`,
+              },
               { label: tMath("yIntercept"), value: quadResult.yIntercept.toFixed(4) },
               {
                 label: "Direction",

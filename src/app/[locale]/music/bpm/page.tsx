@@ -34,7 +34,12 @@ export default async function BPMPage({ params }: { params: Promise<{ locale: st
   const category = getCategoryBySlug("music")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("music.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("music.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <BPMCalculator />
       </Suspense>

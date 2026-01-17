@@ -85,9 +85,7 @@ export function PersonalLoanCalculator() {
               value={originationFee}
               onChange={(e) => setOriginationFee(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">
-              {t("finance.originationFeeHelp")}
-            </p>
+            <p className="text-xs text-muted-foreground">{t("finance.originationFeeHelp")}</p>
           </div>
         </CardContent>
       </Card>
@@ -106,7 +104,9 @@ export function PersonalLoanCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">{t("finance.originationFeeLabel")}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t("finance.originationFeeLabel")}
+                  </p>
                   <p className="text-xl font-bold">{formatCurrency(result.originationFeeAmount)}</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
@@ -134,7 +134,9 @@ export function PersonalLoanCalculator() {
                   <span>{formatCurrency(loanAmount)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t("finance.breakdownOriginationFee")}</span>
+                  <span className="text-muted-foreground">
+                    {t("finance.breakdownOriginationFee")}
+                  </span>
                   <span>{formatCurrency(result.originationFeeAmount)}</span>
                 </div>
                 <div className="flex justify-between font-medium">

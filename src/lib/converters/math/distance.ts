@@ -84,8 +84,12 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
     case "twoPoints3D": {
       const { x1, y1, z1, x2, y2, z2 } = input;
       if (
-        x1 === undefined || y1 === undefined || z1 === undefined ||
-        x2 === undefined || y2 === undefined || z2 === undefined
+        x1 === undefined ||
+        y1 === undefined ||
+        z1 === undefined ||
+        x2 === undefined ||
+        y2 === undefined ||
+        z2 === undefined
       ) {
         return null;
       }
@@ -117,8 +121,11 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
     case "pointToLine": {
       const { x1, y1, lineA, lineB, lineC } = input;
       if (
-        x1 === undefined || y1 === undefined ||
-        lineA === undefined || lineB === undefined || lineC === undefined
+        x1 === undefined ||
+        y1 === undefined ||
+        lineA === undefined ||
+        lineB === undefined ||
+        lineC === undefined
       ) {
         return null;
       }
@@ -168,10 +175,7 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
 
     case "haversine": {
       const { lat1, lon1, lat2, lon2 } = input;
-      if (
-        lat1 === undefined || lon1 === undefined ||
-        lat2 === undefined || lon2 === undefined
-      ) {
+      if (lat1 === undefined || lon1 === undefined || lat2 === undefined || lon2 === undefined) {
         return null;
       }
 
@@ -181,9 +185,9 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
       const Δφ = toRadians(lat2 - lat1);
       const Δλ = toRadians(lon2 - lon1);
 
-      const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+      const a =
+        Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
       distance = EARTH_RADIUS_KM * c;

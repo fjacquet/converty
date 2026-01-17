@@ -10,12 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { type CircleInput, type CircleResult, calculateCircle } from "@/lib/converters/math/circle";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type CircleInput,
-  type CircleResult,
-  calculateCircle,
-} from "@/lib/converters/math/circle";
 
 interface FormValues {
   mode: "radius" | "diameter" | "circumference" | "area";
@@ -117,7 +113,9 @@ export function CircleCalculator() {
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("formula")}:</p>
-            <p className="text-sm text-muted-foreground font-mono">{circleResult.formulas.circumference}</p>
+            <p className="text-sm text-muted-foreground font-mono">
+              {circleResult.formulas.circumference}
+            </p>
             <p className="text-sm text-muted-foreground font-mono">{circleResult.formulas.area}</p>
           </div>
 

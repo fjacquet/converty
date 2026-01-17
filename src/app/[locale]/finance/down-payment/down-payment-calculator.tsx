@@ -113,7 +113,9 @@ export function DownPaymentCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">{t("finance.monthlyContributionNeeded")}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("finance.monthlyContributionNeeded")}
+                </p>
                 <p className="text-3xl font-bold">{formatCurrency(result.monthlyContribution)}</p>
               </div>
 
@@ -129,7 +131,9 @@ export function DownPaymentCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">{t("labels.down-payment-amount-needed")}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t("labels.down-payment-amount-needed")}
+                  </p>
                   <p className="text-xl font-bold">{formatCurrency(result.amountNeeded)}</p>
                 </div>
                 <div className="p-4 bg-green-500/10 rounded-lg">
@@ -144,7 +148,8 @@ export function DownPaymentCalculator() {
                 <p className="text-sm text-muted-foreground">{t("labels.loanAmount")}</p>
                 <p className="text-xl font-bold">{formatCurrency(result.loanAmount)}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {t("finance.downPaymentAfter")} {downPaymentPercent}% {t("finance.downPaymentLabel")}
+                  {t("finance.downPaymentAfter")} {downPaymentPercent}%{" "}
+                  {t("finance.downPaymentLabel")}
                 </p>
               </div>
 
@@ -169,11 +174,15 @@ export function DownPaymentCalculator() {
 
               {result.projections.length > 0 && (
                 <div className="border-t pt-4">
-                  <p className="text-sm font-medium mb-2">{t("labels.down-payment-savings-milestones")}</p>
+                  <p className="text-sm font-medium mb-2">
+                    {t("labels.down-payment-savings-milestones")}
+                  </p>
                   <div className="space-y-2 text-sm">
                     {result.projections.map((proj) => (
                       <div key={proj.month} className="flex justify-between">
-                        <span className="text-muted-foreground">{t("labels.down-payment-month")} {proj.month}</span>
+                        <span className="text-muted-foreground">
+                          {t("labels.down-payment-month")} {proj.month}
+                        </span>
                         <span>{formatCurrency(proj.balance)}</span>
                       </div>
                     ))}

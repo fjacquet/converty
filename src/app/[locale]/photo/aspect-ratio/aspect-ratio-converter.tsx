@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { COMMON_RATIOS, calculateAspectRatio } from "@/lib/converters/photo/aspect-ratio";
 
@@ -43,7 +43,12 @@ export function AspectRatioConverter() {
       {result && (
         <div className="space-y-6">
           <div className="flex items-center gap-6">
-            <OutputDisplay label={t("aspectRatio")} value={result.ratio} size="lg" className="flex-1" />
+            <OutputDisplay
+              label={t("aspectRatio")}
+              value={result.ratio}
+              size="lg"
+              className="flex-1"
+            />
             <OutputDisplay label={t("decimal")} value={result.decimal} className="flex-1" />
           </div>
 

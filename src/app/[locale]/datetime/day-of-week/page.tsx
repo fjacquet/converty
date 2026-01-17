@@ -34,7 +34,12 @@ export default async function DayOfWeekPage({ params }: { params: Promise<{ loca
   const category = getCategoryBySlug("datetime")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("datetime.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("datetime.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <DayOfWeekCalculator />
       </Suspense>

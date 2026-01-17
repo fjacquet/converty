@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   COMMON_RESOLUTIONS,
@@ -28,7 +28,14 @@ export function ImageFilesizeCalculator() {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <InputField id="width" label={tMath("width")} value={width} onChange={setWidth} unit="px" min={1} />
+        <InputField
+          id="width"
+          label={tMath("width")}
+          value={width}
+          onChange={setWidth}
+          unit="px"
+          min={1}
+        />
         <InputField
           id="height"
           label={tMath("height")}

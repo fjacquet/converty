@@ -36,10 +36,12 @@ export default async function MathPage({ params }: { params: Promise<{ locale: s
 
   // Group converters by subcategory
   const subcategories = ["basic", "algebra", "geometry", "statistics", "numbers", "advanced"];
-  const grouped = subcategories.map((sub) => ({
-    id: sub,
-    converters: converters.filter((c) => c.subcategory === sub),
-  })).filter((g) => g.converters.length > 0);
+  const grouped = subcategories
+    .map((sub) => ({
+      id: sub,
+      converters: converters.filter((c) => c.subcategory === sub),
+    }))
+    .filter((g) => g.converters.length > 0);
 
   return (
     <div className="container py-10">

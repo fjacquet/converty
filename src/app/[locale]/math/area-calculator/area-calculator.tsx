@@ -10,15 +10,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { type AreaInput, type AreaResult, calculateArea } from "@/lib/converters/math/area";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type AreaInput,
-  type AreaResult,
-  calculateArea,
-} from "@/lib/converters/math/area";
 
 interface FormValues {
-  shape: "rectangle" | "square" | "triangle" | "circle" | "trapezoid" | "parallelogram" | "ellipse" | "sector" | "rhombus";
+  shape:
+    | "rectangle"
+    | "square"
+    | "triangle"
+    | "circle"
+    | "trapezoid"
+    | "parallelogram"
+    | "ellipse"
+    | "sector"
+    | "rhombus";
   length: string;
   width: string;
   base: string;
@@ -283,9 +288,7 @@ export function AreaCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-2">{renderInputs()}</div>
       </div>
 
       {areaResult && (

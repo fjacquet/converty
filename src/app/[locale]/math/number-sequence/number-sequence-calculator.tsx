@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
+import { ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -12,11 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ResultGrid } from "@/components/converter";
 import {
+  calculateNumberSequence,
   type NumberSequenceInput,
   type NumberSequenceResult,
-  calculateNumberSequence,
 } from "@/lib/converters/math/number-sequence";
 
 type Mode = NumberSequenceInput["mode"];
@@ -84,9 +84,7 @@ export function NumberSequenceCalculator() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>
-            {tMath("numberSequence")}
-          </CardTitle>
+          <CardTitle>{tMath("numberSequence")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -190,9 +188,7 @@ export function NumberSequenceCalculator() {
               min={1}
               value={findNthTerm || ""}
               onChange={(e) => {
-                setFindNthTerm(
-                  e.target.value ? Number(e.target.value) : undefined
-                );
+                setFindNthTerm(e.target.value ? Number(e.target.value) : undefined);
                 setResult(null);
               }}
               placeholder="e.g., 50 for 50th term"
@@ -221,9 +217,7 @@ export function NumberSequenceCalculator() {
                 <p className="text-lg font-mono">{result.formula}</p>
               </div>
               <div>
-                <Label className="text-muted-foreground">
-                  nth Term Formula
-                </Label>
+                <Label className="text-muted-foreground">nth Term Formula</Label>
                 <p className="text-lg font-mono">{result.nthTermFormula}</p>
               </div>
               {result.sumFormula && (

@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePermutationCombination,
   type PermutationCombinationInput,
   type PermutationCombinationResult,
-  calculatePermutationCombination,
 } from "@/lib/converters/math/permutation-combination";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type PCMode = "permutation" | "combination" | "permutationRepetition" | "combinationRepetition";
 
@@ -25,7 +25,10 @@ interface FormValues {
   r: string;
 }
 
-const usePermutationCombinationStore = createCalculatorStore<FormValues, PermutationCombinationResult | null>({
+const usePermutationCombinationStore = createCalculatorStore<
+  FormValues,
+  PermutationCombinationResult | null
+>({
   name: "permutation-combination-calculator",
   initialValues: {
     mode: "permutation",
@@ -54,18 +57,19 @@ export function PermutationCombinationCalculator() {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label>{tMath("calculationType")}</Label>
-        <Select
-          value={values.mode}
-          onValueChange={(v) => setValue("mode", v as PCMode)}
-        >
+        <Select value={values.mode} onValueChange={(v) => setValue("mode", v as PCMode)}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="permutation">{tMath("permutationNoRepetition")}</SelectItem>
             <SelectItem value="combination">{tMath("combinationNoRepetition")}</SelectItem>
-            <SelectItem value="permutationRepetition">{tMath("permutationWithRepetition")}</SelectItem>
-            <SelectItem value="combinationRepetition">{tMath("combinationWithRepetition")}</SelectItem>
+            <SelectItem value="permutationRepetition">
+              {tMath("permutationWithRepetition")}
+            </SelectItem>
+            <SelectItem value="combinationRepetition">
+              {tMath("combinationWithRepetition")}
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>

@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { InputField, ResultGrid } from "@/components/converter";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -15,6 +14,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   calculateTimeZone,
@@ -23,8 +23,8 @@ import {
   type TimeZoneResult,
   type TimezoneGroup,
 } from "@/lib/converters/datetime/time-zone";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import { cn } from "@/lib/utils";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useTimeZoneStore = createCalculatorStore<TimeZoneInput, TimeZoneResult>({
   name: "time-zone-calculator",

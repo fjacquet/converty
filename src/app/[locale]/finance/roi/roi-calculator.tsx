@@ -125,9 +125,7 @@ export function RoiCalculator() {
                 {years > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">{t("labels.period")}</span>
-                    <span>
-                      {t("finance.yearsCount", { count: years })}
-                    </span>
+                    <span>{t("finance.yearsCount", { count: years })}</span>
                   </div>
                 )}
               </div>

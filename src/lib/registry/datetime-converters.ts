@@ -1,4 +1,4 @@
-import { Calendar } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const datetimeConverters: Record<string, ConverterMeta> = {
@@ -72,6 +72,26 @@ export const datetimeConverters: Record<string, ConverterMeta> = {
     subcategory: "date-time",
     keywords: ["day", "week", "monday", "tuesday", "date", "weekday"],
     icon: Calendar,
+    featured: false,
+  },
+  "duration-converter": {
+    id: "duration-converter",
+    slug: "duration-converter",
+    category: "datetime",
+    subcategory: "date-time",
+    keywords: [
+      "duration",
+      "time",
+      "convert",
+      "seconds",
+      "minutes",
+      "hours",
+      "days",
+      "weeks",
+      "months",
+      "years",
+    ],
+    icon: Clock,
     featured: false,
   },
 };

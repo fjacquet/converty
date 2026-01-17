@@ -99,9 +99,7 @@ export function BondCalculator() {
               value={marketRate}
               onChange={(e) => setMarketRate(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">
-              {t("descriptions.marketRateHelper")}
-            </p>
+            <p className="text-xs text-muted-foreground">{t("descriptions.marketRateHelper")}</p>
           </div>
         </CardContent>
       </Card>

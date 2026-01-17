@@ -11,12 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { type BinaryInput, type BinaryResult, calculateBinary } from "@/lib/converters/math/binary";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type BinaryInput,
-  type BinaryResult,
-  calculateBinary,
-} from "@/lib/converters/math/binary";
 
 interface FormValues {
   mode: "decimalToBinary" | "binaryToDecimal" | "binaryOperation";
@@ -152,9 +148,7 @@ export function BinaryCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-2">{renderInputs()}</div>
       </div>
 
       {binaryResult && (
@@ -165,11 +159,7 @@ export function BinaryCalculator() {
               value={binaryResult.decimal.toString()}
               size="lg"
             />
-            <OutputDisplay
-              label={tMath("binaryNumber")}
-              value={binaryResult.binary}
-              size="lg"
-            />
+            <OutputDisplay label={tMath("binaryNumber")} value={binaryResult.binary} size="lg" />
           </div>
 
           <ResultGrid

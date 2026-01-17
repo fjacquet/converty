@@ -97,7 +97,7 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
 
   const maxFreq = Math.max(...Object.values(frequency));
   const mode = Object.keys(frequency)
-    .filter(key => frequency[Number(key)] === maxFreq)
+    .filter((key) => frequency[Number(key)] === maxFreq)
     .map(Number);
 
   if (maxFreq === 1) {
@@ -113,12 +113,18 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
   const standardDeviation = Math.sqrt(variance);
 
   const varianceType = population ? "Population" : "Sample";
-  steps.push(`${varianceType} Variance (σ²): ${sumOfSquares.toFixed(4)} / ${denominator} = ${variance.toFixed(6)}`);
-  steps.push(`${varianceType} Standard Deviation (σ): √${variance.toFixed(4)} = ${standardDeviation.toFixed(6)}`);
+  steps.push(
+    `${varianceType} Variance (σ²): ${sumOfSquares.toFixed(4)} / ${denominator} = ${variance.toFixed(6)}`
+  );
+  steps.push(
+    `${varianceType} Standard Deviation (σ): √${variance.toFixed(4)} = ${standardDeviation.toFixed(6)}`
+  );
 
   // Standard Error
   const standardError = standardDeviation / Math.sqrt(n);
-  steps.push(`Standard Error: ${standardDeviation.toFixed(4)} / √${n} = ${standardError.toFixed(6)}`);
+  steps.push(
+    `Standard Error: ${standardDeviation.toFixed(4)} / √${n} = ${standardError.toFixed(6)}`
+  );
 
   // Coefficient of Variation
   const coefficientOfVariation = mean !== 0 ? (standardDeviation / Math.abs(mean)) * 100 : 0;
@@ -153,12 +159,13 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
   }
 
   // Kurtosis (excess kurtosis)
-  const kurtosis = data.reduce((acc, val) => acc + ((val - mean) / standardDeviation) ** 4, 0) / n - 3;
+  const kurtosis =
+    data.reduce((acc, val) => acc + ((val - mean) / standardDeviation) ** 4, 0) / n - 3;
   steps.push(`Excess Kurtosis: ${kurtosis.toFixed(6)}`);
 
   // Geometric Mean (only for positive numbers)
   let geometricMean: number | null = null;
-  if (data.every(v => v > 0)) {
+  if (data.every((v) => v > 0)) {
     const logSum = data.reduce((acc, val) => acc + Math.log(val), 0);
     geometricMean = Math.exp(logSum / n);
     steps.push(`Geometric Mean: ${geometricMean.toFixed(6)}`);
@@ -166,7 +173,7 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
 
   // Harmonic Mean (only for positive numbers)
   let harmonicMean: number | null = null;
-  if (data.every(v => v > 0)) {
+  if (data.every((v) => v > 0)) {
     const reciprocalSum = data.reduce((acc, val) => acc + 1 / val, 0);
     harmonicMean = n / reciprocalSum;
     steps.push(`Harmonic Mean: ${harmonicMean.toFixed(6)}`);

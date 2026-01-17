@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { CSP_DIRECTIVES, CSP_PRESETS, type CSPConfig, generateCSP } from "@/lib/converters/web/csp";
 
 export function CSPGenerator() {

@@ -10,15 +10,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateProbability,
   type ProbabilityInput,
   type ProbabilityResult,
-  calculateProbability,
 } from "@/lib/converters/math/probability";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
-  mode: "single" | "and" | "or" | "conditional" | "complement" | "binomial" | "permutation" | "combination";
+  mode:
+    | "single"
+    | "and"
+    | "or"
+    | "conditional"
+    | "complement"
+    | "binomial"
+    | "permutation"
+    | "combination";
   probabilityA: string;
   probabilityB: string;
   probabilityAandB: string;
@@ -262,9 +270,7 @@ export function ProbabilityCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-2">{renderInputs()}</div>
       </div>
 
       {probabilityResult && (

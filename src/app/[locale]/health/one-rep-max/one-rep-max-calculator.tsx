@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateOneRepMax,
   type OneRepMaxInput,
   type OneRepMaxResult,
-  calculateOneRepMax,
 } from "@/lib/converters/health/one-rep-max";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   weight: string;

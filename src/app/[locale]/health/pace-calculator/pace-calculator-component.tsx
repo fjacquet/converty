@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePace,
   type PaceInput,
   type PaceResult,
-  calculatePace,
 } from "@/lib/converters/health/pace-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mode: "pace" | "time" | "distance";

@@ -62,8 +62,7 @@ export function calculatePythagorean(input: PythagoreanInput): PythagoreanResult
 
   // Check if it's a Pythagorean triple (all integers)
   const isPythagoreanTriple =
-    Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) &&
-    a * a + b * b === c * c;
+    Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && a * a + b * b === c * c;
 
   // Common Pythagorean triples
   const pythagoreanTriples = [

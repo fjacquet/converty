@@ -25,9 +25,9 @@ export interface SampleSizeResult {
 function getZScore(confidenceLevel: number): number {
   const zScores: Record<number, number> = {
     80: 1.282,
-    85: 1.440,
+    85: 1.44,
     90: 1.645,
-    95: 1.960,
+    95: 1.96,
     99: 2.576,
     99.9: 3.291,
   };
@@ -67,8 +67,12 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
       steps.push(`Margin of Error (E): ${(marginOfError * 100).toFixed(1)}%`);
       steps.push(`Population Proportion (p): ${p}`);
       steps.push(`n = (${z}² × ${p} × ${q}) / ${marginOfError}²`);
-      steps.push(`n = (${(z * z).toFixed(4)} × ${(p * q).toFixed(4)}) / ${(marginOfError * marginOfError).toFixed(6)}`);
-      steps.push(`n = ${(z * z * p * q).toFixed(4)} / ${(marginOfError * marginOfError).toFixed(6)}`);
+      steps.push(
+        `n = (${(z * z).toFixed(4)} × ${(p * q).toFixed(4)}) / ${(marginOfError * marginOfError).toFixed(6)}`
+      );
+      steps.push(
+        `n = ${(z * z * p * q).toFixed(4)} / ${(marginOfError * marginOfError).toFixed(6)}`
+      );
       steps.push(`n = ${sampleSize}`);
 
       // Finite population correction
@@ -91,7 +95,7 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
       steps.push(`Standard Deviation (σ): ${standardDeviation}`);
       steps.push(`Margin of Error (E): ${marginOfError}`);
       steps.push(`n = (${z} × ${standardDeviation} / ${marginOfError})²`);
-      steps.push(`n = (${(z * standardDeviation / marginOfError).toFixed(4)})²`);
+      steps.push(`n = (${((z * standardDeviation) / marginOfError).toFixed(4)})²`);
       steps.push(`n = ${sampleSize}`);
 
       // Finite population correction
@@ -119,8 +123,8 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
       steps.push(`Confidence Level: ${confidenceLevel}%, Z-score = ${z}`);
       steps.push(`Population Proportion (p): ${p}`);
       steps.push(`E = ${z} × √(${p} × ${q} / ${sampleSize})`);
-      steps.push(`E = ${z} × √(${(p * q / sampleSize).toFixed(6)})`);
-      steps.push(`E = ${z} × ${Math.sqrt(p * q / sampleSize).toFixed(6)}`);
+      steps.push(`E = ${z} × √(${((p * q) / sampleSize).toFixed(6)})`);
+      steps.push(`E = ${z} × ${Math.sqrt((p * q) / sampleSize).toFixed(6)}`);
       steps.push(`E = ${(resultMarginOfError * 100).toFixed(2)}%`);
       break;
     }
@@ -129,9 +133,10 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
       return null;
   }
 
-  const interpretation = mode === "fromMarginOfError"
-    ? `With a sample of ${sampleSize}, we can be ${confidenceLevel}% confident that the true value is within ±${(resultMarginOfError * 100).toFixed(2)}% of the sample result.`
-    : `A sample size of ${finiteCorrected || sampleSize} is needed to achieve a ${(marginOfError * 100).toFixed(1)}% margin of error at ${confidenceLevel}% confidence.`;
+  const interpretation =
+    mode === "fromMarginOfError"
+      ? `With a sample of ${sampleSize}, we can be ${confidenceLevel}% confident that the true value is within ±${(resultMarginOfError * 100).toFixed(2)}% of the sample result.`
+      : `A sample size of ${finiteCorrected || sampleSize} is needed to achieve a ${(marginOfError * 100).toFixed(1)}% margin of error at ${confidenceLevel}% confidence.`;
 
   return {
     sampleSize: finiteCorrected || sampleSize,

@@ -2,14 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {
-  CameraSettingsCards,
-  ColorTemperatureTable,
-  LightPhasesReference,
-  PlanningTipsCard,
-  SeasonalNotesCards,
-  TwilightDurationTable,
-} from "./components";
-import {
   formatDuration,
   formatSunTime,
   getCurrentLightPhase,
@@ -17,6 +9,14 @@ import {
   getSunTimes,
   getTimeUntilGoldenHour,
 } from "@/lib/converters/photo/sun-position";
+import {
+  CameraSettingsCards,
+  ColorTemperatureTable,
+  LightPhasesReference,
+  PlanningTipsCard,
+  SeasonalNotesCards,
+  TwilightDurationTable,
+} from "./components";
 
 type LocationState =
   | { status: "idle" }

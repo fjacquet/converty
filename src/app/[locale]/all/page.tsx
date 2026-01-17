@@ -33,10 +33,12 @@ export default async function AllToolsPage({ params }: { params: Promise<{ local
   const tConverters = await getTranslations("converters");
 
   // Group converters by category
-  const groupedConverters = categories.map((category) => ({
-    category,
-    converters: converters.filter((c) => c.category === category.id),
-  })).filter((group) => group.converters.length > 0);
+  const groupedConverters = categories
+    .map((category) => ({
+      category,
+      converters: converters.filter((c) => c.category === category.id),
+    }))
+    .filter((group) => group.converters.length > 0);
 
   return (
     <div className="container py-10">
@@ -57,7 +59,9 @@ export default async function AllToolsPage({ params }: { params: Promise<{ local
               <Link key={converter.id} href={`/${converter.category}/${converter.slug}`}>
                 <Card className="h-full transition-colors hover:bg-muted/50">
                   <CardHeader className="p-4">
-                    <CardTitle className="text-base">{tConverters(`${converter.id}.name`)}</CardTitle>
+                    <CardTitle className="text-base">
+                      {tConverters(`${converter.id}.name`)}
+                    </CardTitle>
                     <CardDescription className="text-sm line-clamp-2">
                       {tConverters(`${converter.id}.description`)}
                     </CardDescription>

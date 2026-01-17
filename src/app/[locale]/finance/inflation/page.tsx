@@ -30,7 +30,12 @@ export default async function InflationPage({ params }: { params: Promise<{ loca
   const category = getCategoryBySlug("finance")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("finance.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("finance.name")}
+    >
       <InflationCalculator />
     </ConverterLayout>
   );

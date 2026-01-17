@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateFraction,
   type FractionInput,
   type FractionResult,
-  calculateFraction,
 } from "@/lib/converters/math/fraction";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mode: "simplify" | "add" | "subtract" | "multiply" | "divide" | "toDecimal" | "toFraction";

@@ -135,7 +135,11 @@ export function calculateTriangle(input: TriangleInput): TriangleResult | null {
   const tolerance = 0.0001;
   if (Math.abs(a - b) < tolerance && Math.abs(b - c) < tolerance) {
     type = "Equilateral";
-  } else if (Math.abs(a - b) < tolerance || Math.abs(b - c) < tolerance || Math.abs(a - c) < tolerance) {
+  } else if (
+    Math.abs(a - b) < tolerance ||
+    Math.abs(b - c) < tolerance ||
+    Math.abs(a - c) < tolerance
+  ) {
     type = "Isosceles";
   } else {
     type = "Scalene";

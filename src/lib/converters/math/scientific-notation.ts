@@ -46,11 +46,15 @@ function toEngineering(num: number): { mantissa: number; exponent: number } {
 
 function countSignificantFigures(num: number): number {
   if (num === 0) return 1;
-  const str = Math.abs(num).toString().replace(/^0+|\.|-/g, "");
+  const str = Math.abs(num)
+    .toString()
+    .replace(/^0+|\.|-/g, "");
   return str.replace(/0+$/, "").length || 1;
 }
 
-export function calculateScientificNotation(input: ScientificNotationInput): ScientificNotationResult | null {
+export function calculateScientificNotation(
+  input: ScientificNotationInput
+): ScientificNotationResult | null {
   const { mode } = input;
   const steps: string[] = [];
 
@@ -70,7 +74,9 @@ export function calculateScientificNotation(input: ScientificNotationInput): Sci
 
       steps.push(`Original number: ${inputNumber}`);
       if (inputNumber !== 0) {
-        steps.push(`Move decimal point ${Math.abs(exponent)} places ${exponent >= 0 ? "left" : "right"}`);
+        steps.push(
+          `Move decimal point ${Math.abs(exponent)} places ${exponent >= 0 ? "left" : "right"}`
+        );
         steps.push(`Mantissa: ${mantissa.toFixed(6)}`);
         steps.push(`Exponent: ${exponent}`);
       }
@@ -93,7 +99,13 @@ export function calculateScientificNotation(input: ScientificNotationInput): Sci
 
     case "operation": {
       const { mantissa: m1, exponent: e1, mantissa2: m2, exponent2: e2, operation } = input;
-      if (m1 === undefined || e1 === undefined || m2 === undefined || e2 === undefined || !operation) {
+      if (
+        m1 === undefined ||
+        e1 === undefined ||
+        m2 === undefined ||
+        e2 === undefined ||
+        !operation
+      ) {
         return null;
       }
 

@@ -45,14 +45,8 @@ function gamma(z: number): number {
   z -= 1;
   const g = 7;
   const coefficients = [
-    0.99999999999980993,
-    676.5203681218851,
-    -1259.1392167224028,
-    771.32342877765313,
-    -176.61502916214059,
-    12.507343278686905,
-    -0.13857109526572012,
-    9.9843695780195716e-6,
+    0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313,
+    -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6,
     1.5056327351493116e-7,
   ];
 
@@ -194,7 +188,12 @@ export function calculatePValue(input: PValueInput): PValueResult | null {
     }
 
     case "fromFScore": {
-      if (!degreesOfFreedom || !degreesOfFreedom2 || degreesOfFreedom <= 0 || degreesOfFreedom2 <= 0) {
+      if (
+        !degreesOfFreedom ||
+        !degreesOfFreedom2 ||
+        degreesOfFreedom <= 0 ||
+        degreesOfFreedom2 <= 0
+      ) {
         return null;
       }
 
@@ -221,15 +220,20 @@ export function calculatePValue(input: PValueInput): PValueResult | null {
 
   let interpretation: string;
   if (pValue < 0.001) {
-    interpretation = "The result is highly statistically significant (p < 0.001). Strong evidence against the null hypothesis.";
+    interpretation =
+      "The result is highly statistically significant (p < 0.001). Strong evidence against the null hypothesis.";
   } else if (pValue < 0.01) {
-    interpretation = "The result is statistically significant (p < 0.01). Good evidence against the null hypothesis.";
+    interpretation =
+      "The result is statistically significant (p < 0.01). Good evidence against the null hypothesis.";
   } else if (pValue < 0.05) {
-    interpretation = "The result is statistically significant (p < 0.05). Moderate evidence against the null hypothesis.";
+    interpretation =
+      "The result is statistically significant (p < 0.05). Moderate evidence against the null hypothesis.";
   } else if (pValue < 0.1) {
-    interpretation = "The result is marginally significant (p < 0.10). Weak evidence against the null hypothesis.";
+    interpretation =
+      "The result is marginally significant (p < 0.10). Weak evidence against the null hypothesis.";
   } else {
-    interpretation = "The result is not statistically significant (p ≥ 0.10). Insufficient evidence to reject the null hypothesis.";
+    interpretation =
+      "The result is not statistically significant (p ≥ 0.10). Insufficient evidence to reject the null hypothesis.";
   }
 
   steps.push(`Significant at α = 0.05? ${significantAt05 ? "Yes" : "No"}`);

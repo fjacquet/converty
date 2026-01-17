@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateGfr,
   type GfrInput,
   type GfrResult,
-  calculateGfr,
 } from "@/lib/converters/health/gfr-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   creatinine: string;
@@ -168,11 +168,13 @@ export function GfrCalculatorComponent() {
                 unit: "mL/min/1.73m²",
               },
               ...(result.egfrCockcroftGault
-                ? [{
-                    label: "Cockcroft-Gault",
-                    value: Math.round(result.egfrCockcroftGault),
-                    unit: "mL/min",
-                  }]
+                ? [
+                    {
+                      label: "Cockcroft-Gault",
+                      value: Math.round(result.egfrCockcroftGault),
+                      unit: "mL/min",
+                    },
+                  ]
                 : []),
             ]}
           />

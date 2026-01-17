@@ -34,7 +34,12 @@ export default async function BMIPage({ params }: { params: Promise<{ locale: st
   const category = getCategoryBySlug("health")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("health.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("health.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <BMICalculator />
       </Suspense>

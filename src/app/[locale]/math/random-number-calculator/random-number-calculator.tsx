@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -13,9 +13,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  calculateRandomNumber,
   type RandomNumberInput,
   type RandomNumberResult,
-  calculateRandomNumber,
 } from "@/lib/converters/math/random-number";
 
 type RandomMode = "integer" | "float" | "multiple" | "dice";
@@ -64,10 +64,7 @@ export function RandomNumberCalculator() {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label>{tMath("generatorMode")}</Label>
-        <Select
-          value={values.mode}
-          onValueChange={(v) => setValue("mode", v as RandomMode)}
-        >
+        <Select value={values.mode} onValueChange={(v) => setValue("mode", v as RandomMode)}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -138,7 +135,9 @@ export function RandomNumberCalculator() {
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("result")}
-            value={Array.isArray(result.results) ? result.results.join(", ") : String(result.results)}
+            value={
+              Array.isArray(result.results) ? result.results.join(", ") : String(result.results)
+            }
             size="lg"
           />
 

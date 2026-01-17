@@ -20,7 +20,9 @@ export interface StandardDeviationResult {
   zScores: Array<{ value: number; zScore: number }>;
 }
 
-export function calculateStandardDeviation(input: StandardDeviationInput): StandardDeviationResult | null {
+export function calculateStandardDeviation(
+  input: StandardDeviationInput
+): StandardDeviationResult | null {
   const { numbers, isPopulation } = input;
 
   if (numbers.length === 0) return null;
@@ -54,9 +56,7 @@ export function calculateStandardDeviation(input: StandardDeviationInput): Stand
   const sumOfSquares = numbers.reduce((a, n) => a + n * n, 0);
 
   // Formula explanation
-  const formula = isPopulation
-    ? `σ = √[Σ(xᵢ - μ)² / N]`
-    : `s = √[Σ(xᵢ - x̄)² / (n-1)]`;
+  const formula = isPopulation ? `σ = √[Σ(xᵢ - μ)² / N]` : `s = √[Σ(xᵢ - x̄)² / (n-1)]`;
 
   // Z-scores
   const zScores = numbers.map((value) => ({

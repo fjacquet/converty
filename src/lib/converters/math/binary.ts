@@ -74,7 +74,10 @@ function binaryXor(a: string, b: string): string {
 
 function binaryNot(a: string): string {
   // Flip all bits (limited to the length of input)
-  return a.split("").map(b => b === "0" ? "1" : "0").join("");
+  return a
+    .split("")
+    .map((b) => (b === "0" ? "1" : "0"))
+    .join("");
 }
 
 export function calculateBinary(input: BinaryInput): BinaryResult | null {
@@ -196,14 +199,11 @@ export function calculateBinary(input: BinaryInput): BinaryResult | null {
   }
 
   const octal = decimal >= 0 ? decimal.toString(8) : (decimal >>> 0).toString(8);
-  const hexadecimal = decimal >= 0
-    ? decimal.toString(16).toUpperCase()
-    : (decimal >>> 0).toString(16).toUpperCase();
+  const hexadecimal =
+    decimal >= 0 ? decimal.toString(16).toUpperCase() : (decimal >>> 0).toString(16).toUpperCase();
 
   // Two's complement (32-bit)
-  const twosComplement = decimal >= 0
-    ? binary.padStart(32, "0")
-    : decimalToBinary(-decimal);
+  const twosComplement = decimal >= 0 ? binary.padStart(32, "0") : decimalToBinary(-decimal);
 
   return {
     decimal,

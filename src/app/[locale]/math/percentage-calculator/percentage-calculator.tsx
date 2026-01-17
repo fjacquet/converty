@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculatePercentage,
   type PercentageInput,
   type PercentageResult,
-  calculatePercentage,
 } from "@/lib/converters/math/percentage";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mode: "percentOf" | "whatPercent" | "percentChange" | "percentDifference";

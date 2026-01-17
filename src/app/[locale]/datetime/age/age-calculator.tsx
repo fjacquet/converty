@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import { InputField, PdfExportButton, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type AgeInput, type AgeResult, calculateAge } from "@/lib/converters/datetime/age";
@@ -32,8 +32,14 @@ export function AgeCalculator() {
       {
         title: tSections("summary"),
         items: [
-          { label: `${t("days")} (${tSections("summary")})`, value: result.totalDays.toLocaleString() },
-          { label: `${t("weeks")} (${tSections("summary")})`, value: result.totalWeeks.toLocaleString() },
+          {
+            label: `${t("days")} (${tSections("summary")})`,
+            value: result.totalDays.toLocaleString(),
+          },
+          {
+            label: `${t("weeks")} (${tSections("summary")})`,
+            value: result.totalWeeks.toLocaleString(),
+          },
           { label: `${t("months")} (${tSections("summary")})`, value: result.totalMonths },
         ],
       },
@@ -81,14 +87,21 @@ export function AgeCalculator() {
             <CardContent className="space-y-6">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
                 <p className="text-3xl font-bold text-primary">
-                  {result.years} {t("years")}, {result.months} {t("months")}, {result.days} {t("days")}
+                  {result.years} {t("years")}, {result.months} {t("months")}, {result.days}{" "}
+                  {t("days")}
                 </p>
               </div>
 
               <ResultGrid
                 results={[
-                  { label: `${t("days")} (${tSections("summary")})`, value: result.totalDays.toLocaleString() },
-                  { label: `${t("weeks")} (${tSections("summary")})`, value: result.totalWeeks.toLocaleString() },
+                  {
+                    label: `${t("days")} (${tSections("summary")})`,
+                    value: result.totalDays.toLocaleString(),
+                  },
+                  {
+                    label: `${t("weeks")} (${tSections("summary")})`,
+                    value: result.totalWeeks.toLocaleString(),
+                  },
                   { label: `${t("months")} (${tSections("summary")})`, value: result.totalMonths },
                 ]}
                 columns={3}
@@ -105,7 +118,10 @@ export function AgeCalculator() {
                 results={[
                   { label: t("zodiacSign"), value: result.zodiacSign },
                   { label: t("chineseZodiac"), value: result.chineseZodiac },
-                  { label: t("nextBirthday"), value: result.nextBirthday.date.toLocaleDateString() },
+                  {
+                    label: t("nextBirthday"),
+                    value: result.nextBirthday.date.toLocaleDateString(),
+                  },
                   { label: t("daysUntilBirthday"), value: result.nextBirthday.daysUntil },
                 ]}
                 columns={2}

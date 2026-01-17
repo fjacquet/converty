@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateDistance,
   type DistanceInput,
   type DistanceResult,
-  calculateDistance,
 } from "@/lib/converters/math/distance";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type DistanceMode = "twoPoints2D" | "twoPoints3D" | "pointToLine" | "manhattan" | "haversine";
 
@@ -87,10 +87,7 @@ export function DistanceCalculator() {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label>{tMath("distanceType")}</Label>
-        <Select
-          value={values.mode}
-          onValueChange={(v) => setValue("mode", v as DistanceMode)}
-        >
+        <Select value={values.mode} onValueChange={(v) => setValue("mode", v as DistanceMode)}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -106,40 +103,154 @@ export function DistanceCalculator() {
 
       {(values.mode === "twoPoints2D" || values.mode === "manhattan") && (
         <div className="grid gap-4 sm:grid-cols-2">
-          <InputField id="x1" label={tMath("x1")} value={values.x1} onChange={(v) => setValue("x1", v)} step="any" />
-          <InputField id="y1" label={tMath("y1")} value={values.y1} onChange={(v) => setValue("y1", v)} step="any" />
-          <InputField id="x2" label={tMath("x2")} value={values.x2} onChange={(v) => setValue("x2", v)} step="any" />
-          <InputField id="y2" label={tMath("y2")} value={values.y2} onChange={(v) => setValue("y2", v)} step="any" />
+          <InputField
+            id="x1"
+            label={tMath("x1")}
+            value={values.x1}
+            onChange={(v) => setValue("x1", v)}
+            step="any"
+          />
+          <InputField
+            id="y1"
+            label={tMath("y1")}
+            value={values.y1}
+            onChange={(v) => setValue("y1", v)}
+            step="any"
+          />
+          <InputField
+            id="x2"
+            label={tMath("x2")}
+            value={values.x2}
+            onChange={(v) => setValue("x2", v)}
+            step="any"
+          />
+          <InputField
+            id="y2"
+            label={tMath("y2")}
+            value={values.y2}
+            onChange={(v) => setValue("y2", v)}
+            step="any"
+          />
         </div>
       )}
 
       {values.mode === "twoPoints3D" && (
         <div className="grid gap-4 sm:grid-cols-3">
-          <InputField id="x1" label={tMath("x1")} value={values.x1} onChange={(v) => setValue("x1", v)} step="any" />
-          <InputField id="y1" label={tMath("y1")} value={values.y1} onChange={(v) => setValue("y1", v)} step="any" />
-          <InputField id="z1" label={tMath("z1")} value={values.z1} onChange={(v) => setValue("z1", v)} step="any" />
-          <InputField id="x2" label={tMath("x2")} value={values.x2} onChange={(v) => setValue("x2", v)} step="any" />
-          <InputField id="y2" label={tMath("y2")} value={values.y2} onChange={(v) => setValue("y2", v)} step="any" />
-          <InputField id="z2" label={tMath("z2")} value={values.z2} onChange={(v) => setValue("z2", v)} step="any" />
+          <InputField
+            id="x1"
+            label={tMath("x1")}
+            value={values.x1}
+            onChange={(v) => setValue("x1", v)}
+            step="any"
+          />
+          <InputField
+            id="y1"
+            label={tMath("y1")}
+            value={values.y1}
+            onChange={(v) => setValue("y1", v)}
+            step="any"
+          />
+          <InputField
+            id="z1"
+            label={tMath("z1")}
+            value={values.z1}
+            onChange={(v) => setValue("z1", v)}
+            step="any"
+          />
+          <InputField
+            id="x2"
+            label={tMath("x2")}
+            value={values.x2}
+            onChange={(v) => setValue("x2", v)}
+            step="any"
+          />
+          <InputField
+            id="y2"
+            label={tMath("y2")}
+            value={values.y2}
+            onChange={(v) => setValue("y2", v)}
+            step="any"
+          />
+          <InputField
+            id="z2"
+            label={tMath("z2")}
+            value={values.z2}
+            onChange={(v) => setValue("z2", v)}
+            step="any"
+          />
         </div>
       )}
 
       {values.mode === "pointToLine" && (
         <div className="grid gap-4 sm:grid-cols-2">
-          <InputField id="x1" label={tMath("pointX")} value={values.x1} onChange={(v) => setValue("x1", v)} step="any" />
-          <InputField id="y1" label={tMath("pointY")} value={values.y1} onChange={(v) => setValue("y1", v)} step="any" />
-          <InputField id="lineA" label={tMath("lineA")} value={values.lineA} onChange={(v) => setValue("lineA", v)} step="any" />
-          <InputField id="lineB" label={tMath("lineB")} value={values.lineB} onChange={(v) => setValue("lineB", v)} step="any" />
-          <InputField id="lineC" label={tMath("lineC")} value={values.lineC} onChange={(v) => setValue("lineC", v)} step="any" />
+          <InputField
+            id="x1"
+            label={tMath("pointX")}
+            value={values.x1}
+            onChange={(v) => setValue("x1", v)}
+            step="any"
+          />
+          <InputField
+            id="y1"
+            label={tMath("pointY")}
+            value={values.y1}
+            onChange={(v) => setValue("y1", v)}
+            step="any"
+          />
+          <InputField
+            id="lineA"
+            label={tMath("lineA")}
+            value={values.lineA}
+            onChange={(v) => setValue("lineA", v)}
+            step="any"
+          />
+          <InputField
+            id="lineB"
+            label={tMath("lineB")}
+            value={values.lineB}
+            onChange={(v) => setValue("lineB", v)}
+            step="any"
+          />
+          <InputField
+            id="lineC"
+            label={tMath("lineC")}
+            value={values.lineC}
+            onChange={(v) => setValue("lineC", v)}
+            step="any"
+          />
         </div>
       )}
 
       {values.mode === "haversine" && (
         <div className="grid gap-4 sm:grid-cols-2">
-          <InputField id="lat1" label={tMath("latitude1")} value={values.lat1} onChange={(v) => setValue("lat1", v)} step="any" />
-          <InputField id="lon1" label={tMath("longitude1")} value={values.lon1} onChange={(v) => setValue("lon1", v)} step="any" />
-          <InputField id="lat2" label={tMath("latitude2")} value={values.lat2} onChange={(v) => setValue("lat2", v)} step="any" />
-          <InputField id="lon2" label={tMath("longitude2")} value={values.lon2} onChange={(v) => setValue("lon2", v)} step="any" />
+          <InputField
+            id="lat1"
+            label={tMath("latitude1")}
+            value={values.lat1}
+            onChange={(v) => setValue("lat1", v)}
+            step="any"
+          />
+          <InputField
+            id="lon1"
+            label={tMath("longitude1")}
+            value={values.lon1}
+            onChange={(v) => setValue("lon1", v)}
+            step="any"
+          />
+          <InputField
+            id="lat2"
+            label={tMath("latitude2")}
+            value={values.lat2}
+            onChange={(v) => setValue("lat2", v)}
+            step="any"
+          />
+          <InputField
+            id="lon2"
+            label={tMath("longitude2")}
+            value={values.lon2}
+            onChange={(v) => setValue("lon2", v)}
+            step="any"
+          />
         </div>
       )}
 
@@ -157,7 +268,9 @@ export function DistanceCalculator() {
               results={[
                 { label: tMath("midpointX"), value: distResult.midpoint.x.toFixed(4) },
                 { label: tMath("midpointY"), value: distResult.midpoint.y.toFixed(4) },
-                ...(distResult.midpoint.z !== undefined ? [{ label: tMath("midpointZ"), value: distResult.midpoint.z.toFixed(4) }] : []),
+                ...(distResult.midpoint.z !== undefined
+                  ? [{ label: tMath("midpointZ"), value: distResult.midpoint.z.toFixed(4) }]
+                  : []),
               ]}
             />
           )}

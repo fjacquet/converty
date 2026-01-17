@@ -80,7 +80,9 @@ export function BreakEvenCalculator() {
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
                 <p className="text-sm text-muted-foreground">{t("labels.breakEvenPoint")}</p>
-                <p className="text-3xl font-bold">{Math.ceil(result.breakEvenUnits)} {t("labels.units")}</p>
+                <p className="text-3xl font-bold">
+                  {Math.ceil(result.breakEvenUnits)} {t("labels.units")}
+                </p>
                 <p className="text-sm text-muted-foreground">
                   {t("labels.revenue")}: {formatCurrency(result.breakEvenRevenue)}
                 </p>
@@ -109,7 +111,9 @@ export function BreakEvenCalculator() {
                           item.profit >= 0 ? "bg-green-500/10" : "bg-red-500/10"
                         }`}
                       >
-                        <span>{item.units} {t("labels.units")}</span>
+                        <span>
+                          {item.units} {t("labels.units")}
+                        </span>
                         <span className={item.profit >= 0 ? "text-green-600" : "text-red-600"}>
                           {item.profit >= 0 ? "+" : ""}
                           {formatCurrency(item.profit)}
@@ -122,9 +126,7 @@ export function BreakEvenCalculator() {
             </div>
           ) : (
             <div className="p-4 bg-yellow-500/10 rounded-lg">
-              <p className="text-sm text-yellow-600">
-                {t("errors.priceGreaterThanVariable")}
-              </p>
+              <p className="text-sm text-yellow-600">{t("errors.priceGreaterThanVariable")}</p>
             </div>
           )}
         </CardContent>

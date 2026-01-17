@@ -8,9 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  calculateStatistics,
   type StatisticsInput,
   type StatisticsResult,
-  calculateStatistics,
 } from "@/lib/converters/math/statistics";
 
 export function StatisticsCalculator() {
@@ -58,11 +58,7 @@ export function StatisticsCalculator() {
               {isPopulation ? tMath("populationVariance") : tMath("sampleVariance")}
             </p>
           </div>
-          <Switch
-            id="population-switch"
-            checked={isPopulation}
-            onCheckedChange={setIsPopulation}
-          />
+          <Switch id="population-switch" checked={isPopulation} onCheckedChange={setIsPopulation} />
         </div>
 
         <Button onClick={calculate} className="w-full">
@@ -73,16 +69,8 @@ export function StatisticsCalculator() {
       {result && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-3">
-            <OutputDisplay
-              label={tMath("mean")}
-              value={result.mean.toFixed(4)}
-              size="lg"
-            />
-            <OutputDisplay
-              label={tMath("median")}
-              value={result.median.toFixed(4)}
-              size="lg"
-            />
+            <OutputDisplay label={tMath("mean")} value={result.mean.toFixed(4)} size="lg" />
+            <OutputDisplay label={tMath("median")} value={result.median.toFixed(4)} size="lg" />
             <OutputDisplay
               label={tMath("mode")}
               value={result.mode.length > 0 ? result.mode.join(", ") : "None"}
@@ -119,9 +107,17 @@ export function StatisticsCalculator() {
             results={[
               { label: tMath("skewness"), value: result.skewness.toFixed(6) },
               { label: tMath("kurtosis"), value: result.kurtosis.toFixed(6) },
-              { label: tMath("coefficientOfVariation"), value: result.coefficientOfVariation.toFixed(2), unit: "%" },
-              ...(result.geometricMean !== null ? [{ label: tMath("geometricMean"), value: result.geometricMean.toFixed(4) }] : []),
-              ...(result.harmonicMean !== null ? [{ label: tMath("harmonicMean"), value: result.harmonicMean.toFixed(4) }] : []),
+              {
+                label: tMath("coefficientOfVariation"),
+                value: result.coefficientOfVariation.toFixed(2),
+                unit: "%",
+              },
+              ...(result.geometricMean !== null
+                ? [{ label: tMath("geometricMean"), value: result.geometricMean.toFixed(4) }]
+                : []),
+              ...(result.harmonicMean !== null
+                ? [{ label: tMath("harmonicMean"), value: result.harmonicMean.toFixed(4) }]
+                : []),
             ]}
           />
 

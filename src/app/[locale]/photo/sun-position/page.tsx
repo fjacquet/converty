@@ -35,11 +35,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function SunPositionPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function SunPositionPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -54,9 +50,7 @@ export default async function SunPositionPage({
       category={category}
       categoryName={tc("photo.name")}
     >
-      <Suspense
-        fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}
-      >
+      <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <SunPositionCalculator />
       </Suspense>
     </ConverterLayout>

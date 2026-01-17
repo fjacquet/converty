@@ -74,10 +74,19 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
     case "remaining": {
       // Given: initial amount, remaining amount, half-life
       // Find: time elapsed
-      if (inputInitial === undefined || inputRemaining === undefined || inputHalfLife === undefined) {
+      if (
+        inputInitial === undefined ||
+        inputRemaining === undefined ||
+        inputHalfLife === undefined
+      ) {
         return null;
       }
-      if (inputInitial <= 0 || inputRemaining <= 0 || inputRemaining > inputInitial || inputHalfLife <= 0) {
+      if (
+        inputInitial <= 0 ||
+        inputRemaining <= 0 ||
+        inputRemaining > inputInitial ||
+        inputHalfLife <= 0
+      ) {
         return null;
       }
 
@@ -106,7 +115,12 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       if (inputInitial === undefined || inputRemaining === undefined || inputTime === undefined) {
         return null;
       }
-      if (inputInitial <= 0 || inputRemaining <= 0 || inputRemaining > inputInitial || inputTime <= 0) {
+      if (
+        inputInitial <= 0 ||
+        inputRemaining <= 0 ||
+        inputRemaining > inputInitial ||
+        inputTime <= 0
+      ) {
         return null;
       }
 
@@ -115,7 +129,7 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       time = inputTime;
 
       // t½ = t × ln(2) / ln(N₀/N)
-      halfLife = time * Math.LN2 / Math.log(initialAmount / remainingAmount);
+      halfLife = (time * Math.LN2) / Math.log(initialAmount / remainingAmount);
       decayConstant = Math.LN2 / halfLife;
       formula = "t½ = t × ln(2) / ln(N₀/N)";
 
@@ -123,7 +137,9 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       steps.push(`Remaining amount (N) = ${remainingAmount}`);
       steps.push(`Time (t) = ${time}`);
       steps.push(`t½ = ${time} × ln(2) / ln(${initialAmount}/${remainingAmount})`);
-      steps.push(`t½ = ${time} × ${Math.LN2.toFixed(6)} / ${Math.log(initialAmount / remainingAmount).toFixed(6)}`);
+      steps.push(
+        `t½ = ${time} × ${Math.LN2.toFixed(6)} / ${Math.log(initialAmount / remainingAmount).toFixed(6)}`
+      );
       steps.push(`t½ = ${halfLife.toFixed(4)}`);
       break;
     }
@@ -141,7 +157,12 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
         return null;
       }
 
-      const fraction = percentRemaining !== undefined ? percentRemaining / 100 : (inputRemaining && inputInitial ? inputRemaining / inputInitial : null);
+      const fraction =
+        percentRemaining !== undefined
+          ? percentRemaining / 100
+          : inputRemaining && inputInitial
+            ? inputRemaining / inputInitial
+            : null;
       if (fraction === null || fraction <= 0 || fraction > 1) return null;
 
       initialAmount = inputInitial || 100;
@@ -164,7 +185,12 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       halfLife = CARBON14_HALF_LIFE;
       decayConstant = Math.LN2 / halfLife;
 
-      const fraction = percentRemaining !== undefined ? percentRemaining / 100 : (inputRemaining && inputInitial ? inputRemaining / inputInitial : null);
+      const fraction =
+        percentRemaining !== undefined
+          ? percentRemaining / 100
+          : inputRemaining && inputInitial
+            ? inputRemaining / inputInitial
+            : null;
       if (fraction === null || fraction <= 0 || fraction > 1) return null;
 
       initialAmount = inputInitial || 100;
@@ -175,7 +201,9 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       formula = "Age = -t½ × ln(N/N₀) / ln(2)";
 
       steps.push(`Carbon-14 half-life = ${CARBON14_HALF_LIFE} years`);
-      steps.push(`Decay constant (λ) = ln(2)/${CARBON14_HALF_LIFE} = ${decayConstant.toFixed(10)}/year`);
+      steps.push(
+        `Decay constant (λ) = ln(2)/${CARBON14_HALF_LIFE} = ${decayConstant.toFixed(10)}/year`
+      );
       steps.push(`Percentage of C-14 remaining = ${(fraction * 100).toFixed(2)}%`);
       steps.push(`Age = -ln(${fraction.toFixed(4)}) / ${decayConstant.toFixed(10)}`);
       steps.push(`Age = ${time.toFixed(0)} years`);

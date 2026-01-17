@@ -24,7 +24,9 @@ function isPrime(n: number): boolean {
   return true;
 }
 
-export function calculatePrimeFactorization(input: PrimeFactorizationInput): PrimeFactorizationResult | null {
+export function calculatePrimeFactorization(
+  input: PrimeFactorizationInput
+): PrimeFactorizationResult | null {
   const { number } = input;
 
   if (!Number.isInteger(number) || number < 1 || number > 1000000000) {
@@ -72,9 +74,10 @@ export function calculatePrimeFactorization(input: PrimeFactorizationInput): Pri
   }
 
   // Build factor string (e.g., "2³ × 3²")
-  const factorString = factors.length > 0
-    ? factors.map((f) => f.power > 1 ? `${f.prime}^${f.power}` : `${f.prime}`).join(" × ")
-    : "1";
+  const factorString =
+    factors.length > 0
+      ? factors.map((f) => (f.power > 1 ? `${f.prime}^${f.power}` : `${f.prime}`)).join(" × ")
+      : "1";
 
   // Build expanded form (e.g., "2 × 2 × 2 × 3 × 3")
   const expandedFactors: number[] = [];

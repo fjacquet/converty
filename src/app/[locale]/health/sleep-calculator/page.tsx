@@ -25,7 +25,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function SleepCalculatorPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function SleepCalculatorPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -34,7 +38,12 @@ export default async function SleepCalculatorPage({ params }: { params: Promise<
   const category = getCategoryBySlug("health")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("health.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("health.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <SleepCalculatorComponent />
       </Suspense>

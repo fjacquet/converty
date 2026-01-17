@@ -11,12 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { calculateHex, type HexInput, type HexResult } from "@/lib/converters/math/hex";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type HexInput,
-  type HexResult,
-  calculateHex,
-} from "@/lib/converters/math/hex";
 
 interface FormValues {
   mode: "decimalToHex" | "hexToDecimal" | "hexOperation" | "hexToRgb" | "rgbToHex";
@@ -206,9 +202,7 @@ export function HexCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-3">{renderInputs()}</div>
       </div>
 
       {hexResult && (
@@ -238,10 +232,14 @@ export function HexCalculator() {
               <div className="flex items-center gap-4">
                 <div
                   className="w-16 h-16 rounded-lg border"
-                  style={{ backgroundColor: `rgb(${hexResult.rgb.r}, ${hexResult.rgb.g}, ${hexResult.rgb.b})` }}
+                  style={{
+                    backgroundColor: `rgb(${hexResult.rgb.r}, ${hexResult.rgb.g}, ${hexResult.rgb.b})`,
+                  }}
                 />
                 <div>
-                  <p className="text-sm font-medium">RGB({hexResult.rgb.r}, {hexResult.rgb.g}, {hexResult.rgb.b})</p>
+                  <p className="text-sm font-medium">
+                    RGB({hexResult.rgb.r}, {hexResult.rgb.g}, {hexResult.rgb.b})
+                  </p>
                   <p className="text-sm text-muted-foreground">{hexResult.hexadecimal}</p>
                 </div>
               </div>

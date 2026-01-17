@@ -78,7 +78,12 @@ export function calculateBac(input: BacInput): BacResult | null {
     effects = ["Impaired judgment", "Reduced coordination", "Slower reaction time"];
   } else if (bac < 0.15) {
     status = "Confusion";
-    effects = ["Poor muscle coordination", "Slurred speech", "Impaired balance", "Memory blackouts possible"];
+    effects = [
+      "Poor muscle coordination",
+      "Slurred speech",
+      "Impaired balance",
+      "Memory blackouts possible",
+    ];
   } else if (bac < 0.25) {
     status = "Stupor";
     effects = ["Severe motor impairment", "Vomiting likely", "Loss of consciousness possible"];

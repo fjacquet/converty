@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { COMMON_DPI, COMMON_PRINT_SIZES, calculateDPI } from "@/lib/converters/photo/dpi";
 
@@ -87,7 +87,11 @@ export function DPICalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label={t("requiredResolution")} value={`${result.megapixels} MP`} size="lg" />
+          <OutputDisplay
+            label={t("requiredResolution")}
+            value={`${result.megapixels} MP`}
+            size="lg"
+          />
 
           <ResultGrid
             results={[

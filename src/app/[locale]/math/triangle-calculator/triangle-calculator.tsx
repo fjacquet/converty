@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateTriangle,
   type TriangleInput,
   type TriangleResult,
-  calculateTriangle,
 } from "@/lib/converters/math/triangle";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mode: "sides" | "sasAngle" | "asaAngles" | "aasAngles";
@@ -81,7 +81,9 @@ export function TriangleCalculator() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          {(values.mode === "sides" || values.mode === "sasAngle" || values.mode === "aasAngles") && (
+          {(values.mode === "sides" ||
+            values.mode === "sasAngle" ||
+            values.mode === "aasAngles") && (
             <InputField
               id="sideA"
               label={tMath("sideA")}

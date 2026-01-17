@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateHalfLife,
   type HalfLifeInput,
   type HalfLifeResult,
-  calculateHalfLife,
 } from "@/lib/converters/math/half-life";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 type HalfLifeMode = "decay" | "remaining" | "findHalfLife" | "carbon14";
 
@@ -62,10 +62,7 @@ export function HalfLifeCalculator() {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label>{tMath("calculationMode")}</Label>
-        <Select
-          value={values.mode}
-          onValueChange={(v) => setValue("mode", v as HalfLifeMode)}
-        >
+        <Select value={values.mode} onValueChange={(v) => setValue("mode", v as HalfLifeMode)}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -79,7 +76,9 @@ export function HalfLifeCalculator() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        {(values.mode === "decay" || values.mode === "remaining" || values.mode === "findHalfLife") && (
+        {(values.mode === "decay" ||
+          values.mode === "remaining" ||
+          values.mode === "findHalfLife") && (
           <InputField
             id="initialAmount"
             label={tMath("initialAmount")}
@@ -161,7 +160,10 @@ export function HalfLifeCalculator() {
               { label: tMath("halfLife"), value: halfLifeResult.halfLife.toFixed(4) },
               { label: tMath("timeElapsed"), value: halfLifeResult.time.toFixed(4) },
               { label: tMath("decayConstant"), value: halfLifeResult.decayConstant.toFixed(8) },
-              { label: tMath("numberOfHalfLives"), value: halfLifeResult.numberOfHalfLives.toFixed(2) },
+              {
+                label: tMath("numberOfHalfLives"),
+                value: halfLifeResult.numberOfHalfLives.toFixed(2),
+              },
             ]}
           />
 

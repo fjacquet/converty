@@ -10,12 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { calculateVolume, type VolumeInput, type VolumeResult } from "@/lib/converters/math/volume";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type VolumeInput,
-  type VolumeResult,
-  calculateVolume,
-} from "@/lib/converters/math/volume";
 
 interface FormValues {
   shape: "cube" | "rectangular" | "sphere" | "cylinder" | "cone" | "pyramid" | "prism" | "torus";
@@ -221,9 +217,7 @@ export function VolumeCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-2">{renderInputs()}</div>
       </div>
 
       {volumeResult && (

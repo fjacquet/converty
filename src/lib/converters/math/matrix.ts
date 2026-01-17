@@ -18,7 +18,7 @@ export interface MatrixResult {
 }
 
 function matrixToString(m: number[][]): string {
-  return m.map(row => `[${row.map(v => v.toFixed(2)).join(", ")}]`).join("\n");
+  return m.map((row) => `[${row.map((v) => v.toFixed(2)).join(", ")}]`).join("\n");
 }
 
 function getDimensions(m: number[][]): [number, number] {
@@ -67,7 +67,7 @@ function transposeMatrix(m: number[][]): number[][] {
 }
 
 function scalarMultiply(m: number[][], s: number): number[][] {
-  return m.map(row => row.map(val => val * s));
+  return m.map((row) => row.map((val) => val * s));
 }
 
 function determinant2x2(m: number[][]): number {
@@ -83,9 +83,7 @@ function determinant3x3(m: number[][]): number {
 }
 
 function getMinor(m: number[][], row: number, col: number): number[][] {
-  return m
-    .filter((_, i) => i !== row)
-    .map(r => r.filter((_, j) => j !== col));
+  return m.filter((_, i) => i !== row).map((r) => r.filter((_, j) => j !== col));
 }
 
 function determinant(m: number[][]): number {
@@ -148,7 +146,7 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
 
   // Validate matrix is rectangular
   const colsA = matrixA[0].length;
-  if (!matrixA.every(row => row.length === colsA)) return null;
+  if (!matrixA.every((row) => row.length === colsA)) return null;
 
   const [rowsA, colsAFinal] = getDimensions(matrixA);
   const isSquare = rowsA === colsAFinal;

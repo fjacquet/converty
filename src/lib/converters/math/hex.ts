@@ -136,7 +136,10 @@ export function calculateHex(input: HexInput): HexResult | null {
       if (!inputHex) return null;
       let cleanHex = inputHex.replace(/^#/, "");
       if (cleanHex.length === 3) {
-        cleanHex = cleanHex.split("").map(c => c + c).join("");
+        cleanHex = cleanHex
+          .split("")
+          .map((c) => c + c)
+          .join("");
       }
       if (!isValidHex(cleanHex) || cleanHex.length !== 6) return null;
 

@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -11,12 +10,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
+import { Switch } from "@/components/ui/switch";
 import {
+  calculateWaterIntake,
   type WaterIntakeInput,
   type WaterIntakeResult,
-  calculateWaterIntake,
 } from "@/lib/converters/health/water-intake-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   weight: string;
@@ -160,10 +160,26 @@ export function WaterIntakeCalculator() {
           <h3 className="text-lg font-semibold">{tResults("breakdown")}</h3>
           <ResultGrid
             results={[
-              { label: tResults("baseNeeds"), value: Math.round(result.breakdown.baseNeeds), unit: "ml" },
-              { label: tResults("activityAddition"), value: result.breakdown.activityAddition, unit: "ml" },
-              { label: tResults("climateAddition"), value: result.breakdown.climateAddition, unit: "ml" },
-              { label: tResults("specialAddition"), value: result.breakdown.specialAddition, unit: "ml" },
+              {
+                label: tResults("baseNeeds"),
+                value: Math.round(result.breakdown.baseNeeds),
+                unit: "ml",
+              },
+              {
+                label: tResults("activityAddition"),
+                value: result.breakdown.activityAddition,
+                unit: "ml",
+              },
+              {
+                label: tResults("climateAddition"),
+                value: result.breakdown.climateAddition,
+                unit: "ml",
+              },
+              {
+                label: tResults("specialAddition"),
+                value: result.breakdown.specialAddition,
+                unit: "ml",
+              },
             ]}
           />
 
@@ -174,7 +190,9 @@ export function WaterIntakeCalculator() {
                 <tr>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{t("time")}</th>
                   <th className="px-3 py-2 text-left text-sm font-semibold">{t("amount")}</th>
-                  <th className="px-3 py-2 text-left text-sm font-semibold">{tResults("cumulative")}</th>
+                  <th className="px-3 py-2 text-left text-sm font-semibold">
+                    {tResults("cumulative")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -192,7 +210,9 @@ export function WaterIntakeCalculator() {
           <h3 className="text-lg font-semibold">{tResults("hydrationTips")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.tips.map((tip) => (
-              <li key={tip} className="text-sm">{tip}</li>
+              <li key={tip} className="text-sm">
+                {tip}
+              </li>
             ))}
           </ul>
         </div>

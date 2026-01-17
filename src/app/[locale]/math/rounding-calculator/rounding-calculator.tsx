@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
+  calculateRounding,
   type RoundingInput,
   type RoundingResult,
-  calculateRounding,
 } from "@/lib/converters/math/rounding";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   mode: "round" | "ceil" | "floor" | "truncate" | "toFixed" | "toSignificant";
@@ -111,10 +111,7 @@ export function RoundingCalculator() {
       {roundingResult && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
-            <OutputDisplay
-              label={tMath("original")}
-              value={roundingResult.original.toString()}
-            />
+            <OutputDisplay label={tMath("original")} value={roundingResult.original.toString()} />
             <OutputDisplay
               label={tMath("rounded")}
               value={roundingResult.rounded.toString()}
@@ -126,7 +123,11 @@ export function RoundingCalculator() {
             results={[
               { label: "Method", value: roundingResult.method },
               { label: "Difference", value: roundingResult.difference.toFixed(10) },
-              { label: "Percent Change", value: roundingResult.percentChange.toFixed(6), unit: "%" },
+              {
+                label: "Percent Change",
+                value: roundingResult.percentChange.toFixed(6),
+                unit: "%",
+              },
             ]}
           />
 

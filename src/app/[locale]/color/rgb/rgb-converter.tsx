@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useCallback, useState } from "react";
 import { ResultGrid } from "@/components/converter";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   type ColorConversion,
-  convertFromRgb,
-  convertFromHex,
-  hslToRgb,
   cmykToRgb,
+  convertFromHex,
+  convertFromRgb,
+  hslToRgb,
 } from "@/lib/converters/color/rgb";
 
 export function RgbConverter() {
@@ -84,9 +84,7 @@ export function RgbConverter() {
                     min={0}
                     max={255}
                     value={rgb.r}
-                    onChange={(e) =>
-                      setRgb({ ...rgb, r: Number(e.target.value) })
-                    }
+                    onChange={(e) => setRgb({ ...rgb, r: Number(e.target.value) })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -96,9 +94,7 @@ export function RgbConverter() {
                     min={0}
                     max={255}
                     value={rgb.g}
-                    onChange={(e) =>
-                      setRgb({ ...rgb, g: Number(e.target.value) })
-                    }
+                    onChange={(e) => setRgb({ ...rgb, g: Number(e.target.value) })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -108,9 +104,7 @@ export function RgbConverter() {
                     min={0}
                     max={255}
                     value={rgb.b}
-                    onChange={(e) =>
-                      setRgb({ ...rgb, b: Number(e.target.value) })
-                    }
+                    onChange={(e) => setRgb({ ...rgb, b: Number(e.target.value) })}
                   />
                 </div>
               </div>
@@ -137,9 +131,7 @@ export function RgbConverter() {
                     min={0}
                     max={360}
                     value={hsl.h}
-                    onChange={(e) =>
-                      setHsl({ ...hsl, h: Number(e.target.value) })
-                    }
+                    onChange={(e) => setHsl({ ...hsl, h: Number(e.target.value) })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -149,9 +141,7 @@ export function RgbConverter() {
                     min={0}
                     max={100}
                     value={hsl.s}
-                    onChange={(e) =>
-                      setHsl({ ...hsl, s: Number(e.target.value) })
-                    }
+                    onChange={(e) => setHsl({ ...hsl, s: Number(e.target.value) })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -161,9 +151,7 @@ export function RgbConverter() {
                     min={0}
                     max={100}
                     value={hsl.l}
-                    onChange={(e) =>
-                      setHsl({ ...hsl, l: Number(e.target.value) })
-                    }
+                    onChange={(e) => setHsl({ ...hsl, l: Number(e.target.value) })}
                   />
                 </div>
               </div>
@@ -178,9 +166,7 @@ export function RgbConverter() {
                     min={0}
                     max={100}
                     value={cmyk.c}
-                    onChange={(e) =>
-                      setCmyk({ ...cmyk, c: Number(e.target.value) })
-                    }
+                    onChange={(e) => setCmyk({ ...cmyk, c: Number(e.target.value) })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -190,9 +176,7 @@ export function RgbConverter() {
                     min={0}
                     max={100}
                     value={cmyk.m}
-                    onChange={(e) =>
-                      setCmyk({ ...cmyk, m: Number(e.target.value) })
-                    }
+                    onChange={(e) => setCmyk({ ...cmyk, m: Number(e.target.value) })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -202,9 +186,7 @@ export function RgbConverter() {
                     min={0}
                     max={100}
                     value={cmyk.y}
-                    onChange={(e) =>
-                      setCmyk({ ...cmyk, y: Number(e.target.value) })
-                    }
+                    onChange={(e) => setCmyk({ ...cmyk, y: Number(e.target.value) })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -214,9 +196,7 @@ export function RgbConverter() {
                     min={0}
                     max={100}
                     value={cmyk.k}
-                    onChange={(e) =>
-                      setCmyk({ ...cmyk, k: Number(e.target.value) })
-                    }
+                    onChange={(e) => setCmyk({ ...cmyk, k: Number(e.target.value) })}
                   />
                 </div>
               </div>
@@ -278,13 +258,13 @@ export function RgbConverter() {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="p-2 bg-muted rounded font-mono text-sm">
-                color: {result.hex};
+                {`color: ${result.hex};`}
               </div>
               <div className="p-2 bg-muted rounded font-mono text-sm">
-                color: rgb({result.rgb.r}, {result.rgb.g}, {result.rgb.b});
+                {`color: rgb(${result.rgb.r}, ${result.rgb.g}, ${result.rgb.b});`}
               </div>
               <div className="p-2 bg-muted rounded font-mono text-sm">
-                color: hsl({result.hsl.h}, {result.hsl.s}%, {result.hsl.l}%);
+                {`color: hsl(${result.hsl.h}, ${result.hsl.s}%, ${result.hsl.l}%);`}
               </div>
             </CardContent>
           </Card>

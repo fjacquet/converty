@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  calculateGcdLcm,
   type GcdLcmInput,
   type GcdLcmResult,
-  calculateGcdLcm,
 } from "@/lib/converters/math/gcd-lcm";
 
 export function GcdLcmCalculator() {
@@ -54,16 +54,8 @@ export function GcdLcmCalculator() {
       {result && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
-            <OutputDisplay
-              label={tMath("gcd")}
-              value={result.gcd.toString()}
-              size="lg"
-            />
-            <OutputDisplay
-              label={tMath("lcm")}
-              value={result.lcm.toString()}
-              size="lg"
-            />
+            <OutputDisplay label={tMath("gcd")} value={result.gcd.toString()} size="lg" />
+            <OutputDisplay label={tMath("lcm")} value={result.lcm.toString()} size="lg" />
           </div>
 
           <div className="rounded-lg border p-4">

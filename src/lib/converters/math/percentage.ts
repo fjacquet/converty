@@ -39,9 +39,10 @@ export function calculatePercentage(input: PercentageInput): PercentageResult | 
       if (value1 === 0) return null;
       result = ((value2 - value1) / Math.abs(value1)) * 100;
       formula = `((${value2} - ${value1}) ÷ |${value1}|) × 100 = ${result}%`;
-      explanation = result >= 0
-        ? `Increase of ${result.toFixed(2)}% from ${value1} to ${value2}`
-        : `Decrease of ${Math.abs(result).toFixed(2)}% from ${value1} to ${value2}`;
+      explanation =
+        result >= 0
+          ? `Increase of ${result.toFixed(2)}% from ${value1} to ${value2}`
+          : `Decrease of ${Math.abs(result).toFixed(2)}% from ${value1} to ${value2}`;
       break;
 
     case "percentDifference": {

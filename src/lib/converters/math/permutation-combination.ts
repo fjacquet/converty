@@ -55,13 +55,15 @@ function combination(n: number, r: number): number {
 
   let result = 1;
   for (let i = 0; i < r; i++) {
-    result = result * (n - i) / (i + 1);
+    result = (result * (n - i)) / (i + 1);
     if (!Number.isFinite(result)) return Infinity;
   }
   return Math.round(result);
 }
 
-export function calculatePermutationCombination(input: PermutationCombinationInput): PermutationCombinationResult | null {
+export function calculatePermutationCombination(
+  input: PermutationCombinationInput
+): PermutationCombinationResult | null {
   const { mode, n, r } = input;
 
   if (!Number.isInteger(n) || !Number.isInteger(r) || n < 0 || r < 0) return null;

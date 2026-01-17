@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   calculateLeanBodyMass,
   type LeanBodyMassInput,
   type LeanBodyMassResult,
 } from "@/lib/converters/health/lean-body-mass";
+import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
   gender: "male" | "female";

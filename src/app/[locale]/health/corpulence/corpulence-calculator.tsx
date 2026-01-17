@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { calculateCorpulence, compareToBMI } from "@/lib/converters/health/corpulence";
 

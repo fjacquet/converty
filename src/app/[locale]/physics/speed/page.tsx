@@ -34,7 +34,12 @@ export default async function SpeedPage({ params }: { params: Promise<{ locale: 
   const category = getCategoryBySlug("physics")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("physics.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("physics.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <SpeedConverter />
       </Suspense>

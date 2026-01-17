@@ -114,7 +114,9 @@ export function AnnuityCalculator() {
                 value={deferralYears}
                 onChange={(e) => setDeferralYears(Number(e.target.value))}
               />
-              <p className="text-xs text-muted-foreground">{t("descriptions.deferralPeriodHelp")}</p>
+              <p className="text-xs text-muted-foreground">
+                {t("descriptions.deferralPeriodHelp")}
+              </p>
             </div>
           )}
 
@@ -155,9 +157,13 @@ export function AnnuityCalculator() {
           {result ? (
             <div className="space-y-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground">{getPaymentLabel()} {t("results.payment")}</p>
+                <p className="text-sm text-muted-foreground">
+                  {getPaymentLabel()} {t("results.payment")}
+                </p>
                 <p className="text-3xl font-bold">{formatCurrency(result.periodicPayment)}</p>
-                <p className="text-xs text-muted-foreground mt-1">{t("results.forYears", { years: payoutYears })}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {t("results.forYears", { years: payoutYears })}
+                </p>
               </div>
 
               {annuityType === "deferred" && (
@@ -197,7 +203,9 @@ export function AnnuityCalculator() {
                 </div>
                 {annuityType === "deferred" && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t("results.growthDuringDeferral")}</span>
+                    <span className="text-muted-foreground">
+                      {t("results.growthDuringDeferral")}
+                    </span>
                     <span>{formatCurrency(result.presentValue - principal)}</span>
                   </div>
                 )}
@@ -222,7 +230,9 @@ export function AnnuityCalculator() {
                   <div className="space-y-2 text-sm max-h-40 overflow-y-auto">
                     {result.schedule.slice(0, 10).map((item) => (
                       <div key={item.period} className="flex justify-between">
-                        <span className="text-muted-foreground">{t("results.yearLabel", { year: item.period })}</span>
+                        <span className="text-muted-foreground">
+                          {t("results.yearLabel", { year: item.period })}
+                        </span>
                         <span>{formatCurrency(item.payment)}</span>
                       </div>
                     ))}

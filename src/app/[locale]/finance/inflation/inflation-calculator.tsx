@@ -93,7 +93,9 @@ export function InflationCalculator() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">{tInflation("purchasingPowerLoss")}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {tInflation("purchasingPowerLoss")}
+                  </p>
                   <p className="text-xl font-bold text-red-600">
                     {formatCurrency(result.purchasingPowerLoss)}
                   </p>

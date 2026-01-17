@@ -116,9 +116,7 @@ export function CreditCardCalculator() {
               value={targetMonths}
               onChange={(e) => setTargetMonths(Number(e.target.value))}
             />
-            <p className="text-xs text-muted-foreground">
-              {t("finance.targetPayoffDescription")}
-            </p>
+            <p className="text-xs text-muted-foreground">{t("finance.targetPayoffDescription")}</p>
           </div>
         </CardContent>
       </Card>
@@ -141,7 +139,10 @@ export function CreditCardCalculator() {
               <div className="p-4 bg-yellow-500/10 rounded-lg">
                 <p className="text-sm text-muted-foreground">{t("finance.timeToPayoff")}</p>
                 <p className="text-xl font-bold text-yellow-600">
-                  {t("finance.yearsMonthsFormat", { years: Math.floor(result.yearsToPayoff), months: result.monthsToPayoff % 12 })}
+                  {t("finance.yearsMonthsFormat", {
+                    years: Math.floor(result.yearsToPayoff),
+                    months: result.monthsToPayoff % 12,
+                  })}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   ({t("finance.totalMonthsCount", { count: result.monthsToPayoff })})
@@ -188,9 +189,7 @@ export function CreditCardCalculator() {
               </div>
             </div>
           ) : (
-            <p className="text-muted-foreground">
-              {t("finance.enterValidValuesCreditCard")}
-            </p>
+            <p className="text-muted-foreground">{t("finance.enterValidValuesCreditCard")}</p>
           )}
         </CardContent>
       </Card>

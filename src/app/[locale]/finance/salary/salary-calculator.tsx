@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations, useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import {
   Bar,
   BarChart,
@@ -199,9 +199,7 @@ export function SalaryCalculator() {
               min={0}
             />
           </div>
-          <p className="text-sm text-muted-foreground">
-            {t("finance.deductionsDescription")}
-          </p>
+          <p className="text-sm text-muted-foreground">{t("finance.deductionsDescription")}</p>
         </CardContent>
       </Card>
 
@@ -297,11 +295,20 @@ export function SalaryCalculator() {
               <ResultGrid
                 results={[
                   { label: t("finance.grossAnnual"), value: formatCurrency(result.grossAnnual) },
-                  { label: t("finance.taxableIncome"), value: formatCurrency(result.taxableIncome) },
+                  {
+                    label: t("finance.taxableIncome"),
+                    value: formatCurrency(result.taxableIncome),
+                  },
                   { label: t("finance.totalTax"), value: formatCurrency(result.totalTax) },
                   { label: t("finance.netAnnual"), value: formatCurrency(result.netAnnual) },
-                  { label: t("finance.effectiveTaxRate"), value: `${result.effectiveTaxRate.toFixed(1)}%` },
-                  { label: t("finance.marginalTaxRate"), value: `${result.marginalTaxRate.toFixed(0)}%` },
+                  {
+                    label: t("finance.effectiveTaxRate"),
+                    value: `${result.effectiveTaxRate.toFixed(1)}%`,
+                  },
+                  {
+                    label: t("finance.marginalTaxRate"),
+                    value: `${result.marginalTaxRate.toFixed(0)}%`,
+                  },
                 ]}
                 columns={3}
               />

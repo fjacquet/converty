@@ -10,12 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { calculateSlope, type SlopeInput, type SlopeResult } from "@/lib/converters/math/slope";
 import { createCalculatorStore } from "@/stores/calculator-store";
-import {
-  type SlopeInput,
-  type SlopeResult,
-  calculateSlope,
-} from "@/lib/converters/math/slope";
 
 interface FormValues {
   mode: "twoPoints" | "slopeIntercept" | "pointSlope";
@@ -173,9 +169,7 @@ export function SlopeCalculator() {
           </Select>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {renderInputs()}
-        </div>
+        <div className="grid gap-4 sm:grid-cols-2">{renderInputs()}</div>
       </div>
 
       {slopeResult && (
@@ -188,7 +182,9 @@ export function SlopeCalculator() {
             />
             <OutputDisplay
               label={tMath("yIntercept")}
-              value={!isNaN(slopeResult.yIntercept) ? slopeResult.yIntercept.toFixed(4) : "undefined"}
+              value={
+                !isNaN(slopeResult.yIntercept) ? slopeResult.yIntercept.toFixed(4) : "undefined"
+              }
               size="lg"
             />
           </div>
@@ -197,8 +193,12 @@ export function SlopeCalculator() {
             results={[
               { label: tMath("slopeType"), value: slopeResult.slopeType },
               { label: tMath("angle"), value: slopeResult.angle.toFixed(2), unit: "°" },
-              ...(slopeResult.xIntercept !== null ? [{ label: tMath("xIntercept"), value: slopeResult.xIntercept.toFixed(4) }] : []),
-              ...(slopeResult.distance !== null ? [{ label: tMath("distance"), value: slopeResult.distance.toFixed(4) }] : []),
+              ...(slopeResult.xIntercept !== null
+                ? [{ label: tMath("xIntercept"), value: slopeResult.xIntercept.toFixed(4) }]
+                : []),
+              ...(slopeResult.distance !== null
+                ? [{ label: tMath("distance"), value: slopeResult.distance.toFixed(4) }]
+                : []),
             ]}
           />
 
@@ -213,15 +213,33 @@ export function SlopeCalculator() {
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{tMath("equationForms")}:</p>
-            <p className="text-sm text-muted-foreground font-mono">{tMath("slopeInterceptForm")}: {slopeResult.slopeInterceptForm}</p>
-            <p className="text-sm text-muted-foreground font-mono">{tMath("pointSlopeForm")}: {slopeResult.pointSlopeForm}</p>
-            <p className="text-sm text-muted-foreground font-mono">{tMath("standardForm")}: {slopeResult.standardForm}</p>
+            <p className="text-sm text-muted-foreground font-mono">
+              {tMath("slopeInterceptForm")}: {slopeResult.slopeInterceptForm}
+            </p>
+            <p className="text-sm text-muted-foreground font-mono">
+              {tMath("pointSlopeForm")}: {slopeResult.pointSlopeForm}
+            </p>
+            <p className="text-sm text-muted-foreground font-mono">
+              {tMath("standardForm")}: {slopeResult.standardForm}
+            </p>
           </div>
 
           <ResultGrid
             results={[
-              { label: tMath("parallelSlope"), value: slopeResult.parallelSlope !== null ? slopeResult.parallelSlope.toFixed(4) : "undefined" },
-              { label: tMath("perpendicularSlope"), value: slopeResult.perpendicularSlope !== null ? slopeResult.perpendicularSlope.toFixed(4) : "undefined" },
+              {
+                label: tMath("parallelSlope"),
+                value:
+                  slopeResult.parallelSlope !== null
+                    ? slopeResult.parallelSlope.toFixed(4)
+                    : "undefined",
+              },
+              {
+                label: tMath("perpendicularSlope"),
+                value:
+                  slopeResult.perpendicularSlope !== null
+                    ? slopeResult.perpendicularSlope.toFixed(4)
+                    : "undefined",
+              },
             ]}
           />
 

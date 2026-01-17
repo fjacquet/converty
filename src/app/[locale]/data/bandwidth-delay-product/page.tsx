@@ -38,7 +38,12 @@ export default async function BandwidthDelayProductPage({
   const category = getCategoryBySlug("data")!;
 
   return (
-    <ConverterLayout title={t("name")} description={t("description")} category={category} categoryName={tc("data.name")}>
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("data.name")}
+    >
       <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
         <BandwidthDelayProductCalculator />
       </Suspense>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import {
   COMMON_FRAMERATES,
@@ -121,7 +121,11 @@ export function VideoBitrateCalculator() {
 
       {result && (
         <div className="space-y-6">
-          <OutputDisplay label={t("estimatedBitrate")} value={`${result.bitrateMbps} Mbps`} size="lg" />
+          <OutputDisplay
+            label={t("estimatedBitrate")}
+            value={`${result.bitrateMbps} Mbps`}
+            size="lg"
+          />
 
           <ResultGrid
             results={[
