@@ -2058,6 +2058,7 @@
       "vertex": "Sommet",
       "axisOfSymmetry": "Axe de symétrie",
       "yIntercept": "Ordonnée à l'origine",
+      "direction": "Direction",
       "opensUpward": "Ouverture vers le haut",
       "opensDownward": "Ouverture vers le bas",
       "realRoots": "Racines réelles",

@@ -2058,6 +2058,7 @@
       "vertex": "Scheitelpunkt",
       "axisOfSymmetry": "Symmetrieachse",
       "yIntercept": "Y-Achsenabschnitt",
+      "direction": "Richtung",
       "opensUpward": "Öffnet nach oben",
       "opensDownward": "Öffnet nach unten",
       "realRoots": "Reelle Wurzeln",

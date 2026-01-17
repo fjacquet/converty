@@ -114,7 +114,7 @@ export function QuadraticCalculator() {
               },
               { label: tMath("yIntercept"), value: quadResult.yIntercept.toFixed(4) },
               {
-                label: "Direction",
+                label: tMath("direction"),
                 value: quadResult.opensUpward ? tMath("opensUpward") : tMath("opensDownward"),
               },
             ]}

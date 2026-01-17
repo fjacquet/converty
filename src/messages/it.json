@@ -2058,6 +2058,7 @@
       "vertex": "Vertice",
       "axisOfSymmetry": "Asse di simmetria",
       "yIntercept": "Intercetta Y",
+      "direction": "Direzione",
       "opensUpward": "Apre verso l'alto",
       "opensDownward": "Apre verso il basso",
       "realRoots": "Radici reali",

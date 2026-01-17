@@ -2058,6 +2058,7 @@
       "vertex": "Vertex",
       "axisOfSymmetry": "Axis of Symmetry",
       "yIntercept": "Y-Intercept",
+      "direction": "Direction",
       "opensUpward": "Opens Upward",
       "opensDownward": "Opens Downward",
       "realRoots": "Real Roots",
