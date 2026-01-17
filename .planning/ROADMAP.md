@@ -114,7 +114,12 @@ Plans:
 4. CONTRIBUTING.md includes "Adding a Calculator" section with Zustand store pattern and working example
 5. Setup guide tested on fresh machine (prerequisites listed, all commands work)
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 3 plans in 1 wave
+
+Plans:
+- [ ] 05-01-PLAN.md — Create CHANGELOG.md and backfill recent changes
+- [ ] 05-02-PLAN.md — Create Architecture Decision Records (ADRs)
+- [ ] 05-03-PLAN.md — Update CONTRIBUTING.md with Zustand pattern
 
 ---
 
