@@ -1268,7 +1268,8 @@
       "totalReturn": "Rendimento Totale",
       "valueAtPayoutStart": "Valore all'inizio dell'erogazione",
       "yearLabel": "Anno {year}",
-      "yieldToMaturity": "Rendimento alla Scadenza"
+      "yieldToMaturity": "Rendimento alla Scadenza",
+      "result": "Risultato"
     },
     "time": {
       "yearsMonthsDays": "{years} anni, {months} mesi, {days} giorni",

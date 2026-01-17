@@ -1268,7 +1268,8 @@
       "totalReturn": "Rendement Total",
       "valueAtPayoutStart": "Valeur au début du versement",
       "yearLabel": "Annee {year}",
-      "yieldToMaturity": "Rendement a l'Echeance"
+      "yieldToMaturity": "Rendement a l'Echeance",
+      "result": "Résultat"
     },
     "time": {
       "yearsMonthsDays": "{years} ans, {months} mois, {days} jours",

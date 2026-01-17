@@ -1268,7 +1268,8 @@
       "totalReturn": "Total Return",
       "valueAtPayoutStart": "Value at Payout Start",
       "yearLabel": "Year {year}",
-      "yieldToMaturity": "Yield to Maturity"
+      "yieldToMaturity": "Yield to Maturity",
+      "result": "Result"
     },
     "time": {
       "yearsMonthsDays": "{years} years, {months} months, {days} days",

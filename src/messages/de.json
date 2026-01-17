@@ -1268,7 +1268,8 @@
       "totalReturn": "Gesamtrendite",
       "valueAtPayoutStart": "Wert zu Beginn der Auszahlung",
       "yearLabel": "Jahr {year}",
-      "yieldToMaturity": "Rendite bis Faelligkeit"
+      "yieldToMaturity": "Rendite bis Faelligkeit",
+      "result": "Ergebnis"
     },
     "time": {
       "yearsMonthsDays": "{years} Jahre, {months} Monate, {days} Tage",
