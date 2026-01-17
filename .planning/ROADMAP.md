@@ -47,7 +47,10 @@ Plans:
 3. All Zustand stores import and use the URL sync middleware (no duplicated URL logic)
 4. Code inspection shows each store has its own debounce timer (closure, not global variable)
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 1 plan in 1 wave
+
+Plans:
+- [ ] 02-01-PLAN.md — Create URL sync middleware and integrate into calculator store
 
 ---
 
