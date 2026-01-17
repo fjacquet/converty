@@ -9,8 +9,7 @@ export interface ConverterResult<R = unknown> {
   formatted?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface UseConverterOptions<T extends object, R = any> {
+export interface UseConverterOptions<T extends object, R = unknown> {
   initialValues: T;
   calculate: (values: T) => ConverterResult<R> | null;
   validate?: (values: T) => Partial<Record<keyof T, string>>;
@@ -18,8 +17,7 @@ export interface UseConverterOptions<T extends object, R = any> {
   debounceMs?: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useConverter<T extends object, R = any>({
+export function useConverter<T extends object, R = unknown>({
   initialValues,
   calculate,
   validate,
