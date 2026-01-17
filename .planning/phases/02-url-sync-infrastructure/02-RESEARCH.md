@@ -17,23 +17,26 @@ The project uses Zustand 5.0.10 (latest stable) and Next.js 16 with static site 
 ## Standard Stack
 
 ### Core
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| zustand | 5.0.10 | State management | Already in use, v5 is stable, middleware-friendly architecture |
-| TypeScript | 5.9.3 | Type safety | Already in use, critical for middleware typing |
+
+| Library    | Version | Purpose          | Why Standard                                                   |
+| ---------- | ------- | ---------------- | -------------------------------------------------------------- |
+| zustand    | 5.0.10  | State management | Already in use, v5 is stable, middleware-friendly architecture |
+| TypeScript | 5.9.3   | Type safety      | Already in use, critical for middleware typing                 |
 
 ### Supporting
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| URLSearchParams | Native | URL manipulation | All URL parameter operations (already used) |
-| window.history | Native | URL updates without reload | replaceState for parameter updates (already used) |
+
+| Library         | Version | Purpose                    | When to Use                                       |
+| --------------- | ------- | -------------------------- | ------------------------------------------------- |
+| URLSearchParams | Native  | URL manipulation           | All URL parameter operations (already used)       |
+| window.history  | Native  | URL updates without reload | replaceState for parameter updates (already used) |
 
 ### Alternatives Considered
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Custom middleware | nuqs library | nuqs provides type-safe URL state but adds dependency; overkill for this use case since we only need basic URL sync |
-| Closure timers | WeakMap-based timers | WeakMap approach more complex, closure is idiomatic JavaScript pattern |
-| Middleware | Inline logic per store | Middleware eliminates duplication, easier to maintain |
+
+| Instead of        | Could Use              | Tradeoff                                                                                                            |
+| ----------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Custom middleware | nuqs library           | nuqs provides type-safe URL state but adds dependency; overkill for this use case since we only need basic URL sync |
+| Closure timers    | WeakMap-based timers   | WeakMap approach more complex, closure is idiomatic JavaScript pattern                                              |
+| Middleware        | Inline logic per store | Middleware eliminates duplication, easier to maintain                                                               |
 
 **Installation:**
 No new packages needed. This phase uses existing dependencies.
@@ -41,6 +44,7 @@ No new packages needed. This phase uses existing dependencies.
 ## Architecture Patterns
 
 ### Recommended Project Structure
+
 ```
 src/
 ├── lib/
@@ -59,6 +63,7 @@ src/
 **When to use:** When middleware needs per-instance state that must be isolated across store instances.
 
 **Example:**
+
 ```typescript
 // Source: Zustand closure patterns + debouncing best practices
 // https://www.shdev.blog/en/post/zustand-closure-deep-dive
@@ -101,6 +106,7 @@ export function createUrlSyncMiddleware<T extends object>(options: {
 **When to use:** When a single state update affects multiple URL parameters.
 
 **Example:**
+
 ```typescript
 // Source: Next.js and URLSearchParams best practices
 function syncToUrl(values: Record<string, unknown>) {
@@ -131,18 +137,19 @@ function syncToUrl(values: Record<string, unknown>) {
 **When to use:** When different stores need different middleware behavior (e.g., different debounce times).
 
 **Example:**
+
 ```typescript
 // Source: Zustand devtools middleware pattern
 const useFastStore = create<State>()(
-  createUrlSyncMiddleware({ debounceMs: 50 })(
-    (set) => ({ /* state */ })
-  )
+  createUrlSyncMiddleware({ debounceMs: 50 })((set) => ({
+    /* state */
+  }))
 );
 
 const useSlowStore = create<State>()(
-  createUrlSyncMiddleware({ debounceMs: 500 })(
-    (set) => ({ /* state */ })
-  )
+  createUrlSyncMiddleware({ debounceMs: 500 })((set) => ({
+    /* state */
+  }))
 );
 ```
 
@@ -156,12 +163,12 @@ const useSlowStore = create<State>()(
 
 ## Don't Hand-Roll
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| URL parameter parsing | String parsing with split/indexOf | URLSearchParams API | Handles encoding, edge cases, widely supported |
-| Debouncing | Manual setTimeout tracking | Closure-based debounce pattern | Proven pattern, avoids memory leaks |
-| Type-safe parsers | Generic parse function | Specific parseNumberParam, parseStringParam, parseBooleanParam | Type inference works better, clearer intent (already exists from Phase 1) |
-| Middleware typing | any or unknown everywhere | StateCreator<T, [], []> pattern | Preserves type safety through middleware chain |
+| Problem               | Don't Build                       | Use Instead                                                    | Why                                                                       |
+| --------------------- | --------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| URL parameter parsing | String parsing with split/indexOf | URLSearchParams API                                            | Handles encoding, edge cases, widely supported                            |
+| Debouncing            | Manual setTimeout tracking        | Closure-based debounce pattern                                 | Proven pattern, avoids memory leaks                                       |
+| Type-safe parsers     | Generic parse function            | Specific parseNumberParam, parseStringParam, parseBooleanParam | Type inference works better, clearer intent (already exists from Phase 1) |
+| Middleware typing     | any or unknown everywhere         | StateCreator<T, [], []> pattern                                | Preserves type safety through middleware chain                            |
 
 **Key insight:** Zustand middleware is a userland pattern without official API documentation. The pattern is simple (higher-order function) but TypeScript typing is complex. Learn from existing middleware (devtools, persist) rather than inventing new patterns.
 
@@ -176,6 +183,7 @@ const useSlowStore = create<State>()(
 **How to avoid:** Declare timer inside the middleware factory function, creating a new closure per factory invocation.
 
 **Warning signs:**
+
 - URL updates randomly missing when switching between calculators
 - Last calculator to update "wins" and others lose their changes
 - Difficult to reproduce (timing-dependent race condition)
@@ -187,11 +195,13 @@ const useSlowStore = create<State>()(
 **Why it happens:** Each middleware wraps the next in the chain. The outermost middleware sees the setState modified by inner middleware.
 
 **How to avoid:**
+
 - Apply devtools middleware last (outermost) when combining multiple middleware
 - Document middleware order in code comments
 - Test combined middleware behavior
 
 **Warning signs:**
+
 - DevTools shows wrong state transitions
 - setState calls behave unexpectedly
 - TypeScript errors about incompatible setState signatures
@@ -205,6 +215,7 @@ const useSlowStore = create<State>()(
 **How to avoid:** Always guard browser API calls with `if (typeof window === "undefined") return;`
 
 **Warning signs:**
+
 - Build-time errors about window not being defined
 - Client/server hydration mismatches
 - Errors only appear in production build, not dev mode
@@ -216,11 +227,13 @@ const useSlowStore = create<State>()(
 **Why it happens:** Directly calling `replaceState` in onChange handlers without debouncing.
 
 **How to avoid:**
+
 - Debounce URL updates (150-500ms)
 - Use replaceState (not pushState) to avoid history pollution
 - Consider separating immediate UI state from debounced URL state
 
 **Warning signs:**
+
 - Browser history filled with tiny incremental changes
 - Performance lag during rapid input
 - Shared URLs capture half-typed values
@@ -232,11 +245,13 @@ const useSlowStore = create<State>()(
 **Why it happens:** Middleware signature must exactly match Zustand's expected types. The curried `create<T>()()` syntax is required when using middleware.
 
 **How to avoid:**
+
 - Use `StateCreator<T, [], []>` for simple middleware
 - Use `create<T>()()` (double parentheses) when applying middleware
 - Copy type signatures from official middleware examples
 
 **Warning signs:**
+
 - TypeScript errors about StateCreator incompatibility
 - Inference not working (need explicit type annotations everywhere)
 - Middleware seems to work in JavaScript but fails TypeScript compilation
@@ -445,15 +460,16 @@ export function createCalculatorStore<T extends object, R>({
 
 ## State of the Art
 
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| Global debounce timer | Closure-based per-store timers | Phase 2 (this phase) | Fixes concurrent calculator bug (STATE-04) |
-| Inline URL sync logic | Reusable middleware | Phase 2 (this phase) | DRY principle, easier maintenance (STATE-03) |
-| Zustand v4 | Zustand v5 | Released 2024 | Dropped React <18 support, uses useSyncExternalStore, stricter types |
-| pushState for params | replaceState for params | Community consensus ~2023 | Avoids history pollution |
-| Manual debounce | useDebounce hooks | Modern React pattern | Still requires closure pattern for non-React contexts |
+| Old Approach          | Current Approach               | When Changed              | Impact                                                               |
+| --------------------- | ------------------------------ | ------------------------- | -------------------------------------------------------------------- |
+| Global debounce timer | Closure-based per-store timers | Phase 2 (this phase)      | Fixes concurrent calculator bug (STATE-04)                           |
+| Inline URL sync logic | Reusable middleware            | Phase 2 (this phase)      | DRY principle, easier maintenance (STATE-03)                         |
+| Zustand v4            | Zustand v5                     | Released 2024             | Dropped React <18 support, uses useSyncExternalStore, stricter types |
+| pushState for params  | replaceState for params        | Community consensus ~2023 | Avoids history pollution                                             |
+| Manual debounce       | useDebounce hooks              | Modern React pattern      | Still requires closure pattern for non-React contexts                |
 
 **Deprecated/outdated:**
+
 - **Zustand v3/v4:** Project uses v5.0.10, which has breaking changes (minimum React 18, stricter TypeScript)
 - **Custom equality functions in create():** v5 requires `createWithEqualityFn` for custom equality
 - **UMD/SystemJS builds:** Dropped in v5
@@ -463,11 +479,13 @@ export function createCalculatorStore<T extends object, R>({
 ### 1. Should we sync all state or just 'values' to URL?
 
 **What we know:**
+
 - Current implementation syncs entire state (values, result, errors)
 - Result and errors are derived from values
 - URLs become very long when including calculated results
 
 **What's unclear:**
+
 - Performance impact of long URLs
 - Whether users expect results in shareable URLs
 
@@ -476,11 +494,13 @@ export function createCalculatorStore<T extends object, R>({
 ### 2. How should we handle URL parameter conflicts?
 
 **What we know:**
+
 - Two calculators on same page would both try to write to URL
 - URLSearchParams doesn't namespace by default
 - Current implementation doesn't have page with multiple calculators
 
 **What's unclear:**
+
 - Will there ever be multiple calculators on one page?
 - How to namespace parameters if needed
 
@@ -489,10 +509,12 @@ export function createCalculatorStore<T extends object, R>({
 ### 3. What about URL parameter name collisions with other features?
 
 **What we know:**
+
 - Current calculators use simple field names (amount, rate, etc.)
 - These might conflict with future features (utm params, analytics, etc.)
 
 **What's unclear:**
+
 - What reserved parameter names should be avoided
 - Whether to prefix all calculator params
 
@@ -501,6 +523,7 @@ export function createCalculatorStore<T extends object, R>({
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - [Zustand GitHub Repository](https://github.com/pmndrs/zustand) - Official source code and discussions
 - [Zustand Advanced TypeScript Guide](https://zustand.docs.pmnd.rs/guides/advanced-typescript) - Middleware typing patterns
 - [How Zustand Uses Closures](https://www.shdev.blog/en/post/zustand-closure-deep-dive) - Per-store state isolation via closures
@@ -509,6 +532,7 @@ export function createCalculatorStore<T extends object, R>({
 - Package.json inspection - Confirmed Zustand 5.0.10, TypeScript 5.9.3
 
 ### Secondary (MEDIUM confidence)
+
 - [Zustand Middleware Discussion #1770](https://github.com/pmndrs/zustand/discussions/1770) - Community patterns, not official docs
 - [How to Migrate to v5 from v4](https://zustand.docs.pmnd.rs/migrations/migrating-to-v5) - Breaking changes documentation
 - [replaceState vs pushState Best Practices](https://nickcolley.co.uk/2018/06/11/pushstate-vs-replacestate/) - Community guidance from 2018, still relevant
@@ -516,6 +540,7 @@ export function createCalculatorStore<T extends object, R>({
 - [URL State Management Best Practices](https://alfy.blog/2025/10/31/your-url-is-your-state.html) - Recent blog post (2025) with practical patterns
 
 ### Tertiary (LOW confidence)
+
 - [Zustand Middleware: Architectural Core](https://beyondthecode.medium.com/zustand-middleware-the-architectural-core-of-scalable-state-management-d8d1053489ac) - Medium article, helpful but not authoritative
 - [React Debouncing Guide](https://www.developerway.com/posts/debouncing-in-react) - General React patterns, not Zustand-specific
 - [nuqs Library](https://nuqs.dev) - Alternative approach mentioned for context, not recommended for this project
@@ -523,6 +548,7 @@ export function createCalculatorStore<T extends object, R>({
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - Package.json inspection confirms versions, Zustand is proven technology
 - Architecture patterns: HIGH - Closure pattern is fundamental JavaScript, verified with Zustand maintainer discussions and source code analysis
 - Pitfalls: HIGH - Derived from official migration guides, GitHub issues, and code inspection of current implementation
@@ -532,6 +558,7 @@ export function createCalculatorStore<T extends object, R>({
 **Valid until:** ~2026-02-17 (30 days - Zustand is stable, URL APIs are evergreen)
 
 **Key risks:**
+
 - TypeScript middleware typing is notoriously complex; examples may need adjustment during implementation
 - SUCCESS CRITERIA #2 (concurrent calculators) may reveal edge cases not covered in research
 - Next.js 16 is recent; window.history integration behavior should be validated in testing
