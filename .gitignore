@@ -49,3 +49,5 @@ public/workbox-*.js
 # Misc
 *.pem
 .turbo
+routes.json
+public/sitemap.xml

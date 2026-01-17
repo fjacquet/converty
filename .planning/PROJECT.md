@@ -28,6 +28,7 @@ A solid, maintainable foundation with zero technical debt in state management an
 <!-- Current scope - infrastructure improvements -->
 
 #### State Management
+
 - [ ] **STATE-01**: All 74 calculators migrated from useConverter to Zustand stores
 - [ ] **STATE-02**: useConverter hook removed entirely from codebase
 - [ ] **STATE-03**: Consolidated URL sync middleware (single implementation)
@@ -35,6 +36,7 @@ A solid, maintainable foundation with zero technical debt in state management an
 - [ ] **STATE-05**: Functional approach - pure functions, no shared mutable state
 
 #### Type Safety
+
 - [ ] **TYPE-01**: Enable noExplicitAny in Biome configuration
 - [ ] **TYPE-02**: Fix all explicit any types in useConverter hook
 - [ ] **TYPE-03**: Fix all explicit any types in calculator stores
@@ -43,17 +45,20 @@ A solid, maintainable foundation with zero technical debt in state management an
 - [ ] **TYPE-06**: Type-safe URL parameter parsing with validation
 
 #### Dependencies
+
 - [ ] **DEP-01**: Upgrade jsPDF from v4.0.0 to latest stable version
 - [ ] **DEP-02**: Verify PDF export functionality after upgrade
 - [ ] **DEP-03**: Update jsPDF usage to match new API (if breaking changes)
 
 #### Progressive Web App
+
 - [ ] **PWA-01**: Service worker for offline calculator functionality
 - [ ] **PWA-02**: Web manifest for install prompt
 - [ ] **PWA-03**: Mobile-optimized responsive design (verify existing)
 - [ ] **PWA-04**: Offline fallback UI when network unavailable
 
 #### Documentation
+
 - [ ] **DOC-01**: CHANGELOG.md following Keep a Changelog format
 - [ ] **DOC-02**: Backfill recent changes (linting fixes, codebase mapping)
 - [ ] **DOC-03**: CONTRIBUTING.md with development workflow
@@ -62,6 +67,7 @@ A solid, maintainable foundation with zero technical debt in state management an
 - [ ] **DOC-06**: Document Zustand store pattern for future calculators
 
 #### Code Quality
+
 - [ ] **QUAL-01**: Zero Biome lint errors
 - [ ] **QUAL-02**: Zero ESLint errors
 - [ ] **QUAL-03**: Zero format errors (Biome formatter)
@@ -87,22 +93,26 @@ A solid, maintainable foundation with zero technical debt in state management an
 The Converty codebase has grown to 200+ calculators with some technical debt accumulated:
 
 **State Management:**
+
 - 74 calculators still use legacy useConverter hook
 - Dual patterns create inconsistency and maintenance burden
 - Global debounce timer causes conflicts when multiple calculators on same page
 - URL sync logic duplicated between useConverter and Zustand stores
 
 **Type Safety:**
+
 - noExplicitAny disabled in Biome configuration
 - Multiple any types in state management code
 - URL state parsing uses unsafe type coercion
 - Reduced type safety increases runtime error risk
 
 **Dependencies:**
+
 - jsPDF v4.0.0 from 2018 (6+ years old, potential security issues)
 - Current stable is v2.x series (major version rollback indicates breaking changes)
 
 **Documentation:**
+
 - No CHANGELOG to track project evolution
 - No contributing guidelines for new developers
 - Architecture decisions not documented
@@ -120,6 +130,7 @@ The Converty codebase has grown to 200+ calculators with some technical debt acc
 ### Known Issues
 
 From `.planning/codebase/CONCERNS.md`:
+
 - Shared global debounce timeout variable
 - URL sync behavioral inconsistency between old/new calculators
 - Type safety weaknesses with disabled linting rules
@@ -138,16 +149,17 @@ From `.planning/codebase/CONCERNS.md`:
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-|----------|-----------|---------|
-| Big bang migration (all 74 calculators at once) | Eliminates dual patterns faster, prevents partial migration drag | — Pending |
+| Decision                                                 | Rationale                                                        | Outcome   |
+| -------------------------------------------------------- | ---------------------------------------------------------------- | --------- |
+| Big bang migration (all 74 calculators at once)          | Eliminates dual patterns faster, prevents partial migration drag | — Pending |
 | Remove useConverter entirely (no backward compatibility) | Clean break, no legacy maintenance burden, forces best practices | — Pending |
-| Per-store debounce timers (not global) | Fixes concurrent calculator bug, proper encapsulation | — Pending |
-| Consolidated URL sync middleware | DRY principle, single source of truth, consistent behavior | — Pending |
-| Functional programming approach | Pure functions, no shared mutable state, easier testing | — Pending |
-| Keep a Changelog format | Industry standard, user-friendly, clear conventions | — Pending |
-| PWA with service worker | Offline calculator access, mobile install, better UX | — Pending |
-| Strict TypeScript (zero any types) | Type safety prevents runtime errors, better developer experience | — Pending |
+| Per-store debounce timers (not global)                   | Fixes concurrent calculator bug, proper encapsulation            | — Pending |
+| Consolidated URL sync middleware                         | DRY principle, single source of truth, consistent behavior       | — Pending |
+| Functional programming approach                          | Pure functions, no shared mutable state, easier testing          | — Pending |
+| Keep a Changelog format                                  | Industry standard, user-friendly, clear conventions              | — Pending |
+| PWA with service worker                                  | Offline calculator access, mobile install, better UX             | — Pending |
+| Strict TypeScript (zero any types)                       | Type safety prevents runtime errors, better developer experience | — Pending |
 
 ---
-*Last updated: 2026-01-17 after initialization*
+
+_Last updated: 2026-01-17 after initialization_
