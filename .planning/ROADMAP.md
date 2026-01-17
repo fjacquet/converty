@@ -27,6 +27,7 @@ This roadmap delivers a comprehensive infrastructure upgrade by eliminating tech
 **Plans:** 4 plans in 3 waves
 
 Plans:
+
 - [x] 01-01-PLAN.md — Create type-safe URL parameter parsing helpers
 - [x] 01-02-PLAN.md — Enable Biome noExplicitAny rule and verify strict mode
 - [x] 01-03-PLAN.md — Fix state management types (hooks and stores)
@@ -50,6 +51,7 @@ Plans:
 **Plans:** 1 plan in 1 wave
 
 Plans:
+
 - [x] 02-01-PLAN.md — Create URL sync middleware and integrate into calculator store
 
 ---
@@ -71,6 +73,7 @@ Plans:
 **Plans:** 2 plans in 2 waves
 
 Plans:
+
 - [x] 03-01-PLAN.md — Verify and remove legacy hooks
 - [x] 03-02-PLAN.md — Verify calculator functionality
 
@@ -93,6 +96,7 @@ Plans:
 **Plans:** 4 plans in 3 waves
 
 Plans:
+
 - [x] 04-01-PLAN.md — PWA foundation (icons + manifest)
 - [x] 04-02-PLAN.md — Service worker core (Workbox + offline UI)
 - [x] 04-03-PLAN.md — PWA integration (registration + build script + install prompt)
@@ -117,6 +121,7 @@ Plans:
 **Plans:** 3 plans in 1 wave
 
 Plans:
+
 - [ ] 05-01-PLAN.md — Create CHANGELOG.md and backfill recent changes
 - [ ] 05-02-PLAN.md — Create Architecture Decision Records (ADRs)
 - [ ] 05-03-PLAN.md — Update CONTRIBUTING.md with Zustand pattern
@@ -167,9 +172,9 @@ Plans:
 | 2 - URL Sync Infrastructure | Complete    | 2026-01-17 |
 | 3 - State Migration         | Complete    | 2026-01-17 |
 | 4 - Progressive Web App     | Complete    | 2026-01-17 |
-| 5 - Documentation           | Not started | —         |
-| 6 - Dependency Upgrade      | Not started | —         |
-| 7 - Code Quality Validation | Not started | —         |
+| 5 - Documentation           | Not started | —          |
+| 6 - Dependency Upgrade      | Not started | —          |
+| 7 - Code Quality Validation | Not started | —          |
 
 ---
 
