@@ -40,9 +40,9 @@ export function AgeCalculator() {
       {
         title: tSections("details"),
         items: [
-          { label: "Zodiac Sign", value: result.zodiacSign },
-          { label: "Chinese Zodiac", value: result.chineseZodiac },
-          { label: "Days Until Birthday", value: result.nextBirthday.daysUntil },
+          { label: t("zodiacSign"), value: result.zodiacSign },
+          { label: t("chineseZodiac"), value: result.chineseZodiac },
+          { label: t("daysUntilBirthday"), value: result.nextBirthday.daysUntil },
         ],
       },
     ];
@@ -103,10 +103,10 @@ export function AgeCalculator() {
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: "Zodiac Sign", value: result.zodiacSign },
-                  { label: "Chinese Zodiac", value: result.chineseZodiac },
-                  { label: "Next Birthday", value: result.nextBirthday.date.toLocaleDateString() },
-                  { label: "Days Until Birthday", value: result.nextBirthday.daysUntil },
+                  { label: t("zodiacSign"), value: result.zodiacSign },
+                  { label: t("chineseZodiac"), value: result.chineseZodiac },
+                  { label: t("nextBirthday"), value: result.nextBirthday.date.toLocaleDateString() },
+                  { label: t("daysUntilBirthday"), value: result.nextBirthday.daysUntil },
                 ]}
                 columns={2}
               />
