@@ -90,7 +90,13 @@ Plans:
 4. When network unavailable, user sees appropriate offline UI indication
 5. Calculator pages load from cache when offline (Network tab shows cache hits)
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 4 plans in 4 waves
+
+Plans:
+- [ ] 04-01-PLAN.md — PWA foundation (icons + manifest)
+- [ ] 04-02-PLAN.md — Service worker core (Workbox + offline UI)
+- [ ] 04-03-PLAN.md — PWA integration (registration + build script + install prompt)
+- [ ] 04-04-PLAN.md — Verify PWA functionality
 
 ---
 
