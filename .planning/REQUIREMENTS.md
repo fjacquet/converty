@@ -294,10 +294,10 @@ Explicitly excluded from infrastructure upgrade:
 | STATE-01       | Phase 3 | 03-01   | Complete |
 | STATE-02       | Phase 3 | 03-01   | Complete |
 | STATE-05       | Phase 3 | 03-01   | Complete |
-| PWA-01         | Phase 4 | TBD     | Pending |
-| PWA-02         | Phase 4 | TBD     | Pending |
-| PWA-03         | Phase 4 | TBD     | Pending |
-| PWA-04         | Phase 4 | TBD     | Pending |
+| PWA-01         | Phase 4 | 04-02   | Complete |
+| PWA-02         | Phase 4 | 04-01   | Complete |
+| PWA-03         | Phase 4 | 04-04   | Complete |
+| PWA-04         | Phase 4 | 04-02   | Complete |
 | DOC-01         | Phase 5 | TBD     | Pending |
 | DOC-02         | Phase 5 | TBD     | Pending |
 | DOC-03         | Phase 5 | TBD     | Pending |

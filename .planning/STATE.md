@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** Phase 4 — Progressive Web App
+**Current focus:** Phase 5 — Documentation
 
 ## Current Position
 

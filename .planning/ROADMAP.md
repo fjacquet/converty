@@ -90,13 +90,13 @@ Plans:
 4. When network unavailable, user sees appropriate offline UI indication
 5. Calculator pages load from cache when offline (Network tab shows cache hits)
 
-**Plans:** 4 plans in 4 waves
+**Plans:** 4 plans in 3 waves
 
 Plans:
-- [ ] 04-01-PLAN.md — PWA foundation (icons + manifest)
-- [ ] 04-02-PLAN.md — Service worker core (Workbox + offline UI)
-- [ ] 04-03-PLAN.md — PWA integration (registration + build script + install prompt)
-- [ ] 04-04-PLAN.md — Verify PWA functionality
+- [x] 04-01-PLAN.md — PWA foundation (icons + manifest)
+- [x] 04-02-PLAN.md — Service worker core (Workbox + offline UI)
+- [x] 04-03-PLAN.md — PWA integration (registration + build script + install prompt)
+- [x] 04-04-PLAN.md — Verify PWA functionality
 
 ---
 
@@ -161,7 +161,7 @@ Plans:
 | 1 - Type Safety Foundation  | Complete    | 2026-01-17 |
 | 2 - URL Sync Infrastructure | Complete    | 2026-01-17 |
 | 3 - State Migration         | Complete    | 2026-01-17 |
-| 4 - Progressive Web App     | Not started | —         |
+| 4 - Progressive Web App     | Complete    | 2026-01-17 |
 | 5 - Documentation           | Not started | —         |
 | 6 - Dependency Upgrade      | Not started | —         |
 | 7 - Code Quality Validation | Not started | —         |
