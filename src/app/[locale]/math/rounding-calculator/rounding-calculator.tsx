@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type RoundingInput,
   type RoundingResult,
@@ -24,29 +24,32 @@ interface FormValues {
   significantFigures: string;
 }
 
+const useRoundingStore = createCalculatorStore<FormValues, RoundingResult | null>({
+  name: "rounding-calculator",
+  initialValues: {
+    mode: "round",
+    number: "3.14159265",
+    decimalPlaces: "2",
+    significantFigures: "3",
+  },
+  calculate: (vals) => {
+    const input: RoundingInput = {
+      mode: vals.mode,
+      number: parseFloat(vals.number) || 0,
+      decimalPlaces: parseInt(vals.decimalPlaces) || 0,
+      significantFigures: parseInt(vals.significantFigures) || 3,
+    };
+    return calculateRounding(input);
+  },
+});
+
 export function RoundingCalculator() {
   const t = useTranslations("calculator.labels");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, RoundingResult | null>({
-    initialValues: {
-      mode: "round",
-      number: "3.14159265",
-      decimalPlaces: "2",
-      significantFigures: "3",
-    },
-    calculate: (vals) => {
-      const input: RoundingInput = {
-        mode: vals.mode,
-        number: parseFloat(vals.number) || 0,
-        decimalPlaces: parseInt(vals.decimalPlaces) || 0,
-        significantFigures: parseInt(vals.significantFigures) || 3,
-      };
-      return { value: calculateRounding(input) };
-    },
-  });
+  const { values, setValue, result } = useRoundingStore();
 
-  const roundingResult = result?.value;
+  const roundingResult = result;
 
   return (
     <div className="space-y-6">

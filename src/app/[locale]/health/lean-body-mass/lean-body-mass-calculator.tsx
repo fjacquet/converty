@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   calculateLeanBodyMass,
   type LeanBodyMassInput,
@@ -23,27 +23,28 @@ interface FormValues {
   height: string;
 }
 
+const useStore = createCalculatorStore<FormValues, LeanBodyMassResult | null>({
+  name: "lean-body-mass-calculator",
+  initialValues: {
+    gender: "male",
+    weight: "80",
+    height: "175",
+  },
+  calculate: (vals) => {
+    const input: LeanBodyMassInput = {
+      gender: vals.gender,
+      weight: parseFloat(vals.weight) || 0,
+      height: parseFloat(vals.height) || 0,
+    };
+    return calculateLeanBodyMass(input);
+  },
+});
+
 export function LeanBodyMassCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, LeanBodyMassResult | null>({
-    initialValues: {
-      gender: "male",
-      weight: "80",
-      height: "175",
-    },
-    calculate: (vals) => {
-      const input: LeanBodyMassInput = {
-        gender: vals.gender,
-        weight: parseFloat(vals.weight) || 0,
-        height: parseFloat(vals.height) || 0,
-      };
-      return { value: calculateLeanBodyMass(input) };
-    },
-  });
-
-  const lbmResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -85,34 +86,34 @@ export function LeanBodyMassCalculator() {
         />
       </div>
 
-      {lbmResult && (
+      {result && (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">{tResults("leanMass")} (Multiple Formulas)</h3>
           <ResultGrid
             results={[
               {
                 label: "Boer Formula",
-                value: lbmResult.boerFormula.toFixed(1),
+                value: result.boerFormula.toFixed(1),
                 unit: "kg",
               },
               {
                 label: "James Formula",
-                value: lbmResult.jamesFormula.toFixed(1),
+                value: result.jamesFormula.toFixed(1),
                 unit: "kg",
               },
               {
                 label: "Hume Formula",
-                value: lbmResult.humeFormula.toFixed(1),
+                value: result.humeFormula.toFixed(1),
                 unit: "kg",
               },
               {
                 label: tResults("average"),
-                value: lbmResult.average.toFixed(1),
+                value: result.average.toFixed(1),
                 unit: "kg",
               },
               {
                 label: tResults("bodyFatPercentage") + " (estimated)",
-                value: lbmResult.bodyFatPercentEstimate.toFixed(1),
+                value: result.bodyFatPercentEstimate.toFixed(1),
                 unit: "%",
               },
             ]}

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type OneRepMaxInput,
   type OneRepMaxResult,
@@ -14,25 +14,26 @@ interface FormValues {
   reps: string;
 }
 
+const useStore = createCalculatorStore<FormValues, OneRepMaxResult | null>({
+  name: "one-rep-max-calculator",
+  initialValues: {
+    weight: "100",
+    reps: "5",
+  },
+  calculate: (vals) => {
+    const input: OneRepMaxInput = {
+      weight: parseFloat(vals.weight) || 0,
+      reps: parseInt(vals.reps) || 0,
+    };
+    return calculateOneRepMax(input);
+  },
+});
+
 export function OneRepMaxCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, OneRepMaxResult | null>({
-    initialValues: {
-      weight: "100",
-      reps: "5",
-    },
-    calculate: (vals) => {
-      const input: OneRepMaxInput = {
-        weight: parseFloat(vals.weight) || 0,
-        reps: parseInt(vals.reps) || 0,
-      };
-      return { value: calculateOneRepMax(input) };
-    },
-  });
-
-  const oneRmResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -59,11 +60,11 @@ export function OneRepMaxCalculator() {
         />
       </div>
 
-      {oneRmResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("estimated1RM")}
-            value={Math.round(oneRmResult.average)}
+            value={Math.round(result.average)}
             unit="kg"
             size="lg"
           />
@@ -71,13 +72,13 @@ export function OneRepMaxCalculator() {
           <h3 className="text-lg font-semibold">{tResults("formulaResults")}</h3>
           <ResultGrid
             results={[
-              { label: "Epley", value: Math.round(oneRmResult.epley), unit: "kg" },
-              { label: "Brzycki", value: Math.round(oneRmResult.brzycki), unit: "kg" },
-              { label: "Lander", value: Math.round(oneRmResult.lander), unit: "kg" },
-              { label: "Lombardi", value: Math.round(oneRmResult.lombardi), unit: "kg" },
-              { label: "Mayhew", value: Math.round(oneRmResult.mayhew), unit: "kg" },
-              { label: "O'Conner", value: Math.round(oneRmResult.oconner), unit: "kg" },
-              { label: "Wathan", value: Math.round(oneRmResult.wathan), unit: "kg" },
+              { label: "Epley", value: Math.round(result.epley), unit: "kg" },
+              { label: "Brzycki", value: Math.round(result.brzycki), unit: "kg" },
+              { label: "Lander", value: Math.round(result.lander), unit: "kg" },
+              { label: "Lombardi", value: Math.round(result.lombardi), unit: "kg" },
+              { label: "Mayhew", value: Math.round(result.mayhew), unit: "kg" },
+              { label: "O'Conner", value: Math.round(result.oconner), unit: "kg" },
+              { label: "Wathan", value: Math.round(result.wathan), unit: "kg" },
             ]}
           />
 
@@ -92,7 +93,7 @@ export function OneRepMaxCalculator() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {oneRmResult.percentages.map((row) => (
+                {result.percentages.map((row) => (
                   <tr key={row.percent}>
                     <td className="px-3 py-2 text-sm">{row.percent}%</td>
                     <td className="px-3 py-2 text-sm font-medium">{Math.round(row.weight)} kg</td>

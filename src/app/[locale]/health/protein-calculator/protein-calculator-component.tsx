@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ProteinInput,
   type ProteinResult,
@@ -23,27 +23,28 @@ interface FormValues {
   activityLevel: "sedentary" | "light" | "moderate" | "active" | "veryActive";
 }
 
+const useStore = createCalculatorStore<FormValues, ProteinResult | null>({
+  name: "protein-calculator",
+  initialValues: {
+    weight: "75",
+    goal: "maintenance",
+    activityLevel: "moderate",
+  },
+  calculate: (vals) => {
+    const input: ProteinInput = {
+      weight: parseFloat(vals.weight) || 0,
+      goal: vals.goal,
+      activityLevel: vals.activityLevel,
+    };
+    return calculateProtein(input);
+  },
+});
+
 export function ProteinCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, ProteinResult | null>({
-    initialValues: {
-      weight: "75",
-      goal: "maintenance",
-      activityLevel: "moderate",
-    },
-    calculate: (vals) => {
-      const input: ProteinInput = {
-        weight: parseFloat(vals.weight) || 0,
-        goal: vals.goal,
-        activityLevel: vals.activityLevel,
-      };
-      return { value: calculateProtein(input) };
-    },
-  });
-
-  const proteinResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -98,11 +99,11 @@ export function ProteinCalculatorComponent() {
         </div>
       </div>
 
-      {proteinResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("dailyProtein")}
-            value={Math.round(proteinResult.dailyProteinOptimal)}
+            value={Math.round(result.dailyProteinOptimal)}
             unit="g"
             size="lg"
           />
@@ -111,17 +112,17 @@ export function ProteinCalculatorComponent() {
             results={[
               {
                 label: tResults("proteinRange"),
-                value: `${Math.round(proteinResult.dailyProteinMin)} - ${Math.round(proteinResult.dailyProteinMax)}`,
+                value: `${Math.round(result.dailyProteinMin)} - ${Math.round(result.dailyProteinMax)}`,
                 unit: "g/day",
               },
               {
                 label: tResults("proteinPerKg"),
-                value: `${proteinResult.proteinPerKg.min.toFixed(1)} - ${proteinResult.proteinPerKg.max.toFixed(1)}`,
+                value: `${result.proteinPerKg.min.toFixed(1)} - ${result.proteinPerKg.max.toFixed(1)}`,
                 unit: "g/kg",
               },
               {
                 label: tResults("percentOfCalories"),
-                value: proteinResult.percentOfCalories.toFixed(0),
+                value: result.percentOfCalories.toFixed(0),
                 unit: "%",
               },
             ]}
@@ -130,10 +131,10 @@ export function ProteinCalculatorComponent() {
           <h3 className="text-lg font-semibold">{tResults("perMealBreakdown")}</h3>
           <ResultGrid
             results={[
-              { label: "3 " + t("mealsPerDay"), value: Math.round(proteinResult.perMeal.meals3), unit: "g" },
-              { label: "4 " + t("mealsPerDay"), value: Math.round(proteinResult.perMeal.meals4), unit: "g" },
-              { label: "5 " + t("mealsPerDay"), value: Math.round(proteinResult.perMeal.meals5), unit: "g" },
-              { label: "6 " + t("mealsPerDay"), value: Math.round(proteinResult.perMeal.meals6), unit: "g" },
+              { label: "3 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals3), unit: "g" },
+              { label: "4 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals4), unit: "g" },
+              { label: "5 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals5), unit: "g" },
+              { label: "6 " + t("mealsPerDay"), value: Math.round(result.perMeal.meals6), unit: "g" },
             ]}
           />
 
@@ -149,7 +150,7 @@ export function ProteinCalculatorComponent() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {proteinResult.foodSources.slice(0, 6).map((source) => (
+                {result.foodSources.slice(0, 6).map((source) => (
                   <tr key={source.food}>
                     <td className="px-3 py-2 text-sm">{source.food}</td>
                     <td className="px-3 py-2 text-sm">{source.protein}g</td>

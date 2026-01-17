@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type WaterIntakeInput,
   type WaterIntakeResult,
@@ -26,31 +26,32 @@ interface FormValues {
   breastfeeding: boolean;
 }
 
+const useStore = createCalculatorStore<FormValues, WaterIntakeResult | null>({
+  name: "water-intake-calculator",
+  initialValues: {
+    weight: "70",
+    activityLevel: "moderate",
+    climate: "temperate",
+    pregnant: false,
+    breastfeeding: false,
+  },
+  calculate: (vals) => {
+    const input: WaterIntakeInput = {
+      weight: parseFloat(vals.weight) || 0,
+      activityLevel: vals.activityLevel,
+      climate: vals.climate,
+      pregnant: vals.pregnant,
+      breastfeeding: vals.breastfeeding,
+    };
+    return calculateWaterIntake(input);
+  },
+});
+
 export function WaterIntakeCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, WaterIntakeResult | null>({
-    initialValues: {
-      weight: "70",
-      activityLevel: "moderate",
-      climate: "temperate",
-      pregnant: false,
-      breastfeeding: false,
-    },
-    calculate: (vals) => {
-      const input: WaterIntakeInput = {
-        weight: parseFloat(vals.weight) || 0,
-        activityLevel: vals.activityLevel,
-        climate: vals.climate,
-        pregnant: vals.pregnant,
-        breastfeeding: vals.breastfeeding,
-      };
-      return { value: calculateWaterIntake(input) };
-    },
-  });
-
-  const waterResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -122,11 +123,11 @@ export function WaterIntakeCalculator() {
         </div>
       </div>
 
-      {waterResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("dailyWaterIntake")}
-            value={waterResult.dailyIntakeLiters.toFixed(1)}
+            value={result.dailyIntakeLiters.toFixed(1)}
             unit="L"
             size="lg"
           />
@@ -135,22 +136,22 @@ export function WaterIntakeCalculator() {
             results={[
               {
                 label: tResults("milliliters"),
-                value: Math.round(waterResult.dailyIntakeMl),
+                value: Math.round(result.dailyIntakeMl),
                 unit: "ml",
               },
               {
                 label: tResults("ounces"),
-                value: Math.round(waterResult.dailyIntakeOz),
+                value: Math.round(result.dailyIntakeOz),
                 unit: "oz",
               },
               {
                 label: tResults("cups"),
-                value: Math.round(waterResult.dailyIntakeCups),
+                value: Math.round(result.dailyIntakeCups),
                 unit: "cups",
               },
               {
                 label: tResults("hourlyReminder"),
-                value: waterResult.hourlyReminder,
+                value: result.hourlyReminder,
                 unit: "ml/h",
               },
             ]}
@@ -159,10 +160,10 @@ export function WaterIntakeCalculator() {
           <h3 className="text-lg font-semibold">{tResults("breakdown")}</h3>
           <ResultGrid
             results={[
-              { label: tResults("baseNeeds"), value: Math.round(waterResult.breakdown.baseNeeds), unit: "ml" },
-              { label: tResults("activityAddition"), value: waterResult.breakdown.activityAddition, unit: "ml" },
-              { label: tResults("climateAddition"), value: waterResult.breakdown.climateAddition, unit: "ml" },
-              { label: tResults("specialAddition"), value: waterResult.breakdown.specialAddition, unit: "ml" },
+              { label: tResults("baseNeeds"), value: Math.round(result.breakdown.baseNeeds), unit: "ml" },
+              { label: tResults("activityAddition"), value: result.breakdown.activityAddition, unit: "ml" },
+              { label: tResults("climateAddition"), value: result.breakdown.climateAddition, unit: "ml" },
+              { label: tResults("specialAddition"), value: result.breakdown.specialAddition, unit: "ml" },
             ]}
           />
 
@@ -177,7 +178,7 @@ export function WaterIntakeCalculator() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {waterResult.schedule.map((item) => (
+                {result.schedule.map((item) => (
                   <tr key={item.time}>
                     <td className="px-3 py-2 text-sm">{item.time}</td>
                     <td className="px-3 py-2 text-sm">{item.amount} ml</td>
@@ -190,7 +191,7 @@ export function WaterIntakeCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("hydrationTips")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {waterResult.tips.map((tip) => (
+            {result.tips.map((tip) => (
               <li key={tip} className="text-sm">{tip}</li>
             ))}
           </ul>

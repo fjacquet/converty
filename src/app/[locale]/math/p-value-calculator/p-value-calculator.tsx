@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PValueInput,
   type PValueResult,
@@ -29,30 +29,33 @@ interface FormValues {
   twoTailed: boolean;
 }
 
+const usePValueStore = createCalculatorStore<FormValues, PValueResult | null>({
+  name: "p-value-calculator",
+  initialValues: {
+    mode: "fromZScore",
+    testStatistic: "1.96",
+    degreesOfFreedom: "20",
+    degreesOfFreedom2: "20",
+    twoTailed: true,
+  },
+  calculate: (vals) => {
+    const input: PValueInput = {
+      mode: vals.mode,
+      testStatistic: parseFloat(vals.testStatistic) || 0,
+      degreesOfFreedom: parseInt(vals.degreesOfFreedom) || undefined,
+      degreesOfFreedom2: parseInt(vals.degreesOfFreedom2) || undefined,
+      twoTailed: vals.twoTailed,
+    };
+    return calculatePValue(input);
+  },
+});
+
 export function PValueCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, PValueResult | null>({
-    initialValues: {
-      mode: "fromZScore",
-      testStatistic: "1.96",
-      degreesOfFreedom: "20",
-      degreesOfFreedom2: "20",
-      twoTailed: true,
-    },
-    calculate: (vals) => {
-      const input: PValueInput = {
-        mode: vals.mode,
-        testStatistic: parseFloat(vals.testStatistic) || 0,
-        degreesOfFreedom: parseInt(vals.degreesOfFreedom) || undefined,
-        degreesOfFreedom2: parseInt(vals.degreesOfFreedom2) || undefined,
-        twoTailed: vals.twoTailed,
-      };
-      return { value: calculatePValue(input) };
-    },
-  });
+  const { values, setValue, result } = usePValueStore();
 
-  const pResult = result?.value;
+  const pResult = result;
 
   return (
     <div className="space-y-6">

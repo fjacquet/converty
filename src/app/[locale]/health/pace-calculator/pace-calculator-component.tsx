@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PaceInput,
   type PaceResult,
@@ -27,35 +27,36 @@ interface FormValues {
   paceSeconds: string;
 }
 
+const useStore = createCalculatorStore<FormValues, PaceResult | null>({
+  name: "pace-calculator",
+  initialValues: {
+    mode: "pace",
+    distance: "10",
+    hours: "0",
+    minutes: "50",
+    seconds: "0",
+    paceMinutes: "5",
+    paceSeconds: "0",
+  },
+  calculate: (vals) => {
+    const input: PaceInput = {
+      mode: vals.mode,
+      distance: parseFloat(vals.distance) || 0,
+      hours: parseInt(vals.hours) || 0,
+      minutes: parseInt(vals.minutes) || 0,
+      seconds: parseInt(vals.seconds) || 0,
+      paceMinutes: parseInt(vals.paceMinutes) || 0,
+      paceSeconds: parseInt(vals.paceSeconds) || 0,
+    };
+    return calculatePace(input);
+  },
+});
+
 export function PaceCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, PaceResult | null>({
-    initialValues: {
-      mode: "pace",
-      distance: "10",
-      hours: "0",
-      minutes: "50",
-      seconds: "0",
-      paceMinutes: "5",
-      paceSeconds: "0",
-    },
-    calculate: (vals) => {
-      const input: PaceInput = {
-        mode: vals.mode,
-        distance: parseFloat(vals.distance) || 0,
-        hours: parseInt(vals.hours) || 0,
-        minutes: parseInt(vals.minutes) || 0,
-        seconds: parseInt(vals.seconds) || 0,
-        paceMinutes: parseInt(vals.paceMinutes) || 0,
-        paceSeconds: parseInt(vals.paceSeconds) || 0,
-      };
-      return { value: calculatePace(input) };
-    },
-  });
-
-  const paceResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -155,44 +156,44 @@ export function PaceCalculatorComponent() {
         )}
       </div>
 
-      {paceResult && (
+      {result && (
         <div className="space-y-4">
           <ResultGrid
             results={[
               {
                 label: tResults("pacePerKm"),
-                value: `${paceResult.pace.minutes}:${paceResult.pace.seconds.toString().padStart(2, "0")}`,
+                value: `${result.pace.minutes}:${result.pace.seconds.toString().padStart(2, "0")}`,
                 unit: "/km",
               },
               {
                 label: tResults("pacePerMile"),
-                value: `${paceResult.paceMile.minutes}:${paceResult.paceMile.seconds.toString().padStart(2, "0")}`,
+                value: `${result.paceMile.minutes}:${result.paceMile.seconds.toString().padStart(2, "0")}`,
                 unit: "/mi",
               },
               {
                 label: tResults("speed"),
-                value: paceResult.speed.toFixed(1),
+                value: result.speed.toFixed(1),
                 unit: "km/h",
               },
               {
                 label: tResults("speedMph"),
-                value: paceResult.speedMph.toFixed(1),
+                value: result.speedMph.toFixed(1),
                 unit: "mph",
               },
               {
                 label: tResults("totalTime"),
-                value: `${paceResult.totalTime.hours}:${paceResult.totalTime.minutes.toString().padStart(2, "0")}:${paceResult.totalTime.seconds.toString().padStart(2, "0")}`,
+                value: `${result.totalTime.hours}:${result.totalTime.minutes.toString().padStart(2, "0")}:${result.totalTime.seconds.toString().padStart(2, "0")}`,
                 unit: "",
               },
               {
                 label: tResults("totalDistance"),
-                value: paceResult.distance.toFixed(2),
+                value: result.distance.toFixed(2),
                 unit: "km",
               },
             ]}
           />
 
-          {paceResult.splits.length > 0 && paceResult.splits.length <= 50 && (
+          {result.splits.length > 0 && result.splits.length <= 50 && (
             <>
               <h3 className="text-lg font-semibold">{tResults("splits")}</h3>
               <div className="overflow-x-auto">
@@ -204,7 +205,7 @@ export function PaceCalculatorComponent() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
-                    {paceResult.splits.map((split) => (
+                    {result.splits.map((split) => (
                       <tr key={split.km}>
                         <td className="px-3 py-2 text-sm">{split.km}</td>
                         <td className="px-3 py-2 text-sm font-medium">{split.time}</td>

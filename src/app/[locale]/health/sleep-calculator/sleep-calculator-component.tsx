@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type SleepInput,
   type SleepResult,
@@ -23,27 +23,28 @@ interface FormValues {
   age: string;
 }
 
+const useStore = createCalculatorStore<FormValues, SleepResult | null>({
+  name: "sleep-calculator",
+  initialValues: {
+    mode: "wakeTime",
+    targetTime: "07:00",
+    age: "30",
+  },
+  calculate: (vals) => {
+    const input: SleepInput = {
+      mode: vals.mode,
+      targetTime: vals.targetTime,
+      age: parseInt(vals.age) || 30,
+    };
+    return calculateSleep(input);
+  },
+});
+
 export function SleepCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, SleepResult | null>({
-    initialValues: {
-      mode: "wakeTime",
-      targetTime: "07:00",
-      age: "30",
-    },
-    calculate: (vals) => {
-      const input: SleepInput = {
-        mode: vals.mode,
-        targetTime: vals.targetTime,
-        age: parseInt(vals.age) || 30,
-      };
-      return { value: calculateSleep(input) };
-    },
-  });
-
-  const sleepResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   const getQualityColor = (quality: string) => {
     switch (quality) {
@@ -97,18 +98,18 @@ export function SleepCalculatorComponent() {
         />
       </div>
 
-      {sleepResult && (
+      {result && (
         <div className="space-y-4">
           <div className="p-4 bg-muted rounded-lg text-center">
             <p className="text-sm text-muted-foreground">{tResults("recommendedSleep")}</p>
-            <p className="text-2xl font-bold">{sleepResult.recommendedHours.min} - {sleepResult.recommendedHours.max} {t("hours")}</p>
+            <p className="text-2xl font-bold">{result.recommendedHours.min} - {result.recommendedHours.max} {t("hours")}</p>
           </div>
 
           <h3 className="text-lg font-semibold">
             {values.mode === "wakeTime" ? tResults("suggestedBedtimes") : tResults("suggestedWakeTimes")}
           </h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            {sleepResult.cycleTimes.map((cycle) => (
+            {result.cycleTimes.map((cycle) => (
               <div
                 key={cycle.cycles}
                 className={`p-4 rounded-lg ${getQualityColor(cycle.quality)}`}
@@ -122,7 +123,7 @@ export function SleepCalculatorComponent() {
 
           <h3 className="text-lg font-semibold">{tResults("sleepStages")}</h3>
           <div className="space-y-2">
-            {sleepResult.sleepStages.map((stage) => (
+            {result.sleepStages.map((stage) => (
               <div key={stage.stage} className="p-3 bg-muted rounded-lg">
                 <div className="flex justify-between">
                   <span className="font-medium">{stage.stage}</span>
@@ -135,7 +136,7 @@ export function SleepCalculatorComponent() {
 
           <h3 className="text-lg font-semibold">{tResults("sleepTips")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {sleepResult.tips.map((tip) => (
+            {result.tips.map((tip) => (
               <li key={tip} className="text-sm">{tip}</li>
             ))}
           </ul>

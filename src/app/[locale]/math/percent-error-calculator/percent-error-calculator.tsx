@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PercentErrorInput,
   type PercentErrorResult,
@@ -14,24 +14,27 @@ interface FormValues {
   theoretical: string;
 }
 
+const usePercentErrorStore = createCalculatorStore<FormValues, PercentErrorResult | null>({
+  name: "percent-error-calculator",
+  initialValues: {
+    experimental: "10.5",
+    theoretical: "10",
+  },
+  calculate: (vals) => {
+    const input: PercentErrorInput = {
+      experimental: parseFloat(vals.experimental) || 0,
+      theoretical: parseFloat(vals.theoretical) || 0,
+    };
+    return calculatePercentError(input);
+  },
+});
+
 export function PercentErrorCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, PercentErrorResult | null>({
-    initialValues: {
-      experimental: "10.5",
-      theoretical: "10",
-    },
-    calculate: (vals) => {
-      const input: PercentErrorInput = {
-        experimental: parseFloat(vals.experimental) || 0,
-        theoretical: parseFloat(vals.theoretical) || 0,
-      };
-      return { value: calculatePercentError(input) };
-    },
-  });
+  const { values, setValue, result } = usePercentErrorStore();
 
-  const errorResult = result?.value;
+  const errorResult = result;
 
   return (
     <div className="space-y-6">

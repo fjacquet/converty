@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ConfidenceIntervalInput,
   type ConfidenceIntervalResult,
@@ -28,32 +28,35 @@ interface FormValues {
   successes: string;
 }
 
+const useConfidenceIntervalStore = createCalculatorStore<FormValues, ConfidenceIntervalResult | null>({
+  name: "confidence-interval-calculator",
+  initialValues: {
+    mode: "mean",
+    sampleMean: "50",
+    sampleSize: "100",
+    standardDeviation: "10",
+    confidenceLevel: "95",
+    successes: "60",
+  },
+  calculate: (vals) => {
+    const input: ConfidenceIntervalInput = {
+      mode: vals.mode,
+      sampleMean: parseFloat(vals.sampleMean) || 0,
+      sampleSize: parseInt(vals.sampleSize) || 1,
+      standardDeviation: parseFloat(vals.standardDeviation) || 1,
+      confidenceLevel: parseInt(vals.confidenceLevel) || 95,
+      successes: parseInt(vals.successes) || 0,
+    };
+    return calculateConfidenceInterval(input);
+  },
+});
+
 export function ConfidenceIntervalCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, ConfidenceIntervalResult | null>({
-    initialValues: {
-      mode: "mean",
-      sampleMean: "50",
-      sampleSize: "100",
-      standardDeviation: "10",
-      confidenceLevel: "95",
-      successes: "60",
-    },
-    calculate: (vals) => {
-      const input: ConfidenceIntervalInput = {
-        mode: vals.mode,
-        sampleMean: parseFloat(vals.sampleMean) || 0,
-        sampleSize: parseInt(vals.sampleSize) || 1,
-        standardDeviation: parseFloat(vals.standardDeviation) || 1,
-        confidenceLevel: parseInt(vals.confidenceLevel) || 95,
-        successes: parseInt(vals.successes) || 0,
-      };
-      return { value: calculateConfidenceInterval(input) };
-    },
-  });
+  const { values, setValue, result } = useConfidenceIntervalStore();
 
-  const ciResult = result?.value;
+  const ciResult = result;
 
   return (
     <div className="space-y-6">

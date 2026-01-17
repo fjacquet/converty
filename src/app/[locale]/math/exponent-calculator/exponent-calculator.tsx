@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ExponentInput,
   type ExponentResult,
@@ -14,24 +14,27 @@ interface FormValues {
   exponent: string;
 }
 
+const useExponentStore = createCalculatorStore<FormValues, ExponentResult | null>({
+  name: "exponent-calculator",
+  initialValues: {
+    base: "2",
+    exponent: "10",
+  },
+  calculate: (vals) => {
+    const input: ExponentInput = {
+      base: parseFloat(vals.base) || 0,
+      exponent: parseFloat(vals.exponent) || 0,
+    };
+    return calculateExponent(input);
+  },
+});
+
 export function ExponentCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, ExponentResult | null>({
-    initialValues: {
-      base: "2",
-      exponent: "10",
-    },
-    calculate: (vals) => {
-      const input: ExponentInput = {
-        base: parseFloat(vals.base) || 0,
-        exponent: parseFloat(vals.exponent) || 0,
-      };
-      return { value: calculateExponent(input) };
-    },
-  });
+  const { values, setValue, result } = useExponentStore();
 
-  const expResult = result?.value;
+  const expResult = result;
 
   return (
     <div className="space-y-6">

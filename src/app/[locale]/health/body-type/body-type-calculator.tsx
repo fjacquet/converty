@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BodyTypeInput,
   type BodyTypeResult,
@@ -25,31 +25,32 @@ interface FormValues {
   hipWidth: string;
 }
 
+const useStore = createCalculatorStore<FormValues, BodyTypeResult | null>({
+  name: "body-type-calculator",
+  initialValues: {
+    gender: "male",
+    wristCircumference: "17",
+    height: "175",
+    shoulderWidth: "45",
+    hipWidth: "35",
+  },
+  calculate: (vals) => {
+    const input: BodyTypeInput = {
+      gender: vals.gender,
+      wristCircumference: parseFloat(vals.wristCircumference) || 0,
+      height: parseFloat(vals.height) || 0,
+      shoulderWidth: parseFloat(vals.shoulderWidth) || undefined,
+      hipWidth: parseFloat(vals.hipWidth) || undefined,
+    };
+    return calculateBodyType(input);
+  },
+});
+
 export function BodyTypeCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, BodyTypeResult | null>({
-    initialValues: {
-      gender: "male",
-      wristCircumference: "17",
-      height: "175",
-      shoulderWidth: "45",
-      hipWidth: "35",
-    },
-    calculate: (vals) => {
-      const input: BodyTypeInput = {
-        gender: vals.gender,
-        wristCircumference: parseFloat(vals.wristCircumference) || 0,
-        height: parseFloat(vals.height) || 0,
-        shoulderWidth: parseFloat(vals.shoulderWidth) || undefined,
-        hipWidth: parseFloat(vals.hipWidth) || undefined,
-      };
-      return { value: calculateBodyType(input) };
-    },
-  });
-
-  const bodyTypeResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   const getBodyTypeColor = (type: string) => {
     switch (type) {
@@ -124,24 +125,24 @@ export function BodyTypeCalculator() {
         />
       </div>
 
-      {bodyTypeResult && (
+      {result && (
         <div className="space-y-4">
-          <div className={`p-4 rounded-lg text-center ${getBodyTypeColor(bodyTypeResult.bodyType)}`}>
-            <h2 className="text-2xl font-bold capitalize">{bodyTypeResult.bodyType}</h2>
-            <p className="text-sm">{tResults("frameSize")}: {bodyTypeResult.frameSize}</p>
+          <div className={`p-4 rounded-lg text-center ${getBodyTypeColor(result.bodyType)}`}>
+            <h2 className="text-2xl font-bold capitalize">{result.bodyType}</h2>
+            <p className="text-sm">{tResults("frameSize")}: {result.frameSize}</p>
           </div>
 
           <ResultGrid
             results={[
               {
                 label: tResults("wristRatio"),
-                value: bodyTypeResult.wristRatio.toFixed(2),
+                value: result.wristRatio.toFixed(2),
                 unit: "",
               },
-              ...(bodyTypeResult.shoulderToHipRatio
+              ...(result.shoulderToHipRatio
                 ? [{
                     label: tResults("shoulderToHipRatio"),
-                    value: bodyTypeResult.shoulderToHipRatio.toFixed(2),
+                    value: result.shoulderToHipRatio.toFixed(2),
                     unit: "",
                   }]
                 : []),
@@ -150,21 +151,21 @@ export function BodyTypeCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("characteristics")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {bodyTypeResult.characteristics.map((char) => (
+            {result.characteristics.map((char) => (
               <li key={char} className="text-sm">{char}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("trainingRecommendations")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {bodyTypeResult.trainingRecommendations.map((rec) => (
+            {result.trainingRecommendations.map((rec) => (
               <li key={rec} className="text-sm">{rec}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("nutritionRecommendations")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {bodyTypeResult.nutritionRecommendations.map((rec) => (
+            {result.nutritionRecommendations.map((rec) => (
               <li key={rec} className="text-sm">{rec}</li>
             ))}
           </ul>

@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BinaryInput,
   type BinaryResult,
@@ -26,30 +26,33 @@ interface FormValues {
   operation: "add" | "subtract" | "multiply" | "and" | "or" | "xor" | "not";
 }
 
+const useBinaryStore = createCalculatorStore<FormValues, BinaryResult | null>({
+  name: "binary-calculator",
+  initialValues: {
+    mode: "decimalToBinary",
+    decimal: "42",
+    binary: "101010",
+    binary2: "1100",
+    operation: "add",
+  },
+  calculate: (vals) => {
+    const input: BinaryInput = {
+      mode: vals.mode,
+      decimal: parseInt(vals.decimal),
+      binary: vals.binary,
+      binary2: vals.binary2,
+      operation: vals.operation,
+    };
+    return calculateBinary(input);
+  },
+});
+
 export function BinaryCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, BinaryResult | null>({
-    initialValues: {
-      mode: "decimalToBinary",
-      decimal: "42",
-      binary: "101010",
-      binary2: "1100",
-      operation: "add",
-    },
-    calculate: (vals) => {
-      const input: BinaryInput = {
-        mode: vals.mode,
-        decimal: parseInt(vals.decimal),
-        binary: vals.binary,
-        binary2: vals.binary2,
-        operation: vals.operation,
-      };
-      return { value: calculateBinary(input) };
-    },
-  });
+  const { values, setValue, result } = useBinaryStore();
 
-  const binaryResult = result?.value;
+  const binaryResult = result;
 
   const renderInputs = () => {
     switch (values.mode) {

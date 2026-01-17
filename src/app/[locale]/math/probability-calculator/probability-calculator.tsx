@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ProbabilityInput,
   type ProbabilityResult,
@@ -28,36 +28,39 @@ interface FormValues {
   successes: string;
 }
 
+const useProbabilityStore = createCalculatorStore<FormValues, ProbabilityResult | null>({
+  name: "probability-calculator",
+  initialValues: {
+    mode: "single",
+    probabilityA: "0.5",
+    probabilityB: "0.3",
+    probabilityAandB: "0.15",
+    n: "10",
+    r: "3",
+    trials: "10",
+    successes: "3",
+  },
+  calculate: (vals) => {
+    const input: ProbabilityInput = {
+      mode: vals.mode,
+      probabilityA: parseFloat(vals.probabilityA),
+      probabilityB: parseFloat(vals.probabilityB),
+      probabilityAandB: parseFloat(vals.probabilityAandB),
+      n: parseInt(vals.n),
+      r: parseInt(vals.r),
+      trials: parseInt(vals.trials),
+      successes: parseInt(vals.successes),
+    };
+    return calculateProbability(input);
+  },
+});
+
 export function ProbabilityCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, ProbabilityResult | null>({
-    initialValues: {
-      mode: "single",
-      probabilityA: "0.5",
-      probabilityB: "0.3",
-      probabilityAandB: "0.15",
-      n: "10",
-      r: "3",
-      trials: "10",
-      successes: "3",
-    },
-    calculate: (vals) => {
-      const input: ProbabilityInput = {
-        mode: vals.mode,
-        probabilityA: parseFloat(vals.probabilityA),
-        probabilityB: parseFloat(vals.probabilityB),
-        probabilityAandB: parseFloat(vals.probabilityAandB),
-        n: parseInt(vals.n),
-        r: parseInt(vals.r),
-        trials: parseInt(vals.trials),
-        successes: parseInt(vals.successes),
-      };
-      return { value: calculateProbability(input) };
-    },
-  });
+  const { values, setValue, result } = useProbabilityStore();
 
-  const probabilityResult = result?.value;
+  const probabilityResult = result;
 
   const renderInputs = () => {
     switch (values.mode) {

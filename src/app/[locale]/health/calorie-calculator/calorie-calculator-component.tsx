@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type CalorieInput,
   type CalorieResult,
@@ -27,35 +27,36 @@ interface FormValues {
   weeksToGoal: string;
 }
 
+const useStore = createCalculatorStore<FormValues, CalorieResult | null>({
+  name: "calorie-calculator",
+  initialValues: {
+    gender: "male",
+    age: "30",
+    weight: "80",
+    height: "175",
+    activityLevel: "moderate",
+    targetWeight: "75",
+    weeksToGoal: "12",
+  },
+  calculate: (vals) => {
+    const input: CalorieInput = {
+      gender: vals.gender,
+      age: parseFloat(vals.age) || 0,
+      weight: parseFloat(vals.weight) || 0,
+      height: parseFloat(vals.height) || 0,
+      activityLevel: vals.activityLevel,
+      targetWeight: parseFloat(vals.targetWeight) || 0,
+      weeksToGoal: parseFloat(vals.weeksToGoal) || 0,
+    };
+    return calculateCalories(input);
+  },
+});
+
 export function CalorieCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, CalorieResult | null>({
-    initialValues: {
-      gender: "male",
-      age: "30",
-      weight: "80",
-      height: "175",
-      activityLevel: "moderate",
-      targetWeight: "75",
-      weeksToGoal: "12",
-    },
-    calculate: (vals) => {
-      const input: CalorieInput = {
-        gender: vals.gender,
-        age: parseFloat(vals.age) || 0,
-        weight: parseFloat(vals.weight) || 0,
-        height: parseFloat(vals.height) || 0,
-        activityLevel: vals.activityLevel,
-        targetWeight: parseFloat(vals.targetWeight) || 0,
-        weeksToGoal: parseFloat(vals.weeksToGoal) || 0,
-      };
-      return { value: calculateCalories(input) };
-    },
-  });
-
-  const calorieResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -147,29 +148,29 @@ export function CalorieCalculatorComponent() {
         />
       </div>
 
-      {calorieResult && (
+      {result && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <OutputDisplay
               label={tResults("bmr")}
-              value={Math.round(calorieResult.bmr)}
+              value={Math.round(result.bmr)}
               unit={tResults("kcal") + "/day"}
             />
             <OutputDisplay
               label={t("maintenance")}
-              value={Math.round(calorieResult.maintenanceCalories)}
+              value={Math.round(result.maintenanceCalories)}
               unit={tResults("kcal") + "/day"}
             />
           </div>
 
           <OutputDisplay
             label={tResults("targetCalories")}
-            value={Math.round(calorieResult.targetCalories)}
+            value={Math.round(result.targetCalories)}
             unit={tResults("kcal") + "/day"}
             size="lg"
           />
 
-          {!calorieResult.isSafe && (
+          {!result.isSafe && (
             <div className="rounded-md bg-destructive/10 p-3 text-destructive">
               Warning: This plan may not be safe. Consider extending your timeline or adjusting your
               goal.
@@ -181,17 +182,17 @@ export function CalorieCalculatorComponent() {
             results={[
               {
                 label: tResults("proteinGrams"),
-                value: Math.round(calorieResult.proteinGrams),
+                value: Math.round(result.proteinGrams),
                 unit: "g",
               },
               {
                 label: tResults("carbsGrams"),
-                value: Math.round(calorieResult.carbsGrams),
+                value: Math.round(result.carbsGrams),
                 unit: "g",
               },
               {
                 label: tResults("fatGrams"),
-                value: Math.round(calorieResult.fatGrams),
+                value: Math.round(result.fatGrams),
                 unit: "g",
               },
             ]}
@@ -201,17 +202,17 @@ export function CalorieCalculatorComponent() {
             results={[
               {
                 label: "Daily Deficit/Surplus",
-                value: Math.round(Math.abs(calorieResult.dailyDeficit)),
-                unit: calorieResult.dailyDeficit > 0 ? "kcal deficit" : "kcal surplus",
+                value: Math.round(Math.abs(result.dailyDeficit)),
+                unit: result.dailyDeficit > 0 ? "kcal deficit" : "kcal surplus",
               },
               {
                 label: "Weekly Weight Change",
-                value: calorieResult.weeklyWeightChange.toFixed(2),
+                value: result.weeklyWeightChange.toFixed(2),
                 unit: "kg/week",
               },
               {
                 label: "Projected Date",
-                value: calorieResult.projectedDate,
+                value: result.projectedDate,
                 unit: "",
               },
             ]}

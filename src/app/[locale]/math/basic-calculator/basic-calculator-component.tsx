@@ -5,7 +5,7 @@ import { OutputDisplay } from "@/components/converter";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BasicCalculatorInput,
   type BasicCalculatorResult,
@@ -17,25 +17,28 @@ interface FormValues {
   angleMode: "degrees" | "radians";
 }
 
+const useBasicCalculatorStore = createCalculatorStore<FormValues, BasicCalculatorResult | null>({
+  name: "basic-calculator",
+  initialValues: {
+    expression: "2 * pi + sqrt(16)",
+    angleMode: "radians",
+  },
+  calculate: (vals) => {
+    const input: BasicCalculatorInput = {
+      expression: vals.expression,
+      angleMode: vals.angleMode,
+    };
+    return calculateBasicCalculator(input);
+  },
+});
+
 export function BasicCalculatorComponent() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, BasicCalculatorResult | null>({
-    initialValues: {
-      expression: "2 * pi + sqrt(16)",
-      angleMode: "radians",
-    },
-    calculate: (vals) => {
-      const input: BasicCalculatorInput = {
-        expression: vals.expression,
-        angleMode: vals.angleMode,
-      };
-      return { value: calculateBasicCalculator(input) };
-    },
-  });
+  const { values, setValue, result } = useBasicCalculatorStore();
 
-  const calcResult = result?.value;
+  const calcResult = result;
 
   return (
     <div className="space-y-6">

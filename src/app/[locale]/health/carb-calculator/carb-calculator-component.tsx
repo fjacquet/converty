@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type CarbInput,
   type CarbResult,
@@ -23,27 +23,28 @@ interface FormValues {
   activityLevel: "sedentary" | "light" | "moderate" | "active" | "athlete";
 }
 
+const useStore = createCalculatorStore<FormValues, CarbResult | null>({
+  name: "carb-calculator",
+  initialValues: {
+    calories: "2000",
+    goal: "maintenance",
+    activityLevel: "moderate",
+  },
+  calculate: (vals) => {
+    const input: CarbInput = {
+      calories: parseInt(vals.calories) || 0,
+      goal: vals.goal,
+      activityLevel: vals.activityLevel,
+    };
+    return calculateCarbs(input);
+  },
+});
+
 export function CarbCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, CarbResult | null>({
-    initialValues: {
-      calories: "2000",
-      goal: "maintenance",
-      activityLevel: "moderate",
-    },
-    calculate: (vals) => {
-      const input: CarbInput = {
-        calories: parseInt(vals.calories) || 0,
-        goal: vals.goal,
-        activityLevel: vals.activityLevel,
-      };
-      return { value: calculateCarbs(input) };
-    },
-  });
-
-  const carbResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -99,11 +100,11 @@ export function CarbCalculatorComponent() {
         </div>
       </div>
 
-      {carbResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("dailyCarbIntake")}
-            value={Math.round(carbResult.dailyCarbGrams)}
+            value={Math.round(result.dailyCarbGrams)}
             unit="g"
             size="lg"
           />
@@ -112,27 +113,27 @@ export function CarbCalculatorComponent() {
             results={[
               {
                 label: tResults("carbCalories"),
-                value: Math.round(carbResult.dailyCarbCalories),
+                value: Math.round(result.dailyCarbCalories),
                 unit: "kcal",
               },
               {
                 label: tResults("carbPercent"),
-                value: carbResult.carbPercent,
+                value: result.carbPercent,
                 unit: "%",
               },
               {
                 label: tResults("fiberMin"),
-                value: Math.round(carbResult.fiberMin),
+                value: Math.round(result.fiberMin),
                 unit: "g",
               },
               {
                 label: tResults("sugarMax"),
-                value: Math.round(carbResult.sugarMax),
+                value: Math.round(result.sugarMax),
                 unit: "g",
               },
               {
                 label: tResults("netCarbs"),
-                value: Math.round(carbResult.netCarbs),
+                value: Math.round(result.netCarbs),
                 unit: "g",
               },
             ]}
@@ -143,17 +144,17 @@ export function CarbCalculatorComponent() {
             results={[
               {
                 label: tResults("preworkout"),
-                value: Math.round(carbResult.timing.preworkout),
+                value: Math.round(result.timing.preworkout),
                 unit: "g",
               },
               {
                 label: tResults("postworkout"),
-                value: Math.round(carbResult.timing.postworkout),
+                value: Math.round(result.timing.postworkout),
                 unit: "g",
               },
               {
                 label: tResults("otherMeals"),
-                value: Math.round(carbResult.timing.other),
+                value: Math.round(result.timing.other),
                 unit: "g",
               },
             ]}
@@ -164,36 +165,36 @@ export function CarbCalculatorComponent() {
             results={[
               {
                 label: tResults("complexCarbs"),
-                value: `${Math.round(carbResult.carbTypes.complex.grams)}g (${carbResult.carbTypes.complex.percent}%)`,
+                value: `${Math.round(result.carbTypes.complex.grams)}g (${result.carbTypes.complex.percent}%)`,
               },
               {
                 label: tResults("simpleCarbs"),
-                value: `${Math.round(carbResult.carbTypes.simple.grams)}g (${carbResult.carbTypes.simple.percent}%)`,
+                value: `${Math.round(result.carbTypes.simple.grams)}g (${result.carbTypes.simple.percent}%)`,
               },
               {
                 label: tResults("fiber"),
-                value: `${Math.round(carbResult.carbTypes.fiber.grams)}g (${carbResult.carbTypes.fiber.percent}%)`,
+                value: `${Math.round(result.carbTypes.fiber.grams)}g (${result.carbTypes.fiber.percent}%)`,
               },
             ]}
           />
 
           <h3 className="text-lg font-semibold">{tResults("complexCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
-            {carbResult.foodSources.complex.map((source) => (
+            {result.foodSources.complex.map((source) => (
               <li key={source} className="text-sm text-green-700 dark:text-green-300">{source}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("simpleCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
-            {carbResult.foodSources.simple.map((source) => (
+            {result.foodSources.simple.map((source) => (
               <li key={source} className="text-sm text-blue-700 dark:text-blue-300">{source}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("avoidTheseCarbs")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-red-50 dark:bg-red-950 p-4 rounded-lg">
-            {carbResult.foodSources.avoid.map((source) => (
+            {result.foodSources.avoid.map((source) => (
               <li key={source} className="text-sm text-red-700 dark:text-red-300">{source}</li>
             ))}
           </ul>

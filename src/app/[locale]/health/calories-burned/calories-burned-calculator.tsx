@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type CaloriesBurnedInput,
   type CaloriesBurnedResult,
@@ -24,29 +24,30 @@ interface FormValues {
   duration: string;
 }
 
+const activities = getAvailableActivities();
+
+const useStore = createCalculatorStore<FormValues, CaloriesBurnedResult | null>({
+  name: "calories-burned-calculator",
+  initialValues: {
+    weight: "70",
+    activity: "running_6mph",
+    duration: "30",
+  },
+  calculate: (vals) => {
+    const input: CaloriesBurnedInput = {
+      weight: parseFloat(vals.weight) || 0,
+      activity: vals.activity,
+      duration: parseFloat(vals.duration) || 0,
+    };
+    return calculateCaloriesBurned(input);
+  },
+});
+
 export function CaloriesBurnedCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const activities = getAvailableActivities();
-
-  const { values, setValue, result } = useConverter<FormValues, CaloriesBurnedResult | null>({
-    initialValues: {
-      weight: "70",
-      activity: "running_6mph",
-      duration: "30",
-    },
-    calculate: (vals) => {
-      const input: CaloriesBurnedInput = {
-        weight: parseFloat(vals.weight) || 0,
-        activity: vals.activity,
-        duration: parseFloat(vals.duration) || 0,
-      };
-      return { value: calculateCaloriesBurned(input) };
-    },
-  });
-
-  const burnedResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -88,11 +89,11 @@ export function CaloriesBurnedCalculator() {
         />
       </div>
 
-      {burnedResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("caloriesBurned")}
-            value={Math.round(burnedResult.caloriesBurned)}
+            value={Math.round(result.caloriesBurned)}
             unit={tResults("kcal")}
             size="lg"
           />
@@ -101,27 +102,27 @@ export function CaloriesBurnedCalculator() {
             results={[
               {
                 label: tResults("caloriesPerMinute"),
-                value: burnedResult.caloriesPerMinute.toFixed(1),
+                value: result.caloriesPerMinute.toFixed(1),
                 unit: "kcal/min",
               },
               {
                 label: "Activity",
-                value: burnedResult.activityName,
+                value: result.activityName,
                 unit: "",
               },
               {
                 label: "MET Value",
-                value: burnedResult.met.toFixed(1),
+                value: result.met.toFixed(1),
                 unit: "",
               },
               {
                 label: "Equivalent Walking",
-                value: Math.round(burnedResult.equivalentWalking),
+                value: Math.round(result.equivalentWalking),
                 unit: "minutes",
               },
               {
                 label: tResults("fatBurned"),
-                value: burnedResult.fatBurned.toFixed(1),
+                value: result.fatBurned.toFixed(1),
                 unit: "g",
               },
             ]}

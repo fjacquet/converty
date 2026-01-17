@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BacInput,
   type BacResult,
@@ -25,31 +25,32 @@ interface FormValues {
   hoursSinceDrinking: string;
 }
 
+const useStore = createCalculatorStore<FormValues, BacResult | null>({
+  name: "bac-calculator",
+  initialValues: {
+    gender: "male",
+    weight: "75",
+    drinks: "2",
+    drinkType: "beer",
+    hoursSinceDrinking: "1",
+  },
+  calculate: (vals) => {
+    const input: BacInput = {
+      gender: vals.gender,
+      weight: parseFloat(vals.weight) || 0,
+      drinks: parseFloat(vals.drinks) || 0,
+      drinkType: vals.drinkType,
+      hoursSinceDrinking: parseFloat(vals.hoursSinceDrinking) || 0,
+    };
+    return calculateBac(input);
+  },
+});
+
 export function BacCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, BacResult | null>({
-    initialValues: {
-      gender: "male",
-      weight: "75",
-      drinks: "2",
-      drinkType: "beer",
-      hoursSinceDrinking: "1",
-    },
-    calculate: (vals) => {
-      const input: BacInput = {
-        gender: vals.gender,
-        weight: parseFloat(vals.weight) || 0,
-        drinks: parseFloat(vals.drinks) || 0,
-        drinkType: vals.drinkType,
-        hoursSinceDrinking: parseFloat(vals.hoursSinceDrinking) || 0,
-      };
-      return { value: calculateBac(input) };
-    },
-  });
-
-  const bacResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -118,21 +119,21 @@ export function BacCalculatorComponent() {
         />
       </div>
 
-      {bacResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("currentBAC")}
-            value={bacResult.bac.toFixed(3)}
+            value={result.bac.toFixed(3)}
             unit="%"
             size="lg"
           />
 
-          <div className={`p-4 rounded-lg ${bacResult.legalToDrive ? "bg-green-100 dark:bg-green-900" : "bg-red-100 dark:bg-red-900"}`}>
+          <div className={`p-4 rounded-lg ${result.legalToDrive ? "bg-green-100 dark:bg-green-900" : "bg-red-100 dark:bg-red-900"}`}>
             <p className="font-semibold">
-              {tResults("status")}: {bacResult.status}
+              {tResults("status")}: {result.status}
             </p>
-            <p className={bacResult.legalToDrive ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300"}>
-              {bacResult.legalToDrive ? tResults("legalToDrive") : tResults("notLegalToDrive")}
+            <p className={result.legalToDrive ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300"}>
+              {result.legalToDrive ? tResults("legalToDrive") : tResults("notLegalToDrive")}
             </p>
           </div>
 
@@ -140,22 +141,22 @@ export function BacCalculatorComponent() {
             results={[
               {
                 label: tResults("peakBAC"),
-                value: bacResult.peakBac.toFixed(3),
+                value: result.peakBac.toFixed(3),
                 unit: "%",
               },
               {
                 label: tResults("alcoholConsumed"),
-                value: bacResult.alcoholGrams.toFixed(0),
+                value: result.alcoholGrams.toFixed(0),
                 unit: "g",
               },
               {
                 label: tResults("timeToSober"),
-                value: bacResult.timeToSober.toFixed(1),
+                value: result.timeToSober.toFixed(1),
                 unit: t("hours"),
               },
               {
                 label: tResults("timeToLegal"),
-                value: bacResult.timeToLegal.toFixed(1),
+                value: result.timeToLegal.toFixed(1),
                 unit: t("hours"),
               },
             ]}
@@ -164,7 +165,7 @@ export function BacCalculatorComponent() {
           <div className="p-4 bg-muted rounded-lg">
             <h4 className="font-semibold mb-2">{tResults("currentEffects")}</h4>
             <ul className="list-disc list-inside space-y-1">
-              {bacResult.effects.map((effect) => (
+              {result.effects.map((effect) => (
                 <li key={effect} className="text-sm">{effect}</li>
               ))}
             </ul>

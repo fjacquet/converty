@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type MacroInput,
   type MacroResult,
@@ -22,25 +22,26 @@ interface FormValues {
   goal: "maintenance" | "cutting" | "bulking" | "keto" | "highProtein";
 }
 
+const useStore = createCalculatorStore<FormValues, MacroResult | null>({
+  name: "macro-calculator",
+  initialValues: {
+    calories: "2000",
+    goal: "maintenance",
+  },
+  calculate: (vals) => {
+    const input: MacroInput = {
+      calories: parseFloat(vals.calories) || 0,
+      goal: vals.goal,
+    };
+    return calculateMacros(input);
+  },
+});
+
 export function MacroCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, MacroResult | null>({
-    initialValues: {
-      calories: "2000",
-      goal: "maintenance",
-    },
-    calculate: (vals) => {
-      const input: MacroInput = {
-        calories: parseFloat(vals.calories) || 0,
-        goal: vals.goal,
-      };
-      return { value: calculateMacros(input) };
-    },
-  });
-
-  const macroResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -75,25 +76,25 @@ export function MacroCalculatorComponent() {
         </div>
       </div>
 
-      {macroResult && (
+      {result && (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">{tResults("dailyMacros")}</h3>
           <ResultGrid
             results={[
               {
                 label: tResults("protein"),
-                value: Math.round(macroResult.proteinGrams),
-                unit: `g (${macroResult.proteinPercent}%)`,
+                value: Math.round(result.proteinGrams),
+                unit: `g (${result.proteinPercent}%)`,
               },
               {
                 label: tResults("carbohydrates"),
-                value: Math.round(macroResult.carbsGrams),
-                unit: `g (${macroResult.carbsPercent}%)`,
+                value: Math.round(result.carbsGrams),
+                unit: `g (${result.carbsPercent}%)`,
               },
               {
                 label: tResults("fat"),
-                value: Math.round(macroResult.fatGrams),
-                unit: `g (${macroResult.fatPercent}%)`,
+                value: Math.round(result.fatGrams),
+                unit: `g (${result.fatPercent}%)`,
               },
             ]}
           />
@@ -103,17 +104,17 @@ export function MacroCalculatorComponent() {
             results={[
               {
                 label: tResults("proteinCalories"),
-                value: Math.round(macroResult.proteinCalories),
+                value: Math.round(result.proteinCalories),
                 unit: "kcal",
               },
               {
                 label: tResults("carbsCalories"),
-                value: Math.round(macroResult.carbsCalories),
+                value: Math.round(result.carbsCalories),
                 unit: "kcal",
               },
               {
                 label: tResults("fatCalories"),
-                value: Math.round(macroResult.fatCalories),
+                value: Math.round(result.fatCalories),
                 unit: "kcal",
               },
             ]}
@@ -131,7 +132,7 @@ export function MacroCalculatorComponent() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {macroResult.mealsBreakdown.map((meal) => (
+                {result.mealsBreakdown.map((meal) => (
                   <tr key={meal.meals}>
                     <td className="px-3 py-2 text-sm">{meal.meals} {t("mealsPerDay")}</td>
                     <td className="px-3 py-2 text-sm">{Math.round(meal.protein)}g</td>

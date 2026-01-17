@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BandwidthDelayProductInput,
   type BandwidthDelayProductResult,
@@ -15,26 +15,26 @@ interface FormValues {
   windowSize: string;
 }
 
+const useStore = createCalculatorStore<FormValues, BandwidthDelayProductResult>({
+  name: "bandwidth-delay-product",
+  initialValues: {
+    bandwidth: "100",
+    rtt: "80",
+    windowSize: "64",
+  },
+  calculate: (vals) => {
+    const input: BandwidthDelayProductInput = {
+      bandwidth: parseFloat(vals.bandwidth) || 100,
+      rtt: parseFloat(vals.rtt) || 1,
+      windowSize: parseFloat(vals.windowSize) || 64,
+    };
+    return calculateBandwidthDelayProduct(input);
+  },
+});
+
 export function BandwidthDelayProductCalculator() {
   const t = useTranslations("calculator.network");
-
-  const { values, setValue, result } = useConverter<FormValues, BandwidthDelayProductResult | null>({
-    initialValues: {
-      bandwidth: "100",
-      rtt: "80",
-      windowSize: "64",
-    },
-    calculate: (vals) => {
-      const input: BandwidthDelayProductInput = {
-        bandwidth: parseFloat(vals.bandwidth) || 100,
-        rtt: parseFloat(vals.rtt) || 1,
-        windowSize: parseFloat(vals.windowSize) || 64,
-      };
-      return { value: calculateBandwidthDelayProduct(input) };
-    },
-  });
-
-  const bdpResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -68,18 +68,18 @@ export function BandwidthDelayProductCalculator() {
         />
       </div>
 
-      {bdpResult && (
+      {result && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <OutputDisplay
               label={t("bdp")}
-              value={bdpResult.bdpKBytes.toFixed(2)}
+              value={result.bdpKBytes.toFixed(2)}
               unit="KB"
               size="lg"
             />
             <OutputDisplay
               label={t("maxThroughput")}
-              value={bdpResult.maxThroughputMbps.toFixed(2)}
+              value={result.maxThroughputMbps.toFixed(2)}
               unit="Mbps"
               size="lg"
             />
@@ -87,33 +87,33 @@ export function BandwidthDelayProductCalculator() {
 
           <ResultGrid
             results={[
-              { label: t("bdpBits"), value: bdpResult.bdpBits.toLocaleString(), unit: "bits" },
-              { label: t("bdpBytes"), value: bdpResult.bdpBytes.toLocaleString(), unit: "bytes" },
-              { label: t("requiredWindow"), value: bdpResult.requiredWindowKB.toFixed(2), unit: "KB" },
-              { label: t("windowUtilization"), value: bdpResult.windowUtilization.toFixed(1), unit: "%" },
+              { label: t("bdpBits"), value: result.bdpBits.toLocaleString(), unit: "bits" },
+              { label: t("bdpBytes"), value: result.bdpBytes.toLocaleString(), unit: "bytes" },
+              { label: t("requiredWindow"), value: result.requiredWindowKB.toFixed(2), unit: "KB" },
+              { label: t("windowUtilization"), value: result.windowUtilization.toFixed(1), unit: "%" },
             ]}
           />
 
-          <div className={`rounded-lg border p-4 ${bdpResult.isWindowSufficient ? "border-green-500/50 bg-green-500/10" : "border-red-500/50 bg-red-500/10"}`}>
+          <div className={`rounded-lg border p-4 ${result.isWindowSufficient ? "border-green-500/50 bg-green-500/10" : "border-red-500/50 bg-red-500/10"}`}>
             <p className="text-sm font-medium">
-              {bdpResult.isWindowSufficient ? t("windowSufficient") : t("windowInsufficient")}
+              {result.isWindowSufficient ? t("windowSufficient") : t("windowInsufficient")}
             </p>
           </div>
 
           <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
             <p className="text-sm font-medium">{t("calculationSteps")}:</p>
             <div className="text-sm text-muted-foreground font-mono space-y-1">
-              {bdpResult.steps.map((step, i) => (
+              {result.steps.map((step, i) => (
                 <p key={i}>{step}</p>
               ))}
             </div>
           </div>
 
-          {bdpResult.recommendations.length > 0 && (
+          {result.recommendations.length > 0 && (
             <div className="rounded-lg border border-yellow-500/50 bg-yellow-500/10 p-4 space-y-2">
               <p className="text-sm font-medium">{t("recommendations")}:</p>
               <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                {bdpResult.recommendations.map((rec, i) => (
+                {result.recommendations.map((rec, i) => (
                   <li key={i}>{rec}</li>
                 ))}
               </ul>

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type CircleInput,
   type CircleResult,
@@ -22,24 +22,27 @@ interface FormValues {
   value: string;
 }
 
+const useCircleStore = createCalculatorStore<FormValues, CircleResult | null>({
+  name: "circle-calculator",
+  initialValues: {
+    mode: "radius",
+    value: "5",
+  },
+  calculate: (vals) => {
+    const input: CircleInput = {
+      mode: vals.mode,
+      value: parseFloat(vals.value) || 0,
+    };
+    return calculateCircle(input);
+  },
+});
+
 export function CircleCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, CircleResult | null>({
-    initialValues: {
-      mode: "radius",
-      value: "5",
-    },
-    calculate: (vals) => {
-      const input: CircleInput = {
-        mode: vals.mode,
-        value: parseFloat(vals.value) || 0,
-      };
-      return { value: calculateCircle(input) };
-    },
-  });
+  const { values, setValue, result } = useCircleStore();
 
-  const circleResult = result?.value;
+  const circleResult = result;
 
   const getInputLabel = () => {
     switch (values.mode) {

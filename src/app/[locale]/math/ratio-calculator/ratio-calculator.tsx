@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type RatioInput,
   type RatioResult,
@@ -27,34 +27,37 @@ interface FormValues {
   targetValue: string;
 }
 
+const useRatioStore = createCalculatorStore<FormValues, RatioResult | null>({
+  name: "ratio-calculator",
+  initialValues: {
+    mode: "simplify",
+    a: "12",
+    b: "18",
+    c: "3",
+    d: "",
+    scaleFactor: "2",
+    targetValue: "24",
+  },
+  calculate: (vals) => {
+    const input: RatioInput = {
+      mode: vals.mode,
+      a: parseFloat(vals.a) || 0,
+      b: parseFloat(vals.b) || 0,
+      c: vals.c ? parseFloat(vals.c) : undefined,
+      d: vals.d ? parseFloat(vals.d) : undefined,
+      scaleFactor: vals.scaleFactor ? parseFloat(vals.scaleFactor) : undefined,
+      targetValue: vals.targetValue ? parseFloat(vals.targetValue) : undefined,
+    };
+    return calculateRatio(input);
+  },
+});
+
 export function RatioCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, RatioResult | null>({
-    initialValues: {
-      mode: "simplify",
-      a: "12",
-      b: "18",
-      c: "3",
-      d: "",
-      scaleFactor: "2",
-      targetValue: "24",
-    },
-    calculate: (vals) => {
-      const input: RatioInput = {
-        mode: vals.mode,
-        a: parseFloat(vals.a) || 0,
-        b: parseFloat(vals.b) || 0,
-        c: vals.c ? parseFloat(vals.c) : undefined,
-        d: vals.d ? parseFloat(vals.d) : undefined,
-        scaleFactor: vals.scaleFactor ? parseFloat(vals.scaleFactor) : undefined,
-        targetValue: vals.targetValue ? parseFloat(vals.targetValue) : undefined,
-      };
-      return { value: calculateRatio(input) };
-    },
-  });
+  const { values, setValue, result } = useRatioStore();
 
-  const ratioResult = result?.value;
+  const ratioResult = result;
 
   const renderInputs = () => {
     const baseInputs = (

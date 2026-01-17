@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   calculateTdee,
   type TdeeInput,
@@ -26,33 +26,34 @@ interface FormValues {
   goal: "lose" | "maintain" | "gain";
 }
 
+const useStore = createCalculatorStore<FormValues, TdeeResult | null>({
+  name: "tdee-calculator",
+  initialValues: {
+    gender: "male",
+    age: "30",
+    weight: "75",
+    height: "175",
+    activityLevel: "moderate",
+    goal: "maintain",
+  },
+  calculate: (vals) => {
+    const input: TdeeInput = {
+      gender: vals.gender,
+      age: parseFloat(vals.age) || 0,
+      weight: parseFloat(vals.weight) || 0,
+      height: parseFloat(vals.height) || 0,
+      activityLevel: vals.activityLevel,
+      goal: vals.goal,
+    };
+    return calculateTdee(input);
+  },
+});
+
 export function TdeeCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, TdeeResult | null>({
-    initialValues: {
-      gender: "male",
-      age: "30",
-      weight: "75",
-      height: "175",
-      activityLevel: "moderate",
-      goal: "maintain",
-    },
-    calculate: (vals) => {
-      const input: TdeeInput = {
-        gender: vals.gender,
-        age: parseFloat(vals.age) || 0,
-        weight: parseFloat(vals.weight) || 0,
-        height: parseFloat(vals.height) || 0,
-        activityLevel: vals.activityLevel,
-        goal: vals.goal,
-      };
-      return { value: calculateTdee(input) };
-    },
-  });
-
-  const tdeeResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -141,18 +142,18 @@ export function TdeeCalculatorComponent() {
         </div>
       </div>
 
-      {tdeeResult && (
+      {result && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <OutputDisplay
               label={tResults("bmr")}
-              value={Math.round(tdeeResult.bmr)}
+              value={Math.round(result.bmr)}
               unit={tResults("kcal") + "/day"}
               size="lg"
             />
             <OutputDisplay
               label={tResults("tdee")}
-              value={Math.round(tdeeResult.tdee)}
+              value={Math.round(result.tdee)}
               unit={tResults("kcal") + "/day"}
               size="lg"
             />
@@ -160,7 +161,7 @@ export function TdeeCalculatorComponent() {
 
           <OutputDisplay
             label={tResults("targetCalories")}
-            value={Math.round(tdeeResult.targetCalories)}
+            value={Math.round(result.targetCalories)}
             unit={tResults("kcal") + "/day"}
             size="lg"
           />
@@ -170,26 +171,26 @@ export function TdeeCalculatorComponent() {
             results={[
               {
                 label: tResults("proteinGrams"),
-                value: Math.round(tdeeResult.proteinGrams),
+                value: Math.round(result.proteinGrams),
                 unit: "g",
               },
               {
                 label: tResults("carbsGrams"),
-                value: Math.round(tdeeResult.carbsGrams),
+                value: Math.round(result.carbsGrams),
                 unit: "g",
               },
               {
                 label: tResults("fatGrams"),
-                value: Math.round(tdeeResult.fatGrams),
+                value: Math.round(result.fatGrams),
                 unit: "g",
               },
             ]}
           />
 
-          {tdeeResult.weeklyChange !== 0 && (
+          {result.weeklyChange !== 0 && (
             <p className="text-sm text-muted-foreground">
-              Expected weekly weight change: {tdeeResult.weeklyChange > 0 ? "+" : ""}
-              {tdeeResult.weeklyChange} kg/week
+              Expected weekly weight change: {result.weeklyChange > 0 ? "+" : ""}
+              {result.weeklyChange} kg/week
             </p>
           )}
         </div>

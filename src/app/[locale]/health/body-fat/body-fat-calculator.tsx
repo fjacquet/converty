@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BodyFatInput,
   type BodyFatResult,
@@ -27,35 +27,36 @@ interface FormValues {
   hip: string;
 }
 
+const useStore = createCalculatorStore<FormValues, BodyFatResult | null>({
+  name: "body-fat-calculator",
+  initialValues: {
+    gender: "male",
+    age: "30",
+    weight: "80",
+    height: "175",
+    neck: "38",
+    waist: "85",
+    hip: "95",
+  },
+  calculate: (vals) => {
+    const input: BodyFatInput = {
+      gender: vals.gender,
+      age: parseFloat(vals.age) || 0,
+      weight: parseFloat(vals.weight) || 0,
+      height: parseFloat(vals.height) || 0,
+      neck: parseFloat(vals.neck) || 0,
+      waist: parseFloat(vals.waist) || 0,
+      hip: vals.gender === "female" ? parseFloat(vals.hip) || 0 : undefined,
+    };
+    return calculateBodyFat(input);
+  },
+});
+
 export function BodyFatCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, BodyFatResult | null>({
-    initialValues: {
-      gender: "male",
-      age: "30",
-      weight: "80",
-      height: "175",
-      neck: "38",
-      waist: "85",
-      hip: "95",
-    },
-    calculate: (vals) => {
-      const input: BodyFatInput = {
-        gender: vals.gender,
-        age: parseFloat(vals.age) || 0,
-        weight: parseFloat(vals.weight) || 0,
-        height: parseFloat(vals.height) || 0,
-        neck: parseFloat(vals.neck) || 0,
-        waist: parseFloat(vals.waist) || 0,
-        hip: vals.gender === "female" ? parseFloat(vals.hip) || 0 : undefined,
-      };
-      return { value: calculateBodyFat(input) };
-    },
-  });
-
-  const bodyFatResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -140,12 +141,12 @@ export function BodyFatCalculator() {
         )}
       </div>
 
-      {bodyFatResult && (
+      {result && (
         <div className="space-y-4">
           <div className="flex items-center gap-4">
             <OutputDisplay
               label={tResults("bodyFatPercentage")}
-              value={bodyFatResult.bodyFatPercent.toFixed(1)}
+              value={result.bodyFatPercent.toFixed(1)}
               unit="%"
               size="lg"
               className="flex-1"
@@ -155,7 +156,7 @@ export function BodyFatCalculator() {
                 {tResults("category")}
               </p>
               <div className="rounded-md border bg-muted/50 px-3 py-4">
-                <span className="text-2xl font-bold">{bodyFatResult.category}</span>
+                <span className="text-2xl font-bold">{result.category}</span>
               </div>
             </div>
           </div>
@@ -164,12 +165,12 @@ export function BodyFatCalculator() {
             results={[
               {
                 label: tResults("fatMass"),
-                value: bodyFatResult.fatMass.toFixed(1),
+                value: result.fatMass.toFixed(1),
                 unit: "kg",
               },
               {
                 label: tResults("leanMass"),
-                value: bodyFatResult.leanMass.toFixed(1),
+                value: result.leanMass.toFixed(1),
                 unit: "kg",
               },
             ]}

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type FactorInput,
   type FactorResult,
@@ -14,23 +14,26 @@ interface FormValues {
   number: string;
 }
 
+const useFactorStore = createCalculatorStore<FormValues, FactorResult | null>({
+  name: "factor-calculator",
+  initialValues: {
+    number: "36",
+  },
+  calculate: (vals) => {
+    const input: FactorInput = {
+      mode: "factors",
+      number: parseInt(vals.number) || 0,
+    };
+    return calculateFactor(input);
+  },
+});
+
 export function FactorCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, FactorResult | null>({
-    initialValues: {
-      number: "36",
-    },
-    calculate: (vals) => {
-      const input: FactorInput = {
-        mode: "factors",
-        number: parseInt(vals.number) || 0,
-      };
-      return { value: calculateFactor(input) };
-    },
-  });
+  const { values, setValue, result } = useFactorStore();
 
-  const factorResult = result?.value;
+  const factorResult = result;
 
   return (
     <div className="space-y-6">

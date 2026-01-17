@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type RootInput,
   type RootResult,
@@ -14,24 +14,27 @@ interface FormValues {
   index: string;
 }
 
+const useRootStore = createCalculatorStore<FormValues, RootResult | null>({
+  name: "root-calculator",
+  initialValues: {
+    radicand: "81",
+    index: "2",
+  },
+  calculate: (vals) => {
+    const input: RootInput = {
+      radicand: parseFloat(vals.radicand) || 0,
+      index: parseFloat(vals.index) || 2,
+    };
+    return calculateRoot(input);
+  },
+});
+
 export function RootCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, RootResult | null>({
-    initialValues: {
-      radicand: "81",
-      index: "2",
-    },
-    calculate: (vals) => {
-      const input: RootInput = {
-        radicand: parseFloat(vals.radicand) || 0,
-        index: parseFloat(vals.index) || 2,
-      };
-      return { value: calculateRoot(input) };
-    },
-  });
+  const { values, setValue, result } = useRootStore();
 
-  const rootResult = result?.value;
+  const rootResult = result;
 
   const getRootSymbol = () => {
     const idx = parseFloat(values.index) || 2;

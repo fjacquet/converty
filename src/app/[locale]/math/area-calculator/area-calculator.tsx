@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type AreaInput,
   type AreaResult,
@@ -33,46 +33,49 @@ interface FormValues {
   diagonal2: string;
 }
 
+const useAreaStore = createCalculatorStore<FormValues, AreaResult | null>({
+  name: "area-calculator",
+  initialValues: {
+    shape: "rectangle",
+    length: "10",
+    width: "5",
+    base: "6",
+    height: "4",
+    radius: "5",
+    radiusA: "5",
+    radiusB: "3",
+    base1: "8",
+    base2: "4",
+    angle: "90",
+    diagonal1: "6",
+    diagonal2: "8",
+  },
+  calculate: (vals) => {
+    const input: AreaInput = {
+      shape: vals.shape,
+      length: parseFloat(vals.length) || undefined,
+      width: parseFloat(vals.width) || undefined,
+      base: parseFloat(vals.base) || undefined,
+      height: parseFloat(vals.height) || undefined,
+      radius: parseFloat(vals.radius) || undefined,
+      radiusA: parseFloat(vals.radiusA) || undefined,
+      radiusB: parseFloat(vals.radiusB) || undefined,
+      base1: parseFloat(vals.base1) || undefined,
+      base2: parseFloat(vals.base2) || undefined,
+      angle: parseFloat(vals.angle) || undefined,
+      diagonal1: parseFloat(vals.diagonal1) || undefined,
+      diagonal2: parseFloat(vals.diagonal2) || undefined,
+    };
+    return calculateArea(input);
+  },
+});
+
 export function AreaCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, AreaResult | null>({
-    initialValues: {
-      shape: "rectangle",
-      length: "10",
-      width: "5",
-      base: "6",
-      height: "4",
-      radius: "5",
-      radiusA: "5",
-      radiusB: "3",
-      base1: "8",
-      base2: "4",
-      angle: "90",
-      diagonal1: "6",
-      diagonal2: "8",
-    },
-    calculate: (vals) => {
-      const input: AreaInput = {
-        shape: vals.shape,
-        length: parseFloat(vals.length) || undefined,
-        width: parseFloat(vals.width) || undefined,
-        base: parseFloat(vals.base) || undefined,
-        height: parseFloat(vals.height) || undefined,
-        radius: parseFloat(vals.radius) || undefined,
-        radiusA: parseFloat(vals.radiusA) || undefined,
-        radiusB: parseFloat(vals.radiusB) || undefined,
-        base1: parseFloat(vals.base1) || undefined,
-        base2: parseFloat(vals.base2) || undefined,
-        angle: parseFloat(vals.angle) || undefined,
-        diagonal1: parseFloat(vals.diagonal1) || undefined,
-        diagonal2: parseFloat(vals.diagonal2) || undefined,
-      };
-      return { value: calculateArea(input) };
-    },
-  });
+  const { values, setValue, result } = useAreaStore();
 
-  const areaResult = result?.value;
+  const areaResult = result;
 
   const renderInputs = () => {
     switch (values.shape) {

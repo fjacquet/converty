@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type OvulationInput,
   type OvulationResult,
@@ -15,27 +15,28 @@ interface FormValues {
   cycleLength: string;
 }
 
+const today = new Date().toISOString().split("T")[0];
+
+const useStore = createCalculatorStore<FormValues, OvulationResult | null>({
+  name: "ovulation-calculator",
+  initialValues: {
+    lastPeriodDate: today,
+    cycleLength: "28",
+  },
+  calculate: (vals) => {
+    const input: OvulationInput = {
+      lastPeriodDate: vals.lastPeriodDate,
+      cycleLength: parseInt(vals.cycleLength) || 28,
+    };
+    return calculateOvulation(input);
+  },
+});
+
 export function OvulationCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const today = new Date().toISOString().split("T")[0];
-
-  const { values, setValue, result } = useConverter<FormValues, OvulationResult | null>({
-    initialValues: {
-      lastPeriodDate: today,
-      cycleLength: "28",
-    },
-    calculate: (vals) => {
-      const input: OvulationInput = {
-        lastPeriodDate: vals.lastPeriodDate,
-        cycleLength: parseInt(vals.cycleLength) || 28,
-      };
-      return { value: calculateOvulation(input) };
-    },
-  });
-
-  const ovulationResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   const getFertilityColor = (fertility: string) => {
     switch (fertility) {
@@ -75,28 +76,28 @@ export function OvulationCalculatorComponent() {
         />
       </div>
 
-      {ovulationResult && (
+      {result && (
         <div className="space-y-4">
           <ResultGrid
             results={[
               {
                 label: tResults("ovulationDate"),
-                value: ovulationResult.ovulationDate,
+                value: result.ovulationDate,
                 unit: "",
               },
               {
                 label: tResults("fertileWindowStart"),
-                value: ovulationResult.fertileWindowStart,
+                value: result.fertileWindowStart,
                 unit: "",
               },
               {
                 label: tResults("fertileWindowEnd"),
-                value: ovulationResult.fertileWindowEnd,
+                value: result.fertileWindowEnd,
                 unit: "",
               },
               {
                 label: tResults("nextPeriod"),
-                value: ovulationResult.nextPeriodDate,
+                value: result.nextPeriodDate,
                 unit: "",
               },
             ]}
@@ -104,7 +105,7 @@ export function OvulationCalculatorComponent() {
 
           <h3 className="text-lg font-semibold">{tResults("fertileWindow")}</h3>
           <div className="space-y-2">
-            {ovulationResult.fertileWindow.map((day) => (
+            {result.fertileWindow.map((day) => (
               <div
                 key={day.date}
                 className="flex justify-between items-center p-2 rounded bg-muted"
@@ -130,7 +131,7 @@ export function OvulationCalculatorComponent() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {ovulationResult.upcomingCycles.map((cycle) => (
+                {result.upcomingCycles.map((cycle) => (
                   <tr key={cycle.cycleNumber}>
                     <td className="px-3 py-2 text-sm">{cycle.cycleNumber}</td>
                     <td className="px-3 py-2 text-sm">{cycle.periodStart}</td>

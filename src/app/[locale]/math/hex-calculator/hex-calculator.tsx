@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type HexInput,
   type HexResult,
@@ -29,34 +29,37 @@ interface FormValues {
   b: string;
 }
 
+const useHexStore = createCalculatorStore<FormValues, HexResult | null>({
+  name: "hex-calculator",
+  initialValues: {
+    mode: "decimalToHex",
+    decimal: "255",
+    hex: "FF",
+    hex2: "10",
+    operation: "add",
+    r: "255",
+    g: "128",
+    b: "64",
+  },
+  calculate: (vals) => {
+    const input: HexInput = {
+      mode: vals.mode,
+      decimal: parseInt(vals.decimal),
+      hex: vals.hex,
+      hex2: vals.hex2,
+      operation: vals.operation,
+      rgb: { r: parseInt(vals.r), g: parseInt(vals.g), b: parseInt(vals.b) },
+    };
+    return calculateHex(input);
+  },
+});
+
 export function HexCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, HexResult | null>({
-    initialValues: {
-      mode: "decimalToHex",
-      decimal: "255",
-      hex: "FF",
-      hex2: "10",
-      operation: "add",
-      r: "255",
-      g: "128",
-      b: "64",
-    },
-    calculate: (vals) => {
-      const input: HexInput = {
-        mode: vals.mode,
-        decimal: parseInt(vals.decimal),
-        hex: vals.hex,
-        hex2: vals.hex2,
-        operation: vals.operation,
-        rgb: { r: parseInt(vals.r), g: parseInt(vals.g), b: parseInt(vals.b) },
-      };
-      return { value: calculateHex(input) };
-    },
-  });
+  const { values, setValue, result } = useHexStore();
 
-  const hexResult = result?.value;
+  const hexResult = result;
 
   const renderInputs = () => {
     switch (values.mode) {

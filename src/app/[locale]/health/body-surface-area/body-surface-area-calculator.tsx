@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BodySurfaceAreaInput,
   type BodySurfaceAreaResult,
@@ -14,25 +14,26 @@ interface FormValues {
   height: string;
 }
 
+const useStore = createCalculatorStore<FormValues, BodySurfaceAreaResult | null>({
+  name: "body-surface-area-calculator",
+  initialValues: {
+    weight: "70",
+    height: "175",
+  },
+  calculate: (vals) => {
+    const input: BodySurfaceAreaInput = {
+      weight: parseFloat(vals.weight) || 0,
+      height: parseFloat(vals.height) || 0,
+    };
+    return calculateBodySurfaceArea(input);
+  },
+});
+
 export function BodySurfaceAreaCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, BodySurfaceAreaResult | null>({
-    initialValues: {
-      weight: "70",
-      height: "175",
-    },
-    calculate: (vals) => {
-      const input: BodySurfaceAreaInput = {
-        weight: parseFloat(vals.weight) || 0,
-        height: parseFloat(vals.height) || 0,
-      };
-      return { value: calculateBodySurfaceArea(input) };
-    },
-  });
-
-  const bsaResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -58,7 +59,7 @@ export function BodySurfaceAreaCalculator() {
         />
       </div>
 
-      {bsaResult && (
+      {result && (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">
             {tResults("bodySurfaceArea")} (Multiple Formulas)
@@ -67,32 +68,32 @@ export function BodySurfaceAreaCalculator() {
             results={[
               {
                 label: "Du Bois Formula",
-                value: bsaResult.duBois,
+                value: result.duBois,
                 unit: "m²",
               },
               {
                 label: "Mosteller Formula",
-                value: bsaResult.mosteller,
+                value: result.mosteller,
                 unit: "m²",
               },
               {
                 label: "Haycock Formula",
-                value: bsaResult.haycock,
+                value: result.haycock,
                 unit: "m²",
               },
               {
                 label: "Gehan-George Formula",
-                value: bsaResult.gehanGeorge,
+                value: result.gehanGeorge,
                 unit: "m²",
               },
               {
                 label: "Boyd Formula",
-                value: bsaResult.boyd,
+                value: result.boyd,
                 unit: "m²",
               },
               {
                 label: tResults("average"),
-                value: bsaResult.average,
+                value: result.average,
                 unit: "m²",
               },
             ]}

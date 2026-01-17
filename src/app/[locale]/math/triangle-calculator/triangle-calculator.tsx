@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type TriangleInput,
   type TriangleResult,
@@ -27,34 +27,37 @@ interface FormValues {
   angleC: string;
 }
 
+const useTriangleStore = createCalculatorStore<FormValues, TriangleResult | null>({
+  name: "triangle-calculator",
+  initialValues: {
+    mode: "sides",
+    sideA: "3",
+    sideB: "4",
+    sideC: "5",
+    angleA: "60",
+    angleB: "60",
+    angleC: "60",
+  },
+  calculate: (vals) => {
+    const input: TriangleInput = {
+      mode: vals.mode,
+      sideA: parseFloat(vals.sideA) || undefined,
+      sideB: parseFloat(vals.sideB) || undefined,
+      sideC: parseFloat(vals.sideC) || undefined,
+      angleA: parseFloat(vals.angleA) || undefined,
+      angleB: parseFloat(vals.angleB) || undefined,
+      angleC: parseFloat(vals.angleC) || undefined,
+    };
+    return calculateTriangle(input);
+  },
+});
+
 export function TriangleCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, TriangleResult | null>({
-    initialValues: {
-      mode: "sides",
-      sideA: "3",
-      sideB: "4",
-      sideC: "5",
-      angleA: "60",
-      angleB: "60",
-      angleC: "60",
-    },
-    calculate: (vals) => {
-      const input: TriangleInput = {
-        mode: vals.mode,
-        sideA: parseFloat(vals.sideA) || undefined,
-        sideB: parseFloat(vals.sideB) || undefined,
-        sideC: parseFloat(vals.sideC) || undefined,
-        angleA: parseFloat(vals.angleA) || undefined,
-        angleB: parseFloat(vals.angleB) || undefined,
-        angleC: parseFloat(vals.angleC) || undefined,
-      };
-      return { value: calculateTriangle(input) };
-    },
-  });
+  const { values, setValue, result } = useTriangleStore();
 
-  const triangleResult = result?.value;
+  const triangleResult = result;
 
   return (
     <div className="space-y-6">

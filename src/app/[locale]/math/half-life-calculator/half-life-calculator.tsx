@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type HalfLifeInput,
   type HalfLifeResult,
@@ -28,32 +28,35 @@ interface FormValues {
   percentRemaining: string;
 }
 
+const useHalfLifeStore = createCalculatorStore<FormValues, HalfLifeResult | null>({
+  name: "half-life-calculator",
+  initialValues: {
+    mode: "decay",
+    initialAmount: "100",
+    remainingAmount: "25",
+    halfLife: "5730",
+    time: "11460",
+    percentRemaining: "50",
+  },
+  calculate: (vals) => {
+    const input: HalfLifeInput = {
+      mode: vals.mode,
+      initialAmount: parseFloat(vals.initialAmount) || undefined,
+      remainingAmount: parseFloat(vals.remainingAmount) || undefined,
+      halfLife: parseFloat(vals.halfLife) || undefined,
+      time: parseFloat(vals.time) || undefined,
+      percentRemaining: parseFloat(vals.percentRemaining) || undefined,
+    };
+    return calculateHalfLife(input);
+  },
+});
+
 export function HalfLifeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, HalfLifeResult | null>({
-    initialValues: {
-      mode: "decay",
-      initialAmount: "100",
-      remainingAmount: "25",
-      halfLife: "5730",
-      time: "11460",
-      percentRemaining: "50",
-    },
-    calculate: (vals) => {
-      const input: HalfLifeInput = {
-        mode: vals.mode,
-        initialAmount: parseFloat(vals.initialAmount) || undefined,
-        remainingAmount: parseFloat(vals.remainingAmount) || undefined,
-        halfLife: parseFloat(vals.halfLife) || undefined,
-        time: parseFloat(vals.time) || undefined,
-        percentRemaining: parseFloat(vals.percentRemaining) || undefined,
-      };
-      return { value: calculateHalfLife(input) };
-    },
-  });
+  const { values, setValue, result } = useHalfLifeStore();
 
-  const halfLifeResult = result?.value;
+  const halfLifeResult = result;
 
   return (
     <div className="space-y-6">

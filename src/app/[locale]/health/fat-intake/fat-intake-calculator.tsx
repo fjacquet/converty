@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type FatIntakeInput,
   type FatIntakeResult,
@@ -22,25 +22,26 @@ interface FormValues {
   goal: "weightLoss" | "maintenance" | "muscleGain" | "keto" | "lowFat";
 }
 
+const useStore = createCalculatorStore<FormValues, FatIntakeResult | null>({
+  name: "fat-intake-calculator",
+  initialValues: {
+    calories: "2000",
+    goal: "maintenance",
+  },
+  calculate: (vals) => {
+    const input: FatIntakeInput = {
+      calories: parseInt(vals.calories) || 0,
+      goal: vals.goal,
+    };
+    return calculateFatIntake(input);
+  },
+});
+
 export function FatIntakeCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, FatIntakeResult | null>({
-    initialValues: {
-      calories: "2000",
-      goal: "maintenance",
-    },
-    calculate: (vals) => {
-      const input: FatIntakeInput = {
-        calories: parseInt(vals.calories) || 0,
-        goal: vals.goal,
-      };
-      return { value: calculateFatIntake(input) };
-    },
-  });
-
-  const fatResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -76,11 +77,11 @@ export function FatIntakeCalculator() {
         </div>
       </div>
 
-      {fatResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("dailyFatIntake")}
-            value={Math.round(fatResult.dailyFatGrams)}
+            value={Math.round(result.dailyFatGrams)}
             unit="g"
             size="lg"
           />
@@ -89,22 +90,22 @@ export function FatIntakeCalculator() {
             results={[
               {
                 label: tResults("fatCalories"),
-                value: Math.round(fatResult.dailyFatCalories),
+                value: Math.round(result.dailyFatCalories),
                 unit: "kcal",
               },
               {
                 label: tResults("fatPercent"),
-                value: fatResult.fatPercent,
+                value: result.fatPercent,
                 unit: "%",
               },
               {
                 label: tResults("saturatedFatMax"),
-                value: Math.round(fatResult.saturatedFatMax),
+                value: Math.round(result.saturatedFatMax),
                 unit: "g",
               },
               {
                 label: tResults("omega3Min"),
-                value: fatResult.omega3Min.toFixed(1),
+                value: result.omega3Min.toFixed(1),
                 unit: "g",
               },
             ]}
@@ -115,36 +116,36 @@ export function FatIntakeCalculator() {
             results={[
               {
                 label: tResults("saturatedFat"),
-                value: `${Math.round(fatResult.breakdown.saturated.grams)}g (${fatResult.breakdown.saturated.percent}%)`,
+                value: `${Math.round(result.breakdown.saturated.grams)}g (${result.breakdown.saturated.percent}%)`,
               },
               {
                 label: tResults("monounsaturatedFat"),
-                value: `${Math.round(fatResult.breakdown.monounsaturated.grams)}g (${fatResult.breakdown.monounsaturated.percent}%)`,
+                value: `${Math.round(result.breakdown.monounsaturated.grams)}g (${result.breakdown.monounsaturated.percent}%)`,
               },
               {
                 label: tResults("polyunsaturatedFat"),
-                value: `${Math.round(fatResult.breakdown.polyunsaturated.grams)}g (${fatResult.breakdown.polyunsaturated.percent}%)`,
+                value: `${Math.round(result.breakdown.polyunsaturated.grams)}g (${result.breakdown.polyunsaturated.percent}%)`,
               },
             ]}
           />
 
           <h3 className="text-lg font-semibold">{tResults("healthyFatSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
-            {fatResult.foodSources.healthy.map((source) => (
+            {result.foodSources.healthy.map((source) => (
               <li key={source} className="text-sm text-green-700 dark:text-green-300">{source}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("limitTheseFats")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-yellow-50 dark:bg-yellow-950 p-4 rounded-lg">
-            {fatResult.foodSources.limit.map((source) => (
+            {result.foodSources.limit.map((source) => (
               <li key={source} className="text-sm text-yellow-700 dark:text-yellow-300">{source}</li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("avoidTheseFats")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-red-50 dark:bg-red-950 p-4 rounded-lg">
-            {fatResult.foodSources.avoid.map((source) => (
+            {result.foodSources.avoid.map((source) => (
               <li key={source} className="text-sm text-red-700 dark:text-red-300">{source}</li>
             ))}
           </ul>

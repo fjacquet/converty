@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PercentageInput,
   type PercentageResult,
@@ -23,28 +23,31 @@ interface FormValues {
   value2: string;
 }
 
+const usePercentageStore = createCalculatorStore<FormValues, PercentageResult | null>({
+  name: "percentage-calculator",
+  initialValues: {
+    mode: "percentOf",
+    value1: "25",
+    value2: "200",
+  },
+  calculate: (vals) => {
+    const input: PercentageInput = {
+      mode: vals.mode,
+      value1: parseFloat(vals.value1) || 0,
+      value2: parseFloat(vals.value2) || 0,
+    };
+    return calculatePercentage(input);
+  },
+});
+
 export function PercentageCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, PercentageResult | null>({
-    initialValues: {
-      mode: "percentOf",
-      value1: "25",
-      value2: "200",
-    },
-    calculate: (vals) => {
-      const input: PercentageInput = {
-        mode: vals.mode,
-        value1: parseFloat(vals.value1) || 0,
-        value2: parseFloat(vals.value2) || 0,
-      };
-      return { value: calculatePercentage(input) };
-    },
-  });
+  const { values, setValue, result } = usePercentageStore();
 
-  const percentResult = result?.value;
+  const percentResult = result;
 
   const getModeLabels = () => {
     switch (values.mode) {

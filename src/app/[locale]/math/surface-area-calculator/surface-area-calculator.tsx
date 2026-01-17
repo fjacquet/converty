@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type SurfaceAreaInput,
   type SurfaceAreaResult,
@@ -32,44 +32,47 @@ interface FormValues {
   prismLength: string;
 }
 
+const useSurfaceAreaStore = createCalculatorStore<FormValues, SurfaceAreaResult | null>({
+  name: "surface-area-calculator",
+  initialValues: {
+    shape: "cube",
+    side: "5",
+    length: "6",
+    width: "4",
+    height: "3",
+    radius: "5",
+    slantHeight: "8",
+    baseLength: "6",
+    baseWidth: "4",
+    triangleBase: "5",
+    triangleHeight: "4",
+    prismLength: "10",
+  },
+  calculate: (vals) => {
+    const input: SurfaceAreaInput = {
+      shape: vals.shape,
+      side: parseFloat(vals.side) || undefined,
+      length: parseFloat(vals.length) || undefined,
+      width: parseFloat(vals.width) || undefined,
+      height: parseFloat(vals.height) || undefined,
+      radius: parseFloat(vals.radius) || undefined,
+      slantHeight: parseFloat(vals.slantHeight) || undefined,
+      baseLength: parseFloat(vals.baseLength) || undefined,
+      baseWidth: parseFloat(vals.baseWidth) || undefined,
+      triangleBase: parseFloat(vals.triangleBase) || undefined,
+      triangleHeight: parseFloat(vals.triangleHeight) || undefined,
+      prismLength: parseFloat(vals.prismLength) || undefined,
+    };
+    return calculateSurfaceArea(input);
+  },
+});
+
 export function SurfaceAreaCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, SurfaceAreaResult | null>({
-    initialValues: {
-      shape: "cube",
-      side: "5",
-      length: "6",
-      width: "4",
-      height: "3",
-      radius: "5",
-      slantHeight: "8",
-      baseLength: "6",
-      baseWidth: "4",
-      triangleBase: "5",
-      triangleHeight: "4",
-      prismLength: "10",
-    },
-    calculate: (vals) => {
-      const input: SurfaceAreaInput = {
-        shape: vals.shape,
-        side: parseFloat(vals.side) || undefined,
-        length: parseFloat(vals.length) || undefined,
-        width: parseFloat(vals.width) || undefined,
-        height: parseFloat(vals.height) || undefined,
-        radius: parseFloat(vals.radius) || undefined,
-        slantHeight: parseFloat(vals.slantHeight) || undefined,
-        baseLength: parseFloat(vals.baseLength) || undefined,
-        baseWidth: parseFloat(vals.baseWidth) || undefined,
-        triangleBase: parseFloat(vals.triangleBase) || undefined,
-        triangleHeight: parseFloat(vals.triangleHeight) || undefined,
-        prismLength: parseFloat(vals.prismLength) || undefined,
-      };
-      return { value: calculateSurfaceArea(input) };
-    },
-  });
+  const { values, setValue, result } = useSurfaceAreaStore();
 
-  const surfaceAreaResult = result?.value;
+  const surfaceAreaResult = result;
 
   const renderInputs = () => {
     switch (values.shape) {

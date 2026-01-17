@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type LogarithmInput,
   type LogarithmResult,
@@ -14,24 +14,27 @@ interface FormValues {
   base: string;
 }
 
+const useLogarithmStore = createCalculatorStore<FormValues, LogarithmResult | null>({
+  name: "logarithm-calculator",
+  initialValues: {
+    value: "100",
+    base: "10",
+  },
+  calculate: (vals) => {
+    const input: LogarithmInput = {
+      value: parseFloat(vals.value) || 1,
+      base: parseFloat(vals.base) || 10,
+    };
+    return calculateLogarithm(input);
+  },
+});
+
 export function LogarithmCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, LogarithmResult | null>({
-    initialValues: {
-      value: "100",
-      base: "10",
-    },
-    calculate: (vals) => {
-      const input: LogarithmInput = {
-        value: parseFloat(vals.value) || 1,
-        base: parseFloat(vals.base) || 10,
-      };
-      return { value: calculateLogarithm(input) };
-    },
-  });
+  const { values, setValue, result } = useLogarithmStore();
 
-  const logResult = result?.value;
+  const logResult = result;
 
   return (
     <div className="space-y-6">

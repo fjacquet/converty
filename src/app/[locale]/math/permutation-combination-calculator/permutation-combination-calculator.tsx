@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PermutationCombinationInput,
   type PermutationCombinationResult,
@@ -25,27 +25,30 @@ interface FormValues {
   r: string;
 }
 
+const usePermutationCombinationStore = createCalculatorStore<FormValues, PermutationCombinationResult | null>({
+  name: "permutation-combination-calculator",
+  initialValues: {
+    mode: "permutation",
+    n: "10",
+    r: "3",
+  },
+  calculate: (vals) => {
+    const input: PermutationCombinationInput = {
+      mode: vals.mode,
+      n: parseInt(vals.n) || 0,
+      r: parseInt(vals.r) || 0,
+    };
+    return calculatePermutationCombination(input);
+  },
+});
+
 export function PermutationCombinationCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, PermutationCombinationResult | null>({
-    initialValues: {
-      mode: "permutation",
-      n: "10",
-      r: "3",
-    },
-    calculate: (vals) => {
-      const input: PermutationCombinationInput = {
-        mode: vals.mode,
-        n: parseInt(vals.n) || 0,
-        r: parseInt(vals.r) || 0,
-      };
-      return { value: calculatePermutationCombination(input) };
-    },
-  });
+  const { values, setValue, result } = usePermutationCombinationStore();
 
-  const pcResult = result?.value;
+  const pcResult = result;
 
   return (
     <div className="space-y-6">

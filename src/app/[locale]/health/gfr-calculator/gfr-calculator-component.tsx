@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type GfrInput,
   type GfrResult,
@@ -26,33 +26,34 @@ interface FormValues {
   weight: string;
 }
 
+const useStore = createCalculatorStore<FormValues, GfrResult | null>({
+  name: "gfr-calculator",
+  initialValues: {
+    creatinine: "1.0",
+    creatinineUnit: "mgdl",
+    age: "45",
+    gender: "male",
+    race: "other",
+    weight: "75",
+  },
+  calculate: (vals) => {
+    const input: GfrInput = {
+      creatinine: parseFloat(vals.creatinine) || 0,
+      creatinineUnit: vals.creatinineUnit,
+      age: parseInt(vals.age) || 0,
+      gender: vals.gender,
+      race: vals.race,
+      weight: parseFloat(vals.weight) || undefined,
+    };
+    return calculateGfr(input);
+  },
+});
+
 export function GfrCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, GfrResult | null>({
-    initialValues: {
-      creatinine: "1.0",
-      creatinineUnit: "mgdl",
-      age: "45",
-      gender: "male",
-      race: "other",
-      weight: "75",
-    },
-    calculate: (vals) => {
-      const input: GfrInput = {
-        creatinine: parseFloat(vals.creatinine) || 0,
-        creatinineUnit: vals.creatinineUnit,
-        age: parseInt(vals.age) || 0,
-        gender: vals.gender,
-        race: vals.race,
-        weight: parseFloat(vals.weight) || undefined,
-      };
-      return { value: calculateGfr(input) };
-    },
-  });
-
-  const gfrResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   const getStageColor = (stage: number) => {
     switch (stage) {
@@ -138,19 +139,19 @@ export function GfrCalculatorComponent() {
         />
       </div>
 
-      {gfrResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("estimatedGFR")}
-            value={Math.round(gfrResult.egfrCkdEpi)}
+            value={Math.round(result.egfrCkdEpi)}
             unit="mL/min/1.73m²"
             size="lg"
           />
 
-          <div className={`p-4 rounded-lg ${getStageColor(gfrResult.stage)}`}>
-            <p className="font-semibold">{gfrResult.stageDescription}</p>
-            <p>{gfrResult.kidneyFunction}</p>
-            <p className="text-sm mt-2">{gfrResult.recommendation}</p>
+          <div className={`p-4 rounded-lg ${getStageColor(result.stage)}`}>
+            <p className="font-semibold">{result.stageDescription}</p>
+            <p>{result.kidneyFunction}</p>
+            <p className="text-sm mt-2">{result.recommendation}</p>
           </div>
 
           <h3 className="text-lg font-semibold">{tResults("gfrByFormula")}</h3>
@@ -158,18 +159,18 @@ export function GfrCalculatorComponent() {
             results={[
               {
                 label: "CKD-EPI (2021)",
-                value: Math.round(gfrResult.egfrCkdEpi),
+                value: Math.round(result.egfrCkdEpi),
                 unit: "mL/min/1.73m²",
               },
               {
                 label: "MDRD",
-                value: Math.round(gfrResult.egfrMdrd),
+                value: Math.round(result.egfrMdrd),
                 unit: "mL/min/1.73m²",
               },
-              ...(gfrResult.egfrCockcroftGault
+              ...(result.egfrCockcroftGault
                 ? [{
                     label: "Cockcroft-Gault",
-                    value: Math.round(gfrResult.egfrCockcroftGault),
+                    value: Math.round(result.egfrCockcroftGault),
                     unit: "mL/min",
                   }]
                 : []),

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PythagoreanInput,
   type PythagoreanResult,
@@ -24,28 +24,31 @@ interface FormValues {
   hypotenuse: string;
 }
 
+const usePythagoreanStore = createCalculatorStore<FormValues, PythagoreanResult | null>({
+  name: "pythagorean-calculator",
+  initialValues: {
+    mode: "findHypotenuse",
+    sideA: "3",
+    sideB: "4",
+    hypotenuse: "5",
+  },
+  calculate: (vals) => {
+    const input: PythagoreanInput = {
+      mode: vals.mode,
+      sideA: parseFloat(vals.sideA) || 0,
+      sideB: parseFloat(vals.sideB) || undefined,
+      hypotenuse: parseFloat(vals.hypotenuse) || undefined,
+    };
+    return calculatePythagorean(input);
+  },
+});
+
 export function PythagoreanCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, PythagoreanResult | null>({
-    initialValues: {
-      mode: "findHypotenuse",
-      sideA: "3",
-      sideB: "4",
-      hypotenuse: "5",
-    },
-    calculate: (vals) => {
-      const input: PythagoreanInput = {
-        mode: vals.mode,
-        sideA: parseFloat(vals.sideA) || 0,
-        sideB: parseFloat(vals.sideB) || undefined,
-        hypotenuse: parseFloat(vals.hypotenuse) || undefined,
-      };
-      return { value: calculatePythagorean(input) };
-    },
-  });
+  const { values, setValue, result } = usePythagoreanStore();
 
-  const pythagoreanResult = result?.value;
+  const pythagoreanResult = result;
 
   return (
     <div className="space-y-6">

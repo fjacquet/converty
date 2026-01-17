@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type FractionInput,
   type FractionResult,
@@ -26,32 +26,35 @@ interface FormValues {
   decimal: string;
 }
 
+const useFractionStore = createCalculatorStore<FormValues, FractionResult | null>({
+  name: "fraction-calculator",
+  initialValues: {
+    mode: "simplify",
+    numerator1: "6",
+    denominator1: "8",
+    numerator2: "1",
+    denominator2: "4",
+    decimal: "0.75",
+  },
+  calculate: (vals) => {
+    const input: FractionInput = {
+      mode: vals.mode,
+      numerator1: parseFloat(vals.numerator1) || 0,
+      denominator1: parseFloat(vals.denominator1) || 1,
+      numerator2: parseFloat(vals.numerator2) || 0,
+      denominator2: parseFloat(vals.denominator2) || 1,
+      decimal: parseFloat(vals.decimal) || 0,
+    };
+    return calculateFraction(input);
+  },
+});
+
 export function FractionCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, FractionResult | null>({
-    initialValues: {
-      mode: "simplify",
-      numerator1: "6",
-      denominator1: "8",
-      numerator2: "1",
-      denominator2: "4",
-      decimal: "0.75",
-    },
-    calculate: (vals) => {
-      const input: FractionInput = {
-        mode: vals.mode,
-        numerator1: parseFloat(vals.numerator1) || 0,
-        denominator1: parseFloat(vals.denominator1) || 1,
-        numerator2: parseFloat(vals.numerator2) || 0,
-        denominator2: parseFloat(vals.denominator2) || 1,
-        decimal: parseFloat(vals.decimal) || 0,
-      };
-      return { value: calculateFraction(input) };
-    },
-  });
+  const { values, setValue, result } = useFractionStore();
 
-  const fractionResult = result?.value;
+  const fractionResult = result;
   const showSecondFraction = ["add", "subtract", "multiply", "divide"].includes(values.mode);
   const showDecimalInput = values.mode === "toFraction";
 

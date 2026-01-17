@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   calculateTargetHeartRate,
   type TargetHeartRateInput,
@@ -14,25 +14,26 @@ interface FormValues {
   restingHeartRate: string;
 }
 
+const useStore = createCalculatorStore<FormValues, TargetHeartRateResult | null>({
+  name: "target-heart-rate-calculator",
+  initialValues: {
+    age: "30",
+    restingHeartRate: "60",
+  },
+  calculate: (vals) => {
+    const input: TargetHeartRateInput = {
+      age: parseFloat(vals.age) || 0,
+      restingHeartRate: parseFloat(vals.restingHeartRate) || undefined,
+    };
+    return calculateTargetHeartRate(input);
+  },
+});
+
 export function TargetHeartRateCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, TargetHeartRateResult | null>({
-    initialValues: {
-      age: "30",
-      restingHeartRate: "60",
-    },
-    calculate: (vals) => {
-      const input: TargetHeartRateInput = {
-        age: parseFloat(vals.age) || 0,
-        restingHeartRate: parseFloat(vals.restingHeartRate) || undefined,
-      };
-      return { value: calculateTargetHeartRate(input) };
-    },
-  });
-
-  const hrResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -60,19 +61,19 @@ export function TargetHeartRateCalculator() {
         />
       </div>
 
-      {hrResult && (
+      {result && (
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <OutputDisplay
               label={tResults("maxHeartRate")}
-              value={hrResult.maxHeartRate}
+              value={result.maxHeartRate}
               unit="bpm"
               size="lg"
             />
-            {hrResult.heartRateReserve && (
+            {result.heartRateReserve && (
               <OutputDisplay
                 label={tResults("heartRateReserve")}
-                value={hrResult.heartRateReserve}
+                value={result.heartRateReserve}
                 unit="bpm"
               />
             )}
@@ -80,7 +81,7 @@ export function TargetHeartRateCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("heartRateZones")}</h3>
           <div className="space-y-2">
-            {hrResult.zones.map((zone) => (
+            {result.zones.map((zone) => (
               <div
                 key={zone.name}
                 className="flex items-center justify-between rounded-lg border p-3"
@@ -105,12 +106,12 @@ export function TargetHeartRateCalculator() {
             results={[
               {
                 label: tResults("fatBurningZone"),
-                value: `${hrResult.fatBurningZone.min} - ${hrResult.fatBurningZone.max}`,
+                value: `${result.fatBurningZone.min} - ${result.fatBurningZone.max}`,
                 unit: "bpm",
               },
               {
                 label: tResults("cardioZone"),
-                value: `${hrResult.cardioZone.min} - ${hrResult.cardioZone.max}`,
+                value: `${result.cardioZone.min} - ${result.cardioZone.max}`,
                 unit: "bpm",
               },
             ]}

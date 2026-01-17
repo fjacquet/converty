@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PregnancyWeightGainInput,
   type PregnancyWeightGainResult,
@@ -19,31 +19,32 @@ interface FormValues {
   twins: boolean;
 }
 
+const useStore = createCalculatorStore<FormValues, PregnancyWeightGainResult | null>({
+  name: "pregnancy-weight-gain-calculator",
+  initialValues: {
+    prePregnancyWeight: "60",
+    currentWeight: "65",
+    height: "165",
+    weeksPregnant: "20",
+    twins: false,
+  },
+  calculate: (vals) => {
+    const input: PregnancyWeightGainInput = {
+      prePregnancyWeight: parseFloat(vals.prePregnancyWeight) || 0,
+      currentWeight: parseFloat(vals.currentWeight) || 0,
+      height: parseFloat(vals.height) || 0,
+      weeksPregnant: parseInt(vals.weeksPregnant) || 0,
+      twins: vals.twins,
+    };
+    return calculatePregnancyWeightGain(input);
+  },
+});
+
 export function PregnancyWeightGainCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, PregnancyWeightGainResult | null>({
-    initialValues: {
-      prePregnancyWeight: "60",
-      currentWeight: "65",
-      height: "165",
-      weeksPregnant: "20",
-      twins: false,
-    },
-    calculate: (vals) => {
-      const input: PregnancyWeightGainInput = {
-        prePregnancyWeight: parseFloat(vals.prePregnancyWeight) || 0,
-        currentWeight: parseFloat(vals.currentWeight) || 0,
-        height: parseFloat(vals.height) || 0,
-        weeksPregnant: parseInt(vals.weeksPregnant) || 0,
-        twins: vals.twins,
-      };
-      return { value: calculatePregnancyWeightGain(input) };
-    },
-  });
-
-  const weightResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -112,17 +113,17 @@ export function PregnancyWeightGainCalculator() {
         </div>
       </div>
 
-      {weightResult && (
+      {result && (
         <div className="space-y-4">
-          <div className={`p-4 rounded-lg ${getStatusColor(weightResult.status)}`}>
+          <div className={`p-4 rounded-lg ${getStatusColor(result.status)}`}>
             <p className="font-semibold">
-              {tResults("weightGainStatus")}: {weightResult.status === "on-track" ? tResults("onTrack") : weightResult.status === "under" ? tResults("underTarget") : tResults("overTarget")}
+              {tResults("weightGainStatus")}: {result.status === "on-track" ? tResults("onTrack") : result.status === "under" ? tResults("underTarget") : tResults("overTarget")}
             </p>
             <p>
-              {tResults("currentGain")}: {weightResult.currentWeightGain.toFixed(1)} kg
+              {tResults("currentGain")}: {result.currentWeightGain.toFixed(1)} kg
             </p>
             <p>
-              {tResults("recommendedAtWeek")}: {weightResult.recommendedGainAtWeek.min.toFixed(1)} - {weightResult.recommendedGainAtWeek.max.toFixed(1)} kg
+              {tResults("recommendedAtWeek")}: {result.recommendedGainAtWeek.min.toFixed(1)} - {result.recommendedGainAtWeek.max.toFixed(1)} kg
             </p>
           </div>
 
@@ -130,22 +131,22 @@ export function PregnancyWeightGainCalculator() {
             results={[
               {
                 label: tResults("prePregnancyBMI"),
-                value: weightResult.prePregnancyBmi.toFixed(1),
-                unit: `(${weightResult.bmiCategory})`,
+                value: result.prePregnancyBmi.toFixed(1),
+                unit: `(${result.bmiCategory})`,
               },
               {
                 label: tResults("totalRecommendedGain"),
-                value: `${weightResult.recommendedGainMin.toFixed(1)} - ${weightResult.recommendedGainMax.toFixed(1)}`,
+                value: `${result.recommendedGainMin.toFixed(1)} - ${result.recommendedGainMax.toFixed(1)}`,
                 unit: "kg",
               },
               {
                 label: tResults("weeklyGainRate"),
-                value: `${weightResult.weeklyGainRate.min.toFixed(2)} - ${weightResult.weeklyGainRate.max.toFixed(2)}`,
+                value: `${result.weeklyGainRate.min.toFixed(2)} - ${result.weeklyGainRate.max.toFixed(2)}`,
                 unit: "kg/week",
               },
               {
                 label: tResults("projectedTotalGain"),
-                value: weightResult.projectedTotalGain.toFixed(1),
+                value: result.projectedTotalGain.toFixed(1),
                 unit: "kg",
               },
             ]}
@@ -153,7 +154,7 @@ export function PregnancyWeightGainCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("weightBreakdown")}</h3>
           <div className="grid gap-2 sm:grid-cols-2">
-            {Object.entries(weightResult.breakdown).map(([key, value]) => (
+            {Object.entries(result.breakdown).map(([key, value]) => (
               <div key={key} className="flex justify-between p-2 bg-muted rounded">
                 <span className="capitalize">{key.replace(/([A-Z])/g, " $1").trim()}</span>
                 <span className="font-medium">{value} kg</span>

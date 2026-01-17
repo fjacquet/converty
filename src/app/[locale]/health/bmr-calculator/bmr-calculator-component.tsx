@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BmrInput,
   type BmrResult,
@@ -24,29 +24,30 @@ interface FormValues {
   height: string;
 }
 
+const useStore = createCalculatorStore<FormValues, BmrResult | null>({
+  name: "bmr-calculator",
+  initialValues: {
+    gender: "male",
+    age: "30",
+    weight: "75",
+    height: "175",
+  },
+  calculate: (vals) => {
+    const input: BmrInput = {
+      gender: vals.gender,
+      age: parseFloat(vals.age) || 0,
+      weight: parseFloat(vals.weight) || 0,
+      height: parseFloat(vals.height) || 0,
+    };
+    return calculateBmr(input);
+  },
+});
+
 export function BmrCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, BmrResult | null>({
-    initialValues: {
-      gender: "male",
-      age: "30",
-      weight: "75",
-      height: "175",
-    },
-    calculate: (vals) => {
-      const input: BmrInput = {
-        gender: vals.gender,
-        age: parseFloat(vals.age) || 0,
-        weight: parseFloat(vals.weight) || 0,
-        height: parseFloat(vals.height) || 0,
-      };
-      return { value: calculateBmr(input) };
-    },
-  });
-
-  const bmrResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -99,11 +100,11 @@ export function BmrCalculatorComponent() {
         />
       </div>
 
-      {bmrResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("bmr") + " (Average)"}
-            value={Math.round(bmrResult.average)}
+            value={Math.round(result.average)}
             unit={tResults("kcal") + "/day"}
             size="lg"
           />
@@ -113,12 +114,12 @@ export function BmrCalculatorComponent() {
             results={[
               {
                 label: "Harris-Benedict",
-                value: Math.round(bmrResult.harrisBenedict),
+                value: Math.round(result.harrisBenedict),
                 unit: "kcal/day",
               },
               {
                 label: "Mifflin-St Jeor",
-                value: Math.round(bmrResult.mifflinStJeor),
+                value: Math.round(result.mifflinStJeor),
                 unit: "kcal/day",
               },
             ]}
@@ -129,27 +130,27 @@ export function BmrCalculatorComponent() {
             results={[
               {
                 label: t("sedentary"),
-                value: Math.round(bmrResult.sedentary),
+                value: Math.round(result.sedentary),
                 unit: "kcal/day",
               },
               {
                 label: t("light"),
-                value: Math.round(bmrResult.lightActivity),
+                value: Math.round(result.lightActivity),
                 unit: "kcal/day",
               },
               {
                 label: t("moderate"),
-                value: Math.round(bmrResult.moderateActivity),
+                value: Math.round(result.moderateActivity),
                 unit: "kcal/day",
               },
               {
                 label: t("active"),
-                value: Math.round(bmrResult.veryActive),
+                value: Math.round(result.veryActive),
                 unit: "kcal/day",
               },
               {
                 label: t("veryActive"),
-                value: Math.round(bmrResult.extraActive),
+                value: Math.round(result.extraActive),
                 unit: "kcal/day",
               },
             ]}

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   calculateIdealWeight,
   type IdealWeightInput,
@@ -23,27 +23,28 @@ interface FormValues {
   frameSize: "small" | "medium" | "large";
 }
 
+const useStore = createCalculatorStore<FormValues, IdealWeightResult | null>({
+  name: "ideal-weight-calculator",
+  initialValues: {
+    gender: "male",
+    height: "175",
+    frameSize: "medium",
+  },
+  calculate: (vals) => {
+    const input: IdealWeightInput = {
+      gender: vals.gender,
+      height: parseFloat(vals.height) || 0,
+      frameSize: vals.frameSize,
+    };
+    return calculateIdealWeight(input);
+  },
+});
+
 export function IdealWeightCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, IdealWeightResult | null>({
-    initialValues: {
-      gender: "male",
-      height: "175",
-      frameSize: "medium",
-    },
-    calculate: (vals) => {
-      const input: IdealWeightInput = {
-        gender: vals.gender,
-        height: parseFloat(vals.height) || 0,
-        frameSize: vals.frameSize,
-      };
-      return { value: calculateIdealWeight(input) };
-    },
-  });
-
-  const idealWeightResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -92,39 +93,39 @@ export function IdealWeightCalculator() {
         </div>
       </div>
 
-      {idealWeightResult && (
+      {result && (
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">{tResults("idealWeight")} (Multiple Formulas)</h3>
           <ResultGrid
             results={[
               {
                 label: "Robinson Formula (1983)",
-                value: idealWeightResult.robinson.toFixed(1),
+                value: result.robinson.toFixed(1),
                 unit: "kg",
               },
               {
                 label: "Miller Formula (1983)",
-                value: idealWeightResult.miller.toFixed(1),
+                value: result.miller.toFixed(1),
                 unit: "kg",
               },
               {
                 label: "Devine Formula (1974)",
-                value: idealWeightResult.devine.toFixed(1),
+                value: result.devine.toFixed(1),
                 unit: "kg",
               },
               {
                 label: "Hamwi Formula (1964)",
-                value: idealWeightResult.hamwi.toFixed(1),
+                value: result.hamwi.toFixed(1),
                 unit: "kg",
               },
               {
                 label: tResults("average"),
-                value: idealWeightResult.average.toFixed(1),
+                value: result.average.toFixed(1),
                 unit: "kg",
               },
               {
                 label: "Range (adjusted for frame)",
-                value: `${idealWeightResult.rangeMin.toFixed(1)} - ${idealWeightResult.rangeMax.toFixed(1)}`,
+                value: `${result.rangeMin.toFixed(1)} - ${result.rangeMax.toFixed(1)}`,
                 unit: "kg",
               },
             ]}

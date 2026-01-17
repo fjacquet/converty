@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type BMIInput,
   type BMIResult,
@@ -32,30 +32,32 @@ interface FormValues {
   heightUnit: HeightUnit;
 }
 
+const useStore = createCalculatorStore<FormValues, BMIResult | null>({
+  name: "bmi-calculator",
+  initialValues: {
+    weight: "70",
+    weightUnit: "kg",
+    height: "175",
+    heightUnit: "cm",
+  },
+  calculate: (vals) => {
+    const input: BMIInput = {
+      weight: parseFloat(vals.weight) || 0,
+      weightUnit: vals.weightUnit,
+      height: parseFloat(vals.height) || 0,
+      heightUnit: vals.heightUnit,
+    };
+    return calculateBMI(input);
+  },
+});
+
 export function BMICalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, BMIResult | null>({
-    initialValues: {
-      weight: "70",
-      weightUnit: "kg",
-      height: "175",
-      heightUnit: "cm",
-    },
-    calculate: (vals) => {
-      const input: BMIInput = {
-        weight: parseFloat(vals.weight) || 0,
-        weightUnit: vals.weightUnit,
-        height: parseFloat(vals.height) || 0,
-        heightUnit: vals.heightUnit,
-      };
-      return { value: calculateBMI(input) };
-    },
-  });
+  const { values, setValue, result } = useStore();
 
-  const bmiResult = result?.value;
-  const categoryInfo = bmiResult ? getBMICategoryInfo(bmiResult.category) : null;
+  const categoryInfo = result ? getBMICategoryInfo(result.category) : null;
 
   return (
     <div className="space-y-6">
@@ -87,14 +89,14 @@ export function BMICalculator() {
         />
       </div>
 
-      {bmiResult && (
+      {result && (
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <OutputDisplay label={tResults("yourBmi")} value={bmiResult.bmi} size="lg" className="flex-1" />
+            <OutputDisplay label={tResults("yourBmi")} value={result.bmi} size="lg" className="flex-1" />
             <div className="flex-1">
               <p className="text-sm font-medium text-muted-foreground mb-2">{tResults("category")}</p>
               <div className={cn("rounded-md border bg-muted/50 px-3 py-4", categoryInfo?.color)}>
-                <span className="text-2xl font-bold">{bmiResult.categoryLabel}</span>
+                <span className="text-2xl font-bold">{result.categoryLabel}</span>
               </div>
             </div>
           </div>
@@ -103,15 +105,15 @@ export function BMICalculator() {
             results={[
               {
                 label: tResults("healthyWeightRange"),
-                value: `${bmiResult.healthyWeightRange.min} - ${bmiResult.healthyWeightRange.max}`,
+                value: `${result.healthyWeightRange.min} - ${result.healthyWeightRange.max}`,
                 unit: "kg",
               },
-              ...(bmiResult.weightToHealthy !== null
+              ...(result.weightToHealthy !== null
                 ? [
                     {
                       label:
-                        bmiResult.category === "underweight" ? tResults("weightToGain") : tResults("weightToLose"),
-                      value: Math.abs(bmiResult.weightToHealthy),
+                        result.category === "underweight" ? tResults("weightToGain") : tResults("weightToLose"),
+                      value: Math.abs(result.weightToHealthy),
                       unit: "kg",
                     },
                   ]
@@ -135,7 +137,7 @@ export function BMICalculator() {
               <div
                 className="absolute top-0 bottom-0 w-1 bg-black dark:bg-white"
                 style={{
-                  left: `${Math.min(Math.max(((bmiResult.bmi - 15) / 30) * 100, 0), 100)}%`,
+                  left: `${Math.min(Math.max(((result.bmi - 15) / 30) * 100, 0), 100)}%`,
                 }}
               />
             </div>

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PrimeFactorizationInput,
   type PrimeFactorizationResult,
@@ -14,22 +14,25 @@ interface FormValues {
   number: string;
 }
 
+const usePrimeFactorizationStore = createCalculatorStore<FormValues, PrimeFactorizationResult | null>({
+  name: "prime-factorization-calculator",
+  initialValues: {
+    number: "84",
+  },
+  calculate: (vals) => {
+    const input: PrimeFactorizationInput = {
+      number: parseInt(vals.number) || 0,
+    };
+    return calculatePrimeFactorization(input);
+  },
+});
+
 export function PrimeFactorizationCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, PrimeFactorizationResult | null>({
-    initialValues: {
-      number: "84",
-    },
-    calculate: (vals) => {
-      const input: PrimeFactorizationInput = {
-        number: parseInt(vals.number) || 0,
-      };
-      return { value: calculatePrimeFactorization(input) };
-    },
-  });
+  const { values, setValue, result } = usePrimeFactorizationStore();
 
-  const primeResult = result?.value;
+  const primeResult = result;
 
   return (
     <div className="space-y-6">

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type QuadraticInput,
   type QuadraticResult,
@@ -15,26 +15,29 @@ interface FormValues {
   c: string;
 }
 
+const useQuadraticStore = createCalculatorStore<FormValues, QuadraticResult | null>({
+  name: "quadratic-calculator",
+  initialValues: {
+    a: "1",
+    b: "-5",
+    c: "6",
+  },
+  calculate: (vals) => {
+    const input: QuadraticInput = {
+      a: parseFloat(vals.a) || 0,
+      b: parseFloat(vals.b) || 0,
+      c: parseFloat(vals.c) || 0,
+    };
+    return calculateQuadratic(input);
+  },
+});
+
 export function QuadraticCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, QuadraticResult | null>({
-    initialValues: {
-      a: "1",
-      b: "-5",
-      c: "6",
-    },
-    calculate: (vals) => {
-      const input: QuadraticInput = {
-        a: parseFloat(vals.a) || 0,
-        b: parseFloat(vals.b) || 0,
-        c: parseFloat(vals.c) || 0,
-      };
-      return { value: calculateQuadratic(input) };
-    },
-  });
+  const { values, setValue, result } = useQuadraticStore();
 
-  const quadResult = result?.value;
+  const quadResult = result;
 
   return (
     <div className="space-y-6">

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ArmyBodyFatInput,
   type ArmyBodyFatResult,
@@ -26,33 +26,34 @@ interface FormValues {
   hip: string;
 }
 
+const useStore = createCalculatorStore<FormValues, ArmyBodyFatResult | null>({
+  name: "army-body-fat-calculator",
+  initialValues: {
+    gender: "male",
+    age: "25",
+    height: "175",
+    neck: "38",
+    waist: "85",
+    hip: "95",
+  },
+  calculate: (vals) => {
+    const input: ArmyBodyFatInput = {
+      gender: vals.gender,
+      age: parseInt(vals.age) || 0,
+      height: parseFloat(vals.height) || 0,
+      neck: parseFloat(vals.neck) || 0,
+      waist: parseFloat(vals.waist) || 0,
+      hip: vals.gender === "female" ? parseFloat(vals.hip) || undefined : undefined,
+    };
+    return calculateArmyBodyFat(input);
+  },
+});
+
 export function ArmyBodyFatCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, ArmyBodyFatResult | null>({
-    initialValues: {
-      gender: "male",
-      age: "25",
-      height: "175",
-      neck: "38",
-      waist: "85",
-      hip: "95",
-    },
-    calculate: (vals) => {
-      const input: ArmyBodyFatInput = {
-        gender: vals.gender,
-        age: parseInt(vals.age) || 0,
-        height: parseFloat(vals.height) || 0,
-        neck: parseFloat(vals.neck) || 0,
-        waist: parseFloat(vals.waist) || 0,
-        hip: vals.gender === "female" ? parseFloat(vals.hip) || undefined : undefined,
-      };
-      return { value: calculateArmyBodyFat(input) };
-    },
-  });
-
-  const armyResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   const getStatusColor = (category: "pass" | "tape" | "fail") => {
     switch (category) {
@@ -142,23 +143,23 @@ export function ArmyBodyFatCalculator() {
         )}
       </div>
 
-      {armyResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("bodyFatPercent")}
-            value={armyResult.bodyFatPercent.toFixed(1)}
+            value={result.bodyFatPercent.toFixed(1)}
             unit="%"
             size="lg"
           />
 
-          <div className={`p-4 rounded-lg text-center ${getStatusColor(armyResult.armyCategory)}`}>
+          <div className={`p-4 rounded-lg text-center ${getStatusColor(result.armyCategory)}`}>
             <p className="text-lg font-bold">
-              {armyResult.armyCategory === "pass" && tResults("passesStandard")}
-              {armyResult.armyCategory === "tape" && tResults("borderlinePass")}
-              {armyResult.armyCategory === "fail" && tResults("failsStandard")}
+              {result.armyCategory === "pass" && tResults("passesStandard")}
+              {result.armyCategory === "tape" && tResults("borderlinePass")}
+              {result.armyCategory === "fail" && tResults("failsStandard")}
             </p>
             <p className="text-sm">
-              {tResults("maxAllowed")}: {armyResult.maxAllowedPercent}%
+              {tResults("maxAllowed")}: {result.maxAllowedPercent}%
             </p>
           </div>
 
@@ -166,11 +167,11 @@ export function ArmyBodyFatCalculator() {
             results={[
               {
                 label: tResults("bodyFatCategory"),
-                value: armyResult.category,
+                value: result.category,
               },
               {
                 label: tResults("circumferenceValue"),
-                value: armyResult.circumferenceValue.toFixed(1),
+                value: result.circumferenceValue.toFixed(1),
                 unit: "cm",
               },
             ]}

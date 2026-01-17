@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { InputField, ResultGrid } from "@/components/converter";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type LongDivisionInput,
   type LongDivisionResult,
@@ -16,29 +16,29 @@ interface FormValues {
   decimalPlaces: string;
 }
 
+const useLongDivisionStore = createCalculatorStore<FormValues, LongDivisionResult | null>({
+  name: "long-division-calculator",
+  initialValues: {
+    dividend: "12345",
+    divisor: "7",
+    decimalPlaces: "10",
+  },
+  calculate: (vals) => {
+    const input: LongDivisionInput = {
+      dividend: parseInt(vals.dividend) || 0,
+      divisor: parseInt(vals.divisor) || 1,
+      decimalPlaces: parseInt(vals.decimalPlaces) || 10,
+    };
+    return calculateLongDivision(input);
+  },
+});
+
 export function LongDivisionCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<
-    FormValues,
-    LongDivisionResult | null
-  >({
-    initialValues: {
-      dividend: "12345",
-      divisor: "7",
-      decimalPlaces: "10",
-    },
-    calculate: (vals) => {
-      const input: LongDivisionInput = {
-        dividend: parseInt(vals.dividend) || 0,
-        divisor: parseInt(vals.divisor) || 1,
-        decimalPlaces: parseInt(vals.decimalPlaces) || 10,
-      };
-      return { value: calculateLongDivision(input) };
-    },
-  });
+  const { values, setValue, result } = useLongDivisionStore();
 
   return (
     <div className="space-y-6">
@@ -77,7 +77,7 @@ export function LongDivisionCalculator() {
         </CardContent>
       </Card>
 
-      {result?.value && (
+      {result && (
         <>
           <Card>
             <CardHeader>
@@ -88,32 +88,32 @@ export function LongDivisionCalculator() {
                 results={[
                   {
                     label: tResults("quotient") || "Quotient",
-                    value: result.value.quotient.toString(),
+                    value: result.quotient.toString(),
                   },
                   {
                     label: tResults("remainder") || "Remainder",
-                    value: result.value.remainder.toString(),
+                    value: result.remainder.toString(),
                   },
                   {
                     label: tResults("decimal") || "Decimal",
-                    value: result.value.decimal.toFixed(
+                    value: result.decimal.toFixed(
                       parseInt(values.decimalPlaces) || 10
                     ),
                   },
                   {
                     label: tResults("fraction") || "Fraction",
-                    value: result.value.fraction,
+                    value: result.fraction,
                   },
                   {
                     label: tResults("mixedNumber") || "Mixed Number",
-                    value: result.value.mixedNumber,
+                    value: result.mixedNumber,
                   },
                 ]}
               />
             </CardContent>
           </Card>
 
-          {result.value.repeatingDecimal && (
+          {result.repeatingDecimal && (
             <Card>
               <CardHeader>
                 <CardTitle>
@@ -122,7 +122,7 @@ export function LongDivisionCalculator() {
               </CardHeader>
               <CardContent>
                 <p className="text-xl font-mono">
-                  0.{result.value.repeatingDecimal}
+                  0.{result.repeatingDecimal}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
                   Parentheses indicate repeating digits
@@ -138,16 +138,16 @@ export function LongDivisionCalculator() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="font-mono">{result.value.verification}</p>
+              <p className="font-mono">{result.verification}</p>
               <p className="text-sm text-muted-foreground mt-2">
-                {result.value.isExact
+                {result.isExact
                   ? "Division is exact (no remainder)"
                   : "Division has a remainder"}
               </p>
             </CardContent>
           </Card>
 
-          {result.value.steps.length > 0 && (
+          {result.steps.length > 0 && (
             <Card>
               <CardHeader>
                 <CardTitle>
@@ -156,7 +156,7 @@ export function LongDivisionCalculator() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {result.value.steps.map((step, i) => (
+                  {result.steps.map((step, i) => (
                     <div
                       key={i}
                       className="border-l-2 border-primary pl-4 py-2"

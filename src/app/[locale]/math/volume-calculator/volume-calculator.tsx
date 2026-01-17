@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type VolumeInput,
   type VolumeResult,
@@ -28,36 +28,39 @@ interface FormValues {
   baseArea: string;
 }
 
+const useVolumeStore = createCalculatorStore<FormValues, VolumeResult | null>({
+  name: "volume-calculator",
+  initialValues: {
+    shape: "cube",
+    length: "5",
+    width: "4",
+    height: "3",
+    radius: "5",
+    majorRadius: "10",
+    minorRadius: "3",
+    baseArea: "25",
+  },
+  calculate: (vals) => {
+    const input: VolumeInput = {
+      shape: vals.shape,
+      length: parseFloat(vals.length) || undefined,
+      width: parseFloat(vals.width) || undefined,
+      height: parseFloat(vals.height) || undefined,
+      radius: parseFloat(vals.radius) || undefined,
+      majorRadius: parseFloat(vals.majorRadius) || undefined,
+      minorRadius: parseFloat(vals.minorRadius) || undefined,
+      baseArea: parseFloat(vals.baseArea) || undefined,
+    };
+    return calculateVolume(input);
+  },
+});
+
 export function VolumeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, VolumeResult | null>({
-    initialValues: {
-      shape: "cube",
-      length: "5",
-      width: "4",
-      height: "3",
-      radius: "5",
-      majorRadius: "10",
-      minorRadius: "3",
-      baseArea: "25",
-    },
-    calculate: (vals) => {
-      const input: VolumeInput = {
-        shape: vals.shape,
-        length: parseFloat(vals.length) || undefined,
-        width: parseFloat(vals.width) || undefined,
-        height: parseFloat(vals.height) || undefined,
-        radius: parseFloat(vals.radius) || undefined,
-        majorRadius: parseFloat(vals.majorRadius) || undefined,
-        minorRadius: parseFloat(vals.minorRadius) || undefined,
-        baseArea: parseFloat(vals.baseArea) || undefined,
-      };
-      return { value: calculateVolume(input) };
-    },
-  });
+  const { values, setValue, result } = useVolumeStore();
 
-  const volumeResult = result?.value;
+  const volumeResult = result;
 
   const renderInputs = () => {
     switch (values.shape) {

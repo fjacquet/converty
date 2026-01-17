@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ScientificNotationInput,
   type ScientificNotationResult,
@@ -26,28 +26,31 @@ interface FormValues {
   exponent: string;
 }
 
+const useScientificNotationStore = createCalculatorStore<FormValues, ScientificNotationResult | null>({
+  name: "scientific-notation-calculator",
+  initialValues: {
+    mode: "toScientific",
+    number: "123456789",
+    mantissa: "1.23",
+    exponent: "8",
+  },
+  calculate: (vals) => {
+    const input: ScientificNotationInput = {
+      mode: vals.mode,
+      number: parseFloat(vals.number) || 0,
+      mantissa: parseFloat(vals.mantissa) || 0,
+      exponent: parseInt(vals.exponent) || 0,
+    };
+    return calculateScientificNotation(input);
+  },
+});
+
 export function ScientificNotationCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, ScientificNotationResult | null>({
-    initialValues: {
-      mode: "toScientific",
-      number: "123456789",
-      mantissa: "1.23",
-      exponent: "8",
-    },
-    calculate: (vals) => {
-      const input: ScientificNotationInput = {
-        mode: vals.mode,
-        number: parseFloat(vals.number) || 0,
-        mantissa: parseFloat(vals.mantissa) || 0,
-        exponent: parseInt(vals.exponent) || 0,
-      };
-      return { value: calculateScientificNotation(input) };
-    },
-  });
+  const { values, setValue, result } = useScientificNotationStore();
 
-  const notationResult = result?.value;
+  const notationResult = result;
 
   return (
     <div className="space-y-6">

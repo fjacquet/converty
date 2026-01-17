@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Label } from "@/components/ui/label";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type PeriodInput,
   type PeriodResult,
@@ -16,29 +16,30 @@ interface FormValues {
   periodLength: string;
 }
 
+const today = new Date().toISOString().split("T")[0];
+
+const useStore = createCalculatorStore<FormValues, PeriodResult | null>({
+  name: "period-calculator",
+  initialValues: {
+    lastPeriodDate: today,
+    cycleLength: "28",
+    periodLength: "5",
+  },
+  calculate: (vals) => {
+    const input: PeriodInput = {
+      lastPeriodDate: vals.lastPeriodDate,
+      cycleLength: parseInt(vals.cycleLength) || 28,
+      periodLength: parseInt(vals.periodLength) || 5,
+    };
+    return calculatePeriod(input);
+  },
+});
+
 export function PeriodCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const today = new Date().toISOString().split("T")[0];
-
-  const { values, setValue, result } = useConverter<FormValues, PeriodResult | null>({
-    initialValues: {
-      lastPeriodDate: today,
-      cycleLength: "28",
-      periodLength: "5",
-    },
-    calculate: (vals) => {
-      const input: PeriodInput = {
-        lastPeriodDate: vals.lastPeriodDate,
-        cycleLength: parseInt(vals.cycleLength) || 28,
-        periodLength: parseInt(vals.periodLength) || 5,
-      };
-      return { value: calculatePeriod(input) };
-    },
-  });
-
-  const periodResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   const getPhaseColor = (phase: string) => {
     switch (phase) {
@@ -91,32 +92,32 @@ export function PeriodCalculatorComponent() {
         />
       </div>
 
-      {periodResult && (
+      {result && (
         <div className="space-y-4">
-          <div className={`p-4 rounded-lg text-center ${getPhaseColor(periodResult.currentPhase)}`}>
+          <div className={`p-4 rounded-lg text-center ${getPhaseColor(result.currentPhase)}`}>
             <p className="text-sm text-muted-foreground">{tResults("currentPhase")}</p>
-            <p className="text-2xl font-bold capitalize">{periodResult.currentPhase}</p>
-            <p className="text-sm">{tResults("day")} {periodResult.phaseDay}</p>
+            <p className="text-2xl font-bold capitalize">{result.currentPhase}</p>
+            <p className="text-sm">{tResults("day")} {result.phaseDay}</p>
           </div>
 
           <ResultGrid
             results={[
               {
                 label: tResults("nextPeriod"),
-                value: periodResult.nextPeriodDate,
+                value: result.nextPeriodDate,
               },
               {
                 label: tResults("daysUntilPeriod"),
-                value: periodResult.daysUntilNextPeriod,
+                value: result.daysUntilNextPeriod,
                 unit: t("days"),
               },
               {
                 label: tResults("ovulationDate"),
-                value: periodResult.ovulationDate,
+                value: result.ovulationDate,
               },
               {
                 label: tResults("pmsStart"),
-                value: periodResult.pmsStartDate,
+                value: result.pmsStartDate,
               },
             ]}
           />
@@ -124,13 +125,13 @@ export function PeriodCalculatorComponent() {
           <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg">
             <h3 className="text-lg font-semibold text-green-700 dark:text-green-300 mb-2">{tResults("fertileWindow")}</h3>
             <p className="text-green-600 dark:text-green-400">
-              {periodResult.fertileWindowStart} - {periodResult.fertileWindowEnd}
+              {result.fertileWindowStart} - {result.fertileWindowEnd}
             </p>
           </div>
 
           <h3 className="text-lg font-semibold">{tResults("cyclePhases")}</h3>
           <div className="space-y-2">
-            {periodResult.cyclePhases.map((phase) => (
+            {result.cyclePhases.map((phase) => (
               <div key={phase.phase} className="p-3 bg-muted rounded-lg">
                 <div className="flex justify-between">
                   <span className="font-medium">{phase.phase}</span>
@@ -155,7 +156,7 @@ export function PeriodCalculatorComponent() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {periodResult.upcomingPeriods.map((period) => (
+                {result.upcomingPeriods.map((period) => (
                   <tr key={period.periodNumber}>
                     <td className="px-3 py-2 text-sm">{period.periodNumber}</td>
                     <td className="px-3 py-2 text-sm">{period.startDate}</td>

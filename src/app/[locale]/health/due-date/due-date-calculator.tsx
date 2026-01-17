@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type DueDateInput,
   type DueDateResult,
@@ -25,33 +25,34 @@ interface FormValues {
   ultrasoundDays: string;
 }
 
+const today = new Date().toISOString().split("T")[0];
+
+const useStore = createCalculatorStore<FormValues, DueDateResult | null>({
+  name: "due-date-calculator",
+  initialValues: {
+    calculationMethod: "lmp",
+    date: today,
+    cycleLength: "28",
+    ultrasoundWeeks: "8",
+    ultrasoundDays: "0",
+  },
+  calculate: (vals) => {
+    const input: DueDateInput = {
+      calculationMethod: vals.calculationMethod,
+      date: vals.date,
+      cycleLength: parseInt(vals.cycleLength) || 28,
+      ultrasoundWeeks: parseInt(vals.ultrasoundWeeks) || 0,
+      ultrasoundDays: parseInt(vals.ultrasoundDays) || 0,
+    };
+    return calculateDueDate(input);
+  },
+});
+
 export function DueDateCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const today = new Date().toISOString().split("T")[0];
-
-  const { values, setValue, result } = useConverter<FormValues, DueDateResult | null>({
-    initialValues: {
-      calculationMethod: "lmp",
-      date: today,
-      cycleLength: "28",
-      ultrasoundWeeks: "8",
-      ultrasoundDays: "0",
-    },
-    calculate: (vals) => {
-      const input: DueDateInput = {
-        calculationMethod: vals.calculationMethod,
-        date: vals.date,
-        cycleLength: parseInt(vals.cycleLength) || 28,
-        ultrasoundWeeks: parseInt(vals.ultrasoundWeeks) || 0,
-        ultrasoundDays: parseInt(vals.ultrasoundDays) || 0,
-      };
-      return { value: calculateDueDate(input) };
-    },
-  });
-
-  const dueDateResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -123,11 +124,11 @@ export function DueDateCalculator() {
         )}
       </div>
 
-      {dueDateResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("estimatedDueDate")}
-            value={dueDateResult.dueDate}
+            value={result.dueDate}
             unit=""
             size="lg"
           />
@@ -136,22 +137,22 @@ export function DueDateCalculator() {
             results={[
               {
                 label: tResults("currentWeek"),
-                value: `${dueDateResult.currentWeeks}w ${dueDateResult.currentDays}d`,
+                value: `${result.currentWeeks}w ${result.currentDays}d`,
                 unit: "",
               },
               {
                 label: tResults("trimester"),
-                value: dueDateResult.trimester.toString(),
+                value: result.trimester.toString(),
                 unit: "",
               },
               {
                 label: tResults("daysRemaining"),
-                value: dueDateResult.daysRemaining.toString(),
+                value: result.daysRemaining.toString(),
                 unit: t("days"),
               },
               {
                 label: tResults("conceptionDate"),
-                value: dueDateResult.conceptionDate,
+                value: result.conceptionDate,
                 unit: "",
               },
             ]}
@@ -160,16 +161,16 @@ export function DueDateCalculator() {
           <div className="w-full bg-muted rounded-full h-4">
             <div
               className="bg-primary h-4 rounded-full transition-all"
-              style={{ width: `${Math.min(100, (dueDateResult.totalDays / 280) * 100)}%` }}
+              style={{ width: `${Math.min(100, (result.totalDays / 280) * 100)}%` }}
             />
           </div>
           <p className="text-sm text-center text-muted-foreground">
-            {Math.round((dueDateResult.totalDays / 280) * 100)}% {tResults("complete")}
+            {Math.round((result.totalDays / 280) * 100)}% {tResults("complete")}
           </p>
 
           <h3 className="text-lg font-semibold">{tResults("milestones")}</h3>
           <div className="space-y-2">
-            {dueDateResult.milestones.map((milestone) => (
+            {result.milestones.map((milestone) => (
               <div
                 key={milestone.week}
                 className={`flex justify-between items-center p-2 rounded ${

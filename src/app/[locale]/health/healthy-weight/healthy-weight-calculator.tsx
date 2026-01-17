@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type HealthyWeightInput,
   type HealthyWeightResult,
@@ -24,29 +24,30 @@ interface FormValues {
   frameSize: "small" | "medium" | "large";
 }
 
+const useStore = createCalculatorStore<FormValues, HealthyWeightResult | null>({
+  name: "healthy-weight-calculator",
+  initialValues: {
+    height: "170",
+    age: "30",
+    gender: "male",
+    frameSize: "medium",
+  },
+  calculate: (vals) => {
+    const input: HealthyWeightInput = {
+      height: parseFloat(vals.height) || 0,
+      age: parseInt(vals.age) || 0,
+      gender: vals.gender,
+      frameSize: vals.frameSize,
+    };
+    return calculateHealthyWeight(input);
+  },
+});
+
 export function HealthyWeightCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useConverter<FormValues, HealthyWeightResult | null>({
-    initialValues: {
-      height: "170",
-      age: "30",
-      gender: "male",
-      frameSize: "medium",
-    },
-    calculate: (vals) => {
-      const input: HealthyWeightInput = {
-        height: parseFloat(vals.height) || 0,
-        age: parseInt(vals.age) || 0,
-        gender: vals.gender,
-        frameSize: vals.frameSize,
-      };
-      return { value: calculateHealthyWeight(input) };
-    },
-  });
-
-  const weightResult = result?.value;
+  const { values, setValue, result } = useStore();
 
   return (
     <div className="space-y-6">
@@ -107,11 +108,11 @@ export function HealthyWeightCalculator() {
         </div>
       </div>
 
-      {weightResult && (
+      {result && (
         <div className="space-y-4">
           <OutputDisplay
             label={tResults("idealWeight")}
-            value={weightResult.idealWeight.toFixed(1)}
+            value={result.idealWeight.toFixed(1)}
             unit="kg"
             size="lg"
           />
@@ -120,12 +121,12 @@ export function HealthyWeightCalculator() {
             results={[
               {
                 label: tResults("healthyRange"),
-                value: `${weightResult.adjustedRange.min.toFixed(1)} - ${weightResult.adjustedRange.max.toFixed(1)}`,
+                value: `${result.adjustedRange.min.toFixed(1)} - ${result.adjustedRange.max.toFixed(1)}`,
                 unit: "kg",
               },
               {
                 label: tResults("bmiBasedRange"),
-                value: `${weightResult.bmiBasedRange.min.toFixed(1)} - ${weightResult.bmiBasedRange.max.toFixed(1)}`,
+                value: `${result.bmiBasedRange.min.toFixed(1)} - ${result.bmiBasedRange.max.toFixed(1)}`,
                 unit: "kg",
               },
             ]}
@@ -134,10 +135,10 @@ export function HealthyWeightCalculator() {
           <h3 className="text-lg font-semibold">{tResults("bmiThresholds")}</h3>
           <ResultGrid
             results={[
-              { label: tResults("underweight"), value: `< ${weightResult.currentBmiThresholds.underweight.toFixed(1)}`, unit: "kg" },
-              { label: tResults("normalWeight"), value: `${weightResult.currentBmiThresholds.underweight.toFixed(1)} - ${weightResult.currentBmiThresholds.normal.toFixed(1)}`, unit: "kg" },
-              { label: tResults("overweight"), value: `${weightResult.currentBmiThresholds.normal.toFixed(1)} - ${weightResult.currentBmiThresholds.overweight.toFixed(1)}`, unit: "kg" },
-              { label: tResults("obese"), value: `> ${weightResult.currentBmiThresholds.overweight.toFixed(1)}`, unit: "kg" },
+              { label: tResults("underweight"), value: `< ${result.currentBmiThresholds.underweight.toFixed(1)}`, unit: "kg" },
+              { label: tResults("normalWeight"), value: `${result.currentBmiThresholds.underweight.toFixed(1)} - ${result.currentBmiThresholds.normal.toFixed(1)}`, unit: "kg" },
+              { label: tResults("overweight"), value: `${result.currentBmiThresholds.normal.toFixed(1)} - ${result.currentBmiThresholds.overweight.toFixed(1)}`, unit: "kg" },
+              { label: tResults("obese"), value: `> ${result.currentBmiThresholds.overweight.toFixed(1)}`, unit: "kg" },
             ]}
           />
 
@@ -152,7 +153,7 @@ export function HealthyWeightCalculator() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {weightResult.weightCategories.map((cat) => (
+                {result.weightCategories.map((cat) => (
                   <tr key={cat.category}>
                     <td className="px-3 py-2 text-sm">{cat.category}</td>
                     <td className="px-3 py-2 text-sm">{cat.bmiRange}</td>

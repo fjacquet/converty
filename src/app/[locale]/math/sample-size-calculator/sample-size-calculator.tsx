@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type SampleSizeInput,
   type SampleSizeResult,
@@ -28,32 +28,35 @@ interface FormValues {
   standardDeviation: string;
 }
 
+const useSampleSizeStore = createCalculatorStore<FormValues, SampleSizeResult | null>({
+  name: "sample-size-calculator",
+  initialValues: {
+    mode: "proportion",
+    confidenceLevel: "95",
+    marginOfError: "5",
+    populationProportion: "50",
+    populationSize: "",
+    standardDeviation: "10",
+  },
+  calculate: (vals) => {
+    const input: SampleSizeInput = {
+      mode: vals.mode,
+      confidenceLevel: parseInt(vals.confidenceLevel) || 95,
+      marginOfError: (parseFloat(vals.marginOfError) || 5) / 100,
+      populationProportion: (parseFloat(vals.populationProportion) || 50) / 100,
+      populationSize: vals.populationSize ? parseInt(vals.populationSize) : undefined,
+      standardDeviation: parseFloat(vals.standardDeviation) || undefined,
+    };
+    return calculateSampleSize(input);
+  },
+});
+
 export function SampleSizeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, SampleSizeResult | null>({
-    initialValues: {
-      mode: "proportion",
-      confidenceLevel: "95",
-      marginOfError: "5",
-      populationProportion: "50",
-      populationSize: "",
-      standardDeviation: "10",
-    },
-    calculate: (vals) => {
-      const input: SampleSizeInput = {
-        mode: vals.mode,
-        confidenceLevel: parseInt(vals.confidenceLevel) || 95,
-        marginOfError: (parseFloat(vals.marginOfError) || 5) / 100,
-        populationProportion: (parseFloat(vals.populationProportion) || 50) / 100,
-        populationSize: vals.populationSize ? parseInt(vals.populationSize) : undefined,
-        standardDeviation: parseFloat(vals.standardDeviation) || undefined,
-      };
-      return { value: calculateSampleSize(input) };
-    },
-  });
+  const { values, setValue, result } = useSampleSizeStore();
 
-  const sizeResult = result?.value;
+  const sizeResult = result;
 
   return (
     <div className="space-y-6">

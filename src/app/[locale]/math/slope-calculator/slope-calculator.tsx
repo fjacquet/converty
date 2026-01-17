@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type SlopeInput,
   type SlopeResult,
@@ -27,34 +27,37 @@ interface FormValues {
   yIntercept: string;
 }
 
+const useSlopeStore = createCalculatorStore<FormValues, SlopeResult | null>({
+  name: "slope-calculator",
+  initialValues: {
+    mode: "twoPoints",
+    x1: "1",
+    y1: "2",
+    x2: "4",
+    y2: "8",
+    slope: "2",
+    yIntercept: "3",
+  },
+  calculate: (vals) => {
+    const input: SlopeInput = {
+      mode: vals.mode,
+      x1: parseFloat(vals.x1),
+      y1: parseFloat(vals.y1),
+      x2: parseFloat(vals.x2),
+      y2: parseFloat(vals.y2),
+      slope: parseFloat(vals.slope),
+      yIntercept: parseFloat(vals.yIntercept),
+    };
+    return calculateSlope(input);
+  },
+});
+
 export function SlopeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, SlopeResult | null>({
-    initialValues: {
-      mode: "twoPoints",
-      x1: "1",
-      y1: "2",
-      x2: "4",
-      y2: "8",
-      slope: "2",
-      yIntercept: "3",
-    },
-    calculate: (vals) => {
-      const input: SlopeInput = {
-        mode: vals.mode,
-        x1: parseFloat(vals.x1),
-        y1: parseFloat(vals.y1),
-        x2: parseFloat(vals.x2),
-        y2: parseFloat(vals.y2),
-        slope: parseFloat(vals.slope),
-        yIntercept: parseFloat(vals.yIntercept),
-      };
-      return { value: calculateSlope(input) };
-    },
-  });
+  const { values, setValue, result } = useSlopeStore();
 
-  const slopeResult = result?.value;
+  const slopeResult = result;
 
   const renderInputs = () => {
     switch (values.mode) {

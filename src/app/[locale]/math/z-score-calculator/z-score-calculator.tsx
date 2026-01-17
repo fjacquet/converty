@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type ZScoreInput,
   type ZScoreResult,
@@ -27,30 +27,33 @@ interface FormValues {
   zScore: string;
 }
 
+const useZScoreStore = createCalculatorStore<FormValues, ZScoreResult | null>({
+  name: "z-score-calculator",
+  initialValues: {
+    mode: "calculate",
+    value: "85",
+    mean: "100",
+    standardDeviation: "15",
+    zScore: "-1",
+  },
+  calculate: (vals) => {
+    const input: ZScoreInput = {
+      mode: vals.mode,
+      value: parseFloat(vals.value) || 0,
+      mean: parseFloat(vals.mean) || 0,
+      standardDeviation: parseFloat(vals.standardDeviation) || 1,
+      zScore: parseFloat(vals.zScore) || 0,
+    };
+    return calculateZScore(input);
+  },
+});
+
 export function ZScoreCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, ZScoreResult | null>({
-    initialValues: {
-      mode: "calculate",
-      value: "85",
-      mean: "100",
-      standardDeviation: "15",
-      zScore: "-1",
-    },
-    calculate: (vals) => {
-      const input: ZScoreInput = {
-        mode: vals.mode,
-        value: parseFloat(vals.value) || 0,
-        mean: parseFloat(vals.mean) || 0,
-        standardDeviation: parseFloat(vals.standardDeviation) || 1,
-        zScore: parseFloat(vals.zScore) || 0,
-      };
-      return { value: calculateZScore(input) };
-    },
-  });
+  const { values, setValue, result } = useZScoreStore();
 
-  const zResult = result?.value;
+  const zResult = result;
 
   return (
     <div className="space-y-6">

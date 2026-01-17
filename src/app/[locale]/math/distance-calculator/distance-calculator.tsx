@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useConverter } from "@/hooks";
+import { createCalculatorStore } from "@/stores/calculator-store";
 import {
   type DistanceInput,
   type DistanceResult,
@@ -36,49 +36,52 @@ interface FormValues {
   lon2: string;
 }
 
+const useDistanceStore = createCalculatorStore<FormValues, DistanceResult | null>({
+  name: "distance-calculator",
+  initialValues: {
+    mode: "twoPoints2D",
+    x1: "0",
+    y1: "0",
+    x2: "3",
+    y2: "4",
+    z1: "0",
+    z2: "0",
+    lineA: "1",
+    lineB: "1",
+    lineC: "-1",
+    lat1: "48.8566",
+    lon1: "2.3522",
+    lat2: "51.5074",
+    lon2: "-0.1278",
+  },
+  calculate: (vals) => {
+    const input: DistanceInput = {
+      mode: vals.mode,
+      x1: parseFloat(vals.x1) || 0,
+      y1: parseFloat(vals.y1) || 0,
+      x2: parseFloat(vals.x2) || 0,
+      y2: parseFloat(vals.y2) || 0,
+      z1: parseFloat(vals.z1) || 0,
+      z2: parseFloat(vals.z2) || 0,
+      lineA: parseFloat(vals.lineA) || 0,
+      lineB: parseFloat(vals.lineB) || 0,
+      lineC: parseFloat(vals.lineC) || 0,
+      lat1: parseFloat(vals.lat1) || 0,
+      lon1: parseFloat(vals.lon1) || 0,
+      lat2: parseFloat(vals.lat2) || 0,
+      lon2: parseFloat(vals.lon2) || 0,
+    };
+    return calculateDistance(input);
+  },
+});
+
 export function DistanceCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConverter<FormValues, DistanceResult | null>({
-    initialValues: {
-      mode: "twoPoints2D",
-      x1: "0",
-      y1: "0",
-      x2: "3",
-      y2: "4",
-      z1: "0",
-      z2: "0",
-      lineA: "1",
-      lineB: "1",
-      lineC: "-1",
-      lat1: "48.8566",
-      lon1: "2.3522",
-      lat2: "51.5074",
-      lon2: "-0.1278",
-    },
-    calculate: (vals) => {
-      const input: DistanceInput = {
-        mode: vals.mode,
-        x1: parseFloat(vals.x1) || 0,
-        y1: parseFloat(vals.y1) || 0,
-        x2: parseFloat(vals.x2) || 0,
-        y2: parseFloat(vals.y2) || 0,
-        z1: parseFloat(vals.z1) || 0,
-        z2: parseFloat(vals.z2) || 0,
-        lineA: parseFloat(vals.lineA) || 0,
-        lineB: parseFloat(vals.lineB) || 0,
-        lineC: parseFloat(vals.lineC) || 0,
-        lat1: parseFloat(vals.lat1) || 0,
-        lon1: parseFloat(vals.lon1) || 0,
-        lat2: parseFloat(vals.lat2) || 0,
-        lon2: parseFloat(vals.lon2) || 0,
-      };
-      return { value: calculateDistance(input) };
-    },
-  });
+  const { values, setValue, result } = useDistanceStore();
 
-  const distResult = result?.value;
+  const distResult = result;
 
   return (
     <div className="space-y-6">
