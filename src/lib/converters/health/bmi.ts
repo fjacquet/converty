@@ -19,19 +19,9 @@ export type BMICategory =
 export interface BMIResult {
   bmi: number;
   category: BMICategory;
-  categoryLabel: string;
   healthyWeightRange: { min: number; max: number };
   weightToHealthy: number | null;
 }
-
-const BMI_CATEGORIES: Record<BMICategory, { label: string; color: string }> = {
-  underweight: { label: "Underweight", color: "text-blue-500" },
-  normal: { label: "Normal weight", color: "text-green-500" },
-  overweight: { label: "Overweight", color: "text-yellow-500" },
-  "obese-1": { label: "Obese Class I", color: "text-orange-500" },
-  "obese-2": { label: "Obese Class II", color: "text-red-500" },
-  "obese-3": { label: "Obese Class III", color: "text-red-700" },
-};
 
 function convertWeightToKg(weight: number, unit: WeightUnit): number {
   return unit === "lb" ? weight * 0.453592 : weight;
@@ -93,12 +83,9 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
   return {
     bmi: Math.round(bmi * 10) / 10,
     category,
-    categoryLabel: BMI_CATEGORIES[category].label,
     healthyWeightRange,
     weightToHealthy,
   };
 }
 
-export function getBMICategoryInfo(category: BMICategory) {
-  return BMI_CATEGORIES[category];
-}
+
