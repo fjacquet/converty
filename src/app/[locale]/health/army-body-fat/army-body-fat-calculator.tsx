@@ -167,7 +167,7 @@ export function ArmyBodyFatCalculator() {
             results={[
               {
                 label: tResults("bodyFatCategory"),
-                value: result.category,
+                value: tResults(result.category),
               },
               {
                 label: tResults("circumferenceValue"),
