@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import { parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
 
 export function useUrlState() {
   const router = useRouter();
@@ -32,9 +33,15 @@ export function useUrlState() {
     const result: Record<string, string | number> = {};
 
     searchParams.forEach((value, key) => {
-      // Try to parse as number, otherwise keep as string
+      // Type-safe parsing: try number first, fallback to string
       const numValue = Number(value);
-      result[key] = Number.isNaN(numValue) ? value : numValue;
+      if (!Number.isNaN(numValue)) {
+        // Valid number - use type-safe number parser
+        result[key] = parseNumberParam(value, 0);
+      } else {
+        // Not a number - use type-safe string parser
+        result[key] = parseStringParam(value, "");
+      }
     });
 
     return Object.keys(result).length > 0 ? (result as Partial<T>) : null;
