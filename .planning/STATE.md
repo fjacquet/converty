@@ -9,19 +9,19 @@ See: .planning/PROJECT.md
 
 ## Current Position
 
-Phase: 3 of 7 (State Migration) - COMPLETE
-Plan: 2 of 2 complete
-Status: Phase complete
-Last activity: 2026-01-17 — Completed 03-02-PLAN.md (Calculator Functionality Verification)
+Phase: 4 of 7 (Progressive Web App) - IN PROGRESS
+Plan: 2 of ? complete
+Status: Plan 04-02 complete
+Last activity: 2026-01-17 — Completed 04-02-PLAN.md (Service Worker & Offline Detection)
 
-Progress: ████████████ 100% (2/2 plans in current phase)
+Progress: ██░░░░░░░░░░ 20% (estimate - 2 plans complete, more to come)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 7
-- Average duration: 5.5 min
+- Total plans completed: 8
+- Average duration: 5.2 min
 
 **By Phase:**
 
@@ -30,6 +30,7 @@ Progress: ████████████ 100% (2/2 plans in current phase)
 | 01-type-safety-foundation  | 4/4   | 7.5 min  | 1.9 min  |
 | 02-url-sync-infrastructure | 1/1   | 4 min    | 4 min    |
 | 03-state-migration         | 2/2   | 26.8 min | 13.4 min |
+| 04-progressive-web-app     | 2/?   | 6 min    | 3 min    |
 
 ## Accumulated Context
 
@@ -50,6 +51,11 @@ Progress: ████████████ 100% (2/2 plans in current phase)
 | Add selectState option to middleware                         | 02-01 | Enables syncing nested state (e.g., only values from CalculatorState)      |
 | Verify functional approach before deleting legacy hooks      | 03-01 | Ensure STATE-05 requirements met (pure functions, immutability)            |
 | Manual immutable patterns used instead of Immer middleware   | 03-01 | Spread operators provide equivalent immutability with less overhead        |
+| Use Workbox CDN via importScripts instead of bundling        | 04-02 | Standard Workbox v7 pattern, avoids bundling issues, easier updates        |
+| NetworkFirst strategy for HTML/documents                     | 04-02 | Fresh content when online, 7-day cache fallback for offline                |
+| CacheFirst strategy for static assets                        | 04-02 | Next.js content-hashed assets are immutable, aggressive caching optimal    |
+| StaleWhileRevalidate for fonts                               | 04-02 | Instant rendering with background updates, balanced freshness              |
+| Manual service worker instead of generated (for now)         | 04-02 | Runtime caching only, build integration with precaching deferred to Plan 03|
 
 ### Pending Todos
 
@@ -115,6 +121,6 @@ All objectives achieved:
 
 ## Session Continuity
 
-Last session: 2026-01-17T17:05:00Z
-Stopped at: Phase 3 complete, ready for Phase 4
+Last session: 2026-01-17T17:26:05Z
+Stopped at: Completed 04-02-PLAN.md (Service Worker & Offline Detection)
 Resume file: None
