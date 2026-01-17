@@ -177,7 +177,7 @@ Plans:
 | 3 - State Migration         | Complete    | 2026-01-17 |
 | 4 - Progressive Web App     | Complete    | 2026-01-17 |
 | 5 - Documentation           | Complete    | 2026-01-17 |
-| 6 - Dependency Upgrade      | In Progress | —          |
+| 6 - Dependency Upgrade      | Complete    | 2026-01-17 |
 | 7 - Code Quality Validation | Not started | —          |
 
 ---
