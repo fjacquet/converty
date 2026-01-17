@@ -114,9 +114,9 @@
       "metaDescription": "Calcola il tuo Indice Ponderale per una valutazione piu accurata della composizione corporea"
     },
     "age": {
-      "name": "Calcolatore di Eta",
-      "description": "Calcola l'eta esatta dalla data di nascita in anni, mesi e giorni",
-      "metaDescription": "Calcola la tua eta esatta in anni, mesi, giorni, ore e minuti"
+      "name": "Calcolatore di Età",
+      "description": "Calcola l'età esatta dalla data di nascita in anni, mesi e giorni",
+      "metaDescription": "Calcola la tua età esatta in anni, mesi, giorni, ore e minuti"
     },
     "date": {
       "name": "Calcolatore di Data",
@@ -925,7 +925,7 @@
       "gender": "Sesso",
       "male": "Maschio",
       "female": "Femmina",
-      "age": "Eta",
+      "age": "Età",
       "weight": "Peso (kg)",
       "height": "Altezza (cm)",
       "weightSimple": "Peso",
@@ -1172,7 +1172,8 @@
         "virgo": "Vergine",
         "libra": "Bilancia",
         "scorpio": "Scorpione",
-        "sagittarius": "Sagittario"
+        "sagittarius": "Sagittario",
+        "unknown": "Sconosciuto"
       },
       "chinese": {
         "rat": "Topo",
@@ -1186,7 +1187,8 @@
         "monkey": "Scimmia",
         "rooster": "Gallo",
         "dog": "Cane",
-        "pig": "Maiale"
+        "pig": "Maiale",
+        "unknown": "Sconosciuto"
       }
     },
     "results": {

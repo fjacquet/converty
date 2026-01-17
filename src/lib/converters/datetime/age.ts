@@ -67,7 +67,7 @@ function getZodiacSign(month: number, day: number): string {
       }
     }
   }
-  return "Unknown";
+  return "unknown";
 }
 
 function getChineseZodiac(year: number): string {

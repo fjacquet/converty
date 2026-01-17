@@ -114,9 +114,9 @@
       "metaDescription": "Calculez votre indice ponderal pour une evaluation plus precise de la composition corporelle"
     },
     "age": {
-      "name": "Calculateur d'Age",
-      "description": "Calculez l'age exact a partir de la date de naissance en annees, mois et jours",
-      "metaDescription": "Calculez votre age exact en annees, mois, jours, heures et minutes"
+      "name": "Calculateur d'Âge",
+      "description": "Calculez l'âge exact à partir de la date de naissance en années, mois et jours",
+      "metaDescription": "Calculez votre âge exact en années, mois, jours, heures et minutes"
     },
     "date": {
       "name": "Calculateur de Date",
@@ -879,7 +879,7 @@
       "chineseZodiac": "Zodiaque Chinois",
       "nextBirthday": "Prochain Anniversaire",
       "daysUntilBirthday": "Jours Jusqu'à l'Anniversaire",
-      "years": "Annees",
+      "years": "Années",
       "months": "Mois",
       "weeks": "Semaines",
       "days": "Jours",
@@ -1145,10 +1145,10 @@
       "down-payment-annual-return": "Rendement attendu sur l'epargne/investissements"
     },
     "sections": {
-      "input": "Entree",
-      "results": "Resultats",
-      "details": "Details",
-      "breakdown": "Repartition",
+      "input": "Entrée",
+      "results": "Résultats",
+      "details": "Détails",
+      "breakdown": "Répartition",
       "loanDetails": "Details du Pret",
       "paymentSchedule": "Echeancier des Paiements",
       "amortization": "Tableau d'Amortissement",
@@ -1156,7 +1156,7 @@
       "taxInfo": "Informations Fiscales",
       "deductions": "Deductions",
       "takeHomePay": "Salaire Net",
-      "summary": "Resume",
+      "summary": "Résumé",
       "output": "Sortie"
     },
     "zodiac": {
@@ -1172,7 +1172,8 @@
         "virgo": "Vierge",
         "libra": "Balance",
         "scorpio": "Scorpion",
-        "sagittarius": "Sagittaire"
+        "sagittarius": "Sagittaire",
+        "unknown": "Inconnu"
       },
       "chinese": {
         "rat": "Rat",
@@ -1186,7 +1187,8 @@
         "monkey": "Singe",
         "rooster": "Coq",
         "dog": "Chien",
-        "pig": "Cochon"
+        "pig": "Cochon",
+        "unknown": "Inconnu"
       }
     },
     "results": {
