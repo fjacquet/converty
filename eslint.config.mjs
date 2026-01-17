@@ -57,6 +57,13 @@ export default [
     },
   },
   {
+    // Allow require() in Node.js scripts
+    files: ["scripts/**/*.js"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
+  {
     ignores: [
       ".next/**",
       "node_modules/**",

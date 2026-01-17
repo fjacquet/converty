@@ -11,8 +11,8 @@
  *   node scripts/generate-routes.js --output=out # Custom output directory
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 // Configuration
 const LOCALES = ["en", "fr", "de", "it"];

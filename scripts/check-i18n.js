@@ -12,8 +12,8 @@
  *   node scripts/check-i18n.js --verbose # Show detailed output
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 // Configuration
 const LOCALES = ["en", "fr", "de", "it"];
@@ -68,49 +68,66 @@ function getFiles(dir, extensions = [".tsx", ".ts"]) {
 /**
  * Extract translation keys from source code
  */
-function extractKeysFromSource(content, filePath) {
+function extractKeysFromSource(content, _filePath) {
   const keys = new Set();
 
   // First, find all namespace declarations
   // e.g., const t = useTranslations("calculator");
   const namespacePattern = /const\s+(\w+)\s*=\s*useTranslations\s*\(\s*["']([^"']+)["']\s*\)/g;
   const namespaces = new Map(); // variable name -> namespace
-  
-  let match;
-  while ((match = namespacePattern.exec(content)) !== null) {
+
+  let match = namespacePattern.exec(content);
+  while (match !== null) {
     const varName = match[1];
     const namespace = match[2];
     namespaces.set(varName, namespace);
+    match = namespacePattern.exec(content);
   }
 
   // Also check for getTranslations calls
-  const getTranslationsPattern = /(?:const\s+(\w+)\s*=\s*)?(?:await\s+)?getTranslations\s*\(\s*(?:\{\s*locale,?\s*namespace:\s*)?["']([^"']+)["']\s*\)?/g;
-  while ((match = getTranslationsPattern.exec(content)) !== null) {
-    const varName = match[1] || 't';
+  const getTranslationsPattern =
+    /(?:const\s+(\w+)\s*=\s*)?(?:await\s+)?getTranslations\s*\(\s*(?:\{\s*locale,?\s*namespace:\s*)?["']([^"']+)["']\s*\)?/g;
+  match = getTranslationsPattern.exec(content);
+  while (match !== null) {
+    const varName = match[1] || "t";
     const namespace = match[2];
     namespaces.set(varName, namespace);
+    match = getTranslationsPattern.exec(content);
   }
 
   // Now extract translation key usage
   // Match: t("key"), tLabels("key"), etc.
   const keyPattern = /\b(\w+)\s*\(\s*["']([^"']+)["']\s*(?:,\s*\{[^}]*\})?\s*\)/g;
-  
-  while ((match = keyPattern.exec(content)) !== null) {
+
+  match = keyPattern.exec(content);
+  while (match !== null) {
     const varName = match[1];
     const key = match[2];
 
     // Filter out obvious false positives
     // Skip numeric values, URLs, coordinates, etc.
-    if (/^-?\d+\.?\d*$/.test(key)) continue; // Numbers like "5.6", "-74.0060"
-    if (/^https?:\/\//.test(key)) continue; // URLs
-    if (/^v=spf1/.test(key)) continue; // SPF records
-    if (key.length > 100) continue; // Very long strings are unlikely to be translation keys
+    if (/^-?\d+\.?\d*$/.test(key)) {
+      match = keyPattern.exec(content);
+      continue; // Numbers like "5.6", "-74.0060"
+    }
+    if (/^https?:\/\//.test(key)) {
+      match = keyPattern.exec(content);
+      continue; // URLs
+    }
+    if (/^v=spf1/.test(key)) {
+      match = keyPattern.exec(content);
+      continue; // SPF records
+    }
+    if (key.length > 100) {
+      match = keyPattern.exec(content);
+      continue; // Very long strings are unlikely to be translation keys
+    }
 
     // Check if this variable is a known translation function
     if (namespaces.has(varName)) {
       const namespace = namespaces.get(varName);
       // Only combine if the key has a dot (is a sub-key)
-      if (key.includes('.')) {
+      if (key.includes(".")) {
         keys.add(`${namespace}.${key}`);
       }
       // For namespace-only calls like useTranslations("calculator")
@@ -118,10 +135,12 @@ function extractKeysFromSource(content, filePath) {
     } else {
       // Unknown function, might still be a translation call
       // Add it as-is if it looks like a translation key
-      if (key.includes('.')) {
+      if (key.includes(".")) {
         keys.add(key);
       }
     }
+
+    match = keyPattern.exec(content);
   }
 
   return keys;
@@ -149,7 +168,7 @@ function flattenObject(obj, prefix = "") {
 /**
  * Get all keys from a nested object at a specific namespace
  */
-function getKeysAtNamespace(obj, namespace) {
+function _getKeysAtNamespace(obj, namespace) {
   const parts = namespace.split(".");
   let current = obj;
 
@@ -182,9 +201,7 @@ function loadTranslations() {
         const content = fs.readFileSync(filePath, "utf-8");
         translations[locale] = JSON.parse(content);
       } catch (error) {
-        console.error(
-          `${colors.red}Error loading ${filePath}: ${error.message}${colors.reset}`
-        );
+        console.error(`${colors.red}Error loading ${filePath}: ${error.message}${colors.reset}`);
         translations[locale] = {};
       }
     } else {
@@ -361,7 +378,7 @@ function main() {
   }
 
   // Summary
-  console.log("\n" + "=".repeat(40));
+  console.log(`\n${"=".repeat(40)}`);
 
   if (hasErrors) {
     console.log(`${colors.red}Translation check failed!${colors.reset}`);

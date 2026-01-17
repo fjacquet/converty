@@ -11,8 +11,8 @@
  *   node scripts/generate-sitemap.js --base-url=https://example.com
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 // Configuration
 const LOCALES = ["en", "fr", "de", "it"];
@@ -23,9 +23,7 @@ const OUTPUT_PATH = path.join(process.cwd(), "public/sitemap.xml");
 // Parse command line arguments
 const args = process.argv.slice(2);
 const baseUrlArg = args.find((arg) => arg.startsWith("--base-url="));
-const BASE_URL = baseUrlArg
-  ? baseUrlArg.split("=")[1]
-  : "https://converty.app";
+const BASE_URL = baseUrlArg ? baseUrlArg.split("=")[1] : "https://converty.app";
 
 // Colors for terminal output
 const colors = {
@@ -106,7 +104,9 @@ function generateSitemap() {
   const today = new Date().toISOString().split("T")[0];
 
   console.log(`Found ${pagePaths.length} routes`);
-  console.log(`Generating ${pagePaths.length * LOCALES.length} URLs for ${LOCALES.length} locales\n`);
+  console.log(
+    `Generating ${pagePaths.length * LOCALES.length} URLs for ${LOCALES.length} locales\n`
+  );
 
   // Build XML
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
