@@ -180,7 +180,7 @@ export function DueDateCalculator() {
                 }`}
               >
                 <span className="font-medium">Week {milestone.week}</span>
-                <span>{milestone.name}</span>
+                <span>{tResults(milestone.name)}</span>
                 <span className="text-sm text-muted-foreground">{milestone.date}</span>
               </div>
             ))}
