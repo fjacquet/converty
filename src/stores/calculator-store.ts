@@ -1,6 +1,7 @@
 "use client";
 
 import { create, type StateCreator } from "zustand";
+import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
 import { parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
 
 /**
@@ -43,34 +44,7 @@ export interface CreateCalculatorStoreOptions<T extends object, R> {
   debounceMs?: number;
 }
 
-// URL sync helpers
-// TODO: Move to per-store timer (Phase 2 - STATE-04)
-let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
-
-function updateUrlParams(params: Record<string, string | number>, debounceMs: number) {
-  if (typeof window === "undefined") return;
-
-  if (debounceTimeout) {
-    clearTimeout(debounceTimeout);
-  }
-
-  debounceTimeout = setTimeout(() => {
-    const url = new URL(window.location.href);
-    const searchParams = new URLSearchParams();
-
-    for (const [key, value] of Object.entries(params)) {
-      if (value !== undefined && value !== null && value !== "") {
-        searchParams.set(key, String(value));
-      }
-    }
-
-    const newSearch = searchParams.toString();
-    const newUrl = newSearch ? `${url.pathname}?${newSearch}` : url.pathname;
-
-    window.history.replaceState({}, "", newUrl);
-  }, debounceMs);
-}
-
+// URL sync helpers (moved to middleware)
 function getUrlParams(): Record<string, string> {
   if (typeof window === "undefined") return {};
 
@@ -137,17 +111,6 @@ export function createCalculatorStore<T extends object, R>({
       }
     }
 
-    const syncToUrl = (values: T) => {
-      if (!syncUrl) return;
-      const urlParams: Record<string, string | number> = {};
-      for (const [key, value] of Object.entries(values as Record<string, unknown>)) {
-        if (value !== undefined && value !== null && value !== "") {
-          urlParams[key] = value as string | number;
-        }
-      }
-      updateUrlParams(urlParams, debounceMs);
-    };
-
     return {
       values: mergedInitialValues,
       result: null,
@@ -164,7 +127,6 @@ export function createCalculatorStore<T extends object, R>({
         const result = Object.keys(errors).length === 0 ? calculate(newValues) : null;
 
         set({ values: newValues, errors, result });
-        syncToUrl(newValues);
       },
 
       setValues: (values: T) => {
@@ -175,7 +137,6 @@ export function createCalculatorStore<T extends object, R>({
         const result = Object.keys(errors).length === 0 ? calculate(values) : null;
 
         set({ values, errors, result });
-        syncToUrl(values);
       },
 
       reset: () => {
@@ -184,10 +145,20 @@ export function createCalculatorStore<T extends object, R>({
           errors: {},
           result: null,
         });
-        syncToUrl(initialValues);
       },
     };
   };
+
+  // Apply URL sync middleware conditionally
+  if (syncUrl) {
+    return create<CalculatorState<T, R>>()(
+      createUrlSyncMiddleware<CalculatorState<T, R>>({
+        enabled: true,
+        debounceMs,
+        selectState: (state) => state.values, // Only sync the 'values' object, not result/errors
+      })(storeCreator)
+    );
+  }
 
   return create<CalculatorState<T, R>>()(storeCreator);
 }

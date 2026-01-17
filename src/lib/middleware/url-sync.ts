@@ -3,7 +3,7 @@ import type { StateCreator } from "zustand";
 /**
  * Configuration options for URL sync middleware
  */
-export interface UrlSyncOptions {
+export interface UrlSyncOptions<T = object> {
   /** Whether to enable URL sync (default: true) */
   enabled?: boolean;
   /** Debounce time in milliseconds (default: 150) */
@@ -12,6 +12,8 @@ export interface UrlSyncOptions {
   include?: string[];
   /** Exclude these keys from URL sync (default: none) */
   exclude?: string[];
+  /** Select which part of state to sync (default: sync entire state) */
+  selectState?: (state: T) => object;
 }
 
 /**
@@ -35,9 +37,9 @@ export interface UrlSyncOptions {
  * ```
  */
 export function createUrlSyncMiddleware<T extends object>(
-  options: UrlSyncOptions = {}
+  options: UrlSyncOptions<T> = {}
 ) {
-  const { enabled = true, debounceMs = 150, include, exclude } = options;
+  const { enabled = true, debounceMs = 150, include, exclude, selectState } = options;
 
   // CLOSURE: Timer declared in factory scope (NOT module scope)
   // Each call to createUrlSyncMiddleware creates a NEW closure with NEW timer
@@ -58,9 +60,11 @@ export function createUrlSyncMiddleware<T extends object>(
 
       // Wrap setState to add debounced URL sync
       const originalSet = api.setState;
-      api.setState = (update, replace) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      api.setState = ((...args: any[]) => {
         // Call original setState first (update store)
-        originalSet(update, replace);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (originalSet as any)(...args);
 
         // Then sync to URL (debounced)
         if (!enabled) return;
@@ -73,9 +77,10 @@ export function createUrlSyncMiddleware<T extends object>(
         // Schedule URL update after debounce delay
         debounceTimeout = setTimeout(() => {
           const state = get();
-          syncStateToUrl(state, { include, exclude });
+          const stateToSync = selectState ? selectState(state) : state;
+          syncStateToUrl(stateToSync, { include, exclude });
         }, debounceMs);
-      };
+      }) as typeof api.setState;
 
       // Call original config to create initial state
       return config(set, get, api);
