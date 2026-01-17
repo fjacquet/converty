@@ -3,6 +3,35 @@
  *
  * These helpers provide safe parsing of URL parameters with fallback values,
  * preventing NaN propagation and runtime errors.
+ *
+ * @example Basic usage with URLSearchParams
+ * ```typescript
+ * const searchParams = new URLSearchParams(window.location.search);
+ * const amount = parseNumberParam(searchParams.get("amount"), 100);
+ * const name = parseStringParam(searchParams.get("name"), "default");
+ * const enabled = parseBooleanParam(searchParams.get("enabled"), false);
+ * ```
+ *
+ * @example Edge case handling
+ * ```typescript
+ * // Number parsing
+ * parseNumberParam("123", 0);      // -> 123
+ * parseNumberParam("abc", 0);      // -> 0 (NaN fallback)
+ * parseNumberParam("", 100);       // -> 100 (empty fallback)
+ * parseNumberParam(null, 50);      // -> 50 (null fallback)
+ *
+ * // String parsing
+ * parseStringParam("hello", "default");  // -> "hello"
+ * parseStringParam("", "default");       // -> "default" (empty fallback)
+ * parseStringParam(null, "default");     // -> "default" (null fallback)
+ *
+ * // Boolean parsing
+ * parseBooleanParam("true", false);   // -> true
+ * parseBooleanParam("1", false);      // -> true
+ * parseBooleanParam("yes", false);    // -> false (only 'true' and '1' are truthy)
+ * parseBooleanParam("", true);        // -> true (empty fallback)
+ * parseBooleanParam(null, false);     // -> false (null fallback)
+ * ```
  */
 
 /**
