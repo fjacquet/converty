@@ -1,6 +1,7 @@
 "use client";
 
 import { create, type StateCreator } from "zustand";
+import { parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
 
 /**
  * Calculator store state interface
@@ -43,6 +44,7 @@ export interface CreateCalculatorStoreOptions<T extends object, R> {
 }
 
 // URL sync helpers
+// TODO: Move to per-store timer (Phase 2 - STATE-04)
 let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
 
 function updateUrlParams(params: Record<string, string | number>, debounceMs: number) {
@@ -117,11 +119,17 @@ export function createCalculatorStore<T extends object, R>({
           if (key in mergedInitialValues) {
             const originalValue = (mergedInitialValues as Record<string, unknown>)[key];
             if (typeof originalValue === "number") {
-              const numValue = Number(value);
-              if (!Number.isNaN(numValue)) {
-                (mergedInitialValues as Record<string, unknown>)[key] = numValue;
-              }
+              (mergedInitialValues as Record<string, unknown>)[key] = parseNumberParam(
+                value,
+                originalValue
+              );
+            } else if (typeof originalValue === "string") {
+              (mergedInitialValues as Record<string, unknown>)[key] = parseStringParam(
+                value,
+                originalValue
+              );
             } else {
+              // For other types, keep the URL value as-is (e.g., boolean, object)
               (mergedInitialValues as Record<string, unknown>)[key] = value;
             }
           }
