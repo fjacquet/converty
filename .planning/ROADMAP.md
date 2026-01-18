@@ -164,7 +164,12 @@ Plans:
 4. Code review confirms: no shared mutable state, calculation functions are pure, URL sync not duplicated
 5. Code review confirms: simple solutions preferred, no over-engineering, DRY principle followed
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 2 plans in 2 waves
+
+Plans:
+
+- [ ] 07-01-PLAN.md — Fix automated quality issues and code review
+- [ ] 07-02-PLAN.md — Verify all quality gates pass
 
 ---
 
