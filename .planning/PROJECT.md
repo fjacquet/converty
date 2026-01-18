@@ -75,11 +75,51 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ Tailwind CSS with theme support (light/dark mode) — existing
 - ✓ Radix UI component primitives — existing
 
+## Current Milestone: v2.0 Network Tools & User Experience
+
+**Goal:** Expand calculator suite with comprehensive network tools, add global search functionality, and achieve 100% translation coverage across all calculators.
+
+**Target features:**
+- Network calculator suite (4 new calculators with visual subnet calculator as flagship)
+- Global search functionality across 200+ calculators
+- Translation audit and compliance (eliminate hardcoded English strings)
+
 ### Active
 
-<!-- v2.0 and future requirements -->
+<!-- v2.0 Network Tools & User Experience -->
 
-No active requirements — next milestone in planning.
+**Network Calculators:**
+- [ ] Visual Subnet Calculator (IPv4/IPv6) with comprehensive visualization — v2.0
+  - [ ] Network diagram showing IP ranges and subnet structure
+  - [ ] Binary representation of IP and subnet mask
+  - [ ] Breakdown table (network address, broadcast, usable range, total hosts)
+  - [ ] CIDR notation input (/24, /64)
+  - [ ] Subnet mask input (255.255.255.0)
+  - [ ] Subnetting calculator (divide network into smaller subnets)
+  - [ ] Supernetting/aggregation (combine multiple networks)
+- [ ] IP Address Calculator — v2.0
+  - [ ] IP class detection (A, B, C, D, E)
+  - [ ] Public/private IP check
+  - [ ] IP range validation
+- [ ] CIDR Range Calculator — v2.0
+  - [ ] Calculate IP ranges from CIDR notation
+  - [ ] Check if IP address is in CIDR range
+- [ ] Network Speed/Latency Calculator — v2.0
+  - [ ] Ping time conversions
+  - [ ] Throughput calculations
+
+**Search Functionality:**
+- [ ] Global search across all calculators — v2.0
+  - [ ] Search by calculator name
+  - [ ] Search by category
+  - [ ] Search by keywords
+  - [ ] Real-time search results
+
+**Translation Compliance:**
+- [ ] Audit all 200+ calculators for hardcoded English strings — v2.0
+- [ ] Move hardcoded strings to translation files (en, fr, de, it) — v2.0
+- [ ] Verify 100% translation coverage across all locales — v2.0
+- [ ] Test all calculators in all 4 locales — v2.0
 
 ### Out of Scope
 
@@ -200,4 +240,4 @@ Deployment: GitHub Pages (static export)
 
 ---
 
-_Last updated: 2026-01-18 after v1.0 milestone completion_
+_Last updated: 2026-01-18 after v2.0 milestone initialization_

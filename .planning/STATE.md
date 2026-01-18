@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** Planning next milestone
+**Current focus:** v2.0 Network Tools & User Experience
 
 ## Current Position
 
-Phase: Not started
-Plan: Not started
-Status: v1.0 milestone complete — ready to plan v2.0
-Last activity: 2026-01-18 — v1.0 milestone complete
+Phase: Not started (run /gsd:define-requirements)
+Plan: —
+Status: Defining requirements for v2.0 Network Tools & User Experience
+Last activity: 2026-01-18 — Milestone v2.0 started
 
 Progress: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% (0/0 plans - next milestone in planning)
 
