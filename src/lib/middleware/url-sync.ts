@@ -36,9 +36,7 @@ export interface UrlSyncOptions<T = object> {
  * );
  * ```
  */
-export function createUrlSyncMiddleware<T extends object>(
-  options: UrlSyncOptions<T> = {}
-) {
+export function createUrlSyncMiddleware<T extends object>(options: UrlSyncOptions<T> = {}) {
   const { enabled = true, debounceMs = 150, include, exclude, selectState } = options;
 
   // CLOSURE: Timer declared in factory scope (NOT module scope)
@@ -60,10 +58,10 @@ export function createUrlSyncMiddleware<T extends object>(
 
       // Wrap setState to add debounced URL sync
       const originalSet = api.setState;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- biome-ignore lint/suspicious/noExplicitAny: Zustand setState has complex generic signature
       api.setState = ((...args: any[]) => {
         // Call original setState first (update store)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- biome-ignore lint/suspicious/noExplicitAny: Required to match Zustand setState signature
         (originalSet as any)(...args);
 
         // Then sync to URL (debounced)
@@ -109,10 +107,7 @@ function getUrlParams(): Record<string, string> {
  * Sync state object to URL parameters
  * @internal
  */
-function syncStateToUrl(
-  state: object,
-  options: { include?: string[]; exclude?: string[] }
-) {
+function syncStateToUrl(state: object, options: { include?: string[]; exclude?: string[] }) {
   if (typeof window === "undefined") return;
 
   const { include, exclude } = options;

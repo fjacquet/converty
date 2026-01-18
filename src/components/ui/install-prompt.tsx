@@ -133,11 +133,7 @@ export function InstallPrompt() {
   if (installPrompt) {
     return (
       <div className="fixed bottom-4 right-4 z-50">
-        <Button
-          onClick={handleInstallClick}
-          size="lg"
-          className="shadow-lg"
-        >
+        <Button onClick={handleInstallClick} size="lg" className="shadow-lg">
           <Download className="mr-2 h-5 w-5" />
           Install Converty
         </Button>

@@ -13,12 +13,12 @@
  * Replace the generateSourceIcon() function with actual branded assets later.
  */
 
-const sharp = require('sharp');
-const fs = require('fs');
-const path = require('path');
+const sharp = require("sharp");
+const fs = require("node:fs");
+const path = require("node:path");
 
 // Output directory
-const ICONS_DIR = path.join(__dirname, '..', 'public', 'icons');
+const ICONS_DIR = path.join(__dirname, "..", "public", "icons");
 
 /**
  * Generate a simple source icon (1024x1024) for Converty
@@ -70,22 +70,29 @@ async function generateMaskableIcon(sourceBuffer, outputSize) {
       width: outputSize,
       height: outputSize,
       channels: 4,
-      background: { r: 79, g: 70, b: 229, alpha: 1 } // Match gradient start color
-    }
-  }).png().toBuffer();
+      background: { r: 79, g: 70, b: 229, alpha: 1 }, // Match gradient start color
+    },
+  })
+    .png()
+    .toBuffer();
 
   // Resize source to fit in safe zone
   const resizedContent = await sharp(sourceBuffer)
-    .resize(contentSize, contentSize, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .resize(contentSize, contentSize, {
+      fit: "contain",
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
     .toBuffer();
 
   // Composite resized content centered on background
   return sharp(background)
-    .composite([{
-      input: resizedContent,
-      top: padding,
-      left: padding
-    }])
+    .composite([
+      {
+        input: resizedContent,
+        top: padding,
+        left: padding,
+      },
+    ])
     .png()
     .toBuffer();
 }
@@ -94,24 +101,24 @@ async function generateMaskableIcon(sourceBuffer, outputSize) {
  * Main icon generation function
  */
 async function generateIcons() {
-  console.log('🎨 Generating PWA icons for Converty...\n');
+  console.log("🎨 Generating PWA icons for Converty...\n");
 
   // Create icons directory if it doesn't exist
   if (!fs.existsSync(ICONS_DIR)) {
     fs.mkdirSync(ICONS_DIR, { recursive: true });
-    console.log('✓ Created icons directory:', ICONS_DIR);
+    console.log("✓ Created icons directory:", ICONS_DIR);
   }
 
   // Generate source icon
-  console.log('Generating source icon...');
+  console.log("Generating source icon...");
   const sourceIcon = await generateSourceIcon();
 
   // Icon configurations
   const icons = [
-    { name: 'icon-192x192.png', size: 192, maskable: false },
-    { name: 'icon-512x512.png', size: 512, maskable: false },
-    { name: 'icon-192-maskable.png', size: 192, maskable: true },
-    { name: 'apple-touch-icon.png', size: 180, maskable: false }
+    { name: "icon-192x192.png", size: 192, maskable: false },
+    { name: "icon-512x512.png", size: 512, maskable: false },
+    { name: "icon-192-maskable.png", size: 192, maskable: true },
+    { name: "apple-touch-icon.png", size: 180, maskable: false },
   ];
 
   // Generate each icon
@@ -123,22 +130,29 @@ async function generateIcons() {
       buffer = await generateMaskableIcon(sourceIcon, icon.size);
     } else {
       buffer = await sharp(sourceIcon)
-        .resize(icon.size, icon.size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+        .resize(icon.size, icon.size, {
+          fit: "contain",
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
+        })
         .png()
         .toBuffer();
     }
 
     await fs.promises.writeFile(outputPath, buffer);
-    console.log(`✓ Generated ${icon.name} (${icon.size}x${icon.size}${icon.maskable ? ', maskable' : ''})`);
+    console.log(
+      `✓ Generated ${icon.name} (${icon.size}x${icon.size}${icon.maskable ? ", maskable" : ""})`
+    );
   }
 
-  console.log('\n✅ All PWA icons generated successfully!');
+  console.log("\n✅ All PWA icons generated successfully!");
   console.log(`📁 Icons location: ${ICONS_DIR}`);
-  console.log('\nℹ️  These are placeholder icons. Replace generateSourceIcon() with branded assets when available.');
+  console.log(
+    "\nℹ️  These are placeholder icons. Replace generateSourceIcon() with branded assets when available."
+  );
 }
 
 // Run the script
-generateIcons().catch(err => {
-  console.error('❌ Error generating icons:', err);
+generateIcons().catch((err) => {
+  console.error("❌ Error generating icons:", err);
   process.exit(1);
 });

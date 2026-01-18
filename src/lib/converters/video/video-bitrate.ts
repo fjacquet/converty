@@ -65,22 +65,34 @@ function getQualityAssessment(
 
   if (is4K) {
     if (bitrateMbps < 15)
-      return { qualityLevel: "bitrate_quality_low", recommendation: "bitrate_rec_compression_artifacts" };
-    if (bitrateMbps < 35) return { qualityLevel: "bitrate_quality_good", recommendation: "bitrate_rec_good_streaming" };
-    if (bitrateMbps < 80) return { qualityLevel: "bitrate_quality_high", recommendation: "bitrate_rec_excellent" };
+      return {
+        qualityLevel: "bitrate_quality_low",
+        recommendation: "bitrate_rec_compression_artifacts",
+      };
+    if (bitrateMbps < 35)
+      return { qualityLevel: "bitrate_quality_good", recommendation: "bitrate_rec_good_streaming" };
+    if (bitrateMbps < 80)
+      return { qualityLevel: "bitrate_quality_high", recommendation: "bitrate_rec_excellent" };
     return { qualityLevel: "bitrate_quality_master", recommendation: "bitrate_rec_archive" };
   }
 
   if (isHD) {
     if (bitrateMbps < 4)
-      return { qualityLevel: "bitrate_quality_low", recommendation: "bitrate_rec_compression_artifacts" };
-    if (bitrateMbps < 8) return { qualityLevel: "bitrate_quality_good", recommendation: "bitrate_rec_good_streaming" };
-    if (bitrateMbps < 20) return { qualityLevel: "bitrate_quality_high", recommendation: "bitrate_rec_excellent" };
+      return {
+        qualityLevel: "bitrate_quality_low",
+        recommendation: "bitrate_rec_compression_artifacts",
+      };
+    if (bitrateMbps < 8)
+      return { qualityLevel: "bitrate_quality_good", recommendation: "bitrate_rec_good_streaming" };
+    if (bitrateMbps < 20)
+      return { qualityLevel: "bitrate_quality_high", recommendation: "bitrate_rec_excellent" };
     return { qualityLevel: "bitrate_quality_master", recommendation: "bitrate_rec_archive" };
   }
 
-  if (bitrateMbps < 2) return { qualityLevel: "bitrate_quality_low", recommendation: "bitrate_rec_acceptable_sd" };
-  if (bitrateMbps < 5) return { qualityLevel: "bitrate_quality_good", recommendation: "bitrate_rec_good_sd" };
+  if (bitrateMbps < 2)
+    return { qualityLevel: "bitrate_quality_low", recommendation: "bitrate_rec_acceptable_sd" };
+  if (bitrateMbps < 5)
+    return { qualityLevel: "bitrate_quality_good", recommendation: "bitrate_rec_good_sd" };
   return { qualityLevel: "bitrate_quality_high", recommendation: "bitrate_rec_excellent_sd" };
 }
 

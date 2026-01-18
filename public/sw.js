@@ -8,11 +8,11 @@
  */
 
 // Import Workbox from CDN (Workbox v7 standard pattern)
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js');
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox-sw.js");
 
 // Check if Workbox loaded successfully
 if (workbox) {
-  console.log('Workbox loaded successfully');
+  console.log("Workbox loaded successfully");
 
   // Configure Workbox
   workbox.setConfig({
@@ -26,9 +26,9 @@ if (workbox) {
   workbox.core.clientsClaim();
 
   // Cache names
-  const PAGES_CACHE = 'pages-cache-v1';
-  const STATIC_CACHE = 'static-cache-v1';
-  const FONT_CACHE = 'font-cache-v1';
+  const PAGES_CACHE = "pages-cache-v1";
+  const STATIC_CACHE = "static-cache-v1";
+  const FONT_CACHE = "font-cache-v1";
 
   /**
    * STRATEGY 1: Network First for HTML/Document requests
@@ -40,7 +40,7 @@ if (workbox) {
    * but offline functionality is critical for PWA.
    */
   workbox.routing.registerRoute(
-    ({ request }) => request.destination === 'document',
+    ({ request }) => request.destination === "document",
     new workbox.strategies.NetworkFirst({
       cacheName: PAGES_CACHE,
       plugins: [
@@ -68,9 +68,9 @@ if (workbox) {
    */
   workbox.routing.registerRoute(
     ({ request }) =>
-      request.destination === 'script' ||
-      request.destination === 'style' ||
-      request.destination === 'image',
+      request.destination === "script" ||
+      request.destination === "style" ||
+      request.destination === "image",
     new workbox.strategies.CacheFirst({
       cacheName: STATIC_CACHE,
       plugins: [
@@ -96,7 +96,7 @@ if (workbox) {
    * shouldn't wait for network. Best of both worlds.
    */
   workbox.routing.registerRoute(
-    ({ request }) => request.destination === 'font',
+    ({ request }) => request.destination === "font",
     new workbox.strategies.StaleWhileRevalidate({
       cacheName: FONT_CACHE,
       plugins: [
@@ -120,7 +120,7 @@ if (workbox) {
    */
   workbox.routing.setCatchHandler(async ({ event }) => {
     // Only handle navigation requests (page loads)
-    if (event.request.destination === 'document') {
+    if (event.request.destination === "document") {
       // Try to get from cache
       const cache = await caches.open(PAGES_CACHE);
       const cachedResponse = await cache.match(event.request);
@@ -186,7 +186,7 @@ if (workbox) {
         </body>
         </html>`,
         {
-          headers: { 'Content-Type': 'text/html' },
+          headers: { "Content-Type": "text/html" },
         }
       );
     }
@@ -195,7 +195,7 @@ if (workbox) {
     return Response.error();
   });
 
-  console.log('Service worker caching strategies configured');
+  console.log("Service worker caching strategies configured");
 } else {
-  console.error('Workbox failed to load from CDN');
+  console.error("Workbox failed to load from CDN");
 }

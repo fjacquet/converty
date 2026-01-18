@@ -32,9 +32,7 @@ async function buildServiceWorker() {
       globDirectory: "out",
 
       // Files to precache: all static assets
-      globPatterns: [
-        "**/*.{html,js,css,png,jpg,jpeg,svg,webp,woff2}",
-      ],
+      globPatterns: ["**/*.{html,js,css,png,jpg,jpeg,svg,webp,woff2}"],
 
       // Output: service worker file
       swDest: "out/sw.js",

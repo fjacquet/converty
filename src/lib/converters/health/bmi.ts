@@ -87,5 +87,3 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
     weightToHealthy,
   };
 }
-
-
