@@ -2428,6 +2428,8 @@
         "usable-hosts-desc": "Numero di indirizzi IP assegnabili",
         "total-hosts": "Host Totali",
         "total-hosts-desc": "Indirizzi totali inclusi rete e broadcast",
+        "cidr": "CIDR",
+        "cidr-desc": "Lunghezza prefisso Classless Inter-Domain Routing",
         "cidr-notation": "Notazione CIDR",
         "cidr-notation-desc": "Lunghezza prefisso",
         "subnet-mask": "Maschera di Sottorete",
