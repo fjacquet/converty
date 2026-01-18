@@ -2,7 +2,7 @@
 
 **Project:** Converty Infrastructure Upgrade
 **Created:** 2026-01-17
-**Phases:** 7
+**Phases:** 8
 
 ## Overview
 
@@ -173,6 +173,38 @@ Plans:
 
 ---
 
+### Phase 8: Developer Experience
+
+**Goal:** DRY improvements and pre-commit automation
+**Depends on:** Phase 7 (quality validation complete)
+**Requirements:** TBD (to be defined during planning)
+
+**Success Criteria:**
+
+1. Container security scan findings addressed (AVD-DS-0002, AVD-DS-0017 from Trivy)
+2. URL parameter utilities consolidated (parseNumberParam, parseBooleanParam, parseStringParam extracted to shared module)
+3. Pre-commit hooks installed and configured (Husky + lint-staged)
+4. Pre-commit hooks run lint and format checks automatically before commits
+5. Developer workflow improved with automated quality gates
+6. Documentation updated if needed (CONTRIBUTING.md, .trivyignore)
+
+**Plans:** 0 plans
+
+Plans:
+
+- [ ] TBD (run /gsd:plan-phase 8 to break down)
+
+**Scope:**
+
+1. **Container Security**: Address Trivy scan findings in node_modules/@surma/rollup-plugin-off-main-thread/Dockerfile
+   - Investigate: Can we update dependency, add .trivyignore, or configure scan exclusions?
+   - Document: If false positive (static site, no Docker usage), create .trivyignore with justification
+2. **DRY Improvements**: Consolidate URL parameter utilities (6-line duplication in getUrlParams)
+3. **Pre-commit Hooks**: Install Husky + lint-staged for automated quality checks
+4. **Optional**: Evaluate Biome-only migration if ESLint overlap creates issues
+
+---
+
 ## Progress
 
 | Phase                       | Status      | Completed  |
@@ -184,6 +216,7 @@ Plans:
 | 5 - Documentation           | Complete    | 2026-01-17 |
 | 6 - Dependency Upgrade      | Complete    | 2026-01-17 |
 | 7 - Code Quality Validation | Complete    | 2026-01-18 |
+| 8 - Developer Experience    | Not Started | -          |
 
 ---
 
