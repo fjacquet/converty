@@ -2393,7 +2393,51 @@
       "totalHosts": "Host Totali",
       "ipVersion": "Versione IP",
       "invalidInput": "Indirizzo IP o notazione CIDR non validi",
-      "enterIpOrCidr": "Inserisci un indirizzo IP con CIDR (es. 192.168.1.0/24) o usa il campo maschera di sottorete"
+      "enterIpOrCidr": "Inserisci un indirizzo IP con CIDR (es. 192.168.1.0/24) o usa il campo maschera di sottorete",
+      "networkDiagram": "Diagramma di Rete",
+      "binaryRepresentation": "Rappresentazione Binaria",
+      "subnetBreakdown": "Dettagli della Sottorete"
+    },
+    "subnet": {
+      "diagram": {
+        "aria-label": "Diagramma di rete che mostra la struttura della sottorete",
+        "network-portion": "Porzione Rete",
+        "host-portion": "Porzione Host",
+        "usable-hosts": "host utilizzabili"
+      },
+      "binary": {
+        "ip-address": "Indirizzo IP",
+        "subnet-mask": "Maschera di Sottorete",
+        "ip-binary-label": "Indirizzo IP in binario",
+        "mask-binary-label": "Maschera di sottorete in binario",
+        "bit": "Bit",
+        "network": "rete",
+        "host": "host",
+        "mask-bit": "Bit maschera"
+      },
+      "breakdown": {
+        "network-address": "Indirizzo di Rete",
+        "network-address-desc": "Primo indirizzo nella sottorete",
+        "broadcast-address": "Indirizzo di Broadcast",
+        "broadcast-address-desc": "Ultimo indirizzo nella sottorete (solo IPv4)",
+        "first-usable": "Primo IP Utilizzabile",
+        "first-usable-desc": "Primo indirizzo host disponibile",
+        "last-usable": "Ultimo IP Utilizzabile",
+        "last-usable-desc": "Ultimo indirizzo host disponibile",
+        "usable-hosts": "Host Utilizzabili",
+        "usable-hosts-desc": "Numero di indirizzi IP assegnabili",
+        "total-hosts": "Host Totali",
+        "total-hosts-desc": "Indirizzi totali inclusi rete e broadcast",
+        "cidr-notation": "Notazione CIDR",
+        "cidr-notation-desc": "Lunghezza prefisso",
+        "subnet-mask": "Maschera di Sottorete",
+        "subnet-mask-desc": "Notazione decimale puntata (solo IPv4)",
+        "ip-version": "Versione IP",
+        "ip-version-desc": "Versione del protocollo Internet",
+        "property": "Proprietà",
+        "value": "Valore",
+        "description": "Descrizione"
+      }
     }
   },
   "validation": {

@@ -2393,7 +2393,51 @@
       "totalHosts": "Total Hosts",
       "ipVersion": "IP Version",
       "invalidInput": "Invalid IP address or CIDR notation",
-      "enterIpOrCidr": "Enter IP address with CIDR (e.g., 192.168.1.0/24) or use subnet mask field"
+      "enterIpOrCidr": "Enter IP address with CIDR (e.g., 192.168.1.0/24) or use subnet mask field",
+      "networkDiagram": "Network Diagram",
+      "binaryRepresentation": "Binary Representation",
+      "subnetBreakdown": "Subnet Breakdown"
+    },
+    "subnet": {
+      "diagram": {
+        "aria-label": "Network diagram showing subnet structure",
+        "network-portion": "Network Portion",
+        "host-portion": "Host Portion",
+        "usable-hosts": "usable hosts"
+      },
+      "binary": {
+        "ip-address": "IP Address",
+        "subnet-mask": "Subnet Mask",
+        "ip-binary-label": "IP address in binary",
+        "mask-binary-label": "Subnet mask in binary",
+        "bit": "Bit",
+        "network": "network",
+        "host": "host",
+        "mask-bit": "Mask bit"
+      },
+      "breakdown": {
+        "network-address": "Network Address",
+        "network-address-desc": "First address in the subnet",
+        "broadcast-address": "Broadcast Address",
+        "broadcast-address-desc": "Last address in the subnet (IPv4 only)",
+        "first-usable": "First Usable IP",
+        "first-usable-desc": "First host address available",
+        "last-usable": "Last Usable IP",
+        "last-usable-desc": "Last host address available",
+        "usable-hosts": "Usable Hosts",
+        "usable-hosts-desc": "Number of assignable IP addresses",
+        "total-hosts": "Total Hosts",
+        "total-hosts-desc": "Total addresses including network and broadcast",
+        "cidr-notation": "CIDR Notation",
+        "cidr-notation-desc": "Prefix length",
+        "subnet-mask": "Subnet Mask",
+        "subnet-mask-desc": "Dotted decimal notation (IPv4 only)",
+        "ip-version": "IP Version",
+        "ip-version-desc": "Internet Protocol version",
+        "property": "Property",
+        "value": "Value",
+        "description": "Description"
+      }
     }
   },
   "validation": {

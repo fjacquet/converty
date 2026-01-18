@@ -2393,7 +2393,51 @@
       "totalHosts": "Hosts Gesamt",
       "ipVersion": "IP-Version",
       "invalidInput": "Ungültige IP-Adresse oder CIDR-Notation",
-      "enterIpOrCidr": "Geben Sie eine IP-Adresse mit CIDR ein (z.B. 192.168.1.0/24) oder verwenden Sie das Subnetzmaskenfeld"
+      "enterIpOrCidr": "Geben Sie eine IP-Adresse mit CIDR ein (z.B. 192.168.1.0/24) oder verwenden Sie das Subnetzmaskenfeld",
+      "networkDiagram": "Netzwerkdiagramm",
+      "binaryRepresentation": "Binärdarstellung",
+      "subnetBreakdown": "Subnetz-Aufschlüsselung"
+    },
+    "subnet": {
+      "diagram": {
+        "aria-label": "Netzwerkdiagramm zeigt Subnetz-Struktur",
+        "network-portion": "Netzwerkteil",
+        "host-portion": "Host-Teil",
+        "usable-hosts": "verwendbare Hosts"
+      },
+      "binary": {
+        "ip-address": "IP-Adresse",
+        "subnet-mask": "Subnetzmaske",
+        "ip-binary-label": "IP-Adresse in binär",
+        "mask-binary-label": "Subnetzmaske in binär",
+        "bit": "Bit",
+        "network": "Netzwerk",
+        "host": "Host",
+        "mask-bit": "Masken-Bit"
+      },
+      "breakdown": {
+        "network-address": "Netzwerkadresse",
+        "network-address-desc": "Erste Adresse im Subnetz",
+        "broadcast-address": "Broadcast-Adresse",
+        "broadcast-address-desc": "Letzte Adresse im Subnetz (nur IPv4)",
+        "first-usable": "Erste verwendbare IP",
+        "first-usable-desc": "Erste verfügbare Host-Adresse",
+        "last-usable": "Letzte verwendbare IP",
+        "last-usable-desc": "Letzte verfügbare Host-Adresse",
+        "usable-hosts": "Verwendbare Hosts",
+        "usable-hosts-desc": "Anzahl zuweisbarer IP-Adressen",
+        "total-hosts": "Hosts Gesamt",
+        "total-hosts-desc": "Gesamtadressen einschließlich Netzwerk und Broadcast",
+        "cidr-notation": "CIDR-Notation",
+        "cidr-notation-desc": "Präfixlänge",
+        "subnet-mask": "Subnetzmaske",
+        "subnet-mask-desc": "Punktierte Dezimalnotation (nur IPv4)",
+        "ip-version": "IP-Version",
+        "ip-version-desc": "Internet-Protokoll-Version",
+        "property": "Eigenschaft",
+        "value": "Wert",
+        "description": "Beschreibung"
+      }
     }
   },
   "validation": {

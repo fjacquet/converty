@@ -2393,7 +2393,51 @@
       "totalHosts": "Hôtes Totaux",
       "ipVersion": "Version IP",
       "invalidInput": "Adresse IP ou notation CIDR invalide",
-      "enterIpOrCidr": "Entrez une adresse IP avec CIDR (ex: 192.168.1.0/24) ou utilisez le champ masque de sous-réseau"
+      "enterIpOrCidr": "Entrez une adresse IP avec CIDR (ex: 192.168.1.0/24) ou utilisez le champ masque de sous-réseau",
+      "networkDiagram": "Diagramme du Réseau",
+      "binaryRepresentation": "Représentation Binaire",
+      "subnetBreakdown": "Détails du Sous-réseau"
+    },
+    "subnet": {
+      "diagram": {
+        "aria-label": "Diagramme du réseau montrant la structure du sous-réseau",
+        "network-portion": "Portion Réseau",
+        "host-portion": "Portion Hôte",
+        "usable-hosts": "hôtes utilisables"
+      },
+      "binary": {
+        "ip-address": "Adresse IP",
+        "subnet-mask": "Masque de Sous-réseau",
+        "ip-binary-label": "Adresse IP en binaire",
+        "mask-binary-label": "Masque de sous-réseau en binaire",
+        "bit": "Bit",
+        "network": "réseau",
+        "host": "hôte",
+        "mask-bit": "Bit du masque"
+      },
+      "breakdown": {
+        "network-address": "Adresse Réseau",
+        "network-address-desc": "Première adresse du sous-réseau",
+        "broadcast-address": "Adresse de Diffusion",
+        "broadcast-address-desc": "Dernière adresse du sous-réseau (IPv4 uniquement)",
+        "first-usable": "Première IP Utilisable",
+        "first-usable-desc": "Première adresse hôte disponible",
+        "last-usable": "Dernière IP Utilisable",
+        "last-usable-desc": "Dernière adresse hôte disponible",
+        "usable-hosts": "Hôtes Utilisables",
+        "usable-hosts-desc": "Nombre d'adresses IP assignables",
+        "total-hosts": "Hôtes Totaux",
+        "total-hosts-desc": "Adresses totales incluant réseau et diffusion",
+        "cidr-notation": "Notation CIDR",
+        "cidr-notation-desc": "Longueur du préfixe",
+        "subnet-mask": "Masque de Sous-réseau",
+        "subnet-mask-desc": "Notation décimale pointée (IPv4 uniquement)",
+        "ip-version": "Version IP",
+        "ip-version-desc": "Version du protocole Internet",
+        "property": "Propriété",
+        "value": "Valeur",
+        "description": "Description"
+      }
     }
   },
   "validation": {
