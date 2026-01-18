@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 9 of 16 (Visual Subnet Calculator Foundation)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: In progress
-Last activity: 2026-01-18 — Completed 09-01-PLAN.md (Foundation Setup)
+Last activity: 2026-01-18 — Completed 09-02-PLAN.md (Core Calculation Logic)
 
-Progress: █⬜⬜ 33% (1/3 plans in Phase 9)
+Progress: ██⬜ 67% (2/3 plans in Phase 9)
 
 ## Performance Metrics
 
@@ -46,7 +46,7 @@ Progress: █⬜⬜ 33% (1/3 plans in Phase 9)
 
 | Phase                           | Plans | Total   | Avg/Plan |
 | ------------------------------- | ----- | ------- | -------- |
-| 09-visual-subnet-foundation     | 1/3   | 8 min   | 8 min    |
+| 09-visual-subnet-foundation     | 2/3   | 11 min  | 5.5 min  |
 
 ## Accumulated Context
 
@@ -108,6 +108,11 @@ Progress: █⬜⬜ 33% (1/3 plans in Phase 9)
 | Use ipaddr.js for IP address manipulation                    | 09-01 | Battle-tested (55M+ weekly downloads), lightweight (1.9K), handles IPv4/IPv6 edge cases |
 | Network as separate category from data                       | 09-01 | Network tools have distinct audience, allows future growth with dedicated subcategories |
 | Feature subnet calculator on homepage                        | 09-01 | First network calculator, showcases new category, high-value tool for IT professionals |
+| BigInt for host count calculations                           | 09-02 | IPv6 subnets can exceed Number.MAX_SAFE_INTEGER (2^53), requires BigInt for accuracy |
+| Null for IPv6 broadcast and subnet mask                      | 09-02 | IPv6 has no broadcast (uses multicast) and no subnet mask notation (CIDR only) |
+| RFC 3021 compliance for /31 subnets                          | 09-02 | /31 point-to-point links have 2 usable addresses with no network/broadcast reservation |
+| IPv6 no network/broadcast reservation                        | 09-02 | IPv6 doesn't reserve addresses except /128 single host, differs from IPv4 standard formula |
+| Throw errors from parsing functions                          | 09-02 | Pure functions can throw, caller (Zustand store) catches and sets error state |
 
 ### Milestone Evolution
 
@@ -119,12 +124,12 @@ Progress: █⬜⬜ 33% (1/3 plans in Phase 9)
 
 ## Session Continuity
 
-Last session: 2026-01-18T15:28:29Z
-Stopped at: Completed 09-01-PLAN.md (Foundation Setup)
+Last session: 2026-01-18T15:53:58Z
+Stopped at: Completed 09-02-PLAN.md (Core Calculation Logic)
 Resume file: None
 
 **Next Steps:**
 
-1. Execute 09-02-PLAN.md — Core Calculation Logic (IP parsing, subnet calculations)
-2. Execute 09-03-PLAN.md — State Management & UI (Zustand store, calculator component)
-3. Complete Phase 9 → Plan Phase 10 (Visualization)
+1. Execute 09-03-PLAN.md — State Management & UI (Zustand store, calculator component)
+2. Complete Phase 9 → Plan Phase 10 (Visualization)
+3. Continue v2.0 milestone execution
