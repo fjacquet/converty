@@ -42,8 +42,9 @@ function convertToBinary(addr: ipaddr.IPv4 | ipaddr.IPv6, ipVersion: 4 | 6): str
 export function BinaryRepresentation({ result }: BinaryRepresentationProps) {
   const t = useTranslations("calculator.subnet.binary");
 
-  // Parse IP address to binary (use networkAddress which is already clean)
-  const parsedAddr = ipaddr.parse(result.networkAddress);
+  // Parse IP address to binary (strip CIDR notation if present)
+  const cleanAddress = result.networkAddress.split("/")[0];
+  const parsedAddr = ipaddr.parse(cleanAddress);
   const ipBits = convertToBinary(parsedAddr, result.ipVersion);
 
   // Generate subnet mask bits (IPv4 only)
