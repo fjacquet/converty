@@ -6,6 +6,9 @@ import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSubnetCalculatorStore } from "@/stores/subnet-calculator-store";
+import { BinaryRepresentation } from "./components/binary-representation";
+import { BreakdownTable } from "./components/breakdown-table";
+import { NetworkDiagram } from "./components/network-diagram";
 
 /**
  * Subnet calculator component
@@ -128,6 +131,41 @@ export function SubnetCalculator() {
             )}
           </CardContent>
         </Card>
+      )}
+
+      {/* Visualization Sections - Only render if result exists */}
+      {result && !error && (
+        <>
+          {/* Network Diagram */}
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("networkDiagram")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <NetworkDiagram result={result} />
+            </CardContent>
+          </Card>
+
+          {/* Binary Representation */}
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("binaryRepresentation")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <BinaryRepresentation result={result} ipAddress={ipInput} />
+            </CardContent>
+          </Card>
+
+          {/* Breakdown Table */}
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("subnetBreakdown")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <BreakdownTable result={result} />
+            </CardContent>
+          </Card>
+        </>
       )}
 
       {/* Reset Button */}
