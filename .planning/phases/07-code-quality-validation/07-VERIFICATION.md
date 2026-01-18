@@ -65,7 +65,12 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
   const bmi = weightKg / (heightM * heightM);
   const category = getBMICategory(bmi);
 
-  return { bmi: Math.round(bmi * 10) / 10, category, healthyWeightRange, weightToHealthy };
+  return {
+    bmi: Math.round(bmi * 10) / 10,
+    category,
+    healthyWeightRange,
+    weightToHealthy,
+  };
 }
 ```
 
@@ -84,7 +89,9 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
 // Used by 60+ calculators, reduces ~50 lines to ~5 lines per calculator
 const useStore = createCalculatorStore({
   name: "calculator",
-  initialValues: { /* */ },
+  initialValues: {
+    /* */
+  },
   calculate: calculateFunction,
 });
 ```
@@ -147,9 +154,12 @@ function convertWeightToKg(weight: number, unit: WeightUnit): number {
 // Finance converters (compound-interest.ts)
 const getCompoundingPeriods = (frequency: CompoundFrequency): number => {
   switch (frequency) {
-    case "annually": return 1;
-    case "quarterly": return 4;
-    case "monthly": return 12;
+    case "annually":
+      return 1;
+    case "quarterly":
+      return 4;
+    case "monthly":
+      return 12;
     // ...
   }
 };
@@ -163,8 +173,12 @@ const getCompoundingPeriods = (frequency: CompoundFrequency): number => {
 All converters export interfaces:
 
 ```typescript
-export interface BMIInput { /* ... */ }
-export interface BMIResult { /* ... */ }
+export interface BMIInput {
+  /* ... */
+}
+export interface BMIResult {
+  /* ... */
+}
 ```
 
 UI components import these types:
@@ -185,7 +199,7 @@ import type { BMIInput, BMIResult } from "@/lib/converters/health/bmi";
 
 const useStore = createCalculatorStore({
   name: "calculator",
-  syncUrl: true,  // Middleware handles everything
+  syncUrl: true, // Middleware handles everything
 });
 
 // Eliminates ~50 lines of duplicated code per calculator
@@ -332,9 +346,9 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
 
 ```typescript
 setValue: (key, value) => {
-  const newValues = { ...currentState.values, [key]: value };  // Create new object
-  set({ values: newValues, errors, result });  // Immutable update
-}
+  const newValues = { ...currentState.values, [key]: value }; // Create new object
+  set({ values: newValues, errors, result }); // Immutable update
+};
 ```
 
 **Why it's immutable:**
@@ -347,14 +361,16 @@ setValue: (key, value) => {
 
 ```typescript
 // PURE: Calculation logic (lib/converters/finance/compound-interest.ts)
-export function calculateCompoundInterest(input: CompoundInterestInput): CompoundInterestResult | null {
+export function calculateCompoundInterest(
+  input: CompoundInterestInput
+): CompoundInterestResult | null {
   // Pure calculation, no side effects
 }
 
 // SIDE EFFECTS: UI component (app/[locale]/finance/compound-interest/compound-interest-calculator.tsx)
 export function CompoundInterestCalculator() {
-  const { setValue, result } = useStore();  // Side effect: Zustand subscription
-  const t = useTranslations();  // Side effect: i18n
+  const { setValue, result } = useStore(); // Side effect: Zustand subscription
+  const t = useTranslations(); // Side effect: i18n
 
   return <div>{/* Side effect: DOM rendering */}</div>;
 }
@@ -372,7 +388,7 @@ export function CompoundInterestCalculator() {
 ```typescript
 // src/lib/converters/math/random-number.ts
 export function generateRandomInteger(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;  // Non-deterministic by design
+  return Math.floor(Math.random() * (max - min + 1)) + min; // Non-deterministic by design
 }
 ```
 
@@ -395,11 +411,11 @@ Excellent functional programming discipline. Calculation functions are pure with
 
 ### Summary by Principle
 
-| Principle | Result | Key Strengths | Observations |
-|-----------|--------|---------------|--------------|
+| Principle      | Result   | Key Strengths                                              | Observations                                              |
+| -------------- | -------- | ---------------------------------------------------------- | --------------------------------------------------------- |
 | KISS (QUAL-05) | **PASS** | Simple solutions, no over-engineering, minimal abstraction | 2 large data files (acceptable), effective use of helpers |
-| DRY (QUAL-06) | **PASS** | URL sync middleware, extracted helpers, shared types | Minor URL param duplication (low impact) |
-| FP (QUAL-07) | **PASS** | Pure calculations, immutable state, zero side effects | Excellent separation of concerns |
+| DRY (QUAL-06)  | **PASS** | URL sync middleware, extracted helpers, shared types       | Minor URL param duplication (low impact)                  |
+| FP (QUAL-07)   | **PASS** | Pure calculations, immutable state, zero side effects      | Excellent separation of concerns                          |
 
 ### Code Quality Metrics
 
@@ -437,12 +453,14 @@ No urgent issues found. All quality checks pass.
 #### Future Enhancements (Optional)
 
 1. **Consolidate URL parameter utilities** (Low priority)
+
    - Extract `getUrlParams()` from `calculator-store.ts` to `url-params.ts`
    - Impact: Eliminates 6-line duplication
    - Effort: 10 minutes
    - Benefit: Slightly cleaner architecture
 
 2. **Add pre-commit hooks** (Phase 8+)
+
    - Install Husky + lint-staged for automated quality checks
    - Run Biome + TypeScript on staged files before commit
    - Prevents broken code from entering repository
