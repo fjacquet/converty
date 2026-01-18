@@ -177,31 +177,30 @@ Plans:
 
 **Goal:** DRY improvements and pre-commit automation
 **Depends on:** Phase 7 (quality validation complete)
-**Requirements:** TBD (to be defined during planning)
+**Requirements:** Success criteria serve as requirements
 
 **Success Criteria:**
 
 1. Container security scan findings addressed (AVD-DS-0002, AVD-DS-0017 from Trivy)
-2. URL parameter utilities consolidated (parseNumberParam, parseBooleanParam, parseStringParam extracted to shared module)
+2. URL parameter utilities consolidated (getUrlParams extracted to shared module)
 3. Pre-commit hooks installed and configured (Husky + lint-staged)
 4. Pre-commit hooks run lint and format checks automatically before commits
 5. Developer workflow improved with automated quality gates
 6. Documentation updated if needed (CONTRIBUTING.md, .trivyignore)
 
-**Plans:** 0 plans
+**Plans:** 2 plans in 1 wave
 
 Plans:
 
-- [ ] TBD (run /gsd:plan-phase 8 to break down)
+- [ ] 08-01-PLAN.md — Container security and URL consolidation
+- [ ] 08-02-PLAN.md — Pre-commit hooks (Husky + lint-staged)
 
 **Scope:**
 
-1. **Container Security**: Address Trivy scan findings in node_modules/@surma/rollup-plugin-off-main-thread/Dockerfile
-   - Investigate: Can we update dependency, add .trivyignore, or configure scan exclusions?
-   - Document: If false positive (static site, no Docker usage), create .trivyignore with justification
-2. **DRY Improvements**: Consolidate URL parameter utilities (6-line duplication in getUrlParams)
-3. **Pre-commit Hooks**: Install Husky + lint-staged for automated quality checks
-4. **Optional**: Evaluate Biome-only migration if ESLint overlap creates issues
+1. **Container Security**: Address Trivy scan findings with .trivyignore (false positives documented)
+2. **DRY Improvements**: Consolidate getUrlParams() from calculator-store.ts and url-sync.ts to url-params.ts
+3. **Pre-commit Hooks**: Install Husky v9 + lint-staged v16 for automated quality checks
+4. **Developer Workflow**: Fast feedback loop (under 5 seconds) with automated lint/format before commits
 
 ---
 
