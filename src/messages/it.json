@@ -54,6 +54,10 @@
       "name": "Musica",
       "description": "Teoria musicale e strumenti audio"
     },
+    "network": {
+      "name": "Rete",
+      "description": "Calcolatori di rete e strumenti per indirizzi IP"
+    },
     "photo": {
       "name": "Foto",
       "description": "Calcolatori fotografici"
@@ -94,6 +98,8 @@
     "advanced": "Avanzato",
     "storage": "Archiviazione e File",
     "network": "Rete",
+    "subnet": "Subnetting",
+    "ip": "Indirizzo IP",
     "dof": "Profondita di Campo",
     "exposure": "Esposizione e Luce",
     "resolution": "Risoluzione e Formato",
@@ -177,6 +183,11 @@
       "name": "Calcolatore Download",
       "description": "Calcola il tempo di download da banda e dimensione file",
       "metaDescription": "Calcola quanto tempo impieghera un download"
+    },
+    "subnet-calculator": {
+      "name": "Calcolatore Subnet Visuale",
+      "description": "Calcola i dettagli delle subnet IPv4 e IPv6 con notazione CIDR",
+      "metaDescription": "Calcolatore di subnet online gratuito per reti IPv4 e IPv6. Calcola indirizzo di rete, broadcast, intervallo IP utilizzabile e numero di host dalla notazione CIDR o maschera di sottorete."
     },
     "speed": {
       "name": "Convertitore Velocita",
@@ -2369,7 +2380,20 @@
       "requiredWindow": "Dim. Finestra Richiesta",
       "windowUtilization": "Utilizzo Finestra",
       "windowSufficient": "La dimensione finestra attuale e sufficiente per l'utilizzo massimo",
-      "windowInsufficient": "Dimensione finestra insufficiente - aumentare il buffer TCP"
+      "windowInsufficient": "Dimensione finestra insufficiente - aumentare il buffer TCP",
+      "ipAddress": "Indirizzo IP",
+      "ipInput": "Indirizzo IP / CIDR",
+      "subnetMask": "Maschera di Sottorete",
+      "cidrNotation": "Notazione CIDR",
+      "networkAddress": "Indirizzo di Rete",
+      "broadcastAddress": "Indirizzo di Broadcast",
+      "firstUsable": "Primo IP Utilizzabile",
+      "lastUsable": "Ultimo IP Utilizzabile",
+      "usableHosts": "Host Utilizzabili",
+      "totalHosts": "Host Totali",
+      "ipVersion": "Versione IP",
+      "invalidInput": "Indirizzo IP o notazione CIDR non validi",
+      "enterIpOrCidr": "Inserisci un indirizzo IP con CIDR (es. 192.168.1.0/24) o usa il campo maschera di sottorete"
     }
   },
   "validation": {

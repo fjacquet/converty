@@ -54,6 +54,10 @@
       "name": "Musik",
       "description": "Musiktheorie und Audio-Werkzeuge"
     },
+    "network": {
+      "name": "Netzwerk",
+      "description": "Netzwerkrechner und IP-Adress-Tools"
+    },
     "photo": {
       "name": "Foto",
       "description": "Fotografie-Rechner"
@@ -94,6 +98,8 @@
     "advanced": "Fortgeschritten",
     "storage": "Speicher und Dateien",
     "network": "Netzwerk",
+    "subnet": "Subnetting",
+    "ip": "IP-Adresse",
     "dof": "Schaerfentiefe",
     "exposure": "Belichtung und Licht",
     "resolution": "Aufloesung und Format",
@@ -177,6 +183,11 @@
       "name": "Download-Rechner",
       "description": "Berechnen Sie die Download-Zeit aus Bandbreite und Dateigroesse",
       "metaDescription": "Berechnen Sie, wie lange ein Datei-Download dauern wird"
+    },
+    "subnet-calculator": {
+      "name": "Visueller Subnetz-Rechner",
+      "description": "Berechnen Sie IPv4- und IPv6-Subnetzdetails mit CIDR-Notation",
+      "metaDescription": "Kostenloser Online-Subnetzrechner für IPv4- und IPv6-Netzwerke. Berechnen Sie Netzwerkadresse, Broadcast, verwendbaren IP-Bereich und Host-Anzahl aus CIDR-Notation oder Subnetzmaske."
     },
     "speed": {
       "name": "Geschwindigkeits-Konverter",
@@ -2369,7 +2380,20 @@
       "requiredWindow": "Erforderliche Fenstergroesse",
       "windowUtilization": "Fensterauslastung",
       "windowSufficient": "Aktuelle Fenstergroesse ist ausreichend fuer maximale Bandbreitennutzung",
-      "windowInsufficient": "Fenstergroesse unzureichend - erhoehen Sie den TCP-Puffer"
+      "windowInsufficient": "Fenstergroesse unzureichend - erhoehen Sie den TCP-Puffer",
+      "ipAddress": "IP-Adresse",
+      "ipInput": "IP-Adresse / CIDR",
+      "subnetMask": "Subnetzmaske",
+      "cidrNotation": "CIDR-Notation",
+      "networkAddress": "Netzwerkadresse",
+      "broadcastAddress": "Broadcast-Adresse",
+      "firstUsable": "Erste verwendbare IP",
+      "lastUsable": "Letzte verwendbare IP",
+      "usableHosts": "Verwendbare Hosts",
+      "totalHosts": "Hosts Gesamt",
+      "ipVersion": "IP-Version",
+      "invalidInput": "Ungültige IP-Adresse oder CIDR-Notation",
+      "enterIpOrCidr": "Geben Sie eine IP-Adresse mit CIDR ein (z.B. 192.168.1.0/24) oder verwenden Sie das Subnetzmaskenfeld"
     }
   },
   "validation": {

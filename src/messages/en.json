@@ -54,6 +54,10 @@
       "name": "Music",
       "description": "Music theory and audio tools"
     },
+    "network": {
+      "name": "Network",
+      "description": "Network calculators and IP address tools"
+    },
     "photo": {
       "name": "Photo",
       "description": "Photography calculators"
@@ -94,6 +98,8 @@
     "advanced": "Advanced",
     "storage": "Storage & Files",
     "network": "Network",
+    "subnet": "Subnetting",
+    "ip": "IP Address",
     "dof": "Depth of Field",
     "exposure": "Exposure & Light",
     "resolution": "Resolution & Format",
@@ -177,6 +183,11 @@
       "name": "Download Calculator",
       "description": "Calculate download time from bandwidth and file size",
       "metaDescription": "Calculate how long a file download will take"
+    },
+    "subnet-calculator": {
+      "name": "Visual Subnet Calculator",
+      "description": "Calculate IPv4 and IPv6 subnet details with CIDR notation",
+      "metaDescription": "Free online subnet calculator for IPv4 and IPv6 networks. Calculate network address, broadcast, usable IP range, and host count from CIDR notation or subnet mask."
     },
     "speed": {
       "name": "Speed Converter",
@@ -2369,7 +2380,20 @@
       "requiredWindow": "Required Window Size",
       "windowUtilization": "Window Utilization",
       "windowSufficient": "Current window size is sufficient for full bandwidth utilization",
-      "windowInsufficient": "Current window size is insufficient - increase TCP buffer"
+      "windowInsufficient": "Current window size is insufficient - increase TCP buffer",
+      "ipAddress": "IP Address",
+      "ipInput": "IP Address / CIDR",
+      "subnetMask": "Subnet Mask",
+      "cidrNotation": "CIDR Notation",
+      "networkAddress": "Network Address",
+      "broadcastAddress": "Broadcast Address",
+      "firstUsable": "First Usable IP",
+      "lastUsable": "Last Usable IP",
+      "usableHosts": "Usable Hosts",
+      "totalHosts": "Total Hosts",
+      "ipVersion": "IP Version",
+      "invalidInput": "Invalid IP address or CIDR notation",
+      "enterIpOrCidr": "Enter IP address with CIDR (e.g., 192.168.1.0/24) or use subnet mask field"
     }
   },
   "validation": {
