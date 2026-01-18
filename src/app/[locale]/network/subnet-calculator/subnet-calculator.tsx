@@ -14,7 +14,7 @@ import { useSubnetCalculatorStore } from "@/stores/subnet-calculator-store";
  * Supports both CIDR notation and subnet mask notation (IPv4 only).
  */
 export function SubnetCalculator() {
-  const t = useTranslations("calculator.labels");
+  const t = useTranslations("calculator.network");
   const tSections = useTranslations("calculator.sections");
   const tCommon = useTranslations("common");
   const format = useFormatter();
