@@ -110,7 +110,7 @@ export function DepthOfFieldCalculator() {
                 className="absolute h-full bg-primary/30"
                 style={{
                   left: `${Math.max(0, (result.nearLimit / (result.farLimit === Infinity ? result.nearLimit * 3 : result.farLimit)) * 100)}%`,
-                  right: `${result.farLimit === Infinity ? 0 : Math.max(0, 100 - (result.farLimit / result.farLimit) * 100)}%`,
+                  right: `${result.farLimit === Infinity ? 0 : 0}%`,
                 }}
               />
               <div

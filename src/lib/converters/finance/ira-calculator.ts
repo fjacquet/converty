@@ -78,9 +78,9 @@ export function calculateIra(input: IraInput): IraResult | null {
   const totalGrowth = balance - currentBalance - totalContributions;
 
   // Calculate tax implications
-  let taxSavingsNow = 0;
-  let taxInRetirement = 0;
-  let effectiveValue = balance;
+  let taxSavingsNow: number;
+  let taxInRetirement: number;
+  let effectiveValue: number;
 
   if (iraType === "traditional") {
     // Traditional IRA: Tax deduction now, taxed on withdrawal

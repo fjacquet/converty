@@ -121,12 +121,16 @@ export function getUrlParams(): Record<string, string> {
   // Server-side rendering safety
   if (typeof window === "undefined") return {};
 
-  const params: Record<string, string> = {};
+  // Use null prototype to prevent prototype pollution
+  const params: Record<string, string> = Object.create(null);
   const searchParams = new URLSearchParams(window.location.search);
 
   // Convert URLSearchParams to plain object
+  // Filter out dangerous property names to prevent prototype pollution
   searchParams.forEach((value, key) => {
-    params[key] = value;
+    if (key !== "__proto__" && key !== "constructor" && key !== "prototype") {
+      params[key] = value;
+    }
   });
 
   return params;

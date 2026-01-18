@@ -31,7 +31,8 @@ export function calculateOneRepMax(input: OneRepMaxInput): OneRepMaxResult | nul
   const epley = weight * (1 + reps / 30);
 
   // Brzycki Formula: weight × (36 / (37 - reps))
-  const brzycki = reps >= 37 ? epley : weight * (36 / (37 - reps));
+  // Note: reps is validated to be <= 30, so division by zero is not possible
+  const brzycki = weight * (36 / (37 - reps));
 
   // Lander Formula: (100 × weight) / (101.3 - 2.67123 × reps)
   const lander = (100 * weight) / (101.3 - 2.67123 * reps);

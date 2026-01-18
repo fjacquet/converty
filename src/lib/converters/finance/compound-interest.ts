@@ -70,7 +70,6 @@ export function calculateCompoundInterest(
 
   let balance = principal;
   let totalContributions = 0;
-  let _previousYearEndBalance = principal;
 
   for (let year = 1; year <= years; year++) {
     const startOfYearBalance = balance;
@@ -95,8 +94,6 @@ export function calculateCompoundInterest(
       }
     }
 
-    const _interestThisYear = balance - startOfYearBalance - yearContributions;
-
     yearlyBreakdown.push({
       year,
       principal,
@@ -104,8 +101,6 @@ export function calculateCompoundInterest(
       interest: balance - principal - totalContributions,
       balance: Math.round(balance * 100) / 100,
     });
-
-    _previousYearEndBalance = balance;
   }
 
   const finalBalance = balance;
