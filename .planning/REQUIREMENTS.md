@@ -84,12 +84,40 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (To be populated by create-roadmap) | | |
+| NET-01 | Phase 9 | Pending |
+| NET-02 | Phase 9 | Pending |
+| NET-03 | Phase 10 | Pending |
+| NET-04 | Phase 10 | Pending |
+| NET-05 | Phase 10 | Pending |
+| NET-06 | Phase 9 | Pending |
+| NET-07 | Phase 9 | Pending |
+| NET-08 | Phase 11 | Pending |
+| NET-09 | Phase 11 | Pending |
+| NET-10 | Phase 12 | Pending |
+| NET-11 | Phase 12 | Pending |
+| NET-12 | Phase 12 | Pending |
+| NET-13 | Phase 12 | Pending |
+| NET-14 | Phase 12 | Pending |
+| NET-15 | Phase 13 | Pending |
+| NET-16 | Phase 13 | Pending |
+| SRCH-01 | Phase 14 | Pending |
+| SRCH-02 | Phase 14 | Pending |
+| SRCH-03 | Phase 14 | Pending |
+| SRCH-04 | Phase 14 | Pending |
+| I18N-01 | Phase 15 | Pending |
+| I18N-02 | Phase 15 | Pending |
+| I18N-03 | Phase 16 | Pending |
+| I18N-04 | Phase 16 | Pending |
+| I18N-05 | Phase 16 | Pending |
+| I18N-06 | Phase 16 | Pending |
+| I18N-07 | Phase 16 | Pending |
+| I18N-08 | Phase 16 | Pending |
+| I18N-09 | Phase 16 | Pending |
 
 **Coverage:**
 - v2.0 requirements: 29 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 29 ⚠️
+- Mapped to phases: 29
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-18*
