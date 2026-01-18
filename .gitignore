@@ -51,3 +51,6 @@ public/workbox-*.js
 .turbo
 routes.json
 public/sitemap.xml
+
+# Husky
+.husky/_
