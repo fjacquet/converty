@@ -246,19 +246,20 @@ export function calculateSalary(input: SalaryInput): SalaryResult | null {
   const effectiveTaxRate = (totalTax / grossAnnual) * 100;
   const marginalTaxRate = getMarginalTaxRate(taxableIncome, filingStatus) * 100;
 
+  // Use translation keys for tax breakdown categories
   const taxBreakdown = [
     {
-      category: "Federal Income Tax",
+      category: "tax_federal_income",
       amount: federalTax,
       percentage: (federalTax / grossAnnual) * 100,
     },
-    { category: "State Tax", amount: stateTax, percentage: (stateTax / grossAnnual) * 100 },
+    { category: "tax_state", amount: stateTax, percentage: (stateTax / grossAnnual) * 100 },
     {
-      category: "Social Security",
+      category: "tax_social_security",
       amount: socialSecurity,
       percentage: (socialSecurity / grossAnnual) * 100,
     },
-    { category: "Medicare", amount: medicare, percentage: (medicare / grossAnnual) * 100 },
+    { category: "tax_medicare", amount: medicare, percentage: (medicare / grossAnnual) * 100 },
   ];
 
   return {
@@ -286,19 +287,21 @@ export function calculateSalary(input: SalaryInput): SalaryResult | null {
   };
 }
 
+// Use translation keys for labels
 export const FILING_STATUSES: { value: FilingStatus; label: string }[] = [
-  { value: "single", label: "Single" },
-  { value: "married_joint", label: "Married Filing Jointly" },
-  { value: "married_separate", label: "Married Filing Separately" },
-  { value: "head_of_household", label: "Head of Household" },
+  { value: "single", label: "filing_single" },
+  { value: "married_joint", label: "filing_married_joint" },
+  { value: "married_separate", label: "filing_married_separate" },
+  { value: "head_of_household", label: "filing_head_of_household" },
 ];
 
+// Use translation keys for labels
 export const PAY_FREQUENCIES: { value: PayFrequency; label: string }[] = [
-  { value: "annual", label: "Annual" },
-  { value: "monthly", label: "Monthly" },
-  { value: "biweekly", label: "Bi-weekly" },
-  { value: "weekly", label: "Weekly" },
-  { value: "hourly", label: "Hourly" },
+  { value: "annual", label: "pay_annual" },
+  { value: "monthly", label: "pay_monthly" },
+  { value: "biweekly", label: "pay_biweekly" },
+  { value: "weekly", label: "pay_weekly" },
+  { value: "hourly", label: "pay_hourly" },
 ];
 
 export const US_STATES = Object.entries(STATE_TAX_RATES)

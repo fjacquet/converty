@@ -62,74 +62,74 @@ export function calculateBodyType(input: BodyTypeInput): BodyTypeResult | null {
   if (frameSize === "small") {
     bodyType = "ectomorph";
     characteristics = [
-      "Narrow shoulders and hips",
-      "Long limbs",
-      "Fast metabolism",
-      "Difficulty gaining weight",
-      "Low body fat",
-      "Lean muscle mass",
+      "ecto_narrow_frame",
+      "ecto_long_limbs",
+      "ecto_fast_metabolism",
+      "ecto_difficulty_gaining",
+      "ecto_low_body_fat",
+      "ecto_lean_muscle",
     ];
     trainingRecommendations = [
-      "Focus on compound movements",
-      "Limit cardio to preserve calories",
-      "Train 3-4 times per week",
-      "Use heavier weights with lower reps",
-      "Allow adequate rest between sessions",
+      "ecto_train_compound",
+      "ecto_train_limit_cardio",
+      "ecto_train_frequency",
+      "ecto_train_heavy_weights",
+      "ecto_train_rest",
     ];
     nutritionRecommendations = [
-      "Eat calorie-dense foods",
-      "Consume 1.6-2g protein per kg body weight",
-      "Eat every 2-3 hours",
-      "Include healthy fats",
-      "Post-workout carbs are important",
+      "ecto_nutr_calorie_dense",
+      "ecto_nutr_protein",
+      "ecto_nutr_frequent_meals",
+      "ecto_nutr_healthy_fats",
+      "ecto_nutr_post_workout",
     ];
   } else if (frameSize === "large" || (waistToHipRatio && waistToHipRatio > 0.9)) {
     bodyType = "endomorph";
     characteristics = [
-      "Wide hips and waist",
-      "Larger bone structure",
-      "Slower metabolism",
-      "Gains weight easily",
-      "Stores fat readily",
-      "Strong lower body",
+      "endo_wide_frame",
+      "endo_large_bones",
+      "endo_slow_metabolism",
+      "endo_gains_easily",
+      "endo_stores_fat",
+      "endo_strong_lower",
     ];
     trainingRecommendations = [
-      "Include regular cardio sessions",
-      "Circuit training for fat loss",
-      "High-intensity interval training (HIIT)",
-      "Full body workouts",
-      "Stay active throughout the day",
+      "endo_train_cardio",
+      "endo_train_circuit",
+      "endo_train_hiit",
+      "endo_train_full_body",
+      "endo_train_stay_active",
     ];
     nutritionRecommendations = [
-      "Monitor carbohydrate intake",
-      "Focus on protein and vegetables",
-      "Eat smaller, frequent meals",
-      "Avoid processed foods",
-      "Time carbs around workouts",
+      "endo_nutr_monitor_carbs",
+      "endo_nutr_protein_veggies",
+      "endo_nutr_frequent_small",
+      "endo_nutr_avoid_processed",
+      "endo_nutr_time_carbs",
     ];
   } else {
     bodyType = "mesomorph";
     characteristics = [
-      "Broad shoulders",
-      "Narrow waist",
-      "Athletic build",
-      "Gains muscle easily",
-      "Moderate metabolism",
-      "Well-proportioned body",
+      "meso_broad_shoulders",
+      "meso_narrow_waist",
+      "meso_athletic_build",
+      "meso_gains_muscle",
+      "meso_moderate_metabolism",
+      "meso_well_proportioned",
     ];
     trainingRecommendations = [
-      "Balanced strength and cardio",
-      "Variety in training methods",
-      "Can handle higher volume",
-      "Progressive overload",
-      "Mix of compound and isolation exercises",
+      "meso_train_balanced",
+      "meso_train_variety",
+      "meso_train_high_volume",
+      "meso_train_progressive",
+      "meso_train_mix_exercises",
     ];
     nutritionRecommendations = [
-      "Balanced macronutrient intake",
-      "Moderate carbohydrates",
-      "1.4-1.8g protein per kg body weight",
-      "Adjust calories based on goals",
-      "Flexible dieting works well",
+      "meso_nutr_balanced_macros",
+      "meso_nutr_moderate_carbs",
+      "meso_nutr_protein",
+      "meso_nutr_adjust_calories",
+      "meso_nutr_flexible",
     ];
   }
 
@@ -137,10 +137,10 @@ export function calculateBodyType(input: BodyTypeInput): BodyTypeResult | null {
   if (shoulderToHipRatio) {
     if (frameSize === "small" && shoulderToHipRatio > 1.3) {
       bodyType = "combination";
-      characteristics.push("Ecto-Mesomorph traits");
+      characteristics.push("combo_ecto_meso");
     } else if (frameSize === "large" && shoulderToHipRatio > 1.2) {
       bodyType = "combination";
-      characteristics.push("Meso-Endomorph traits");
+      characteristics.push("combo_meso_endo");
     }
   }
 

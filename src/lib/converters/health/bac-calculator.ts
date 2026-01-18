@@ -65,34 +65,34 @@ export function calculateBac(input: BacInput): BacResult | null {
   let effects: string[];
 
   if (bac === 0) {
-    status = "Sober";
-    effects = ["No impairment"];
+    status = "sober";
+    effects = ["noImpairment"];
   } else if (bac < 0.02) {
-    status = "Minimal";
-    effects = ["Slight mood elevation", "Relaxation"];
+    status = "minimal";
+    effects = ["slightMoodElevation", "relaxation"];
   } else if (bac < 0.05) {
-    status = "Euphoria";
-    effects = ["Lowered inhibitions", "Mild euphoria", "Slight impairment of reasoning"];
+    status = "euphoria";
+    effects = ["loweredInhibitions", "mildEuphoria", "slightImpairmentReasoning"];
   } else if (bac < 0.08) {
-    status = "Excitement";
-    effects = ["Impaired judgment", "Reduced coordination", "Slower reaction time"];
+    status = "excitement";
+    effects = ["impairedJudgment", "reducedCoordination", "slowerReactionTime"];
   } else if (bac < 0.15) {
-    status = "Confusion";
+    status = "confusion";
     effects = [
-      "Poor muscle coordination",
-      "Slurred speech",
-      "Impaired balance",
-      "Memory blackouts possible",
+      "poorMuscleCoordination",
+      "slurredSpeech",
+      "impairedBalance",
+      "memoryBlackoutsPossible",
     ];
   } else if (bac < 0.25) {
-    status = "Stupor";
-    effects = ["Severe motor impairment", "Vomiting likely", "Loss of consciousness possible"];
+    status = "stupor";
+    effects = ["severeMotorImpairment", "vomitingLikely", "lossConsciousnessPossible"];
   } else if (bac < 0.35) {
-    status = "Coma";
-    effects = ["Unconsciousness", "Depressed reflexes", "Respiratory depression"];
+    status = "coma";
+    effects = ["unconsciousness", "depressedReflexes", "respiratoryDepression"];
   } else {
-    status = "Death Risk";
-    effects = ["Life-threatening", "Respiratory arrest possible", "Seek emergency help"];
+    status = "deathRisk";
+    effects = ["lifeThreatening", "respiratoryArrestPossible", "seekEmergencyHelp"];
   }
 
   return {

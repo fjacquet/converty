@@ -132,7 +132,7 @@ export function BacCalculatorComponent() {
             className={`p-4 rounded-lg ${result.legalToDrive ? "bg-green-100 dark:bg-green-900" : "bg-red-100 dark:bg-red-900"}`}
           >
             <p className="font-semibold">
-              {tResults("status")}: {result.status}
+              {tResults("status")}: {tResults(result.status)}
             </p>
             <p
               className={
@@ -175,7 +175,7 @@ export function BacCalculatorComponent() {
             <ul className="list-disc list-inside space-y-1">
               {result.effects.map((effect) => (
                 <li key={effect} className="text-sm">
-                  {effect}
+                  {tResults(effect)}
                 </li>
               ))}
             </ul>

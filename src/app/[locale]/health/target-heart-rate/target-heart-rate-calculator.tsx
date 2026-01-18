@@ -87,8 +87,8 @@ export function TargetHeartRateCalculator() {
                 className="flex items-center justify-between rounded-lg border p-3"
               >
                 <div>
-                  <p className="font-medium">{zone.name}</p>
-                  <p className="text-sm text-muted-foreground">{zone.description}</p>
+                  <p className="font-medium">{tResults(zone.name)}</p>
+                  <p className="text-sm text-muted-foreground">{tResults(zone.description)}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold">

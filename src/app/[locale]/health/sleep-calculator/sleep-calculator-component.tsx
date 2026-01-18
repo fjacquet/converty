@@ -122,7 +122,7 @@ export function SleepCalculatorComponent() {
                 <p className="text-sm">
                   {cycle.cycles} {tResults("sleepCycles")} ({cycle.duration})
                 </p>
-                <p className="text-xs capitalize">{cycle.quality}</p>
+                <p className="text-xs">{tResults(cycle.quality)}</p>
               </div>
             ))}
           </div>
@@ -132,10 +132,10 @@ export function SleepCalculatorComponent() {
             {result.sleepStages.map((stage) => (
               <div key={stage.stage} className="p-3 bg-muted rounded-lg">
                 <div className="flex justify-between">
-                  <span className="font-medium">{stage.stage}</span>
-                  <span className="text-sm text-muted-foreground">{stage.duration}</span>
+                  <span className="font-medium">{tResults(stage.stage)}</span>
+                  <span className="text-sm text-muted-foreground">{tResults(stage.duration)}</span>
                 </div>
-                <p className="text-sm text-muted-foreground">{stage.description}</p>
+                <p className="text-sm text-muted-foreground">{tResults(stage.description)}</p>
               </div>
             ))}
           </div>
@@ -144,7 +144,7 @@ export function SleepCalculatorComponent() {
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.tips.map((tip) => (
               <li key={tip} className="text-sm">
-                {tip}
+                {tResults(tip)}
               </li>
             ))}
           </ul>

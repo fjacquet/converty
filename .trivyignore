@@ -1,0 +1,11 @@
+# Container security false positives
+# Context: Static site (output: "export"), no Docker usage in production
+# Verified: npm audit --production shows 0 vulnerabilities
+
+# @surma/rollup-plugin-off-main-thread (transitive dev dependency from workbox-build)
+# Issue: Dockerfile exists in package for browser testing with Selenium
+# Impact: NONE - Dockerfile never executed in development or production
+# Alternative: Configure Trivy to skip node_modules, but .trivyignore is more explicit
+# Review: Re-evaluate when workbox-build is updated
+AVD-DS-0002 exp:2026-07-18
+AVD-DS-0017 exp:2026-07-18

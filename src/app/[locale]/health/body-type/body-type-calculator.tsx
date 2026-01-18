@@ -128,9 +128,9 @@ export function BodyTypeCalculator() {
       {result && (
         <div className="space-y-4">
           <div className={`p-4 rounded-lg text-center ${getBodyTypeColor(result.bodyType)}`}>
-            <h2 className="text-2xl font-bold capitalize">{result.bodyType}</h2>
+            <h2 className="text-2xl font-bold">{tResults(result.bodyType)}</h2>
             <p className="text-sm">
-              {tResults("frameSize")}: {result.frameSize}
+              {tResults("frameSize")}: {tResults(result.frameSize)}
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export function BodyTypeCalculator() {
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.characteristics.map((char) => (
               <li key={char} className="text-sm">
-                {char}
+                {tResults(char)}
               </li>
             ))}
           </ul>
@@ -166,7 +166,7 @@ export function BodyTypeCalculator() {
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.trainingRecommendations.map((rec) => (
               <li key={rec} className="text-sm">
-                {rec}
+                {tResults(rec)}
               </li>
             ))}
           </ul>
@@ -175,7 +175,7 @@ export function BodyTypeCalculator() {
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
             {result.nutritionRecommendations.map((rec) => (
               <li key={rec} className="text-sm">
-                {rec}
+                {tResults(rec)}
               </li>
             ))}
           </ul>

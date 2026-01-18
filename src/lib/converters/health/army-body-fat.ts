@@ -68,20 +68,20 @@ export function calculateArmyBodyFat(input: ArmyBodyFatInput): ArmyBodyFatResult
 
   const passesStandard = bodyFatPercent <= maxAllowedPercent;
 
-  // Determine category
+  // Determine category (return translation keys)
   let category: string;
   if (gender === "male") {
-    if (bodyFatPercent < 6) category = "Essential Fat";
-    else if (bodyFatPercent < 14) category = "Athletes";
-    else if (bodyFatPercent < 18) category = "Fitness";
-    else if (bodyFatPercent < 25) category = "Acceptable";
-    else category = "Obese";
+    if (bodyFatPercent < 6) category = "essential";
+    else if (bodyFatPercent < 14) category = "athletes";
+    else if (bodyFatPercent < 18) category = "fitness";
+    else if (bodyFatPercent < 25) category = "acceptable";
+    else category = "obese";
   } else {
-    if (bodyFatPercent < 14) category = "Essential Fat";
-    else if (bodyFatPercent < 21) category = "Athletes";
-    else if (bodyFatPercent < 25) category = "Fitness";
-    else if (bodyFatPercent < 32) category = "Acceptable";
-    else category = "Obese";
+    if (bodyFatPercent < 14) category = "essential";
+    else if (bodyFatPercent < 21) category = "athletes";
+    else if (bodyFatPercent < 25) category = "fitness";
+    else if (bodyFatPercent < 32) category = "acceptable";
+    else category = "obese";
   }
 
   // Army category determination

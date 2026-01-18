@@ -46,6 +46,7 @@ const useStore = createCalculatorStore<FormValues, CaloriesBurnedResult | null>(
 export function CaloriesBurnedCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tActivities = useTranslations("calculator.activities");
 
   const { values, setValue, result } = useStore();
 
@@ -71,7 +72,7 @@ export function CaloriesBurnedCalculator() {
             <SelectContent>
               {activities.map((activity) => (
                 <SelectItem key={activity.id} value={activity.id}>
-                  {activity.name} (MET: {activity.met})
+                  {tActivities(activity.name)} (MET: {activity.met})
                 </SelectItem>
               ))}
             </SelectContent>
@@ -106,19 +107,19 @@ export function CaloriesBurnedCalculator() {
                 unit: "kcal/min",
               },
               {
-                label: "Activity",
-                value: result.activityName,
+                label: tResults("activity"),
+                value: tActivities(result.activityName),
                 unit: "",
               },
               {
-                label: "MET Value",
+                label: tResults("metValue"),
                 value: result.met.toFixed(1),
                 unit: "",
               },
               {
-                label: "Equivalent Walking",
+                label: tResults("equivalentWalking"),
                 value: Math.round(result.equivalentWalking),
-                unit: "minutes",
+                unit: t("minutes"),
               },
               {
                 label: tResults("fatBurned"),

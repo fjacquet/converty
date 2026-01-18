@@ -1,110 +1,145 @@
 # Testing Patterns
 
-**Analysis Date:** 2026-01-16
+**Analysis Date:** 2026-01-17
 
 ## Test Framework
 
 **Runner:**
 
-- No test framework currently installed
-- No test configuration files present
-- No test scripts in `package.json`
+- None currently configured
+- No test files found in `src/`
+- No test framework dependencies in `package.json`
 
-**Status:** Testing infrastructure is not set up in this codebase.
-
-**Recommended setup (not yet implemented):**
+**Run Commands:**
 
 ```bash
-npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
+# No test commands available
+# Quality checks use:
+npm run type-check     # TypeScript type checking
+npm run lint           # ESLint
+npm run lint:biome     # Biome linting
+npm run quality        # All quality checks (lint + biome + type-check)
 ```
 
 ## Test File Organization
 
-**Current State:** No test files exist in the codebase.
+**Location:**
 
-**Recommended Pattern:**
+- No test files currently exist
 
-- Location: Co-located with source files
-- Naming: `[name].test.ts` or `[name].test.tsx`
+**Expected Pattern (if tests were added):**
 
-**Suggested structure:**
+- Co-located: `src/lib/converters/health/bmi.test.ts` next to `bmi.ts`
+- Or separate: `__tests__/lib/converters/health/bmi.test.ts`
+- Or test directory: `tests/lib/converters/health/bmi.test.ts`
 
-```
-src/
-├── lib/
-│   └── converters/
-│       └── finance/
-│           ├── mortgage.ts
-│           └── mortgage.test.ts      # Unit tests for calculation
-├── components/
-│   └── converter/
-│       ├── input-field.tsx
-│       └── input-field.test.tsx      # Component tests
-└── app/
-    └── [locale]/
-        └── finance/
-            └── mortgage/
-                ├── page.tsx
-                └── page.test.tsx     # Integration tests
-```
+**Naming:**
 
-## Test Structure
+- `*.test.ts` or `*.spec.ts` for TypeScript files
+- `*.test.tsx` or `*.spec.tsx` for component tests
 
-**Recommended patterns for this codebase:**
+## Current Quality Assurance
 
-**Unit tests for calculation functions:**
+**Type Checking:**
+
+- TypeScript compiler with strict mode
+- Run: `npx tsc --noEmit`
+- Configured in `tsconfig.json`
+
+**Linting:**
+
+- ESLint v9 with TypeScript support
+- Biome v2.3.11 for additional checks
+- Run: `npm run lint` or `npm run check`
+
+**Manual Testing:**
+
+- Development server: `npm run dev`
+- Visual testing in browser
+- Calculator outputs verified manually
+- URL state persistence tested interactively
+
+## Testing Approach (Current)
+
+**Validation:**
+
+- Input validation in calculator functions (return `null` for invalid)
+- TypeScript ensures type safety at compile time
+- Biome checks code quality and patterns
+
+**Calculation Verification:**
+
+- Manual testing with known inputs/outputs
+- Visual verification in browser
+- No automated test suite
+
+**Regression Prevention:**
+
+- Type checking catches many bugs
+- Linting prevents common mistakes
+- Build process (`npm run build`) must succeed
+
+## What Would Be Tested (Recommendations)
+
+**Unit Tests (Calculation Functions):**
 
 ```typescript
-// src/lib/converters/finance/mortgage.test.ts
-import { describe, it, expect } from "vitest";
-import { calculateMortgage, type MortgageInput } from "./mortgage";
+// src/lib/converters/health/bmi.test.ts
+import { calculateBMI } from "./bmi";
 
-describe("calculateMortgage", () => {
-  it("returns null for invalid home price", () => {
-    const input: MortgageInput = {
-      homePrice: 0,
-      downPayment: 0,
-      downPaymentPercent: 0,
-      loanTerm: 30,
-      interestRate: 6.5,
-      propertyTax: 0,
-      homeInsurance: 0,
-      pmi: 0,
-      hoaFees: 0,
-      startDate: "2024-01-01",
-    };
+describe("calculateBMI", () => {
+  it("calculates BMI correctly", () => {
+    const result = calculateBMI({
+      weight: 70,
+      weightUnit: "kg",
+      height: 175,
+      heightUnit: "cm",
+    });
 
-    expect(calculateMortgage(input)).toBeNull();
+    expect(result?.bmi).toBeCloseTo(22.9, 1);
+    expect(result?.category).toBe("normal");
   });
 
-  it("calculates monthly payment correctly", () => {
-    const input: MortgageInput = {
-      homePrice: 400000,
-      downPayment: 80000,
-      downPaymentPercent: 20,
-      loanTerm: 30,
-      interestRate: 6.5,
-      propertyTax: 4800,
-      homeInsurance: 1200,
-      pmi: 0,
-      hoaFees: 0,
-      startDate: "2024-01-01",
-    };
+  it("returns null for invalid inputs", () => {
+    const result = calculateBMI({
+      weight: -10,
+      weightUnit: "kg",
+      height: 175,
+      heightUnit: "cm",
+    });
 
-    const result = calculateMortgage(input);
-
-    expect(result).not.toBeNull();
-    expect(result?.loanAmount).toBe(320000);
-    expect(result?.monthlyPrincipalInterest).toBeCloseTo(2022.53, 0);
+    expect(result).toBeNull();
   });
 });
 ```
 
-**Component tests:**
+**Integration Tests (Stores):**
+
+```typescript
+// src/stores/calculator-store.test.ts
+import { createCalculatorStore } from "./calculator-store";
+
+describe("createCalculatorStore", () => {
+  it("updates values and calculates result", () => {
+    const useStore = createCalculatorStore({
+      name: "test",
+      initialValues: { a: 0, b: 0 },
+      calculate: (vals) => ({ sum: vals.a + vals.b }),
+    });
+
+    const { setValue, result } = useStore.getState();
+    setValue("a", 5);
+    setValue("b", 3);
+
+    expect(result?.sum).toBe(8);
+  });
+});
+```
+
+**Component Tests:**
 
 ```typescript
 // src/components/converter/input-field.test.tsx
-import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { InputField } from "./input-field";
 
@@ -113,238 +148,194 @@ describe("InputField", () => {
     render(
       <InputField
         id="test"
-        label="Test Label"
+        label="Test Input"
         value="100"
         onChange={() => {}}
       />
     );
 
-    expect(screen.getByLabelText("Test Label")).toBeInTheDocument();
-    expect(screen.getByRole("spinbutton")).toHaveValue(100);
+    expect(screen.getByLabelText("Test Input")).toBeInTheDocument();
   });
 
   it("calls onChange when value changes", () => {
-    const handleChange = vi.fn();
-
+    const onChange = jest.fn();
     render(
-      <InputField id="test" label="Test" value="" onChange={handleChange} />
+      <InputField id="test" label="Test" value="100" onChange={onChange} />
     );
 
-    fireEvent.change(screen.getByRole("spinbutton"), {
+    fireEvent.change(screen.getByLabelText("Test"), {
       target: { value: "200" },
     });
 
-    expect(handleChange).toHaveBeenCalledWith("200");
+    expect(onChange).toHaveBeenCalledWith("200");
   });
 });
 ```
 
-## Mocking
+## Test Framework Recommendations
 
-**Framework:** Would use Vitest's built-in mocking (not yet implemented)
+**For Unit Tests:**
 
-**Recommended patterns:**
+- Vitest (fast, Vite-based, modern)
+- Jest (established, widely used)
 
-**Mocking modules:**
+**For Component Tests:**
 
-```typescript
-import { vi } from "vitest";
+- React Testing Library (recommended for React 19)
+- Vitest + @testing-library/react
 
-vi.mock("next-intl", () => ({
-  useTranslations: () => (key: string) => key,
-  useFormatter: () => ({
-    number: (n: number) => n.toString(),
-  }),
-}));
+**For E2E Tests:**
+
+- Playwright (recommended for Next.js)
+- Cypress (alternative)
+
+**Setup Example (Vitest):**
+
+```bash
+npm install -D vitest @testing-library/react @testing-library/jest-dom
 ```
 
-**Mocking Zustand stores:**
+**Config (`vitest.config.ts`):**
 
 ```typescript
-import { vi } from "vitest";
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react";
 
-vi.mock("@/stores/calculator-store", () => ({
-  createCalculatorStore: vi.fn(() => () => ({
-    values: { homePrice: 400000 },
-    setValue: vi.fn(),
-    result: null,
-  })),
-}));
-```
-
-**What to Mock:**
-
-- External APIs (none currently used)
-- Browser APIs (localStorage, URL)
-- next-intl hooks for translations
-- Zustand store implementations
-
-**What NOT to Mock:**
-
-- Pure calculation functions (test directly)
-- UI component rendering
-- CSS class application
-
-## Fixtures and Factories
-
-**Recommended test data patterns:**
-
-```typescript
-// src/lib/converters/finance/__fixtures__/mortgage.ts
-
-export const createMortgageInput = (
-  overrides?: Partial<MortgageInput>
-): MortgageInput => ({
-  homePrice: 400000,
-  downPayment: 80000,
-  downPaymentPercent: 20,
-  loanTerm: 30,
-  interestRate: 6.5,
-  propertyTax: 4800,
-  homeInsurance: 1200,
-  pmi: 0,
-  hoaFees: 0,
-  startDate: "2024-01-01",
-  ...overrides,
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+  },
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
+  },
 });
-
-export const validMortgageResult: MortgageResult = {
-  loanAmount: 320000,
-  monthlyPrincipalInterest: 2022.53,
-  // ... rest of result
-};
 ```
-
-**Location:**
-
-- `__fixtures__/` directories alongside test files
-- Or inline within test files for simple cases
 
 ## Coverage
 
-**Requirements:** None enforced (no testing infrastructure)
+**Requirements:** None enforced
 
-**Recommended targets for future:**
-
-- Calculation functions: 90%+ coverage
-- UI components: 70%+ coverage
-- Integration tests: Key user flows
-
-**View Coverage (when implemented):**
+**View Coverage:**
 
 ```bash
-npm run test:coverage
+# Would be (if Vitest configured):
+npx vitest run --coverage
 ```
+
+**Target Areas for Coverage:**
+
+- Calculation functions in `src/lib/converters/` (high value)
+- Store logic in `src/stores/`
+- Utilities in `src/lib/utils/`
+- Component rendering (lower priority due to type safety)
 
 ## Test Types
 
-**Unit Tests:**
+**Unit Tests (Recommended Priority):**
 
-- Scope: Pure calculation functions in `src/lib/converters/`
-- Approach: Test input/output, edge cases, null returns
-- Priority: HIGH - Most critical for correctness
+- Calculation functions (highest ROI)
+- Pure functions in converters
+- Utility functions
+- Store factories
 
 **Integration Tests:**
 
-- Scope: Calculator components with store
-- Approach: Test user interactions and state changes
-- Priority: MEDIUM
+- Zustand stores with calculation functions
+- URL state sync middleware
+- Component + store integration
 
-**E2E Tests:**
+**E2E Tests (Future):**
 
-- Framework: Not used
-- Status: Could consider Playwright for critical paths
-- Priority: LOW
+- Full calculator flows
+- URL parameter persistence
+- Multi-language support
+- PDF export functionality
 
-## Common Patterns
+## Common Patterns (If Tests Existed)
 
-**Testing null returns:**
+**Async Testing:**
 
 ```typescript
-it("returns null for zero value", () => {
-  const result = calculateBMI({ weight: 0, height: 170, ... });
+it("handles async operations", async () => {
+  const result = await someAsyncFunction();
+  expect(result).toBeDefined();
+});
+```
+
+**Error Testing:**
+
+```typescript
+it("returns null for division by zero", () => {
+  const result = calculate({ divisor: 0 });
   expect(result).toBeNull();
 });
 ```
 
-**Testing calculation accuracy:**
+**Snapshot Testing (Component Structure):**
 
 ```typescript
-it("calculates BMI correctly", () => {
-  const result = calculateBMI({
-    weight: 70,
-    weightUnit: "kg",
-    height: 170,
-    heightUnit: "cm",
-  });
-
-  expect(result?.bmi).toBeCloseTo(24.2, 1);
-  expect(result?.category).toBe("normal");
+it("matches snapshot", () => {
+  const { container } = render(<Component />);
+  expect(container.firstChild).toMatchSnapshot();
 });
 ```
 
-**Testing with translations:**
+## Quality Gates (Current)
 
-```typescript
-// Mock the translation hook
-vi.mock("next-intl", () => ({
-  useTranslations: () => (key: string) => `translated:${key}`,
-}));
+**Build-time:**
 
-it("displays translated label", () => {
-  render(<InputField id="test" label={t("labels.amount")} ... />);
-  expect(screen.getByText("translated:labels.amount")).toBeInTheDocument();
-});
+1. TypeScript compilation must succeed
+2. Biome linting must pass (or have no errors)
+3. ESLint checks must pass
+4. Static export generation must succeed
+
+**Pre-commit (Recommended):**
+
+- Run `npm run quality` before commits
+- Format with `npm run format`
+- Type check with `npm run type-check`
+
+**CI/CD (If configured):**
+
+```yaml
+# Example GitHub Actions workflow
+- name: Quality Check
+  run: |
+    npm run type-check
+    npm run lint
+    npm run lint:biome
+    npm run build
 ```
 
-## Recommended Next Steps
+## Test Coverage Gaps (Current State)
 
-1. **Install test framework:**
+**Untested Areas:**
 
-   ```bash
-   npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom @vitejs/plugin-react
-   ```
+- All calculation functions in `src/lib/converters/` (no automated tests)
+- Zustand store logic
+- Component rendering and interactions
+- URL state synchronization
+- Translation key coverage
+- Error handling paths
 
-2. **Create vitest config:**
+**Risk:**
 
-   ```typescript
-   // vitest.config.ts
-   import { defineConfig } from "vitest/config";
-   import react from "@vitejs/plugin-react";
-   import { resolve } from "path";
+- High complexity functions (mortgage amortization, statistical calculations) have no automated verification
+- Regressions must be caught manually
+- Refactoring carries higher risk without test safety net
 
-   export default defineConfig({
-     plugins: [react()],
-     test: {
-       environment: "jsdom",
-       setupFiles: ["./src/test/setup.ts"],
-       globals: true,
-     },
-     resolve: {
-       alias: {
-         "@": resolve(__dirname, "./src"),
-       },
-     },
-   });
-   ```
+**Priority:**
 
-3. **Add test scripts to package.json:**
-
-   ```json
-   {
-     "scripts": {
-       "test": "vitest",
-       "test:coverage": "vitest run --coverage",
-       "test:ui": "vitest --ui"
-     }
-   }
-   ```
-
-4. **Start with calculation function tests:**
-   - `src/lib/converters/finance/mortgage.test.ts`
-   - `src/lib/converters/health/bmi.test.ts`
-   - Focus on edge cases and null returns
+1. Add tests for calculation functions (highest value)
+2. Add store tests for state management
+3. Add component tests for critical UI components
+4. Add E2E tests for user workflows
 
 ---
 
-_Testing analysis: 2026-01-16_
+_Testing analysis: 2026-01-17_

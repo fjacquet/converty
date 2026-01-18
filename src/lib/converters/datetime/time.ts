@@ -15,6 +15,7 @@ export interface TimeResult {
   totalSeconds: number;
   crossesMidnight: boolean;
   dayChange: number;
+  period: "AM" | "PM";
 }
 
 function parseTime(timeStr: string): { hours: number; minutes: number; seconds: number } | null {
@@ -35,9 +36,8 @@ function formatTime24h(hours: number, minutes: number, seconds: number): string 
 }
 
 function formatTime12h(hours: number, minutes: number, seconds: number): string {
-  const period = hours >= 12 ? "PM" : "AM";
   const displayHours = hours % 12 || 12;
-  return `${displayHours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")} ${period}`;
+  return `${displayHours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
 export function calculateTime(input: TimeInput): TimeResult | null {
@@ -82,5 +82,6 @@ export function calculateTime(input: TimeInput): TimeResult | null {
     totalSeconds: resultTotalSeconds,
     crossesMidnight: dayChange !== 0,
     dayChange,
+    period: resultHours >= 12 ? "PM" : "AM",
   };
 }

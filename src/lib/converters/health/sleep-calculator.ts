@@ -103,39 +103,40 @@ export function calculateSleep(input: SleepInput): SleepResult | null {
     });
   }
 
-  // Sleep stages in a typical cycle
+  // Sleep stages in a typical cycle (use translation keys)
   const sleepStages = [
     {
-      stage: "Stage 1 (N1)",
-      duration: "5-10 min",
-      description: "Light sleep, easily awakened, muscle activity slows",
+      stage: "sleep_stage_1_name",
+      duration: "sleep_stage_1_duration",
+      description: "sleep_stage_1_desc",
     },
     {
-      stage: "Stage 2 (N2)",
-      duration: "10-25 min",
-      description: "Eye movement stops, slower brain waves",
+      stage: "sleep_stage_2_name",
+      duration: "sleep_stage_2_duration",
+      description: "sleep_stage_2_desc",
     },
     {
-      stage: "Stage 3 (N3)",
-      duration: "20-40 min",
-      description: "Deep sleep, difficult to wake, body repairs and regrows tissues",
+      stage: "sleep_stage_3_name",
+      duration: "sleep_stage_3_duration",
+      description: "sleep_stage_3_desc",
     },
     {
-      stage: "REM Sleep",
-      duration: "10-60 min",
-      description: "Dreams occur, eyes move rapidly, brain is active",
+      stage: "sleep_stage_rem_name",
+      duration: "sleep_stage_rem_duration",
+      description: "sleep_stage_rem_desc",
     },
   ];
 
+  // Sleep tips (use translation keys)
   const tips = [
-    "Maintain a consistent sleep schedule, even on weekends",
-    "Create a relaxing bedtime routine",
-    "Keep your bedroom cool, dark, and quiet",
-    "Avoid screens 1-2 hours before bed",
-    "Limit caffeine after 2 PM",
-    "Exercise regularly, but not close to bedtime",
-    "Avoid large meals before sleeping",
-    "Wake up at the end of a sleep cycle for better alertness",
+    "sleep_tip_schedule",
+    "sleep_tip_routine",
+    "sleep_tip_environment",
+    "sleep_tip_screens",
+    "sleep_tip_caffeine",
+    "sleep_tip_exercise",
+    "sleep_tip_meals",
+    "sleep_tip_cycles",
   ];
 
   return {

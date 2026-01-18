@@ -16,6 +16,8 @@ const useAgeStore = createCalculatorStore<AgeInput, AgeResult>({
 export function AgeCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
+  const tZodiacWestern = useTranslations("calculator.zodiac.western");
+  const tZodiacChinese = useTranslations("calculator.zodiac.chinese");
   const { values, setValue, result } = useAgeStore();
 
   const pdfSections = useMemo(() => {
@@ -46,13 +48,13 @@ export function AgeCalculator() {
       {
         title: tSections("details"),
         items: [
-          { label: t("zodiacSign"), value: result.zodiacSign },
-          { label: t("chineseZodiac"), value: result.chineseZodiac },
+          { label: t("zodiacSign"), value: tZodiacWestern(result.zodiacSign) },
+          { label: t("chineseZodiac"), value: tZodiacChinese(result.chineseZodiac) },
           { label: t("daysUntilBirthday"), value: result.nextBirthday.daysUntil },
         ],
       },
     ];
-  }, [result, t, tSections]);
+  }, [result, t, tSections, tZodiacWestern, tZodiacChinese]);
 
   return (
     <div className="space-y-6">
@@ -116,8 +118,8 @@ export function AgeCalculator() {
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: t("zodiacSign"), value: result.zodiacSign },
-                  { label: t("chineseZodiac"), value: result.chineseZodiac },
+                  { label: t("zodiacSign"), value: tZodiacWestern(result.zodiacSign) },
+                  { label: t("chineseZodiac"), value: tZodiacChinese(result.chineseZodiac) },
                   {
                     label: t("nextBirthday"),
                     value: result.nextBirthday.date.toLocaleDateString(),

@@ -6,11 +6,9 @@ import {
   type BMIInput,
   type BMIResult,
   calculateBMI,
-  getBMICategoryInfo,
   type HeightUnit,
   type WeightUnit,
 } from "@/lib/converters/health/bmi";
-import { cn } from "@/lib/utils";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const WEIGHT_UNITS = [
@@ -57,8 +55,6 @@ export function BMICalculator() {
 
   const { values, setValue, result } = useStore();
 
-  const categoryInfo = result ? getBMICategoryInfo(result.category) : null;
-
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
@@ -102,8 +98,8 @@ export function BMICalculator() {
               <p className="text-sm font-medium text-muted-foreground mb-2">
                 {tResults("category")}
               </p>
-              <div className={cn("rounded-md border bg-muted/50 px-3 py-4", categoryInfo?.color)}>
-                <span className="text-2xl font-bold">{result.categoryLabel}</span>
+              <div className="rounded-md border bg-muted/50 px-3 py-4">
+                <span className="text-2xl font-bold">{tResults(result.category)}</span>
               </div>
             </div>
           </div>
@@ -138,9 +134,9 @@ export function BMICalculator() {
                 <div className="flex-1 bg-blue-400" title={tResults("underweight")} />
                 <div className="flex-1 bg-green-400" title={tResults("normal")} />
                 <div className="flex-1 bg-yellow-400" title={tResults("overweight")} />
-                <div className="flex-1 bg-orange-400" title={tResults("obeseI")} />
-                <div className="flex-1 bg-red-400" title={tResults("obeseII")} />
-                <div className="flex-1 bg-red-600" title={tResults("obeseIII")} />
+                <div className="flex-1 bg-orange-400" title={tResults("obese-1")} />
+                <div className="flex-1 bg-red-400" title={tResults("obese-2")} />
+                <div className="flex-1 bg-red-600" title={tResults("obese-3")} />
               </div>
               {/* BMI Indicator */}
               <div

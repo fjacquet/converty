@@ -55,21 +55,26 @@ This starts the Next.js development server with Turbopack at http://localhost:30
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run type-check` | Run TypeScript compiler check |
-| `npm run format` | Format code with Biome |
-| `npm run lint` | Lint code with Biome |
+| `npm run dev` | Start development server at http://localhost:3000 |
+| `npm run build` | Build for production + generate service worker |
+| `npm run type-check` | Run TypeScript compiler check (no emit) |
+| `npm run format` | Auto-format code with Biome |
+| `npm run check` | Run Biome linter (read-only check) |
+| `npm run check:fix` | Run Biome linter and auto-fix issues |
+
+**Note:** The `npm run build` command includes automatic service worker generation via `scripts/generate-sw.js`.
 
 ### Before Committing
 
 Always run these checks before committing:
 
 ```bash
-npm run type-check
-npm run lint
-npm run build
+npm run type-check  # Should output: "0 errors"
+npm run check       # Should output: no errors or warnings
+npm run build       # Should complete with static export success
 ```
+
+All checks must pass before creating a pull request. If `npm run check` reports issues, run `npm run check:fix` to auto-fix formatting and linting problems.
 
 ## Adding a New Calculator
 
@@ -182,64 +187,96 @@ Create `src/app/{category}/{name}/my-calculator.tsx`:
 ```typescript
 "use client";
 
-import { useState } from "react";
-import { calculateSomething, PRESETS } from "@/lib/converters/{category}/my-calculator";
+import { useTranslations } from "next-intl";
+import { InputField, ResultGrid } from "@/components/converter";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  calculateSomething,
+  type MyCalculatorInput,
+  type MyCalculatorResult,
+} from "@/lib/converters/{category}/my-calculator";
+import { createCalculatorStore } from "@/stores/calculator-store";
+
+// Create store OUTSIDE component (not inside)
+const useMyCalculatorStore = createCalculatorStore<MyCalculatorInput, MyCalculatorResult>({
+  name: "my-calculator",
+  initialValues: { value1: 10, value2: 5 },
+  calculate: calculateSomething,
+});
 
 export function MyCalculator() {
-  const [value1, setValue1] = useState("10");
-  const [value2, setValue2] = useState("5");
-
-  const result = calculateSomething({
-    value1: parseFloat(value1) || 0,
-    value2: parseFloat(value2) || 0,
-  });
+  const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
+  const { values, setValue, result } = useMyCalculatorStore();
 
   return (
     <div className="space-y-6">
       {/* Input Section */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Value 1</label>
-          <input
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">{t("inputs")}</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4 sm:grid-cols-2">
+          <InputField
+            id="value1"
+            label={t("value1")}
             type="number"
-            value={value1}
-            onChange={(e) => setValue1(e.target.value)}
-            className="w-full h-10 px-3 rounded-md border bg-background"
+            value={values.value1}
+            onChange={(value) => setValue("value1", Number(value))}
           />
-        </div>
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Value 2</label>
-          <select
-            value={value2}
-            onChange={(e) => setValue2(e.target.value)}
-            className="w-full h-10 px-3 rounded-md border bg-background"
-          >
-            {PRESETS.map((p) => (
-              <option key={p.value} value={p.value}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+          <InputField
+            id="value2"
+            label={t("value2")}
+            type="number"
+            value={values.value2}
+            onChange={(value) => setValue("value2", Number(value))}
+          />
+        </CardContent>
+      </Card>
 
       {/* Results Section */}
       {result && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="p-4 rounded-lg border bg-muted/30">
-            <p className="text-sm text-muted-foreground">Output 1</p>
-            <p className="text-2xl font-bold">{result.output1}</p>
-          </div>
-          <div className="p-4 rounded-lg border bg-muted/30">
-            <p className="text-sm text-muted-foreground">Output 2</p>
-            <p className="text-xl font-bold">{result.output2}</p>
-          </div>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">{tResults("result")}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResultGrid
+              results={[
+                { label: t("output1"), value: result.output1 },
+                { label: t("output2"), value: result.output2 },
+              ]}
+              columns={2}
+            />
+          </CardContent>
+        </Card>
       )}
     </div>
   );
 }
 ```
+
+**Key features of the Zustand pattern:**
+
+- **Automatic URL synchronization**: Changes sync to URL parameters automatically (shareable links work out of the box)
+- **Type-safe with generics**: `createCalculatorStore<InputType, ResultType>` ensures type safety
+- **No Provider wrapper needed**: Store is a hook you can use directly
+- **Automatic calculation**: Result updates automatically when values change
+- **Built-in validation**: Returns `null` for invalid inputs (optional `validate` function)
+- **Store created outside component**: Important for proper state management
+
+**Important notes:**
+
+1. Create the store **outside** the component (module scope), not inside
+2. Use existing UI components from `@/components/converter/` (InputField, ResultGrid, OutputDisplay)
+3. Use `useTranslations()` for all user-facing labels
+4. Follow the pattern from real examples like `src/app/[locale]/datetime/age/age-calculator.tsx`
+
+For more complex calculators, see other examples in the codebase that demonstrate:
+- Custom validation with `validate` option
+- PDF export with `PdfExportButton`
+- Charts and visualizations with `recharts`
+- Multiple result sections with different card layouts
 
 ### Step 5: Register the Calculator
 
@@ -290,8 +327,11 @@ We use [Biome](https://biomejs.dev/) for linting and formatting.
 # Format all files
 npm run format
 
-# Check for issues
-npm run lint
+# Check for linting issues
+npm run check
+
+# Auto-fix linting issues
+npm run check:fix
 ```
 
 ## Testing
@@ -304,8 +344,9 @@ Before submitting, verify:
 - [ ] Edge cases are handled (zero, negative, very large numbers)
 - [ ] UI is responsive on mobile and desktop
 - [ ] Dark mode works correctly
+- [ ] URL parameters sync correctly (shareable links work)
 - [ ] No TypeScript errors (`npm run type-check`)
-- [ ] No lint errors (`npm run lint`)
+- [ ] No lint errors (`npm run check`)
 - [ ] Build succeeds (`npm run build`)
 
 ### Verifying Calculations

@@ -18,17 +18,17 @@ A comprehensive unit converter and calculator toolkit built with Next.js 16. Ins
 
 ## Categories
 
-| Category | Calculators | Description |
-|----------|-------------|-------------|
-| **Photo** | 23 | DoF, hyperfocal, exposure, aspect ratio, diffraction, golden hour |
-| **Video** | 8 | File size, bitrate, frame rate, screen size, DCP |
-| **Web** | 9 | URL/HTML encoding, CSP generator, SEO analyzer, security checks |
-| **Data** | 3 | Data size, bandwidth, download time |
-| **Health** | 2 | BMI, corpulence index |
-| **Physics** | 1 | Speed conversion |
-| **Music** | 1 | BPM calculator |
-| **Color** | 1 | RGB/HEX/HSL converter |
-| **Finance** | 0 | Coming soon |
+| Category    | Calculators | Description                                                       |
+| ----------- | ----------- | ----------------------------------------------------------------- |
+| **Photo**   | 23          | DoF, hyperfocal, exposure, aspect ratio, diffraction, golden hour |
+| **Video**   | 8           | File size, bitrate, frame rate, screen size, DCP                  |
+| **Web**     | 9           | URL/HTML encoding, CSP generator, SEO analyzer, security checks   |
+| **Data**    | 3           | Data size, bandwidth, download time                               |
+| **Health**  | 2           | BMI, corpulence index                                             |
+| **Physics** | 1           | Speed conversion                                                  |
+| **Music**   | 1           | BPM calculator                                                    |
+| **Color**   | 1           | RGB/HEX/HSL converter                                             |
+| **Finance** | 0           | Coming soon                                                       |
 
 ## Getting Started
 
@@ -99,18 +99,19 @@ converty/
 
 ## Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with Turbopack |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run type-check` | Run TypeScript compiler check |
-| `npm run format` | Format code with Biome |
-| `npm run lint` | Lint code with Biome |
+| Command              | Description                             |
+| -------------------- | --------------------------------------- |
+| `npm run dev`        | Start development server with Turbopack |
+| `npm run build`      | Build for production                    |
+| `npm run start`      | Start production server                 |
+| `npm run type-check` | Run TypeScript compiler check           |
+| `npm run format`     | Format code with Biome                  |
+| `npm run lint`       | Lint code with Biome                    |
 
 ## Photography Calculators
 
 ### Depth of Field Family
+
 - **Depth of Field** - Basic DoF from aperture, focal length, distance
 - **Advanced DoF** - DoF with adjustable CoC for print size/viewing distance
 - **Macro DoF** - Accurate DoF using magnification ratio
@@ -119,19 +120,23 @@ converty/
 - **Circle of Confusion** - CoC from sensor, print size, viewing distance
 
 ### Diffraction Calculators
+
 - **Diffraction** - Detect when camera becomes diffraction-limited
 - **Macro Diffraction** - Effective aperture and diffraction in macro
 
 ### Exposure & Light
+
 - **Light EV** - Calculate Exposure Value from settings
 - **ND Filter** - Exposure time with neutral density filters
 - **Golden Hour** - Sun times based on geolocation (with Browser Geolocation API)
 
 ### Astrophotography
+
 - **Spot Stars** - Max exposure to prevent star trailing (NPF Rule)
 - **Star Trails** - Exposure time for star trail rotation
 
 ### Composition & Framing
+
 - **Aspect Ratio** - Calculate and convert aspect ratios
 - **Aspect Fit** - Fit images with letterboxing/pillarboxing
 - **Composition** - Field of view from focal length
@@ -139,6 +144,7 @@ converty/
 - **Focal Equivalent** - Match settings between sensor sizes
 
 ### Resolution & Print
+
 - **Megapixels** - Calculate from width × height
 - **Megapixel Aspects** - View MP in different aspect ratios
 - **DPI Calculator** - Megapixels needed for print size

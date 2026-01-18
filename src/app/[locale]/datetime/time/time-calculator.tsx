@@ -107,7 +107,9 @@ export function TimeCalculator() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center p-4 bg-primary/10 rounded-lg">
-              <p className="text-3xl font-bold text-primary">{result.formatted12h}</p>
+              <p className="text-3xl font-bold text-primary">
+                {result.formatted12h} {t(`time${result.period}`)}
+              </p>
               <p className="text-sm text-muted-foreground mt-1">{result.formatted24h} (24h)</p>
             </div>
             {result.crossesMidnight && (
@@ -122,7 +124,7 @@ export function TimeCalculator() {
             <ResultGrid
               results={[
                 { label: "24h", value: result.formatted24h },
-                { label: "12h", value: result.formatted12h },
+                { label: "12h", value: `${result.formatted12h} ${t(`time${result.period}`)}` },
                 {
                   label: `${t("seconds")} (${tSections("summary")})`,
                   value: result.totalSeconds.toLocaleString(),

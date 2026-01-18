@@ -1,193 +1,196 @@
 # External Integrations
 
-**Analysis Date:** 2026-01-16
+**Analysis Date:** 2026-01-17
 
 ## APIs & External Services
 
-**Reverse Geocoding (Optional):**
+**None detected**
 
-- OpenStreetMap Nominatim API
-  - Used in: `src/app/[locale]/photo/golden-hour/golden-hour-guide.tsx`
-  - Purpose: Convert coordinates to location names
-  - Endpoint: `https://nominatim.openstreetmap.org/reverse`
-  - Auth: None required (public API)
-  - Usage: Optional enhancement for golden hour calculator
-  - Graceful degradation: Falls back silently if unavailable
-
-**Currency Exchange:**
-
-- None - Static exchange rates
-  - Location: `src/lib/converters/finance/currency.ts`
-  - Note: Uses hardcoded rates, no external API
+This is a fully client-side application with no external API integrations. All calculations are performed in the browser using pure functions in `src/lib/converters/`.
 
 ## Data Storage
 
 **Databases:**
 
-- None - All data is client-side only
+- None - No database connectivity
 
 **File Storage:**
 
-- Local filesystem only (development)
-- Static export directory (`./out`) for production
+- Local filesystem only (static export to `out/` directory)
+- No cloud storage integration
+
+**Client-Side Storage:**
+
+- URL query parameters - State persistence via Zustand URL sync middleware
+  - Implementation: `src/stores/calculator-store.ts`
+  - Debounced URL updates (150ms default)
+  - Enables shareable calculator links
+- No localStorage, sessionStorage, or IndexedDB usage detected
 
 **Caching:**
 
-- Browser localStorage (implicit via URL state)
-- No server-side caching
-
-**State Persistence:**
-
-- URL parameters for calculator state
-  - Implementation: `src/stores/calculator-store.ts`
-  - Debounced sync (150ms default)
-  - Enables shareable calculator links
+- Browser HTTP caching only (configured in `nginx.conf`)
+  - Static assets: 1 year cache
+  - Other assets: 30 days
+  - HTML: no cache
 
 ## Authentication & Identity
 
 **Auth Provider:**
 
-- None - Public application with no authentication
-- All calculators accessible without login
+- None - No authentication system
+
+**User Management:**
+
+- Not applicable - Public static site with no user accounts
 
 ## Monitoring & Observability
 
 **Error Tracking:**
 
-- None configured
+- None - No error tracking service (e.g., Sentry)
 
 **Analytics:**
 
-- None configured (static site)
+- None - No analytics integration detected
 
 **Logs:**
 
-- Browser console only (development)
-- No production logging
+- nginx access logs (stdout) when containerized
+- nginx error logs (stderr) when containerized
+- No centralized logging service
 
-**Telemetry:**
+**Performance Monitoring:**
 
-- Next.js telemetry disabled in Docker (`NEXT_TELEMETRY_DISABLED=1`)
+- None - No APM or RUM tools
 
 ## CI/CD & Deployment
 
-**Primary Hosting:**
+**Hosting:**
 
-- GitHub Pages
-  - URL: `https://{username}.github.io/converty`
-  - Static files served from `./out` directory
+- GitHub Pages (primary)
 
-**Alternative Hosting:**
+  - Static hosting at `https://[username].github.io/converty/`
+  - Deployment from `out/` directory
+  - Workflow: `.github/workflows/static.yml`
 
-- Docker with nginx
-  - Dockerfile: `Dockerfile`
-  - nginx config: `nginx.conf`
-  - Port: 80
+- Alternative: Docker container with nginx
+  - Image: nginx:alpine
+  - Port: 8080 (non-root)
+  - Healthcheck: HTTP GET on `/`
+  - Multi-stage build reduces image size
 
 **CI Pipeline:**
 
 - GitHub Actions
 
-**Deployment Workflow:** `.github/workflows/static.yml`
+  - Build workflow: `.github/workflows/static.yml`
 
-- Trigger: Push to `maincd` branch
-- Steps:
-  1. Checkout code
-  2. Setup Node.js 20
-  3. Install dependencies (`npm ci`)
-  4. Type check (`npm run type-check`)
-  5. Lint (`npx biome check src/`)
-  6. Build (`npm run build`)
-  7. Upload to GitHub Pages
+    - Runs on: `maincd` branch push
+    - Node.js 20
+    - Steps: install → type-check → lint → build → deploy
 
-**Security Workflow:** `.github/workflows/security.yml`
+  - Security workflow: `.github/workflows/security.yml`
+    - Runs on: push, PR, weekly schedule (Monday 00:00 UTC)
+    - npm audit (moderate level)
+    - CodeQL analysis (JavaScript/TypeScript)
+    - Trivy container scan
+    - Trivy filesystem scan (vuln, secret, misconfig)
+    - Biome security linting
+    - Dependency review (PRs only)
 
-- Triggers: Push to main/maincd, PRs, weekly schedule
-- Jobs:
-  1. NPM Audit - Dependency vulnerability scan
-  2. CodeQL - Static analysis for JS/TS
-  3. Trivy Container - Docker image scanning
-  4. Trivy Filesystem - IaC and secrets scanning
-  5. Dependency Review - PR dependency changes
-  6. Biome Security - Security-focused linting
+**Build Tools:**
+
+- GitHub Actions (ubuntu-latest runners)
+- Make (local development via `Makefile`)
+
+**Secrets Management:**
+
+- Not applicable - No secrets required
+- No .env files in use
 
 ## Environment Configuration
 
 **Required env vars:**
 
-- None required for core functionality
-
-**Optional env vars:**
-
-- `NODE_ENV` - Controls basePath in Next.js config
+- None - Application requires no environment variables
 
 **Secrets location:**
 
-- No secrets required
-- All functionality is client-side
+- Not applicable - No secrets, API keys, or credentials needed
+
+**Runtime configuration:**
+
+- Configuration is build-time only via `next.config.ts`
+- `NODE_ENV` determines static export behavior (production only)
+- `NEXT_TELEMETRY_DISABLED=1` in Docker build
 
 ## Webhooks & Callbacks
 
 **Incoming:**
 
-- None
+- None - No webhook endpoints
 
 **Outgoing:**
 
-- None
+- None - No webhook calls to external services
 
-## Browser APIs
+## Development Tools
 
-**Geolocation API:**
+**Code Quality:**
 
-- Used in: `src/app/[locale]/photo/golden-hour/golden-hour-guide.tsx`
-- Purpose: Get user's location for sun position calculations
-- Permission: Requested on user action
-- Fallback: Manual coordinate entry
+- Biome 2.3.11 - Linting and formatting
+- ESLint 9.39.2 - Additional linting
+- TypeScript 5.9.3 - Type checking
 
-**History API:**
+**Security Scanning:**
 
-- Used in: `src/stores/calculator-store.ts`
-- Purpose: URL state synchronization
-- Method: `window.history.replaceState()`
+- CodeQL (JavaScript/TypeScript security analysis)
+- Trivy (container and filesystem vulnerability scanning)
+- npm audit (dependency security audit)
 
-**LocalStorage:**
+**Deployment Targets:**
 
-- Not directly used (state stored in URL)
+- GitHub Pages (configured)
+- Vercel (Makefile support, not configured)
+- Netlify (Makefile support, not configured)
+- Docker registries (via `make docker-push`)
 
-## Third-Party Services Summary
+## Third-Party Dependencies
 
-| Service                 | Purpose           | Required         | Auth                     |
-| ----------------------- | ----------------- | ---------------- | ------------------------ |
-| GitHub Pages            | Hosting           | Yes (production) | None                     |
-| GitHub Actions          | CI/CD             | Yes              | GitHub token (automatic) |
-| OpenStreetMap Nominatim | Reverse geocoding | No               | None                     |
+**All external dependencies are npm packages:**
 
-## Integration Architecture
+See `package.json` for complete list. Critical runtime dependencies:
 
-```
-+-------------------+     +------------------+
-|   Browser         |     |   GitHub Pages   |
-|   (Client)        |<--->|   (Static Host)  |
-+-------------------+     +------------------+
-         |
-         | Optional
-         v
-+-------------------+
-| OpenStreetMap     |
-| Nominatim API     |
-| (Reverse Geocode) |
-+-------------------+
-```
+- UI: Radix UI primitives, Lucide icons
+- State: Zustand
+- i18n: next-intl
+- Styling: Tailwind CSS
+- Charts: Recharts
+- PDF: jsPDF
+- Utilities: clsx, class-variance-authority, tailwind-merge
 
-## Key Characteristics
+**Dependency Security:**
 
-1. **Fully Static**: No backend server, database, or authentication
-2. **Self-Contained**: All calculations run in the browser
-3. **No API Keys**: No external service authentication required
-4. **Offline Capable**: Core functionality works offline (except geocoding)
-5. **Privacy First**: No user data sent to servers (except optional geocoding)
+- Monitored via GitHub Dependabot (if enabled)
+- npm audit in security workflow
+- Dependency review action on pull requests
+- License restrictions: GPL-3.0, AGPL-3.0 denied
+
+## Network Requirements
+
+**Development:**
+
+- No external network calls required
+- Local development server: `localhost:3000`
+- Allowed dev origins: `172.16.86.102` (configured in `next.config.ts`)
+
+**Production:**
+
+- Static assets served via CDN (GitHub Pages or nginx)
+- All resources bundled at build time
+- No runtime API calls
 
 ---
 
-_Integration audit: 2026-01-16_
+_Integration audit: 2026-01-17_

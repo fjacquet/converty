@@ -107,19 +107,19 @@ export function calculateDueDate(input: DueDateInput): DueDateResult | null {
     trimesterProgress = ((currentWeeks - 27) / 13) * 100;
   }
 
-  // Key milestones
+  // Key milestones (use translation keys)
   const milestonesData = [
-    { week: 4, name: "Implantation complete" },
-    { week: 6, name: "Heartbeat detectable" },
-    { week: 8, name: "All major organs forming" },
-    { week: 12, name: "End of first trimester" },
-    { week: 16, name: "Gender may be visible" },
-    { week: 20, name: "Anatomy scan / Halfway point" },
-    { week: 24, name: "Viability milestone" },
-    { week: 28, name: "Third trimester begins" },
-    { week: 32, name: "Baby's lungs developing" },
-    { week: 37, name: "Full term" },
-    { week: 40, name: "Due date" },
+    { week: 4, name: "pregnancy_milestone_implantation" },
+    { week: 6, name: "pregnancy_milestone_heartbeat" },
+    { week: 8, name: "pregnancy_milestone_organs" },
+    { week: 12, name: "pregnancy_milestone_trimester1_end" },
+    { week: 16, name: "pregnancy_milestone_gender" },
+    { week: 20, name: "pregnancy_milestone_anatomy_scan" },
+    { week: 24, name: "pregnancy_milestone_viability" },
+    { week: 28, name: "pregnancy_milestone_trimester3" },
+    { week: 32, name: "pregnancy_milestone_lungs" },
+    { week: 37, name: "pregnancy_milestone_full_term" },
+    { week: 40, name: "pregnancy_milestone_due_date" },
   ];
 
   const milestones = milestonesData.map(({ week, name }) => {

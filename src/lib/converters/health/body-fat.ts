@@ -55,19 +55,19 @@ export function calculateBodyFat(input: BodyFatInput): BodyFatResult | null {
   if (gender === "male") {
     idealBodyFatMin = 10;
     idealBodyFatMax = 20;
-    if (bodyFatPercent < 6) category = "Essential Fat";
-    else if (bodyFatPercent < 14) category = "Athletes";
-    else if (bodyFatPercent < 18) category = "Fitness";
-    else if (bodyFatPercent < 25) category = "Average";
-    else category = "Obese";
+    if (bodyFatPercent < 6) category = "essential";
+    else if (bodyFatPercent < 14) category = "athletes";
+    else if (bodyFatPercent < 18) category = "fitness";
+    else if (bodyFatPercent < 25) category = "average";
+    else category = "obese";
   } else {
     idealBodyFatMin = 18;
     idealBodyFatMax = 28;
-    if (bodyFatPercent < 14) category = "Essential Fat";
-    else if (bodyFatPercent < 21) category = "Athletes";
-    else if (bodyFatPercent < 25) category = "Fitness";
-    else if (bodyFatPercent < 32) category = "Average";
-    else category = "Obese";
+    if (bodyFatPercent < 14) category = "essential";
+    else if (bodyFatPercent < 21) category = "athletes";
+    else if (bodyFatPercent < 25) category = "fitness";
+    else if (bodyFatPercent < 32) category = "average";
+    else category = "obese";
   }
 
   return {

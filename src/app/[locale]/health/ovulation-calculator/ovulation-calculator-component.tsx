@@ -115,7 +115,7 @@ export function OvulationCalculatorComponent() {
                 <span
                   className={`px-2 py-1 rounded text-white text-sm ${getFertilityColor(day.fertility)}`}
                 >
-                  {day.fertility}
+                  {tResults(day.fertility)}
                 </span>
               </div>
             ))}

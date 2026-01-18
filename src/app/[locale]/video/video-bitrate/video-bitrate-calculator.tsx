@@ -11,6 +11,7 @@ import {
 
 export function VideoBitrateCalculator() {
   const t = useTranslations("calculator.labels");
+  const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
   const [width, setWidth] = useState("1920");
   const [height, setHeight] = useState("1080");
@@ -66,7 +67,7 @@ export function VideoBitrateCalculator() {
           </div>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Frame Rate</label>
+          <label className="text-sm font-medium">{t("bitrateFrameRate")}</label>
           <select
             value={fps}
             onChange={(e) => setFps(e.target.value)}
@@ -80,19 +81,19 @@ export function VideoBitrateCalculator() {
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Bit Depth</label>
+          <label className="text-sm font-medium">{t("bitrateBitDepth")}</label>
           <select
             value={bitDepth}
             onChange={(e) => setBitDepth(parseInt(e.target.value) as 8 | 10 | 12)}
             className="w-full h-10 px-3 rounded-md border bg-background"
           >
-            <option value="8">8-bit</option>
-            <option value="10">10-bit</option>
-            <option value="12">12-bit</option>
+            <option value="8">{t("bitrate8bit")}</option>
+            <option value="10">{t("bitrate10bit")}</option>
+            <option value="12">{t("bitrate12bit")}</option>
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Codec</label>
+          <label className="text-sm font-medium">{t("bitrateCodec")}</label>
           <select
             value={codec}
             onChange={(e) => setCodec(e.target.value as "h264" | "h265" | "prores" | "raw")}
@@ -105,16 +106,16 @@ export function VideoBitrateCalculator() {
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Quality</label>
+          <label className="text-sm font-medium">{t("bitrateQuality")}</label>
           <select
             value={quality}
             onChange={(e) => setQuality(e.target.value as "low" | "medium" | "high" | "lossless")}
             className="w-full h-10 px-3 rounded-md border bg-background"
           >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-            <option value="lossless">Lossless</option>
+            <option value="low">{t("bitrateQualityLow")}</option>
+            <option value="medium">{t("bitrateQualityMedium")}</option>
+            <option value="high">{t("bitrateQualityHigh")}</option>
+            <option value="lossless">{t("bitrateQualityLossless")}</option>
           </select>
         </div>
       </div>
@@ -129,16 +130,16 @@ export function VideoBitrateCalculator() {
 
           <ResultGrid
             results={[
-              { label: "Bitrate", value: result.bitrateKbps.toLocaleString(), unit: "kbps" },
-              { label: "Bits/Pixel", value: result.bitsPerPixel },
+              { label: t("result"), value: result.bitrateKbps.toLocaleString(), unit: "kbps" },
+              { label: t("bitrateBitsPerPixel"), value: result.bitsPerPixel },
             ]}
             columns={2}
           />
 
           <div className="p-4 rounded-lg border bg-muted/50">
-            <p className="text-sm text-muted-foreground mb-1">Quality Assessment</p>
-            <p className="text-xl font-semibold">{result.qualityLevel}</p>
-            <p className="text-sm text-muted-foreground mt-1">{result.recommendation}</p>
+            <p className="text-sm text-muted-foreground mb-1">{t("bitrateQualityAssessment")}</p>
+            <p className="text-xl font-semibold">{tResults(result.qualityLevel)}</p>
+            <p className="text-sm text-muted-foreground mt-1">{tResults(result.recommendation)}</p>
           </div>
         </div>
       )}

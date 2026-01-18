@@ -89,7 +89,7 @@
         "noDuplicateObjectKeys": "error",
         "noDuplicateParameters": "error",
         "noEmptyBlockStatements": "off",
-        "noExplicitAny": "off",
+        "noExplicitAny": "error",
         "noExtraNonNullAssertion": "error",
         "noFallthroughSwitchClause": "error",
         "noFunctionAssign": "error",
@@ -116,5 +116,17 @@
       "semicolons": "always",
       "trailingCommas": "es5"
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["src/lib/middleware/url-sync.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    }
+  ]
 }
