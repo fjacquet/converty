@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 
 interface BinaryRepresentationProps {
   result: SubnetResult;
-  ipAddress: string;
 }
 
 /**
@@ -40,11 +39,11 @@ function convertToBinary(addr: ipaddr.IPv4 | ipaddr.IPv6, ipVersion: 4 | 6): str
  * - Responsive flex-wrap layout
  * - Full accessibility with ARIA labels
  */
-export function BinaryRepresentation({ result, ipAddress }: BinaryRepresentationProps) {
+export function BinaryRepresentation({ result }: BinaryRepresentationProps) {
   const t = useTranslations("calculator.subnet.binary");
 
-  // Parse IP address to binary
-  const parsedAddr = ipaddr.parse(ipAddress);
+  // Parse IP address to binary (use networkAddress which is already clean)
+  const parsedAddr = ipaddr.parse(result.networkAddress);
   const ipBits = convertToBinary(parsedAddr, result.ipVersion);
 
   // Generate subnet mask bits (IPv4 only)
@@ -90,7 +89,7 @@ export function BinaryRepresentation({ result, ipAddress }: BinaryRepresentation
             const isNetworkBit = index < result.cidr;
             return (
               <span
-                key={`ip-${ipAddress}-bit-${index}`}
+                key={`ip-bit-${index}`}
                 className={cn(
                   "px-1 py-0.5 rounded font-mono text-xs",
                   isNetworkBit

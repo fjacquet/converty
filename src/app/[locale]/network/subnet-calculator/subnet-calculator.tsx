@@ -152,7 +152,7 @@ export function SubnetCalculator() {
               <CardTitle>{t("binaryRepresentation")}</CardTitle>
             </CardHeader>
             <CardContent>
-              <BinaryRepresentation result={result} ipAddress={ipInput} />
+              <BinaryRepresentation result={result} />
             </CardContent>
           </Card>
 
