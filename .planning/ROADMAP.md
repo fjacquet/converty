@@ -70,10 +70,12 @@ Converty evolves through focused milestones. v1.0 established a solid infrastruc
   2. User can input IPv6 address with CIDR notation and see calculation
   3. User can input subnet mask notation (e.g., 255.255.255.0) and see calculation
   4. Calculator state persists to URL for sharing
-**Plans:** TBD
+**Plans:** 3 plans in 3 waves
 
 Plans:
-- [ ] TBD
+- [ ] 09-01-PLAN.md — Foundation Setup (install ipaddr.js, create network category, add translations)
+- [ ] 09-02-PLAN.md — Core Calculation Logic (IP parsing, subnet calculations for IPv4/IPv6)
+- [ ] 09-03-PLAN.md — State Management & UI (Zustand store, calculator component, page)
 
 #### Phase 10: Visual Subnet Calculator - Visualization
 **Goal:** Rich visual feedback for subnet calculations with diagrams and binary representation
@@ -185,7 +187,7 @@ Phases execute in numeric order: 9 → 10 → 11 → 12 → 13 → 14 → 15 →
 | 6. Progressive Web App | v1.0 | 1/1 | Complete | 2026-01-18 |
 | 7. Documentation | v1.0 | 1/1 | Complete | 2026-01-18 |
 | 8. Final Verification & Launch | v1.0 | 1/1 | Complete | 2026-01-18 |
-| 9. Visual Subnet Calculator Foundation | v2.0 | 0/TBD | Not started | - |
+| 9. Visual Subnet Calculator Foundation | v2.0 | 0/3 | Ready to execute | - |
 | 10. Visual Subnet Calculator - Visualization | v2.0 | 0/TBD | Not started | - |
 | 11. Visual Subnet Calculator - Advanced Features | v2.0 | 0/TBD | Not started | - |
 | 12. IP Address & CIDR Calculators | v2.0 | 0/TBD | Not started | - |
