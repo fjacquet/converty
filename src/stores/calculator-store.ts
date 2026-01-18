@@ -2,7 +2,7 @@
 
 import { create, type StateCreator } from "zustand";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
-import { parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
+import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
 
 /**
  * Calculator store state interface
@@ -42,20 +42,6 @@ export interface CreateCalculatorStoreOptions<T extends object, R> {
   syncUrl?: boolean;
   /** Debounce time for URL updates in ms (default: 150) */
   debounceMs?: number;
-}
-
-// URL sync helpers (moved to middleware)
-function getUrlParams(): Record<string, string> {
-  if (typeof window === "undefined") return {};
-
-  const params: Record<string, string> = {};
-  const searchParams = new URLSearchParams(window.location.search);
-
-  searchParams.forEach((value, key) => {
-    params[key] = value;
-  });
-
-  return params;
 }
 
 /**

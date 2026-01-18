@@ -1,4 +1,5 @@
 import type { StateCreator } from "zustand";
+import { getUrlParams } from "@/lib/utils/url-params";
 
 /**
  * Configuration options for URL sync middleware
@@ -84,23 +85,6 @@ export function createUrlSyncMiddleware<T extends object>(options: UrlSyncOption
       return config(set, get, api);
     };
   };
-}
-
-/**
- * Extract URL parameters from current location
- * @internal
- */
-function getUrlParams(): Record<string, string> {
-  if (typeof window === "undefined") return {};
-
-  const params: Record<string, string> = {};
-  const searchParams = new URLSearchParams(window.location.search);
-
-  searchParams.forEach((value, key) => {
-    params[key] = value;
-  });
-
-  return params;
 }
 
 /**

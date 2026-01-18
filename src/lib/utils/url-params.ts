@@ -99,3 +99,35 @@ export function parseBooleanParam(value: string | null, fallback: boolean): bool
 
   return value === "true" || value === "1";
 }
+
+/**
+ * Extract all URL parameters as a key-value record
+ *
+ * Server-side safe: Returns empty object when window is undefined
+ *
+ * @returns Object with parameter names as keys and values as strings
+ *
+ * @example
+ * // URL: ?amount=100&currency=USD&enabled=true
+ * const params = getUrlParams();
+ * // Returns: { amount: "100", currency: "USD", enabled: "true" }
+ *
+ * // Use with type-safe parsing helpers:
+ * const amount = parseNumberParam(params.amount, 0);
+ * const currency = parseStringParam(params.currency, "USD");
+ * const enabled = parseBooleanParam(params.enabled, false);
+ */
+export function getUrlParams(): Record<string, string> {
+  // Server-side rendering safety
+  if (typeof window === "undefined") return {};
+
+  const params: Record<string, string> = {};
+  const searchParams = new URLSearchParams(window.location.search);
+
+  // Convert URLSearchParams to plain object
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
+
+  return params;
+}
