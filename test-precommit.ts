@@ -1,0 +1,1 @@
+export function test(){const x=1;return x}
