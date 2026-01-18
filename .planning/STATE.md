@@ -2,26 +2,32 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md
+See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** Phase 8 — Developer Experience (Complete)
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 8 of 8 (Developer Experience) - COMPLETE ✓
-Plan: 2 of 2 complete
-Status: Phase 8 complete. Pre-commit hooks automated with Husky + lint-staged, URL utilities consolidated, container security false positives suppressed.
-Last activity: 2026-01-18 — Completed 08-02-PLAN.md (Pre-commit Hooks)
+Phase: Not started
+Plan: Not started
+Status: v1.0 milestone complete — ready to plan v2.0
+Last activity: 2026-01-18 — v1.0 milestone complete
 
-Progress: ████████████████████ 100% (18/18 plans - all phases complete)
+Progress: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% (0/0 plans - next milestone in planning)
 
 ## Performance Metrics
 
-**Velocity:**
+**v1.0 Milestone:**
 
-- Total plans completed: 18
-- Average duration: 4.8 min
+- Total plans completed: 19
+- Total phases: 8
+- Average duration: 4.6 min/plan
+- Total commits: 103
+- Files modified: 131
+- Lines added: 23,496
+- Lines removed: 874
+- Timeline: 2 days (2026-01-17 → 2026-01-18)
 
 **By Phase:**
 
@@ -92,204 +98,24 @@ Progress: ████████████████████ 100% (18/
 | Use Husky v9 modern API (core.hooksPath) over deprecated v4-v8 | 08-02 | Husky v9 uses core.hooksPath and husky init instead of deprecated install command |
 | Run Biome only on staged files for fast pre-commit feedback | 08-02 | Checking only staged files keeps pre-commit under 3 seconds, prevents bottleneck |
 | Configure automatic hook setup via prepare script            | 08-02 | New team members get hooks automatically on npm install, ensures consistent quality |
+| Phase numbering continues across milestones                  | v1.0  | Clear history, no confusion with phase resets - v2.0 starts at Phase 9          |
 
-### Roadmap Evolution
+### Milestone Evolution
 
-- **Phase 8 added (2026-01-18)**: Developer Experience - DRY improvements, pre-commit automation, and container security scan findings
+- **v1.0 Infrastructure Upgrade** (2026-01-18): Comprehensive infrastructure upgrade with strict TypeScript, Zustand state management, PWA support, and complete documentation. 8 phases, 19 plans, 103 commits, 131 files modified. All 32 requirements satisfied (100% coverage).
 
-### Pending Todos
+### Phase 8 Enhancements Deferred to v2.0
 
-None - STATE-04 resolved in Phase 2.
-
-### Blockers/Concerns
-
-**Container Security False Positive (Resolved in Phase 8):**
-- Scanner detected Dockerfile in `node_modules/@surma/rollup-plugin-off-main-thread`
-- Not applicable: Static site (`output: "export"`), no Docker usage in production
-- npm audit shows 0 vulnerabilities
-- Status: Suppressed via .trivyignore with 6-month expiration for re-evaluation (08-01)
-
-**Phase 8 Enhancement Status:**
-- ✓ Consolidate URL parameter utilities (completed in 08-01)
-- ⬜ Add pre-commit hooks with Husky + lint-staged (future enhancement candidate)
-- ⬜ Consider Biome-only migration if Next.js supports removing ESLint (future enhancement candidate)
-
-**No production blockers.** All 8 phases complete. Codebase production-ready with zero technical debt.
-
-### Phase Completion Summaries
-
-**Phase 1: Type Safety Foundation - COMPLETE ✓**
-
-All objectives achieved:
-
-- Zero TypeScript compilation errors in critical paths (hooks, stores, URL parsing)
-- Zero explicit `any` types in state management layer
-- Type-safe URL parameter parsing helpers created and integrated
-- Biome noExplicitAny enforcement preventing future regressions
-- TypeScript strict mode active with comprehensive flags documented
-
-**Key Artifacts:**
-
-- `src/lib/utils/url-params.ts` - Type-safe parsing helpers
-- `src/stores/calculator-store.ts` - Store with safe URL parsing
-- `biome.json` - noExplicitAny at error level
-
-**Phase 2: URL Sync Infrastructure - COMPLETE ✓**
-
-All objectives achieved:
-
-- Created reusable URL sync middleware with closure-based timer isolation (STATE-04 fixed)
-- Eliminated duplicated URL sync logic across stores (STATE-03 fixed)
-- Per-instance debounce timers prevent conflicts between multiple calculators
-- Backward compatible - existing stores work unchanged
-
-**Key Artifacts:**
-
-- `src/lib/middleware/url-sync.ts` - URL sync middleware factory (135 lines)
-- `src/stores/calculator-store.ts` - Integrated middleware, removed 49 lines of duplicate logic
-
-**Phase 3: State Migration - COMPLETE ✓**
-
-All objectives achieved:
-
-- Verified functional programming approach (STATE-05): 159 pure calculation functions, immutable patterns, no global mutable state
-- Removed legacy state management hooks (use-converter.ts and use-url-state.ts)
-- Confirmed 100% Zustand store adoption across all 117 calculators
-- Zero legacy hook imports in calculator components
-- Fixed missing translation keys affecting 5+ calculators (calculator.results.result)
-- Fixed zodiac sign translations in age calculator (now properly localized in all 4 languages)
-- Verified build succeeds with 651 static pages generated
-- All calculator functionality verified working correctly in multiple locales
-
-**Key Artifacts:**
-
-- Deleted: `src/hooks/use-converter.ts` (2.3 KB legacy hook)
-- Deleted: `src/hooks/use-url-state.ts` (1.8 KB legacy hook)
-- Modified: `src/hooks/index.ts` (removed legacy exports)
-- Modified: All 4 translation files (added calculator.results.result and zodiac translations)
-- Modified: `src/lib/converters/datetime/age.ts` (refactored to return translation keys)
-- Modified: `src/app/[locale]/datetime/age/age-calculator.tsx` (added translation hooks)
-
-**Phase 4: Progressive Web App - COMPLETE ✓**
-
-All objectives achieved:
-
-- PWA manifest with icons (192x192, 512x512, maskable, apple-touch-icon) generated and configured
-- Service worker with Workbox caching strategies (NetworkFirst for HTML, CacheFirst for assets)
-- Offline detection UI with banner providing clear feedback
-- Service worker registration infrastructure (production-only, auto-registration in layout)
-- Build integration generating precache manifest (838 files)
-- Install prompt component with iOS/Android platform detection
-- Complete PWA verification: All 4 requirements (PWA-01 through PWA-04) verified working
-
-**Key Artifacts:**
-
-- Created: `src/app/manifest.ts` - PWA manifest with metadata and icon definitions
-- Created: `public/icon-*.png` - Generated PWA icons (4 sizes)
-- Created: `public/sw.js` - Service worker with Workbox runtime caching
-- Created: `src/components/ui/offline-banner.tsx` - Online/offline status indicator
-- Created: `src/lib/pwa/register-sw.ts` - Service worker registration helper
-- Created: `src/app/[locale]/sw-registration.tsx` - Client component for PWA UI
-- Created: `src/components/ui/install-prompt.tsx` - Cross-platform install prompt
-- Created: `scripts/generate-sw.js` - Post-build SW generation script
-- Modified: `src/app/[locale]/layout.tsx` - Integrated PWA components
-- Modified: `package.json` - Updated build script for SW generation
-
-**Phase 5: Documentation - COMPLETE ✓**
-
-All objectives achieved:
-
-- CHANGELOG.md created with Keep a Changelog 1.1.0 format
-- v1.0.0 milestone documented with all Phase 1-4 accomplishments
-- ADR 0001 documenting Zustand migration decision and rationale
-- CONTRIBUTING.md verified with current Zustand pattern (not outdated useState)
-- Development setup commands verified and corrected (Biome instead of ESLint)
-- New contributors have accurate, copy-pasteable examples
-
-**Key Artifacts:**
-
-- Created: `CHANGELOG.md` - Project history following Keep a Changelog format
-- Created: `.planning/decisions/0001-zustand-migration.md` - ADR for state management choice
-- Verified: `CONTRIBUTING.md` - Up-to-date with Zustand pattern and correct build commands
-
-**Phase 6: Dependency Upgrade - COMPLETE ✓**
-
-All objectives achieved:
-
-- Corrected ADR 0004 with accurate jsPDF version information (v4.0.0 is latest)
-- Verified jsPDF implementation uses correct v4.0.0 API patterns
-- Verified TypeScript compilation and production build succeed
-- Verified PDF export functionality works in browser
-- Updated ROADMAP.md and REQUIREMENTS.md to reflect verification scope
-- No upgrade needed - jsPDF already current
-
-**Key Artifacts:**
-
-- Modified: `.planning/decisions/0004-jspdf-upgrade.md` - Status changed to "superseded", corrected version history
-- Modified: `.planning/ROADMAP.md` - Phase 6 goal updated to verification scope
-- Modified: `.planning/REQUIREMENTS.md` - DEP-01/02/03 updated with traceability
-
-**Phase 7: Code Quality Validation - COMPLETE ✓**
-
-All objectives achieved:
-
-**Plan 01 (Code Quality Validation):**
-- Fixed all Biome lint and format errors (5 auto-fixes applied)
-- Achieved zero errors: ESLint (0), Biome lint (0), Biome format (0), TypeScript (0), npm audit (0)
-- Performed comprehensive code review of 560 files, 60,000 lines TypeScript
-- Verified KISS principle: Zero over-engineering, simple solutions, minimal abstraction
-- Verified DRY principle: URL sync consolidated, helpers extracted, ~3,000 lines duplication eliminated
-- Verified FP principle: 150+ pure functions, zero side effects, immutable state updates
-- Created detailed VERIFICATION.md documenting findings with specific examples
-
-**Plan 02 (Quality Gate Verification):**
-- Analyzed user security concerns, identified container vulnerability as false positive
-- Distinguished Phase 7 completion criteria (all met) from enhancement requests (Phase 8 candidates)
-- Created comprehensive gap analysis documenting three concerns with technical analysis
-- Confirmed Phase 7 objectives complete with optional enhancements documented for future work
-
-**Key Artifacts:**
-
-- Created: `.planning/phases/07-code-quality-validation/07-VERIFICATION.md` - Comprehensive code review findings
-- Created: `.planning/phases/07-code-quality-validation/07-GAP-ANALYSIS.md` - Gap analysis distinguishing blockers from enhancements
-- Modified: `biome.json` - Added override for url-sync.ts middleware (legitimate any type)
-- Modified: `src/lib/middleware/url-sync.ts` - Combined ESLint/Biome ignore comments
-- Modified: 7 files with Biome auto-fixes (Node.js protocol imports, formatting)
-
-**Phase 8: Developer Experience - COMPLETE ✓**
-
-All objectives achieved:
-
-**Plan 01 (DRY and Security):**
-- Created .trivyignore suppressing container security false positives with expiration dates
-- Consolidated getUrlParams() from 2 locations into shared url-params utility module
-- Eliminated 12-line duplication following DRY principle
-- All verification gates pass: TypeScript (0 errors), Biome lint (0 errors), Biome format (0 errors), build (652 pages)
-
-**Plan 02 (Pre-commit Hooks):**
-- Installed Husky v9 with modern API and lint-staged for automated pre-commit quality checks
-- Configured lint-staged to run Biome on staged TypeScript/JavaScript files only
-- Pre-commit hook completes in 2.2 seconds (under 5-second requirement)
-- Automatic hook setup via npm install prepare script
-- Quality gates enforced - broken code cannot be committed without explicit override
-
-**Key Artifacts:**
-
-- Created: `.trivyignore` - Container security scanner suppressions with expiration dates
-- Created: `.husky/pre-commit` - Git hook running npx lint-staged
-- Created: `.lintstagedrc.json` - Biome configuration for staged files
-- Modified: `package.json` - Added husky@9.1.7, lint-staged@16.2.7, prepare script
-- Modified: `src/lib/utils/url-params.ts` - Added getUrlParams() function with JSDoc
-- Modified: `src/stores/calculator-store.ts` - Imports getUrlParams from shared module
-- Modified: `src/lib/middleware/url-sync.ts` - Imports getUrlParams from shared module
-- Modified: `.gitignore` - Excluded .husky/_ internal directory
+- ⬜ Consider Biome-only migration if Next.js supports removing ESLint (architectural decision)
 
 ## Session Continuity
 
-Last session: 2026-01-18T06:50:07Z
-Stopped at: Completed 08-02-PLAN.md (Pre-commit Hooks) - Phase 8 Complete - ALL 8 PHASES COMPLETE
+Last session: 2026-01-18T07:15:00Z
+Stopped at: v1.0 milestone complete
 Resume file: None
 
-**Infrastructure Upgrade Milestone:** ✓ COMPLETE
+**Next Steps:**
 
-All 8 phases finished. Codebase production-ready with zero technical debt. Pre-commit hooks enforce quality gates automatically, URL utilities consolidated following DRY principle, container security false positives suppressed.
+1. `/gsd:discuss-milestone` — Gather context for v2.0 through adaptive questioning
+2. `/gsd:new-milestone` — Initialize v2.0 milestone (updates PROJECT.md, creates planning docs)
+3. Define requirements → Create roadmap → Plan Phase 9 → Execute

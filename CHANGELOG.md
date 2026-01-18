@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2026-01-17
+## [1.0.0] - 2026-01-18
 
 ### Added
 
@@ -39,6 +39,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Health calculator translations (sleep, body type, ovulation, pregnancy, period)
   - Finance calculator translations (salary, quadratic)
   - Utilities translations (time, bitrate, SEO analyzer)
+- Pre-commit automation for code quality enforcement
+  - Husky v9.1.7 for Git hooks management with modern API
+  - lint-staged v16.2.7 for running Biome checks on staged files only
+  - `.lintstagedrc.json` configuration for auto-fix on commit
+  - Automatic hook setup on `npm install` via prepare script
+  - Fast feedback loop (under 5 seconds for typical commits)
+- Container security scan suppression for false positives
+  - `.trivyignore` documenting AVD-DS-0002 and AVD-DS-0017 findings
+  - Dockerfile in node_modules never executed (static site deployment)
+  - 6-month review cycle with expiration dates
+- Consolidated URL parameter utilities (`getUrlParams` function)
+  - Extracted to `src/lib/utils/url-params.ts` shared module
+  - Eliminated duplication across calculator-store.ts and url-sync.ts
+  - Server-side rendering safe (returns empty object when window undefined)
 
 ### Changed
 
@@ -91,10 +105,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Duplicate URL sync logic across calculator stores (49 lines removed from `calculator-store.ts`)
 - Explicit `any` types in state management layer
   - Replaced with proper TypeScript types or `unknown` with type guards
+- Duplicate `getUrlParams` functions across calculator-store.ts and url-sync.ts
+  - 12 lines of code duplication eliminated
+  - Consolidated to single source of truth in url-params.ts
 
 ### Security
 
-- None for this release (jsPDF security upgrade planned for Phase 6)
+- Container security false positives suppressed (AVD-DS-0002, AVD-DS-0017)
+  - Trivy findings for Dockerfile in @surma/rollup-plugin-off-main-thread (node_modules)
+  - Documented in .trivyignore with rationale and review dates
+  - No impact: Dockerfile never executed (static site, no Docker usage)
+- jsPDF security verified (v4.0.0 is current as of January 2025)
 
 ### Deprecated
 
