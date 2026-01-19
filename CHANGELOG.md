@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Simplified calculator names by removing "Calculator" suffix/prefix across all locales
+  - English: Removed " Calculator" suffix (133 instances)
+  - French: Removed "Calculateur de/d'/du " and "Calculatrice de " prefixes
+  - German: Removed "-Rechner", "rechner", " Rechner" suffixes (112 instances)
+  - Italian: Removed "Calcolatore di/Calcolatore " and "Calcolatrice di " prefixes (135 instances)
+  - Improves readability and reduces visual fatigue when browsing calculator list
+
 ## [1.0.0] - 2026-01-18
 
 ### Added

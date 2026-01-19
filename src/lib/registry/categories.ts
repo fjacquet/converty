@@ -9,6 +9,7 @@ import {
   Heart,
   type LucideIcon,
   Music,
+  Network,
   Palette,
   Video,
 } from "lucide-react";
@@ -108,6 +109,17 @@ export const categories: Category[] = [
     name: "Music",
     description: "Music theory and audio tools",
     icon: Music,
+  },
+  {
+    id: "network",
+    slug: "network",
+    name: "Network",
+    description: "Network calculators and IP address tools",
+    icon: Network,
+    subcategories: [
+      { id: "subnet", name: "Subnetting", description: "Subnet and CIDR calculators" },
+      { id: "ip", name: "IP Address", description: "IP address tools and utilities" },
+    ],
   },
   {
     id: "photo",

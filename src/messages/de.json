@@ -32,11 +32,11 @@
     },
     "data": {
       "name": "Daten",
-      "description": "Bandbreiten- und Dateigroessenrechner"
+      "description": "Bandbreiten- und Dateigroessen"
     },
     "datetime": {
       "name": "Datum und Zeit",
-      "description": "Datum-, Zeit- und Dauerrechner"
+      "description": "Datum-, Zeit- und Dauer"
     },
     "finance": {
       "name": "Finanzen",
@@ -44,19 +44,23 @@
     },
     "health": {
       "name": "Gesundheit",
-      "description": "Gesundheits- und Fitnessrechner"
+      "description": "Gesundheits- und Fitness"
     },
     "math": {
       "name": "Mathematik",
-      "description": "Mathematische Rechner"
+      "description": "Mathematische"
     },
     "music": {
       "name": "Musik",
       "description": "Musiktheorie und Audio-Werkzeuge"
     },
+    "network": {
+      "name": "Netzwerk",
+      "description": "Netzwerkrechner und IP-Adress-Tools"
+    },
     "photo": {
       "name": "Foto",
-      "description": "Fotografie-Rechner"
+      "description": "Fotografie"
     },
     "physics": {
       "name": "Physik",
@@ -64,7 +68,7 @@
     },
     "video": {
       "name": "Video",
-      "description": "Video- und Medienrechner"
+      "description": "Video- und Medien"
     },
     "web": {
       "name": "Web",
@@ -94,6 +98,8 @@
     "advanced": "Fortgeschritten",
     "storage": "Speicher und Dateien",
     "network": "Netzwerk",
+    "subnet": "Subnetting",
+    "ip": "IP-Adresse",
     "dof": "Schaerfentiefe",
     "exposure": "Belichtung und Licht",
     "resolution": "Aufloesung und Format",
@@ -104,42 +110,42 @@
   },
   "converters": {
     "bmi": {
-      "name": "BMI-Rechner",
+      "name": "BMI",
       "description": "Berechnen Sie Ihren Body-Mass-Index und Ihre Gesundheitskategorie",
       "metaDescription": "Berechnen Sie Ihren Body-Mass-Index (BMI) und verstehen Sie Ihre Gesundheitskategorie"
     },
     "corpulence": {
-      "name": "Korpulenz-Rechner",
+      "name": "Korpulenz",
       "description": "Berechnen Sie Ihren Korpulenz-Index (Ponderal-Index)",
       "metaDescription": "Berechnen Sie Ihren Ponderal-Index fuer eine genauere Koerperzusammensetzungsbewertung"
     },
     "age": {
-      "name": "Altersrechner",
+      "name": "Alters",
       "description": "Berechnen Sie das genaue Alter ab Geburtsdatum in Jahren, Monaten und Tagen",
       "metaDescription": "Berechnen Sie Ihr genaues Alter in Jahren, Monaten, Tagen, Stunden und Minuten"
     },
     "date": {
-      "name": "Datumsrechner",
+      "name": "Datums",
       "description": "Addieren oder subtrahieren Sie Tage, Wochen, Monate und Jahre von einem Datum",
       "metaDescription": "Addieren oder subtrahieren Sie Zeitraeume von einem beliebigen Datum"
     },
     "time": {
-      "name": "Zeitrechner",
+      "name": "Zeit",
       "description": "Addieren oder subtrahieren Sie Stunden, Minuten und Sekunden",
       "metaDescription": "Fuehren Sie Zeitberechnungen mit Stunden, Minuten und Sekunden durch"
     },
     "hours": {
-      "name": "Stundenrechner",
+      "name": "Stunden",
       "description": "Berechnen Sie die Stunden zwischen zwei Zeiten oder Daten",
       "metaDescription": "Berechnen Sie die Anzahl der Stunden zwischen zwei Zeiten oder Daten"
     },
     "time-duration": {
-      "name": "Dauerrechner",
+      "name": "Dauer",
       "description": "Berechnen Sie die Dauer zwischen zwei Daten und Zeiten",
       "metaDescription": "Berechnen Sie die genaue Dauer zwischen zwei Daten und Zeiten"
     },
     "time-zone": {
-      "name": "Zeitzonen-Rechner",
+      "name": "Zeitzonen",
       "description": "Konvertieren Sie Zeiten zwischen verschiedenen Zeitzonen",
       "metaDescription": "Konvertieren Sie Zeiten zwischen verschiedenen Zeitzonen weltweit"
     },
@@ -149,7 +155,7 @@
       "metaDescription": "Zaehlen Sie die Tage zwischen zwei Daten oder bis zu einem bevorstehenden Ereignis"
     },
     "day-of-week": {
-      "name": "Wochentag-Rechner",
+      "name": "Wochentag",
       "description": "Finden Sie heraus, auf welchen Wochentag ein beliebiges Datum faellt",
       "metaDescription": "Finden Sie heraus, auf welchen Wochentag ein beliebiges Datum faellt"
     },
@@ -164,7 +170,7 @@
       "metaDescription": "Konvertieren Sie Farben zwischen RGB-, HEX-, HSL- und CMYK-Formaten"
     },
     "data-size": {
-      "name": "Datengroessen-Rechner",
+      "name": "Datengroessen",
       "description": "Konvertieren Sie zwischen Bytes, KB, MB, GB, TB und mehr",
       "metaDescription": "Konvertieren Sie Datengroessen zwischen Bytes, Kilobytes, Megabytes und mehr"
     },
@@ -174,9 +180,14 @@
       "metaDescription": "Konvertieren Sie Bandbreite zwischen verschiedenen Einheiten"
     },
     "download-calculator": {
-      "name": "Download-Rechner",
+      "name": "Download",
       "description": "Berechnen Sie die Download-Zeit aus Bandbreite und Dateigroesse",
       "metaDescription": "Berechnen Sie, wie lange ein Datei-Download dauern wird"
+    },
+    "subnet-calculator": {
+      "name": "Visueller Subnetz",
+      "description": "Berechnen Sie IPv4- und IPv6-Subnetzdetails mit CIDR-Notation",
+      "metaDescription": "Kostenloser Online-Subnetzrechner für IPv4- und IPv6-Netzwerke. Berechnen Sie Netzwerkadresse, Broadcast, verwendbaren IP-Bereich und Host-Anzahl aus CIDR-Notation oder Subnetzmaske."
     },
     "speed": {
       "name": "Geschwindigkeits-Konverter",
@@ -184,42 +195,42 @@
       "metaDescription": "Konvertieren Sie Geschwindigkeit zwischen Meter pro Sekunde, km/h, mph und mehr"
     },
     "aspect-ratio": {
-      "name": "Seitenverhaeltnis-Rechner",
+      "name": "Seitenverhaeltnis",
       "description": "Berechnen Sie Seitenverhaeltnisse aus Breite und Hoehe",
       "metaDescription": "Berechnen und konvertieren Sie Seitenverhaeltnisse fuer Bilder und Video"
     },
     "aspect-fit": {
-      "name": "Aspect-Fit-Rechner",
+      "name": "Aspect-Fit",
       "description": "Passen Sie ein Bild mit Letterboxing auf einen Bildschirm an",
       "metaDescription": "Berechnen Sie Letterboxing und Pillarboxing fuer Bildanpassung"
     },
     "composition": {
-      "name": "Kompositions-Rechner",
+      "name": "Kompositions",
       "description": "Berechnen Sie das Sichtfeld aus Brennweite und Entfernung",
       "metaDescription": "Berechnen Sie fotografisches Sichtfeld und Komposition"
     },
     "depth-of-field": {
-      "name": "Schaerfentiefe-Rechner",
+      "name": "Schaerfentiefe",
       "description": "Berechnen Sie die Schaerfentiefe aus Blende, Brennweite und Entfernung",
       "metaDescription": "Berechnen Sie die Schaerfentiefe fuer die Fotografie"
     },
     "dpi": {
-      "name": "DPI-Rechner",
+      "name": "DPI",
       "description": "Berechnen Sie Megapixel aus Druckgroesse und DPI",
       "metaDescription": "Berechnen Sie DPI und Aufloesung fuer den Druck"
     },
     "image-filesize": {
-      "name": "Bilddateigroessen-Rechner",
+      "name": "Bilddateigroessen",
       "description": "Schaetzen Sie die Bilddateigroesse fuer JPEG-, PNG-, RAW-Formate",
       "metaDescription": "Schaetzen Sie Bilddateigroessen fuer verschiedene Formate"
     },
     "light-ev": {
-      "name": "Licht-EV-Rechner",
+      "name": "Licht-EV",
       "description": "Berechnen Sie den Belichtungswert aus Kameraeinstellungen",
       "metaDescription": "Berechnen Sie den Belichtungswert aus Kameraeinstellungen"
     },
     "megapixels": {
-      "name": "Megapixel-Rechner",
+      "name": "Megapixel",
       "description": "Berechnen Sie Megapixel aus Breite und Hoehe",
       "metaDescription": "Berechnen Sie Megapixel aus Bildabmessungen"
     },
@@ -229,22 +240,22 @@
       "metaDescription": "Zeigen Sie Megapixel-Zahlen in verschiedenen Seitenverhaeltnissen an"
     },
     "portrait-distance": {
-      "name": "Portrait-Entfernungs-Rechner",
+      "name": "Portrait-Entfernungs",
       "description": "Berechnen Sie die ideale Aufnahmeentfernung fuer Portraits",
       "metaDescription": "Berechnen Sie die ideale Entfernung fuer Portraitfotografie"
     },
     "star-trails": {
-      "name": "Sternspuren-Rechner",
+      "name": "Sternspuren",
       "description": "Berechnen Sie die Belichtungszeit fuer Sternenspuren-Rotation",
       "metaDescription": "Berechnen Sie Belichtungszeiten fuer Sternenspuren-Fotografie"
     },
     "spot-stars": {
-      "name": "Punktsterne-Rechner",
+      "name": "Punktsterne",
       "description": "Berechnen Sie die maximale Belichtung zur Vermeidung von Sternenspuren (NPF-Regel)",
       "metaDescription": "Berechnen Sie die maximale Belichtungszeit fuer scharfe Sterne"
     },
     "time-lapse": {
-      "name": "Zeitraffer-Rechner",
+      "name": "Zeitraffer",
       "description": "Berechnen Sie Intervall, Cliplaenge und Speicher fuer Zeitraffer",
       "metaDescription": "Planen Sie Ihre Zeitraffer-Fotografie-Projekte"
     },
@@ -254,12 +265,12 @@
       "metaDescription": "Berechnen Sie aequivalente Brennweiten ueber Sensorgroessen hinweg"
     },
     "hyperfocal": {
-      "name": "Hyperfokale-Entfernungs-Rechner",
+      "name": "Hyperfokale-Entfernungs",
       "description": "Berechnen Sie die hyperfokale Entfernung fuer maximale Schaerfentiefe",
       "metaDescription": "Berechnen Sie die hyperfokale Entfernung fuer Landschaftsfotografie"
     },
     "nd-filter": {
-      "name": "ND-Filter-Rechner",
+      "name": "ND-Filter",
       "description": "Berechnen Sie die Belichtungszeit mit ND-Filtern",
       "metaDescription": "Berechnen Sie Belichtungszeiten mit Neutraldichtefiltern"
     },
@@ -269,22 +280,22 @@
       "metaDescription": "Finden Sie Zeiten der goldenen und blauen Stunde fuer Ihren Standort"
     },
     "sun-position": {
-      "name": "Sonnenpositions-Rechner",
+      "name": "Sonnenpositions",
       "description": "Berechnen Sie Sonnenposition, Daemmerungszeiten und Lichtphasen fuer Fotografie",
       "metaDescription": "Berechnen Sie Sonnenhoehe, Azimut, Daemmerungszeiten, goldene und blaue Stunde fuer Fotoplanung"
     },
     "circle-of-confusion": {
-      "name": "Zerstreuungskreis-Rechner",
+      "name": "Zerstreuungskreis",
       "description": "Berechnen Sie den Zerstreuungskreis aus Sensor, Druckgroesse und Betrachtungsabstand",
       "metaDescription": "Berechnen Sie den Zerstreuungskreis fuer die Schaerfentiefe"
     },
     "advanced-dof": {
-      "name": "Erweiterter Schaerfentiefe-Rechner",
+      "name": "Erweiterter Schaerfentiefe",
       "description": "Schaerfentiefe mit einstellbarem Zerstreuungskreis fuer Druckgroesse und Betrachtung",
       "metaDescription": "Erweiterte Schaerfentiefe-Berechnungen"
     },
     "macro-dof": {
-      "name": "Makro-Schaerfentiefe-Rechner",
+      "name": "Makro-Schaerfentiefe",
       "description": "Genaue Schaerfentiefe fuer Makrofotografie",
       "metaDescription": "Berechnen Sie die Schaerfentiefe fuer Makrofotografie"
     },
@@ -294,27 +305,27 @@
       "metaDescription": "Referenztabelle fuer Schaerfentiefe"
     },
     "diffraction": {
-      "name": "Beugungsrechner",
+      "name": "Beugungs",
       "description": "Berechnen Sie, wann Ihre Kamera beugungsbegrenzt wird",
       "metaDescription": "Berechnen Sie Beugungsgrenzen fuer Ihre Kamera"
     },
     "macro-diffraction": {
-      "name": "Makro-Beugungsrechner",
+      "name": "Makro-Beugungs",
       "description": "Berechnen Sie die effektive Blende und Beugung in der Makrofotografie",
       "metaDescription": "Berechnen Sie Beugungseffekte in der Makrofotografie"
     },
     "bpm": {
-      "name": "BPM-Rechner",
+      "name": "BPM",
       "description": "Konvertieren Sie BPM in Hz, Taktlaenge und Notendauern",
       "metaDescription": "Konvertieren Sie Schlaege pro Minute in andere musikalische Zeiteinheiten"
     },
     "video-file-size": {
-      "name": "Videodateigroessen-Rechner",
+      "name": "Videodateigroessen",
       "description": "Schaetzen Sie die Videodateigroesse aus Aufloesung und Dauer",
       "metaDescription": "Schaetzen Sie Videodateigroessen basierend auf Einstellungen"
     },
     "audio-filesize": {
-      "name": "Audiodateigroessen-Rechner",
+      "name": "Audiodateigroessen",
       "description": "Schaetzen Sie die Audiodateigroesse aus Dauer und Format",
       "metaDescription": "Schaetzen Sie Audiodateigroessen fuer verschiedene Formate"
     },
@@ -324,22 +335,22 @@
       "metaDescription": "Referenzhandbuch fuer Video-Codec-Bitraten"
     },
     "dcp-filesize": {
-      "name": "DCP-Dateigroessen-Rechner",
+      "name": "DCP-Dateigroessen",
       "description": "Berechnen Sie Digital Cinema Package-Dateigroessen",
       "metaDescription": "Berechnen Sie DCP-Dateigroessen fuer Kinovertrieb"
     },
     "foot-lambert": {
-      "name": "Foot-Lambert-Rechner",
+      "name": "Foot-Lambert",
       "description": "Berechnen Sie die Bildschirmleuchtdichte fuer Kinoprojektion",
       "metaDescription": "Berechnen Sie die Bildschirmhelligkeit fuer Kinoprojektion"
     },
     "screen-size": {
-      "name": "Bildschirmgroessen-Rechner",
+      "name": "Bildschirmgroessen",
       "description": "Berechnen Sie Bildschirmabmessungen aus Diagonale und Seitenverhaeltnis",
       "metaDescription": "Berechnen Sie Bildschirmabmessungen aus der Diagonalgroesse"
     },
     "video-bitrate": {
-      "name": "Video-Bitraten-Rechner",
+      "name": "Video-Bitraten",
       "description": "Schaetzen Sie die Videobitrate basierend auf Aufloesung und Codec",
       "metaDescription": "Berechnen Sie optimale Videobitraten"
     },
@@ -394,457 +405,457 @@
       "metaDescription": "Analysieren Sie SEO-Leistung und erhalten Sie Optimierungstipps"
     },
     "mortgage": {
-      "name": "Hypothekenrechner",
+      "name": "Hypotheken",
       "description": "Berechnen Sie monatliche Zahlungen, sehen Sie den Tilgungsplan und visualisieren Sie Ihr Darlehen",
       "metaDescription": "Berechnen Sie Hypothekenzahlungen mit Tilgungsplan"
     },
     "compound-interest": {
-      "name": "Zinseszins-Rechner",
+      "name": "Zinseszins",
       "description": "Berechnen Sie Zinseszinsen auf Investitionen mit regelmaessigen Beitraegen",
       "metaDescription": "Berechnen Sie das Zinseszinswachstum ueber die Zeit"
     },
     "loan": {
-      "name": "Kreditrechner",
+      "name": "Kredit",
       "description": "Berechnen Sie monatliche Zahlungen fuer Privat-, Auto- oder jede Art von Kredit",
       "metaDescription": "Berechnen Sie Kreditzahlungen und Tilgung"
     },
     "retirement": {
-      "name": "Rentenrechner",
+      "name": "Renten",
       "description": "Planen Sie Ihren Ruhestand mit Sparprognosen und Einkommensplanung",
       "metaDescription": "Planen Sie Ihre Altersvorsoge und Ihr Einkommen"
     },
     "salary": {
-      "name": "Gehalts- und Steuerrechner",
+      "name": "Gehalts- und Steuer",
       "description": "Berechnen Sie das Nettogehalt nach Bundes-, Kantonssteuern und Sozialabgaben",
       "metaDescription": "Berechnen Sie Ihr Nettogehalt nach Steuern"
     },
     "tip": {
-      "name": "Trinkgeldrechner",
+      "name": "Trinkgeld",
       "description": "Berechnen Sie Trinkgeld und teilen Sie Rechnungen zwischen mehreren Personen",
       "metaDescription": "Berechnen Sie Trinkgelder und teilen Sie Rechnungen einfach"
     },
     "savings-goal": {
-      "name": "Sparzielrechner",
+      "name": "Sparziel",
       "description": "Berechnen Sie, wie lange es dauert, Ihr Sparziel zu erreichen",
       "metaDescription": "Planen Sie Ihre Ersparnisse und erreichen Sie Ihre finanziellen Ziele"
     },
     "inflation": {
-      "name": "Inflationsrechner",
+      "name": "Inflations",
       "description": "Berechnen Sie die Auswirkung der Inflation auf die Kaufkraft",
       "metaDescription": "Verstehen Sie die Auswirkung der Inflation auf Ihr Geld"
     },
     "roi": {
-      "name": "ROI-Rechner",
+      "name": "ROI",
       "description": "Berechnen Sie die Kapitalrendite und annualisierte Renditen",
       "metaDescription": "Berechnen Sie Ihre Anlagerenditen"
     },
     "break-even": {
-      "name": "Break-Even-Rechner",
+      "name": "Break-Even",
       "description": "Berechnen Sie den Break-Even-Punkt fuer Ihr Unternehmen",
       "metaDescription": "Finden Sie den Break-Even-Punkt Ihres Unternehmens"
     },
     "profit-margin": {
-      "name": "Gewinnmargenrechner",
+      "name": "Gewinnmargen",
       "description": "Berechnen Sie Brutto-, Betriebs- und Nettogewinnmargen",
       "metaDescription": "Berechnen Sie Unternehmensgewinnmargen"
     },
     "discount": {
-      "name": "Rabattrechner",
+      "name": "Rabatt",
       "description": "Berechnen Sie Rabatte, Verkaufspreise und Ersparnisse",
       "metaDescription": "Berechnen Sie Rabatte und Verkaufspreise"
     },
     "currency": {
-      "name": "Waehrungsrechner",
+      "name": "Waehrungs",
       "description": "Konvertieren Sie zwischen wichtigen Weltwaehrungen",
       "metaDescription": "Konvertieren Sie Waehrungen mit aktuellen Wechselkursen"
     },
     "auto-loan": {
-      "name": "Autokredit-Rechner",
+      "name": "Autokredit",
       "description": "Berechnen Sie Autokreditzahlungen, Zinsen und Gesamtkosten",
       "metaDescription": "Berechnen Sie Ihre monatlichen Autokreditzahlungen und Gesamtkosten"
     },
     "personal-loan": {
-      "name": "Privatkredit-Rechner",
+      "name": "Privatkredit",
       "description": "Berechnen Sie Privatkreditzahlungen mit Gebuehren und effektivem Jahreszins",
       "metaDescription": "Berechnen Sie Privatkreditzahlungen inklusive Bearbeitungsgebuehren"
     },
     "student-loan": {
-      "name": "Studienkredit-Rechner",
+      "name": "Studienkredit",
       "description": "Berechnen Sie Studienkreditzahlungen mit Karenzzeit-Optionen",
       "metaDescription": "Berechnen Sie Studienkreditzahlungen und Tilgungsplaene"
     },
     "home-equity": {
-      "name": "Eigenkapital-Rechner",
+      "name": "Eigenkapital",
       "description": "Berechnen Sie Eigenheimkredit- oder HELOC-Zahlungen",
       "metaDescription": "Berechnen Sie Eigenheimkredit- und HELOC-Zahlungen"
     },
     "debt-payoff": {
-      "name": "Schulden-Tilgungsrechner",
+      "name": "Schulden-Tilgungs",
       "description": "Berechnen Sie die Tilgungszeit mit Sonderzahlungen",
       "metaDescription": "Berechnen Sie die Tilgungszeit und Ersparnisse durch Sonderzahlungen"
     },
     "credit-card": {
-      "name": "Kreditkarten-Rechner",
+      "name": "Kreditkarten",
       "description": "Berechnen Sie die Kreditkarten-Tilgungszeit und Zinsen",
       "metaDescription": "Berechnen Sie Tilgungszeit und Gesamtzinskosten der Kreditkarte"
     },
     "down-payment": {
-      "name": "Anzahlungsrechner",
+      "name": "Anzahlungs",
       "description": "Berechnen Sie wie viel Sie fuer eine Anzahlung sparen muessen",
       "metaDescription": "Berechnen Sie die monatlichen Sparbetraege fuer Ihr Anzahlungsziel"
     },
     "retirement-401k": {
-      "name": "401(k)-Rechner",
+      "name": "401(k)",
       "description": "Berechnen Sie Altersvorsorge mit Arbeitgeberzuschuss",
       "metaDescription": "Berechnen Sie 401k Altersvorsorge mit Arbeitgeberzuschuss und Prognosen"
     },
     "ira-calculator": {
-      "name": "IRA-Rechner",
+      "name": "IRA",
       "description": "Vergleichen Sie Traditional vs Roth IRA Altersvorsorgekonten",
       "metaDescription": "Vergleichen Sie Traditional und Roth IRA Altersvorsorge und Steuervorteile"
     },
     "bond-calculator": {
-      "name": "Anleihenrechner",
+      "name": "Anleihen",
       "description": "Berechnen Sie Anleihenpreise, Renditen und Ertraege",
       "metaDescription": "Berechnen Sie Anleihenpreise, aktuelle Rendite und Endfaelligkeitsrendite"
     },
     "annuity-calculator": {
-      "name": "Rentenrechner",
+      "name": "Renten",
       "description": "Berechnen Sie Rentenzahlungen und Ruhestandseinkommen",
       "metaDescription": "Berechnen Sie Rentenzahlungen und Ruhestandseinkommensprognosen"
     },
     "body-fat": {
-      "name": "Koerperfettrechner",
+      "name": "Koerperfett",
       "description": "Berechnen Sie den Koerperfettanteil mit der US-Navy-Methode",
       "metaDescription": "Berechnen Sie Ihren Koerperfettanteil mit der US-Navy-Methode"
     },
     "lean-body-mass": {
-      "name": "Magermasse-Rechner",
+      "name": "Magermasse",
       "description": "Berechnen Sie die Magermasse mit verschiedenen Formeln",
       "metaDescription": "Berechnen Sie Ihre Magermasse (fettfreie Masse) mit medizinischen Formeln"
     },
     "body-surface-area": {
-      "name": "Koerperoberflaechen-Rechner",
+      "name": "Koerperoberflaechen",
       "description": "Berechnen Sie KOF mit mehreren medizinischen Formeln",
       "metaDescription": "Berechnen Sie die Koerperoberflaeche fuer Medikamentendosierung"
     },
     "ideal-weight": {
-      "name": "Idealgewicht-Rechner",
+      "name": "Idealgewicht",
       "description": "Berechnen Sie das ideale Koerpergewicht mit mehreren Formeln",
       "metaDescription": "Berechnen Sie Ihr Idealgewicht mit Robinson, Miller, Devine und Hamwi"
     },
     "bmr-calculator": {
-      "name": "Grundumsatz-Rechner",
+      "name": "Grundumsatz",
       "description": "Berechnen Sie den Grundumsatz fuer Kalorienplanung",
       "metaDescription": "Berechnen Sie Ihren Grundumsatz mit Harris-Benedict und Mifflin-St Jeor"
     },
     "tdee-calculator": {
-      "name": "TDEE-Rechner",
+      "name": "TDEE",
       "description": "Berechnen Sie den taeglichen Gesamtenergieverbrauch",
       "metaDescription": "Berechnen Sie Ihren Gesamtenergieverbrauch basierend auf Aktivitaetsniveau"
     },
     "calorie-calculator": {
-      "name": "Kalorienrechner",
+      "name": "Kalorien",
       "description": "Berechnen Sie den taeglichen Kalorienbedarf fuer Gewichtsziele",
       "metaDescription": "Berechnen Sie Kalorienbedarf und Makros fuer Gewichtsabnahme oder -zunahme"
     },
     "calories-burned": {
-      "name": "Kalorienverbrauch-Rechner",
+      "name": "Kalorienverbrauch",
       "description": "Berechnen Sie verbrannte Kalorien bei verschiedenen Aktivitaeten",
       "metaDescription": "Berechnen Sie Kalorienverbrauch beim Training mit MET-Werten"
     },
     "target-heart-rate": {
-      "name": "Zielherzfrequenz-Rechner",
+      "name": "Zielherzfrequenz",
       "description": "Berechnen Sie Herzfrequenz-Zonen fuer das Training",
       "metaDescription": "Berechnen Sie Ihre Zielherzfrequenz-Zonen fuer Fettverbrennung und Cardio"
     },
     "one-rep-max": {
-      "name": "1RM-Rechner",
+      "name": "1RM",
       "description": "Berechnen Sie Ihr Maximalkraftgewicht aus submaximalen Hebungen",
       "metaDescription": "Berechnen Sie Ihr 1RM mit verschiedenen Formeln aus submaximalen Hebungen"
     },
     "pace-calculator": {
-      "name": "Tempo-Rechner",
+      "name": "Tempo",
       "description": "Berechnen Sie Lauftempo, Zwischenzeiten und Zeitvorhersagen",
       "metaDescription": "Berechnen Sie Lauftempo, Zwischenzeiten und prognostizieren Sie Laufzeiten"
     },
     "macro-calculator": {
-      "name": "Makro-Rechner",
+      "name": "Makro",
       "description": "Berechnen Sie Ihren taeglichen Makronaehrstoffbedarf",
       "metaDescription": "Berechnen Sie Ihre Protein-, Kohlenhydrat- und Fettziele nach Ihren Zielen"
     },
     "bac-calculator": {
-      "name": "Blutalkohol-Rechner",
+      "name": "Blutalkohol",
       "description": "Schaetzen Sie Ihren Blutalkoholspiegel und die Abbauzeit",
       "metaDescription": "Berechnen Sie Ihren Blutalkoholspiegel und die Zeit bis zur Nuechternheit"
     },
     "due-date": {
-      "name": "Geburtstermin-Rechner",
+      "name": "Geburtstermin",
       "description": "Berechnen Sie den voraussichtlichen Geburtstermin",
       "metaDescription": "Berechnen Sie Ihren Geburtstermin mit verschiedenen Methoden"
     },
     "ovulation-calculator": {
-      "name": "Eisprung-Rechner",
+      "name": "Eisprung",
       "description": "Sagen Sie Eisprung und fruchtbare Fenster voraus",
       "metaDescription": "Sagen Sie Ihre Eisprungtage und fruchtbaren Tage voraus"
     },
     "pregnancy-weight-gain": {
-      "name": "Schwangerschafts-Gewichtszunahme-Rechner",
+      "name": "Schwangerschafts-Gewichtszunahme",
       "description": "Berechnen Sie die empfohlene Gewichtszunahme waehrend der Schwangerschaft",
       "metaDescription": "Berechnen Sie eine gesunde Gewichtszunahme in der Schwangerschaft nach BMI"
     },
     "gfr-calculator": {
-      "name": "GFR-Rechner",
+      "name": "GFR",
       "description": "Berechnen Sie die glomerulaere Filtrationsrate fuer die Nierenfunktion",
       "metaDescription": "Berechnen Sie Ihre GFR zur Beurteilung der Nierenfunktion"
     },
     "body-type": {
-      "name": "Koerpertyp-Rechner",
+      "name": "Koerpertyp",
       "description": "Bestimmen Sie Ihren Somatotyp (ekto-, meso-, endomorph)",
       "metaDescription": "Finden Sie Ihren Koerpertyp heraus und erhalten Sie angepasste Trainingstipps"
     },
     "healthy-weight": {
-      "name": "Gesundes-Gewicht-Rechner",
+      "name": "Gesundes-Gewicht",
       "description": "Finden Sie Ihren gesunden Gewichtsbereich nach Groesse",
       "metaDescription": "Berechnen Sie Ihren gesunden Gewichtsbereich nach Ihrer Groesse"
     },
     "protein-calculator": {
-      "name": "Protein-Rechner",
+      "name": "Protein",
       "description": "Berechnen Sie Ihren taeglichen Proteinbedarf",
       "metaDescription": "Berechnen Sie Ihren Proteinbedarf nach Zielen und Aktivitaet"
     },
     "water-intake": {
-      "name": "Wasserbedarf-Rechner",
+      "name": "Wasserbedarf",
       "description": "Berechnen Sie Ihren taeglichen Wasserbedarf",
       "metaDescription": "Berechnen Sie, wie viel Wasser Sie taeglich trinken sollten"
     },
     "sleep-calculator": {
-      "name": "Schlaf-Rechner",
+      "name": "Schlaf",
       "description": "Finden Sie optimale Schlaf- und Aufwachzeiten",
       "metaDescription": "Berechnen Sie optimale Schlaf- und Aufwachzeiten nach Schlafzyklen"
     },
     "army-body-fat": {
-      "name": "US-Armee-Koerperfett-Rechner",
+      "name": "US-Armee-Koerperfett",
       "description": "Berechnen Sie Koerperfett mit der US-Armee-Bandmassmethode",
       "metaDescription": "Berechnen Sie Ihren Koerperfettanteil nach US-Armee-Standards"
     },
     "period-calculator": {
-      "name": "Perioden-Rechner",
+      "name": "Perioden",
       "description": "Verfolgen Sie Ihren Menstruationszyklus und sagen Sie die naechste Periode voraus",
       "metaDescription": "Verfolgen und prognostizieren Sie Ihren Menstruationszyklus"
     },
     "fat-intake": {
-      "name": "Fettaufnahme-Rechner",
+      "name": "Fettaufnahme",
       "description": "Berechnen Sie Ihren taeglichen Fettbedarf",
       "metaDescription": "Berechnen Sie Ihren optimalen Fettbedarf nach Ihren Zielen"
     },
     "carb-calculator": {
-      "name": "Kohlenhydrat-Rechner",
+      "name": "Kohlenhydrat",
       "description": "Berechnen Sie Ihren taeglichen Kohlenhydratbedarf",
       "metaDescription": "Berechnen Sie Ihren optimalen Kohlenhydratbedarf nach Ihren Zielen"
     },
     "basic-calculator": {
-      "name": "Basis-Rechner",
+      "name": "Basis",
       "description": "Fuehren Sie arithmetische Berechnungen mit Ausdruecken durch",
       "metaDescription": "Kostenloser Online-Rechner fuer arithmetische Operationen und Ausdruecke"
     },
     "fraction-calculator": {
-      "name": "Bruchrechner",
+      "name": "Bruch",
       "description": "Addieren, subtrahieren, multiplizieren, dividieren und kuerzen Sie Brueche",
       "metaDescription": "Berechnen Sie Brueche mit schrittweisen Loesungen und gemischten Zahlen"
     },
     "percentage-calculator": {
-      "name": "Prozentrechner",
+      "name": "Prozent",
       "description": "Berechnen Sie Prozente, prozentuale Aenderung und Differenz",
       "metaDescription": "Berechnen Sie Prozente, prozentuale Aenderung und Differenz"
     },
     "percent-error": {
-      "name": "Prozentfehler-Rechner",
+      "name": "Prozentfehler",
       "description": "Berechnen Sie den Fehler zwischen experimentellen und tatsaechlichen Werten",
       "metaDescription": "Berechnen Sie den Prozentfehler fuer wissenschaftliche Experimente"
     },
     "rounding-calculator": {
-      "name": "Rundungsrechner",
+      "name": "Rundungs",
       "description": "Runden Sie Zahlen mit verschiedenen Methoden und Praezision",
       "metaDescription": "Runden Sie auf Dezimalstellen, signifikante Stellen oder benutzerdefinierte Praezision"
     },
     "average-calculator": {
-      "name": "Durchschnittsrechner",
+      "name": "Durchschnitts",
       "description": "Berechnen Sie Mittelwert, Median, Modus und andere Durchschnitte",
       "metaDescription": "Berechnen Sie arithmetisches, gewichtetes, geometrisches und harmonisches Mittel"
     },
     "long-division": {
-      "name": "Langdivision-Rechner",
+      "name": "Langdivision",
       "description": "Fuehren Sie Langdivision mit schrittweiser Loesung durch",
       "metaDescription": "Lernen Sie Langdivision mit detaillierten Schritt-fuer-Schritt-Loesungen"
     },
     "exponent-calculator": {
-      "name": "Exponenten-Rechner",
+      "name": "Exponenten",
       "description": "Berechnen Sie Potenzen und Exponentialausdruecke",
       "metaDescription": "Berechnen Sie Potenzen, Exponenten und Exponentialausdruecke"
     },
     "root-calculator": {
-      "name": "Wurzelrechner",
+      "name": "Wurzel",
       "description": "Berechnen Sie Quadratwurzeln, Kubikwurzeln und n-te Wurzeln",
       "metaDescription": "Berechnen Sie Quadratwurzeln, Kubikwurzeln und beliebige n-te Wurzeln"
     },
     "logarithm-calculator": {
-      "name": "Logarithmus-Rechner",
+      "name": "Logarithmus",
       "description": "Berechnen Sie Logarithmen mit beliebiger Basis",
       "metaDescription": "Berechnen Sie Logarithmen zur Basis 10, natuerlichen Logarithmus oder benutzerdefinierter Basis"
     },
     "quadratic-calculator": {
-      "name": "Quadratische-Formel-Rechner",
+      "name": "Quadratische-Formel",
       "description": "Loesen Sie quadratische Gleichungen und finden Sie Nullstellen",
       "metaDescription": "Loesen Sie quadratische Gleichungen mit schrittweisen Loesungen"
     },
     "factor-calculator": {
-      "name": "Faktor-Rechner",
+      "name": "Faktor",
       "description": "Finden Sie alle Teiler einer Zahl",
       "metaDescription": "Finden Sie alle Teiler, Teilerpaare und Primfaktoren einer Zahl"
     },
     "gcd-calculator": {
-      "name": "GGT-Rechner",
+      "name": "GGT",
       "description": "Berechnen Sie den groessten gemeinsamen Teiler mehrerer Zahlen",
       "metaDescription": "Berechnen Sie den GGT von zwei oder mehr Zahlen"
     },
     "lcm-calculator": {
-      "name": "KGV-Rechner",
+      "name": "KGV",
       "description": "Berechnen Sie das kleinste gemeinsame Vielfache mehrerer Zahlen",
       "metaDescription": "Berechnen Sie das KGV von zwei oder mehr Zahlen"
     },
     "gcd-lcm": {
-      "name": "GGT & KGV Rechner",
+      "name": "GGT & KGV",
       "description": "Berechnen Sie GGT und KGV mehrerer Zahlen",
       "metaDescription": "Berechnen Sie GGT und KGV von zwei oder mehr Zahlen"
     },
     "prime-factorization": {
-      "name": "Primfaktorzerlegung-Rechner",
+      "name": "Primfaktorzerlegung",
       "description": "Finden Sie Primfaktoren und Teiler beliebiger Zahlen",
       "metaDescription": "Finden Sie Primfaktorzerlegung, Faktorbaum und alle Teiler"
     },
     "triangle-calculator": {
-      "name": "Dreiecks-Rechner",
+      "name": "Dreiecks",
       "description": "Berechnen Sie Dreieckseigenschaften aus Seiten und Winkeln",
       "metaDescription": "Berechnen Sie Flaeche, Umfang, Winkel und Seiten eines Dreiecks"
     },
     "right-triangle": {
-      "name": "Rechtwinkliges-Dreieck-Rechner",
+      "name": "Rechtwinkliges-Dreieck",
       "description": "Berechnen Sie Seiten und Winkel eines rechtwinkligen Dreiecks",
       "metaDescription": "Berechnen Sie Dimensionen eines rechtwinkligen Dreiecks mit Trigonometrie"
     },
     "pythagorean-calculator": {
-      "name": "Satz-des-Pythagoras-Rechner",
+      "name": "Satz-des-Pythagoras",
       "description": "Berechnen Sie die fehlende Seite mit dem Satz des Pythagoras",
       "metaDescription": "Finden Sie die fehlende Seite eines rechtwinkligen Dreiecks"
     },
     "circle-calculator": {
-      "name": "Kreis-Rechner",
+      "name": "Kreis",
       "description": "Berechnen Sie Kreiseigenschaften aus Radius, Durchmesser oder Umfang",
       "metaDescription": "Berechnen Sie Flaeche, Umfang, Durchmesser und Radius eines Kreises"
     },
     "area-calculator": {
-      "name": "Flaechenrechner",
+      "name": "Flaechen",
       "description": "Berechnen Sie die Flaeche verschiedener Formen",
       "metaDescription": "Berechnen Sie Flaeche von Rechteck, Quadrat, Kreis, Dreieck und mehr"
     },
     "surface-area-calculator": {
-      "name": "Oberflaechen-Rechner",
+      "name": "Oberflaechen",
       "description": "Berechnen Sie die Oberflaeche von 3D-Formen",
       "metaDescription": "Berechnen Sie Oberflaeche von Wuerfel, Kugel, Zylinder, Kegel und Pyramide"
     },
     "volume-calculator": {
-      "name": "Volumen-Rechner",
+      "name": "Volumen",
       "description": "Berechnen Sie das Volumen von 3D-Formen",
       "metaDescription": "Berechnen Sie Volumen von Wuerfel, Kugel, Zylinder, Kegel und mehr"
     },
     "slope-calculator": {
-      "name": "Steigungs-Rechner",
+      "name": "Steigungs",
       "description": "Berechnen Sie Steigung, Gleichung und Winkel einer Geraden",
       "metaDescription": "Berechnen Sie Steigung, y-Achsenabschnitt und lineare Gleichung"
     },
     "standard-deviation": {
-      "name": "Standardabweichungs-Rechner",
+      "name": "Standardabweichungs",
       "description": "Berechnen Sie Standardabweichung und Varianz",
       "metaDescription": "Berechnen Sie Populations- und Stichproben-Standardabweichung und Varianz"
     },
     "statistics-calculator": {
-      "name": "Statistik-Rechner",
+      "name": "Statistik",
       "description": "Berechnen Sie umfassende Statistiken fuer einen Datensatz",
       "metaDescription": "Berechnen Sie Mittelwert, Median, Modus, Quartile, Schiefe und Woelbung"
     },
     "probability-calculator": {
-      "name": "Wahrscheinlichkeits-Rechner",
+      "name": "Wahrscheinlichkeits",
       "description": "Berechnen Sie Wahrscheinlichkeit von Ereignissen und Kombinationen",
       "metaDescription": "Berechnen Sie Wahrscheinlichkeit, bedingte Wahrscheinlichkeit und Bayes-Theorem"
     },
     "sample-size": {
-      "name": "Stichprobengroessen-Rechner",
+      "name": "Stichprobengroessen",
       "description": "Berechnen Sie die erforderliche Stichprobengroesse fuer Umfragen und Studien",
       "metaDescription": "Berechnen Sie Stichprobengroesse mit Konfidenzniveau und Fehlermarge"
     },
     "z-score-calculator": {
-      "name": "Z-Wert-Rechner",
+      "name": "Z-Wert",
       "description": "Berechnen Sie Z-Wert und Normalverteilungswahrscheinlichkeiten",
       "metaDescription": "Berechnen Sie Z-Wert und finden Sie Wahrscheinlichkeiten der Normalverteilung"
     },
     "p-value-calculator": {
-      "name": "P-Wert-Rechner",
+      "name": "P-Wert",
       "description": "Berechnen Sie P-Werte fuer statistische Hypothesentests",
       "metaDescription": "Berechnen Sie P-Werte aus z-, t-, Chi-Quadrat- und F-Werten"
     },
     "confidence-interval": {
-      "name": "Konfidenzintervall-Rechner",
+      "name": "Konfidenzintervall",
       "description": "Berechnen Sie Konfidenzintervalle fuer Mittelwerte und Anteile",
       "metaDescription": "Berechnen Sie Konfidenzintervalle fuer Populationsmittelwert und Anteil"
     },
     "permutation-combination": {
-      "name": "Permutations- und Kombinationsrechner",
+      "name": "Permutations- und Kombinations",
       "description": "Berechnen Sie Permutationen und Kombinationen mit und ohne Wiederholung",
       "metaDescription": "Berechnen Sie nPr und nCr fuer Zaehlprobleme"
     },
     "ratio-calculator": {
-      "name": "Verhaeltnis-Rechner",
+      "name": "Verhaeltnis",
       "description": "Berechnen und vereinfachen Sie Verhaeltnisse, finden Sie Aequivalente",
       "metaDescription": "Vereinfachen Sie Verhaeltnisse, finden Sie aequivalente Verhaeltnisse und Proportionen"
     },
     "binary-calculator": {
-      "name": "Binaer-Rechner",
+      "name": "Binaer",
       "description": "Konvertieren und fuehren Sie Operationen in Binaer durch",
       "metaDescription": "Konvertieren Sie zwischen Binaer, Dezimal, Oktal und Hexadezimal"
     },
     "hex-calculator": {
-      "name": "Hexadezimal-Rechner",
+      "name": "Hexadezimal",
       "description": "Konvertieren und rechnen Sie in Hexadezimal",
       "metaDescription": "Konvertieren und fuehren Sie arithmetische Operationen in Hexadezimal durch"
     },
     "scientific-notation": {
-      "name": "Wissenschaftliche-Notation-Rechner",
+      "name": "Wissenschaftliche-Notation",
       "description": "Konvertieren Sie in/aus wissenschaftlicher Notation und fuehren Sie Operationen durch",
       "metaDescription": "Konvertieren Sie Zahlen in wissenschaftliche Notation und fuehren Sie Operationen durch"
     },
     "big-number": {
-      "name": "Grosse-Zahlen-Rechner",
+      "name": "Grosse-Zahlen",
       "description": "Fuehren Sie Arithmetik mit beliebig grossen Ganzzahlen durch",
       "metaDescription": "Rechnen Sie mit sehr grossen Zahlen ueber Standardrechner-Grenzen hinaus"
     },
     "number-sequence": {
-      "name": "Zahlenfolgen-Rechner",
+      "name": "Zahlenfolgen",
       "description": "Analysieren und generieren Sie arithmetische, geometrische und Fibonacci-Folgen",
       "metaDescription": "Finden Sie Muster in Zahlenfolgen und generieren Sie Reihen"
     },
     "matrix-calculator": {
-      "name": "Matrix-Rechner",
+      "name": "Matrix",
       "description": "Fuehren Sie Matrixoperationen durch: Addition, Multiplikation, Transposition, Determinante",
       "metaDescription": "Berechnen Sie Matrixaddition, Multiplikation, Determinante, Inverse und Transposition"
     },
     "half-life-calculator": {
-      "name": "Halbwertszeit-Rechner",
+      "name": "Halbwertszeit",
       "description": "Berechnen Sie radioaktiven Zerfall und verbleibende Menge",
       "metaDescription": "Berechnen Sie radioaktiven Zerfall, verbleibende Menge und C14-Datierung"
     },
     "distance-calculator": {
-      "name": "Entfernungs-Rechner",
+      "name": "Entfernungs",
       "description": "Berechnen Sie Entfernungen zwischen Punkten in 2D, 3D und auf der Erde",
       "metaDescription": "Berechnen Sie euklidische Entfernung, Manhattan-Entfernung und geographische Entfernungen"
     },
@@ -854,12 +865,12 @@
       "metaDescription": "Generieren Sie Zufallszahlen, wuerfeln Sie und mischen Sie Listen"
     },
     "tcp-throughput": {
-      "name": "TCP-Durchsatz-Rechner",
+      "name": "TCP-Durchsatz",
       "description": "Berechnen Sie den theoretischen TCP-Durchsatz mit der Mathis-Formel",
       "metaDescription": "Berechnen Sie maximalen TCP-Durchsatz basierend auf MSS, RTT und Paketverlustrate"
     },
     "bandwidth-delay-product": {
-      "name": "Bandbreite-Verzoegerung-Produkt Rechner",
+      "name": "Bandbreite-Verzoegerung-Produkt",
       "description": "Berechnen Sie BDP und optimale TCP-Puffergroesse",
       "metaDescription": "Berechnen Sie das Bandbreite-Verzoegerung-Produkt und TCP-Fenstergroesse"
     }
@@ -2202,14 +2213,14 @@
       "bigNumberOperation": "Operation",
       "expression": "Ausdruck",
       "evaluate": "Auswerten",
-      "bigNumber": "Grosszahlen-Rechner",
+      "bigNumber": "Grosszahlen",
       "calculate": "Berechnen",
       "dataValues": "Datenwerte",
       "dataValuesHelp": "Geben Sie Zahlen getrennt durch Kommas, Leerzeichen oder Zeilenumbrueche ein",
       "diceRoll": "Wuerfelwurf",
       "enterNumbers": "Zahlen eingeben",
       "generatorMode": "Generatormodus",
-      "matrix": "Matrix-Rechner",
+      "matrix": "Matrix",
       "maximum": "Maximum",
       "minimum": "Minimum",
       "multipleNumbers": "Mehrere Zahlen",
@@ -2369,7 +2380,66 @@
       "requiredWindow": "Erforderliche Fenstergroesse",
       "windowUtilization": "Fensterauslastung",
       "windowSufficient": "Aktuelle Fenstergroesse ist ausreichend fuer maximale Bandbreitennutzung",
-      "windowInsufficient": "Fenstergroesse unzureichend - erhoehen Sie den TCP-Puffer"
+      "windowInsufficient": "Fenstergroesse unzureichend - erhoehen Sie den TCP-Puffer",
+      "ipAddress": "IP-Adresse",
+      "ipInput": "IP-Adresse / CIDR",
+      "subnetMask": "Subnetzmaske",
+      "cidrNotation": "CIDR-Notation",
+      "networkAddress": "Netzwerkadresse",
+      "broadcastAddress": "Broadcast-Adresse",
+      "firstUsable": "Erste verwendbare IP",
+      "lastUsable": "Letzte verwendbare IP",
+      "usableHosts": "Verwendbare Hosts",
+      "totalHosts": "Hosts Gesamt",
+      "ipVersion": "IP-Version",
+      "invalidInput": "Ungültige IP-Adresse oder CIDR-Notation",
+      "enterIpOrCidr": "Geben Sie eine IP-Adresse mit CIDR ein (z.B. 192.168.1.0/24) oder verwenden Sie das Subnetzmaskenfeld",
+      "networkDiagram": "Netzwerkdiagramm",
+      "binaryRepresentation": "Binärdarstellung",
+      "subnetBreakdown": "Subnetz-Aufschlüsselung"
+    },
+    "subnet": {
+      "diagram": {
+        "aria-label": "Netzwerkdiagramm zeigt Subnetz-Struktur",
+        "network-portion": "Netzwerkteil",
+        "host-portion": "Host-Teil",
+        "usable-hosts": "verwendbare Hosts"
+      },
+      "binary": {
+        "ip-address": "IP-Adresse",
+        "subnet-mask": "Subnetzmaske",
+        "ip-binary-label": "IP-Adresse in binär",
+        "mask-binary-label": "Subnetzmaske in binär",
+        "bit": "Bit",
+        "network": "Netzwerk",
+        "host": "Host",
+        "mask-bit": "Masken-Bit"
+      },
+      "breakdown": {
+        "network-address": "Netzwerkadresse",
+        "network-address-desc": "Erste Adresse im Subnetz",
+        "broadcast-address": "Broadcast-Adresse",
+        "broadcast-address-desc": "Letzte Adresse im Subnetz (nur IPv4)",
+        "first-usable": "Erste verwendbare IP",
+        "first-usable-desc": "Erste verfügbare Host-Adresse",
+        "last-usable": "Letzte verwendbare IP",
+        "last-usable-desc": "Letzte verfügbare Host-Adresse",
+        "usable-hosts": "Verwendbare Hosts",
+        "usable-hosts-desc": "Anzahl zuweisbarer IP-Adressen",
+        "total-hosts": "Hosts Gesamt",
+        "total-hosts-desc": "Gesamtadressen einschließlich Netzwerk und Broadcast",
+        "cidr": "CIDR",
+        "cidr-desc": "Classless Inter-Domain Routing Präfixlänge",
+        "cidr-notation": "CIDR-Notation",
+        "cidr-notation-desc": "Präfixlänge",
+        "subnet-mask": "Subnetzmaske",
+        "subnet-mask-desc": "Punktierte Dezimalnotation (nur IPv4)",
+        "ip-version": "IP-Version",
+        "ip-version-desc": "Internet-Protokoll-Version",
+        "property": "Eigenschaft",
+        "value": "Wert",
+        "description": "Beschreibung"
+      }
     }
   },
   "validation": {

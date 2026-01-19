@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** Planning next milestone
+**Current focus:** v2.0 Network Tools & User Experience
 
 ## Current Position
 
-Phase: Not started
+Phase: 11 of 16 (Visual Subnet Calculator - Advanced Features)
 Plan: Not started
-Status: v1.0 milestone complete — ready to plan v2.0
-Last activity: 2026-01-18 — v1.0 milestone complete
+Status: Ready to plan
+Last activity: 2026-01-18 — Completed Phase 10 (Visual Subnet Calculator - Visualization)
 
-Progress: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% (0/0 plans - next milestone in planning)
+Progress: ██⬜⬜⬜⬜⬜⬜⬜ 25% (2/8 phases in v2.0)
 
 ## Performance Metrics
 
@@ -42,63 +42,88 @@ Progress: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% (0/0 plans - next milestone in plann
 | 07-code-quality-validation | 2/2   | 23.4 min | 11.7 min |
 | 08-developer-experience    | 2/2   | 5 min    | 2.5 min  |
 
+**v2.0 Milestone (in progress):**
+
+| Phase                           | Plans | Total  | Avg/Plan |
+| ------------------------------- | ----- | ------ | -------- |
+| 09-visual-subnet-foundation     | 3/3   | 27 min | 9 min    |
+| 10-visual-subnet-visualization  | 2/2   | 51 min | 25.5 min |
+
 ## Accumulated Context
 
 ### Decisions
 
-| Decision                                                     | Phase | Rationale                                                                       |
-| ------------------------------------------------------------ | ----- | ------------------------------------------------------------------------------- |
-| Use Number.isNaN() instead of global isNaN()                 | 01-01 | Strict check without type coercion prevents false positives                     |
-| Boolean parsing accepts only "true" and "1"                  | 01-01 | Explicit is better than implicit - avoid ambiguity                              |
-| Empty string triggers fallback (same as null)                | 01-01 | Empty string in URL typically means "not provided"                              |
-| Enabled noExplicitAny at error level (not warning)           | 01-02 | Strict enforcement makes type safety violations blocking                        |
-| Document strict mode flags inline in tsconfig.json           | 01-02 | Helps future developers understand configuration without external docs          |
-| Use 'unknown' as generic default type for better type safety | 01-03 | Requires explicit type narrowing, prevents accidental unsafe operations         |
-| Centralize URL parsing through helper functions              | 01-03 | Consistency across codebase, single source of truth for parsing logic           |
-| Defer global debounce timer fix to Phase 2                   | 01-03 | Global timer is a known issue (STATE-04) but fixing now would expand scope      |
-| Use closure pattern over WeakMap for timer isolation         | 02-01 | Simpler mental model, more explicit, easier to debug                            |
-| Use replaceState instead of pushState for URL sync           | 02-01 | Avoids flooding browser history with every keystroke                            |
-| Add selectState option to middleware                         | 02-01 | Enables syncing nested state (e.g., only values from CalculatorState)           |
-| Verify functional approach before deleting legacy hooks      | 03-01 | Ensure STATE-05 requirements met (pure functions, immutability)                 |
-| Manual immutable patterns used instead of Immer middleware   | 03-01 | Spread operators provide equivalent immutability with less overhead             |
-| Use Next.js App Router manifest.ts over static manifest.json | 04-01 | Type safety via MetadataRoute.Manifest, aligns with Next.js 16 best practices   |
-| Automate icon generation instead of manual creation          | 04-01 | Ensures correct dimensions, proper maskable safe zones, reproducibility         |
-| Create placeholder gradient icon design                      | 04-01 | Functional PWA immediately, replaceable with branded assets later               |
-| Add force-static export declaration to manifest              | 04-01 | Required for Next.js static export mode (output: "export")                      |
-| Use Workbox CDN via importScripts instead of bundling        | 04-02 | Standard Workbox v7 pattern, avoids bundling issues, easier updates             |
-| NetworkFirst strategy for HTML/documents                     | 04-02 | Fresh content when online, 7-day cache fallback for offline                     |
-| CacheFirst strategy for static assets                        | 04-02 | Next.js content-hashed assets are immutable, aggressive caching optimal         |
-| StaleWhileRevalidate for fonts                               | 04-02 | Instant rendering with background updates, balanced freshness                   |
-| Manual service worker instead of generated (for now)         | 04-02 | Runtime caching only, build integration with precaching deferred to Plan 03     |
-| Production-only SW registration                              | 04-03 | Service worker caching breaks hot reload in development                         |
-| Separate client component for SW registration                | 04-03 | Clean server/client boundary for browser APIs                                   |
-| generateSW instead of injectManifest                         | 04-03 | Simpler approach for static exports, creates complete SW file                   |
-| Post-build script integration for SW generation              | 04-03 | Workbox needs static files to exist before generating precache manifest         |
-| Platform detection for install prompt                        | 04-03 | iOS needs manual instructions, Android/Desktop support programmatic prompt      |
-| Root scope (/) for service worker                            | 04-03 | Covers all locale routes (/en/, /fr/, /de/, /it/)                               |
-| Combined PWA UI in SWRegistration component                  | 04-03 | Groups related PWA concerns (registration, offline, install) together           |
-| Use Keep a Changelog 1.1.0 format for project history        | 05-01 | Standardized, human-readable, supports Semantic Versioning                      |
-| Backfill v1.0.0 from git log and STATE.md summaries          | 05-01 | Git history provides factual data, STATE.md provides context                    |
-| Date v1.0.0 as 2026-01-17                                    | 05-01 | Marks completion of infrastructure upgrade milestone (Phases 1-4)               |
-| Use specific changelog entries with file paths               | 05-01 | Helps developers understand what changed and where to look                      |
-| Document Zustand as standard (not useState)                  | 05-03 | Aligns with Phase 3 migration, guides new contributors to current best practice |
-| Use Biome commands (check/check:fix) in contributor guide    | 05-03 | Project uses Biome for linting, not ESLint - documentation should match reality |
-| jsPDF v4.0.0 is latest version (no upgrade needed)           | 06-01 | Version progression v1→v2→v3→v4 (v4 is NEWER than v2), released Jan 2025        |
-| ADR 0004 superseded due to incorrect version information     | 06-01 | Original ADR incorrectly claimed v4.0.0 was outdated, corrected with research   |
-| Phase 6 scope is verification (not upgrade)                  | 06-01 | jsPDF already current, focus on verifying implementation works correctly        |
-| PDF export uses correct v4.0.0 API patterns                  | 06-01 | Named import, built-in types, standard methods, no deprecated API calls         |
-| Allow explicit any in url-sync.ts via Biome override         | 07-01 | Zustand setState requires type erasure in middleware, configuration cleaner than per-line ignores |
-| Use Node.js protocol imports (node:fs, node:path)            | 07-01 | Biome style rule for explicit protocol, aligns with modern Node.js best practices |
-| Document code review as observations, not blockers           | 07-01 | Quality is continuous improvement, not binary pass/fail - guide future work     |
-| Container vulnerability in Dockerfile is false positive      | 07-02 | Static site (output: "export"), no Docker usage in production, npm audit clean |
-| URL params consolidation is enhancement, not blocker         | 07-02 | 6-line duplication vs ~3,000 eliminated, low priority DRY improvement          |
-| Pre-commit hooks are valid Phase 8 enhancement               | 07-02 | Developer experience improvement (Husky + lint-staged), not Phase 7 requirement |
-| Document Trivy false positives with expiration dates         | 08-01 | .trivyignore explicitly documents false positives with 6-month expiration for re-evaluation |
-| Consolidate getUrlParams() into shared utility module        | 08-01 | DRY principle - eliminates 12-line duplication, single source of truth for URL extraction |
-| Use Husky v9 modern API (core.hooksPath) over deprecated v4-v8 | 08-02 | Husky v9 uses core.hooksPath and husky init instead of deprecated install command |
-| Run Biome only on staged files for fast pre-commit feedback | 08-02 | Checking only staged files keeps pre-commit under 3 seconds, prevents bottleneck |
-| Configure automatic hook setup via prepare script            | 08-02 | New team members get hooks automatically on npm install, ensures consistent quality |
-| Phase numbering continues across milestones                  | v1.0  | Clear history, no confusion with phase resets - v2.0 starts at Phase 9          |
+| Decision                                                       | Phase | Rationale                                                                                         |
+| -------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------- |
+| Use Number.isNaN() instead of global isNaN()                   | 01-01 | Strict check without type coercion prevents false positives                                       |
+| Boolean parsing accepts only "true" and "1"                    | 01-01 | Explicit is better than implicit - avoid ambiguity                                                |
+| Empty string triggers fallback (same as null)                  | 01-01 | Empty string in URL typically means "not provided"                                                |
+| Enabled noExplicitAny at error level (not warning)             | 01-02 | Strict enforcement makes type safety violations blocking                                          |
+| Document strict mode flags inline in tsconfig.json             | 01-02 | Helps future developers understand configuration without external docs                            |
+| Use 'unknown' as generic default type for better type safety   | 01-03 | Requires explicit type narrowing, prevents accidental unsafe operations                           |
+| Centralize URL parsing through helper functions                | 01-03 | Consistency across codebase, single source of truth for parsing logic                             |
+| Defer global debounce timer fix to Phase 2                     | 01-03 | Global timer is a known issue (STATE-04) but fixing now would expand scope                        |
+| Use closure pattern over WeakMap for timer isolation           | 02-01 | Simpler mental model, more explicit, easier to debug                                              |
+| Use replaceState instead of pushState for URL sync             | 02-01 | Avoids flooding browser history with every keystroke                                              |
+| Add selectState option to middleware                           | 02-01 | Enables syncing nested state (e.g., only values from CalculatorState)                             |
+| Verify functional approach before deleting legacy hooks        | 03-01 | Ensure STATE-05 requirements met (pure functions, immutability)                                   |
+| Manual immutable patterns used instead of Immer middleware     | 03-01 | Spread operators provide equivalent immutability with less overhead                               |
+| Use Next.js App Router manifest.ts over static manifest.json   | 04-01 | Type safety via MetadataRoute.Manifest, aligns with Next.js 16 best practices                     |
+| Automate icon generation instead of manual creation            | 04-01 | Ensures correct dimensions, proper maskable safe zones, reproducibility                           |
+| Create placeholder gradient icon design                        | 04-01 | Functional PWA immediately, replaceable with branded assets later                                 |
+| Add force-static export declaration to manifest                | 04-01 | Required for Next.js static export mode (output: "export")                                        |
+| Use Workbox CDN via importScripts instead of bundling          | 04-02 | Standard Workbox v7 pattern, avoids bundling issues, easier updates                               |
+| NetworkFirst strategy for HTML/documents                       | 04-02 | Fresh content when online, 7-day cache fallback for offline                                       |
+| CacheFirst strategy for static assets                          | 04-02 | Next.js content-hashed assets are immutable, aggressive caching optimal                           |
+| StaleWhileRevalidate for fonts                                 | 04-02 | Instant rendering with background updates, balanced freshness                                     |
+| Manual service worker instead of generated (for now)           | 04-02 | Runtime caching only, build integration with precaching deferred to Plan 03                       |
+| Production-only SW registration                                | 04-03 | Service worker caching breaks hot reload in development                                           |
+| Separate client component for SW registration                  | 04-03 | Clean server/client boundary for browser APIs                                                     |
+| generateSW instead of injectManifest                           | 04-03 | Simpler approach for static exports, creates complete SW file                                     |
+| Post-build script integration for SW generation                | 04-03 | Workbox needs static files to exist before generating precache manifest                           |
+| Platform detection for install prompt                          | 04-03 | iOS needs manual instructions, Android/Desktop support programmatic prompt                        |
+| Root scope (/) for service worker                              | 04-03 | Covers all locale routes (/en/, /fr/, /de/, /it/)                                                 |
+| Combined PWA UI in SWRegistration component                    | 04-03 | Groups related PWA concerns (registration, offline, install) together                             |
+| Use Keep a Changelog 1.1.0 format for project history          | 05-01 | Standardized, human-readable, supports Semantic Versioning                                        |
+| Backfill v1.0.0 from git log and STATE.md summaries            | 05-01 | Git history provides factual data, STATE.md provides context                                      |
+| Date v1.0.0 as 2026-01-17                                      | 05-01 | Marks completion of infrastructure upgrade milestone (Phases 1-4)                                 |
+| Use specific changelog entries with file paths                 | 05-01 | Helps developers understand what changed and where to look                                        |
+| Document Zustand as standard (not useState)                    | 05-03 | Aligns with Phase 3 migration, guides new contributors to current best practice                   |
+| Use Biome commands (check/check:fix) in contributor guide      | 05-03 | Project uses Biome for linting, not ESLint - documentation should match reality                   |
+| jsPDF v4.0.0 is latest version (no upgrade needed)             | 06-01 | Version progression v1→v2→v3→v4 (v4 is NEWER than v2), released Jan 2025                          |
+| ADR 0004 superseded due to incorrect version information       | 06-01 | Original ADR incorrectly claimed v4.0.0 was outdated, corrected with research                     |
+| Phase 6 scope is verification (not upgrade)                    | 06-01 | jsPDF already current, focus on verifying implementation works correctly                          |
+| PDF export uses correct v4.0.0 API patterns                    | 06-01 | Named import, built-in types, standard methods, no deprecated API calls                           |
+| Allow explicit any in url-sync.ts via Biome override           | 07-01 | Zustand setState requires type erasure in middleware, configuration cleaner than per-line ignores |
+| Use Node.js protocol imports (node:fs, node:path)              | 07-01 | Biome style rule for explicit protocol, aligns with modern Node.js best practices                 |
+| Document code review as observations, not blockers             | 07-01 | Quality is continuous improvement, not binary pass/fail - guide future work                       |
+| Container vulnerability in Dockerfile is false positive        | 07-02 | Static site (output: "export"), no Docker usage in production, npm audit clean                    |
+| URL params consolidation is enhancement, not blocker           | 07-02 | 6-line duplication vs ~3,000 eliminated, low priority DRY improvement                             |
+| Pre-commit hooks are valid Phase 8 enhancement                 | 07-02 | Developer experience improvement (Husky + lint-staged), not Phase 7 requirement                   |
+| Document Trivy false positives with expiration dates           | 08-01 | .trivyignore explicitly documents false positives with 6-month expiration for re-evaluation       |
+| Consolidate getUrlParams() into shared utility module          | 08-01 | DRY principle - eliminates 12-line duplication, single source of truth for URL extraction         |
+| Use Husky v9 modern API (core.hooksPath) over deprecated v4-v8 | 08-02 | Husky v9 uses core.hooksPath and husky init instead of deprecated install command                 |
+| Run Biome only on staged files for fast pre-commit feedback    | 08-02 | Checking only staged files keeps pre-commit under 3 seconds, prevents bottleneck                  |
+| Configure automatic hook setup via prepare script              | 08-02 | New team members get hooks automatically on npm install, ensures consistent quality               |
+| Phase numbering continues across milestones                    | v1.0  | Clear history, no confusion with phase resets - v2.0 starts at Phase 9                            |
+| Use ipaddr.js for IP address manipulation                      | 09-01 | Battle-tested (55M+ weekly downloads), lightweight (1.9K), handles IPv4/IPv6 edge cases           |
+| Network as separate category from data                         | 09-01 | Network tools have distinct audience, allows future growth with dedicated subcategories           |
+| Feature subnet calculator on homepage                          | 09-01 | First network calculator, showcases new category, high-value tool for IT professionals            |
+| BigInt for host count calculations                             | 09-02 | IPv6 subnets can exceed Number.MAX_SAFE_INTEGER (2^53), requires BigInt for accuracy              |
+| Null for IPv6 broadcast and subnet mask                        | 09-02 | IPv6 has no broadcast (uses multicast) and no subnet mask notation (CIDR only)                    |
+| RFC 3021 compliance for /31 subnets                            | 09-02 | /31 point-to-point links have 2 usable addresses with no network/broadcast reservation            |
+| IPv6 no network/broadcast reservation                          | 09-02 | IPv6 doesn't reserve addresses except /128 single host, differs from IPv4 standard formula        |
+| Throw errors from parsing functions                            | 09-02 | Pure functions can throw, caller (Zustand store) catches and sets error state                     |
+| Use calculator.network namespace for network-specific labels   | 09-03 | Network-specific labels belong in category namespace, not generic calculator.labels               |
+| Auto-calculate on input change (no manual button)              | 09-03 | Immediate feedback improves UX, triggered on CIDR completion or both fields filled                |
+| Display N/A for IPv6 broadcast/subnet mask                     | 09-03 | IPv6 has no broadcast (uses multicast) and no subnet mask notation (CIDR only)                    |
+| BigInt formatting with locale fallback                         | 09-03 | Use locale formatter for safe integers, toString() for large IPv6 subnets with warning            |
+| Use inline SVG for network diagram                             | 10-01 | Maximum control over styling and responsiveness without external dependencies                     |
+| Proportional CIDR visualization                                | 10-01 | Network/host portions displayed proportionally based on prefix length for visual clarity          |
+| Color-coded binary bits (blue=network, green=host)             | 10-01 | Consistent color scheme across visualizations for immediate understanding                          |
+| Accept array index as key for stable bit positions             | 10-01 | Bit positions are stable and semantically meaningful, never reordered                             |
+| Strip CIDR notation before IP parsing in visualizations        | 10-02 | Binary representation may receive network address with CIDR notation, must extract clean IP       |
+| Use concise "cidr" key for table labels                        | 10-02 | Component labels need brevity, "CIDR" is universal abbreviation understood internationally        |
 
 ### Milestone Evolution
 
@@ -110,12 +135,11 @@ Progress: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% (0/0 plans - next milestone in plann
 
 ## Session Continuity
 
-Last session: 2026-01-18T07:15:00Z
-Stopped at: v1.0 milestone complete
+Last session: 2026-01-18T22:09:55Z
+Stopped at: Completed 10-02-PLAN.md (Integration & Polish)
 Resume file: None
 
 **Next Steps:**
 
-1. `/gsd:discuss-milestone` — Gather context for v2.0 through adaptive questioning
-2. `/gsd:new-milestone` — Initialize v2.0 milestone (updates PROJECT.md, creates planning docs)
-3. Define requirements → Create roadmap → Plan Phase 9 → Execute
+1. Execute Plan 10-03 (Export & Features)
+2. Continue v2.0 milestone execution

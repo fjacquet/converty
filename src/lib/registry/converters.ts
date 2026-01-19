@@ -8,6 +8,7 @@ import { financeConverters } from "./finance-converters";
 import { healthConverters } from "./health-converters";
 import { mathConverters } from "./math-converters";
 import { musicConverters } from "./music-converters";
+import { networkConverters } from "./network-converters";
 import { photoConverters } from "./photo-converters";
 import { physicsConverters } from "./physics-converters";
 import { videoConverters } from "./video-converters";
@@ -22,6 +23,7 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   ...physicsConverters,
   ...photoConverters,
   ...musicConverters,
+  ...networkConverters,
   ...videoConverters,
   ...webConverters,
   ...financeConverters,

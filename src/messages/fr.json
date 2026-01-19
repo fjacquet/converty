@@ -54,6 +54,10 @@
       "name": "Musique",
       "description": "Theorie musicale et outils audio"
     },
+    "network": {
+      "name": "Réseau",
+      "description": "Calculateurs réseau et outils d'adresse IP"
+    },
     "photo": {
       "name": "Photo",
       "description": "Calculateurs photographiques"
@@ -94,6 +98,8 @@
     "advanced": "Avance",
     "storage": "Stockage et Fichiers",
     "network": "Reseau",
+    "subnet": "Sous-réseautage",
+    "ip": "Adresse IP",
     "dof": "Profondeur de Champ",
     "exposure": "Exposition et Lumiere",
     "resolution": "Resolution et Format",
@@ -104,42 +110,42 @@
   },
   "converters": {
     "bmi": {
-      "name": "Calculateur d'IMC",
+      "name": "IMC",
       "description": "Calculez votre indice de masse corporelle et votre categorie de sante",
       "metaDescription": "Calculez votre indice de masse corporelle (IMC) et comprenez votre categorie de sante"
     },
     "corpulence": {
-      "name": "Calculateur de Corpulence",
+      "name": "Corpulence",
       "description": "Calculez votre indice de corpulence (indice ponderal)",
       "metaDescription": "Calculez votre indice ponderal pour une evaluation plus precise de la composition corporelle"
     },
     "age": {
-      "name": "Calculateur d'Âge",
+      "name": "Âge",
       "description": "Calculez l'âge exact à partir de la date de naissance en années, mois et jours",
       "metaDescription": "Calculez votre âge exact en années, mois, jours, heures et minutes"
     },
     "date": {
-      "name": "Calculateur de Date",
+      "name": "Date",
       "description": "Ajoutez ou soustrayez des jours, semaines, mois et annees a une date",
       "metaDescription": "Ajoutez ou soustrayez des periodes a n'importe quelle date"
     },
     "time": {
-      "name": "Calculateur de Temps",
+      "name": "Temps",
       "description": "Ajoutez ou soustrayez des heures, minutes et secondes",
       "metaDescription": "Effectuez des calculs de temps avec heures, minutes et secondes"
     },
     "hours": {
-      "name": "Calculateur d'Heures",
+      "name": "Heures",
       "description": "Calculez les heures entre deux moments ou dates",
       "metaDescription": "Calculez le nombre d'heures entre deux moments ou dates"
     },
     "time-duration": {
-      "name": "Calculateur de Duree",
+      "name": "Duree",
       "description": "Calculez la duree entre deux dates et heures",
       "metaDescription": "Calculez la duree exacte entre deux dates et heures"
     },
     "time-zone": {
-      "name": "Calculateur de Fuseau Horaire",
+      "name": "Fuseau Horaire",
       "description": "Convertissez les heures entre differents fuseaux horaires",
       "metaDescription": "Convertissez les heures entre differents fuseaux horaires dans le monde"
     },
@@ -149,7 +155,7 @@
       "metaDescription": "Comptez les jours entre deux dates ou jusqu'a un evenement a venir"
     },
     "day-of-week": {
-      "name": "Calculateur du Jour de la Semaine",
+      "name": "Jour de la Semaine",
       "description": "Trouvez quel jour de la semaine tombe n'importe quelle date",
       "metaDescription": "Decouvrez quel jour de la semaine tombe n'importe quelle date"
     },
@@ -164,7 +170,7 @@
       "metaDescription": "Convertissez les couleurs entre les formats RVB, HEX, TSL et CMJN"
     },
     "data-size": {
-      "name": "Calculateur de Taille de Donnees",
+      "name": "Taille de Donnees",
       "description": "Convertissez entre octets, Ko, Mo, Go, To et plus",
       "metaDescription": "Convertissez les tailles de donnees entre octets, kilo-octets, mega-octets et plus"
     },
@@ -174,9 +180,14 @@
       "metaDescription": "Convertissez la bande passante entre differentes unites"
     },
     "download-calculator": {
-      "name": "Calculateur de Telechargement",
+      "name": "Telechargement",
       "description": "Calculez le temps de telechargement a partir de la bande passante et de la taille du fichier",
       "metaDescription": "Calculez combien de temps prendra le telechargement d'un fichier"
+    },
+    "subnet-calculator": {
+      "name": "Sous-réseau Visuelle",
+      "description": "Calculez les détails des sous-réseaux IPv4 et IPv6 avec notation CIDR",
+      "metaDescription": "sous-réseau en ligne gratuite pour les réseaux IPv4 et IPv6. Calculez l'adresse réseau, la diffusion, la plage IP utilisable et le nombre d'hôtes à partir de la notation CIDR ou du masque de sous-réseau."
     },
     "speed": {
       "name": "Convertisseur de Vitesse",
@@ -184,42 +195,42 @@
       "metaDescription": "Convertissez la vitesse entre metres par seconde, km/h, mph et plus"
     },
     "aspect-ratio": {
-      "name": "Calculateur de Ratio d'Aspect",
+      "name": "Ratio d'Aspect",
       "description": "Calculez les ratios d'aspect a partir de la largeur et de la hauteur",
       "metaDescription": "Calculez et convertissez les ratios d'aspect pour images et video"
     },
     "aspect-fit": {
-      "name": "Calculateur d'Ajustement d'Aspect",
+      "name": "Ajustement d'Aspect",
       "description": "Ajustez une image sur un ecran avec letterboxing",
       "metaDescription": "Calculez le letterboxing et le pillarboxing pour l'ajustement d'image"
     },
     "composition": {
-      "name": "Calculateur de Composition",
+      "name": "Composition",
       "description": "Calculez le champ de vision a partir de la focale et de la distance",
       "metaDescription": "Calculez le champ de vision photographique et la composition"
     },
     "depth-of-field": {
-      "name": "Calculateur de Profondeur de Champ",
+      "name": "Profondeur de Champ",
       "description": "Calculez la PdC a partir de l'ouverture, de la focale et de la distance",
       "metaDescription": "Calculez la profondeur de champ pour la photographie"
     },
     "dpi": {
-      "name": "Calculateur de DPI",
+      "name": "DPI",
       "description": "Calculez les megapixels a partir de la taille d'impression et du DPI",
       "metaDescription": "Calculez le DPI et la resolution pour l'impression"
     },
     "image-filesize": {
-      "name": "Calculateur de Taille de Fichier Image",
+      "name": "Taille de Fichier Image",
       "description": "Estimez la taille de fichier image pour JPEG, PNG, RAW",
       "metaDescription": "Estimez les tailles de fichiers image pour differents formats"
     },
     "light-ev": {
-      "name": "Calculateur EV de Lumiere",
+      "name": "EV de Lumiere",
       "description": "Calculez la valeur d'exposition a partir des reglages de l'appareil",
       "metaDescription": "Calculez la valeur d'exposition a partir des reglages de l'appareil"
     },
     "megapixels": {
-      "name": "Calculateur de Megapixels",
+      "name": "Megapixels",
       "description": "Calculez les megapixels a partir de la largeur et de la hauteur",
       "metaDescription": "Calculez les megapixels a partir des dimensions de l'image"
     },
@@ -229,22 +240,22 @@
       "metaDescription": "Visualisez les nombres de megapixels dans differents ratios d'aspect"
     },
     "portrait-distance": {
-      "name": "Calculateur de Distance Portrait",
+      "name": "Distance Portrait",
       "description": "Calculez la distance de prise de vue ideale pour les portraits",
       "metaDescription": "Calculez la distance ideale pour la photographie de portrait"
     },
     "star-trails": {
-      "name": "Calculateur de Trainee d'Etoiles",
+      "name": "Trainee d'Etoiles",
       "description": "Calculez le temps d'exposition pour la rotation des trainees d'etoiles",
       "metaDescription": "Calculez les temps d'exposition pour la photographie de trainees d'etoiles"
     },
     "spot-stars": {
-      "name": "Calculateur d'Etoiles Fixes",
+      "name": "Etoiles Fixes",
       "description": "Calculez l'exposition max pour eviter les trainees d'etoiles (Regle NPF)",
       "metaDescription": "Calculez le temps d'exposition maximum pour des etoiles nettes"
     },
     "time-lapse": {
-      "name": "Calculateur Time Lapse",
+      "name": "Time Lapse",
       "description": "Calculez l'intervalle, la duree du clip et la memoire pour time lapse",
       "metaDescription": "Planifiez vos projets de photographie time lapse"
     },
@@ -254,12 +265,12 @@
       "metaDescription": "Calculez les focales equivalentes entre differentes tailles de capteur"
     },
     "hyperfocal": {
-      "name": "Calculateur de Distance Hyperfocale",
+      "name": "Distance Hyperfocale",
       "description": "Calculez la distance hyperfocale pour une profondeur de champ maximale",
       "metaDescription": "Calculez la distance hyperfocale pour la photographie de paysage"
     },
     "nd-filter": {
-      "name": "Calculateur de Filtre ND",
+      "name": "Filtre ND",
       "description": "Calculez le temps d'exposition avec les filtres ND",
       "metaDescription": "Calculez les temps d'exposition avec les filtres a densite neutre"
     },
@@ -269,22 +280,22 @@
       "metaDescription": "Trouvez les heures dorees et bleues pour votre emplacement"
     },
     "sun-position": {
-      "name": "Calculateur de Position du Soleil",
+      "name": "Position du Soleil",
       "description": "Calculez la position du soleil, les heures de crepuscule et les phases de lumiere pour la photographie",
       "metaDescription": "Calculez l'altitude, l'azimut du soleil, les heures de crepuscule, l'heure doree et l'heure bleue pour la planification photo"
     },
     "circle-of-confusion": {
-      "name": "Calculateur de Cercle de Confusion",
+      "name": "Cercle de Confusion",
       "description": "Calculez le CdC a partir du capteur, de la taille d'impression et de la distance de visionnage",
       "metaDescription": "Calculez le cercle de confusion pour la profondeur de champ"
     },
     "advanced-dof": {
-      "name": "Calculateur PdC Avance",
+      "name": "PdC Avance",
       "description": "Profondeur de champ avec CdC ajustable pour taille d'impression et visionnage",
       "metaDescription": "Calculs avances de profondeur de champ"
     },
     "macro-dof": {
-      "name": "Calculateur PdC Macro",
+      "name": "PdC Macro",
       "description": "Profondeur de champ precise pour la macrophotographie",
       "metaDescription": "Calculez la profondeur de champ pour la macrophotographie"
     },
@@ -294,27 +305,27 @@
       "metaDescription": "Tableau de reference pour la profondeur de champ"
     },
     "diffraction": {
-      "name": "Calculateur de Diffraction",
+      "name": "Diffraction",
       "description": "Calculez quand votre appareil devient limite par la diffraction",
       "metaDescription": "Calculez les limites de diffraction pour votre appareil"
     },
     "macro-diffraction": {
-      "name": "Calculateur de Diffraction Macro",
+      "name": "Diffraction Macro",
       "description": "Calculez l'ouverture effective et la diffraction en macrophotographie",
       "metaDescription": "Calculez les effets de diffraction en macrophotographie"
     },
     "bpm": {
-      "name": "Calculateur de BPM",
+      "name": "BPM",
       "description": "Convertissez BPM en Hz, longueur de mesure et durees de notes",
       "metaDescription": "Convertissez les battements par minute en autres unites de timing musical"
     },
     "video-file-size": {
-      "name": "Calculateur de Taille de Fichier Video",
+      "name": "Taille de Fichier Video",
       "description": "Estimez la taille de fichier video a partir de la resolution et de la duree",
       "metaDescription": "Estimez les tailles de fichiers video selon les reglages"
     },
     "audio-filesize": {
-      "name": "Calculateur de Taille de Fichier Audio",
+      "name": "Taille de Fichier Audio",
       "description": "Estimez la taille de fichier audio a partir de la duree et du format",
       "metaDescription": "Estimez les tailles de fichiers audio pour differents formats"
     },
@@ -324,22 +335,22 @@
       "metaDescription": "Guide de reference pour les debits de codecs video"
     },
     "dcp-filesize": {
-      "name": "Calculateur de Taille de Fichier DCP",
+      "name": "Taille de Fichier DCP",
       "description": "Calculez les tailles de fichiers Digital Cinema Package",
       "metaDescription": "Calculez les tailles de fichiers DCP pour la distribution cinema"
     },
     "foot-lambert": {
-      "name": "Calculateur Foot-Lambert",
+      "name": "Foot-Lambert",
       "description": "Calculez la luminance de l'ecran pour la projection cinema",
       "metaDescription": "Calculez la luminosite de l'ecran pour la projection cinema"
     },
     "screen-size": {
-      "name": "Calculateur de Taille d'Ecran",
+      "name": "Taille d'Ecran",
       "description": "Calculez les dimensions d'ecran a partir de la diagonale et du ratio d'aspect",
       "metaDescription": "Calculez les dimensions d'ecran a partir de la taille diagonale"
     },
     "video-bitrate": {
-      "name": "Calculateur de Debit Video",
+      "name": "Debit Video",
       "description": "Estimez le debit video base sur la resolution et le codec",
       "metaDescription": "Calculez les debits video optimaux"
     },
@@ -394,62 +405,62 @@
       "metaDescription": "Analysez la performance SEO et obtenez des conseils d'optimisation"
     },
     "mortgage": {
-      "name": "Calculateur d'Hypotheque",
+      "name": "Hypotheque",
       "description": "Calculez les paiements mensuels, visualisez le calendrier d'amortissement et votre pret",
       "metaDescription": "Calculez les paiements hypothecaires avec le calendrier d'amortissement"
     },
     "compound-interest": {
-      "name": "Calculateur d'Interets Composes",
+      "name": "Interets Composes",
       "description": "Calculez les interets composes sur les investissements avec contributions regulieres",
       "metaDescription": "Calculez la croissance des interets composes au fil du temps"
     },
     "loan": {
-      "name": "Calculateur de Pret",
+      "name": "Pret",
       "description": "Calculez les paiements mensuels pour prets personnels, auto ou tout type de pret",
       "metaDescription": "Calculez les paiements et l'amortissement des prets"
     },
     "retirement": {
-      "name": "Calculateur de Retraite",
+      "name": "Retraite",
       "description": "Planifiez votre retraite avec des projections d'epargne et de revenus",
       "metaDescription": "Planifiez votre epargne-retraite et vos revenus"
     },
     "salary": {
-      "name": "Calculateur de Salaire et Impots",
+      "name": "Salaire et Impots",
       "description": "Calculez le salaire net apres impots federaux, cantonaux et cotisations sociales",
       "metaDescription": "Calculez votre salaire net apres impots"
     },
     "tip": {
-      "name": "Calculateur de Pourboire",
+      "name": "Pourboire",
       "description": "Calculez le pourboire et partagez l'addition entre plusieurs personnes",
       "metaDescription": "Calculez les pourboires et partagez les additions facilement"
     },
     "savings-goal": {
-      "name": "Calculateur d'Objectif d'Epargne",
+      "name": "Objectif d'Epargne",
       "description": "Calculez le temps necessaire pour atteindre votre objectif d'epargne",
       "metaDescription": "Planifiez votre epargne et atteignez vos objectifs financiers"
     },
     "inflation": {
-      "name": "Calculateur d'Inflation",
+      "name": "Inflation",
       "description": "Calculez l'impact de l'inflation sur le pouvoir d'achat",
       "metaDescription": "Comprenez l'impact de l'inflation sur votre argent"
     },
     "roi": {
-      "name": "Calculateur de ROI",
+      "name": "ROI",
       "description": "Calculez le retour sur investissement et les rendements annualises",
       "metaDescription": "Calculez vos rendements d'investissement"
     },
     "break-even": {
-      "name": "Calculateur de Seuil de Rentabilite",
+      "name": "Seuil de Rentabilite",
       "description": "Calculez le seuil de rentabilite de votre entreprise",
       "metaDescription": "Trouvez le seuil de rentabilite de votre entreprise"
     },
     "profit-margin": {
-      "name": "Calculateur de Marge Beneficiaire",
+      "name": "Marge Beneficiaire",
       "description": "Calculez les marges brutes, operationnelles et nettes",
       "metaDescription": "Calculez les marges beneficiaires"
     },
     "discount": {
-      "name": "Calculateur de Remise",
+      "name": "Remise",
       "description": "Calculez les remises, prix de vente et economies",
       "metaDescription": "Calculez les remises et prix de vente"
     },
@@ -459,392 +470,392 @@
       "metaDescription": "Convertissez les devises avec les taux de change"
     },
     "auto-loan": {
-      "name": "Calculateur de Pret Auto",
+      "name": "Pret Auto",
       "description": "Calculez les paiements, interets et cout total de votre pret auto",
       "metaDescription": "Calculez vos mensualites et le cout total de votre pret auto"
     },
     "personal-loan": {
-      "name": "Calculateur de Pret Personnel",
+      "name": "Pret Personnel",
       "description": "Calculez les paiements de pret personnel avec frais et TAE",
       "metaDescription": "Calculez les paiements de pret personnel incluant les frais"
     },
     "student-loan": {
-      "name": "Calculateur de Pret Etudiant",
+      "name": "Pret Etudiant",
       "description": "Calculez les paiements de pret etudiant avec periode de grace",
       "metaDescription": "Calculez les paiements et echeanciers de pret etudiant"
     },
     "home-equity": {
-      "name": "Calculateur de Valeur Nette Immobiliere",
+      "name": "Valeur Nette Immobiliere",
       "description": "Calculez les paiements de pret sur valeur domiciliaire ou HELOC",
       "metaDescription": "Calculez les paiements de pret sur valeur domiciliaire"
     },
     "debt-payoff": {
-      "name": "Calculateur de Remboursement de Dette",
+      "name": "Remboursement de Dette",
       "description": "Calculez le temps de remboursement avec des paiements supplementaires",
       "metaDescription": "Calculez le temps de remboursement et les economies avec des paiements supplementaires"
     },
     "credit-card": {
-      "name": "Calculateur de Carte de Credit",
+      "name": "Carte de Credit",
       "description": "Calculez le temps de remboursement et les interets de carte de credit",
       "metaDescription": "Calculez le temps de remboursement et le cout total des interets de carte"
     },
     "down-payment": {
-      "name": "Calculateur d'Apport Personnel",
+      "name": "Apport Personnel",
       "description": "Calculez combien epargner pour un apport personnel",
       "metaDescription": "Calculez l'epargne mensuelle necessaire pour votre objectif d'apport"
     },
     "retirement-401k": {
-      "name": "Calculateur 401(k)",
+      "name": "401(k)",
       "description": "Calculez l'epargne retraite avec abondement employeur",
       "metaDescription": "Calculez l'epargne retraite 401k avec abondement et projections"
     },
     "ira-calculator": {
-      "name": "Calculateur IRA",
+      "name": "IRA",
       "description": "Comparez les comptes retraite IRA Traditionnel vs Roth",
       "metaDescription": "Comparez les comptes IRA Traditionnel et Roth et leurs avantages fiscaux"
     },
     "bond-calculator": {
-      "name": "Calculateur d'Obligations",
+      "name": "Obligations",
       "description": "Calculez les prix, rendements et retours des obligations",
       "metaDescription": "Calculez le prix des obligations, le rendement actuel et le rendement a echeance"
     },
     "annuity-calculator": {
-      "name": "Calculateur de Rente",
+      "name": "Rente",
       "description": "Calculez les paiements de rente et les revenus de retraite",
       "metaDescription": "Calculez les paiements de rente et les projections de revenus de retraite"
     },
     "body-fat": {
-      "name": "Calculateur de Masse Grasse",
+      "name": "Masse Grasse",
       "description": "Calculez le pourcentage de graisse corporelle avec la methode US Navy",
       "metaDescription": "Calculez votre pourcentage de graisse corporelle avec la methode US Navy"
     },
     "lean-body-mass": {
-      "name": "Calculateur de Masse Maigre",
+      "name": "Masse Maigre",
       "description": "Calculez la masse maigre avec plusieurs formules",
       "metaDescription": "Calculez votre masse maigre (masse sans graisse) avec plusieurs formules medicales"
     },
     "body-surface-area": {
-      "name": "Calculateur de Surface Corporelle",
+      "name": "Surface Corporelle",
       "description": "Calculez la SC avec plusieurs formules medicales",
       "metaDescription": "Calculez la surface corporelle pour le dosage medical avec plusieurs formules"
     },
     "ideal-weight": {
-      "name": "Calculateur de Poids Ideal",
+      "name": "Poids Ideal",
       "description": "Calculez le poids ideal avec plusieurs formules",
       "metaDescription": "Calculez votre poids ideal avec les formules Robinson, Miller, Devine et Hamwi"
     },
     "bmr-calculator": {
-      "name": "Calculateur de Metabolisme Basal",
+      "name": "Metabolisme Basal",
       "description": "Calculez le metabolisme basal pour planifier vos calories",
       "metaDescription": "Calculez votre metabolisme basal avec Harris-Benedict et Mifflin-St Jeor"
     },
     "tdee-calculator": {
-      "name": "Calculateur TDEE",
+      "name": "TDEE",
       "description": "Calculez la depense energetique totale quotidienne",
       "metaDescription": "Calculez votre depense energetique totale selon votre niveau d'activite"
     },
     "calorie-calculator": {
-      "name": "Calculateur de Calories",
+      "name": "Calories",
       "description": "Calculez les besoins caloriques pour vos objectifs de poids",
       "metaDescription": "Calculez vos besoins caloriques et macros pour perdre ou prendre du poids"
     },
     "calories-burned": {
-      "name": "Calculateur de Calories Brulees",
+      "name": "Calories Brulees",
       "description": "Calculez les calories brulees pendant diverses activites",
       "metaDescription": "Calculez les calories brulees pendant l'exercice avec les valeurs MET"
     },
     "target-heart-rate": {
-      "name": "Calculateur de Frequence Cardiaque Cible",
+      "name": "Frequence Cardiaque Cible",
       "description": "Calculez les zones de frequence cardiaque pour l'exercice",
       "metaDescription": "Calculez vos zones de frequence cardiaque pour bruler les graisses et le cardio"
     },
     "one-rep-max": {
-      "name": "Calculateur de 1RM",
+      "name": "1RM",
       "description": "Calculez votre maximum a une repetition a partir de charges sous-maximales",
       "metaDescription": "Calculez votre 1RM avec diverses formules a partir de vos charges sous-maximales"
     },
     "pace-calculator": {
-      "name": "Calculateur d'Allure",
+      "name": "Allure",
       "description": "Calculez l'allure de course, les temps intermediaires et les predictions de temps",
       "metaDescription": "Calculez l'allure de course, les temps intermediaires et predisez les temps de course"
     },
     "macro-calculator": {
-      "name": "Calculateur de Macros",
+      "name": "Macros",
       "description": "Calculez vos besoins quotidiens en macronutriments",
       "metaDescription": "Calculez vos cibles de proteines, glucides et lipides selon vos objectifs"
     },
     "bac-calculator": {
-      "name": "Calculateur de Taux d'Alcoolemie",
+      "name": "Taux d'Alcoolemie",
       "description": "Estimez votre taux d'alcoolemie et le temps d'elimination",
       "metaDescription": "Calculez votre taux d'alcool dans le sang et le temps d'elimination"
     },
     "due-date": {
-      "name": "Calculateur de Date d'Accouchement",
+      "name": "Date d'Accouchement",
       "description": "Calculez la date d'accouchement prevue de grossesse",
       "metaDescription": "Calculez la date d'accouchement avec differentes methodes"
     },
     "ovulation-calculator": {
-      "name": "Calculateur d'Ovulation",
+      "name": "Ovulation",
       "description": "Predisez l'ovulation et la fenetre de fertilite",
       "metaDescription": "Predisez vos jours d'ovulation et votre fenetre de fertilite"
     },
     "pregnancy-weight-gain": {
-      "name": "Calculateur de Prise de Poids Grossesse",
+      "name": "Prise de Poids Grossesse",
       "description": "Calculez la prise de poids recommandee pendant la grossesse",
       "metaDescription": "Calculez la prise de poids saine pendant la grossesse selon votre IMC"
     },
     "gfr-calculator": {
-      "name": "Calculateur de DFG",
+      "name": "DFG",
       "description": "Calculez le debit de filtration glomerulaire pour la fonction renale",
       "metaDescription": "Calculez votre DFG pour evaluer la fonction renale"
     },
     "body-type": {
-      "name": "Calculateur de Type Corporel",
+      "name": "Type Corporel",
       "description": "Determinez votre somatotype (ecto, meso, endomorphe)",
       "metaDescription": "Decouvrez votre type corporel et recevez des conseils d'entrainement personnalises"
     },
     "healthy-weight": {
-      "name": "Calculateur de Poids Sante",
+      "name": "Poids Sante",
       "description": "Trouvez votre plage de poids saine selon votre taille",
       "metaDescription": "Calculez votre plage de poids saine selon votre taille"
     },
     "protein-calculator": {
-      "name": "Calculateur de Proteines",
+      "name": "Proteines",
       "description": "Calculez vos besoins quotidiens en proteines",
       "metaDescription": "Calculez vos besoins en proteines selon vos objectifs et activite"
     },
     "water-intake": {
-      "name": "Calculateur d'Hydratation",
+      "name": "Hydratation",
       "description": "Calculez vos besoins quotidiens en eau",
       "metaDescription": "Calculez la quantite d'eau a boire chaque jour"
     },
     "sleep-calculator": {
-      "name": "Calculateur de Sommeil",
+      "name": "Sommeil",
       "description": "Trouvez les heures optimales de coucher et de lever",
       "metaDescription": "Calculez les heures de sommeil et reveil optimales selon les cycles"
     },
     "army-body-fat": {
-      "name": "Calculateur Masse Grasse Armee US",
+      "name": "Masse Grasse Armee US",
       "description": "Calculez la masse grasse avec la methode du ruban de l'armee americaine",
       "metaDescription": "Calculez votre pourcentage de masse grasse selon les normes de l'armee US"
     },
     "period-calculator": {
-      "name": "Calculateur de Regles",
+      "name": "Regles",
       "description": "Suivez votre cycle menstruel et predisez les prochaines regles",
       "metaDescription": "Suivez et predisez votre cycle menstruel"
     },
     "fat-intake": {
-      "name": "Calculateur de Lipides",
+      "name": "Lipides",
       "description": "Calculez vos besoins quotidiens en lipides",
       "metaDescription": "Calculez vos besoins optimaux en lipides selon vos objectifs"
     },
     "carb-calculator": {
-      "name": "Calculateur de Glucides",
+      "name": "Glucides",
       "description": "Calculez vos besoins quotidiens en glucides",
       "metaDescription": "Calculez vos besoins optimaux en glucides selon vos objectifs"
     },
     "basic-calculator": {
-      "name": "Calculatrice de Base",
+      "name": "Base",
       "description": "Effectuez des calculs arithmetiques avec expressions",
       "metaDescription": "Calculatrice en ligne gratuite pour operations arithmetiques et expressions"
     },
     "fraction-calculator": {
-      "name": "Calculateur de Fractions",
+      "name": "Fractions",
       "description": "Additionnez, soustrayez, multipliez, divisez et simplifiez les fractions",
       "metaDescription": "Calculez les fractions avec solutions detaillees et nombres mixtes"
     },
     "percentage-calculator": {
-      "name": "Calculateur de Pourcentage",
+      "name": "Pourcentage",
       "description": "Calculez les pourcentages, variations et differences",
       "metaDescription": "Calculez les pourcentages, variations et differences en pourcentage"
     },
     "percent-error": {
-      "name": "Calculateur d'Erreur en Pourcentage",
+      "name": "Erreur en Pourcentage",
       "description": "Calculez l'erreur entre valeurs experimentales et reelles",
       "metaDescription": "Calculez l'erreur en pourcentage pour experiences scientifiques"
     },
     "rounding-calculator": {
-      "name": "Calculateur d'Arrondissement",
+      "name": "Arrondissement",
       "description": "Arrondissez les nombres avec differentes methodes et precisions",
       "metaDescription": "Arrondissez aux decimales, chiffres significatifs ou precision personnalisee"
     },
     "average-calculator": {
-      "name": "Calculateur de Moyenne",
+      "name": "Moyenne",
       "description": "Calculez moyenne, mediane, mode et autres moyennes",
       "metaDescription": "Calculez moyenne arithmetique, ponderee, geometrique et harmonique"
     },
     "long-division": {
-      "name": "Calculateur de Division Longue",
+      "name": "Division Longue",
       "description": "Effectuez une division longue avec solution etape par etape",
       "metaDescription": "Apprenez la division longue avec solutions detaillees et restes"
     },
     "exponent-calculator": {
-      "name": "Calculateur d'Exposants",
+      "name": "Exposants",
       "description": "Calculez les puissances et expressions exponentielles",
       "metaDescription": "Calculez les puissances, exposants et expressions exponentielles"
     },
     "root-calculator": {
-      "name": "Calculateur de Racines",
+      "name": "Racines",
       "description": "Calculez racines carrees, cubiques et niemes",
       "metaDescription": "Calculez racines carrees, cubiques et toute racine nieme"
     },
     "logarithm-calculator": {
-      "name": "Calculateur de Logarithmes",
+      "name": "Logarithmes",
       "description": "Calculez les logarithmes avec n'importe quelle base",
       "metaDescription": "Calculez logarithmes base 10, logarithme naturel ou base personnalisee"
     },
     "quadratic-calculator": {
-      "name": "Calculateur de Formule Quadratique",
+      "name": "Formule Quadratique",
       "description": "Resolvez les equations quadratiques et trouvez les racines",
       "metaDescription": "Resolvez equations quadratiques avec solutions detaillees"
     },
     "factor-calculator": {
-      "name": "Calculateur de Facteurs",
+      "name": "Facteurs",
       "description": "Trouvez tous les facteurs d'un nombre",
       "metaDescription": "Trouvez tous les facteurs, paires de facteurs et facteurs premiers"
     },
     "gcd-calculator": {
-      "name": "Calculateur de PGCD",
+      "name": "PGCD",
       "description": "Calculez le Plus Grand Commun Diviseur de plusieurs nombres",
       "metaDescription": "Calculez le PGCD de deux nombres ou plus"
     },
     "lcm-calculator": {
-      "name": "Calculateur de PPCM",
+      "name": "PPCM",
       "description": "Calculez le Plus Petit Commun Multiple de plusieurs nombres",
       "metaDescription": "Calculez le PPCM de deux nombres ou plus"
     },
     "gcd-lcm": {
-      "name": "Calculateur PGCD & PPCM",
+      "name": "PGCD & PPCM",
       "description": "Calculez le PGCD et le PPCM de plusieurs nombres",
       "metaDescription": "Calculez le PGCD et le PPCM de deux nombres ou plus"
     },
     "prime-factorization": {
-      "name": "Calculateur de Decomposition en Facteurs Premiers",
+      "name": "Decomposition en Facteurs Premiers",
       "description": "Trouvez les facteurs premiers et diviseurs de tout nombre",
       "metaDescription": "Trouvez decomposition en facteurs premiers et tous les diviseurs"
     },
     "triangle-calculator": {
-      "name": "Calculateur de Triangle",
+      "name": "Triangle",
       "description": "Calculez les proprietes du triangle a partir des cotes et angles",
       "metaDescription": "Calculez aire, perimetre, angles et cotes d'un triangle"
     },
     "right-triangle": {
-      "name": "Calculateur de Triangle Rectangle",
+      "name": "Triangle Rectangle",
       "description": "Calculez les cotes et angles d'un triangle rectangle",
       "metaDescription": "Calculez dimensions d'un triangle rectangle avec trigonometrie"
     },
     "pythagorean-calculator": {
-      "name": "Calculateur du Theoreme de Pythagore",
+      "name": "Theoreme de Pythagore",
       "description": "Calculez le cote manquant avec le theoreme de Pythagore",
       "metaDescription": "Trouvez le cote manquant d'un triangle rectangle avec Pythagore"
     },
     "circle-calculator": {
-      "name": "Calculateur de Cercle",
+      "name": "Cercle",
       "description": "Calculez les proprietes du cercle a partir du rayon, diametre ou circonference",
       "metaDescription": "Calculez aire, circonference, diametre et rayon d'un cercle"
     },
     "area-calculator": {
-      "name": "Calculateur d'Aire",
+      "name": "Aire",
       "description": "Calculez l'aire de diverses formes",
       "metaDescription": "Calculez aire de rectangle, carre, cercle, triangle, trapeze et plus"
     },
     "surface-area-calculator": {
-      "name": "Calculateur de Surface",
+      "name": "Surface",
       "description": "Calculez la surface des formes 3D",
       "metaDescription": "Calculez surface de cube, sphere, cylindre, cone et pyramide"
     },
     "volume-calculator": {
-      "name": "Calculateur de Volume",
+      "name": "Volume",
       "description": "Calculez le volume des formes 3D",
       "metaDescription": "Calculez volume de cube, sphere, cylindre, cone, prisme et plus"
     },
     "slope-calculator": {
-      "name": "Calculateur de Pente",
+      "name": "Pente",
       "description": "Calculez pente, equation et angle d'une droite",
       "metaDescription": "Calculez pente, ordonnee a l'origine et equation lineaire"
     },
     "standard-deviation": {
-      "name": "Calculateur d'Ecart Type",
+      "name": "Ecart Type",
       "description": "Calculez ecart type et variance",
       "metaDescription": "Calculez ecart type de population et echantillon, variance et moyenne"
     },
     "statistics-calculator": {
-      "name": "Calculateur Statistique",
+      "name": "Statistique",
       "description": "Calculez des statistiques completes pour un ensemble de donnees",
       "metaDescription": "Calculez moyenne, mediane, mode, quartiles, asymetrie et aplatissement"
     },
     "probability-calculator": {
-      "name": "Calculateur de Probabilite",
+      "name": "Probabilite",
       "description": "Calculez la probabilite d'evenements et combinaisons",
       "metaDescription": "Calculez probabilite d'evenements, probabilite conditionnelle et Bayes"
     },
     "sample-size": {
-      "name": "Calculateur de Taille d'Echantillon",
+      "name": "Taille d'Echantillon",
       "description": "Calculez la taille d'echantillon requise pour sondages et etudes",
       "metaDescription": "Calculez taille d'echantillon avec niveau de confiance et marge d'erreur"
     },
     "z-score-calculator": {
-      "name": "Calculateur de Score Z",
+      "name": "Score Z",
       "description": "Calculez le score Z et probabilites de distribution normale",
       "metaDescription": "Calculez score Z et trouvez probabilites de la distribution normale"
     },
     "p-value-calculator": {
-      "name": "Calculateur de P-Valeur",
+      "name": "P-Valeur",
       "description": "Calculez les p-valeurs pour tests d'hypotheses statistiques",
       "metaDescription": "Calculez p-valeurs a partir de scores z, t, chi-carre et F"
     },
     "confidence-interval": {
-      "name": "Calculateur d'Intervalle de Confiance",
+      "name": "Intervalle de Confiance",
       "description": "Calculez intervalles de confiance pour moyennes et proportions",
       "metaDescription": "Calculez intervalles de confiance pour moyenne et proportion"
     },
     "permutation-combination": {
-      "name": "Calculateur de Permutations et Combinaisons",
+      "name": "Permutations et Combinaisons",
       "description": "Calculez permutations et combinaisons avec ou sans repetition",
       "metaDescription": "Calculez nPr et nCr pour problemes de denombrement"
     },
     "ratio-calculator": {
-      "name": "Calculateur de Ratio",
+      "name": "Ratio",
       "description": "Calculez et simplifiez les ratios, trouvez les equivalents",
       "metaDescription": "Simplifiez ratios, trouvez ratios equivalents et proportions"
     },
     "binary-calculator": {
-      "name": "Calculateur Binaire",
+      "name": "Binaire",
       "description": "Convertissez et effectuez des operations en binaire",
       "metaDescription": "Convertissez entre binaire, decimal, octal et hexadecimal"
     },
     "hex-calculator": {
-      "name": "Calculateur Hexadecimal",
+      "name": "Hexadecimal",
       "description": "Convertissez et calculez en hexadecimal",
       "metaDescription": "Convertissez et effectuez operations arithmetiques en hexadecimal"
     },
     "scientific-notation": {
-      "name": "Calculateur de Notation Scientifique",
+      "name": "Notation Scientifique",
       "description": "Convertissez vers/depuis la notation scientifique et effectuez des operations",
       "metaDescription": "Convertissez nombres en notation scientifique et effectuez operations"
     },
     "big-number": {
-      "name": "Calculateur de Grands Nombres",
+      "name": "Grands Nombres",
       "description": "Effectuez des operations sur des entiers arbitrairement grands",
       "metaDescription": "Calculez avec de tres grands nombres au-dela des limites standard"
     },
     "number-sequence": {
-      "name": "Calculateur de Suites Numeriques",
+      "name": "Suites Numeriques",
       "description": "Analysez et generez des suites arithmetiques, geometriques et de Fibonacci",
       "metaDescription": "Trouvez des motifs dans les suites et generez des series"
     },
     "matrix-calculator": {
-      "name": "Calculateur de Matrices",
+      "name": "Matrices",
       "description": "Effectuez operations matricielles: addition, multiplication, transposee, determinant",
       "metaDescription": "Calculez addition, multiplication, determinant, inverse et transposee de matrices"
     },
     "half-life-calculator": {
-      "name": "Calculateur de Demi-Vie",
+      "name": "Demi-Vie",
       "description": "Calculez la desintegration radioactive et quantite restante",
       "metaDescription": "Calculez desintegration radioactive, quantite restante et datation carbone"
     },
     "distance-calculator": {
-      "name": "Calculateur de Distance",
+      "name": "Distance",
       "description": "Calculez distances entre points en 2D, 3D et sur Terre",
       "metaDescription": "Calculez distance euclidienne, Manhattan et distances geographiques"
     },
@@ -854,12 +865,12 @@
       "metaDescription": "Generez nombres aleatoires, lancez des des et melangez des listes"
     },
     "tcp-throughput": {
-      "name": "Calculateur de Debit TCP",
+      "name": "Debit TCP",
       "description": "Calculez le debit TCP theorique avec la formule de Mathis",
       "metaDescription": "Calculez le debit TCP maximum base sur MSS, RTT et taux de perte de paquets"
     },
     "bandwidth-delay-product": {
-      "name": "Calculateur de Produit Bande Passante-Delai",
+      "name": "Produit Bande Passante-Delai",
       "description": "Calculez le BDP et la taille optimale du tampon TCP",
       "metaDescription": "Calculez le produit bande passante-delai et la taille de fenetre TCP requise"
     }
@@ -2202,14 +2213,14 @@
       "bigNumberOperation": "Opération",
       "expression": "Expression",
       "evaluate": "Évaluer",
-      "bigNumber": "Calculateur de Grands Nombres",
+      "bigNumber": "Grands Nombres",
       "calculate": "Calculer",
       "dataValues": "Valeurs de Donnees",
       "dataValuesHelp": "Entrez les nombres separes par des virgules, espaces ou nouvelles lignes",
       "diceRoll": "Lancer de Des",
       "enterNumbers": "Entrez les Nombres",
       "generatorMode": "Mode de Generation",
-      "matrix": "Calculateur de Matrices",
+      "matrix": "Matrices",
       "maximum": "Maximum",
       "minimum": "Minimum",
       "multipleNumbers": "Nombres Multiples",
@@ -2369,7 +2380,66 @@
       "requiredWindow": "Taille Fenetre Requise",
       "windowUtilization": "Utilisation Fenetre",
       "windowSufficient": "La taille de fenetre actuelle est suffisante pour une utilisation maximale",
-      "windowInsufficient": "Taille de fenetre insuffisante - augmentez le tampon TCP"
+      "windowInsufficient": "Taille de fenetre insuffisante - augmentez le tampon TCP",
+      "ipAddress": "Adresse IP",
+      "ipInput": "Adresse IP / CIDR",
+      "subnetMask": "Masque de Sous-réseau",
+      "cidrNotation": "Notation CIDR",
+      "networkAddress": "Adresse Réseau",
+      "broadcastAddress": "Adresse de Diffusion",
+      "firstUsable": "Première IP Utilisable",
+      "lastUsable": "Dernière IP Utilisable",
+      "usableHosts": "Hôtes Utilisables",
+      "totalHosts": "Hôtes Totaux",
+      "ipVersion": "Version IP",
+      "invalidInput": "Adresse IP ou notation CIDR invalide",
+      "enterIpOrCidr": "Entrez une adresse IP avec CIDR (ex: 192.168.1.0/24) ou utilisez le champ masque de sous-réseau",
+      "networkDiagram": "Diagramme du Réseau",
+      "binaryRepresentation": "Représentation Binaire",
+      "subnetBreakdown": "Détails du Sous-réseau"
+    },
+    "subnet": {
+      "diagram": {
+        "aria-label": "Diagramme du réseau montrant la structure du sous-réseau",
+        "network-portion": "Portion Réseau",
+        "host-portion": "Portion Hôte",
+        "usable-hosts": "hôtes utilisables"
+      },
+      "binary": {
+        "ip-address": "Adresse IP",
+        "subnet-mask": "Masque de Sous-réseau",
+        "ip-binary-label": "Adresse IP en binaire",
+        "mask-binary-label": "Masque de sous-réseau en binaire",
+        "bit": "Bit",
+        "network": "réseau",
+        "host": "hôte",
+        "mask-bit": "Bit du masque"
+      },
+      "breakdown": {
+        "network-address": "Adresse Réseau",
+        "network-address-desc": "Première adresse du sous-réseau",
+        "broadcast-address": "Adresse de Diffusion",
+        "broadcast-address-desc": "Dernière adresse du sous-réseau (IPv4 uniquement)",
+        "first-usable": "Première IP Utilisable",
+        "first-usable-desc": "Première adresse hôte disponible",
+        "last-usable": "Dernière IP Utilisable",
+        "last-usable-desc": "Dernière adresse hôte disponible",
+        "usable-hosts": "Hôtes Utilisables",
+        "usable-hosts-desc": "Nombre d'adresses IP assignables",
+        "total-hosts": "Hôtes Totaux",
+        "total-hosts-desc": "Adresses totales incluant réseau et diffusion",
+        "cidr": "CIDR",
+        "cidr-desc": "Longueur du préfixe de routage inter-domaine sans classe",
+        "cidr-notation": "Notation CIDR",
+        "cidr-notation-desc": "Longueur du préfixe",
+        "subnet-mask": "Masque de Sous-réseau",
+        "subnet-mask-desc": "Notation décimale pointée (IPv4 uniquement)",
+        "ip-version": "Version IP",
+        "ip-version-desc": "Version du protocole Internet",
+        "property": "Propriété",
+        "value": "Valeur",
+        "description": "Description"
+      }
     }
   },
   "validation": {
