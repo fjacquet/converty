@@ -135,6 +135,11 @@ All pages are prefixed with locale: `/en/finance/mortgage`, `/fr/finance/mortgag
 1. Add strings to `src/messages/en.json` first (use kebab-case keys)
 2. Copy to `fr.json`, `de.json`, `it.json` and translate
 3. **IMPORTANT**: Translation keys must use kebab-case to match registry IDs (e.g., `"compound-interest"`, not `"compoundInterest"`)
+4. **IMPORTANT**: Do NOT include "Calculator" in the `name` field. Use concise names like "BMI", "Mortgage", "Compound Interest" instead of "BMI Calculator", "Mortgage Calculator", etc. This applies to all locales:
+   - EN: No " Calculator" suffix
+   - FR: No "Calculateur de/d' " prefix
+   - DE: No "-Rechner" suffix
+   - IT: No "Calcolatore di " prefix
 
 ### Using Translations in Code
 
@@ -186,7 +191,7 @@ export function generateStaticParams() {
   "categories": { "finance": { "name": "Finance", "description": "..." } },
   "converters": {
     "mortgage": {
-      "name": "Mortgage Calculator",
+      "name": "Mortgage",
       "description": "Calculate monthly payments",
       "metaDescription": "SEO description"
     }
