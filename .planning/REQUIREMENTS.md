@@ -86,9 +86,9 @@ Which phases cover which requirements. Updated by create-roadmap.
 |-------------|-------|--------|
 | NET-01 | Phase 9 | Complete |
 | NET-02 | Phase 9 | Complete |
-| NET-03 | Phase 10 | Pending |
-| NET-04 | Phase 10 | Pending |
-| NET-05 | Phase 10 | Pending |
+| NET-03 | Phase 10 | Complete |
+| NET-04 | Phase 10 | Complete |
+| NET-05 | Phase 10 | Complete |
 | NET-06 | Phase 9 | Complete |
 | NET-07 | Phase 9 | Complete |
 | NET-08 | Phase 11 | Pending |
@@ -117,8 +117,8 @@ Which phases cover which requirements. Updated by create-roadmap.
 **Coverage:**
 - v2.0 requirements: 29 total
 - Mapped to phases: 29
-- Complete: 4 (NET-01, NET-02, NET-06, NET-07)
-- Pending: 25
+- Complete: 7 (NET-01, NET-02, NET-03, NET-04, NET-05, NET-06, NET-07)
+- Pending: 22
 - Unmapped: 0 ✓
 
 ---

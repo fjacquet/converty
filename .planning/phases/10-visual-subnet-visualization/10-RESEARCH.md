@@ -19,30 +19,34 @@ Critical differences between IPv4 and IPv6 visualization include address length 
 The established libraries/tools for React visualization in subnet calculators:
 
 ### Core
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| React 19 | 19.x | Component composition with SVG support | Project requirement, first-class SVG support in JSX |
-| TypeScript 5 | 5.x | Type safety for component props and data | Project requirement, prevents rendering errors |
-| Tailwind CSS | Latest | Styling with conditional classes | Project standard, excellent for responsive design |
-| shadcn/ui table | Latest | Semantic HTML table components | Project pattern, accessible, composable |
+
+| Library         | Version | Purpose                                  | Why Standard                                        |
+| --------------- | ------- | ---------------------------------------- | --------------------------------------------------- |
+| React 19        | 19.x    | Component composition with SVG support   | Project requirement, first-class SVG support in JSX |
+| TypeScript 5    | 5.x     | Type safety for component props and data | Project requirement, prevents rendering errors      |
+| Tailwind CSS    | Latest  | Styling with conditional classes         | Project standard, excellent for responsive design   |
+| shadcn/ui table | Latest  | Semantic HTML table components           | Project pattern, accessible, composable             |
 
 ### Supporting
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| next-intl | Latest | i18n for labels and aria-labels | Already in project, required for accessibility |
-| cn() utility | - | Conditional class merging | Already in project, simplifies conditional styling |
-| ipaddr.js | 2.2.0+ | Binary conversion utilities | Already in Phase 9, provides `.toByteArray()` |
+
+| Library      | Version | Purpose                         | When to Use                                        |
+| ------------ | ------- | ------------------------------- | -------------------------------------------------- |
+| next-intl    | Latest  | i18n for labels and aria-labels | Already in project, required for accessibility     |
+| cn() utility | -       | Conditional class merging       | Already in project, simplifies conditional styling |
+| ipaddr.js    | 2.2.0+  | Binary conversion utilities     | Already in Phase 9, provides `.toByteArray()`      |
 
 ### Alternatives Considered
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Pure SVG | D3.js with React | More features but 200KB+ bundle, overkill for static diagrams |
-| Pure SVG | Recharts | Designed for charts not network diagrams, unnecessary abstraction |
-| Pure SVG | Canvas | Better performance for 1000+ elements, but worse accessibility and harder to style |
-| Custom table | TanStack Table | Powerful for sorting/filtering/pagination, but subnet results don't need these features |
-| Inline styles | CSS-in-JS library | More features but increases bundle size, Tailwind sufficient |
+
+| Instead of    | Could Use         | Tradeoff                                                                                |
+| ------------- | ----------------- | --------------------------------------------------------------------------------------- |
+| Pure SVG      | D3.js with React  | More features but 200KB+ bundle, overkill for static diagrams                           |
+| Pure SVG      | Recharts          | Designed for charts not network diagrams, unnecessary abstraction                       |
+| Pure SVG      | Canvas            | Better performance for 1000+ elements, but worse accessibility and harder to style      |
+| Custom table  | TanStack Table    | Powerful for sorting/filtering/pagination, but subnet results don't need these features |
+| Inline styles | CSS-in-JS library | More features but increases bundle size, Tailwind sufficient                            |
 
 **Installation:**
+
 ```bash
 # Add table component from shadcn/ui
 npx shadcn@latest add table
@@ -53,6 +57,7 @@ npx shadcn@latest add table
 ## Architecture Patterns
 
 ### Recommended Project Structure
+
 ```
 src/
 ├── app/[locale]/network/subnet-calculator/
@@ -73,9 +78,11 @@ src/
 ```
 
 ### Pattern 1: Network Diagram with Inline SVG
+
 **What:** Composable React component rendering SVG diagram showing network/host portions and IP ranges.
 **When to use:** For visual representation of subnet structure and address allocation.
 **Example:**
+
 ```typescript
 // src/app/[locale]/network/subnet-calculator/components/network-diagram.tsx
 "use client";
@@ -153,7 +160,12 @@ export function NetworkDiagram({ result }: NetworkDiagramProps) {
         className="stroke-gray-400 stroke-2"
         markerEnd="url(#arrowhead)"
       />
-      <text x="300" y="180" textAnchor="middle" className="fill-gray-600 text-xs">
+      <text
+        x="300"
+        y="180"
+        textAnchor="middle"
+        className="fill-gray-600 text-xs"
+      >
         {result.usableHosts.toString()} {t("diagram.usable-hosts")}
       </text>
 
@@ -176,9 +188,11 @@ export function NetworkDiagram({ result }: NetworkDiagramProps) {
 ```
 
 ### Pattern 2: Binary Representation with Bit Highlighting
+
 **What:** Display IP address and subnet mask in binary with conditional styling to highlight network vs host portions.
 **When to use:** For educational visualization showing how subnet masks separate network/host bits.
 **Example:**
+
 ```typescript
 // src/app/[locale]/network/subnet-calculator/components/binary-representation.tsx
 "use client";
@@ -193,7 +207,10 @@ interface BinaryRepresentationProps {
   ipAddress: string;
 }
 
-export function BinaryRepresentation({ result, ipAddress }: BinaryRepresentationProps) {
+export function BinaryRepresentation({
+  result,
+  ipAddress,
+}: BinaryRepresentationProps) {
   const t = useTranslations("calculator.subnet.binary");
 
   // Convert IP address to binary
@@ -211,7 +228,11 @@ export function BinaryRepresentation({ result, ipAddress }: BinaryRepresentation
         <div className="text-xs text-muted-foreground mb-2">
           {t("ip-address")}: {ipAddress}
         </div>
-        <div className="flex flex-wrap gap-1" role="list" aria-label={t("ip-binary-label")}>
+        <div
+          className="flex flex-wrap gap-1"
+          role="list"
+          aria-label={t("ip-binary-label")}
+        >
           {binary.map((bit, index) => (
             <span
               key={index}
@@ -222,7 +243,9 @@ export function BinaryRepresentation({ result, ipAddress }: BinaryRepresentation
                   : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
               )}
               role="listitem"
-              aria-label={`${t("bit")} ${index + 1}: ${bit}, ${index < networkBits ? t("network") : t("host")}`}
+              aria-label={`${t("bit")} ${index + 1}: ${bit}, ${
+                index < networkBits ? t("network") : t("host")
+              }`}
             >
               {bit}
             </span>
@@ -236,7 +259,11 @@ export function BinaryRepresentation({ result, ipAddress }: BinaryRepresentation
           <div className="text-xs text-muted-foreground mb-2">
             {t("subnet-mask")}: {result.subnetMask}
           </div>
-          <div className="flex flex-wrap gap-1" role="list" aria-label={t("mask-binary-label")}>
+          <div
+            className="flex flex-wrap gap-1"
+            role="list"
+            aria-label={t("mask-binary-label")}
+          >
             {Array.from({ length: totalBits }, (_, index) => {
               const bit = index < networkBits ? "1" : "0";
               return (
@@ -286,17 +313,20 @@ export function BinaryRepresentation({ result, ipAddress }: BinaryRepresentation
 }
 
 // Helper function to convert IP address to binary array
-function convertToBinary(addr: ipaddr.IPv4 | ipaddr.IPv6, ipVersion: 4 | 6): string[] {
+function convertToBinary(
+  addr: ipaddr.IPv4 | ipaddr.IPv6,
+  ipVersion: 4 | 6
+): string[] {
   if (ipVersion === 4) {
     // IPv4: 4 octets, 8 bits each
     const octets = (addr as ipaddr.IPv4).octets;
-    return octets.flatMap(octet =>
+    return octets.flatMap((octet) =>
       octet.toString(2).padStart(8, "0").split("")
     );
   } else {
     // IPv6: 8 parts, 16 bits each
     const parts = (addr as ipaddr.IPv6).parts;
-    return parts.flatMap(part =>
+    return parts.flatMap((part) =>
       part.toString(2).padStart(16, "0").split("")
     );
   }
@@ -304,9 +334,11 @@ function convertToBinary(addr: ipaddr.IPv4 | ipaddr.IPv6, ipVersion: 4 | 6): str
 ```
 
 ### Pattern 3: Breakdown Table with shadcn/ui
+
 **What:** Semantic HTML table displaying calculation results in structured format.
 **When to use:** For displaying network address, broadcast, usable range, host counts.
 **Example:**
+
 ```typescript
 // src/app/[locale]/network/subnet-calculator/components/breakdown-table.tsx
 "use client";
@@ -347,11 +379,13 @@ export function BreakdownTable({ result }: BreakdownTableProps) {
       description: t("network-address-desc"),
     },
     ...(result.broadcastAddress
-      ? [{
-          label: t("broadcast-address"),
-          value: result.broadcastAddress,
-          description: t("broadcast-address-desc"),
-        }]
+      ? [
+          {
+            label: t("broadcast-address"),
+            value: result.broadcastAddress,
+            description: t("broadcast-address-desc"),
+          },
+        ]
       : []),
     {
       label: t("first-usable"),
@@ -379,11 +413,13 @@ export function BreakdownTable({ result }: BreakdownTableProps) {
       description: t("cidr-notation-desc"),
     },
     ...(result.subnetMask
-      ? [{
-          label: t("subnet-mask"),
-          value: result.subnetMask,
-          description: t("subnet-mask-desc"),
-        }]
+      ? [
+          {
+            label: t("subnet-mask"),
+            value: result.subnetMask,
+            description: t("subnet-mask-desc"),
+          },
+        ]
       : []),
     {
       label: t("ip-version"),
@@ -418,9 +454,11 @@ export function BreakdownTable({ result }: BreakdownTableProps) {
 ```
 
 ### Pattern 4: Real-Time Updates with Zustand
+
 **What:** Visualizations subscribe to Zustand store and re-render automatically when state changes.
 **When to use:** Always for calculator components to maintain single source of truth.
 **Example:**
+
 ```typescript
 // src/app/[locale]/network/subnet-calculator/subnet-calculator.tsx
 "use client";
@@ -478,9 +516,11 @@ export function SubnetCalculator() {
 ```
 
 ### Pattern 5: Responsive SVG Design
+
 **What:** Use viewBox and responsive classes for mobile/desktop compatibility.
 **When to use:** Always for SVG diagrams to ensure proper scaling.
 **Example:**
+
 ```typescript
 <svg
   viewBox="0 0 800 200"
@@ -492,13 +532,16 @@ export function SubnetCalculator() {
   {/* SVG content */}
 </svg>
 ```
+
 **Key principles:**
+
 - Always include `viewBox` attribute (defines coordinate system)
 - Use `className="w-full h-auto"` for responsive width
 - Use `preserveAspectRatio="xMidYMid meet"` to maintain proportions
 - Add `max-w-*` classes to prevent oversizing on large screens
 
 ### Anti-Patterns to Avoid
+
 - **Missing viewBox:** SVG won't scale properly across devices. Always include viewBox with coordinate system.
 - **Inline styles instead of Tailwind:** Harder to maintain, doesn't support dark mode. Use className with Tailwind.
 - **Using <img> for interactive SVG:** Can't style or add interactivity. Use inline SVG for diagrams.
@@ -511,105 +554,122 @@ export function SubnetCalculator() {
 
 Problems that look simple but have existing solutions:
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Table component | Custom table with divs/grid | shadcn/ui table component | Semantic HTML, accessible, responsive, matches project style |
-| Binary conversion | String manipulation | ipaddr.js byte arrays or `.toString(2)` | Handles IPv4/IPv6 correctly, tested |
-| Conditional classes | Template strings | cn() utility from @/lib/utils | Handles conflicts, type-safe, readable |
-| Number formatting | Manual toLocaleString() | useFormatter() hook from next-intl | Respects locale settings, consistent with project |
-| Responsive breakpoints | Custom CSS media queries | Tailwind responsive classes (sm:, md:, lg:) | Consistent with project, mobile-first |
-| Dark mode styling | Custom theme detection | Tailwind dark: variant | Integrated with project theme system |
-| SVG optimization | Manual editing | SVGO or svgr (if using SVG files) | Removes unnecessary attributes, reduces size |
+| Problem                | Don't Build                 | Use Instead                                 | Why                                                          |
+| ---------------------- | --------------------------- | ------------------------------------------- | ------------------------------------------------------------ |
+| Table component        | Custom table with divs/grid | shadcn/ui table component                   | Semantic HTML, accessible, responsive, matches project style |
+| Binary conversion      | String manipulation         | ipaddr.js byte arrays or `.toString(2)`     | Handles IPv4/IPv6 correctly, tested                          |
+| Conditional classes    | Template strings            | cn() utility from @/lib/utils               | Handles conflicts, type-safe, readable                       |
+| Number formatting      | Manual toLocaleString()     | useFormatter() hook from next-intl          | Respects locale settings, consistent with project            |
+| Responsive breakpoints | Custom CSS media queries    | Tailwind responsive classes (sm:, md:, lg:) | Consistent with project, mobile-first                        |
+| Dark mode styling      | Custom theme detection      | Tailwind dark: variant                      | Integrated with project theme system                         |
+| SVG optimization       | Manual editing              | SVGO or svgr (if using SVG files)           | Removes unnecessary attributes, reduces size                 |
 
 **Key insight:** Subnet visualizations are simple enough that external charting/diagramming libraries (D3.js, Recharts, etc.) add unnecessary complexity and bundle size. Pure React + SVG composability provides all needed functionality.
 
 ## Common Pitfalls
 
 ### Pitfall 1: SVG Scaling Issues on Mobile
+
 **What goes wrong:** Network diagrams appear too large or too small on mobile devices, or get cut off.
 **Why it happens:** Missing or incorrect `viewBox` attribute, hardcoded width/height values.
 **How to avoid:**
+
 - Always include `viewBox="0 0 width height"` defining the coordinate system
 - Use `className="w-full h-auto"` instead of fixed dimensions
 - Test on actual mobile devices or browser DevTools responsive mode
 - Use `preserveAspectRatio="xMidYMid meet"` to maintain aspect ratio
-**Warning signs:** Diagram clipped on edges, excessive scrolling on mobile, text too small to read.
+  **Warning signs:** Diagram clipped on edges, excessive scrolling on mobile, text too small to read.
 
 ### Pitfall 2: Binary Representation Wrapping Issues
+
 **What goes wrong:** Binary bits wrap awkwardly on mobile, making it hard to see octet/group boundaries.
 **Why it happens:** Fixed layout doesn't account for narrow viewports.
 **How to avoid:**
+
 - Use `flex flex-wrap` for bit containers
 - Add visual separators every 8 bits (IPv4) or 16 bits (IPv6)
 - Consider vertical layout on mobile with responsive breakpoints
 - Test with IPv6 addresses (128 bits = much longer)
-**Warning signs:** Bits wrapping mid-octet, unclear which bits belong to network vs host.
+  **Warning signs:** Bits wrapping mid-octet, unclear which bits belong to network vs host.
 
 ### Pitfall 3: Missing Accessibility Labels
+
 **What goes wrong:** Screen readers can't interpret visual diagrams, failing WCAG compliance.
 **Why it happens:** SVG elements and visual styling are visual-only without text alternatives.
 **How to avoid:**
+
 - Add `role="img"` and `aria-label` to SVG containers
 - Use `aria-label` on individual interactive elements
 - Provide text alternatives summarizing visual relationships
 - Test with screen reader (VoiceOver on Mac, NVDA on Windows)
-**Warning signs:** Accessibility audit failures, screen reader says "image" without description.
+  **Warning signs:** Accessibility audit failures, screen reader says "image" without description.
 
 ### Pitfall 4: BigInt Formatting Shows "n" Suffix
+
 **What goes wrong:** Host counts display as "16777216n" instead of formatted number.
 **Why it happens:** BigInt literal suffix appears when converted to string without formatting.
 **How to avoid:**
+
 - Convert BigInt: `usableHosts.toString()` removes suffix
 - Use locale formatting: `format.number(Number(usableHosts))` for locale-aware display
 - Check for safe integer range: `if (count <= Number.MAX_SAFE_INTEGER)`
 - For very large IPv6 subnets, consider scientific notation or "more than X billion"
-**Warning signs:** Numbers ending with "n", formatting errors, scientific notation appearing unexpectedly.
+  **Warning signs:** Numbers ending with "n", formatting errors, scientific notation appearing unexpectedly.
 
 ### Pitfall 5: IPv4 and IPv6 Treated Identically
+
 **What goes wrong:** Visualization shows broadcast address for IPv6 (doesn't exist) or incorrect binary layout.
 **Why it happens:** Not checking `ipVersion` field before rendering version-specific elements.
 **How to avoid:**
+
 - Check `result.ipVersion === 4` before rendering IPv4-specific elements
 - Use conditional rendering: `{result.broadcastAddress && ...}`
 - Adjust binary display: 4 octets vs 8 groups
 - Document IPv6 differences in UI (no broadcast, different bit grouping)
-**Warning signs:** Null values displayed as "null", missing sections for IPv6, incorrect bit counts.
+  **Warning signs:** Null values displayed as "null", missing sections for IPv6, incorrect bit counts.
 
 ### Pitfall 6: Performance Issues with Re-renders
+
 **What goes wrong:** Visualizations re-render on every keystroke, causing lag.
 **Why it happens:** Zustand store updates trigger re-renders even when results unchanged.
 **How to avoid:**
+
 - Zustand already optimizes with shallow equality checks
 - Use React.memo() for expensive visualization components
 - Don't create new objects/arrays in render (use useMemo)
 - Only render visualizations when `result !== null`
-**Warning signs:** Input lag when typing, browser DevTools showing excessive re-renders.
+  **Warning signs:** Input lag when typing, browser DevTools showing excessive re-renders.
 
 ### Pitfall 7: Dark Mode Color Contrast Issues
+
 **What goes wrong:** Diagrams readable in light mode but invisible or low-contrast in dark mode.
 **Why it happens:** Using absolute colors instead of Tailwind theme colors.
 **How to avoid:**
+
 - Use Tailwind color variants: `bg-blue-500/20 dark:bg-blue-900/30`
 - Use semantic colors: `text-foreground`, `bg-card`, `border`
 - Test both light and dark modes
 - Use opacity for fills: `/20` suffix for transparency
-**Warning signs:** Invisible elements in dark mode, WCAG contrast failures, user complaints.
+  **Warning signs:** Invisible elements in dark mode, WCAG contrast failures, user complaints.
 
 ### Pitfall 8: SVG Text Not Rendering on Safari
+
 **What goes wrong:** Text elements in SVG diagrams don't display on Safari/iOS.
 **Why it happens:** Safari has stricter SVG text rendering requirements.
 **How to avoid:**
+
 - Always specify `textAnchor` attribute: `"start"`, `"middle"`, or `"end"`
 - Use `className` instead of inline `fill` styles for better compatibility
 - Test on Safari and iOS devices
 - Avoid complex text layout; keep text positioning simple
-**Warning signs:** Missing labels on Safari, reports from iOS users.
+  **Warning signs:** Missing labels on Safari, reports from iOS users.
 
 ## Code Examples
 
 Verified patterns from research and documentation:
 
 ### Responsive SVG Container Pattern
+
 ```typescript
 // Source: https://blog.logrocket.com/make-any-svg-responsive-with-this-react-component/
 export function ResponsiveSVG({ children }: { children: React.ReactNode }) {
@@ -627,6 +687,7 @@ export function ResponsiveSVG({ children }: { children: React.ReactNode }) {
 ```
 
 ### Bitwise Highlighting Pattern
+
 ```typescript
 // Source: https://gigi.nullneuron.net/gigilabs/highlighting-bitmasks-with-react/
 // Adapted for subnet mask visualization
@@ -640,22 +701,25 @@ const getBitHighlight = (bitIndex: number, networkBits: number): string => {
 };
 
 // Render bits with conditional styling
-{bits.map((bit, index) => (
-  <span
-    key={index}
-    className={cn("px-1 py-0.5 rounded", getBitHighlight(index, networkBits))}
-  >
-    {bit}
-  </span>
-))}
+{
+  bits.map((bit, index) => (
+    <span
+      key={index}
+      className={cn("px-1 py-0.5 rounded", getBitHighlight(index, networkBits))}
+    >
+      {bit}
+    </span>
+  ));
+}
 ```
 
 ### IPv4 Binary Conversion
+
 ```typescript
 // Source: ipaddr.js documentation + custom implementation
 function ipv4ToBinary(ipAddress: string): string[] {
   const addr = ipaddr.IPv4.parse(ipAddress);
-  return addr.octets.flatMap(octet =>
+  return addr.octets.flatMap((octet) =>
     octet.toString(2).padStart(8, "0").split("")
   );
 }
@@ -664,11 +728,12 @@ function ipv4ToBinary(ipAddress: string): string[] {
 ```
 
 ### IPv6 Binary Conversion
+
 ```typescript
 // Source: ipaddr.js documentation + custom implementation
 function ipv6ToBinary(ipAddress: string): string[] {
   const addr = ipaddr.IPv6.parse(ipAddress);
-  return addr.parts.flatMap(part =>
+  return addr.parts.flatMap((part) =>
     part.toString(2).padStart(16, "0").split("")
   );
 }
@@ -677,6 +742,7 @@ function ipv6ToBinary(ipAddress: string): string[] {
 ```
 
 ### Accessible SVG Diagram
+
 ```typescript
 // Source: https://www.a11y-collective.com/blog/accessible-charts/
 <svg
@@ -687,14 +753,15 @@ function ipv6ToBinary(ipAddress: string): string[] {
 >
   <title>Subnet Visualization</title>
   <desc>
-    Visual representation of IP subnet showing the division between network and host portions.
-    Network portion: 192.168.1.0, Host range: 0-255
+    Visual representation of IP subnet showing the division between network and
+    host portions. Network portion: 192.168.1.0, Host range: 0-255
   </desc>
   {/* Diagram elements */}
 </svg>
 ```
 
 ### BigInt Formatting
+
 ```typescript
 // Source: Project pattern + next-intl
 import { useFormatter } from "next-intl";
@@ -720,6 +787,7 @@ function formatHostCount(count: bigint): string {
 ```
 
 ### Conditional Rendering for IPv4/IPv6
+
 ```typescript
 // Pattern: Check ipVersion before rendering version-specific elements
 export function SubnetVisualization({ result }: { result: SubnetResult }) {
@@ -741,7 +809,8 @@ export function SubnetVisualization({ result }: { result: SubnetResult }) {
       {/* IPv6-only: Note about broadcast */}
       {result.ipVersion === 6 && (
         <div className="text-muted-foreground text-sm">
-          IPv6 does not use broadcast addresses. Use multicast ff02::1 for all-nodes.
+          IPv6 does not use broadcast addresses. Use multicast ff02::1 for
+          all-nodes.
         </div>
       )}
     </div>
@@ -751,17 +820,18 @@ export function SubnetVisualization({ result }: { result: SubnetResult }) {
 
 ## State of the Art
 
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| External charting libraries (D3, Recharts) for all visualizations | Pure React + SVG for simple diagrams | ~2020 | Smaller bundles, simpler code, better performance |
-| Canvas for all visualizations | SVG for < 5k elements, Canvas for more | ~2021 | Better accessibility, easier styling |
-| Custom table HTML with divs | Semantic table elements with shadcn/ui | 2023+ | Accessibility, responsiveness, standardization |
-| Inline styles for conditional styling | Tailwind conditional classes with cn() | 2023+ | Type safety, dark mode support, maintainability |
-| Manual ARIA implementation | Radix UI primitives + semantic HTML | 2023+ | Better accessibility out-of-box |
-| WCAG 2.1 compliance | WCAG 2.2 Level AA compliance | 2023 | Additional success criteria (focus visible, dragging) |
-| Complex SVG components | Simple composable SVG primitives | Current | Easier to maintain, understand, and modify |
+| Old Approach                                                      | Current Approach                       | When Changed | Impact                                                |
+| ----------------------------------------------------------------- | -------------------------------------- | ------------ | ----------------------------------------------------- |
+| External charting libraries (D3, Recharts) for all visualizations | Pure React + SVG for simple diagrams   | ~2020        | Smaller bundles, simpler code, better performance     |
+| Canvas for all visualizations                                     | SVG for < 5k elements, Canvas for more | ~2021        | Better accessibility, easier styling                  |
+| Custom table HTML with divs                                       | Semantic table elements with shadcn/ui | 2023+        | Accessibility, responsiveness, standardization        |
+| Inline styles for conditional styling                             | Tailwind conditional classes with cn() | 2023+        | Type safety, dark mode support, maintainability       |
+| Manual ARIA implementation                                        | Radix UI primitives + semantic HTML    | 2023+        | Better accessibility out-of-box                       |
+| WCAG 2.1 compliance                                               | WCAG 2.2 Level AA compliance           | 2023         | Additional success criteria (focus visible, dragging) |
+| Complex SVG components                                            | Simple composable SVG primitives       | Current      | Easier to maintain, understand, and modify            |
 
 **Deprecated/outdated:**
+
 - **D3.js for simple static diagrams:** Overkill for subnet calculators. Use pure React + SVG.
 - **Canvas-first approach:** Harder to make accessible. Start with SVG, move to Canvas only if performance requires.
 - **CSS-in-JS libraries:** Added bundle size, complexity. Tailwind with dark mode variants sufficient.
@@ -772,21 +842,25 @@ export function SubnetVisualization({ result }: { result: SubnetResult }) {
 Things that couldn't be fully resolved:
 
 1. **IPv6 visualization on mobile devices**
+
    - What we know: IPv6 addresses are 128 bits (4x longer than IPv4)
    - What's unclear: Best mobile layout pattern for 128 binary bits
    - Recommendation: Implement vertical layout on mobile with grouped display (16 bits per row), test with real devices
 
 2. **Performance threshold for very large subnets**
+
    - What we know: Visualizations re-render when store updates
    - What's unclear: Whether React.memo optimization needed for real-time updates
    - Recommendation: Implement without memo first, add if DevTools shows performance issues
 
 3. **Color accessibility for colorblind users**
+
    - What we know: Blue/green distinction may be difficult for some users
    - What's unclear: Whether additional indicators (patterns, labels) needed beyond color
    - Recommendation: Use color + position + labels for redundancy, test with colorblind simulators
 
 4. **Optimal bit grouping display**
+
    - What we know: IPv4 traditionally shown in 8-bit octets, IPv6 in 16-bit groups
    - What's unclear: Whether alternative groupings improve comprehension
    - Recommendation: Follow standard conventions (8 for IPv4, 16 for IPv6), allow toggle in future
@@ -799,6 +873,7 @@ Things that couldn't be fully resolved:
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - [shadcn/ui Table Component](https://ui.shadcn.com/docs/components/table) - Component structure, implementation
 - [React Graph Gallery - Network Diagram](https://www.react-graph-gallery.com/network-chart) - React + SVG patterns
 - [LogRocket - Make SVG Responsive](https://blog.logrocket.com/make-any-svg-responsive-with-this-react-component/) - viewBox and responsive patterns
@@ -808,6 +883,7 @@ Things that couldn't be fully resolved:
 - [ipaddr.js GitHub](https://github.com/whitequark/ipaddr.js) - Binary conversion methods
 
 ### Secondary (MEDIUM confidence)
+
 - [LogRocket - SVG vs Canvas](https://blog.logrocket.com/svg-vs-canvas/) - Performance comparison verified
 - [August Infotech - SVG vs Canvas 2026](https://www.augustinfotech.com/blogs/svg-vs-canvas-animation-what-modern-frontends-should-use-in-2026/) - Modern best practices
 - [Visual Subnet Calculator (davidc.net)](https://www.davidc.net/sites/default/subnets/subnets.html) - UI patterns observed
@@ -816,6 +892,7 @@ Things that couldn't be fully resolved:
 - [WintelGuy - IP Mask Visualizer](https://wintelguy.com/ip-mask-visualizer.pl) - Visual calculator patterns
 
 ### Tertiary (LOW confidence)
+
 - [GitHub - robhimslf/visual-subnet-calculator](https://github.com/robhimslf/visual-subnet-calculator) - React/TypeScript example (couldn't access full source)
 - [DEV Community - Build React Charts Without Library](https://dev.to/edbentley/build-your-react-charts-without-a-library-35o8) - General pattern, not subnet-specific
 - [Internet Society - IPv4 vs IPv6 Scale Visualization](https://pulse.internetsociety.org/blog/visualizing-the-scale-differences-of-ipv4-and-ipv6) - Conceptual visualization approaches
@@ -823,6 +900,7 @@ Things that couldn't be fully resolved:
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - Pure React + SVG verified with multiple sources, shadcn/ui table is project standard
 - Architecture: HIGH - Patterns match existing project structure (Zustand, Card components, i18n)
 - Visualization patterns: MEDIUM - Verified with documentation but not tested in this specific context
@@ -833,6 +911,7 @@ Things that couldn't be fully resolved:
 **Valid until:** 2026-02-18 (30 days - React/SVG patterns stable, WCAG standards stable)
 
 **Notes:**
+
 - No external visualization libraries needed - pure React + SVG sufficient for subnet calculator
 - shadcn/ui table component perfect fit for breakdown display
 - IPv4 and IPv6 require different visualization layouts due to address length
