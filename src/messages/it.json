@@ -2439,6 +2439,33 @@
         "property": "Proprietà",
         "value": "Valore",
         "description": "Descrizione"
+      },
+      "advanced": {
+        "mode-basic": "Base",
+        "mode-subnetting": "Subnetting",
+        "mode-supernetting": "Supernetting",
+        "calculate-first": "Calcola prima una sottorete per abilitare la divisione",
+        "split-into": "Dividi in",
+        "subnets": "sottoreti",
+        "split": "Dividi",
+        "split-tooltip": "Dividi la rete in sottoreti più piccole",
+        "networks-label": "Reti da aggregare",
+        "networks-placeholder": "Inserisci una rete per riga:\n192.168.0.0/24\n192.168.1.0/24",
+        "aggregate": "Aggrega",
+        "aggregate-tooltip": "Combina le reti in un blocco CIDR più grande",
+        "before": "Prima",
+        "after": "Dopo",
+        "original-network": "Rete originale",
+        "original-networks": "Reti originali",
+        "new-subnets": "Nuove sottoreti",
+        "aggregated-supernet": "Superrete aggregata",
+        "subnet-number": "#",
+        "network": "Rete",
+        "hosts": "Host",
+        "parent-network": "Rete padre",
+        "child-subnets": "Sottoreti figlie",
+        "first-usable": "Primo utilizzabile",
+        "last-usable": "Ultimo utilizzabile"
       }
     }
   },
