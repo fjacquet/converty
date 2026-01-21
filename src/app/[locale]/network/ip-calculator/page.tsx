@@ -1,0 +1,71 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
+import { ConverterLayout } from "@/components/converter/converter-layout";
+import { locales } from "@/i18n/config";
+import { getCategoryBySlug } from "@/lib/registry/categories";
+import { IPCalculator } from "./ip-calculator";
+
+/**
+ * Generate static params for all locales
+ */
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+/**
+ * Generate metadata for IP calculator page
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "converters.ip-calculator" });
+
+  return {
+    title: t("name"),
+    description: t("metaDescription"),
+    keywords: [
+      "IP address",
+      "IP class",
+      "IPv4",
+      "IPv6",
+      "public IP",
+      "private IP",
+      "RFC 1918",
+      "IP classification",
+      "network",
+    ],
+  };
+}
+
+/**
+ * IP calculator page
+ */
+export default async function IPCalculatorPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("converters.ip-calculator");
+  const tc = await getTranslations("categories");
+  const category = getCategoryBySlug("network")!;
+
+  return (
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("network.name")}
+    >
+      <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
+        <IPCalculator />
+      </Suspense>
+    </ConverterLayout>
+  );
+}
