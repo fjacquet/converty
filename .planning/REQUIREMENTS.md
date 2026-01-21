@@ -23,8 +23,8 @@ Requirements for v2.0 release. Each maps to roadmap phases.
 - [x] **NET-12**: IP Address Calculator validates IP address format and range
 - [x] **NET-13**: CIDR Range Calculator calculates IP range from CIDR notation
 - [x] **NET-14**: CIDR Range Calculator checks if specific IP address is within CIDR range
-- [ ] **NET-15**: Network Speed/Latency Calculator converts ping time units
-- [ ] **NET-16**: Network Speed/Latency Calculator calculates network throughput
+- [x] **NET-15**: Network Speed/Latency Calculator converts ping time units
+- [x] **NET-16**: Network Speed/Latency Calculator calculates network throughput
 
 ### Search Functionality
 
@@ -98,8 +98,8 @@ Which phases cover which requirements. Updated by create-roadmap.
 | NET-12 | Phase 12 | Complete |
 | NET-13 | Phase 12 | Complete |
 | NET-14 | Phase 12 | Complete |
-| NET-15 | Phase 13 | Pending |
-| NET-16 | Phase 13 | Pending |
+| NET-15 | Phase 13 | Complete |
+| NET-16 | Phase 13 | Complete |
 | SRCH-01 | Phase 14 | Pending |
 | SRCH-02 | Phase 14 | Pending |
 | SRCH-03 | Phase 14 | Pending |
