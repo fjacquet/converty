@@ -1641,7 +1641,16 @@
       "valueAtPayoutStart": "Valore all'inizio dell'erogazione",
       "yearLabel": "Anno {year}",
       "yieldToMaturity": "Rendimento alla Scadenza",
-      "result": "Risultato"
+      "result": "Risultato",
+      "estimatedGFR": "VFG stimato",
+      "gfrByFormula": "VFG per formula",
+      "ckdStages": "Stadi della MRC",
+      "dailyMacros": "Macro giornalieri",
+      "caloriesFromMacros": "Calorie dai macro",
+      "proteinCalories": "Calorie proteine",
+      "carbsCalories": "Calorie carboidrati",
+      "fatCalories": "Calorie grassi",
+      "carbs": "Carboidrati"
     },
     "time": {
       "yearsMonthsDays": "{years} anni, {months} mesi, {days} giorni",

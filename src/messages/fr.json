@@ -1641,7 +1641,16 @@
       "valueAtPayoutStart": "Valeur au début du versement",
       "yearLabel": "Annee {year}",
       "yieldToMaturity": "Rendement a l'Echeance",
-      "result": "Résultat"
+      "result": "Résultat",
+      "estimatedGFR": "DFG estimé",
+      "gfrByFormula": "DFG par formule",
+      "ckdStages": "Stades de l'IRC",
+      "dailyMacros": "Macros quotidiennes",
+      "caloriesFromMacros": "Calories des macros",
+      "proteinCalories": "Calories protéines",
+      "carbsCalories": "Calories glucides",
+      "fatCalories": "Calories lipides",
+      "carbs": "Glucides"
     },
     "time": {
       "yearsMonthsDays": "{years} ans, {months} mois, {days} jours",
