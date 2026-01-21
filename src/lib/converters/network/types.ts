@@ -113,3 +113,10 @@ export type { IPClassification } from "./ip-classifier";
 // Re-export subnetting types for convenience
 export type { SubnetDivision } from "./subnetting";
 export type { SupernetResult } from "./supernetting";
+// Re-export throughput calculator types
+export type {
+  ThroughputConversion,
+  ThroughputInput,
+  ThroughputResult,
+  TimeUnit,
+} from "./throughput-calculator";
