@@ -34,4 +34,46 @@ export const networkConverters: Record<string, ConverterMeta> = {
     icon: Network,
     featured: false,
   },
+
+  // Throughput calculator
+  "throughput-calculator": {
+    id: "throughput-calculator",
+    slug: "throughput-calculator",
+    category: "network",
+    subcategory: "performance",
+    keywords: [
+      "throughput",
+      "speed",
+      "bandwidth",
+      "transfer",
+      "rate",
+      "mbps",
+      "gbps",
+      "network",
+      "performance",
+    ],
+    icon: Network,
+    featured: false,
+  },
+
+  // Latency converter
+  "latency-converter": {
+    id: "latency-converter",
+    slug: "latency-converter",
+    category: "network",
+    subcategory: "performance",
+    keywords: [
+      "latency",
+      "ping",
+      "delay",
+      "milliseconds",
+      "microseconds",
+      "nanoseconds",
+      "network",
+      "time",
+      "rtt",
+    ],
+    icon: Network,
+    featured: false,
+  },
 };
