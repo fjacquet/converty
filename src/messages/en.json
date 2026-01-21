@@ -1641,7 +1641,16 @@
       "valueAtPayoutStart": "Value at Payout Start",
       "yearLabel": "Year {year}",
       "yieldToMaturity": "Yield to Maturity",
-      "result": "Result"
+      "result": "Result",
+      "estimatedGFR": "Estimated GFR",
+      "gfrByFormula": "GFR by Formula",
+      "ckdStages": "CKD Stages Reference",
+      "dailyMacros": "Daily Macros",
+      "caloriesFromMacros": "Calories from Macros",
+      "proteinCalories": "Protein Calories",
+      "carbsCalories": "Carbohydrate Calories",
+      "fatCalories": "Fat Calories",
+      "carbs": "Carbohydrates"
     },
     "time": {
       "yearsMonthsDays": "{years} years, {months} months, {days} days",
