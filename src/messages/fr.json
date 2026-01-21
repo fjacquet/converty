@@ -199,6 +199,11 @@
       "description": "Classez les adresses IP par classe (A-E) et identifiez le statut public/privé",
       "metaDescription": "Classificateur d'adresses IP gratuit. Détectez la classe IP (A, B, C, D, E), identifiez les adresses publiques vs privées et validez le format IPv4/IPv6."
     },
+    "throughput-calculator": {
+      "name": "Débit",
+      "description": "Calculer le débit réseau à partir des données transférées et du temps",
+      "metaDescription": "Calculateur de débit réseau gratuit. Calculez la vitesse de transfert réelle à partir de la taille du fichier et du temps de transfert."
+    },
     "speed": {
       "name": "Convertisseur de Vitesse",
       "description": "Convertissez entre m/s, km/h, mph, noeuds et plus",
@@ -883,6 +888,11 @@
       "name": "Produit Bande Passante-Delai",
       "description": "Calculez le BDP et la taille optimale du tampon TCP",
       "metaDescription": "Calculez le produit bande passante-delai et la taille de fenetre TCP requise"
+    },
+    "latency-converter": {
+      "name": "Convertisseur de latence",
+      "description": "Convertir entre les unités de temps de ping (secondes, millisecondes, microsecondes, nanosecondes)",
+      "metaDescription": "Convertisseur de latence réseau gratuit. Convertissez les temps de ping entre secondes, millisecondes, microsecondes et nanosecondes."
     }
   },
   "calculator": {
@@ -2436,7 +2446,61 @@
       "ipNotInRange": "{ip} n'est PAS dans la plage {cidr}",
       "checkResult": "Résultat de la vérification",
       "inRange": "Dans la plage",
-      "notInRange": "Hors de la plage"
+      "notInRange": "Hors de la plage",
+      "throughputInput": "Détails du transfert",
+      "dataSize": "Données transférées",
+      "dataSizeUnit": "Unité de taille",
+      "transferTime": "Temps de transfert",
+      "transferTimeUnit": "Unité de temps",
+      "throughputResults": "Résultats de débit",
+      "speedComparison": "Comparaison de vitesse",
+      "comparedTo": "Comparé aux vitesses courantes",
+      "comparisonApprox": "Environ la vitesse {speed}",
+      "comparisonPercent": "Environ {percent}% de {speed}",
+      "comparisonTimes": "Environ {times}x {speed}",
+      "timeUnits": {
+        "ms": "Millisecondes",
+        "s": "Secondes",
+        "min": "Minutes",
+        "hr": "Heures"
+      },
+      "speedReferences": {
+        "dial-up": "Dial-up (56 Kbps)",
+        "dsl": "DSL (5 Mbps)",
+        "3g": "3G Mobile (3 Mbps)",
+        "4g": "4G LTE (25 Mbps)",
+        "cable": "Cable (100 Mbps)",
+        "5g": "5G (100 Mbps)",
+        "fiber": "Fibre Gigabit (1 Gbps)",
+        "10g": "10 Gigabit (10 Gbps)"
+      },
+      "latencyInput": "Entrée de latence",
+      "latencyValue": "Valeur de latence",
+      "latencyUnit": "Unité",
+      "conversions": "Conversions",
+      "latencyContext": "Contexte de latence",
+      "category": "Catégorie",
+      "typicalUseCase": "Cas d'utilisation typique",
+      "units": {
+        "s": "Secondes",
+        "ms": "Millisecondes",
+        "us": "Microsecondes",
+        "ns": "Nanosecondes"
+      },
+      "categories": {
+        "ultraLow": "Latence ultra-faible (< 1ms)",
+        "low": "Faible latence (1-20ms)",
+        "moderate": "Latence modérée (20-100ms)",
+        "high": "Latence élevée (> 100ms)"
+      },
+      "useCases": {
+        "sameRack": "Même rack dans le datacenter",
+        "sameDatacenter": "Même datacenter, rack différent",
+        "sameRegion": "Même ville/région",
+        "crossCountry": "Trans-national",
+        "crossOcean": "Trans-océanique",
+        "satellite": "Satellite ou réseau très congestionné"
+      }
     },
     "subnet": {
       "diagram": {
