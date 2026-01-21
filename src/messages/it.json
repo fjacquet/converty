@@ -189,6 +189,16 @@
       "description": "Calcola i dettagli delle subnet IPv4 e IPv6 con notazione CIDR",
       "metaDescription": "subnet online gratuito per reti IPv4 e IPv6. Calcola indirizzo di rete, broadcast, intervallo IP utilizzabile e numero di host dalla notazione CIDR o maschera di sottorete."
     },
+    "cidr-range": {
+      "name": "Intervallo CIDR",
+      "description": "Calcola gli intervalli IP dalla notazione CIDR e verifica se un IP è nell'intervallo",
+      "metaDescription": "Calcolatore di intervallo CIDR gratuito. Visualizza i primi e gli ultimi indirizzi IP in un blocco CIDR e verifica se IP specifici rientrano nell'intervallo. Supporta IPv4 e IPv6."
+    },
+    "ip-calculator": {
+      "name": "Indirizzo IP",
+      "description": "Classifica gli indirizzi IP per classe (A-E) e identifica lo stato pubblico/privato",
+      "metaDescription": "Classificatore di indirizzi IP gratuito. Rileva la classe IP (A, B, C, D, E), identifica gli indirizzi pubblici vs privati e valida il formato IPv4/IPv6."
+    },
     "speed": {
       "name": "Convertitore Velocita",
       "description": "Converti tra m/s, km/h, mph, nodi e altro",
@@ -2396,7 +2406,37 @@
       "enterIpOrCidr": "Inserisci un indirizzo IP con CIDR (es. 192.168.1.0/24) o usa il campo maschera di sottorete",
       "networkDiagram": "Diagramma di Rete",
       "binaryRepresentation": "Rappresentazione Binaria",
-      "subnetBreakdown": "Dettagli della Sottorete"
+      "subnetBreakdown": "Dettagli della Sottorete",
+      "ipClassLabel": "Classe IP",
+      "rangeType": "Tipo di Intervallo",
+      "rangeDescription": "Descrizione",
+      "status": "Stato",
+      "public": "Pubblico",
+      "private": "Privato",
+      "special": "Speciale",
+      "classA": "Classe A",
+      "classB": "Classe B",
+      "classC": "Classe C",
+      "classD": "Classe D (Multicast)",
+      "classE": "Classe E (Riservato)",
+      "noClass": "N/A (IPv6)",
+      "enterIpAddress": "Inserisci un indirizzo IP da classificare",
+      "publicDescription": "Instradabile su Internet",
+      "privateDescription": "Riservato per reti private",
+      "specialDescription": "Riservato per scopi speciali",
+      "cidrInput": "Notazione CIDR",
+      "ipToCheck": "IP da verificare (opzionale)",
+      "enterCidr": "Inserisci notazione CIDR (es. 192.168.1.0/24 o 2001:db8::/32)",
+      "enterIpToCheck": "Inserisci un indirizzo IP per verificare se è nell'intervallo",
+      "rangeResults": "Intervallo IP",
+      "firstIp": "Primo IP",
+      "lastIp": "Ultimo IP",
+      "usableRange": "Intervallo utilizzabile",
+      "ipInRange": "{ip} è NELL'intervallo {cidr}",
+      "ipNotInRange": "{ip} NON è nell'intervallo {cidr}",
+      "checkResult": "Risultato della verifica",
+      "inRange": "Nell'intervallo",
+      "notInRange": "Fuori dall'intervallo"
     },
     "subnet": {
       "diagram": {
