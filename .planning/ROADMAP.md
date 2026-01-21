@@ -148,18 +148,20 @@ Plans:
 
 #### Phase 13: Network Speed/Latency Calculator
 
+**Status:** Planned
 **Goal:** Network performance calculations for speed and latency analysis
 **Depends on:** Phase 12
 **Requirements:** NET-15, NET-16
 **Success Criteria** (what must be TRUE):
 
-1. User can convert between ping time units (ms, μs, etc.)
+1. User can convert between ping time units (ms, us, etc.)
 2. User can calculate network throughput from bandwidth and time
-   **Plans:** TBD
+   **Plans:** 2 plans in 1 wave
 
 Plans:
 
-- [ ] TBD
+- [ ] 13-01-PLAN.md — Latency Converter (time unit conversion, latency categories, typical use cases)
+- [ ] 13-02-PLAN.md — Throughput Calculator (data size/time to throughput, speed comparisons)
 
 #### Phase 14: Global Search
 
@@ -231,7 +233,7 @@ Phases execute in numeric order: 9 → 10 → 11 → 12 → 13 → 14 → 15 →
 | 10. Visual Subnet Calculator - Visualization     | v2.0      | 2/2            | Complete    | 2026-01-18 |
 | 11. Visual Subnet Calculator - Advanced Features | v2.0      | 3/3            | Complete    | 2026-01-21 |
 | 12. IP Address & CIDR Calculators                | v2.0      | 2/2            | Complete    | 2026-01-21 |
-| 13. Network Speed/Latency Calculator             | v2.0      | 0/TBD          | Not started | -          |
+| 13. Network Speed/Latency Calculator             | v2.0      | 0/2            | Planned     | -          |
 | 14. Global Search                                | v2.0      | 0/TBD          | Not started | -          |
 | 15. Translation Audit                            | v2.0      | 0/TBD          | Not started | -          |
 | 16. Translation Implementation                   | v2.0      | 0/TBD          | Not started | -          |
