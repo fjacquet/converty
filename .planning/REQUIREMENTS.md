@@ -9,20 +9,20 @@ Requirements for v2.0 release. Each maps to roadmap phases.
 
 ### Network Calculators
 
-- [ ] **NET-01**: Visual Subnet Calculator supports IPv4 addresses
-- [ ] **NET-02**: Visual Subnet Calculator supports IPv6 addresses
-- [ ] **NET-03**: Visual Subnet Calculator displays network diagram showing network/host portions and IP ranges
-- [ ] **NET-04**: Visual Subnet Calculator displays binary representation of IP address and subnet mask with highlighted bits
-- [ ] **NET-05**: Visual Subnet Calculator displays breakdown table (network address, broadcast address, usable range, total hosts)
-- [ ] **NET-06**: Visual Subnet Calculator accepts CIDR notation input (e.g., 192.168.1.0/24, 2001:db8::/32)
-- [ ] **NET-07**: Visual Subnet Calculator accepts subnet mask input (e.g., 255.255.255.0)
+- [x] **NET-01**: Visual Subnet Calculator supports IPv4 addresses
+- [x] **NET-02**: Visual Subnet Calculator supports IPv6 addresses
+- [x] **NET-03**: Visual Subnet Calculator displays network diagram showing network/host portions and IP ranges
+- [x] **NET-04**: Visual Subnet Calculator displays binary representation of IP address and subnet mask with highlighted bits
+- [x] **NET-05**: Visual Subnet Calculator displays breakdown table (network address, broadcast address, usable range, total hosts)
+- [x] **NET-06**: Visual Subnet Calculator accepts CIDR notation input (e.g., 192.168.1.0/24, 2001:db8::/32)
+- [x] **NET-07**: Visual Subnet Calculator accepts subnet mask input (e.g., 255.255.255.0)
 - [x] **NET-08**: Visual Subnet Calculator can divide network into smaller subnets (subnetting)
 - [x] **NET-09**: Visual Subnet Calculator can combine multiple networks into larger CIDR block (supernetting)
-- [ ] **NET-10**: IP Address Calculator detects IP class (A, B, C, D, E)
-- [ ] **NET-11**: IP Address Calculator identifies public vs private IP addresses
-- [ ] **NET-12**: IP Address Calculator validates IP address format and range
-- [ ] **NET-13**: CIDR Range Calculator calculates IP range from CIDR notation
-- [ ] **NET-14**: CIDR Range Calculator checks if specific IP address is within CIDR range
+- [x] **NET-10**: IP Address Calculator detects IP class (A, B, C, D, E)
+- [x] **NET-11**: IP Address Calculator identifies public vs private IP addresses
+- [x] **NET-12**: IP Address Calculator validates IP address format and range
+- [x] **NET-13**: CIDR Range Calculator calculates IP range from CIDR notation
+- [x] **NET-14**: CIDR Range Calculator checks if specific IP address is within CIDR range
 - [ ] **NET-15**: Network Speed/Latency Calculator converts ping time units
 - [ ] **NET-16**: Network Speed/Latency Calculator calculates network throughput
 
@@ -93,11 +93,11 @@ Which phases cover which requirements. Updated by create-roadmap.
 | NET-07 | Phase 9 | Complete |
 | NET-08 | Phase 11 | Complete |
 | NET-09 | Phase 11 | Complete |
-| NET-10 | Phase 12 | Pending |
-| NET-11 | Phase 12 | Pending |
-| NET-12 | Phase 12 | Pending |
-| NET-13 | Phase 12 | Pending |
-| NET-14 | Phase 12 | Pending |
+| NET-10 | Phase 12 | Complete |
+| NET-11 | Phase 12 | Complete |
+| NET-12 | Phase 12 | Complete |
+| NET-13 | Phase 12 | Complete |
+| NET-14 | Phase 12 | Complete |
 | NET-15 | Phase 13 | Pending |
 | NET-16 | Phase 13 | Pending |
 | SRCH-01 | Phase 14 | Pending |
@@ -117,10 +117,10 @@ Which phases cover which requirements. Updated by create-roadmap.
 **Coverage:**
 - v2.0 requirements: 29 total
 - Mapped to phases: 29
-- Complete: 7 (NET-01, NET-02, NET-03, NET-04, NET-05, NET-06, NET-07)
-- Pending: 22
+- Complete: 14 (NET-01 through NET-14)
+- Pending: 15
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-18*
-*Last updated: 2026-01-18 after initial definition*
+*Last updated: 2026-01-21 after Phase 12 completion*

@@ -129,7 +129,7 @@ Plans:
 
 #### Phase 12: IP Address & CIDR Calculators
 
-**Status:** Planned
+**Status:** Complete (2026-01-21)
 **Goal:** Complementary network analysis tools for IP classification and CIDR range operations
 **Depends on:** Phase 11
 **Requirements:** NET-10, NET-11, NET-12, NET-13, NET-14
@@ -143,8 +143,8 @@ Plans:
 
 Plans:
 
-- [ ] 12-01-PLAN.md — IP Address Calculator (classification logic, store, UI, translations)
-- [ ] 12-02-PLAN.md — CIDR Range Calculator (range calculation, IP-in-range check, store, UI, translations)
+- [x] 12-01-PLAN.md — IP Address Calculator (classification logic, store, UI, translations)
+- [x] 12-02-PLAN.md — CIDR Range Calculator (range calculation, IP-in-range check, store, UI, translations)
 
 #### Phase 13: Network Speed/Latency Calculator
 
@@ -230,7 +230,7 @@ Phases execute in numeric order: 9 → 10 → 11 → 12 → 13 → 14 → 15 →
 | 9. Visual Subnet Calculator Foundation           | v2.0      | 3/3            | Complete    | 2026-01-18 |
 | 10. Visual Subnet Calculator - Visualization     | v2.0      | 2/2            | Complete    | 2026-01-18 |
 | 11. Visual Subnet Calculator - Advanced Features | v2.0      | 3/3            | Complete    | 2026-01-21 |
-| 12. IP Address & CIDR Calculators                | v2.0      | 0/2            | Planned     | -          |
+| 12. IP Address & CIDR Calculators                | v2.0      | 2/2            | Complete    | 2026-01-21 |
 | 13. Network Speed/Latency Calculator             | v2.0      | 0/TBD          | Not started | -          |
 | 14. Global Search                                | v2.0      | 0/TBD          | Not started | -          |
 | 15. Translation Audit                            | v2.0      | 0/TBD          | Not started | -          |
