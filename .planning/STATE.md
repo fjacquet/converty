@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 12 of 16 (IP Address & CIDR Calculators)
-Plan: 1 of 2
-Status: In progress
-Last activity: 2026-01-21 — Completed 12-02-PLAN.md (CIDR Range Calculator)
+Plan: 2 of 2
+Status: Phase complete
+Last activity: 2026-01-21 — Completed 12-01-PLAN.md (IP Address Calculator)
 
-Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
+Progress: ████⬜⬜⬜⬜ 50% (4/8 phases in v2.0)
 
 ## Performance Metrics
 
@@ -49,7 +49,7 @@ Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
 | 09-visual-subnet-foundation     | 3/3   | 27 min | 9 min    |
 | 10-visual-subnet-visualization  | 2/2   | 51 min | 25.5 min |
 | 11-visual-subnet-advanced       | 3/3   | 8 min  | 2.7 min  |
-| 12-ip-cidr-calculators          | 1/2   | 10 min | 10 min   |
+| 12-ip-cidr-calculators          | 2/2   | 20 min | 10 min   |
 
 ## Accumulated Context
 
@@ -135,6 +135,9 @@ Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
 | Use mode tabs for interface switching                          | 11-03 | Clean separation of basic subnet info vs advanced operations (subnetting/supernetting)             |
 | Reuse BreakdownTable for comparison display                    | 11-03 | Consistent network information formatting across all modes, no duplication of table logic          |
 | Support flexible network input delimiters                      | 11-03 | User-friendly multi-network entry for supernetting, accepts newlines/commas/semicolons             |
+| Use ipaddr.js range() for public/private classification        | 12-01 | Built-in range detection maps cleanly to public/private/special categories without manual RFC ranges |
+| Return null for IPv6 ipClass (no class system)                 | 12-01 | IPv6 has no classful addressing, null maintains type safety and allows "N/A" display              |
+| Display status as string in ResultGrid, colored details separate| 12-01 | ResultGrid accepts only string/number, separation enables clean grid data + visual enhancements    |
 | Reuse calculateSubnet() for CIDR range calculations            | 12-02 | DRY principle, existing function handles IPv4/IPv6 edge cases, reduces code by ~100 lines         |
 | Use ipaddr.js match() for IP-in-range checking                 | 12-02 | Built-in method is well-tested and handles IPv4/IPv6 correctly without manual bit manipulation    |
 | Auto-trigger IP check when both inputs present                 | 12-02 | Better UX than manual button, provides immediate feedback following auto-calculation pattern       |
@@ -150,11 +153,10 @@ Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
 
 ## Session Continuity
 
-Last session: 2026-01-21T21:27:51Z
-Stopped at: Completed 12-02-PLAN.md (CIDR Range Calculator)
+Last session: 2026-01-21T20:28:30Z
+Stopped at: Completed 12-01-PLAN.md (IP Address Calculator)
 Resume file: None
 
 **Next Steps:**
 
-1. Continue Phase 12 (IP Address & CIDR Calculators)
-2. Execute remaining plan in phase 12 (12-01 or next available)
+1. Phase 12 complete - proceed to Phase 13 (Network Utilities)
