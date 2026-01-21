@@ -95,3 +95,17 @@ export interface IPValidationResult {
   /** Error message if invalid */
   error?: string;
 }
+
+/**
+ * Calculator operation mode
+ */
+export type CalculatorMode = "basic" | "subnetting" | "supernetting";
+
+/**
+ * Division options for subnetting (powers of 2)
+ */
+export type DivisionCount = 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256;
+
+// Re-export subnetting types for convenience
+export type { SubnetDivision } from "./subnetting";
+export type { SupernetResult } from "./supernetting";
