@@ -3,9 +3,17 @@
 import { create } from "zustand";
 import { parseIPInput } from "@/lib/converters/network/ip-parser";
 import { calculateSubnet } from "@/lib/converters/network/subnet-calculator";
-import type { SubnetResult } from "@/lib/converters/network/types";
+import { divideSubnet } from "@/lib/converters/network/subnetting";
+import { aggregateNetworks } from "@/lib/converters/network/supernetting";
+import type {
+  CalculatorMode,
+  DivisionCount,
+  SubnetDivision,
+  SubnetResult,
+  SupernetResult,
+} from "@/lib/converters/network/types";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
-import { getUrlParams, parseStringParam } from "@/lib/utils/url-params";
+import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
 
 /**
  * Subnet calculator state interface
@@ -19,11 +27,33 @@ export interface SubnetCalculatorState {
   result: SubnetResult | null;
   error: string | null;
 
+  // Mode switching
+  mode: CalculatorMode;
+
+  // Subnetting state
+  divisionCount: DivisionCount;
+  subnetDivision: SubnetDivision | null;
+
+  // Supernetting state
+  networksInput: string; // Textarea input for multiple networks
+  supernetResult: SupernetResult | null;
+
   // Actions
   setIPInput: (value: string) => void;
   setSubnetMask: (value: string) => void;
   calculate: () => void;
   reset: () => void;
+
+  // Mode action
+  setMode: (mode: CalculatorMode) => void;
+
+  // Subnetting actions
+  setDivisionCount: (count: DivisionCount) => void;
+  performDivision: () => void;
+
+  // Supernetting actions
+  setNetworksInput: (value: string) => void;
+  performAggregation: () => void;
 }
 
 /**
@@ -34,6 +64,11 @@ const initialState = {
   subnetMask: "",
   result: null,
   error: null,
+  mode: "basic" as CalculatorMode,
+  divisionCount: 2 as DivisionCount,
+  subnetDivision: null,
+  networksInput: "",
+  supernetResult: null,
 };
 
 /**
@@ -52,17 +87,29 @@ export const useSubnetCalculatorStore = create<SubnetCalculatorState>()(
     selectState: (state) => ({
       ipInput: state.ipInput,
       subnetMask: state.subnetMask,
+      mode: state.mode,
+      divisionCount: state.divisionCount,
+      networksInput: state.networksInput,
     }),
   })((set, get) => {
     // Load initial values from URL params if present
     let loadedIpInput = initialState.ipInput;
     let loadedSubnetMask = initialState.subnetMask;
+    let loadedMode = initialState.mode;
+    let loadedDivisionCount = initialState.divisionCount;
+    let loadedNetworksInput = initialState.networksInput;
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
       if (Object.keys(urlParams).length > 0) {
         loadedIpInput = parseStringParam(urlParams.ipInput, initialState.ipInput);
         loadedSubnetMask = parseStringParam(urlParams.subnetMask, initialState.subnetMask);
+        loadedMode = parseStringParam(urlParams.mode, initialState.mode) as CalculatorMode;
+        loadedDivisionCount = parseNumberParam(
+          urlParams.divisionCount,
+          initialState.divisionCount
+        ) as DivisionCount;
+        loadedNetworksInput = parseStringParam(urlParams.networksInput, initialState.networksInput);
       }
     }
 
@@ -72,6 +119,11 @@ export const useSubnetCalculatorStore = create<SubnetCalculatorState>()(
       subnetMask: loadedSubnetMask,
       result: null,
       error: null,
+      mode: loadedMode,
+      divisionCount: loadedDivisionCount,
+      subnetDivision: null,
+      networksInput: loadedNetworksInput,
+      supernetResult: null,
 
       setIPInput: (value: string) => {
         set({ ipInput: value, error: null });
@@ -126,7 +178,76 @@ export const useSubnetCalculatorStore = create<SubnetCalculatorState>()(
       },
 
       reset: () => {
-        set(initialState);
+        set({
+          ...initialState,
+          // Clear all results
+          result: null,
+          subnetDivision: null,
+          supernetResult: null,
+        });
+      },
+
+      setMode: (mode: CalculatorMode) => {
+        set({ mode, error: null });
+      },
+
+      setDivisionCount: (count: DivisionCount) => {
+        set({ divisionCount: count, error: null });
+      },
+
+      performDivision: () => {
+        const { result, divisionCount } = get();
+
+        // Need a basic calculation result first
+        if (!result) {
+          set({ error: "Calculate a subnet first", subnetDivision: null });
+          return;
+        }
+
+        try {
+          const division = divideSubnet(result.networkAddress, result.cidr, divisionCount);
+          set({ subnetDivision: division, error: null });
+        } catch (err) {
+          set({
+            subnetDivision: null,
+            error: err instanceof Error ? err.message : "Division failed",
+          });
+        }
+      },
+
+      setNetworksInput: (value: string) => {
+        set({ networksInput: value, error: null });
+      },
+
+      performAggregation: () => {
+        const { networksInput } = get();
+
+        if (!networksInput.trim()) {
+          set({ error: "Enter networks to aggregate", supernetResult: null });
+          return;
+        }
+
+        // Parse textarea input: split by newlines, commas, or semicolons
+        const networks = networksInput
+          .split(/[\n,;]+/)
+          .map((line) => line.trim())
+          .filter((line) => line.length > 0);
+
+        if (networks.length < 2) {
+          set({ error: "Enter at least 2 networks", supernetResult: null });
+          return;
+        }
+
+        const result = aggregateNetworks(networks);
+
+        if (result.success) {
+          set({ supernetResult: result, error: null });
+        } else {
+          set({
+            supernetResult: null,
+            error: result.error || "Aggregation failed",
+          });
+        }
       },
     };
   })
