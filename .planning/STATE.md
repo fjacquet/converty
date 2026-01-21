@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 12 of 16 (IP Address & CIDR Calculators)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-21 — Completed Phase 11 (Visual Subnet Calculator - Advanced Features)
+Plan: 1 of 2
+Status: In progress
+Last activity: 2026-01-21 — Completed 12-02-PLAN.md (CIDR Range Calculator)
 
 Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
 
@@ -49,6 +49,7 @@ Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
 | 09-visual-subnet-foundation     | 3/3   | 27 min | 9 min    |
 | 10-visual-subnet-visualization  | 2/2   | 51 min | 25.5 min |
 | 11-visual-subnet-advanced       | 3/3   | 8 min  | 2.7 min  |
+| 12-ip-cidr-calculators          | 1/2   | 10 min | 10 min   |
 
 ## Accumulated Context
 
@@ -134,6 +135,10 @@ Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
 | Use mode tabs for interface switching                          | 11-03 | Clean separation of basic subnet info vs advanced operations (subnetting/supernetting)             |
 | Reuse BreakdownTable for comparison display                    | 11-03 | Consistent network information formatting across all modes, no duplication of table logic          |
 | Support flexible network input delimiters                      | 11-03 | User-friendly multi-network entry for supernetting, accepts newlines/commas/semicolons             |
+| Reuse calculateSubnet() for CIDR range calculations            | 12-02 | DRY principle, existing function handles IPv4/IPv6 edge cases, reduces code by ~100 lines         |
+| Use ipaddr.js match() for IP-in-range checking                 | 12-02 | Built-in method is well-tested and handles IPv4/IPv6 correctly without manual bit manipulation    |
+| Auto-trigger IP check when both inputs present                 | 12-02 | Better UX than manual button, provides immediate feedback following auto-calculation pattern       |
+| Visual indicators with color-coded cards for range membership  | 12-02 | Green check/red X more intuitive than text for binary in/out result                               |
 
 ### Milestone Evolution
 
@@ -145,11 +150,11 @@ Progress: ███⬜⬜⬜⬜⬜ 37.5% (3/8 phases in v2.0)
 
 ## Session Continuity
 
-Last session: 2026-01-21T18:39:49Z
-Stopped at: Completed 11-03-PLAN.md (Advanced Features UI)
+Last session: 2026-01-21T21:27:51Z
+Stopped at: Completed 12-02-PLAN.md (CIDR Range Calculator)
 Resume file: None
 
 **Next Steps:**
 
-1. Continue Phase 11 (Visual Subnet Calculator - Advanced Features)
-2. Execute next plan in phase 11 if available, or proceed to Phase 12
+1. Continue Phase 12 (IP Address & CIDR Calculators)
+2. Execute remaining plan in phase 12 (12-01 or next available)
