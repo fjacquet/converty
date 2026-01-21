@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 13 of 16 (Network Speed/Latency Calculator)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-21 — Completed Phase 12 (IP Address & CIDR Calculators)
+Plan: 1 of 2
+Status: In progress
+Last activity: 2026-01-21 — Completed 13-02-PLAN.md (Throughput Calculator)
 
 Progress: ████⬜⬜⬜⬜ 50% (4/8 phases in v2.0)
 
@@ -50,6 +50,7 @@ Progress: ████⬜⬜⬜⬜ 50% (4/8 phases in v2.0)
 | 10-visual-subnet-visualization  | 2/2   | 51 min | 25.5 min |
 | 11-visual-subnet-advanced       | 3/3   | 8 min  | 2.7 min  |
 | 12-ip-cidr-calculators          | 2/2   | 20 min | 10 min   |
+| 13-network-speed-latency        | 1/2   | 7 min  | 7 min    |
 
 ## Accumulated Context
 
@@ -142,6 +143,9 @@ Progress: ████⬜⬜⬜⬜ 50% (4/8 phases in v2.0)
 | Use ipaddr.js match() for IP-in-range checking                 | 12-02 | Built-in method is well-tested and handles IPv4/IPv6 correctly without manual bit manipulation    |
 | Auto-trigger IP check when both inputs present                 | 12-02 | Better UX than manual button, provides immediate feedback following auto-calculation pattern       |
 | Visual indicators with color-coded cards for range membership  | 12-02 | Green check/red X more intuitive than text for binary in/out result                               |
+| Reuse BANDWIDTH_UNITS and FILE_SIZE_UNITS from data converters | 13-02 | DRY principle - units already defined, no duplication needed for throughput calculator             |
+| Default to MB and seconds for throughput calculator             | 13-02 | Most common units for file transfers, provides sensible starting point                             |
+| Show comparison to closest reference speed with ratio          | 13-02 | Provides context for throughput results, helps users understand if speed is good/bad/expected      |
 
 ### Milestone Evolution
 
@@ -153,10 +157,11 @@ Progress: ████⬜⬜⬜⬜ 50% (4/8 phases in v2.0)
 
 ## Session Continuity
 
-Last session: 2026-01-21T20:28:30Z
-Stopped at: Completed 12-01-PLAN.md (IP Address Calculator)
+Last session: 2026-01-21T21:13:14Z
+Stopped at: Completed 13-02-PLAN.md (Throughput Calculator)
 Resume file: None
 
 **Next Steps:**
 
-1. Phase 12 complete - proceed to Phase 13 (Network Utilities)
+1. Complete Phase 13 - Plan 13-03 (Ping/Latency Calculator) or Plan 13-04 (Integration)
+2. Continue v2.0 Network Tools expansion
