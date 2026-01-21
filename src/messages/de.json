@@ -2439,6 +2439,33 @@
         "property": "Eigenschaft",
         "value": "Wert",
         "description": "Beschreibung"
+      },
+      "advanced": {
+        "mode-basic": "Grundlegend",
+        "mode-subnetting": "Subnetting",
+        "mode-supernetting": "Supernetting",
+        "calculate-first": "Berechnen Sie zuerst ein Subnetz, um die Teilung zu aktivieren",
+        "split-into": "Teilen in",
+        "subnets": "Subnetze",
+        "split": "Teilen",
+        "split-tooltip": "Netzwerk in kleinere Subnetze aufteilen",
+        "networks-label": "Netzwerke zum Aggregieren",
+        "networks-placeholder": "Geben Sie ein Netzwerk pro Zeile ein:\n192.168.0.0/24\n192.168.1.0/24",
+        "aggregate": "Aggregieren",
+        "aggregate-tooltip": "Netzwerke zu einem größeren CIDR-Block zusammenfassen",
+        "before": "Vorher",
+        "after": "Nachher",
+        "original-network": "Ursprungsnetzwerk",
+        "original-networks": "Ursprungsnetzwerke",
+        "new-subnets": "Neue Subnetze",
+        "aggregated-supernet": "Aggregiertes Supernetz",
+        "subnet-number": "#",
+        "network": "Netzwerk",
+        "hosts": "Hosts",
+        "parent-network": "Elternnetzwerk",
+        "child-subnets": "Kind-Subnetze",
+        "first-usable": "Erste verwendbare",
+        "last-usable": "Letzte verwendbare"
       }
     }
   },

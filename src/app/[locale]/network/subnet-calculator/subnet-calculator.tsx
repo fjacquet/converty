@@ -5,25 +5,50 @@ import { useFormatter, useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import type { CalculatorMode } from "@/lib/converters/network/types";
 import { useSubnetCalculatorStore } from "@/stores/subnet-calculator-store";
 import { BinaryRepresentation } from "./components/binary-representation";
 import { BreakdownTable } from "./components/breakdown-table";
+import { ComparisonPanel } from "./components/comparison-panel";
 import { NetworkDiagram } from "./components/network-diagram";
+import { SplitControls } from "./components/split-controls";
+import { SubnetTree } from "./components/subnet-tree";
+import { SupernetInput } from "./components/supernet-input";
 
 /**
  * Subnet calculator component
  *
  * Interactive calculator for IPv4 and IPv6 subnet calculations.
  * Supports both CIDR notation and subnet mask notation (IPv4 only).
+ * Includes advanced features: subnetting (dividing networks) and supernetting (aggregating networks).
  */
 export function SubnetCalculator() {
   const t = useTranslations("calculator.network");
+  const tAdvanced = useTranslations("calculator.subnet.advanced");
   const tSections = useTranslations("calculator.sections");
   const tCommon = useTranslations("common");
   const format = useFormatter();
 
-  const { ipInput, subnetMask, result, error, setIPInput, setSubnetMask, reset } =
-    useSubnetCalculatorStore();
+  const {
+    ipInput,
+    subnetMask,
+    result,
+    error,
+    setIPInput,
+    setSubnetMask,
+    reset,
+    mode,
+    setMode,
+    divisionCount,
+    setDivisionCount,
+    performDivision,
+    subnetDivision,
+    networksInput,
+    setNetworksInput,
+    performAggregation,
+    supernetResult,
+  } = useSubnetCalculatorStore();
 
   return (
     <div className="space-y-6">
@@ -133,40 +158,90 @@ export function SubnetCalculator() {
         </Card>
       )}
 
-      {/* Visualization Sections - Only render if result exists */}
-      {result && !error && (
-        <>
-          {/* Network Diagram */}
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("networkDiagram")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <NetworkDiagram result={result} />
-            </CardContent>
-          </Card>
+      {/* Mode Tabs - Advanced Features */}
+      <Card>
+        <CardContent className="pt-6">
+          <Tabs value={mode} onValueChange={(v) => setMode(v as CalculatorMode)}>
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="basic">{tAdvanced("mode-basic")}</TabsTrigger>
+              <TabsTrigger value="subnetting">{tAdvanced("mode-subnetting")}</TabsTrigger>
+              <TabsTrigger value="supernetting">{tAdvanced("mode-supernetting")}</TabsTrigger>
+            </TabsList>
 
-          {/* Binary Representation */}
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("binaryRepresentation")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <BinaryRepresentation result={result} />
-            </CardContent>
-          </Card>
+            {/* Basic Mode: Show visualizations */}
+            <TabsContent value="basic" className="space-y-6 mt-6">
+              {result && !error && (
+                <>
+                  {/* Network Diagram */}
+                  <div>
+                    <h3 className="font-semibold text-lg mb-4">{t("networkDiagram")}</h3>
+                    <NetworkDiagram result={result} />
+                  </div>
 
-          {/* Breakdown Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("subnetBreakdown")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <BreakdownTable result={result} />
-            </CardContent>
-          </Card>
-        </>
-      )}
+                  {/* Binary Representation */}
+                  <div>
+                    <h3 className="font-semibold text-lg mb-4">{t("binaryRepresentation")}</h3>
+                    <BinaryRepresentation result={result} />
+                  </div>
+
+                  {/* Breakdown Table */}
+                  <div>
+                    <h3 className="font-semibold text-lg mb-4">{t("subnetBreakdown")}</h3>
+                    <BreakdownTable result={result} />
+                  </div>
+                </>
+              )}
+            </TabsContent>
+
+            {/* Subnetting Mode */}
+            <TabsContent value="subnetting" className="space-y-6 mt-6">
+              {result && !error ? (
+                <>
+                  <SplitControls
+                    currentCidr={result.cidr}
+                    ipVersion={result.ipVersion}
+                    divisionCount={divisionCount}
+                    onDivisionCountChange={setDivisionCount}
+                    onSplit={performDivision}
+                    disabled={!result}
+                  />
+                  {subnetDivision && (
+                    <>
+                      <SubnetTree division={subnetDivision} />
+                      <ComparisonPanel
+                        mode="subnetting"
+                        before={subnetDivision.parent}
+                        after={subnetDivision.children}
+                      />
+                    </>
+                  )}
+                </>
+              ) : (
+                <div className="rounded-md bg-muted px-4 py-3">
+                  <p className="text-sm text-muted-foreground">{tAdvanced("calculate-first")}</p>
+                </div>
+              )}
+            </TabsContent>
+
+            {/* Supernetting Mode */}
+            <TabsContent value="supernetting" className="space-y-6 mt-6">
+              <SupernetInput
+                value={networksInput}
+                onChange={setNetworksInput}
+                onAggregate={performAggregation}
+                error={error}
+              />
+              {supernetResult?.success && supernetResult.supernet && (
+                <ComparisonPanel
+                  mode="supernetting"
+                  before={supernetResult.originalNetworks}
+                  after={supernetResult.supernet}
+                />
+              )}
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
 
       {/* Reset Button */}
       {(result || error) && (
