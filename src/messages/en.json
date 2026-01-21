@@ -189,6 +189,16 @@
       "description": "Calculate IPv4 and IPv6 subnet details with CIDR notation",
       "metaDescription": "Free online subnet calculator for IPv4 and IPv6 networks. Calculate network address, broadcast, usable IP range, and host count from CIDR notation or subnet mask."
     },
+    "cidr-range": {
+      "name": "CIDR Range",
+      "description": "Calculate IP ranges from CIDR notation and check if an IP is within range",
+      "metaDescription": "Free CIDR range calculator. See first and last IP addresses in a CIDR block and check if specific IPs fall within the range. Supports IPv4 and IPv6."
+    },
+    "ip-calculator": {
+      "name": "IP Address",
+      "description": "Classify IP addresses by class (A-E) and identify public/private status",
+      "metaDescription": "Free IP address classifier. Detect IP class (A, B, C, D, E), identify public vs private addresses, and validate IPv4/IPv6 format."
+    },
     "speed": {
       "name": "Speed Converter",
       "description": "Convert between m/s, km/h, mph, knots, and more",
@@ -2396,7 +2406,37 @@
       "enterIpOrCidr": "Enter IP address with CIDR (e.g., 192.168.1.0/24) or use subnet mask field",
       "networkDiagram": "Network Diagram",
       "binaryRepresentation": "Binary Representation",
-      "subnetBreakdown": "Subnet Breakdown"
+      "subnetBreakdown": "Subnet Breakdown",
+      "ipClassLabel": "IP Class",
+      "rangeType": "Range Type",
+      "rangeDescription": "Description",
+      "status": "Status",
+      "public": "Public",
+      "private": "Private",
+      "special": "Special",
+      "classA": "Class A",
+      "classB": "Class B",
+      "classC": "Class C",
+      "classD": "Class D (Multicast)",
+      "classE": "Class E (Reserved)",
+      "noClass": "N/A (IPv6)",
+      "enterIpAddress": "Enter an IP address to classify",
+      "publicDescription": "Routable on the internet",
+      "privateDescription": "Reserved for private networks",
+      "specialDescription": "Reserved for special purposes",
+      "cidrInput": "CIDR Notation",
+      "ipToCheck": "IP to Check (optional)",
+      "enterCidr": "Enter CIDR notation (e.g., 192.168.1.0/24 or 2001:db8::/32)",
+      "enterIpToCheck": "Enter an IP address to check if it's in range",
+      "rangeResults": "IP Range",
+      "firstIp": "First IP",
+      "lastIp": "Last IP",
+      "usableRange": "Usable Range",
+      "ipInRange": "{ip} is IN range {cidr}",
+      "ipNotInRange": "{ip} is NOT in range {cidr}",
+      "checkResult": "Check Result",
+      "inRange": "In Range",
+      "notInRange": "Not In Range"
     },
     "subnet": {
       "diagram": {

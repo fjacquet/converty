@@ -189,6 +189,16 @@
       "description": "Berechnen Sie IPv4- und IPv6-Subnetzdetails mit CIDR-Notation",
       "metaDescription": "Kostenloser Online-Subnetzrechner für IPv4- und IPv6-Netzwerke. Berechnen Sie Netzwerkadresse, Broadcast, verwendbaren IP-Bereich und Host-Anzahl aus CIDR-Notation oder Subnetzmaske."
     },
+    "cidr-range": {
+      "name": "CIDR-Bereich",
+      "description": "Berechnen Sie IP-Bereiche aus CIDR-Notation und überprüfen Sie, ob eine IP im Bereich liegt",
+      "metaDescription": "Kostenloser CIDR-Bereichsrechner. Sehen Sie erste und letzte IP-Adressen in einem CIDR-Block und prüfen Sie, ob bestimmte IPs im Bereich liegen. Unterstützt IPv4 und IPv6."
+    },
+    "ip-calculator": {
+      "name": "IP-Adresse",
+      "description": "Klassifizieren Sie IP-Adressen nach Klasse (A-E) und identifizieren Sie öffentlichen/privaten Status",
+      "metaDescription": "Kostenloser IP-Adressen-Klassifizierer. Erkennen Sie IP-Klasse (A, B, C, D, E), identifizieren Sie öffentliche vs. private Adressen und validieren Sie IPv4/IPv6-Format."
+    },
     "speed": {
       "name": "Geschwindigkeits-Konverter",
       "description": "Konvertieren Sie zwischen m/s, km/h, mph, Knoten und mehr",
@@ -2396,7 +2406,37 @@
       "enterIpOrCidr": "Geben Sie eine IP-Adresse mit CIDR ein (z.B. 192.168.1.0/24) oder verwenden Sie das Subnetzmaskenfeld",
       "networkDiagram": "Netzwerkdiagramm",
       "binaryRepresentation": "Binärdarstellung",
-      "subnetBreakdown": "Subnetz-Aufschlüsselung"
+      "subnetBreakdown": "Subnetz-Aufschlüsselung",
+      "ipClassLabel": "IP-Klasse",
+      "rangeType": "Bereichstyp",
+      "rangeDescription": "Beschreibung",
+      "status": "Status",
+      "public": "Öffentlich",
+      "private": "Privat",
+      "special": "Spezial",
+      "classA": "Klasse A",
+      "classB": "Klasse B",
+      "classC": "Klasse C",
+      "classD": "Klasse D (Multicast)",
+      "classE": "Klasse E (Reserviert)",
+      "noClass": "N/A (IPv6)",
+      "enterIpAddress": "Geben Sie eine IP-Adresse zur Klassifizierung ein",
+      "publicDescription": "Im Internet routbar",
+      "privateDescription": "Reserviert für private Netzwerke",
+      "specialDescription": "Reserviert für spezielle Zwecke",
+      "cidrInput": "CIDR-Notation",
+      "ipToCheck": "Zu prüfende IP (optional)",
+      "enterCidr": "Geben Sie CIDR-Notation ein (z.B. 192.168.1.0/24 oder 2001:db8::/32)",
+      "enterIpToCheck": "Geben Sie eine IP-Adresse ein, um zu prüfen, ob sie im Bereich liegt",
+      "rangeResults": "IP-Bereich",
+      "firstIp": "Erste IP",
+      "lastIp": "Letzte IP",
+      "usableRange": "Verwendbarer Bereich",
+      "ipInRange": "{ip} ist IM Bereich {cidr}",
+      "ipNotInRange": "{ip} ist NICHT im Bereich {cidr}",
+      "checkResult": "Prüfergebnis",
+      "inRange": "Im Bereich",
+      "notInRange": "Nicht im Bereich"
     },
     "subnet": {
       "diagram": {

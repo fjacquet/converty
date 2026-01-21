@@ -189,6 +189,16 @@
       "description": "Calculez les détails des sous-réseaux IPv4 et IPv6 avec notation CIDR",
       "metaDescription": "sous-réseau en ligne gratuite pour les réseaux IPv4 et IPv6. Calculez l'adresse réseau, la diffusion, la plage IP utilisable et le nombre d'hôtes à partir de la notation CIDR ou du masque de sous-réseau."
     },
+    "cidr-range": {
+      "name": "Plage CIDR",
+      "description": "Calculez les plages IP à partir de la notation CIDR et vérifiez si une IP est dans la plage",
+      "metaDescription": "Calculatrice de plage CIDR gratuite. Voyez les premières et dernières adresses IP dans un bloc CIDR et vérifiez si des IP spécifiques se trouvent dans la plage. Prend en charge IPv4 et IPv6."
+    },
+    "ip-calculator": {
+      "name": "Adresse IP",
+      "description": "Classez les adresses IP par classe (A-E) et identifiez le statut public/privé",
+      "metaDescription": "Classificateur d'adresses IP gratuit. Détectez la classe IP (A, B, C, D, E), identifiez les adresses publiques vs privées et validez le format IPv4/IPv6."
+    },
     "speed": {
       "name": "Convertisseur de Vitesse",
       "description": "Convertissez entre m/s, km/h, mph, noeuds et plus",
@@ -2396,7 +2406,37 @@
       "enterIpOrCidr": "Entrez une adresse IP avec CIDR (ex: 192.168.1.0/24) ou utilisez le champ masque de sous-réseau",
       "networkDiagram": "Diagramme du Réseau",
       "binaryRepresentation": "Représentation Binaire",
-      "subnetBreakdown": "Détails du Sous-réseau"
+      "subnetBreakdown": "Détails du Sous-réseau",
+      "ipClassLabel": "Classe IP",
+      "rangeType": "Type de Plage",
+      "rangeDescription": "Description",
+      "status": "Statut",
+      "public": "Public",
+      "private": "Privé",
+      "special": "Spécial",
+      "classA": "Classe A",
+      "classB": "Classe B",
+      "classC": "Classe C",
+      "classD": "Classe D (Multicast)",
+      "classE": "Classe E (Réservé)",
+      "noClass": "N/A (IPv6)",
+      "enterIpAddress": "Entrez une adresse IP à classifier",
+      "publicDescription": "Routable sur Internet",
+      "privateDescription": "Réservé pour les réseaux privés",
+      "specialDescription": "Réservé à des fins spéciales",
+      "cidrInput": "Notation CIDR",
+      "ipToCheck": "IP à vérifier (optionnel)",
+      "enterCidr": "Entrez la notation CIDR (par ex., 192.168.1.0/24 ou 2001:db8::/32)",
+      "enterIpToCheck": "Entrez une adresse IP pour vérifier si elle est dans la plage",
+      "rangeResults": "Plage IP",
+      "firstIp": "Première IP",
+      "lastIp": "Dernière IP",
+      "usableRange": "Plage utilisable",
+      "ipInRange": "{ip} est DANS la plage {cidr}",
+      "ipNotInRange": "{ip} n'est PAS dans la plage {cidr}",
+      "checkResult": "Résultat de la vérification",
+      "inRange": "Dans la plage",
+      "notInRange": "Hors de la plage"
     },
     "subnet": {
       "diagram": {
