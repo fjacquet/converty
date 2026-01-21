@@ -108,6 +108,8 @@ export type DivisionCount = 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256;
 
 // Re-export CIDR range types for convenience
 export type { CIDRRangeResult, IPInRangeResult } from "./cidr-range";
+// Re-export IP classification types
+export type { IPClassification } from "./ip-classifier";
 // Re-export subnetting types for convenience
 export type { SubnetDivision } from "./subnetting";
 export type { SupernetResult } from "./supernetting";
