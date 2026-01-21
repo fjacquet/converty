@@ -16,8 +16,8 @@ Requirements for v2.0 release. Each maps to roadmap phases.
 - [ ] **NET-05**: Visual Subnet Calculator displays breakdown table (network address, broadcast address, usable range, total hosts)
 - [ ] **NET-06**: Visual Subnet Calculator accepts CIDR notation input (e.g., 192.168.1.0/24, 2001:db8::/32)
 - [ ] **NET-07**: Visual Subnet Calculator accepts subnet mask input (e.g., 255.255.255.0)
-- [ ] **NET-08**: Visual Subnet Calculator can divide network into smaller subnets (subnetting)
-- [ ] **NET-09**: Visual Subnet Calculator can combine multiple networks into larger CIDR block (supernetting)
+- [x] **NET-08**: Visual Subnet Calculator can divide network into smaller subnets (subnetting)
+- [x] **NET-09**: Visual Subnet Calculator can combine multiple networks into larger CIDR block (supernetting)
 - [ ] **NET-10**: IP Address Calculator detects IP class (A, B, C, D, E)
 - [ ] **NET-11**: IP Address Calculator identifies public vs private IP addresses
 - [ ] **NET-12**: IP Address Calculator validates IP address format and range
@@ -91,8 +91,8 @@ Which phases cover which requirements. Updated by create-roadmap.
 | NET-05 | Phase 10 | Complete |
 | NET-06 | Phase 9 | Complete |
 | NET-07 | Phase 9 | Complete |
-| NET-08 | Phase 11 | Pending |
-| NET-09 | Phase 11 | Pending |
+| NET-08 | Phase 11 | Complete |
+| NET-09 | Phase 11 | Complete |
 | NET-10 | Phase 12 | Pending |
 | NET-11 | Phase 12 | Pending |
 | NET-12 | Phase 12 | Pending |
