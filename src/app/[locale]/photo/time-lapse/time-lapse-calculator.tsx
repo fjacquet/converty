@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   type CalculateMode,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/converters/photo/time-lapse";
 
 export function TimeLapseCalculator() {
+  const t = useTranslations("calculator.photo.astro");
   const [calculateMode, setCalculateMode] = useState<CalculateMode>("clip_length");
   const [eventDurationMinutes, setEventDurationMinutes] = useState(60);
   const [intervalSeconds, setIntervalSeconds] = useState(5);
@@ -30,22 +32,22 @@ export function TimeLapseCalculator() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <label className="text-sm font-medium">Calculate</label>
+        <label className="text-sm font-medium">{t("calculate")}</label>
         <select
           value={calculateMode}
           onChange={(e) => setCalculateMode(e.target.value as CalculateMode)}
           className="w-full h-10 px-3 rounded-md border bg-background"
         >
-          <option value="clip_length">Clip Length (from interval & duration)</option>
-          <option value="interval">Interval (from clip length & duration)</option>
-          <option value="event_duration">Event Duration (from interval & clip)</option>
+          <option value="clip_length">{t("clip-length-mode")}</option>
+          <option value="interval">{t("interval-mode")}</option>
+          <option value="event_duration">{t("event-duration-mode")}</option>
         </select>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {calculateMode !== "event_duration" && (
           <div className="space-y-2">
-            <label className="text-sm font-medium">Event Duration (minutes)</label>
+            <label className="text-sm font-medium">{t("event-duration")}</label>
             <input
               type="number"
               value={eventDurationMinutes}
@@ -69,7 +71,7 @@ export function TimeLapseCalculator() {
 
         {calculateMode !== "interval" && (
           <div className="space-y-2">
-            <label className="text-sm font-medium">Interval (seconds)</label>
+            <label className="text-sm font-medium">{t("interval")}</label>
             <input
               type="number"
               value={intervalSeconds}
@@ -94,7 +96,7 @@ export function TimeLapseCalculator() {
 
         {calculateMode !== "clip_length" && (
           <div className="space-y-2">
-            <label className="text-sm font-medium">Clip Length (seconds)</label>
+            <label className="text-sm font-medium">{t("clip-length")}</label>
             <input
               type="number"
               value={clipLengthSeconds}
