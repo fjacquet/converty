@@ -7,6 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-01-22
+
+### Added
+
+- Network calculator suite with comprehensive visualization
+  - Visual Subnet Calculator with IPv4/IPv6 support
+    - Network diagram showing IP ranges and subnet structure
+    - Binary representation with color-coded bits (blue=network, green=host)
+    - Breakdown table (network address, broadcast, usable range, total hosts)
+    - CIDR notation input (/24, /64) and subnet mask input (255.255.255.0)
+    - Subnetting: divide network into smaller subnets
+    - Supernetting: combine multiple networks into larger CIDR blocks
+    - BigInt support for IPv6 host calculations
+    - RFC 3021 compliance for /31 point-to-point subnets
+  - IP Address Calculator (`src/app/[locale]/network/ip-address/`)
+    - IP class detection (A, B, C, D, E)
+    - Public/private IP classification
+    - IP format and range validation
+  - CIDR Range Calculator (`src/app/[locale]/network/cidr-range/`)
+    - Calculate IP ranges from CIDR notation
+    - Check if specific IP is within CIDR range
+    - Visual indicators with color-coded cards
+  - Network Speed/Latency Calculator
+    - Latency converter with nanosecond precision
+    - Throughput calculator (data size/time to bandwidth)
+    - Smart value formatting based on magnitude
+- Global search functionality accessible from all pages
+  - Cmd+K (Mac) / Ctrl+K (Windows) keyboard shortcut
+  - Fuzzy search with Fuse.js (~5KB gzipped)
+  - Pre-built search indexes per locale (build-time JSON generation)
+  - Real-time results with useDeferredValue
+  - cmdk for Command palette UI
+  - Weighted fuzzy matching (name 0.4, keywords 0.3, description 0.2, category 0.1)
+  - GlobalSearch component (`src/components/search/global-search.tsx`)
+- Network category in calculator registry (`src/lib/registry/network-converters.ts`)
+  - Subnet/IP subcategories for organization
+  - ipaddr.js dependency for IP address manipulation (55M+ weekly downloads)
+- Dialog component (`src/components/ui/dialog.tsx`) using @radix-ui/react-dialog
+- 300+ translation keys across all 4 locales (en, fr, de, it)
+  - Photo calculator namespaces (dof, optics, nd-filter, macro, timelapse, astro)
+  - Video calculator namespace
+  - Network calculator namespace
+  - Search UI translations
+
 ### Changed
 
 - Simplified calculator names by removing "Calculator" suffix/prefix across all locales
@@ -15,6 +59,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - German: Removed "-Rechner", "rechner", " Rechner" suffixes (112 instances)
   - Italian: Removed "Calcolatore di/Calcolatore " and "Calcolatrice di " prefixes (135 instances)
   - Improves readability and reduces visual fatigue when browsing calculator list
+- Search button added to header (sm+ screens)
+- Build script now includes prebuild step for search index generation
+
+### Fixed
+
+- All 156 registered calculators now fully internationalized
+  - Zero hardcoded English strings in calculator components
+  - All calculators verified working in EN, FR, DE, IT locales
+  - Photo calculators: advanced-dof, dof-table, hyperfocal, circle-of-confusion, diffraction, focal-equivalent, macro-dof, macro-diffraction, nd-filter, spot-stars, star-trails, time-lapse
+  - Video calculators: common-bitrates, frame-rate (fixed namespace from calculator.photo.video to calculator.video)
+  - Missing translation keys in fr.json and de.json for calculator.video namespace
 
 ## [1.0.0] - 2026-01-18
 
