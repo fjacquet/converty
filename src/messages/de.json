@@ -2430,7 +2430,13 @@
       "morningStart": "Morgenstart",
       "eveningEnd": "Abendende",
       "getAccurateSunTimes": "Genaue Sonnenzeiten abrufen",
-      "getAccurateSunTimesDescription": "Verwenden Sie Ihren Standort, um genaue Sonneneinstrah lungs- und Dammerungszeiten fur Ihre Region zu berechnen."
+      "getAccurateSunTimesDescription": "Verwenden Sie Ihren Standort, um genaue Sonneneinstrah lungs- und Dammerungszeiten fur Ihre Region zu berechnen.",
+      "dof": {
+        "cameraSettings": "Kameraeinstellungen",
+        "viewingConditions": "Betrachtungsbedingungen (fur CoC-Anpassung)",
+        "sensor": "Sensor",
+        "apertureF": "Blende (f/)"
+      }
     },
     "inflation": {
       "currentAmount": "Aktueller Betrag",

@@ -2430,7 +2430,13 @@
       "morningStart": "Debut du matin",
       "eveningEnd": "Fin de la soiree",
       "getAccurateSunTimes": "Obtenir des heures de soleil precises",
-      "getAccurateSunTimesDescription": "Utilisez votre emplacement pour calculer les heures dorees et crepusculaires precises de votre region."
+      "getAccurateSunTimesDescription": "Utilisez votre emplacement pour calculer les heures dorees et crepusculaires precises de votre region.",
+      "dof": {
+        "cameraSettings": "Parametres de l'appareil photo",
+        "viewingConditions": "Conditions de visualisation (pour l'ajustement du CoC)",
+        "sensor": "Capteur",
+        "apertureF": "Ouverture (f/)"
+      }
     },
     "inflation": {
       "currentAmount": "Montant Actuel",
