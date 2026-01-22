@@ -60,58 +60,60 @@ const STANDARD_DEDUCTIONS: Record<FilingStatus, number> = {
 };
 
 // Simplified state tax rates (flat rate approximations)
-const STATE_TAX_RATES: Record<string, { name: string; rate: number }> = {
-  AL: { name: "Alabama", rate: 0.05 },
-  AK: { name: "Alaska", rate: 0 },
-  AZ: { name: "Arizona", rate: 0.025 },
-  AR: { name: "Arkansas", rate: 0.044 },
-  CA: { name: "California", rate: 0.093 },
-  CO: { name: "Colorado", rate: 0.044 },
-  CT: { name: "Connecticut", rate: 0.05 },
-  DE: { name: "Delaware", rate: 0.055 },
-  FL: { name: "Florida", rate: 0 },
-  GA: { name: "Georgia", rate: 0.055 },
-  HI: { name: "Hawaii", rate: 0.085 },
-  ID: { name: "Idaho", rate: 0.058 },
-  IL: { name: "Illinois", rate: 0.0495 },
-  IN: { name: "Indiana", rate: 0.0315 },
-  IA: { name: "Iowa", rate: 0.057 },
-  KS: { name: "Kansas", rate: 0.057 },
-  KY: { name: "Kentucky", rate: 0.045 },
-  LA: { name: "Louisiana", rate: 0.0425 },
-  ME: { name: "Maine", rate: 0.0715 },
-  MD: { name: "Maryland", rate: 0.0575 },
-  MA: { name: "Massachusetts", rate: 0.05 },
-  MI: { name: "Michigan", rate: 0.0425 },
-  MN: { name: "Minnesota", rate: 0.0785 },
-  MS: { name: "Mississippi", rate: 0.05 },
-  MO: { name: "Missouri", rate: 0.0495 },
-  MT: { name: "Montana", rate: 0.059 },
-  NE: { name: "Nebraska", rate: 0.0584 },
-  NV: { name: "Nevada", rate: 0 },
-  NH: { name: "New Hampshire", rate: 0.05 }, // Dividends/interest only
-  NJ: { name: "New Jersey", rate: 0.0637 },
-  NM: { name: "New Mexico", rate: 0.059 },
-  NY: { name: "New York", rate: 0.0685 },
-  NC: { name: "North Carolina", rate: 0.0525 },
-  ND: { name: "North Dakota", rate: 0.029 },
-  OH: { name: "Ohio", rate: 0.04 },
-  OK: { name: "Oklahoma", rate: 0.0475 },
-  OR: { name: "Oregon", rate: 0.099 },
-  PA: { name: "Pennsylvania", rate: 0.0307 },
-  RI: { name: "Rhode Island", rate: 0.0599 },
-  SC: { name: "South Carolina", rate: 0.064 },
-  SD: { name: "South Dakota", rate: 0 },
-  TN: { name: "Tennessee", rate: 0 },
-  TX: { name: "Texas", rate: 0 },
-  UT: { name: "Utah", rate: 0.0485 },
-  VT: { name: "Vermont", rate: 0.0875 },
-  VA: { name: "Virginia", rate: 0.0575 },
-  WA: { name: "Washington", rate: 0 },
-  WV: { name: "West Virginia", rate: 0.065 },
-  WI: { name: "Wisconsin", rate: 0.0765 },
-  WY: { name: "Wyoming", rate: 0 },
-  DC: { name: "District of Columbia", rate: 0.085 },
+// State names are translated in UI components using i18n
+// See finance.states.* keys in translation files
+const STATE_TAX_RATES: Record<string, { rate: number }> = {
+  AL: { rate: 0.05 },
+  AK: { rate: 0 },
+  AZ: { rate: 0.025 },
+  AR: { rate: 0.044 },
+  CA: { rate: 0.093 },
+  CO: { rate: 0.044 },
+  CT: { rate: 0.05 },
+  DE: { rate: 0.055 },
+  FL: { rate: 0 },
+  GA: { rate: 0.055 },
+  HI: { rate: 0.085 },
+  ID: { rate: 0.058 },
+  IL: { rate: 0.0495 },
+  IN: { rate: 0.0315 },
+  IA: { rate: 0.057 },
+  KS: { rate: 0.057 },
+  KY: { rate: 0.045 },
+  LA: { rate: 0.0425 },
+  ME: { rate: 0.0715 },
+  MD: { rate: 0.0575 },
+  MA: { rate: 0.05 },
+  MI: { rate: 0.0425 },
+  MN: { rate: 0.0785 },
+  MS: { rate: 0.05 },
+  MO: { rate: 0.0495 },
+  MT: { rate: 0.059 },
+  NE: { rate: 0.0584 },
+  NV: { rate: 0 },
+  NH: { rate: 0.05 }, // Dividends/interest only
+  NJ: { rate: 0.0637 },
+  NM: { rate: 0.059 },
+  NY: { rate: 0.0685 },
+  NC: { rate: 0.0525 },
+  ND: { rate: 0.029 },
+  OH: { rate: 0.04 },
+  OK: { rate: 0.0475 },
+  OR: { rate: 0.099 },
+  PA: { rate: 0.0307 },
+  RI: { rate: 0.0599 },
+  SC: { rate: 0.064 },
+  SD: { rate: 0 },
+  TN: { rate: 0 },
+  TX: { rate: 0 },
+  UT: { rate: 0.0485 },
+  VT: { rate: 0.0875 },
+  VA: { rate: 0.0575 },
+  WA: { rate: 0 },
+  WV: { rate: 0.065 },
+  WI: { rate: 0.0765 },
+  WY: { rate: 0 },
+  DC: { rate: 0.085 },
 };
 
 export interface SalaryResult {
@@ -211,7 +213,7 @@ export function calculateSalary(input: SalaryInput): SalaryResult | null {
   const federalTax = calculateFederalTax(taxableIncome, filingStatus);
 
   // Calculate state tax
-  const stateInfo = STATE_TAX_RATES[stateCode] || { name: "Unknown", rate: 0 };
+  const stateInfo = STATE_TAX_RATES[stateCode] || { rate: 0 };
   const stateTax = taxableIncome * stateInfo.rate;
 
   // Calculate FICA taxes (Social Security and Medicare)
@@ -304,6 +306,4 @@ export const PAY_FREQUENCIES: { value: PayFrequency; label: string }[] = [
   { value: "hourly", label: "pay_hourly" },
 ];
 
-export const US_STATES = Object.entries(STATE_TAX_RATES)
-  .map(([code, info]) => ({ value: code, label: info.name }))
-  .sort((a, b) => a.label.localeCompare(b.label));
+export const US_STATES = Object.keys(STATE_TAX_RATES).sort();

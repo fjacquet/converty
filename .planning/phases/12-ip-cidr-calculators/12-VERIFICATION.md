@@ -75,31 +75,38 @@ All implementations are substantive and complete.
 ### Build & Type Verification
 
 **TypeScript Compilation:**
+
 ```bash
 npx tsc --noEmit
 ```
+
 ✓ No errors
 
 **Static Build:**
+
 ```bash
 npm run build
 ```
+
 ✓ Build successful
 ✓ Pages generated:
-  - /en/network/ip-calculator
-  - /fr/network/ip-calculator
-  - /de/network/ip-calculator
-  - /it/network/ip-calculator
-  - /en/network/cidr-range
-  - /fr/network/cidr-range
-  - /de/network/cidr-range
-  - /it/network/cidr-range
+
+- /en/network/ip-calculator
+- /fr/network/ip-calculator
+- /de/network/ip-calculator
+- /it/network/ip-calculator
+- /en/network/cidr-range
+- /fr/network/cidr-range
+- /de/network/cidr-range
+- /it/network/cidr-range
 
 **Registry:**
+
 - ✓ ip-calculator registered in network-converters.ts (subcategory: "ip")
 - ✓ cidr-range registered in network-converters.ts (subcategory: "ip")
 
 **Translations:**
+
 - ✓ Converter entries in all 4 locales: en.json, fr.json, de.json, it.json
 - ✓ Calculator.network labels present in all locales:
   - IP Calculator: ipClassLabel, rangeType, status, public, private, special, classA-E, noClass
@@ -108,6 +115,7 @@ npm run build
 ### Implementation Quality
 
 **Design Patterns:**
+
 - ✓ Pure calculation functions (no React dependencies in lib/)
 - ✓ Zustand stores with URL sync middleware
 - ✓ Reusable converter components (InputField, OutputDisplay, ResultGrid)
@@ -116,11 +124,13 @@ npm run build
 - ✓ Type-safe interfaces exported with logic
 
 **Code Reuse:**
+
 - ✓ CIDR range calculator reuses calculateSubnet() from subnet-calculator.ts (DRY principle)
 - ✓ Both calculators use established ipaddr.js patterns from Phase 11
 - ✓ Consistent store architecture across network tools
 
 **User Experience:**
+
 - ✓ Auto-calculation reduces friction (no manual "Calculate" button needed)
 - ✓ Visual feedback with colored cards (green/blue/amber for public/private/special)
 - ✓ Clear error messages for invalid input
@@ -130,6 +140,7 @@ npm run build
 ### Phase Completeness
 
 **Deliverables:**
+
 - [x] IP Address Calculator (12-01-PLAN.md)
   - [x] IP classification logic
   - [x] Store with URL sync
@@ -147,11 +158,13 @@ npm run build
   - [x] Registry entry
 
 **Documentation:**
+
 - [x] Research document (12-RESEARCH.md)
 - [x] Plans (12-01-PLAN.md, 12-02-PLAN.md)
 - [x] Summaries (12-01-SUMMARY.md, 12-02-SUMMARY.md)
 
 **Integration:**
+
 - [x] Follows established patterns from Phase 11 (subnet calculator)
 - [x] Consistent with project architecture (Next.js SSG, i18n, Zustand)
 - [x] Ready for Phase 13 (network speed/latency calculator)
@@ -165,6 +178,7 @@ npm run build
 All 8 observable truths verified. All 6 required artifacts exist, are substantive (no stubs), and are properly wired. All 5 requirements (NET-10 through NET-14) satisfied.
 
 **Key Findings:**
+
 - IP Address Calculator correctly classifies IPv4 (classes A-E) and IPv6 (no classes)
 - Public/private detection uses ipaddr.js range() with comprehensive mapping
 - CIDR Range Calculator shows first/last IP with usable range and host counts

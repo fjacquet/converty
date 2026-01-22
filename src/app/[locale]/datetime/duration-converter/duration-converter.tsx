@@ -29,7 +29,21 @@ const useDurationStore = createCalculatorStore<DurationConverterInput, DurationC
 export function DurationConverter() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
+  const tDatetime = useTranslations("calculator.datetime");
   const { values, setValue, result } = useDurationStore();
+
+  const formatHumanReadable = (): string => {
+    if (!result?.timeComponents || result.timeComponents.length === 0) {
+      return `0 ${tDatetime("units.seconds")}`;
+    }
+
+    const parts = result.timeComponents.map((component) => {
+      const unitKey = component.count === 1 ? component.unitKey : `${component.unitKey}s`;
+      return `${component.count} ${tDatetime(`units.${unitKey}`)}`;
+    });
+
+    return parts.join(` ${tDatetime("and")} `);
+  };
 
   const formatValue = (val: number): string => {
     if (val === 0) return "0";
@@ -67,7 +81,7 @@ export function DurationConverter() {
           <CardContent className="space-y-6">
             <div className="text-center p-4 bg-primary/10 rounded-lg">
               <p className="text-sm text-muted-foreground mb-1">{t("humanReadable")}</p>
-              <p className="text-2xl font-bold text-primary">{result.humanReadable}</p>
+              <p className="text-2xl font-bold text-primary">{formatHumanReadable()}</p>
             </div>
 
             <ResultGrid

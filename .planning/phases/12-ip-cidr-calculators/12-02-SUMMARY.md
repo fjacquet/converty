@@ -86,12 +86,14 @@ Each task was committed atomically:
 ## Files Created/Modified
 
 ### Created
+
 - `src/lib/converters/network/cidr-range.ts` - Range calculation and IP-in-range checking functions
 - `src/stores/cidr-range-store.ts` - Zustand store with URL sync and auto-calculation logic
 - `src/app/[locale]/network/cidr-range/page.tsx` - Page component with metadata and layout
 - `src/app/[locale]/network/cidr-range/cidr-range-calculator.tsx` - Client component with visual indicators
 
 ### Modified
+
 - `src/lib/converters/network/types.ts` - Added CIDRRangeResult and IPInRangeResult exports
 - `src/lib/registry/network-converters.ts` - Registered cidr-range calculator
 - `src/messages/{en,fr,de,it}.json` - Added converter entry and calculator.network keys
@@ -133,5 +135,5 @@ None - no external service configuration required.
 - Pattern established for reusing calculation functions across network tools
 
 ---
-*Phase: 12-ip-cidr-calculators*
-*Completed: 2026-01-21*
+_Phase: 12-ip-cidr-calculators_
+_Completed: 2026-01-21_

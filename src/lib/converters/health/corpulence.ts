@@ -1,8 +1,18 @@
+// Category keys for translation lookup
+export type CorpulenceCategoryKey =
+  | "underweight"
+  | "normalLower"
+  | "normal"
+  | "normalUpper"
+  | "overweight"
+  | "obese";
+
+// Comparison keys for translation lookup
+export type ComparisonKey = "similar" | "ciHigher" | "ciLower";
+
 export interface CorpulenceResult {
   corpulenceIndex: number;
-  category: string;
-  description: string;
-  healthRisk: string;
+  categoryKey: CorpulenceCategoryKey;
 }
 
 // Corpulence Index (Ponderal Index) = weight (kg) / height (m)³
@@ -30,57 +40,27 @@ export function calculateCorpulence(
   // Corpulence Index = weight / height³
   const corpulenceIndex = weightKg / heightM ** 3;
 
-  const { category, description, healthRisk } = getCorpulenceCategory(corpulenceIndex);
+  const categoryKey = getCorpulenceCategory(corpulenceIndex);
 
   return {
     corpulenceIndex: Math.round(corpulenceIndex * 100) / 100,
-    category,
-    description,
-    healthRisk,
+    categoryKey,
   };
 }
 
-function getCorpulenceCategory(ci: number): {
-  category: string;
-  description: string;
-  healthRisk: string;
-} {
+function getCorpulenceCategory(ci: number): CorpulenceCategoryKey {
   if (ci < 11) {
-    return {
-      category: "Underweight",
-      description: "Below normal corpulence range",
-      healthRisk: "Increased risk of nutritional deficiencies",
-    };
+    return "underweight";
   } else if (ci < 13) {
-    return {
-      category: "Normal (Lower)",
-      description: "Lower end of normal corpulence range",
-      healthRisk: "Low health risk",
-    };
+    return "normalLower";
   } else if (ci < 14) {
-    return {
-      category: "Normal",
-      description: "Optimal corpulence range",
-      healthRisk: "Minimal health risk",
-    };
+    return "normal";
   } else if (ci < 15) {
-    return {
-      category: "Normal (Upper)",
-      description: "Upper end of normal corpulence range",
-      healthRisk: "Low health risk",
-    };
+    return "normalUpper";
   } else if (ci < 17) {
-    return {
-      category: "Overweight",
-      description: "Above normal corpulence range",
-      healthRisk: "Moderate health risk",
-    };
+    return "overweight";
   } else {
-    return {
-      category: "Obese",
-      description: "Significantly above normal range",
-      healthRisk: "Increased health risk",
-    };
+    return "obese";
   }
 }
 
@@ -89,7 +69,7 @@ export function compareToBMI(
   weight: number,
   height: number,
   unit: "metric" | "imperial" = "metric"
-): { bmi: number; ci: number; difference: string } | null {
+): { bmi: number; ci: number; comparisonKey: ComparisonKey } | null {
   if (weight <= 0 || height <= 0) return null;
 
   let weightKg: number;
@@ -106,18 +86,18 @@ export function compareToBMI(
   const bmi = weightKg / heightM ** 2;
   const ci = weightKg / heightM ** 3;
 
-  let difference: string;
+  let comparisonKey: ComparisonKey;
   if (Math.abs(bmi - ci) < 2) {
-    difference = "BMI and CI indicate similar body composition";
+    comparisonKey = "similar";
   } else if (ci > bmi) {
-    difference = "CI suggests relatively more mass for height than BMI indicates";
+    comparisonKey = "ciHigher";
   } else {
-    difference = "CI suggests relatively less mass for height than BMI indicates";
+    comparisonKey = "ciLower";
   }
 
   return {
     bmi: Math.round(bmi * 100) / 100,
     ci: Math.round(ci * 100) / 100,
-    difference,
+    comparisonKey,
   };
 }

@@ -139,6 +139,7 @@ None - no external service configuration required.
 **Outcome:** Approved
 
 **What was verified:**
+
 - User started development server and navigated to Age Calculator
 - Entered sample birthdate and clicked "Export to PDF" button
 - PDF downloaded successfully as "converty-age-calculator-results.pdf"

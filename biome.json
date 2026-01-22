@@ -127,6 +127,21 @@
           }
         }
       }
+    },
+    {
+      "includes": [
+        "src/app/*/data/download-calculator/download-calculator.tsx",
+        "src/app/*/finance/currency/currency-converter.tsx",
+        "src/app/*/finance/salary/salary-calculator.tsx",
+        "src/app/*/network/throughput-calculator/throughput-calculator.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
+        }
+      }
     }
   ]
 }

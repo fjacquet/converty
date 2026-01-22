@@ -42,6 +42,7 @@ interface TimezoneComboboxProps {
   groups: TimezoneGroup[];
   label: string;
   placeholder?: string;
+  tDatetime: (key: string) => string;
 }
 
 function TimezoneCombobox({
@@ -50,6 +51,7 @@ function TimezoneCombobox({
   groups,
   label,
   placeholder = "Search timezone...",
+  tDatetime,
 }: TimezoneComboboxProps) {
   const [open, setOpen] = useState(false);
 
@@ -83,7 +85,7 @@ function TimezoneCombobox({
             <CommandList>
               <CommandEmpty>No timezone found.</CommandEmpty>
               {groups.map((group) => (
-                <CommandGroup key={group.region} heading={group.region}>
+                <CommandGroup key={group.region} heading={tDatetime(`regions.${group.regionKey}`)}>
                   {group.timezones.map((tz) => (
                     <CommandItem
                       key={tz.value}
@@ -115,6 +117,7 @@ function TimezoneCombobox({
 export function TimeZoneCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
+  const tDatetime = useTranslations("calculator.datetime");
   const { values, setValue, result } = useTimeZoneStore();
 
   // Get timezone groups (memoized since it's computed)
@@ -140,6 +143,7 @@ export function TimeZoneCalculator() {
             onValueChange={(value) => setValue("fromTimezone", value)}
             groups={timezoneGroups}
             label={t("timezone")}
+            tDatetime={tDatetime}
           />
         </CardContent>
       </Card>
@@ -154,6 +158,7 @@ export function TimeZoneCalculator() {
             onValueChange={(value) => setValue("toTimezone", value)}
             groups={timezoneGroups}
             label={t("timezone")}
+            tDatetime={tDatetime}
           />
         </CardContent>
       </Card>

@@ -3,6 +3,7 @@
 import { Calculator, Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { GlobalSearch } from "@/components/search/global-search";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { categories } from "@/lib/registry/categories";
@@ -24,16 +25,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium flex-1">
-          {categories.slice(0, 6).map((category) => (
-            <Link
-              key={category.id}
-              href={`/${category.slug}`}
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              {tc(`${category.id}.name`)}
-            </Link>
-          ))}
+        <nav className="hidden sm:flex items-center space-x-6 text-sm font-medium">
           <Link
             href="/all"
             className="transition-colors hover:text-foreground/80 text-foreground/60"
@@ -41,6 +33,11 @@ export function Header() {
             {t("allTools")}
           </Link>
         </nav>
+
+        {/* Search */}
+        <div className="hidden sm:block mr-4">
+          <GlobalSearch />
+        </div>
 
         <div className="flex items-center space-x-2 ml-auto">
           <LanguageSwitcher />

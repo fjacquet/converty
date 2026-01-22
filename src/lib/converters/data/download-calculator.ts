@@ -1,29 +1,29 @@
 export interface FileSizeUnit {
   id: string;
-  name: string;
   bytes: number;
 }
 
+// Unit names are translated in UI components using i18n
+// See data.units.* keys in translation files
 export const FILE_SIZE_UNITS: FileSizeUnit[] = [
-  { id: "B", name: "Bytes", bytes: 1 },
-  { id: "KB", name: "KB", bytes: 1024 },
-  { id: "MB", name: "MB", bytes: 1024 * 1024 },
-  { id: "GB", name: "GB", bytes: 1024 * 1024 * 1024 },
-  { id: "TB", name: "TB", bytes: 1024 * 1024 * 1024 * 1024 },
+  { id: "B", bytes: 1 },
+  { id: "KB", bytes: 1024 },
+  { id: "MB", bytes: 1024 * 1024 },
+  { id: "GB", bytes: 1024 * 1024 * 1024 },
+  { id: "TB", bytes: 1024 * 1024 * 1024 * 1024 },
 ];
 
 export interface BandwidthSpeedUnit {
   id: string;
-  name: string;
   bitsPerSecond: number;
 }
 
 export const SPEED_UNITS: BandwidthSpeedUnit[] = [
-  { id: "kbps", name: "Kbps", bitsPerSecond: 1000 },
-  { id: "mbps", name: "Mbps", bitsPerSecond: 1000000 },
-  { id: "gbps", name: "Gbps", bitsPerSecond: 1000000000 },
-  { id: "KBps", name: "KB/s", bitsPerSecond: 8000 },
-  { id: "MBps", name: "MB/s", bitsPerSecond: 8000000 },
+  { id: "kbps", bitsPerSecond: 1000 },
+  { id: "mbps", bitsPerSecond: 1000000 },
+  { id: "gbps", bitsPerSecond: 1000000000 },
+  { id: "KBps", bitsPerSecond: 8000 },
+  { id: "MBps", bitsPerSecond: 8000000 },
 ];
 
 export interface DownloadTimeResult {
@@ -76,21 +76,25 @@ export function calculateDownloadTime(
 }
 
 // Common bandwidth presets
+// Network type names are translated in UI components using i18n
+// See data.networks.* keys in translation files
 export const BANDWIDTH_PRESETS = [
-  { name: "3G Mobile", speed: 3, unit: "mbps" },
-  { name: "4G LTE", speed: 25, unit: "mbps" },
-  { name: "5G", speed: 100, unit: "mbps" },
-  { name: "Basic Broadband", speed: 25, unit: "mbps" },
-  { name: "Fast Broadband", speed: 100, unit: "mbps" },
-  { name: "Gigabit Fiber", speed: 1, unit: "gbps" },
+  { key: "mobile_3g", speed: 3, unit: "mbps" },
+  { key: "mobile_4g", speed: 25, unit: "mbps" },
+  { key: "mobile_5g", speed: 100, unit: "mbps" },
+  { key: "broadband_basic", speed: 25, unit: "mbps" },
+  { key: "broadband_fast", speed: 100, unit: "mbps" },
+  { key: "fiber_gigabit", speed: 1, unit: "gbps" },
 ];
 
 // Common file size presets
+// File sample names are translated in UI components using i18n
+// See data.fileSamples.* keys in translation files
 export const FILE_SIZE_PRESETS = [
-  { name: "MP3 Song", size: 5, unit: "MB" },
-  { name: "HD Photo", size: 10, unit: "MB" },
-  { name: "HD Movie", size: 4, unit: "GB" },
-  { name: "4K Movie", size: 20, unit: "GB" },
-  { name: "Game", size: 50, unit: "GB" },
-  { name: "OS Image", size: 5, unit: "GB" },
+  { key: "song_mp3", size: 5, unit: "MB" },
+  { key: "photo_hd", size: 10, unit: "MB" },
+  { key: "movie_hd", size: 4, unit: "GB" },
+  { key: "movie_4k", size: 20, unit: "GB" },
+  { key: "game", size: 50, unit: "GB" },
+  { key: "os_image", size: 5, unit: "GB" },
 ];

@@ -21,6 +21,8 @@ const useDayOfWeekStore = createCalculatorStore<DayOfWeekInput, DayOfWeekResult>
 export function DayOfWeekCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
+  const tResults = useTranslations("calculator.results");
+  const tDatetime = useTranslations("calculator.datetime");
   const { values, setValue, result } = useDayOfWeekStore();
 
   return (
@@ -48,9 +50,11 @@ export function DayOfWeekCalculator() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
-                <p className="text-3xl font-bold text-primary">{result.dayOfWeek}</p>
+                <p className="text-3xl font-bold text-primary">
+                  {tDatetime(`days.${result.dayOfWeekKey}`)}
+                </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  {result.isWeekend ? "Weekend" : "Weekday"}
+                  {result.isWeekend ? tDatetime("weekend") : tDatetime("weekday")}
                 </p>
               </div>
             </CardContent>
@@ -63,12 +67,18 @@ export function DayOfWeekCalculator() {
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: "Day Number", value: `${result.dayNumber} (0=Sun, 6=Sat)` },
-                  { label: t("weeks"), value: result.weekNumber },
-                  { label: "Day of Year", value: result.dayOfYear },
-                  { label: `${t("days")} Left in Year`, value: result.daysLeftInYear },
-                  { label: "Quarter", value: `Q${result.quarter}` },
-                  { label: "Type", value: result.isWeekend ? "Weekend" : "Weekday" },
+                  {
+                    label: tResults("dayNumber"),
+                    value: `${result.dayNumber} (0=${tDatetime("days.sunday").slice(0, 3)}, 6=${tDatetime("days.saturday").slice(0, 3)})`,
+                  },
+                  { label: tResults("weekNumber"), value: result.weekNumber },
+                  { label: tResults("dayOfYear"), value: result.dayOfYear },
+                  { label: tResults("daysLeftInYear"), value: result.daysLeftInYear },
+                  { label: tResults("quarter"), value: `Q${result.quarter}` },
+                  {
+                    label: tResults("type"),
+                    value: result.isWeekend ? tDatetime("weekend") : tDatetime("weekday"),
+                  },
                 ]}
                 columns={3}
               />

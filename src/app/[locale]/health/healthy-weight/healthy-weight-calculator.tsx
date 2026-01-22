@@ -46,6 +46,7 @@ const useStore = createCalculatorStore<FormValues, HealthyWeightResult | null>({
 export function HealthyWeightCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tHealthyWeight = useTranslations("calculator.health.healthyWeight");
 
   const { values, setValue, result } = useStore();
 
@@ -174,8 +175,10 @@ export function HealthyWeightCalculator() {
               </thead>
               <tbody className="divide-y divide-border">
                 {result.weightCategories.map((cat) => (
-                  <tr key={cat.category}>
-                    <td className="px-3 py-2 text-sm">{cat.category}</td>
+                  <tr key={cat.categoryKey}>
+                    <td className="px-3 py-2 text-sm">
+                      {tHealthyWeight(`categories.${cat.categoryKey}`)}
+                    </td>
                     <td className="px-3 py-2 text-sm">{cat.bmiRange}</td>
                     <td className="px-3 py-2 text-sm">
                       {cat.minWeight.toFixed(1)} - {cat.maxWeight.toFixed(1)} kg

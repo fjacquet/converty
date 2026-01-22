@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { ScientificNotationCalculator } from "./scientific-notation-calculator";
+import { ScientificNotationCalculator } from "./scientific-notation";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

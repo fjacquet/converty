@@ -28,10 +28,10 @@ Requirements for v2.0 release. Each maps to roadmap phases.
 
 ### Search Functionality
 
-- [ ] **SRCH-01**: User can search calculators by name
-- [ ] **SRCH-02**: User can search calculators by description
-- [ ] **SRCH-03**: Search results update in real-time as user types
-- [ ] **SRCH-04**: Search is accessible from all pages (global search)
+- [x] **SRCH-01**: User can search calculators by name
+- [x] **SRCH-02**: User can search calculators by description
+- [x] **SRCH-03**: Search results update in real-time as user types
+- [x] **SRCH-04**: Search is accessible from all pages (global search)
 
 ### Translation Compliance
 
@@ -100,10 +100,10 @@ Which phases cover which requirements. Updated by create-roadmap.
 | NET-14 | Phase 12 | Complete |
 | NET-15 | Phase 13 | Complete |
 | NET-16 | Phase 13 | Complete |
-| SRCH-01 | Phase 14 | Pending |
-| SRCH-02 | Phase 14 | Pending |
-| SRCH-03 | Phase 14 | Pending |
-| SRCH-04 | Phase 14 | Pending |
+| SRCH-01 | Phase 14 | Complete |
+| SRCH-02 | Phase 14 | Complete |
+| SRCH-03 | Phase 14 | Complete |
+| SRCH-04 | Phase 14 | Complete |
 | I18N-01 | Phase 15 | Pending |
 | I18N-02 | Phase 15 | Pending |
 | I18N-03 | Phase 16 | Pending |
@@ -115,12 +115,13 @@ Which phases cover which requirements. Updated by create-roadmap.
 | I18N-09 | Phase 16 | Pending |
 
 **Coverage:**
+
 - v2.0 requirements: 29 total
 - Mapped to phases: 29
-- Complete: 14 (NET-01 through NET-14)
-- Pending: 15
+- Complete: 20 (NET-01 through NET-16, SRCH-01 through SRCH-04)
+- Pending: 9 (I18N-01 through I18N-09)
 - Unmapped: 0 ✓
 
 ---
-*Requirements defined: 2026-01-18*
-*Last updated: 2026-01-21 after Phase 12 completion*
+_Requirements defined: 2026-01-18_
+_Last updated: 2026-01-22 after Phase 14 completion_

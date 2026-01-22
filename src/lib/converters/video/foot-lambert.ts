@@ -3,8 +3,8 @@ export interface FootLambertResult {
   nits: number;
   candelasPerM2: number;
   lumens: number;
-  description: string;
-  useCase: string;
+  descriptionKey: string;
+  useCaseKey: string;
 }
 
 // 1 foot-lambert = 3.426 nits (cd/m²)
@@ -45,41 +45,45 @@ export function calculateFootLambert(
     lumens = 0;
   }
 
-  const { description, useCase } = getBrightnessCategory(footLamberts);
+  const { descriptionKey, useCaseKey } = getBrightnessCategory(footLamberts);
 
   return {
     footLamberts: Math.round(footLamberts * 100) / 100,
     nits: Math.round(nits * 100) / 100,
     candelasPerM2: Math.round(candelasPerM2 * 100) / 100,
     lumens: Math.round(lumens),
-    description,
-    useCase,
+    descriptionKey,
+    useCaseKey,
   };
 }
 
-function getBrightnessCategory(fl: number): { description: string; useCase: string } {
+// Brightness categories are translated in UI components using i18n
+// See video.brightnesses.* keys in translation files
+function getBrightnessCategory(fl: number): { descriptionKey: string; useCaseKey: string } {
   if (fl < 10) {
-    return { description: "Very dim", useCase: "Not suitable for most viewing" };
+    return { descriptionKey: "very_dim", useCaseKey: "use_very_dim" };
   } else if (fl < 14) {
-    return { description: "Dim", useCase: "3D cinema presentation" };
+    return { descriptionKey: "dim", useCaseKey: "use_dim" };
   } else if (fl < 16) {
-    return { description: "Standard 2D Cinema", useCase: "DCI standard for 2D (14 fL target)" };
+    return { descriptionKey: "standard_2d", useCaseKey: "use_standard_2d" };
   } else if (fl < 22) {
-    return { description: "Bright cinema", useCase: "Premium large format" };
+    return { descriptionKey: "bright", useCaseKey: "use_bright" };
   } else if (fl < 50) {
-    return { description: "Very bright", useCase: "HDR cinema, Dolby Cinema" };
+    return { descriptionKey: "very_bright", useCaseKey: "use_very_bright" };
   } else if (fl < 100) {
-    return { description: "Home theater", useCase: "High-end home projection" };
+    return { descriptionKey: "home_theater", useCaseKey: "use_home_theater" };
   } else {
-    return { description: "Display brightness", useCase: "Direct-view displays, monitors" };
+    return { descriptionKey: "display", useCaseKey: "use_display" };
   }
 }
 
+// Reference value names and descriptions are translated in UI components using i18n
+// See video.references.* keys in translation files
 export const REFERENCE_VALUES = [
-  { name: "DCI 2D Standard", fl: 14, description: "Industry standard" },
-  { name: "DCI 3D Standard", fl: 4.5, description: "With 3D glasses" },
-  { name: "Dolby Cinema", fl: 31, description: "Laser projection" },
-  { name: "IMAX", fl: 22, description: "Large format" },
-  { name: "Home Theater", fl: 16, description: "Recommended minimum" },
-  { name: "HDR Display", fl: 300, description: "Peak HDR" },
+  { key: "dci_2d", fl: 14, noteKey: "note_dci_2d" },
+  { key: "dci_3d", fl: 4.5, noteKey: "note_dci_3d" },
+  { key: "dolby", fl: 31, noteKey: "note_dolby" },
+  { key: "imax", fl: 22, noteKey: "note_imax" },
+  { key: "home_theater", fl: 16, noteKey: "note_home_theater" },
+  { key: "hdr_display", fl: 300, noteKey: "note_hdr_display" },
 ];

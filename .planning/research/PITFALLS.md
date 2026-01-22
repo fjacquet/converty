@@ -348,11 +348,13 @@ From [jsPDF v4.0.0 Release](https://github.com/parallax/jsPDF/releases):
 
 1. **Test PDF export thoroughly** after upgrade
 2. **Use compat API mode** if needed:
+
    ```typescript
    import { jsPDF } from "jspdf";
    const doc = new jsPDF();
    doc.compatAPI(); // Backward compatibility mode
    ```
+
 3. **Update API calls** to new methods
 4. **Check file size** - report if drastically different
 
@@ -501,10 +503,12 @@ Migrate all 74 at once by category, remove useConverter entirely.
 
 1. **Fix the root issue** instead of disabling
 2. **If disable needed**, add explanation:
+
    ```typescript
    // biome-ignore lint/suspicious/noExplicitAny: Legacy useConverter type
    function convert(input: any) { ... }
    ```
+
 3. **Track disables** and address in strict mode phase
 4. **Goal: Zero disable comments** after migration
 

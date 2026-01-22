@@ -83,16 +83,19 @@ Each task was committed atomically:
 ## Decisions Made
 
 **1. Use CalculatorMode union type for mode switching**
+
 - Clean type safety with "basic" | "subnetting" | "supernetting"
 - Enables conditional UI rendering based on mode
 - URL-syncable as string parameter
 
 **2. DivisionCount limited to powers of 2**
+
 - Union type enforces valid divisions: 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256
 - Matches algorithm requirements (divideSubnet validates power-of-2)
 - Provides type safety at compile time instead of runtime validation
 
 **3. Parse multiple network inputs with flexible delimiters**
+
 - Split by newlines, commas, or semicolons: `/[\n,;]+/`
 - User-friendly: paste CSV list, multi-line, or semicolon-separated
 - Trimmed and filtered for empty lines automatically
@@ -112,6 +115,7 @@ None - no external service configuration required.
 ## Next Phase Readiness
 
 **Ready for UI implementation:**
+
 - Store provides all state and actions needed for advanced features
 - Mode switching enables conditional UI rendering (tabs or toggle)
 - performDivision validates prerequisites (result must exist)
@@ -121,10 +125,11 @@ None - no external service configuration required.
 **No blockers** - Ready to build UI components that consume these actions.
 
 **Example state flows:**
+
 - Basic mode: ipInput → calculate → result
 - Subnetting mode: result + divisionCount → performDivision → subnetDivision
 - Supernetting mode: networksInput → performAggregation → supernetResult
 
 ---
-*Phase: 11-visual-subnet-advanced*
-*Completed: 2026-01-21*
+_Phase: 11-visual-subnet-advanced_
+_Completed: 2026-01-21_

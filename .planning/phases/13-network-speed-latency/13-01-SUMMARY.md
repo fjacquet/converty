@@ -2,7 +2,8 @@
 phase: 13-network-speed-latency
 plan: 01
 subsystem: network
-tags: [latency, ping, time-conversion, network-performance, zustand, url-sync, i18n]
+tags:
+  [latency, ping, time-conversion, network-performance, zustand, url-sync, i18n]
 
 # Dependency graph
 requires:
@@ -86,17 +87,21 @@ completed: 2026-01-21
 ## Files Created/Modified
 
 **Core Logic:**
+
 - `src/lib/converters/network/latency-converter.ts` - Pure conversion functions with smart formatting
 - `src/lib/converters/network/types.ts` - Re-export latency types
 
 **State Management:**
+
 - `src/stores/latency-converter-store.ts` - Zustand store with URL sync, auto-calculation
 
 **UI Components:**
+
 - `src/app/[locale]/network/latency-converter/page.tsx` - Page metadata and layout
 - `src/app/[locale]/network/latency-converter/latency-converter.tsx` - Client component with inputs, conversions, context
 
 **Registry & Translations:**
+
 - `src/lib/registry/network-converters.ts` - Added latency-converter to network tools
 - `src/messages/en.json` - English translations (converter + calculator.network labels)
 - `src/messages/fr.json` - French translations (secondes, millisecondes, microsecondes, nanosecondes)
@@ -106,21 +111,25 @@ completed: 2026-01-21
 ## Decisions Made
 
 **1. Nanoseconds as base unit**
+
 - Rationale: Maximum precision for all conversions, prevents floating-point errors
 - Alternative considered: Milliseconds (simpler but less precise for microsecond/nanosecond ranges)
 - Impact: Accurate conversions across full range from seconds to nanoseconds
 
 **2. Default unit to milliseconds**
+
 - Rationale: Most common unit for network ping measurements (ping command outputs ms)
 - User expectation: Network professionals expect ms as default
 - Impact: Better UX for primary use case
 
 **3. Educational context included**
+
 - Rationale: Helps users understand latency implications beyond raw numbers
 - Categories: Ultra-low/low/moderate/high based on practical network scenarios
 - Use cases: Same rack (< 1μs) to satellite (> 150ms) provides real-world context
 
 **4. Smart value formatting**
+
 - Rationale: Different magnitudes need different formats for readability
 - Rules: Scientific notation for extremes, locale formatting for large values, fixed decimals for medium
 - Impact: Values always readable regardless of magnitude
@@ -130,6 +139,7 @@ completed: 2026-01-21
 ### Concurrent Execution
 
 **1. Task 1 committed by parallel process**
+
 - **Found during:** Task 1 completion
 - **Situation:** Files created during Task 1 (latency-converter.ts, types.ts updates) were staged and committed by concurrent process executing plan 13-02
 - **Resolution:** Verified content matches plan specification, continued to Task 2
@@ -138,10 +148,11 @@ completed: 2026-01-21
 - **Committed in:** 5f8e588 (labeled as 13-02 but contains 13-01 Task 1 work)
 
 **2. Registry and translations committed concurrently**
+
 - **Found during:** Task 3 completion
 - **Situation:** network-converters.ts and all messages files were committed by concurrent process after I modified them
 - **Resolution:** Pre-commit hooks merged both changes (13-01 and 13-02 entries) into single commit
-- **Files affected:** src/lib/registry/network-converters.ts, src/messages/*.json
+- **Files affected:** src/lib/registry/network-converters.ts, src/messages/\*.json
 - **Verification:** Both latency-converter and throughput-calculator entries present in registry
 - **Committed in:** f2c89ba (13-02 commit includes both calculators' registry entries)
 
@@ -153,12 +164,14 @@ completed: 2026-01-21
 ## Issues Encountered
 
 **1. TypeScript error in page.tsx Category prop**
+
 - **Problem:** Initial page.tsx passed partial category object `{ name, slug }` instead of full Category type
 - **Root cause:** Misread ip-calculator pattern, missed getCategoryBySlug import
 - **Resolution:** Updated to use `getCategoryBySlug("network")` to get full category object
 - **Verification:** TypeScript compilation passes, build succeeds
 
 **2. Missing common.reset translation**
+
 - **Problem:** Used `t("reset")` from calculator.network instead of `tCommon("reset")`
 - **Root cause:** Inconsistent pattern compared to other calculators
 - **Resolution:** Added `tCommon` hook and used `tCommon("reset")` for button
@@ -171,16 +184,19 @@ None - no external service configuration required.
 ## Next Phase Readiness
 
 **Ready for:**
+
 - Plan 13-02 (Throughput Calculator) - already completed concurrently
 - Additional network performance tools (bandwidth, jitter, packet loss)
 - Network monitoring dashboards using latency data
 
 **Pattern established:**
+
 - Network performance calculators with educational context
 - Category + use case pattern reusable for other metrics
 
 **No blockers or concerns.**
 
 ---
-*Phase: 13-network-speed-latency*
-*Completed: 2026-01-21*
+
+_Phase: 13-network-speed-latency_
+_Completed: 2026-01-21_

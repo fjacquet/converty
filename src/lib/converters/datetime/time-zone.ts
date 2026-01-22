@@ -18,8 +18,22 @@ export interface TimezoneOption {
   region: string;
 }
 
+export type TimezoneRegionKey =
+  | "africa"
+  | "america"
+  | "antarctica"
+  | "arctic"
+  | "asia"
+  | "atlantic"
+  | "australia"
+  | "europe"
+  | "indian"
+  | "pacific"
+  | "other";
+
 export interface TimezoneGroup {
   region: string;
+  regionKey: TimezoneRegionKey;
   timezones: TimezoneOption[];
 }
 
@@ -109,19 +123,19 @@ export function getTimezonesByRegion(): TimezoneGroup[] {
   const options = getTimezoneOptions();
   const regionMap = new Map<string, TimezoneOption[]>();
 
-  // Define region order
-  const regionOrder = [
-    "Africa",
-    "America",
-    "Antarctica",
-    "Arctic",
-    "Asia",
-    "Atlantic",
-    "Australia",
-    "Europe",
-    "Indian",
-    "Pacific",
-    "Other",
+  // Define region order with keys
+  const regionOrder: Array<{ name: string; key: TimezoneRegionKey }> = [
+    { name: "Africa", key: "africa" },
+    { name: "America", key: "america" },
+    { name: "Antarctica", key: "antarctica" },
+    { name: "Arctic", key: "arctic" },
+    { name: "Asia", key: "asia" },
+    { name: "Atlantic", key: "atlantic" },
+    { name: "Australia", key: "australia" },
+    { name: "Europe", key: "europe" },
+    { name: "Indian", key: "indian" },
+    { name: "Pacific", key: "pacific" },
+    { name: "Other", key: "other" },
   ];
 
   // Group timezones by region
@@ -139,17 +153,18 @@ export function getTimezonesByRegion(): TimezoneGroup[] {
 
   // Build ordered result
   const result: TimezoneGroup[] = [];
-  for (const region of regionOrder) {
+  for (const { name: region, key: regionKey } of regionOrder) {
     const timezones = regionMap.get(region);
     if (timezones && timezones.length > 0) {
-      result.push({ region, timezones });
+      result.push({ region, regionKey, timezones });
     }
   }
 
   // Add any regions not in the predefined order
   for (const [region, timezones] of regionMap) {
-    if (!regionOrder.includes(region) && timezones.length > 0) {
-      result.push({ region, timezones });
+    const regionKey = regionOrder.find((r) => r.name === region)?.key;
+    if (!regionKey && timezones.length > 0) {
+      result.push({ region, regionKey: "other", timezones });
     }
   }
 

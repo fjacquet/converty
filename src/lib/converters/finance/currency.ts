@@ -23,28 +23,8 @@ export const EXCHANGE_RATES: Record<string, number> = {
   RUB: 89.5,
 };
 
-export const CURRENCY_NAMES: Record<string, string> = {
-  USD: "US Dollar",
-  EUR: "Euro",
-  GBP: "British Pound",
-  CHF: "Swiss Franc",
-  JPY: "Japanese Yen",
-  CAD: "Canadian Dollar",
-  AUD: "Australian Dollar",
-  CNY: "Chinese Yuan",
-  INR: "Indian Rupee",
-  MXN: "Mexican Peso",
-  BRL: "Brazilian Real",
-  KRW: "South Korean Won",
-  SGD: "Singapore Dollar",
-  HKD: "Hong Kong Dollar",
-  SEK: "Swedish Krona",
-  NOK: "Norwegian Krone",
-  DKK: "Danish Krone",
-  NZD: "New Zealand Dollar",
-  ZAR: "South African Rand",
-  RUB: "Russian Ruble",
-};
+// Currency names are now translated in UI components using i18n
+// See calculator.finance.currencies.* keys in translation files
 
 export interface CurrencyInput {
   amount: number;
@@ -89,9 +69,6 @@ export function convertCurrency(input: CurrencyInput): CurrencyResult | null {
   };
 }
 
-export function getAvailableCurrencies(): Array<{ code: string; name: string }> {
-  return Object.keys(EXCHANGE_RATES).map((code) => ({
-    code,
-    name: CURRENCY_NAMES[code] || code,
-  }));
+export function getAvailableCurrencies(): string[] {
+  return Object.keys(EXCHANGE_RATES);
 }

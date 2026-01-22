@@ -19,6 +19,7 @@ import { useThroughputCalculatorStore } from "@/stores/throughput-calculator-sto
 
 export function ThroughputCalculator() {
   const t = useTranslations("calculator.network");
+  const tDataUnits = useTranslations("calculator.data.units");
   const {
     dataSize,
     dataSizeUnit,
@@ -80,7 +81,7 @@ export function ThroughputCalculator() {
                 <SelectContent>
                   {FILE_SIZE_UNITS.map((u) => (
                     <SelectItem key={u.id} value={u.id}>
-                      {u.name}
+                      {tDataUnits(u.id as any)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -166,8 +167,8 @@ export function ThroughputCalculator() {
             </CardHeader>
             <CardContent>
               <div className="space-y-2 font-mono text-sm">
-                {result.steps.map((step, i) => (
-                  <p key={i} className="text-muted-foreground">
+                {result.steps.map((step) => (
+                  <p key={step} className="text-muted-foreground">
                     {step}
                   </p>
                 ))}

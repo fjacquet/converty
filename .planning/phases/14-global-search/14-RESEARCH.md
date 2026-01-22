@@ -9,6 +9,7 @@
 This research investigates how to implement fast calculator discovery across Converty's 200+ calculator suite. The project requires a global search accessible from all pages with real-time results as users type, supporting 4 locales (en, fr, de, it).
 
 Key findings:
+
 - **cmdk is already installed** - The project has cmdk 1.1.1 and a shadcn-style Command component in place
 - **Fuse.js is the optimal search library** - Best fuzzy matching, smallest bundle, excellent for ~200 items
 - **Pre-built indexes per locale** - Generate search data at build time as JSON files
@@ -21,17 +22,20 @@ Key findings:
 The established libraries/tools for this domain:
 
 ### Core
+
 | Library | Version | Purpose | Why Standard |
 |---------|---------|---------|--------------|
 | cmdk | 1.1.1 | Command palette UI | Already installed; powers Linear, Raycast, Vercel command palettes |
 | fuse.js | 7.x | Fuzzy search | Most popular (5M+ weekly downloads), smallest bundle (~4-6 kB gzip), perfect for <1000 items |
 
 ### Supporting
+
 | Library | Version | Purpose | When to Use |
 |---------|---------|---------|-------------|
 | @radix-ui/react-dialog | (via cmdk) | Accessible dialog | Already bundled with cmdk for Command.Dialog |
 
 ### Alternatives Considered
+
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
 | Fuse.js | FlexSearch | FlexSearch is faster at scale but overkill for 200 items; larger bundle (16 kB gzip for full) |
@@ -40,6 +44,7 @@ The established libraries/tools for this domain:
 | cmdk | kbar | kbar is heavier with more features not needed here |
 
 **Installation:**
+
 ```bash
 npm install fuse.js
 ```
@@ -47,6 +52,7 @@ npm install fuse.js
 ## Architecture Patterns
 
 ### Recommended Project Structure
+
 ```
 src/
 ├── components/
@@ -71,6 +77,7 @@ scripts/
 ```
 
 ### Pattern 1: Search Data Structure
+
 **What:** Define searchable document structure combining registry and translations
 **When to use:** Building the search index for each locale
 
@@ -89,6 +96,7 @@ export interface SearchDocument {
 ```
 
 ### Pattern 2: Pre-built Index Generation
+
 **What:** Generate search indexes at build time, one per locale
 **When to use:** As part of the build process (npm run build)
 
@@ -127,6 +135,7 @@ for (const [locale, messages] of Object.entries(locales)) {
 ```
 
 ### Pattern 3: Lazy Index Loading with Fuse.js
+
 **What:** Load search index on-demand when user opens search
 **When to use:** Client-side search initialization
 
@@ -173,6 +182,7 @@ export function search(query: string, fuse: Fuse<SearchDocument>): SearchDocumen
 ```
 
 ### Pattern 4: Command Dialog with Keyboard Shortcut
+
 **What:** Global search UI with Cmd+K activation
 **When to use:** Main search component in header
 
@@ -281,6 +291,7 @@ export function GlobalSearch() {
 ```
 
 ### Anti-Patterns to Avoid
+
 - **Loading all locales at once:** Only load the current locale's search index
 - **Rebuilding index on every search:** Use pre-built indexes loaded once
 - **Showing too many results:** Limit to 8-12 results for clean UX
@@ -303,30 +314,35 @@ Problems that look simple but have existing solutions:
 ## Common Pitfalls
 
 ### Pitfall 1: Hydration Mismatch with Dialog
+
 **What goes wrong:** Dialog open state differs between server and client, causing React hydration errors
 **Why it happens:** Server renders with open=undefined, client may have different initial state
 **How to avoid:** Always initialize dialog open state as `false` and only open via client-side effects
 **Warning signs:** Console errors about hydration mismatch; content flash on page load
 
 ### Pitfall 2: Loading Index Before Needed
+
 **What goes wrong:** Blocking initial page load by eagerly fetching search index
 **Why it happens:** Loading index on component mount instead of on search open
 **How to avoid:** Lazy load index only when user opens search dialog (first open)
 **Warning signs:** Slow First Contentful Paint; network waterfall shows index loading early
 
 ### Pitfall 3: Missing Locale Sync
+
 **What goes wrong:** Search returns English results when user is viewing French site
 **Why it happens:** Using wrong locale for index loading or not reloading on locale change
 **How to avoid:** Track loaded locale, reload index when locale changes
 **Warning signs:** Search results don't match current language
 
 ### Pitfall 4: cmdk shouldFilter Confusion
+
 **What goes wrong:** Using Fuse.js but cmdk still applies its own filtering, double-filtering results
 **Why it happens:** cmdk has built-in filtering enabled by default
 **How to avoid:** Set `shouldFilter={false}` on Command component when using external search
 **Warning signs:** Fewer results than expected; results filtered incorrectly
 
 ### Pitfall 5: Missing Keywords in Search
+
 **What goes wrong:** User can't find calculator despite knowing its name
 **Why it happens:** Only indexing name, not keywords or description
 **How to avoid:** Index multiple fields: name, description, keywords, category
@@ -337,6 +353,7 @@ Problems that look simple but have existing solutions:
 Verified patterns from official sources:
 
 ### Fuse.js Pre-indexing (Build Time)
+
 ```typescript
 // Source: https://www.fusejs.io/api/indexing.html
 import Fuse from 'fuse.js';
@@ -356,6 +373,7 @@ const fuse = new Fuse(data.documents, options, parsedIndex);
 ```
 
 ### cmdk Custom Filtering
+
 ```typescript
 // Source: https://github.com/dip/cmdk
 <Command shouldFilter={false}>
@@ -375,6 +393,7 @@ const fuse = new Fuse(data.documents, options, parsedIndex);
 ```
 
 ### Keyboard Shortcut Pattern
+
 ```typescript
 // Source: https://github.com/dip/cmdk
 useEffect(() => {
@@ -390,6 +409,7 @@ useEffect(() => {
 ```
 
 ### Debounced Search
+
 ```typescript
 // Prevent excessive search calls while typing
 import { useDeferredValue } from 'react';
@@ -417,6 +437,7 @@ function useSearch() {
 | Load all data upfront | Lazy load on first search | 2023+ | Better Core Web Vitals |
 
 **Deprecated/outdated:**
+
 - elasticlunr: Minimal maintenance, superseded by more modern libraries
 - Custom regex matching: Fuse.js Bitap algorithm is more robust for fuzzy search
 - Server-side only search: Client-side search is now viable for small-medium datasets
@@ -424,6 +445,7 @@ function useSearch() {
 ## Integration Points
 
 ### Header Integration
+
 The GlobalSearch component should be added to the existing header:
 
 ```typescript
@@ -454,6 +476,7 @@ export function Header() {
 ```
 
 ### Build Script Integration
+
 Add to package.json:
 
 ```json
@@ -466,6 +489,7 @@ Add to package.json:
 ```
 
 ### URL Search Parameter (Optional Enhancement)
+
 For shareable search URLs:
 
 ```typescript
@@ -509,21 +533,25 @@ Things that couldn't be fully resolved:
 ## Sources
 
 ### Primary (HIGH confidence)
-- cmdk GitHub: https://github.com/dip/cmdk - Dialog pattern, filtering configuration, keyboard shortcuts
-- Fuse.js official docs: https://www.fusejs.io/ - API, indexing, configuration options
-- Fuse.js indexing API: https://www.fusejs.io/api/indexing.html - Pre-built index serialization
+
+- cmdk GitHub: <https://github.com/dip/cmdk> - Dialog pattern, filtering configuration, keyboard shortcuts
+- Fuse.js official docs: <https://www.fusejs.io/> - API, indexing, configuration options
+- Fuse.js indexing API: <https://www.fusejs.io/api/indexing.html> - Pre-built index serialization
 
 ### Secondary (MEDIUM confidence)
+
 - npm-compare.com: Library comparison with download stats and bundle sizes
-- MiniSearch blog: https://lucaongaro.eu/blog/2019/01/30/minisearch-client-side-fulltext-search-engine.html - Feature comparison
-- FlexSearch GitHub: https://github.com/nextapps-de/flexsearch - Performance benchmarks
+- MiniSearch blog: <https://lucaongaro.eu/blog/2019/01/30/minisearch-client-side-fulltext-search-engine.html> - Feature comparison
+- FlexSearch GitHub: <https://github.com/nextapps-de/flexsearch> - Performance benchmarks
 
 ### Tertiary (LOW confidence)
+
 - Various Medium articles on Next.js + search implementation patterns
 
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - Well-documented libraries with clear community consensus
 - Architecture: HIGH - Patterns verified from official docs and real implementations
 - Pitfalls: HIGH - Based on documented issues and official recommendations

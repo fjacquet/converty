@@ -6,6 +6,18 @@ export interface ProteinInput {
   gender?: "male" | "female";
 }
 
+export type ProteinFoodKey =
+  | "chickenBreast"
+  | "eggs"
+  | "greekYogurt"
+  | "salmon"
+  | "leanBeef"
+  | "tofu"
+  | "lentils"
+  | "wheyProtein"
+  | "cottageCheese"
+  | "tuna";
+
 export interface ProteinResult {
   dailyProteinMin: number; // grams
   dailyProteinMax: number; // grams
@@ -14,9 +26,8 @@ export interface ProteinResult {
   perMeal: { meals3: number; meals4: number; meals5: number; meals6: number };
   percentOfCalories: number; // assuming 2000 cal diet
   foodSources: Array<{
-    food: string;
+    foodKey: ProteinFoodKey;
     protein: number; // grams per serving
-    servingSize: string;
     servingsNeeded: number;
   }>;
 }
@@ -87,18 +98,20 @@ export function calculateProtein(input: ProteinInput): ProteinResult | null {
   const percentOfCalories = (proteinCalories / 2000) * 100;
 
   // Common food sources
-  const foodSources = [
-    { food: "Chicken Breast", protein: 31, servingSize: "100g cooked" },
-    { food: "Eggs", protein: 6, servingSize: "1 large" },
-    { food: "Greek Yogurt", protein: 17, servingSize: "170g" },
-    { food: "Salmon", protein: 25, servingSize: "100g" },
-    { food: "Lean Beef", protein: 26, servingSize: "100g" },
-    { food: "Tofu", protein: 8, servingSize: "100g" },
-    { food: "Lentils", protein: 9, servingSize: "100g cooked" },
-    { food: "Whey Protein", protein: 25, servingSize: "1 scoop (30g)" },
-    { food: "Cottage Cheese", protein: 11, servingSize: "100g" },
-    { food: "Tuna", protein: 30, servingSize: "100g canned" },
-  ].map((source) => ({
+  const foodSourcesBase: Array<{ foodKey: ProteinFoodKey; protein: number }> = [
+    { foodKey: "chickenBreast", protein: 31 },
+    { foodKey: "eggs", protein: 6 },
+    { foodKey: "greekYogurt", protein: 17 },
+    { foodKey: "salmon", protein: 25 },
+    { foodKey: "leanBeef", protein: 26 },
+    { foodKey: "tofu", protein: 8 },
+    { foodKey: "lentils", protein: 9 },
+    { foodKey: "wheyProtein", protein: 25 },
+    { foodKey: "cottageCheese", protein: 11 },
+    { foodKey: "tuna", protein: 30 },
+  ];
+
+  const foodSources = foodSourcesBase.map((source) => ({
     ...source,
     servingsNeeded: Math.ceil(dailyProteinOptimal / source.protein),
   }));

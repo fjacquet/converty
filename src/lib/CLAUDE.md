@@ -4,7 +4,7 @@ Core utilities, calculation logic, and registry configuration.
 
 ## Structure
 
-```
+```text
 lib/
 ├── converters/      # Calculation logic (pure functions)
 ├── registry/        # Category and converter metadata
@@ -17,7 +17,7 @@ lib/
 
 ### Organization by Category
 
-```
+```text
 converters/
 ├── health/          # BMI, body fat, calorie calculators
 ├── finance/         # Loans, interest, investment calculators
@@ -34,6 +34,7 @@ converters/
 ### Converter File Pattern
 
 Each converter exports:
+
 1. **Input interface** - typed parameters
 2. **Result interface** - typed return values
 3. **Calculate function** - pure function

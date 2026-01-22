@@ -4,7 +4,7 @@
 
 ## Directory Layout
 
-```
+```text
 converty/
 ├── .github/                    # GitHub Actions workflows
 ├── .planning/                  # GSD planning artifacts

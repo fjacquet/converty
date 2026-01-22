@@ -43,6 +43,7 @@ const useStore = createCalculatorStore<FormValues, CarbResult | null>({
 export function CarbCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tCarbs = useTranslations("calculator.health.carbs");
 
   const { values, setValue, result } = useStore();
 
@@ -180,27 +181,27 @@ export function CarbCalculatorComponent() {
 
           <h3 className="text-lg font-semibold">{tResults("complexCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
-            {result.foodSources.complex.map((source) => (
-              <li key={source} className="text-sm text-green-700 dark:text-green-300">
-                {source}
+            {result.foodSourceKeys.complex.map((key) => (
+              <li key={key} className="text-sm text-green-700 dark:text-green-300">
+                {tCarbs(`foods.complex.${key}`)}
               </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("simpleCarbSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
-            {result.foodSources.simple.map((source) => (
-              <li key={source} className="text-sm text-blue-700 dark:text-blue-300">
-                {source}
+            {result.foodSourceKeys.simple.map((key) => (
+              <li key={key} className="text-sm text-blue-700 dark:text-blue-300">
+                {tCarbs(`foods.simple.${key}`)}
               </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("avoidTheseCarbs")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-red-50 dark:bg-red-950 p-4 rounded-lg">
-            {result.foodSources.avoid.map((source) => (
-              <li key={source} className="text-sm text-red-700 dark:text-red-300">
-                {source}
+            {result.foodSourceKeys.avoid.map((key) => (
+              <li key={key} className="text-sm text-red-700 dark:text-red-300">
+                {tCarbs(`foods.avoid.${key}`)}
               </li>
             ))}
           </ul>

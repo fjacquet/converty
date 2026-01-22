@@ -92,18 +92,21 @@ npm audit --production # Security vulnerabilities
 ```
 
 **ESLint config (eslint.config.mjs):**
+
 - TypeScript ESLint recommended rules
 - React hooks rules (rules-of-hooks, exhaustive-deps)
 - Next.js specific rules (no-html-link-for-pages, no-img-element)
 - noExplicitAny as "warn" (allows with eslint-disable comments)
 
 **Biome config (biome.json):**
+
 - noExplicitAny as "error" (stricter than ESLint)
 - Performance rules enabled
 - Security rules enabled (noDangerouslySetInnerHtml, noGlobalEval)
 - Style rules (useNodejsImportProtocol)
 
 **Why both:**
+
 - ESLint: Framework-specific rules (Next.js, React)
 - Biome: Performance, security, faster linting
 - Overlap is acceptable, stricter wins (Biome's error > ESLint's warn)
@@ -153,6 +156,7 @@ npm audit --json > audit-report.json
 ```
 
 **Handling false positives:**
+
 - Development-only vulnerabilities: Use `--production` flag
 - Transitive dependencies with no fix: Document in ADR with justification
 - Waiting for upstream fix: Document in ADR with monitoring plan
@@ -194,6 +198,7 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
 ```
 
 **Warning signs:**
+
 - Classes where functions would suffice
 - Multiple levels of abstraction for simple operations
 - Generic solutions for specific problems
@@ -247,6 +252,7 @@ function convertWeightToKg(weight: number, unit: WeightUnit): number {
 ```
 
 **Warning signs:**
+
 - Copy-pasted code blocks with minor variations
 - Similar calculations in different files
 - Repeated validation logic
@@ -328,6 +334,7 @@ function calculate(): number {
 ```
 
 **Warning signs:**
+
 - Functions with void return type (likely side effects)
 - Array.push(), .splice(), .sort() on input arrays
 - Object property assignments on input objects
@@ -365,6 +372,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** Both linters report same issues with different severity levels, causing confusion
 **Why it happens:** Running two linters with overlapping rules but different configurations
 **How to avoid:**
+
 - Document which linter owns which rules (ESLint for React/Next.js, Biome for performance/security)
 - Accept that stricter wins (Biome error > ESLint warn for noExplicitAny)
 - Consider migrating fully to Biome in future (Phase 8+) when ecosystem matures
@@ -372,6 +380,7 @@ Problems that look simple but have existing solutions:
 **Warning signs:** Same error reported twice, developers confused about which to fix
 
 **Current situation:**
+
 - ESLint config: `@typescript-eslint/no-explicit-any: "warn"` (allows with comment)
 - Biome config: `noExplicitAny: "error"` (always fails)
 - Result: Biome is stricter, which is good for quality
@@ -381,6 +390,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** Running `npm run check:fix` or `eslint --fix` breaks working code
 **Why it happens:** Auto-fixes can change semantics, especially with unsafe transformations
 **How to avoid:**
+
 - Review auto-fix changes before committing
 - Run tests after auto-fix (if tests exist)
 - Use `--write` flag consciously, not automatically
@@ -389,10 +399,12 @@ Problems that look simple but have existing solutions:
 **Warning signs:** Tests failing after auto-fix, changed behavior after linting
 
 **Safe auto-fixes (from current errors):**
+
 - Changing `'fs'` to `'node:fs'` (style preference, safe)
 - Formatting changes (quotes, spacing, safe)
 
 **Unsafe auto-fixes:**
+
 - Removing "unused" variables that are actually needed
 - Changing type assertions that are intentional
 
@@ -401,6 +413,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** Too many false positives (dev dependencies, transitive deps) lead to ignoring all warnings
 **Why it happens:** npm audit doesn't distinguish between production and development risk, reports transitive dependencies with no fix available
 **How to avoid:**
+
 - Always use `npm audit --production` to filter dev dependencies
 - Document known false positives in ADR with monitoring plan
 - Set CI/CD threshold to `--audit-level=high` (ignore low/moderate)
@@ -418,6 +431,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** Code reviewer rejects all abstraction as "over-engineering"
 **Why it happens:** Misunderstanding KISS as "never create reusable functions"
 **How to avoid:**
+
 - KISS means "no premature abstraction," not "no abstraction ever"
 - Abstraction is good when: pattern repeats 3+ times, complexity is encapsulated, interface is simpler than implementation
 - Abstraction is bad when: used only once, adds indirection without benefit, harder to understand than inline code
@@ -425,6 +439,7 @@ Problems that look simple but have existing solutions:
 **Warning signs:** Duplicated code justified as "keeping it simple," resistance to extracting helpers
 
 **Good abstraction (from codebase):**
+
 ```typescript
 // GOOD: createCalculatorStore abstracts complex Zustand + URL sync pattern
 // Used by 60+ calculators, reduces 50+ lines to 5 lines per calculator
@@ -432,6 +447,7 @@ const useStore = createCalculatorStore({ /* config */ });
 ```
 
 **Bad abstraction (hypothetical):**
+
 ```typescript
 // BAD: Generic "calculator executor" used once
 class CalculatorExecutor<T, R> {
@@ -444,6 +460,7 @@ class CalculatorExecutor<T, R> {
 **What goes wrong:** Code reviewer rejects all side effects, including necessary ones (I/O, logging, UI updates)
 **Why it happens:** Misunderstanding functional programming as "zero side effects anywhere"
 **How to avoid:**
+
 - Pure functions are for **calculation logic**, not entire application
 - React components have side effects (rendering, useEffect) - this is normal
 - I/O, logging, API calls are necessary - isolate them from calculation logic
@@ -452,6 +469,7 @@ class CalculatorExecutor<T, R> {
 **Warning signs:** Rejecting useEffect, fetch calls, localStorage usage as "impure"
 
 **Correct separation (from codebase):**
+
 ```typescript
 // PURE: Calculation logic (lib/converters/health/bmi.ts)
 export function calculateBMI(input: BMIInput): BMIResult | null {
@@ -475,6 +493,7 @@ export function BMICalculator() {
 **What goes wrong:** Developers add `eslint-disable` or `biome-ignore` without understanding why rule exists
 **Why it happens:** Linter error blocks development, quickest fix is to disable
 **How to avoid:**
+
 - Investigate why rule is triggered before disabling
 - Document reason for disabling (not just "eslint told me to")
 - Consider if code can be refactored to avoid disabling
@@ -483,6 +502,7 @@ export function BMICalculator() {
 **Warning signs:** Many disable comments, generic reasons like "needed for types"
 
 **Current disable comments (need review):**
+
 ```typescript
 // src/lib/middleware/url-sync.ts:63-64
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -538,6 +558,7 @@ Verified patterns from official sources and project codebase:
 **Source:** /Users/fjacquet/Projects/converty/biome.json (verified 2026-01-18)
 
 **Key configuration choices:**
+
 - `noExplicitAny: "error"` - Enforces type safety (Phase 1 requirement)
 - Security rules enabled - Prevents XSS, eval injection
 - Performance rules recommended - Catches inefficient patterns
@@ -583,6 +604,7 @@ export default [
 **Source:** /Users/fjacquet/Projects/converty/eslint.config.mjs (verified 2026-01-18)
 
 **Why these rules:**
+
 - `rules-of-hooks`: Prevents hook usage bugs (critical for React)
 - `exhaustive-deps`: Catches missing dependencies in useEffect
 - Next.js rules: Framework-specific best practices
@@ -613,6 +635,7 @@ export default [
 **Source:** /Users/fjacquet/Projects/converty/tsconfig.json (verified 2026-01-18)
 
 **Impact:**
+
 - ~60k lines of TypeScript code
 - Zero type errors (verified with `npm run type-check`)
 - Catches null/undefined errors at compile time
@@ -638,7 +661,7 @@ npm audit --audit-level=high --production
 npm audit fix --production
 ```
 
-**Source:** https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities
+**Source:** <https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities>
 
 **Handling false positives (from npm audit guide):**
 
@@ -686,6 +709,7 @@ Simple, direct, readable. No classes, no factories, no abstraction layers.
 ### Findings
 
 [Document any violations or concerns]
+
 ```
 
 **Source:** Adapted from [Clean Code principles](https://www.gperrucci.com/blog/engineering/solid-clean-yagni-kiss) and [CodeSignal KISS guide](https://codesignal.com/learn/courses/applying-clean-code-principles-1/lessons/applying-the-kiss-principle-in-typescript)
@@ -725,6 +749,7 @@ grep -r "URLSearchParams" src/ | grep -v "url-sync.ts"
 ### Good Examples
 
 URL Sync (Phase 2-3):
+
 ```typescript
 // DRY: Shared middleware, not duplicated per calculator
 const useStore = createCalculatorStore({
@@ -734,6 +759,7 @@ const useStore = createCalculatorStore({
 ```
 
 Conversion Helpers:
+
 ```typescript
 // DRY: Extracted, reused by multiple calculators
 function convertWeightToKg(weight: number, unit: WeightUnit): number {
@@ -744,6 +770,7 @@ function convertWeightToKg(weight: number, unit: WeightUnit): number {
 ### Findings
 
 [Document any duplication found]
+
 ```
 
 **Source:** Adapted from [DRY principles guide](https://dev.to/kevin-uehara/dry-kiss-and-yagni-make-your-code-simple-1dmd)
@@ -822,6 +849,7 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
 ### Findings
 
 [Document any violations]
+
 ```
 
 **Source:** Adapted from [TypeScript functional programming guide](https://dev.to/yugjadvani/how-to-write-better-typescript-code-best-practices-for-clean-effective-and-scalable-code-38d2)
@@ -955,6 +983,7 @@ npm audit --production  # Security: PASSING (zero vulnerabilities)
 **Manual review required:** KISS/DRY/FP principles (checklist-based, documented findings)
 
 **Codebase statistics:**
+
 - Total TypeScript lines: ~60,000
 - Total files checked by Biome: 560
 - Converters (calculation logic): ~150 files

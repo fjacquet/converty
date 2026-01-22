@@ -4,8 +4,14 @@
     "tagline": "Free online calculators and converters",
     "allTools": "All Tools",
     "home": "Home",
-    "search": "Search calculators...",
-    "noResults": "No results found",
+    "search": {
+      "placeholder": "Search calculators...",
+      "noResults": "No calculators found",
+      "calculators": "Calculators",
+      "loading": "Loading search...",
+      "hint": "to search"
+    },
+    
     "loading": "Loading...",
     "error": "Error",
     "close": "Close",
@@ -52,7 +58,8 @@
     },
     "music": {
       "name": "Music",
-      "description": "Music theory and audio tools"
+      "description": "Music theory and audio tools",
+      "comingSoon": "Music calculators coming soon!"
     },
     "network": {
       "name": "Network",
@@ -1650,7 +1657,20 @@
       "proteinCalories": "Protein Calories",
       "carbsCalories": "Carbohydrate Calories",
       "fatCalories": "Fat Calories",
-      "carbs": "Carbohydrates"
+      "carbs": "Carbohydrates",
+      "dayOfWeek": "Day of Week",
+      "daysDifference": "Days Difference",
+      "isoDate": "ISO Date",
+      "dayNumber": "Day Number",
+      "weekNumber": "Week Number",
+      "dayOfYear": "Day of Year",
+      "daysLeftInYear": "Days Left in Year",
+      "quarter": "Quarter",
+      "type": "Type",
+      "totalDays": "Total Days",
+      "businessDays": "Business Days",
+      "weekendDays": "Weekend Days",
+      "remainingDays": "Remaining Days"
     },
     "time": {
       "yearsMonthsDays": "{years} years, {months} months, {days} days",
@@ -1760,6 +1780,11 @@
       "initialInvestment": "Initial Investment",
       "investmentPeriod": "Investment Period (years)",
       "compoundFrequency": "Compound Frequency",
+      "annually": "Annually",
+      "semi-annually": "Semi-Annually",
+      "quarterly": "Quarterly",
+      "monthly": "Monthly",
+      "daily": "Daily",
       "regularContributions": "Regular Contributions",
       "contributionTiming": "Contribution Timing",
       "beginningOfMonth": "Beginning of Month",
@@ -2380,7 +2405,361 @@
       "yearByYearImpact": "Year-by-Year Impact",
       "year": "Year {year}",
       "enterValues": "Enter values to calculate",
-      "period": "Period"
+            "period": "Period",
+            "currencies": {
+        "USD": "US Dollar",
+        "EUR": "Euro",
+        "GBP": "British Pound",
+        "CHF": "Swiss Franc",
+        "JPY": "Japanese Yen",
+        "CAD": "Canadian Dollar",
+        "AUD": "Australian Dollar",
+        "CNY": "Chinese Yuan",
+        "INR": "Indian Rupee",
+        "MXN": "Mexican Peso",
+        "BRL": "Brazilian Real",
+        "KRW": "South Korean Won",
+        "SGD": "Singapore Dollar",
+        "HKD": "Hong Kong Dollar",
+        "SEK": "Swedish Krona",
+        "NOK": "Norwegian Krone",
+        "DKK": "Danish Krone",
+        "NZD": "New Zealand Dollar",
+        "ZAR": "South African Rand",
+        "RUB": "Russian Ruble"
+      },
+      "states": {
+        "AL": "Alabama",
+        "AK": "Alaska",
+        "AZ": "Arizona",
+        "AR": "Arkansas",
+        "CA": "California",
+        "CO": "Colorado",
+        "CT": "Connecticut",
+        "DE": "Delaware",
+        "FL": "Florida",
+        "GA": "Georgia",
+        "HI": "Hawaii",
+        "ID": "Idaho",
+        "IL": "Illinois",
+        "IN": "Indiana",
+        "IA": "Iowa",
+        "KS": "Kansas",
+        "KY": "Kentucky",
+        "LA": "Louisiana",
+        "ME": "Maine",
+        "MD": "Maryland",
+        "MA": "Massachusetts",
+        "MI": "Michigan",
+        "MN": "Minnesota",
+        "MS": "Mississippi",
+        "MO": "Missouri",
+        "MT": "Montana",
+        "NE": "Nebraska",
+        "NV": "Nevada",
+        "NH": "New Hampshire",
+        "NJ": "New Jersey",
+        "NM": "New Mexico",
+        "NY": "New York",
+        "NC": "North Carolina",
+        "ND": "North Dakota",
+        "OH": "Ohio",
+        "OK": "Oklahoma",
+        "OR": "Oregon",
+        "PA": "Pennsylvania",
+        "RI": "Rhode Island",
+        "SC": "South Carolina",
+        "SD": "South Dakota",
+        "TN": "Tennessee",
+        "TX": "Texas",
+        "UT": "Utah",
+        "VT": "Vermont",
+        "VA": "Virginia",
+        "WA": "Washington",
+        "WV": "West Virginia",
+        "WI": "Wisconsin",
+        "WY": "Wyoming",
+        "DC": "District of Columbia"
+      }
+    },
+    "health": {
+      "ckd": {
+        "stage1": {
+          "description": "CKD Stage 1: Normal or High GFR",
+          "kidneyFunction": "Normal kidney function with possible structural damage",
+          "recommendation": "Monitor and manage risk factors (diabetes, hypertension)"
+        },
+        "stage2": {
+          "description": "CKD Stage 2: Mildly Decreased GFR",
+          "kidneyFunction": "Mild reduction in kidney function",
+          "recommendation": "Continue monitoring and managing risk factors"
+        },
+        "stage3a": {
+          "description": "CKD Stage 3a: Mild to Moderate Decrease",
+          "kidneyFunction": "Mild to moderately reduced kidney function",
+          "recommendation": "Consult a nephrologist, monitor regularly"
+        },
+        "stage3b": {
+          "description": "CKD Stage 3b: Moderate to Severe Decrease",
+          "kidneyFunction": "Moderately to severely reduced kidney function",
+          "recommendation": "Work with nephrologist, prepare for potential treatment options"
+        },
+        "stage4": {
+          "description": "CKD Stage 4: Severely Decreased GFR",
+          "kidneyFunction": "Severely reduced kidney function",
+          "recommendation": "Prepare for dialysis or transplant evaluation"
+        },
+        "stage5": {
+          "description": "CKD Stage 5: Kidney Failure",
+          "kidneyFunction": "Kidney failure requiring dialysis or transplant",
+          "recommendation": "Requires dialysis or kidney transplant"
+        },
+        "reference": {
+          "stage1": "Stage 1: GFR ≥90 - Normal",
+          "stage2": "Stage 2: GFR 60-89 - Mild decrease",
+          "stage3a": "Stage 3a: GFR 45-59 - Mild to moderate",
+          "stage3b": "Stage 3b: GFR 30-44 - Moderate to severe",
+          "stage4": "Stage 4: GFR 15-29 - Severe decrease",
+          "stage5": "Stage 5: GFR <15 - Kidney failure"
+        }
+      },
+      "corpulence": {
+        "metric": "Metric (kg/cm)",
+        "imperial": "Imperial (lbs/in)",
+        "healthRiskAssessment": "Health Risk Assessment",
+        "comparisonWithBmi": "Comparison with BMI",
+        "corpulenceIndexLabel": "Corpulence Index",
+        "bmiLabel": "BMI",
+        "referenceTitle": "Corpulence Index Reference",
+        "rangeColumn": "Range (kg/m³)",
+        "categoryColumn": "Category",
+        "aboutTitle": "About Corpulence Index",
+        "aboutDescription": "The Corpulence Index (CI), also known as the Ponderal Index, is calculated as weight divided by height cubed (kg/m³). Unlike BMI which uses height squared, CI may provide a more accurate assessment for very tall or short individuals.",
+        "underweight": {
+          "category": "Underweight",
+          "description": "Below normal corpulence range",
+          "healthRisk": "Increased risk of nutritional deficiencies"
+        },
+        "normalLower": {
+          "category": "Normal (Lower)",
+          "description": "Lower end of normal corpulence range",
+          "healthRisk": "Low health risk"
+        },
+        "normal": {
+          "category": "Normal",
+          "description": "Optimal corpulence range",
+          "healthRisk": "Minimal health risk"
+        },
+        "normalUpper": {
+          "category": "Normal (Upper)",
+          "description": "Upper end of normal corpulence range",
+          "healthRisk": "Low health risk"
+        },
+        "overweight": {
+          "category": "Overweight",
+          "description": "Above normal corpulence range",
+          "healthRisk": "Moderate health risk"
+        },
+        "obese": {
+          "category": "Obese",
+          "description": "Significantly above normal range",
+          "healthRisk": "Increased health risk"
+        },
+        "comparison": {
+          "similar": "BMI and CI indicate similar body composition",
+          "ciHigher": "CI suggests relatively more mass for height than BMI indicates",
+          "ciLower": "CI suggests relatively less mass for height than BMI indicates"
+        },
+        "reference": {
+          "underweight": "< 11",
+          "normal": "11 - 15",
+          "overweight": "15 - 17",
+          "obese": "> 17"
+        }
+      },
+      "healthyWeight": {
+        "categories": {
+          "severelyUnderweight": "Severely Underweight",
+          "underweight": "Underweight",
+          "normal": "Normal (Healthy)",
+          "overweight": "Overweight",
+          "obeseClassI": "Obese Class I",
+          "obeseClassII": "Obese Class II",
+          "obeseClassIII": "Obese Class III"
+        }
+      },
+      "carbs": {
+        "foods": {
+          "complex": {
+            "oats": "Oats",
+            "brownRice": "Brown rice",
+            "quinoa": "Quinoa",
+            "sweetPotatoes": "Sweet potatoes",
+            "wholeGrainBread": "Whole grain bread",
+            "beansAndLentils": "Beans and lentils",
+            "vegetables": "Vegetables",
+            "wholeWheatPasta": "Whole wheat pasta"
+          },
+          "simple": {
+            "fruits": "Fruits",
+            "honeyModeration": "Honey (in moderation)",
+            "milk": "Milk",
+            "sportsDrinks": "Sports drinks (around workouts)"
+          },
+          "avoid": {
+            "whiteBread": "White bread",
+            "sugaryCereals": "Sugary cereals",
+            "candyAndSweets": "Candy and sweets",
+            "sodaAndSugaryDrinks": "Soda and sugary drinks",
+            "pastriesAndBakedGoods": "Pastries and baked goods",
+            "whiteRiceLimit": "White rice (limit)"
+          }
+        }
+      },
+      "fats": {
+        "foods": {
+          "healthy": {
+            "avocados": "Avocados",
+            "oliveOil": "Olive oil",
+            "nuts": "Nuts (almonds, walnuts, cashews)",
+            "seeds": "Seeds (chia, flax, pumpkin)",
+            "fattyFish": "Fatty fish (salmon, mackerel, sardines)",
+            "eggs": "Eggs",
+            "darkChocolate": "Dark chocolate (70%+ cocoa)",
+            "nutButters": "Nut butters"
+          },
+          "limit": {
+            "butter": "Butter",
+            "cheese": "Cheese",
+            "redMeat": "Red meat",
+            "coconutOil": "Coconut oil",
+            "fullFatDairy": "Full-fat dairy",
+            "palmOil": "Palm oil"
+          },
+          "avoid": {
+            "transFats": "Trans fats (partially hydrogenated oils)",
+            "deepFriedFoods": "Deep-fried foods",
+            "margarine": "Margarine",
+            "processedSnacks": "Processed snacks",
+            "fastFood": "Fast food",
+            "commerciallyBakedGoods": "Commercially baked goods"
+          }
+        }
+      },
+      "protein": {
+        "foods": {
+          "chickenBreast": { "name": "Chicken Breast", "serving": "100g cooked" },
+          "eggs": { "name": "Eggs", "serving": "1 large" },
+          "greekYogurt": { "name": "Greek Yogurt", "serving": "170g" },
+          "salmon": { "name": "Salmon", "serving": "100g" },
+          "leanBeef": { "name": "Lean Beef", "serving": "100g" },
+          "tofu": { "name": "Tofu", "serving": "100g" },
+          "lentils": { "name": "Lentils", "serving": "100g cooked" },
+          "wheyProtein": { "name": "Whey Protein", "serving": "1 scoop (30g)" },
+          "cottageCheese": { "name": "Cottage Cheese", "serving": "100g" },
+          "tuna": { "name": "Tuna", "serving": "100g canned" }
+        }
+      },
+      "water": {
+        "schedule": {
+          "time0700": "7:00 AM",
+          "time0900": "9:00 AM",
+          "time1100": "11:00 AM",
+          "time1300": "1:00 PM",
+          "time1500": "3:00 PM",
+          "time1700": "5:00 PM",
+          "time1900": "7:00 PM",
+          "time2100": "9:00 PM"
+        },
+        "tips": {
+          "morningGlass": "Drink a glass of water first thing in the morning",
+          "carryBottle": "Carry a reusable water bottle with you",
+          "setReminders": "Set reminders on your phone to drink water",
+          "exerciseDrink": "Drink water before, during, and after exercise",
+          "waterRichFoods": "Eat water-rich foods like fruits and vegetables",
+          "beforeMeals": "Drink a glass of water before each meal",
+          "urineColor": "Monitor your urine color - pale yellow is ideal"
+        }
+      }
+    },
+    "datetime": {
+      "days": {
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+      },
+      "weekend": "Weekend",
+      "weekday": "Weekday",
+      "and": "and",
+      "units": {
+        "year": "year",
+        "years": "years",
+        "month": "month",
+        "months": "months",
+        "week": "week",
+        "weeks": "weeks",
+        "day": "day",
+        "days": "days",
+        "hour": "hour",
+        "hours": "hours",
+        "minute": "minute",
+        "minutes": "minutes",
+        "second": "second",
+        "seconds": "seconds"
+      },
+      "regions": {
+        "africa": "Africa",
+        "america": "America",
+        "antarctica": "Antarctica",
+        "arctic": "Arctic",
+        "asia": "Asia",
+        "atlantic": "Atlantic",
+        "australia": "Australia",
+        "europe": "Europe",
+        "indian": "Indian",
+        "pacific": "Pacific",
+        "other": "Other"
+            }
+    },
+    "data": {
+      "units": {
+        "B": "Bytes",
+        "KB": "Kilobytes",
+        "MB": "Megabytes",
+        "GB": "Gigabytes",
+        "TB": "Terabytes",
+        "PB": "Petabytes",
+        "KiB": "Kibibytes",
+        "MiB": "Mebibytes",
+        "GiB": "Gibibytes",
+        "TiB": "Tebibytes",
+        "PiB": "Pebibytes",
+        "kbps": "Kilobits per second",
+        "mbps": "Megabits per second",
+        "gbps": "Gigabits per second",
+        "KBps": "Kilobytes per second",
+        "MBps": "Megabytes per second"
+      },
+      "networks": {
+        "mobile_3g": "3G Mobile",
+        "mobile_4g": "4G LTE",
+        "mobile_5g": "5G",
+        "broadband_basic": "Basic Broadband",
+        "broadband_fast": "Fast Broadband",
+        "fiber_gigabit": "Gigabit Fiber"
+      },
+      "fileSamples": {
+        "song_mp3": "MP3 Song",
+        "photo_hd": "HD Photo",
+        "movie_hd": "HD Movie",
+        "movie_4k": "4K Movie",
+        "game": "Game",
+        "os_image": "OS Image"
+      }
     },
     "errors": {
       "priceGreaterThanVariable": "Price must be greater than variable cost"
@@ -2580,6 +2959,92 @@
         "first-usable": "First Usable",
         "last-usable": "Last Usable"
       }
+    },
+    "video": {
+      "unitFootLamberts": "Foot-Lamberts (fL)",
+      "unitNits": "Nits (cd/m²)",
+      "unitLumens": "Lumens",
+      "labelFootLamberts": "Foot-Lamberts",
+      "labelNits": "Nits",
+      "labelCandelasPerM2": "Candelas per m²",
+      "labelLumens": "Lumens",
+      "screenWidth": "Screen Width",
+      "screenHeight": "Screen Height",
+      "screenGain": "Screen Gain",
+      "brightnesses": {
+        "very_dim": "Very Dim",
+        "use_very_dim": "Low-cost movie projection, home viewing in bright room",
+        "dim": "Dim",
+        "use_dim": "DCI 3D cinema standard",
+        "standard_2d": "Standard 2D",
+        "use_standard_2d": "DCI 2D cinema standard",
+        "bright": "Bright",
+        "use_bright": "IMAX projection",
+        "very_bright": "Very Bright",
+        "use_very_bright": "Typical movie theater",
+        "home_theater": "Home Theater",
+        "use_home_theater": "Home theater calibration",
+        "display": "Display",
+        "use_display": "Bright display, outdoor viewing"
+      },
+      "references": {
+        "dci_2d": "DCI 2D Standard",
+        "note_dci_2d": "Industry standard for 2D digital cinema",
+        "dci_3d": "DCI 3D Standard",
+        "note_dci_3d": "Industry standard for 3D digital cinema",
+        "dolby": "Dolby Cinema",
+        "note_dolby": "Dolby's premium cinema standard",
+        "imax": "IMAX",
+        "note_imax": "IMAX projection standard",
+        "home_theater": "Home Theater",
+        "note_home_theater": "Home theater reference white point",
+        "hdr_display": "HDR Display",
+        "note_hdr_display": "High Dynamic Range peak brightness"
+      }
+    },
+    "music": {
+      "tempo": "Tempo",
+      "tempoMarking": "Tempo Marking",
+      "frequency": "Frequency",
+      "beatDuration": "Beat Duration",
+      "beatsPerSecond": "Beats per Second",
+      "bar4_4": "4/4 Bar Length",
+      "bar3_4": "3/4 Bar Length",
+      "noteDurations": "Note Durations",
+      "noteTableHeaders": {
+        "note": "Note",
+        "symbol": "Symbol",
+        "beats": "Beats",
+        "duration": "Duration (ms)"
+      },
+      "notes": {
+        "whole-note": "Whole note",
+        "half-note": "Half note",
+        "quarter-note": "Quarter note",
+        "eighth-note": "Eighth note",
+        "sixteenth-note": "Sixteenth note",
+        "thirty-second-note": "Thirty-second note",
+        "dotted-half": "Dotted half",
+        "dotted-quarter": "Dotted quarter",
+        "dotted-eighth": "Dotted eighth",
+        "triplet-quarter": "Triplet quarter",
+        "triplet-eighth": "Triplet eighth"
+      },
+      "tempoMarkings": {
+        "larghissimo": "Larghissimo",
+        "grave": "Grave",
+        "largo": "Largo",
+        "lento": "Lento",
+        "larghetto": "Larghetto",
+        "adagio": "Adagio",
+        "andante": "Andante",
+        "moderato": "Moderato",
+        "allegro": "Allegro",
+        "vivace": "Vivace",
+        "presto": "Presto",
+        "prestissimo": "Prestissimo"
+      },
+      "enterBpm": "Enter BPM"
     }
   },
   "validation": {

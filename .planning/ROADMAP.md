@@ -91,6 +91,7 @@ Plans:
 - [x] 09-03-PLAN.md — State Management & UI (Zustand store, calculator component, page)
 
 #### Phase 10: Visual Subnet Calculator - Visualization
+
 **Status:** Complete (2026-01-18)
 **Goal:** Rich visual feedback for subnet calculations with diagrams and binary representation
 **Depends on:** Phase 9
@@ -165,6 +166,7 @@ Plans:
 
 #### Phase 14: Global Search
 
+**Status:** Complete (2026-01-22)
 **Goal:** Fast calculator discovery across entire 200+ calculator suite
 **Depends on:** Phase 13
 **Requirements:** SRCH-01, SRCH-02, SRCH-03, SRCH-04
@@ -178,11 +180,12 @@ Plans:
 
 Plans:
 
-- [ ] 14-01-PLAN.md — Search Infrastructure (Fuse.js, types, build-time index generation)
-- [ ] 14-02-PLAN.md — Search UI & Integration (Dialog, GlobalSearch component, header integration)
+- [x] 14-01-PLAN.md — Search Infrastructure (Fuse.js, types, build-time index generation)
+- [x] 14-02-PLAN.md — Search UI & Integration (Dialog, GlobalSearch component, header integration)
 
 #### Phase 15: Translation Audit
 
+**Status:** Complete (2026-01-22)
 **Goal:** Identify and extract all hardcoded strings to translation files
 **Depends on:** Phase 14
 **Requirements:** I18N-01, I18N-02
@@ -192,11 +195,12 @@ Plans:
 2. Complete list of hardcoded strings documented
 3. All identified strings moved to en.json translation file
 4. Zero hardcoded strings remain in calculator components
-   **Plans:** TBD
+   **Plans:** 2 plans in 1 wave
 
 Plans:
 
-- [ ] TBD
+- [x] 15-01-PLAN.md — Missing Keys & Health Calculator Externalization (9 keys, 7 converters)
+- [x] 15-02-PLAN.md — DateTime, Finance, Data & Media Externalization (11 tasks)
 
 #### Phase 16: Translation Implementation
 
@@ -235,6 +239,6 @@ Phases execute in numeric order: 9 → 10 → 11 → 12 → 13 → 14 → 15 →
 | 11. Visual Subnet Calculator - Advanced Features | v2.0      | 3/3            | Complete    | 2026-01-21 |
 | 12. IP Address & CIDR Calculators                | v2.0      | 2/2            | Complete    | 2026-01-21 |
 | 13. Network Speed/Latency Calculator             | v2.0      | 2/2            | Complete    | 2026-01-21 |
-| 14. Global Search                                | v2.0      | 0/2            | Planned     | -          |
-| 15. Translation Audit                            | v2.0      | 0/TBD          | Not started | -          |
+| 14. Global Search                                | v2.0      | 2/2            | Complete    | 2026-01-22 |
+| 15. Translation Audit                            | v2.0      | 2/2            | Complete    | 2026-01-22 |
 | 16. Translation Implementation                   | v2.0      | 0/TBD          | Not started | -          |

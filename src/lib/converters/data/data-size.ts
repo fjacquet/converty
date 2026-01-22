@@ -13,24 +13,25 @@ export type DataUnit =
 
 export interface DataUnitInfo {
   id: DataUnit;
-  name: string;
   symbol: string;
   bytes: number;
   binary: boolean;
 }
 
+// Unit names are translated in UI components using i18n
+// See data.units.* keys in translation files
 export const DATA_UNITS: DataUnitInfo[] = [
-  { id: "b", name: "Bytes", symbol: "B", bytes: 1, binary: false },
-  { id: "kb", name: "Kilobytes", symbol: "KB", bytes: 1000, binary: false },
-  { id: "mb", name: "Megabytes", symbol: "MB", bytes: 1000 ** 2, binary: false },
-  { id: "gb", name: "Gigabytes", symbol: "GB", bytes: 1000 ** 3, binary: false },
-  { id: "tb", name: "Terabytes", symbol: "TB", bytes: 1000 ** 4, binary: false },
-  { id: "pb", name: "Petabytes", symbol: "PB", bytes: 1000 ** 5, binary: false },
-  { id: "kib", name: "Kibibytes", symbol: "KiB", bytes: 1024, binary: true },
-  { id: "mib", name: "Mebibytes", symbol: "MiB", bytes: 1024 ** 2, binary: true },
-  { id: "gib", name: "Gibibytes", symbol: "GiB", bytes: 1024 ** 3, binary: true },
-  { id: "tib", name: "Tebibytes", symbol: "TiB", bytes: 1024 ** 4, binary: true },
-  { id: "pib", name: "Pebibytes", symbol: "PiB", bytes: 1024 ** 5, binary: true },
+  { id: "b", symbol: "B", bytes: 1, binary: false },
+  { id: "kb", symbol: "KB", bytes: 1000, binary: false },
+  { id: "mb", symbol: "MB", bytes: 1000 ** 2, binary: false },
+  { id: "gb", symbol: "GB", bytes: 1000 ** 3, binary: false },
+  { id: "tb", symbol: "TB", bytes: 1000 ** 4, binary: false },
+  { id: "pb", symbol: "PB", bytes: 1000 ** 5, binary: false },
+  { id: "kib", symbol: "KiB", bytes: 1024, binary: true },
+  { id: "mib", symbol: "MiB", bytes: 1024 ** 2, binary: true },
+  { id: "gib", symbol: "GiB", bytes: 1024 ** 3, binary: true },
+  { id: "tib", symbol: "TiB", bytes: 1024 ** 4, binary: true },
+  { id: "pib", symbol: "PiB", bytes: 1024 ** 5, binary: true },
 ];
 
 export function getUnitInfo(unit: DataUnit): DataUnitInfo | undefined {

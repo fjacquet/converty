@@ -18,7 +18,10 @@ export interface DurationConverterResult {
   weeks: number;
   months: number;
   years: number;
-  humanReadable: string;
+  timeComponents: Array<{
+    count: number;
+    unitKey: "year" | "month" | "week" | "day" | "hour" | "minute" | "second";
+  }>;
 }
 
 // Conversion factors to seconds
@@ -49,8 +52,15 @@ export const DURATION_UNITS: { id: DurationUnit; label: string }[] = [
   { id: "years", label: "yr" },
 ];
 
-function formatHumanReadable(totalSeconds: number): string {
-  if (totalSeconds === 0) return "0 seconds";
+function getTimeComponents(
+  totalSeconds: number
+): Array<{
+  count: number;
+  unitKey: "year" | "month" | "week" | "day" | "hour" | "minute" | "second";
+}> {
+  if (totalSeconds === 0) {
+    return [{ count: 0, unitKey: "second" }];
+  }
 
   const isNegative = totalSeconds < 0;
   let remaining = Math.abs(totalSeconds);
@@ -73,18 +83,20 @@ function formatHumanReadable(totalSeconds: number): string {
   const minutes = Math.floor(remaining / SECONDS_PER_MINUTE);
   const seconds = Math.round(remaining % SECONDS_PER_MINUTE);
 
-  const parts: string[] = [];
+  const components: Array<{
+    count: number;
+    unitKey: "year" | "month" | "week" | "day" | "hour" | "minute" | "second";
+  }> = [];
 
-  if (years > 0) parts.push(`${years} ${years === 1 ? "year" : "years"}`);
-  if (months > 0) parts.push(`${months} ${months === 1 ? "month" : "months"}`);
-  if (weeks > 0) parts.push(`${weeks} ${weeks === 1 ? "week" : "weeks"}`);
-  if (days > 0) parts.push(`${days} ${days === 1 ? "day" : "days"}`);
-  if (hours > 0) parts.push(`${hours} ${hours === 1 ? "hour" : "hours"}`);
-  if (minutes > 0) parts.push(`${minutes} ${minutes === 1 ? "minute" : "minutes"}`);
-  if (seconds > 0) parts.push(`${seconds} ${seconds === 1 ? "second" : "seconds"}`);
+  if (years > 0) components.push({ count: isNegative ? -years : years, unitKey: "year" });
+  if (months > 0) components.push({ count: months, unitKey: "month" });
+  if (weeks > 0) components.push({ count: weeks, unitKey: "week" });
+  if (days > 0) components.push({ count: days, unitKey: "day" });
+  if (hours > 0) components.push({ count: hours, unitKey: "hour" });
+  if (minutes > 0) components.push({ count: minutes, unitKey: "minute" });
+  if (seconds > 0) components.push({ count: seconds, unitKey: "second" });
 
-  const result = parts.join(", ");
-  return isNegative ? `-${result}` : result;
+  return components;
 }
 
 export function convertDuration(input: DurationConverterInput): DurationConverterResult | null {
@@ -105,6 +117,6 @@ export function convertDuration(input: DurationConverterInput): DurationConverte
     weeks: totalSeconds / SECONDS_PER_WEEK,
     months: totalSeconds / SECONDS_PER_MONTH,
     years: totalSeconds / SECONDS_PER_YEAR,
-    humanReadable: formatHumanReadable(totalSeconds),
+    timeComponents: getTimeComponents(totalSeconds),
   };
 }

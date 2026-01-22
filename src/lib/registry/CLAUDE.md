@@ -150,6 +150,7 @@ export const categoryRegistry: Record<string, CategoryMeta> = {
 ## Validation
 
 When adding converters, ensure:
+
 - [ ] ID is unique across all converters
 - [ ] ID uses kebab-case
 - [ ] Category exists in categoryRegistry

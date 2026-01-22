@@ -2,7 +2,8 @@
 phase: 13-network-speed-latency
 plan: 02
 subsystem: network
-tags: [network, throughput, bandwidth, performance, speed, zustand, next-intl, i18n]
+tags:
+  [network, throughput, bandwidth, performance, speed, zustand, next-intl, i18n]
 
 # Dependency graph
 requires:
@@ -62,6 +63,7 @@ completed: 2026-01-21
 - **Files modified:** 11
 
 ## Accomplishments
+
 - Throughput calculation from data transferred and transfer time
 - Conversions to all 8 bandwidth units (bps, Kbps, Mbps, Gbps, B/s, KB/s, MB/s, GB/s)
 - Speed comparison to 8 reference types (dial-up, DSL, 3G, 4G, Cable, 5G, Fiber, 10G)
@@ -77,6 +79,7 @@ Each task was committed atomically:
 3. **Task 3: Create UI components, page, and translations** - `f2c89ba` (feat)
 
 ## Files Created/Modified
+
 - `src/lib/converters/network/throughput-calculator.ts` - Pure calculation function with TIME_UNITS constant
 - `src/lib/converters/network/types.ts` - Re-export throughput types
 - `src/stores/throughput-calculator-store.ts` - Zustand store with URL sync and auto-calculation
@@ -86,6 +89,7 @@ Each task was committed atomically:
 - `src/messages/{en,fr,de,it}.json` - Translations for all 4 locales
 
 ## Decisions Made
+
 - **Reuse existing units:** Used BANDWIDTH_UNITS and FILE_SIZE_UNITS from data converters instead of duplicating
 - **Default values:** MB and seconds as defaults (most common for file transfers)
 - **Speed comparison:** Show ratio to closest reference speed (dial-up through 10 Gigabit)
@@ -97,6 +101,7 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 3 - Blocking] Fixed Collapsible component import error**
+
 - **Found during:** Task 3 (UI component creation)
 - **Issue:** Plan referenced @/components/ui/collapsible which doesn't exist in the project
 - **Fix:** Removed Collapsible wrapper, used standard Card component following half-life-calculator pattern
@@ -105,6 +110,7 @@ Each task was committed atomically:
 - **Committed in:** f2c89ba (Task 3 commit)
 
 **2. [Rule 3 - Blocking] Fixed ConverterLayout category prop type error**
+
 - **Found during:** Task 3 (TypeScript verification)
 - **Issue:** ConverterLayout expects full Category object, not just {name, slug}
 - **Fix:** Used getCategoryBySlug("network") following ip-calculator pattern
@@ -118,17 +124,21 @@ Each task was committed atomically:
 **Impact on plan:** Both fixes necessary to match existing project patterns. No scope creep.
 
 ## Issues Encountered
+
 None - plan executed smoothly following established patterns
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - Throughput calculator complete and accessible at /[locale]/network/throughput-calculator
 - TIME_UNITS constant available for reuse in latency/ping calculators
 - Speed comparison pattern established for other network performance calculators
 - Ready for Plan 13-03 (Ping/Latency Calculator)
 
 ---
-*Phase: 13-network-speed-latency*
-*Completed: 2026-01-21*
+
+_Phase: 13-network-speed-latency_
+_Completed: 2026-01-21_

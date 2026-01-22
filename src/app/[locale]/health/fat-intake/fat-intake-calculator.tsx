@@ -40,6 +40,7 @@ const useStore = createCalculatorStore<FormValues, FatIntakeResult | null>({
 export function FatIntakeCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tFats = useTranslations("calculator.health.fats");
 
   const { values, setValue, result } = useStore();
 
@@ -131,27 +132,27 @@ export function FatIntakeCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("healthyFatSources")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
-            {result.foodSources.healthy.map((source) => (
-              <li key={source} className="text-sm text-green-700 dark:text-green-300">
-                {source}
+            {result.foodSourceKeys.healthy.map((key) => (
+              <li key={key} className="text-sm text-green-700 dark:text-green-300">
+                {tFats(`foods.healthy.${key}`)}
               </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("limitTheseFats")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-yellow-50 dark:bg-yellow-950 p-4 rounded-lg">
-            {result.foodSources.limit.map((source) => (
-              <li key={source} className="text-sm text-yellow-700 dark:text-yellow-300">
-                {source}
+            {result.foodSourceKeys.limit.map((key) => (
+              <li key={key} className="text-sm text-yellow-700 dark:text-yellow-300">
+                {tFats(`foods.limit.${key}`)}
               </li>
             ))}
           </ul>
 
           <h3 className="text-lg font-semibold">{tResults("avoidTheseFats")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-red-50 dark:bg-red-950 p-4 rounded-lg">
-            {result.foodSources.avoid.map((source) => (
-              <li key={source} className="text-sm text-red-700 dark:text-red-300">
-                {source}
+            {result.foodSourceKeys.avoid.map((key) => (
+              <li key={key} className="text-sm text-red-700 dark:text-red-300">
+                {tFats(`foods.avoid.${key}`)}
               </li>
             ))}
           </ul>

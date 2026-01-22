@@ -5,12 +5,21 @@ export interface HealthyWeightInput {
   frameSize?: "small" | "medium" | "large";
 }
 
+export type WeightCategoryKey =
+  | "severelyUnderweight"
+  | "underweight"
+  | "normal"
+  | "overweight"
+  | "obeseClassI"
+  | "obeseClassII"
+  | "obeseClassIII";
+
 export interface HealthyWeightResult {
   bmiBasedRange: { min: number; max: number };
   idealWeight: number;
   adjustedRange: { min: number; max: number };
   weightCategories: Array<{
-    category: string;
+    categoryKey: WeightCategoryKey;
     minWeight: number;
     maxWeight: number;
     bmiRange: string;
@@ -71,45 +80,45 @@ export function calculateHealthyWeight(input: HealthyWeightInput): HealthyWeight
   };
 
   // Weight categories with actual weight ranges
-  const weightCategories = [
+  const weightCategories: HealthyWeightResult["weightCategories"] = [
     {
-      category: "Severely Underweight",
+      categoryKey: "severelyUnderweight",
       minWeight: 0,
       maxWeight: 16 * heightSquared,
       bmiRange: "< 16",
     },
     {
-      category: "Underweight",
+      categoryKey: "underweight",
       minWeight: 16 * heightSquared,
       maxWeight: 18.5 * heightSquared,
       bmiRange: "16 - 18.4",
     },
     {
-      category: "Normal (Healthy)",
+      categoryKey: "normal",
       minWeight: 18.5 * heightSquared,
       maxWeight: 24.9 * heightSquared,
       bmiRange: "18.5 - 24.9",
     },
     {
-      category: "Overweight",
+      categoryKey: "overweight",
       minWeight: 25 * heightSquared,
       maxWeight: 29.9 * heightSquared,
       bmiRange: "25 - 29.9",
     },
     {
-      category: "Obese Class I",
+      categoryKey: "obeseClassI",
       minWeight: 30 * heightSquared,
       maxWeight: 34.9 * heightSquared,
       bmiRange: "30 - 34.9",
     },
     {
-      category: "Obese Class II",
+      categoryKey: "obeseClassII",
       minWeight: 35 * heightSquared,
       maxWeight: 39.9 * heightSquared,
       bmiRange: "35 - 39.9",
     },
     {
-      category: "Obese Class III",
+      categoryKey: "obeseClassIII",
       minWeight: 40 * heightSquared,
       maxWeight: 100 * heightSquared,
       bmiRange: ">= 40",

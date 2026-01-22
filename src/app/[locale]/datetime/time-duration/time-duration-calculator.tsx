@@ -24,7 +24,21 @@ const useTimeDurationStore = createCalculatorStore<TimeDurationInput, TimeDurati
 export function TimeDurationCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
+  const tDatetime = useTranslations("calculator.datetime");
   const { values, setValue, result } = useTimeDurationStore();
+
+  const formatDuration = (): string => {
+    if (!result?.timeComponents || result.timeComponents.length === 0) {
+      return `0 ${tDatetime("units.seconds")}`;
+    }
+
+    const parts = result.timeComponents.map((component) => {
+      const unitKey = component.count === 1 ? component.unitKey : `${component.unitKey}s`;
+      return `${component.count} ${tDatetime(`units.${unitKey}`)}`;
+    });
+
+    return parts.join(`, ${tDatetime("and")} `);
+  };
 
   return (
     <div className="space-y-6">
@@ -84,7 +98,7 @@ export function TimeDurationCalculator() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
-                <p className="text-xl font-bold text-primary">{result.formattedDuration}</p>
+                <p className="text-xl font-bold text-primary">{formatDuration()}</p>
               </div>
               <ResultGrid
                 results={[
