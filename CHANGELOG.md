@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Downloadable offline package (`converty-local.zip`) available from GitHub Releases
+- Local server scripts for Mac/Linux (`start.sh`) and Windows (`start.bat`)
+- GitHub Actions workflow to automatically create releases with downloadable package
+
 ### Changed
 
 - Restructured documentation into focused guides in `docs/` folder

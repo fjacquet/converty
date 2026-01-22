@@ -54,3 +54,7 @@ public/sitemap.xml
 
 # Husky
 .husky/_
+
+# Local package
+converty-local/
+converty-local.zip

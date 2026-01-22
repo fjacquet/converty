@@ -19,6 +19,26 @@ A comprehensive unit converter and calculator toolkit built with Next.js 16. Ins
 - **No Backend Required** - all calculations run client-side
 - **Browser Geolocation** for location-based calculations
 - **Static Export** for easy deployment anywhere
+- **Offline Package** downloadable for local use
+
+## Download
+
+### Online
+
+Use Converty directly at **[fjacquet.github.io/converty](https://fjacquet.github.io/converty/)**
+
+### Offline / Local
+
+Download the latest release for offline use:
+
+1. Go to [Releases](https://github.com/fjacquet/converty/releases)
+2. Download `converty-local.zip`
+3. Extract and run:
+   - **Mac/Linux:** `./start.sh`
+   - **Windows:** `start.bat`
+4. Open http://localhost:3000
+
+Requires Python 3.x (pre-installed on Mac/Linux) or Node.js 18+.
 
 ## Categories
 
