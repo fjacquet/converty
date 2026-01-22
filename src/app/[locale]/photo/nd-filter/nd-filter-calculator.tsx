@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   BASE_SHUTTER_SPEEDS,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/converters/photo/nd-filter";
 
 export function NDFilterCalculator() {
+  const t = useTranslations("calculator.photo.nd-filter");
   const [baseShutterSpeed, setBaseShutterSpeed] = useState(1 / 125);
   const [filterStops, setFilterStops] = useState(10);
 
@@ -28,7 +30,7 @@ export function NDFilterCalculator() {
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Base Shutter Speed (without filter)</label>
+          <label className="text-sm font-medium">{t("base-shutter-speed")}</label>
           <select
             value={baseShutterSpeed}
             onChange={(e) => setBaseShutterSpeed(parseFloat(e.target.value))}
@@ -40,12 +42,10 @@ export function NDFilterCalculator() {
               </option>
             ))}
           </select>
-          <p className="text-xs text-muted-foreground">
-            This is the correct exposure without any filter
-          </p>
+          <p className="text-xs text-muted-foreground">{t("base-shutter-speed-note")}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">ND Filter</label>
+          <label className="text-sm font-medium">{t("nd-filter")}</label>
           <select
             value={filterStops}
             onChange={(e) => setFilterStops(parseFloat(e.target.value))}
@@ -62,19 +62,19 @@ export function NDFilterCalculator() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="p-4 rounded-lg border bg-primary/10 text-center">
-          <p className="text-sm text-muted-foreground">New Shutter Speed</p>
+          <p className="text-sm text-muted-foreground">{t("new-shutter-speed")}</p>
           <p className="text-2xl font-bold text-primary">{result.newShutterSpeedFormatted}</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Base Speed</p>
+          <p className="text-sm text-muted-foreground">{t("base-speed")}</p>
           <p className="text-2xl font-bold">{formatBaseSpeed(baseShutterSpeed)}</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Filter Factor</p>
+          <p className="text-sm text-muted-foreground">{t("filter-factor")}</p>
           <p className="text-2xl font-bold">{result.filterFactor}x</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Light Reduction</p>
+          <p className="text-sm text-muted-foreground">{t("light-reduction")}</p>
           <p className="text-2xl font-bold">{result.lightReductionPercent.toFixed(1)}%</p>
         </div>
       </div>
@@ -84,15 +84,17 @@ export function NDFilterCalculator() {
       </div>
 
       <div className="space-y-4">
-        <p className="text-sm font-medium">Quick Reference Table</p>
+        <p className="text-sm font-medium">{t("quick-reference-table")}</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2">Filter</th>
-                <th className="text-left py-2">Stops</th>
-                <th className="text-left py-2">Factor</th>
-                <th className="text-left py-2">Result for {formatBaseSpeed(baseShutterSpeed)}</th>
+                <th className="text-left py-2">{t("filter")}</th>
+                <th className="text-left py-2">{t("stops")}</th>
+                <th className="text-left py-2">{t("factor")}</th>
+                <th className="text-left py-2">
+                  {t("result-for-shutter", { speed: formatBaseSpeed(baseShutterSpeed) })}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -121,7 +123,7 @@ export function NDFilterCalculator() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">Common Uses</p>
+          <p className="font-medium mb-2">{t("common-uses")}</p>
           <div className="space-y-2">
             {ND_FILTER_INFO.commonUses.map((use) => (
               <div key={`${use.effect}-${use.shutter}`} className="flex justify-between text-sm">
@@ -132,7 +134,7 @@ export function NDFilterCalculator() {
           </div>
         </div>
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">Why Use ND Filters?</p>
+          <p className="font-medium mb-2">{t("why-use-nd-filters")}</p>
           <ul className="text-sm text-muted-foreground space-y-1">
             {ND_FILTER_INFO.purpose.map((purpose) => (
               <li key={purpose}>• {purpose}</li>
@@ -142,22 +144,22 @@ export function NDFilterCalculator() {
       </div>
 
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-2">Filter Naming Systems</p>
+        <p className="font-medium mb-2">{t("filter-naming-systems")}</p>
         <ul className="text-sm text-muted-foreground space-y-1">
           <li>
-            <strong>ND Number:</strong> {ND_FILTER_INFO.naming.ndNumber}
+            <strong>{t("nd-number-label")}:</strong> {ND_FILTER_INFO.naming.ndNumber}
           </li>
           <li>
-            <strong>Optical Density:</strong> {ND_FILTER_INFO.naming.opticalDensity}
+            <strong>{t("optical-density-label")}:</strong> {ND_FILTER_INFO.naming.opticalDensity}
           </li>
           <li>
-            <strong>Stops:</strong> {ND_FILTER_INFO.naming.stops}
+            <strong>{t("stops-label")}:</strong> {ND_FILTER_INFO.naming.stops}
           </li>
         </ul>
       </div>
 
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-2">Tips</p>
+        <p className="font-medium mb-2">{t("tips")}</p>
         <ul className="text-sm text-muted-foreground space-y-1">
           {ND_FILTER_INFO.tips.map((tip) => (
             <li key={tip}>• {tip}</li>
