@@ -2491,7 +2491,18 @@
         "diffraction-formula": "Formula di diffrazione",
         "where": "Dove",
         "wavelength-description": "lunghezza d'onda della luce (tipicamente 550nm per il verde)",
-        "f-number-description": "numero f (apertura)"
+        "f-number-description": "numero f (apertura)",
+        "focal-equivalent-intro": "Questo calcolatore ti aiuta a trovare impostazioni obiettive equivalenti tra diversi sistemi di fotocamere per ottenere lo stesso campo visivo e profondità di campo.",
+        "source-camera": "Fotocamera sorgente",
+        "focal-length-mm": "Lunghezza focale (mm)",
+        "subject-distance-m": "Distanza dal soggetto (m)",
+        "35mm-equiv": "Equiv. 35mm",
+        "field-of-view": "Campo visivo",
+        "target-camera": "Fotocamera di destinazione",
+        "focal-length": "Lunghezza focale",
+        "dof-multiplier": "Moltiplicatore DoF",
+        "how-it-works": "Come funziona",
+        "examples": "Esempi"
       }
     },
     "inflation": {

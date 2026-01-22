@@ -2514,7 +2514,18 @@
         "diffraction-formula": "Formule de diffraction",
         "where": "Où",
         "wavelength-description": "longueur d'onde de la lumière (typiquement 550nm pour le vert)",
-        "f-number-description": "nombre f (ouverture)"
+        "f-number-description": "nombre f (ouverture)",
+        "focal-equivalent-intro": "Cette calculatrice vous aide à trouver des paramètres de lentille équivalents entre différents systèmes de caméra pour obtenir le même champ de vision et profondeur de champ.",
+        "source-camera": "Appareil source",
+        "focal-length-mm": "Distance focale (mm)",
+        "subject-distance-m": "Distance du sujet (m)",
+        "35mm-equiv": "Équiv. 35mm",
+        "field-of-view": "Champ de vision",
+        "target-camera": "Appareil cible",
+        "focal-length": "Distance focale",
+        "dof-multiplier": "Multiplicateur DoF",
+        "how-it-works": "Comment ça marche",
+        "examples": "Exemples"
       }
     },
     "inflation": {

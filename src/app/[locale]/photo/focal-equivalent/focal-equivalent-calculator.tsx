@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   calculateFocalEquivalent,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/converters/photo/focal-equivalent";
 
 export function FocalEquivalentCalculator() {
+  const t = useTranslations("calculator.photo.optics");
   const [sourceFocalLength, setSourceFocalLength] = useState(50);
   const [sourceAperture, setSourceAperture] = useState(1.8);
   const [sourceDistance, setSourceDistance] = useState(3);
@@ -27,19 +29,16 @@ export function FocalEquivalentCalculator() {
   return (
     <div className="space-y-6">
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="text-sm text-muted-foreground">
-          This calculator helps you find equivalent lens settings between different camera systems
-          to achieve the same field of view and depth of field.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("focal-equivalent-intro")}</p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Source Camera */}
         <div className="space-y-4">
-          <p className="font-medium text-lg">Source Camera</p>
+          <p className="font-medium text-lg">{t("source-camera")}</p>
           <div className="space-y-4 p-4 rounded-lg border bg-muted/20">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Sensor Size</label>
+              <label className="text-sm font-medium">{t("sensor-size")}</label>
               <select
                 value={sourceCropFactor}
                 onChange={(e) => setSourceCropFactor(parseFloat(e.target.value))}
@@ -53,7 +52,7 @@ export function FocalEquivalentCalculator() {
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Focal Length (mm)</label>
+              <label className="text-sm font-medium">{t("focal-length-mm")}</label>
               <input
                 type="number"
                 value={sourceFocalLength}
@@ -75,7 +74,7 @@ export function FocalEquivalentCalculator() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Aperture (f/)</label>
+              <label className="text-sm font-medium">{t("aperture")}</label>
               <input
                 type="number"
                 value={sourceAperture}
@@ -98,7 +97,7 @@ export function FocalEquivalentCalculator() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Subject Distance (m)</label>
+              <label className="text-sm font-medium">{t("subject-distance-m")}</label>
               <input
                 type="number"
                 value={sourceDistance}
@@ -112,11 +111,11 @@ export function FocalEquivalentCalculator() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="p-3 rounded-lg border bg-muted/50 text-center">
-              <p className="text-xs text-muted-foreground">35mm Equiv</p>
+              <p className="text-xs text-muted-foreground">{t("35mm-equiv")}</p>
               <p className="font-bold">{result.sourceEffectiveFocalLength}mm</p>
             </div>
             <div className="p-3 rounded-lg border bg-muted/50 text-center">
-              <p className="text-xs text-muted-foreground">Field of View</p>
+              <p className="text-xs text-muted-foreground">{t("field-of-view")}</p>
               <p className="font-bold">{result.sourceFieldOfView}°</p>
             </div>
           </div>
@@ -124,10 +123,10 @@ export function FocalEquivalentCalculator() {
 
         {/* Target Camera */}
         <div className="space-y-4">
-          <p className="font-medium text-lg">Target Camera</p>
+          <p className="font-medium text-lg">{t("target-camera")}</p>
           <div className="space-y-4 p-4 rounded-lg border bg-primary/10">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Sensor Size</label>
+              <label className="text-sm font-medium">{t("sensor-size")}</label>
               <select
                 value={targetCropFactor}
                 onChange={(e) => setTargetCropFactor(parseFloat(e.target.value))}
@@ -144,11 +143,11 @@ export function FocalEquivalentCalculator() {
             <div className="p-4 rounded-lg bg-background border">
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground">Focal Length</p>
+                  <p className="text-sm text-muted-foreground">{t("focal-length")}</p>
                   <p className="text-2xl font-bold text-primary">{result.targetFocalLength}mm</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground">Aperture</p>
+                  <p className="text-sm text-muted-foreground">{t("aperture")}</p>
                   <p className="text-2xl font-bold text-primary">f/{result.targetAperture}</p>
                 </div>
               </div>
@@ -156,11 +155,11 @@ export function FocalEquivalentCalculator() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="p-3 rounded-lg border bg-muted/50 text-center">
-                <p className="text-xs text-muted-foreground">35mm Equiv</p>
+                <p className="text-xs text-muted-foreground">{t("35mm-equiv")}</p>
                 <p className="font-bold">{result.targetEffectiveFocalLength}mm</p>
               </div>
               <div className="p-3 rounded-lg border bg-muted/50 text-center">
-                <p className="text-xs text-muted-foreground">Field of View</p>
+                <p className="text-xs text-muted-foreground">{t("field-of-view")}</p>
                 <p className="font-bold">{result.targetFieldOfView}°</p>
               </div>
             </div>
@@ -171,13 +170,13 @@ export function FocalEquivalentCalculator() {
       <div className="p-4 rounded-lg border bg-primary/10">
         <p className="font-medium">{result.explanation}</p>
         <p className="text-sm text-muted-foreground mt-2">
-          DoF multiplier: {result.dofMultiplier}x
+          {t("dof-multiplier")}: {result.dofMultiplier}x
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">How It Works</p>
+          <p className="font-medium mb-2">{t("how-it-works")}</p>
           <ul className="text-sm text-muted-foreground space-y-1">
             <li>
               <strong>FOV:</strong> {FOCAL_EQUIVALENT_INFO.fieldOfView}
@@ -191,7 +190,7 @@ export function FocalEquivalentCalculator() {
           </ul>
         </div>
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">Examples</p>
+          <p className="font-medium mb-2">{t("examples")}</p>
           <ul className="text-sm text-muted-foreground space-y-1">
             {FOCAL_EQUIVALENT_INFO.examples.map((ex) => (
               <li key={`${ex.source}-${ex.target}`}>
