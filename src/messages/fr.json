@@ -2526,6 +2526,32 @@
         "dof-multiplier": "Multiplicateur DoF",
         "how-it-works": "Comment ça marche",
         "examples": "Exemples"
+      },
+      "macro": {
+        "aperture": "Ouverture (f/)",
+        "magnification": "Magnification",
+        "sensor-size": "Taille du capteur",
+        "focal-length": "Distance focale",
+        "pupil-ratio": "Rapport de pupille (Avancé)",
+        "pupil-ratio-note": "1.0 pour les objectifs symétriques. Différent pour les designs rétrofocus/téléobjectif.",
+        "total-dof": "Profondeur de champ totale",
+        "in-front-of-focus": "Devant le point de mise au point",
+        "behind-focus": "Derrière le point de mise au point",
+        "effective-aperture": "Ouverture effective",
+        "significant-light-loss": "Perte de lumière significative",
+        "moderate-light-loss": "Perte de lumière modérée",
+        "working-distance": "Distance de travail approximative",
+        "working-distance-note": "Distance de l'avant de l'objectif au sujet (approximative)",
+        "notes": "Notes",
+        "focus-stacking-calculator": "Calculateur d'empilement de mise au point",
+        "total-depth-needed": "Profondeur totale requise",
+        "shots-required": "Prises requises",
+        "overlap-note": "Avec 30 % de chevauchement entre les images",
+        "macro-dof-formula": "Formule de profondeur de champ macro",
+        "formula-where": "Où :",
+        "formula-n": "N = nombre f (ouverture)",
+        "formula-c": "c = Cercle de confusion",
+        "formula-m": "m = rapport de magnification"
       }
     },
     "inflation": {

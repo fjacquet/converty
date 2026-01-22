@@ -2526,6 +2526,32 @@
         "dof-multiplier": "DoF-Multiplikator",
         "how-it-works": "Wie es funktioniert",
         "examples": "Beispiele"
+      },
+      "macro": {
+        "aperture": "Blende (f/)",
+        "magnification": "Vergrößerung",
+        "sensor-size": "Sensorgröße",
+        "focal-length": "Brennweite",
+        "pupil-ratio": "Pupillenverhältnis (Erweitert)",
+        "pupil-ratio-note": "1.0 für symmetrische Objektive. Unterschiedlich bei Rückfokus-/Teleobjektiv-Designs.",
+        "total-dof": "Gesamtschärfentiefe",
+        "in-front-of-focus": "Vor dem Fokuspunkt",
+        "behind-focus": "Hinter dem Fokuspunkt",
+        "effective-aperture": "Effektive Blende",
+        "significant-light-loss": "Erheblicher Lichtverlust",
+        "moderate-light-loss": "Mäßiger Lichtverlust",
+        "working-distance": "Ungefähre Arbeitsweite",
+        "working-distance-note": "Abstand von der Objektivvorderseite zum Motiv (ungefähr)",
+        "notes": "Notizen",
+        "focus-stacking-calculator": "Fokus-Stacking-Rechner",
+        "total-depth-needed": "Benötigte Gesamtschärfentiefe",
+        "shots-required": "Erforderliche Aufnahmen",
+        "overlap-note": "Mit 30 % Überlappung zwischen den Bildern",
+        "macro-dof-formula": "Makro-Schärfentiefe-Formel",
+        "formula-where": "Wobei:",
+        "formula-n": "N = Blendenzahl",
+        "formula-c": "c = Zerstreuungskreis",
+        "formula-m": "m = Vergrößerungsverhältnis"
       }
     },
     "inflation": {
