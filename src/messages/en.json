@@ -2598,6 +2598,31 @@
         "optical-density-label": "Optical Density",
         "stops-label": "Stops",
         "tips": "Tips"
+      },
+      "astro": {
+        "camera-preset": "Camera Preset",
+        "select-camera": "Select camera...",
+        "sensor-size": "Sensor Size",
+        "megapixels": "Megapixels",
+        "focal-length": "Focal Length (mm)",
+        "aperture": "Aperture (f/)",
+        "declination": "Declination (°)",
+        "declination-note": "0° = celestial equator (use if unsure)",
+        "accuracy-mode": "Accuracy Mode",
+        "accuracy-default": "Default (web/standard prints)",
+        "accuracy-accurate": "Accurate (large prints)",
+        "npf-rule-recommended": "NPF Rule (Recommended)",
+        "rule-500": "500 Rule",
+        "rule-400": "400 Rule",
+        "recommended": "Recommended",
+        "rule-explanations": "Rule Explanations",
+        "npf-rule-label": "NPF Rule",
+        "rule-500-label": "500 Rule",
+        "rule-400-label": "400 Rule",
+        "tips": "Tips",
+        "common-camera-reference": "Common Camera Reference",
+        "camera": "Camera",
+        "sensor-width": "Sensor Width"
       }
     },
     "inflation": {
