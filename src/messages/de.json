@@ -2454,7 +2454,18 @@
         "total-dof": "Gesamtschärfentiefe",
         "difference-from-standard": "Unterschied zur Norm",
         "more-demanding": "Ihre Betrachtungsbedingungen sind <strong>anspruchsvoller</strong> als die Norm. Die angepasste Schärfentiefe ist <strong>enger</strong> - Sie müssen präziser fokussieren.",
-        "more-relaxed": "Ihre Betrachtungsbedingungen sind <strong>entspannter</strong> als die Norm. Die angepasste Schärfentiefe ist <strong>breiter</strong> - Sie haben mehr Spielraum für Fehler."
+        "more-relaxed": "Ihre Betrachtungsbedingungen sind <strong>entspannter</strong> als die Norm. Die angepasste Schärfentiefe ist <strong>breiter</strong> - Sie haben mehr Spielraum für Fehler.",
+        "sensor-size": "Sensorgröße",
+        "display": "Anzeige",
+        "settings": "Einstellungen",
+        "aperture-header": "f/",
+        "infinity-focus": "Unendlichfokus (Ferne Grenze = ∞)",
+        "understanding-table": "Die Tabelle verstehen",
+        "total-dof-description": "Die Gesamttiefe von nah bis fern, die scharf erscheint",
+        "near-limit-description": "Nächste Entfernung, die scharf erscheint",
+        "far-limit-description": "Fernste Entfernung, die scharf erscheint (∞ = unendlich)",
+        "hyperfocal-description": "Hier fokussieren für maximale Schärfentiefe bis zur Unendlichkeit",
+        "green-cells-description": "Grüne Zellen geben an, dass die Ferne Grenze die Unendlichkeit erreicht"
       }
     },
     "inflation": {

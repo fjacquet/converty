@@ -2431,7 +2431,18 @@
         "total-dof": "DoF totale",
         "difference-from-standard": "Differenza dallo standard",
         "more-demanding": "Le tue condizioni di visualizzazione sono <strong>più esigenti</strong> dello standard. La profondità di campo regolata è <strong>più stretta</strong> - devi essere più preciso con la messa a fuoco.",
-        "more-relaxed": "Le tue condizioni di visualizzazione sono <strong>più rilassate</strong> dello standard. La profondità di campo regolata è <strong>più ampia</strong> - hai più margine di errore."
+        "more-relaxed": "Le tue condizioni di visualizzazione sono <strong>più rilassate</strong> dello standard. La profondità di campo regolata è <strong>più ampia</strong> - hai più margine di errore.",
+        "sensor-size": "Dimensioni sensore",
+        "display": "Visualizzazione",
+        "settings": "Impostazioni",
+        "aperture-header": "f/",
+        "infinity-focus": "Messa a fuoco all'infinito (limite distante = ∞)",
+        "understanding-table": "Comprendere la tabella",
+        "total-dof-description": "La profondità totale da vicino a distante che appare nitida",
+        "near-limit-description": "Distanza più vicina che appare nitida",
+        "far-limit-description": "Distanza più distante che appare nitida (∞ = infinito)",
+        "hyperfocal-description": "Metti a fuoco qui per la profondità di campo massima che si estende all'infinito",
+        "green-cells-description": "Le celle verdi indicano che il limite distante raggiunge l'infinito"
       }
     },
     "inflation": {

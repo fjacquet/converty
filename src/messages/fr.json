@@ -2454,7 +2454,18 @@
         "total-dof": "DoF total",
         "difference-from-standard": "Différence par rapport à la norme",
         "more-demanding": "Vos conditions de visualisation sont <strong>plus exigeantes</strong> que la norme. La profondeur de champ ajustée est <strong>plus étroite</strong> - vous devez être plus précis avec la mise au point.",
-        "more-relaxed": "Vos conditions de visualisation sont <strong>plus relaxantes</strong> que la norme. La profondeur de champ ajustée est <strong>plus large</strong> - vous avez plus de marge d'erreur."
+        "more-relaxed": "Vos conditions de visualisation sont <strong>plus relaxantes</strong> que la norme. La profondeur de champ ajustée est <strong>plus large</strong> - vous avez plus de marge d'erreur.",
+        "sensor-size": "Taille du capteur",
+        "display": "Affichage",
+        "settings": "Paramètres",
+        "aperture-header": "f/",
+        "infinity-focus": "Mise au point à l'infini (limite lointaine = ∞)",
+        "understanding-table": "Comprendre le tableau",
+        "total-dof-description": "La profondeur totale du proche au lointain qui apparaît nette",
+        "near-limit-description": "Distance la plus proche qui apparaît nette",
+        "far-limit-description": "Distance la plus lointaine qui apparaît nette (∞ = infini)",
+        "hyperfocal-description": "Focalisez ici pour une profondeur de champ maximale s'étendant à l'infini",
+        "green-cells-description": "Les cellules vertes indiquent que la limite lointaine atteint l'infini"
       }
     },
     "inflation": {
