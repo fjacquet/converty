@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   CAMERA_PRESETS,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/converters/photo/spot-stars";
 
 export function SpotStarsCalculator() {
+  const t = useTranslations("calculator.photo.astro");
   const [focalLength, setFocalLength] = useState(24);
   const [aperture, setAperture] = useState(2.8);
   const [sensorWidth, setSensorWidth] = useState(36);
@@ -38,7 +40,7 @@ export function SpotStarsCalculator() {
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Camera Preset</label>
+          <label className="text-sm font-medium">{t("camera-preset")}</label>
           <select
             onChange={(e) => {
               const preset = CAMERA_PRESETS.find((p) => p.name === e.target.value);
@@ -46,7 +48,7 @@ export function SpotStarsCalculator() {
             }}
             className="w-full h-10 px-3 rounded-md border bg-background"
           >
-            <option value="">Select camera...</option>
+            <option value="">{t("select-camera")}</option>
             {CAMERA_PRESETS.map((preset) => (
               <option key={preset.name} value={preset.name}>
                 {preset.name} ({preset.megapixels}MP)
@@ -55,7 +57,7 @@ export function SpotStarsCalculator() {
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Sensor Size</label>
+          <label className="text-sm font-medium">{t("sensor-size")}</label>
           <select
             value={SENSOR_SIZES.find((s) => Math.abs(s.width - sensorWidth) < 1)?.name || ""}
             onChange={(e) => {
@@ -72,7 +74,7 @@ export function SpotStarsCalculator() {
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Megapixels</label>
+          <label className="text-sm font-medium">{t("megapixels")}</label>
           <input
             type="number"
             value={megapixels}
@@ -84,7 +86,7 @@ export function SpotStarsCalculator() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Focal Length (mm)</label>
+          <label className="text-sm font-medium">{t("focal-length")}</label>
           <input
             type="number"
             value={focalLength}
@@ -106,7 +108,7 @@ export function SpotStarsCalculator() {
           </div>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Aperture (f/)</label>
+          <label className="text-sm font-medium">{t("aperture")}</label>
           <input
             type="number"
             value={aperture}
@@ -129,7 +131,7 @@ export function SpotStarsCalculator() {
           </div>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Declination (°)</label>
+          <label className="text-sm font-medium">{t("declination")}</label>
           <input
             type="number"
             value={declination}
@@ -138,12 +140,12 @@ export function SpotStarsCalculator() {
             max={90}
             className="w-full h-10 px-3 rounded-md border bg-background"
           />
-          <p className="text-xs text-muted-foreground">0° = celestial equator (use if unsure)</p>
+          <p className="text-xs text-muted-foreground">{t("declination-note")}</p>
         </div>
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Accuracy Mode</label>
+        <label className="text-sm font-medium">{t("accuracy-mode")}</label>
         <div className="flex gap-4">
           <label className="flex items-center gap-2">
             <input
@@ -152,7 +154,7 @@ export function SpotStarsCalculator() {
               onChange={() => setAccuracy("default")}
               className="w-4 h-4"
             />
-            <span className="text-sm">Default (web/standard prints)</span>
+            <span className="text-sm">{t("accuracy-default")}</span>
           </label>
           <label className="flex items-center gap-2">
             <input
@@ -161,26 +163,26 @@ export function SpotStarsCalculator() {
               onChange={() => setAccuracy("accurate")}
               className="w-4 h-4"
             />
-            <span className="text-sm">Accurate (large prints)</span>
+            <span className="text-sm">{t("accuracy-accurate")}</span>
           </label>
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="p-4 rounded-lg border bg-primary/10 text-center">
-          <p className="text-sm text-muted-foreground">NPF Rule (Recommended)</p>
+          <p className="text-sm text-muted-foreground">{t("npf-rule-recommended")}</p>
           <p className="text-3xl font-bold text-primary">{result.npfRule}s</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">500 Rule</p>
+          <p className="text-sm text-muted-foreground">{t("rule-500")}</p>
           <p className="text-2xl font-bold">{result.rule500}s</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">400 Rule</p>
+          <p className="text-sm text-muted-foreground">{t("rule-400")}</p>
           <p className="text-2xl font-bold">{result.rule400}s</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Recommended</p>
+          <p className="text-sm text-muted-foreground">{t("recommended")}</p>
           <p className="text-2xl font-bold">{result.recommended}s</p>
         </div>
       </div>
@@ -191,21 +193,21 @@ export function SpotStarsCalculator() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">Rule Explanations</p>
+          <p className="font-medium mb-2">{t("rule-explanations")}</p>
           <ul className="text-sm text-muted-foreground space-y-2">
             <li>
-              <strong>NPF Rule:</strong> {SPOT_STARS_INFO.npfRule}
+              <strong>{t("npf-rule-label")}:</strong> {SPOT_STARS_INFO.npfRule}
             </li>
             <li>
-              <strong>500 Rule:</strong> {SPOT_STARS_INFO.rule500}
+              <strong>{t("rule-500-label")}:</strong> {SPOT_STARS_INFO.rule500}
             </li>
             <li>
-              <strong>400 Rule:</strong> {SPOT_STARS_INFO.rule400}
+              <strong>{t("rule-400-label")}:</strong> {SPOT_STARS_INFO.rule400}
             </li>
           </ul>
         </div>
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">Tips</p>
+          <p className="font-medium mb-2">{t("tips")}</p>
           <ul className="text-sm text-muted-foreground space-y-1">
             {SPOT_STARS_INFO.tips.map((tip) => (
               <li key={tip}>• {tip}</li>
@@ -215,14 +217,14 @@ export function SpotStarsCalculator() {
       </div>
 
       <div className="space-y-4">
-        <p className="text-sm font-medium">Common Camera Reference</p>
+        <p className="text-sm font-medium">{t("common-camera-reference")}</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2">Camera</th>
-                <th className="text-left py-2">Sensor Width</th>
-                <th className="text-left py-2">Megapixels</th>
+                <th className="text-left py-2">{t("camera")}</th>
+                <th className="text-left py-2">{t("sensor-width")}</th>
+                <th className="text-left py-2">{t("megapixels")}</th>
               </tr>
             </thead>
             <tbody>

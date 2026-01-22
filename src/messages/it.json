@@ -2575,6 +2575,31 @@
         "optical-density-label": "Densità ottica",
         "stops-label": "Stop",
         "tips": "Suggerimenti"
+      },
+      "astro": {
+        "camera-preset": "Fotocamera preselezionata",
+        "select-camera": "Seleziona fotocamera...",
+        "sensor-size": "Dimensione sensore",
+        "megapixels": "Megapixel",
+        "focal-length": "Lunghezza focale (mm)",
+        "aperture": "Apertura (f/)",
+        "declination": "Declinazione (°)",
+        "declination-note": "0° = equatore celeste (usa se non sei sicuro)",
+        "accuracy-mode": "Modalità accuratezza",
+        "accuracy-default": "Predefinito (web/stampe standard)",
+        "accuracy-accurate": "Accurato (stampe grandi)",
+        "npf-rule-recommended": "Regola NPF (Consigliato)",
+        "rule-500": "Regola 500",
+        "rule-400": "Regola 400",
+        "recommended": "Consigliato",
+        "rule-explanations": "Spiegazione delle regole",
+        "npf-rule-label": "Regola NPF",
+        "rule-500-label": "Regola 500",
+        "rule-400-label": "Regola 400",
+        "tips": "Suggerimenti",
+        "common-camera-reference": "Riferimento fotocamera comune",
+        "camera": "Fotocamera",
+        "sensor-width": "Larghezza sensore"
       }
     },
     "inflation": {
