@@ -174,11 +174,12 @@ Plans:
 2. Results update in real-time as user types
 3. Search matches calculator names and descriptions
 4. Clicking result navigates to calculator page
-   **Plans:** TBD
+   **Plans:** 2 plans in 2 waves
 
 Plans:
 
-- [ ] TBD
+- [ ] 14-01-PLAN.md — Search Infrastructure (Fuse.js, types, build-time index generation)
+- [ ] 14-02-PLAN.md — Search UI & Integration (Dialog, GlobalSearch component, header integration)
 
 #### Phase 15: Translation Audit
 
@@ -234,6 +235,6 @@ Phases execute in numeric order: 9 → 10 → 11 → 12 → 13 → 14 → 15 →
 | 11. Visual Subnet Calculator - Advanced Features | v2.0      | 3/3            | Complete    | 2026-01-21 |
 | 12. IP Address & CIDR Calculators                | v2.0      | 2/2            | Complete    | 2026-01-21 |
 | 13. Network Speed/Latency Calculator             | v2.0      | 2/2            | Complete    | 2026-01-21 |
-| 14. Global Search                                | v2.0      | 0/TBD          | Not started | -          |
+| 14. Global Search                                | v2.0      | 0/2            | Planned     | -          |
 | 15. Translation Audit                            | v2.0      | 0/TBD          | Not started | -          |
 | 16. Translation Implementation                   | v2.0      | 0/TBD          | Not started | -          |
