@@ -2622,7 +2622,24 @@
         "tips": "Conseils",
         "common-camera-reference": "Référence d'appareil photo courant",
         "camera": "Appareil photo",
-        "sensor-width": "Largeur du capteur"
+        "sensor-width": "Largeur du capteur",
+        "calculate-from": "Calculer à partir de",
+        "exposure-time": "Temps d'exposition",
+        "rotation-angle": "Angle de rotation",
+        "hemisphere": "Hémisphère",
+        "northern-polaris": "Nord (Polaris)",
+        "southern": "Sud",
+        "exposure-time-minutes": "Temps d'exposition (minutes)",
+        "rotation-angle-degrees": "Angle de rotation (degrés)",
+        "full-circle-note": "360° = cercle complet",
+        "rotation": "Rotation",
+        "circle-percent": "Cercle %",
+        "total-minutes": "Minutes totales",
+        "presets-reference": "Référence des présets",
+        "duration": "Durée",
+        "tips-and-information": "Conseils et informations",
+        "best-conditions": "Meilleures conditions",
+        "techniques": "Techniques"
       }
     },
     "inflation": {
