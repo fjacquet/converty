@@ -2622,7 +2622,24 @@
         "tips": "Tipps",
         "common-camera-reference": "Häufige Kamera-Referenz",
         "camera": "Kamera",
-        "sensor-width": "Sensorbreite"
+        "sensor-width": "Sensorbreite",
+        "calculate-from": "Berechnen von",
+        "exposure-time": "Belichtungszeit",
+        "rotation-angle": "Rotationswinkel",
+        "hemisphere": "Hemisphäre",
+        "northern-polaris": "Norden (Polaris)",
+        "southern": "Süden",
+        "exposure-time-minutes": "Belichtungszeit (Minuten)",
+        "rotation-angle-degrees": "Rotationswinkel (Grad)",
+        "full-circle-note": "360° = vollständiger Kreis",
+        "rotation": "Rotation",
+        "circle-percent": "Kreis %",
+        "total-minutes": "Gesamtminuten",
+        "presets-reference": "Vorset-Referenz",
+        "duration": "Dauer",
+        "tips-and-information": "Tipps und Informationen",
+        "best-conditions": "Beste Bedingungen",
+        "techniques": "Techniken"
       }
     },
     "inflation": {

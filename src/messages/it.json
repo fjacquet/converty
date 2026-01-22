@@ -2599,7 +2599,24 @@
         "tips": "Suggerimenti",
         "common-camera-reference": "Riferimento fotocamera comune",
         "camera": "Fotocamera",
-        "sensor-width": "Larghezza sensore"
+        "sensor-width": "Larghezza sensore",
+        "calculate-from": "Calcola da",
+        "exposure-time": "Tempo di esposizione",
+        "rotation-angle": "Angolo di rotazione",
+        "hemisphere": "Emisfero",
+        "northern-polaris": "Nord (Polaris)",
+        "southern": "Sud",
+        "exposure-time-minutes": "Tempo di esposizione (minuti)",
+        "rotation-angle-degrees": "Angolo di rotazione (gradi)",
+        "full-circle-note": "360° = cerchio completo",
+        "rotation": "Rotazione",
+        "circle-percent": "Cerchio %",
+        "total-minutes": "Minuti totali",
+        "presets-reference": "Riferimento predefiniti",
+        "duration": "Durata",
+        "tips-and-information": "Suggerimenti e informazioni",
+        "best-conditions": "Migliori condizioni",
+        "techniques": "Tecniche"
       }
     },
     "inflation": {

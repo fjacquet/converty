@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   calculateExposureFromRotation,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/converters/photo/star-trails";
 
 export function StarTrailsCalculator() {
+  const t = useTranslations("calculator.photo.astro");
   const [mode, setMode] = useState<"time" | "rotation">("time");
   const [exposureMinutes, setExposureMinutes] = useState(60);
   const [rotationDegrees, setRotationDegrees] = useState(15);
@@ -26,32 +28,32 @@ export function StarTrailsCalculator() {
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Calculate From</label>
+          <label className="text-sm font-medium">{t("calculate-from")}</label>
           <select
             value={mode}
             onChange={(e) => setMode(e.target.value as "time" | "rotation")}
             className="w-full h-10 px-3 rounded-md border bg-background"
           >
-            <option value="time">Exposure Time</option>
-            <option value="rotation">Rotation Angle</option>
+            <option value="time">{t("exposure-time")}</option>
+            <option value="rotation">{t("rotation-angle")}</option>
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Hemisphere</label>
+          <label className="text-sm font-medium">{t("$1")}</label>
           <select
             value={hemisphere}
             onChange={(e) => setHemisphere(e.target.value as "north" | "south")}
             className="w-full h-10 px-3 rounded-md border bg-background"
           >
-            <option value="north">Northern (Polaris)</option>
-            <option value="south">Southern</option>
+            <option value="north">{t("northern-polaris")}</option>
+            <option value="south">{t("southern")}</option>
           </select>
         </div>
       </div>
 
       {mode === "time" ? (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Exposure Time (minutes)</label>
+          <label className="text-sm font-medium">{t("exposure-time-minutes")}</label>
           <input
             type="number"
             value={exposureMinutes}
@@ -74,7 +76,7 @@ export function StarTrailsCalculator() {
         </div>
       ) : (
         <div className="space-y-2">
-          <label className="text-sm font-medium">Rotation Angle (degrees)</label>
+          <label className="text-sm font-medium">{t("rotation-angle-degrees")}</label>
           <input
             type="number"
             value={rotationDegrees}
@@ -83,13 +85,13 @@ export function StarTrailsCalculator() {
             max={360}
             className="w-full h-10 px-3 rounded-md border bg-background"
           />
-          <p className="text-xs text-muted-foreground">360° = full circle</p>
+          <p className="text-xs text-muted-foreground">{t("full-circle-note")}</p>
         </div>
       )}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Exposure Time</p>
+          <p className="text-sm text-muted-foreground">{t("exposure-time")}</p>
           <p className="text-2xl font-bold">
             {result.exposureHours >= 1
               ? `${result.exposureHours.toFixed(1)}h`
@@ -97,15 +99,15 @@ export function StarTrailsCalculator() {
           </p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Rotation</p>
+          <p className="text-sm text-muted-foreground">{t("rotation")}</p>
           <p className="text-2xl font-bold">{result.rotationDegrees.toFixed(1)}°</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Circle %</p>
+          <p className="text-sm text-muted-foreground">{t("circle-percent")}</p>
           <p className="text-2xl font-bold">{result.rotationPercent.toFixed(1)}%</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Total Minutes</p>
+          <p className="text-sm text-muted-foreground">{t("total-minutes")}</p>
           <p className="text-2xl font-bold">{result.exposureMinutes}</p>
         </div>
       </div>
@@ -149,14 +151,14 @@ export function StarTrailsCalculator() {
       </div>
 
       <div className="space-y-4">
-        <p className="text-sm font-medium">Presets Reference</p>
+        <p className="text-sm font-medium">{t("presets-reference")}</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2">Duration</th>
+                <th className="text-left py-2">{t("duration")}</th>
                 <th className="text-left py-2">Rotation</th>
-                <th className="text-left py-2">Circle %</th>
+                <th className="text-left py-2">{t("circle-percent")}</th>
               </tr>
             </thead>
             <tbody>
@@ -173,10 +175,10 @@ export function StarTrailsCalculator() {
       </div>
 
       <div className="space-y-4">
-        <p className="text-sm font-medium">Tips & Information</p>
+        <p className="text-sm font-medium">{t("tips-and-information")}</p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="p-4 rounded-lg border bg-muted/30">
-            <p className="font-medium mb-2">Best Conditions</p>
+            <p className="font-medium mb-2">{t("best-conditions")}</p>
             <ul className="text-sm text-muted-foreground space-y-1">
               {STAR_TRAILS_INFO.bestConditions.map((tip) => (
                 <li key={tip}>• {tip}</li>
@@ -184,7 +186,7 @@ export function StarTrailsCalculator() {
             </ul>
           </div>
           <div className="p-4 rounded-lg border bg-muted/30">
-            <p className="font-medium mb-2">Techniques</p>
+            <p className="font-medium mb-2">{t("techniques")}</p>
             <ul className="text-sm text-muted-foreground space-y-1">
               {STAR_TRAILS_INFO.techniques.map((tip) => (
                 <li key={tip}>• {tip}</li>

@@ -2622,7 +2622,24 @@
         "tips": "Tips",
         "common-camera-reference": "Common Camera Reference",
         "camera": "Camera",
-        "sensor-width": "Sensor Width"
+        "sensor-width": "Sensor Width",
+        "calculate-from": "Calculate From",
+        "exposure-time": "Exposure Time",
+        "rotation-angle": "Rotation Angle",
+        "hemisphere": "Hemisphere",
+        "northern-polaris": "Northern (Polaris)",
+        "southern": "Southern",
+        "exposure-time-minutes": "Exposure Time (minutes)",
+        "rotation-angle-degrees": "Rotation Angle (degrees)",
+        "full-circle-note": "360° = full circle",
+        "rotation": "Rotation",
+        "circle-percent": "Circle %",
+        "total-minutes": "Total Minutes",
+        "presets-reference": "Presets Reference",
+        "duration": "Duration",
+        "tips-and-information": "Tips & Information",
+        "best-conditions": "Best Conditions",
+        "techniques": "Techniques"
       }
     },
     "inflation": {
