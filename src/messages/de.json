@@ -2577,6 +2577,27 @@
         "formula-macro-n": "N = markierte Blendenzahl",
         "formula-macro-m": "m = Vergrößerungsverhältnis (z. B. 1 für 1:1)",
         "formula-macro-wavelength": "λ = Lichtwellenlänge (550 nm für Grün)"
+      },
+      "nd-filter": {
+        "base-shutter-speed": "Basis-Verschlusszeit (ohne Filter)",
+        "base-shutter-speed-note": "Dies ist die korrekte Belichtung ohne Filter",
+        "nd-filter": "ND-Filter",
+        "new-shutter-speed": "Neue Verschlusszeit",
+        "base-speed": "Basisgeschwindigkeit",
+        "filter-factor": "Filterfaktor",
+        "light-reduction": "Lichtverlust",
+        "quick-reference-table": "Schnellreferenztabelle",
+        "filter": "Filter",
+        "stops": "Blendenstufen",
+        "factor": "Faktor",
+        "result-for-shutter": "Ergebnis für {speed}",
+        "common-uses": "Häufige Verwendungen",
+        "why-use-nd-filters": "Warum ND-Filter verwenden?",
+        "filter-naming-systems": "Filterbenennung Systeme",
+        "nd-number-label": "ND-Nummer",
+        "optical-density-label": "Optische Dichte",
+        "stops-label": "Blendenstufen",
+        "tips": "Tipps"
       }
     },
     "inflation": {

@@ -2554,6 +2554,27 @@
         "formula-macro-n": "N = numero f marcato",
         "formula-macro-m": "m = rapporto di ingrandimento (ad esempio, 1 per 1:1)",
         "formula-macro-wavelength": "λ = lunghezza d'onda della luce (550 nm per il verde)"
+      },
+      "nd-filter": {
+        "base-shutter-speed": "Velocità dell'otturatore di base (senza filtro)",
+        "base-shutter-speed-note": "Questa è l'esposizione corretta senza alcun filtro",
+        "nd-filter": "Filtro ND",
+        "new-shutter-speed": "Nuova velocità dell'otturatore",
+        "base-speed": "Velocità di base",
+        "filter-factor": "Fattore filtro",
+        "light-reduction": "Riduzione della luce",
+        "quick-reference-table": "Tabella di riferimento rapido",
+        "filter": "Filtro",
+        "stops": "stop",
+        "factor": "Fattore",
+        "result-for-shutter": "Risultato per {speed}",
+        "common-uses": "Usi comuni",
+        "why-use-nd-filters": "Perché usare i filtri ND?",
+        "filter-naming-systems": "Sistemi di denominazione dei filtri",
+        "nd-number-label": "Numero ND",
+        "optical-density-label": "Densità ottica",
+        "stops-label": "Stop",
+        "tips": "Suggerimenti"
       }
     },
     "inflation": {

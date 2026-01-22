@@ -2577,6 +2577,27 @@
         "formula-macro-n": "N = marked f-number",
         "formula-macro-m": "m = magnification ratio (e.g., 1 for 1:1)",
         "formula-macro-wavelength": "λ = wavelength of light (550nm for green)"
+      },
+      "nd-filter": {
+        "base-shutter-speed": "Base Shutter Speed (without filter)",
+        "base-shutter-speed-note": "This is the correct exposure without any filter",
+        "nd-filter": "ND Filter",
+        "new-shutter-speed": "New Shutter Speed",
+        "base-speed": "Base Speed",
+        "filter-factor": "Filter Factor",
+        "light-reduction": "Light Reduction",
+        "quick-reference-table": "Quick Reference Table",
+        "filter": "Filter",
+        "stops": "Stops",
+        "factor": "Factor",
+        "result-for-shutter": "Result for {speed}",
+        "common-uses": "Common Uses",
+        "why-use-nd-filters": "Why Use ND Filters?",
+        "filter-naming-systems": "Filter Naming Systems",
+        "nd-number-label": "ND Number",
+        "optical-density-label": "Optical Density",
+        "stops-label": "Stops",
+        "tips": "Tips"
       }
     },
     "inflation": {
