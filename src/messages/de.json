@@ -2432,10 +2432,29 @@
       "getAccurateSunTimes": "Genaue Sonnenzeiten abrufen",
       "getAccurateSunTimesDescription": "Verwenden Sie Ihren Standort, um genaue Sonneneinstrah lungs- und Dammerungszeiten fur Ihre Region zu berechnen.",
       "dof": {
-        "cameraSettings": "Kameraeinstellungen",
-        "viewingConditions": "Betrachtungsbedingungen (fur CoC-Anpassung)",
+        "camera-settings": "Kameraeinstellungen",
+        "viewing-conditions": "Betrachtungsbedingungen",
         "sensor": "Sensor",
-        "apertureF": "Blende (f/)"
+        "aperture": "Blende (f/)",
+        "focal-length": "Brennweite",
+        "subject-distance": "Motivabstand",
+        "print-width": "Druckbreite",
+        "viewing-distance": "Betrachtungsabstand",
+        "visual-acuity": "Sehschärfe",
+        "total-depth-of-field": "Gesamtschärfentiefe",
+        "near-limit": "Nahe Grenze",
+        "in-front": "davor",
+        "far-limit": "Ferne Grenze",
+        "behind": "dahinter",
+        "hyperfocal-distance": "Hyperfokale Distanz",
+        "adjusted-coc": "Angepasster CoC (Ihre Bedingungen)",
+        "standard-coc": "Standard CoC",
+        "near": "Nah",
+        "far": "Fern",
+        "total-dof": "Gesamtschärfentiefe",
+        "difference-from-standard": "Unterschied zur Norm",
+        "more-demanding": "Ihre Betrachtungsbedingungen sind <strong>anspruchsvoller</strong> als die Norm. Die angepasste Schärfentiefe ist <strong>enger</strong> - Sie müssen präziser fokussieren.",
+        "more-relaxed": "Ihre Betrachtungsbedingungen sind <strong>entspannter</strong> als die Norm. Die angepasste Schärfentiefe ist <strong>breiter</strong> - Sie haben mehr Spielraum für Fehler."
       }
     },
     "inflation": {

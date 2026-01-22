@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   COMMON_DISTANCES,
@@ -15,6 +16,8 @@ import {
 import { COMMON_APERTURES } from "@/lib/converters/photo/depth-of-field";
 
 export function AdvancedDoFCalculator() {
+  const t = useTranslations("calculator.photo.dof");
+
   // Camera settings
   const [aperture, setAperture] = useState("5.6");
   const [focalLength, setFocalLength] = useState("50");
@@ -44,10 +47,10 @@ export function AdvancedDoFCalculator() {
     <div className="space-y-6">
       {/* Camera Settings */}
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-4">Camera Settings</p>
+        <p className="font-medium mb-4">{t("camera-settings")}</p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Sensor</label>
+            <label className="text-sm font-medium">{t("sensor")}</label>
             <select
               value={sensorPreset}
               onChange={(e) => setSensorPreset(e.target.value)}
@@ -62,7 +65,7 @@ export function AdvancedDoFCalculator() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Aperture (f/)</label>
+            <label className="text-sm font-medium">{t("aperture")}</label>
             <div className="flex gap-2">
               <select
                 value={aperture}
@@ -79,7 +82,7 @@ export function AdvancedDoFCalculator() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Focal Length</label>
+            <label className="text-sm font-medium">{t("focal-length")}</label>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -109,7 +112,7 @@ export function AdvancedDoFCalculator() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Subject Distance</label>
+            <label className="text-sm font-medium">{t("subject-distance")}</label>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -143,10 +146,10 @@ export function AdvancedDoFCalculator() {
 
       {/* Viewing Conditions */}
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-4">Viewing Conditions (for CoC adjustment)</p>
+        <p className="font-medium mb-4">{t("viewing-conditions")}</p>
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Print Width</label>
+            <label className="text-sm font-medium">{t("print-width")}</label>
             <select
               value={printWidth}
               onChange={(e) => setPrintWidth(e.target.value)}
@@ -161,7 +164,7 @@ export function AdvancedDoFCalculator() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Viewing Distance</label>
+            <label className="text-sm font-medium">{t("viewing-distance")}</label>
             <select
               value={viewingDistance}
               onChange={(e) => setViewingDistance(e.target.value)}
@@ -176,7 +179,7 @@ export function AdvancedDoFCalculator() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Visual Acuity</label>
+            <label className="text-sm font-medium">{t("visual-acuity")}</label>
             <select
               value={visualAcuity}
               onChange={(e) => setVisualAcuity(e.target.value)}
@@ -198,25 +201,25 @@ export function AdvancedDoFCalculator() {
           {/* Primary Results */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <div className="p-4 rounded-lg border bg-primary/10">
-              <p className="text-sm text-muted-foreground">Total Depth of Field</p>
+              <p className="text-sm text-muted-foreground">{t("total-depth-of-field")}</p>
               <p className="text-2xl font-bold">{formatDistance(result.totalDoF)}</p>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">Near Limit</p>
+              <p className="text-sm text-muted-foreground">{t("near-limit")}</p>
               <p className="text-2xl font-bold">{formatDistance(result.nearLimit)}</p>
               <p className="text-xs text-muted-foreground">
-                {formatDistance(result.inFrontOfSubject)} in front
+                {formatDistance(result.inFrontOfSubject)} {t("in-front")}
               </p>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">Far Limit</p>
+              <p className="text-sm text-muted-foreground">{t("far-limit")}</p>
               <p className="text-2xl font-bold">{formatDistance(result.farLimit)}</p>
               <p className="text-xs text-muted-foreground">
-                {formatDistance(result.behindSubject)} behind
+                {formatDistance(result.behindSubject)} {t("behind")}
               </p>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">Hyperfocal Distance</p>
+              <p className="text-sm text-muted-foreground">{t("hyperfocal-distance")}</p>
               <p className="text-2xl font-bold">{formatDistance(result.hyperfocalDistance)}</p>
             </div>
           </div>
@@ -224,21 +227,33 @@ export function AdvancedDoFCalculator() {
           {/* CoC Comparison */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="p-4 rounded-lg border bg-blue-500/10">
-              <p className="font-medium mb-2">Adjusted CoC (Your Conditions)</p>
+              <p className="font-medium mb-2">{t("adjusted-coc")}</p>
               <p className="text-xl font-bold">{result.adjustedCoC} mm</p>
               <div className="text-sm text-muted-foreground mt-2 space-y-1">
-                <p>Near: {formatDistance(result.nearLimit)}</p>
-                <p>Far: {formatDistance(result.farLimit)}</p>
-                <p>Total DoF: {formatDistance(result.totalDoF)}</p>
+                <p>
+                  {t("near")}: {formatDistance(result.nearLimit)}
+                </p>
+                <p>
+                  {t("far")}: {formatDistance(result.farLimit)}
+                </p>
+                <p>
+                  {t("total-dof")}: {formatDistance(result.totalDoF)}
+                </p>
               </div>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="font-medium mb-2">Standard CoC</p>
+              <p className="font-medium mb-2">{t("standard-coc")}</p>
               <p className="text-xl font-bold">{result.standardCoC} mm</p>
               <div className="text-sm text-muted-foreground mt-2 space-y-1">
-                <p>Near: {formatDistance(result.comparison.standardNear)}</p>
-                <p>Far: {formatDistance(result.comparison.standardFar)}</p>
-                <p>Total DoF: {formatDistance(result.comparison.standardDoF)}</p>
+                <p>
+                  {t("near")}: {formatDistance(result.comparison.standardNear)}
+                </p>
+                <p>
+                  {t("far")}: {formatDistance(result.comparison.standardFar)}
+                </p>
+                <p>
+                  {t("total-dof")}: {formatDistance(result.comparison.standardDoF)}
+                </p>
               </div>
             </div>
           </div>
@@ -246,19 +261,12 @@ export function AdvancedDoFCalculator() {
           {/* Difference Analysis */}
           {(result.comparison.differenceFront !== 0 || result.comparison.differenceBack !== 0) && (
             <div className="p-4 rounded-lg border bg-amber-500/10">
-              <p className="font-medium mb-2">Difference from Standard</p>
+              <p className="font-medium mb-2">{t("difference-from-standard")}</p>
               <div className="text-sm">
                 {result.adjustedCoC < result.standardCoC ? (
-                  <p>
-                    Your viewing conditions are <strong>more demanding</strong> than standard. The
-                    adjusted DoF is <strong>narrower</strong> - you need to be more precise with
-                    focus.
-                  </p>
+                  <p>{t("more-demanding")}</p>
                 ) : (
-                  <p>
-                    Your viewing conditions are <strong>more relaxed</strong> than standard. The
-                    adjusted DoF is <strong>wider</strong> - you have more margin for error.
-                  </p>
+                  <p>{t("more-relaxed")}</p>
                 )}
               </div>
             </div>
