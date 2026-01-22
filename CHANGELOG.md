@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Network category page 404 error - missing `src/app/[locale]/network/page.tsx` now created
+- Broken documentation references in CLAUDE.md and CONTRIBUTING.md
+- Outdated calculator counts and categories in README.md (60 → 156 calculators, 9 → 12 categories)
+
 ## [2.0.0] - 2026-01-22
 
 ### Added

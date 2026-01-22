@@ -1,6 +1,6 @@
 # Converty
 
-A comprehensive unit converter and calculator toolkit built with Next.js 16. Inspired by [toolstud.io](https://toolstud.io), Converty provides 60+ calculators across 9 categories for photography, video production, web development, and more.
+A comprehensive unit converter and calculator toolkit built with Next.js 16. Inspired by [toolstud.io](https://toolstud.io), Converty provides 156+ calculators across 12 categories for photography, video production, web development, networking, finance, and more.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16.1-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -9,26 +9,33 @@ A comprehensive unit converter and calculator toolkit built with Next.js 16. Ins
 
 ## Features
 
-- **60+ Calculators** across 9 categories
+- **156+ Calculators** across 12 categories
+- **Global Search** with Cmd+K / Ctrl+K fuzzy search
+- **Progressive Web App** with offline support and install prompt
+- **Internationalization** supporting EN, FR, DE, IT locales
 - **Dark/Light Mode** with system preference detection
 - **Responsive Design** works on desktop and mobile
+- **Shareable Links** with URL state persistence
 - **No Backend Required** - all calculations run client-side
 - **Browser Geolocation** for location-based calculations
 - **Static Export** for easy deployment anywhere
 
 ## Categories
 
-| Category    | Calculators | Description                                                       |
-| ----------- | ----------- | ----------------------------------------------------------------- |
-| **Photo**   | 23          | DoF, hyperfocal, exposure, aspect ratio, diffraction, golden hour |
-| **Video**   | 8           | File size, bitrate, frame rate, screen size, DCP                  |
-| **Web**     | 9           | URL/HTML encoding, CSP generator, SEO analyzer, security checks   |
-| **Data**    | 3           | Data size, bandwidth, download time                               |
-| **Health**  | 2           | BMI, corpulence index                                             |
-| **Physics** | 1           | Speed conversion                                                  |
-| **Music**   | 1           | BPM calculator                                                    |
-| **Color**   | 1           | RGB/HEX/HSL converter                                             |
-| **Finance** | 0           | Coming soon                                                       |
+| Category     | Calculators | Description                                                       |
+| ------------ | ----------- | ----------------------------------------------------------------- |
+| **Math**     | 38          | Algebra, geometry, statistics, trigonometry, number theory        |
+| **Finance**  | 24          | Mortgage, compound interest, ROI, tax, currency, savings          |
+| **Health**   | 28          | BMI, BMR, body fat, calories, hydration, heart rate               |
+| **Photo**    | 22          | DoF, hyperfocal, exposure, aspect ratio, diffraction, golden hour |
+| **Web**      | 10          | URL/HTML encoding, CSP generator, SEO analyzer, security checks   |
+| **Video**    | 9           | File size, bitrate, frame rate, screen size, DCP, time-lapse      |
+| **DateTime** | 8           | Age, duration, timezone, countdown, date difference               |
+| **Network**  | 5           | Subnet calculator, IP address, CIDR range, network speed          |
+| **Data**     | 3           | Data size, bandwidth, download time                               |
+| **Physics**  | 1           | Speed conversion                                                  |
+| **Music**    | 1           | BPM calculator                                                    |
+| **Color**    | 1           | RGB/HEX/HSL converter                                             |
 
 ## Getting Started
 
@@ -201,13 +208,20 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Roadmap
 
-- [ ] Finance calculators (mortgage, fuel cost, EV mileage)
-- [ ] Physics calculators (acceleration, frequency, wavelength)
-- [ ] Music calculators (audio delay, frequency, tap tempo)
-- [ ] Color tools (CMYK, HTML colors, websafe palette)
-- [ ] PWA support for offline use
-- [ ] Calculation history
-- [ ] Shareable calculation links
+### Shipped in v2.0
+
+- [x] Network calculators (subnet calculator, IP address, CIDR range, network speed)
+- [x] Global search (Cmd+K) with fuzzy matching
+- [x] 100% internationalization (EN, FR, DE, IT)
+- [x] PWA support for offline use
+- [x] Shareable calculation links with URL state
+
+### Planned for v3.0
+
+- [ ] Calculator expansion (100+ new calculators)
+- [ ] Performance optimization (code splitting, lazy loading)
+- [ ] Favorites and calculation history
+- [ ] Export results to PDF/CSV
 
 ## License
 

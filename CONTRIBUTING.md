@@ -304,13 +304,28 @@ import { CategoryIcon } from "lucide-react";
 },
 ```
 
-### Step 6: Document the Calculator
+### Step 6: Add JSDoc Comments
 
-Add documentation to `docs/CALCULATORS.md` explaining:
+Add JSDoc comments to your calculation functions explaining:
 
 - What the calculator does
 - The formulas used
 - Any reference values or presets
+
+```typescript
+/**
+ * Calculates the compound interest on an investment.
+ *
+ * Formula: A = P(1 + r/n)^(nt)
+ *
+ * @param principal - Initial investment amount
+ * @param rate - Annual interest rate (decimal, e.g., 0.05 for 5%)
+ * @param time - Time in years
+ * @param n - Number of times interest compounds per year
+ * @returns The final amount including principal and interest
+ */
+export function calculateCompoundInterest(...): number { ... }
+```
 
 ## Code Style
 

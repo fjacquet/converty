@@ -6,7 +6,7 @@ This file provides Claude (AI assistant) with project context and conventions fo
 
 Converty is a comprehensive collection of 200+ calculators and converters built with Next.js 16, React 19, and TypeScript 5. The project uses static site generation (SSG) for deployment to GitHub Pages.
 
-**Documentation**: See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed system design.
+**Documentation**: See [.planning/codebase/ARCHITECTURE.md](.planning/codebase/ARCHITECTURE.md) for detailed system design.
 
 ## Quick Start Commands
 
@@ -32,10 +32,10 @@ npx tsc --noEmit     # Check TypeScript types
 | `src/lib/converters/` | Calculation logic (pure functions) |
 | `src/lib/registry/` | Category & calculator metadata |
 | `src/stores/` | Zustand state management |
-| `src/hooks/` | React hooks (legacy, prefer Zustand) |
+| `src/hooks/` | Shared React hooks |
 | `src/i18n/` | Internationalization configuration |
 | `src/messages/` | Translation files (en, fr, de, it) |
-| `docs/ARCHITECTURE.md` | System architecture documentation |
+| `.planning/codebase/ARCHITECTURE.md` | System architecture documentation |
 
 ## Adding a New Calculator
 
@@ -75,9 +75,9 @@ npx tsc --noEmit     # Check TypeScript types
 
 ### State Management
 
-- **Prefer Zustand** for calculator state
-- URL sync middleware for shareable links
-- Legacy `useConverter` hook exists but is being phased out
+- **Use Zustand** for all calculator state via `createCalculatorStore` factory
+- URL sync middleware for shareable links (automatic state persistence)
+- See `.planning/codebase/ARCHITECTURE.md` for state management patterns
 
 ### Components
 
@@ -100,20 +100,22 @@ npx tsc --noEmit     # Check TypeScript types
 
 ## Categories
 
-Current categories with planned calculators:
+Current categories (156 calculators registered, 100% i18n coverage):
 
 | Category | Slug | Status | Count |
 |----------|------|--------|-------|
-| Date & Time | `datetime` | In Progress | 8 planned |
-| Finance | `finance` | Planned | 72 planned |
-| Health | `health` | Partial | 2 exist, 27 planned |
-| Math | `math` | Planned | 42 planned |
+| Date & Time | `datetime` | Complete | 8 exist |
+| Finance | `finance` | Complete | 24 exist |
+| Health | `health` | Complete | 28 exist |
+| Math | `math` | Complete | 38 exist |
+| Network | `network` | Complete | 5 exist |
 | Photo | `photo` | Complete | 22 exist |
 | Video | `video` | Complete | 9 exist |
 | Web | `web` | Complete | 10 exist |
 | Data | `data` | Complete | 3 exist |
 | Physics | `physics` | Partial | 1 exists |
 | Music | `music` | Partial | 1 exists |
+| Color | `color` | Partial | 1 exists |
 
 ## Internationalization (i18n)
 
@@ -221,7 +223,7 @@ export function generateStaticParams() {
 
 ## When to Update ARCHITECTURE.md
 
-Update `/docs/ARCHITECTURE.md` when:
+Update `.planning/codebase/ARCHITECTURE.md` when:
 
 - Adding new categories
 - Creating new shared components
