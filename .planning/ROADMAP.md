@@ -213,11 +213,11 @@ Plans:
 2. All calculators verified working in all 4 locales (en, fr, de, it)
 3. No missing translation keys in any locale
 4. Locale switcher works correctly on all calculator pages
-   **Plans:** TBD
+   **Plans:** 1 plan in 1 wave
 
 Plans:
 
-- [ ] TBD
+- [ ] 16-01-PLAN.md — Translation Validation & Locale Verification (fix i18n script, validate translations, verify locale functionality)
 
 ## Progress
 
@@ -241,4 +241,4 @@ Phases execute in numeric order: 9 → 10 → 11 → 12 → 13 → 14 → 15 →
 | 13. Network Speed/Latency Calculator             | v2.0      | 2/2            | Complete    | 2026-01-21 |
 | 14. Global Search                                | v2.0      | 2/2            | Complete    | 2026-01-22 |
 | 15. Translation Audit                            | v2.0      | 2/2            | Complete    | 2026-01-22 |
-| 16. Translation Implementation                   | v2.0      | 0/TBD          | Not started | -          |
+| 16. Translation Implementation                   | v2.0      | 0/1            | Not started | -          |
