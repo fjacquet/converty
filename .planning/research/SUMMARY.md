@@ -17,28 +17,33 @@ This research phase investigated how to upgrade infrastructure for a large-scale
 ### 1. PWA Implementation
 
 **Recommended Stack:**
+
 - **Manual service worker** (no next-pwa, no Serwist)
 - **Custom manifest.json** (no package needed)
 - **Service worker in public/** (static export compatible)
 
 **Rationale:**
+
 - `next-pwa` package deprecated as of 2025
 - Serwist requires Webpack (conflicts with Next.js 16 Turbopack)
 - Manual implementation provides full control
 - Compatible with `output: 'export'` constraint
 
 **Cache Strategy:**
+
 - CacheFirst for static assets (CSS, JS, images)
 - NetworkFirst for calculator pages (offline fallback)
 - Version cache names to prevent stale content
 - No precaching needed for static export
 
 **Table Stakes Features:**
+
 - Offline calculator functionality (high user impact)
 - Install prompt for home screen (native app-like UX)
 - Mobile-optimized UI (already exists, verify)
 
 **Pitfalls to Avoid:**
+
 - Service worker via redirect (browsers refuse to run)
 - Missing `force-static` export config
 - Aggressive caching without update strategy
@@ -46,6 +51,7 @@ This research phase investigated how to upgrade infrastructure for a large-scale
 **Confidence:** High
 
 **Sources:**
+
 - [Next.js PWA Guide](https://nextjs.org/docs/app/guides/progressive-web-apps)
 - [Build Next.js 16 PWA](https://blog.logrocket.com/nextjs-16-pwa-offline-support)
 - [Next.js PWA in 10 Minutes](https://www.buildwithmatija.com/blog/turn-nextjs-16-app-into-pwa)
@@ -55,6 +61,7 @@ This research phase investigated how to upgrade infrastructure for a large-scale
 ### 2. State Management Migration
 
 **Recommended Approach:**
+
 - **Big bang by category** (not incremental)
 - **Zustand with persist + immer middleware**
 - **Per-store debounce timer** (closure, not global)
@@ -63,11 +70,13 @@ This research phase investigated how to upgrade infrastructure for a large-scale
 **Why Big Bang (Against Industry Standard):**
 
 Industry recommends incremental migration for large codebases:
+
 - Old and new code coexist during transition
 - Feature flags to switch implementations
 - Lower deployment risk
 
 **But for Converty, big bang is justified:**
+
 1. Calculators are isolated (no shared state between them)
 2. Dual patterns ARE the problem (not the solution)
 3. Global debounce bug affects all useConverter instances
@@ -77,6 +86,7 @@ Industry recommends incremental migration for large codebases:
 **Hybrid Approach:**
 
 Big bang removal with category-level testing:
+
 ```
 Phase 1: Create URL sync middleware
 Phase 2: Migrate by category (Math, Finance, Health, DateTime)
@@ -84,6 +94,7 @@ Phase 3: Remove useConverter hook entirely
 ```
 
 Each category migration is atomic:
+
 - Migrate all calculators in category
 - Test category thoroughly
 - Commit as single unit
@@ -112,6 +123,7 @@ export const urlSync = <T>(config) => (set, get, api) => {
 **Critical:** Per-store debounce timer (NOT global variable) fixes concurrent calculator bug.
 
 **Pitfalls to Avoid:**
+
 - Shared store instances (each calculator needs unique store)
 - Excessive re-renders (use Zustand selectors, not full state)
 - URL sync race conditions (per-store timer prevents)
@@ -120,6 +132,7 @@ export const urlSync = <T>(config) => (set, get, api) => {
 **Confidence:** Medium-High
 
 **Sources:**
+
 - [React State Management 2025](https://www.zignuts.com/blog/react-state-management-2025)
 - [Zustand vs Redux](https://betterstack.com/community/guides/scaling-nodejs/zustand-vs-redux/)
 - [Migrating to Modern Redux](https://redux.js.org/usage/migrating-to-modern-redux)
@@ -129,6 +142,7 @@ export const urlSync = <T>(config) => (set, get, api) => {
 ### 3. TypeScript Strict Mode
 
 **Recommended Strategy:**
+
 - **Incremental enablement** (NOT big bang)
 - **noImplicitAny first** (catches 80% of issues)
 - **File-by-file fixes** (align with state migration categories)
@@ -147,6 +161,7 @@ export const urlSync = <T>(config) => (set, get, api) => {
 ```
 
 **Tools:**
+
 - `typescript-strict-plugin` - Exempt existing code, strict for new
 - `npx tsc --noEmit` - Full project type check
 - VS Code diagnostics - Real-time feedback
@@ -169,6 +184,7 @@ export const urlSync = <T>(config) => (set, get, api) => {
 TypeScript 7 (mid-2026) will enable strict-by-default as breaking change. Teams that attempt whole-project strict mode get overwhelmed by hundreds of compiler errors and abandon the effort. Incremental prevents this.
 
 **Pitfalls to Avoid:**
+
 - Big bang enablement (leads to abandonment)
 - Linting disable comments (`// @ts-ignore` instead of fixing)
 - Unsafe URL parameter coercion (validate with fallbacks)
@@ -176,6 +192,7 @@ TypeScript 7 (mid-2026) will enable strict-by-default as breaking change. Teams 
 **Confidence:** High
 
 **Sources:**
+
 - [Incremental Migration](https://kevinwil.de/incremental-migration/)
 - [TypeScript Strict Option Guide](https://betterstack.com/community/guides/scaling-nodejs/typescript-strict-option/)
 - [TypeScript 7 Progress](https://www.infoq.com/news/2026/01/typescript-7-progress/)
@@ -192,6 +209,7 @@ TypeScript 7 (mid-2026) will enable strict-by-default as breaking change. Teams 
 **Breaking Changes:**
 
 From v1.5.3 → v2.x series:
+
 - `doc.setFontType()` → `doc.setFont()` (API change)
 - File system access restrictions (Node.js only, not browser)
 - Compat API mode available for backward compatibility
@@ -201,16 +219,19 @@ From v1.5.3 → v2.x series:
 1. Upgrade: `npm install jspdf@latest`
 2. Test PDF export thoroughly (all affected calculators)
 3. Use compat mode if API breaks:
+
    ```typescript
    import { jsPDF } from "jspdf";
    const doc = new jsPDF();
    doc.compatAPI(); // Backward compatibility
    ```
+
 4. Update API calls if needed
 5. Verify font rendering unchanged
 6. Check file size reasonable
 
 **Pitfalls to Avoid:**
+
 - Assuming API is backward compatible (it's not)
 - Not testing PDF generation after upgrade
 - File size dramatically changing (report if so)
@@ -218,6 +239,7 @@ From v1.5.3 → v2.x series:
 **Confidence:** Medium (breaking changes expected)
 
 **Sources:**
+
 - [jsPDF GitHub](https://github.com/parallax/jspdf)
 - [jsPDF Releases](https://github.com/parallax/jsPDF/releases)
 
@@ -235,6 +257,7 @@ From v1.5.3 → v2.x series:
 | Development Setup | Manual | GitHub standard |
 
 **CHANGELOG:**
+
 - Keep a Changelog standard format
 - Backfill recent changes:
   - "feat: add duration converter and fix biome lint errors"
@@ -245,6 +268,7 @@ From v1.5.3 → v2.x series:
 - GitHub Action for automatic generation
 
 **CONTRIBUTING.md Sections:**
+
 1. Development Setup (prerequisites, installation)
 2. Coding Standards (TypeScript, Biome, Tailwind)
 3. Calculator Pattern (Zustand store pattern with examples)
@@ -274,6 +298,7 @@ Accepted / Rejected / Deprecated
 ```
 
 **Pitfalls to Avoid:**
+
 - Stale documentation (update docs with code changes)
 - Missing "why" in ADRs (include rationale, not just decision)
 - Setup guide that doesn't work (test on fresh machine)
@@ -281,6 +306,7 @@ Accepted / Rejected / Deprecated
 **Confidence:** High
 
 **Sources:**
+
 - [Keep a Changelog](https://keepachangelog.com/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 - [MADR Template](https://adr.github.io/madr/)
@@ -292,6 +318,7 @@ Accepted / Rejected / Deprecated
 **Component Boundaries:**
 
 **What Changes:**
+
 - Delete: `src/hooks/use-converter.ts`, `src/hooks/use-url-state.ts`
 - Create: 74 Zustand stores in `src/stores/`, `src/lib/middleware/url-sync.ts`
 - Create: `public/service-worker.js`, `public/manifest.json`
@@ -299,6 +326,7 @@ Accepted / Rejected / Deprecated
 - Update: All 74 calculator components to use Zustand
 
 **What Stays the Same:**
+
 - `src/components/ui/` - Base components unchanged
 - `src/components/converter/` - InputField, OutputDisplay, ResultGrid unchanged
 - `src/lib/converters/` - Pure calculation functions unchanged
@@ -345,10 +373,12 @@ ALL changes must preserve static export compatibility (`output: 'export'`). No s
 ```
 
 **Parallelization Opportunities:**
+
 - PWA + Documentation can happen during state migration
 - jsPDF upgrade independent of other work
 
 **Integration Points:**
+
 - URL sync middleware must exist before calculator migration
 - TypeScript strict mode before new middleware creation
 - ADRs written as decisions made (not retroactively)
@@ -373,18 +403,18 @@ ALL changes must preserve static export compatibility (`output: 'export'`). No s
 
 **Medium-Risk Areas:**
 
-4. **PWA Service Worker Production Issues**
+1. **PWA Service Worker Production Issues**
    - Risk: Works in dev, fails in production
    - Mitigation: force-static export, no redirects, version cache names
 
-5. **Stale Documentation**
+2. **Stale Documentation**
    - Risk: Setup guides don't work, ADRs missing context
    - Mitigation: Update docs with code, test setup on fresh machine
 
 **Low-Risk Areas:**
 
-6. **CHANGELOG Backfilling**
-7. **CONTRIBUTING.md Creation**
+1. **CHANGELOG Backfilling**
+2. **CONTRIBUTING.md Creation**
 
 ---
 
@@ -404,6 +434,7 @@ ALL changes must preserve static export compatibility (`output: 'export'`). No s
 10. **Automated Dependency Updates** - Manual review preferred
 
 **User Explicitly Excluded:**
+
 - New calculators (defer to next phase)
 - UI/UX redesigns (existing design works)
 - Major performance work (code splitting, lazy loading)
@@ -426,6 +457,7 @@ From STACK.md research:
 | **Total** | **~100 hours** | - |
 
 **Assumptions:**
+
 - 74 calculators × ~30 min each = ~37 hours for migration
 - TypeScript fixes overlap with state migration
 - Documentation written in parallel
@@ -480,6 +512,7 @@ TypeScript strict mode blocks everything else (need type-safe middleware). State
 ## Research Quality Assessment
 
 **Coverage:** ✓ Complete
+
 - PWA implementation strategies researched
 - State management migration patterns evaluated
 - TypeScript strict mode rollout strategies analyzed
@@ -487,6 +520,7 @@ TypeScript strict mode blocks everything else (need type-safe middleware). State
 - Documentation tooling options reviewed
 
 **Confidence Levels:**
+
 - PWA: High (clear consensus on manual approach)
 - State: Medium-High (big bang justified but non-standard)
 - TypeScript: High (incremental is industry standard)
@@ -494,6 +528,7 @@ TypeScript strict mode blocks everything else (need type-safe middleware). State
 - Docs: High (standard practices)
 
 **Sources Used:**
+
 - Context7 for library documentation (next-pwa, zustand, jspdf)
 - WebSearch for 2025-2026 best practices
 - Official Next.js PWA Guide
@@ -501,6 +536,7 @@ TypeScript strict mode blocks everything else (need type-safe middleware). State
 - React state management comparisons
 
 **Gaps Identified:**
+
 - None critical
 - Some uncertainty around jsPDF API changes (will discover during upgrade)
 - PWA production deployment specifics (will test on GitHub Pages)

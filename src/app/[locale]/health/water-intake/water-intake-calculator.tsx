@@ -50,6 +50,7 @@ const useStore = createCalculatorStore<FormValues, WaterIntakeResult | null>({
 export function WaterIntakeCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tWater = useTranslations("calculator.health.water");
 
   const { values, setValue, result } = useStore();
 
@@ -197,8 +198,8 @@ export function WaterIntakeCalculator() {
               </thead>
               <tbody className="divide-y divide-border">
                 {result.schedule.map((item) => (
-                  <tr key={item.time}>
-                    <td className="px-3 py-2 text-sm">{item.time}</td>
+                  <tr key={item.timeKey}>
+                    <td className="px-3 py-2 text-sm">{tWater(`schedule.${item.timeKey}`)}</td>
                     <td className="px-3 py-2 text-sm">{item.amount} ml</td>
                     <td className="px-3 py-2 text-sm">{item.cumulative} ml</td>
                   </tr>
@@ -209,9 +210,9 @@ export function WaterIntakeCalculator() {
 
           <h3 className="text-lg font-semibold">{tResults("hydrationTips")}</h3>
           <ul className="list-disc list-inside space-y-1 bg-muted p-4 rounded-lg">
-            {result.tips.map((tip) => (
-              <li key={tip} className="text-sm">
-                {tip}
+            {result.tipKeys.map((tipKey) => (
+              <li key={tipKey} className="text-sm">
+                {tWater(`tips.${tipKey}`)}
               </li>
             ))}
           </ul>

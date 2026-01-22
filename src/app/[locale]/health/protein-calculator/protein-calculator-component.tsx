@@ -43,6 +43,7 @@ const useStore = createCalculatorStore<FormValues, ProteinResult | null>({
 export function ProteinCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tProtein = useTranslations("calculator.health.protein");
 
   const { values, setValue, result } = useStore();
 
@@ -171,10 +172,14 @@ export function ProteinCalculatorComponent() {
               </thead>
               <tbody className="divide-y divide-border">
                 {result.foodSources.slice(0, 6).map((source) => (
-                  <tr key={source.food}>
-                    <td className="px-3 py-2 text-sm">{source.food}</td>
+                  <tr key={source.foodKey}>
+                    <td className="px-3 py-2 text-sm">
+                      {tProtein(`foods.${source.foodKey}.name`)}
+                    </td>
                     <td className="px-3 py-2 text-sm">{source.protein}g</td>
-                    <td className="px-3 py-2 text-sm">{source.servingSize}</td>
+                    <td className="px-3 py-2 text-sm">
+                      {tProtein(`foods.${source.foodKey}.serving`)}
+                    </td>
                     <td className="px-3 py-2 text-sm">{source.servingsNeeded}</td>
                   </tr>
                 ))}

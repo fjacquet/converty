@@ -7,6 +7,7 @@ import { calculateFootLambert, REFERENCE_VALUES } from "@/lib/converters/video/f
 
 export function FootLambertCalculator() {
   const t = useTranslations("calculator.labels");
+  const tVideo = useTranslations("calculator.video");
   const [value, setValue] = useState("14");
   const [unit, setUnit] = useState<"fl" | "nits" | "lumens">("fl");
   const [screenWidth, setScreenWidth] = useState("40");
@@ -31,15 +32,15 @@ export function FootLambertCalculator() {
           step={0.1}
         />
         <div className="space-y-2">
-          <label className="text-sm font-medium">Unit</label>
+          <label className="text-sm font-medium">{tVideo("unit")}</label>
           <select
             value={unit}
             onChange={(e) => setUnit(e.target.value as "fl" | "nits" | "lumens")}
             className="w-full h-10 px-3 rounded-md border bg-background"
           >
-            <option value="fl">Foot-Lamberts (fL)</option>
-            <option value="nits">Nits (cd/m²)</option>
-            <option value="lumens">Lumens</option>
+            <option value="fl">{tVideo("unitFootLamberts")}</option>
+            <option value="nits">{tVideo("unitNits")}</option>
+            <option value="lumens">{tVideo("unitLumens")}</option>
           </select>
         </div>
         {unit === "lumens" && (
@@ -68,39 +69,47 @@ export function FootLambertCalculator() {
         <div className="space-y-6">
           <ResultGrid
             results={[
-              { label: "Foot-Lamberts", value: result.footLamberts, unit: "fL" },
-              { label: "Nits", value: result.nits, unit: "cd/m²" },
-              ...(result.lumens > 0 ? [{ label: "Lumens", value: result.lumens, unit: "lm" }] : []),
+              { label: tVideo("labelFootLamberts"), value: result.footLamberts, unit: "fL" },
+              { label: tVideo("labelNits"), value: result.nits, unit: "cd/m²" },
+              ...(result.lumens > 0
+                ? [{ label: tVideo("labelLumens"), value: result.lumens, unit: "lm" }]
+                : []),
             ]}
             columns={result.lumens > 0 ? 3 : 2}
           />
 
           <div className="p-4 rounded-lg border bg-muted/50">
-            <p className="text-sm text-muted-foreground mb-1">Brightness Level</p>
-            <p className="text-xl font-semibold">{result.description}</p>
-            <p className="text-sm text-muted-foreground mt-1">{result.useCase}</p>
+            <p className="text-sm text-muted-foreground mb-1">{tVideo("brightnessLevel")}</p>
+            <p className="text-xl font-semibold">
+              {tVideo(`brightnesses.${result.descriptionKey}`)}
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {tVideo(`brightnesses.${result.useCaseKey}`)}
+            </p>
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-medium">Reference Values</h3>
+            <h3 className="font-medium">{tVideo("referenceValues")}</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left py-2">Standard</th>
-                    <th className="text-right py-2">Foot-Lamberts</th>
-                    <th className="text-left py-2 pl-4">Note</th>
+                    <th className="text-left py-2">{tVideo("standard")}</th>
+                    <th className="text-right py-2">{tVideo("labelFootLamberts")}</th>
+                    <th className="text-left py-2 pl-4">{tVideo("note")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {REFERENCE_VALUES.map((ref) => (
                     <tr
-                      key={ref.name}
+                      key={ref.key}
                       className={`border-b border-muted ${Math.abs(ref.fl - result.footLamberts) < 2 ? "bg-primary/10" : ""}`}
                     >
-                      <td className="py-2 font-medium">{ref.name}</td>
+                      <td className="py-2 font-medium">{tVideo(`references.${ref.key}`)}</td>
                       <td className="py-2 text-right font-mono">{ref.fl} fL</td>
-                      <td className="py-2 pl-4 text-muted-foreground">{ref.description}</td>
+                      <td className="py-2 pl-4 text-muted-foreground">
+                        {tVideo(`references.${ref.noteKey}`)}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -20,6 +20,7 @@ import {
 
 export function CurrencyConverter() {
   const t = useTranslations("calculator");
+  const tCurrencies = useTranslations("calculator.finance.currencies");
   const format = useFormatter();
 
   const [amount, setAmount] = useState<number>(100);
@@ -64,9 +65,9 @@ export function CurrencyConverter() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {currencies.map((c) => (
-                  <SelectItem key={c.code} value={c.code}>
-                    {c.code} - {c.name}
+                {currencies.map((code) => (
+                  <SelectItem key={code} value={code}>
+                    {code} - {tCurrencies(code as any)}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -91,9 +92,9 @@ export function CurrencyConverter() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {currencies.map((c) => (
-                  <SelectItem key={c.code} value={c.code}>
-                    {c.code} - {c.name}
+                {currencies.map((code) => (
+                  <SelectItem key={code} value={code}>
+                    {code} - {tCurrencies(code as any)}
                   </SelectItem>
                 ))}
               </SelectContent>

@@ -100,7 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Internationalization (en, fr, de, it)
 ```
 
-**Source:** https://keepachangelog.com/en/1.1.0/
+**Source:** <https://keepachangelog.com/en/1.1.0/>
 
 **Key principles:**
 
@@ -172,7 +172,7 @@ Chosen option: "Zustand with custom middleware" because it provides the smallest
 [Additional options detailed similarly...]
 ```
 
-**Source:** https://github.com/adr/madr
+**Source:** <https://github.com/adr/madr>
 
 **MADR 4.0.0 template variations:**
 
@@ -279,21 +279,22 @@ export function AgeCalculator() {
    ```
 ````
 
-2. Install dependencies:
+1. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. Start development server:
+2. Start development server:
 
    ```bash
    npm run dev
    ```
 
-   Open http://localhost:3000
+   Open <http://localhost:3000>
 
-4. Verify setup:
+3. Verify setup:
+
    ```bash
    npm run type-check  # Should pass
    npm run lint        # Should pass
@@ -304,7 +305,7 @@ export function AgeCalculator() {
 
 | Command              | Purpose                                        |
 | -------------------- | ---------------------------------------------- |
-| `npm run dev`        | Start dev server (http://localhost:3000)       |
+| `npm run dev`        | Start dev server (<http://localhost:3000>)       |
 | `npm run build`      | Build for production + generate service worker |
 | `npm run type-check` | Run TypeScript compiler (no emit)              |
 | `npm run lint`       | Run Biome linter                               |
@@ -433,7 +434,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgraded jsPDF to v4.0.0 (addresses CVE-XXXX-YYYY)
 ````
 
-**Source:** https://keepachangelog.com/en/1.1.0/
+**Source:** <https://keepachangelog.com/en/1.1.0/>
 
 ### MADR - Minimal Template Example
 
@@ -474,7 +475,7 @@ Chosen option: "Zustand with custom middleware"
 - Neutral: Requires migration of existing calculators
 ```
 
-**Source:** https://github.com/adr/madr (MADR 4.0.0 minimal template)
+**Source:** <https://github.com/adr/madr> (MADR 4.0.0 minimal template)
 
 ### Zustand Calculator Store - Complete Pattern
 
@@ -564,7 +565,7 @@ export function AgeCalculator() {
 }
 ```
 
-**Source:** https://docs.npmjs.com/cli/v7/configuring-npm/package-json/
+**Source:** <https://docs.npmjs.com/cli/v7/configuring-npm/package-json/>
 
 **Best practices:**
 

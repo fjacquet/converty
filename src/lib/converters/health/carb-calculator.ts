@@ -4,6 +4,26 @@ export interface CarbInput {
   activityLevel: "sedentary" | "light" | "moderate" | "active" | "athlete";
 }
 
+export type ComplexCarbFoodKey =
+  | "oats"
+  | "brownRice"
+  | "quinoa"
+  | "sweetPotatoes"
+  | "wholeGrainBread"
+  | "beansAndLentils"
+  | "vegetables"
+  | "wholeWheatPasta";
+
+export type SimpleCarbFoodKey = "fruits" | "honeyModeration" | "milk" | "sportsDrinks";
+
+export type AvoidCarbFoodKey =
+  | "whiteBread"
+  | "sugaryCereals"
+  | "candyAndSweets"
+  | "sodaAndSugaryDrinks"
+  | "pastriesAndBakedGoods"
+  | "whiteRiceLimit";
+
 export interface CarbResult {
   dailyCarbGrams: number;
   dailyCarbCalories: number;
@@ -21,10 +41,10 @@ export interface CarbResult {
     simple: { grams: number; percent: number };
     fiber: { grams: number; percent: number };
   };
-  foodSources: {
-    complex: string[];
-    simple: string[];
-    avoid: string[];
+  foodSourceKeys: {
+    complex: ComplexCarbFoodKey[];
+    simple: SimpleCarbFoodKey[];
+    avoid: AvoidCarbFoodKey[];
   };
 }
 
@@ -123,25 +143,25 @@ export function calculateCarbs(input: CarbInput): CarbResult | null {
     },
   };
 
-  const foodSources = {
+  const foodSourceKeys: CarbResult["foodSourceKeys"] = {
     complex: [
-      "Oats",
-      "Brown rice",
-      "Quinoa",
-      "Sweet potatoes",
-      "Whole grain bread",
-      "Beans and lentils",
-      "Vegetables",
-      "Whole wheat pasta",
+      "oats",
+      "brownRice",
+      "quinoa",
+      "sweetPotatoes",
+      "wholeGrainBread",
+      "beansAndLentils",
+      "vegetables",
+      "wholeWheatPasta",
     ],
-    simple: ["Fruits", "Honey (in moderation)", "Milk", "Sports drinks (around workouts)"],
+    simple: ["fruits", "honeyModeration", "milk", "sportsDrinks"],
     avoid: [
-      "White bread",
-      "Sugary cereals",
-      "Candy and sweets",
-      "Soda and sugary drinks",
-      "Pastries and baked goods",
-      "White rice (limit)",
+      "whiteBread",
+      "sugaryCereals",
+      "candyAndSweets",
+      "sodaAndSugaryDrinks",
+      "pastriesAndBakedGoods",
+      "whiteRiceLimit",
     ],
   };
 
@@ -154,6 +174,6 @@ export function calculateCarbs(input: CarbInput): CarbResult | null {
     netCarbs,
     timing,
     carbTypes,
-    foodSources,
+    foodSourceKeys,
   };
 }

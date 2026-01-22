@@ -73,7 +73,7 @@ npm run build
 
 ## Project Structure
 
-```
+```text
 converty/
 ├── src/
 │   ├── app/                    # Next.js App Router pages

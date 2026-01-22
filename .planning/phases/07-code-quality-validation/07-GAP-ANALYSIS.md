@@ -41,11 +41,13 @@ Container security vulnerabilities in node_modules:
 **Vulnerability Details:**
 
 The Dockerfile exists at:
+
 ```
 /Users/fjacquet/Projects/converty/node_modules/@surma/rollup-plugin-off-main-thread/Dockerfile
 ```
 
 **Dockerfile contents:**
+
 ```dockerfile
 FROM selenium/node-chrome:latest
 USER root                          # ← AVD-DS-0002: Uses root user
@@ -72,11 +74,13 @@ converty (devDependencies)
 **Project Architecture:**
 
 From `next.config.ts`:
+
 ```typescript
 ...(isProd && { output: "export" }),  // Static export mode
 ```
 
 This is a **static site** deployed to GitHub Pages:
+
 - No server runtime
 - No Docker containers
 - No containerized deployment
@@ -115,6 +119,7 @@ The container security vulnerabilities are **not applicable** to this project. T
 **Recommendation:** NO ACTION REQUIRED
 
 If container scanning is part of CI/CD, configure scanner to:
+
 - Exclude node_modules (not production code)
 - Or ignore Dockerfiles in dev dependencies
 - Or document this as known false positive
@@ -138,6 +143,7 @@ Consolidate URL parameter utilities (getUrlParams duplication)
 Two implementations of `getUrlParams()`:
 
 **File 1:** `src/stores/calculator-store.ts` (line 48)
+
 ```typescript
 function getUrlParams(): Record<string, string> {
   const params = new URLSearchParams(window.location.search);
@@ -150,6 +156,7 @@ function getUrlParams(): Record<string, string> {
 ```
 
 **File 2:** `src/lib/middleware/url-sync.ts` (line 93)
+
 ```typescript
 function getUrlParams(): Record<string, string> {
   const params = new URLSearchParams(window.location.search);
@@ -274,9 +281,10 @@ Configuration:
 From `07-VERIFICATION.md` (lines 445-448):
 
 > **2. Add pre-commit hooks** (Phase 8+)
->    - Install Husky + lint-staged for automated quality checks
->    - Run Biome + TypeScript on staged files before commit
->    - Prevents broken code from entering repository
+>
+> - Install Husky + lint-staged for automated quality checks
+> - Run Biome + TypeScript on staged files before commit
+> - Prevents broken code from entering repository
 
 ### Assessment
 
@@ -292,6 +300,7 @@ From `07-VERIFICATION.md` (lines 445-448):
 **Phase 7 Scope:** Out of scope
 
 Phase 7 objectives:
+
 - QUAL-01 through QUAL-07: All achieved ✓
 - Automated quality checks passing ✓
 - Code review complete ✓

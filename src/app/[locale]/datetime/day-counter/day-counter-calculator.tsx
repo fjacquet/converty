@@ -25,7 +25,24 @@ const useDayCounterStore = createCalculatorStore<DayCounterInput, DayCounterResu
 export function DayCounterCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
+  const tResults = useTranslations("calculator.results");
+  const tDatetime = useTranslations("calculator.datetime");
   const { values, setValue, result } = useDayCounterStore();
+
+  // Format duration using translations with plural support
+  const formatDuration = (weeks: number, days: number) => {
+    const parts: string[] = [];
+    if (weeks > 0) {
+      parts.push(`${weeks} ${weeks === 1 ? tDatetime("units.week") : tDatetime("units.weeks")}`);
+    }
+    if (days > 0) {
+      parts.push(`${days} ${days === 1 ? tDatetime("units.day") : tDatetime("units.days")}`);
+    }
+    if (parts.length === 0) {
+      return `0 ${tDatetime("units.days")}`;
+    }
+    return parts.join(` ${tDatetime("and")} `);
+  };
 
   return (
     <div className="space-y-6">
@@ -74,7 +91,9 @@ export function DayCounterCalculator() {
                 <p className="text-sm text-muted-foreground mt-1">{t("days")}</p>
               </div>
               <div className="text-center p-2 bg-muted rounded-lg">
-                <p className="text-lg font-medium">{result.formattedDuration}</p>
+                <p className="text-lg font-medium">
+                  {formatDuration(result.weeks, result.remainingDays)}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -86,11 +105,11 @@ export function DayCounterCalculator() {
             <CardContent>
               <ResultGrid
                 results={[
-                  { label: t("days"), value: result.totalDays },
-                  { label: "Business Days", value: result.businessDays },
-                  { label: "Weekend Days", value: result.weekendDays },
+                  { label: tResults("totalDays"), value: result.totalDays },
+                  { label: tResults("businessDays"), value: result.businessDays },
+                  { label: tResults("weekendDays"), value: result.weekendDays },
                   { label: t("weeks"), value: result.weeks },
-                  { label: t("days"), value: result.remainingDays },
+                  { label: tResults("remainingDays"), value: result.remainingDays },
                   { label: t("months"), value: result.months },
                 ]}
                 columns={3}

@@ -3,6 +3,32 @@ export interface FatIntakeInput {
   goal: "weightLoss" | "maintenance" | "muscleGain" | "keto" | "lowFat";
 }
 
+export type HealthyFatFoodKey =
+  | "avocados"
+  | "oliveOil"
+  | "nuts"
+  | "seeds"
+  | "fattyFish"
+  | "eggs"
+  | "darkChocolate"
+  | "nutButters";
+
+export type LimitFatFoodKey =
+  | "butter"
+  | "cheese"
+  | "redMeat"
+  | "coconutOil"
+  | "fullFatDairy"
+  | "palmOil";
+
+export type AvoidFatFoodKey =
+  | "transFats"
+  | "deepFriedFoods"
+  | "margarine"
+  | "processedSnacks"
+  | "fastFood"
+  | "commerciallyBakedGoods";
+
 export interface FatIntakeResult {
   dailyFatGrams: number;
   dailyFatCalories: number;
@@ -16,10 +42,10 @@ export interface FatIntakeResult {
     monounsaturated: { grams: number; percent: number };
     polyunsaturated: { grams: number; percent: number };
   };
-  foodSources: {
-    healthy: string[];
-    limit: string[];
-    avoid: string[];
+  foodSourceKeys: {
+    healthy: HealthyFatFoodKey[];
+    limit: LimitFatFoodKey[];
+    avoid: AvoidFatFoodKey[];
   };
 }
 
@@ -77,25 +103,25 @@ export function calculateFatIntake(input: FatIntakeInput): FatIntakeResult | nul
     },
   };
 
-  const foodSources = {
+  const foodSourceKeys: FatIntakeResult["foodSourceKeys"] = {
     healthy: [
-      "Avocados",
-      "Olive oil",
-      "Nuts (almonds, walnuts, cashews)",
-      "Seeds (chia, flax, pumpkin)",
-      "Fatty fish (salmon, mackerel, sardines)",
-      "Eggs",
-      "Dark chocolate (70%+ cocoa)",
-      "Nut butters",
+      "avocados",
+      "oliveOil",
+      "nuts",
+      "seeds",
+      "fattyFish",
+      "eggs",
+      "darkChocolate",
+      "nutButters",
     ],
-    limit: ["Butter", "Cheese", "Red meat", "Coconut oil", "Full-fat dairy", "Palm oil"],
+    limit: ["butter", "cheese", "redMeat", "coconutOil", "fullFatDairy", "palmOil"],
     avoid: [
-      "Trans fats (partially hydrogenated oils)",
-      "Deep-fried foods",
-      "Margarine",
-      "Processed snacks",
-      "Fast food",
-      "Commercially baked goods",
+      "transFats",
+      "deepFriedFoods",
+      "margarine",
+      "processedSnacks",
+      "fastFood",
+      "commerciallyBakedGoods",
     ],
   };
 
@@ -108,6 +134,6 @@ export function calculateFatIntake(input: FatIntakeInput): FatIntakeResult | nul
     omega3Min,
     omega6Max,
     breakdown,
-    foodSources,
+    foodSourceKeys,
   };
 }

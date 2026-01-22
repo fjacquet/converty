@@ -1,3 +1,5 @@
+import type { DayOfWeekKey } from "./day-of-week";
+
 export type DateOperation = "add" | "subtract";
 
 export interface DateInput {
@@ -12,11 +14,19 @@ export interface DateInput {
 export interface DateResult {
   resultDate: Date;
   formattedDate: string;
-  dayOfWeek: string;
+  dayOfWeekKey: DayOfWeekKey;
   daysFromStart: number;
 }
 
-const DAYS_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const DAY_OF_WEEK_KEYS: DayOfWeekKey[] = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
 
 export function calculateDate(input: DateInput): DateResult | null {
   if (!input.startDate) return null;
@@ -48,7 +58,7 @@ export function calculateDate(input: DateInput): DateResult | null {
       month: "long",
       day: "numeric",
     }),
-    dayOfWeek: DAYS_OF_WEEK[resultDate.getDay()],
+    dayOfWeekKey: DAY_OF_WEEK_KEYS[resultDate.getDay()],
     daysFromStart: Math.abs(daysFromStart),
   };
 }

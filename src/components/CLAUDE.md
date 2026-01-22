@@ -4,7 +4,7 @@ This directory contains all React components for Converty.
 
 ## Structure
 
-```
+```text
 components/
 ├── converter/       # Calculator-specific components
 ├── layout/          # Page layout components (Header, Footer)

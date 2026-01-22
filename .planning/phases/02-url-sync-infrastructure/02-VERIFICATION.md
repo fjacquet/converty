@@ -114,9 +114,9 @@ None detected.
 **Test:**
 
 1. Start dev server: `npm run dev`
-2. Open Tab 1: http://localhost:3000/en/math/volume-calculator
+2. Open Tab 1: <http://localhost:3000/en/math/volume-calculator>
 3. Enter values in Tab 1 (e.g., change shape, dimensions)
-4. Immediately open Tab 2: http://localhost:3000/en/health/bmi
+4. Immediately open Tab 2: <http://localhost:3000/en/health/bmi>
 5. Enter values in Tab 2 (e.g., weight: 75, height: 180)
 6. Rapidly switch between Tab 1 and Tab 2 while typing values
 7. Wait 200ms after typing stops in each tab
@@ -255,15 +255,15 @@ From ROADMAP.md Phase 2 success criteria:
 
 **Additional criteria from PLAN frontmatter:**
 
-5. ✓ **TypeScript strict mode compilation passes with zero errors**
+1. ✓ **TypeScript strict mode compilation passes with zero errors**
 
    - Verified: npx tsc --noEmit passes
 
-6. ✓ **Biome lint passes with zero errors**
+2. ✓ **Biome lint passes with zero errors**
 
    - Verified: npm run lint passes
 
-7. ✓ **Existing calculator functionality preserved (backward compatible)**
+3. ✓ **Existing calculator functionality preserved (backward compatible)**
    - Verified: 74 calculators using createCalculatorStore, old useConverter hook still exists (Phase 3 will migrate remaining and remove old hook)
 
 **Score: 6/7 automated criteria verified (86%)**

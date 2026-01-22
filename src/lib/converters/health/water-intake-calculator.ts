@@ -6,6 +6,25 @@ export interface WaterIntakeInput {
   breastfeeding: boolean;
 }
 
+export type WaterTipKey =
+  | "morningGlass"
+  | "carryBottle"
+  | "setReminders"
+  | "exerciseDrink"
+  | "waterRichFoods"
+  | "beforeMeals"
+  | "urineColor";
+
+export type ScheduleTimeKey =
+  | "time0700"
+  | "time0900"
+  | "time1100"
+  | "time1300"
+  | "time1500"
+  | "time1700"
+  | "time1900"
+  | "time2100";
+
 export interface WaterIntakeResult {
   dailyIntakeMl: number;
   dailyIntakeLiters: number;
@@ -18,9 +37,9 @@ export interface WaterIntakeResult {
     climateAddition: number;
     specialAddition: number;
   };
-  tips: string[];
+  tipKeys: WaterTipKey[];
   schedule: Array<{
-    time: string;
+    timeKey: ScheduleTimeKey;
     amount: number;
     cumulative: number;
   }>;
@@ -69,32 +88,34 @@ export function calculateWaterIntake(input: WaterIntakeInput): WaterIntakeResult
   const hourlyReminder = Math.round(dailyIntakeMl / 16);
 
   // Drinking schedule
-  const schedule = [
-    { time: "7:00 AM", percent: 10 },
-    { time: "9:00 AM", percent: 20 },
-    { time: "11:00 AM", percent: 30 },
-    { time: "1:00 PM", percent: 45 },
-    { time: "3:00 PM", percent: 60 },
-    { time: "5:00 PM", percent: 75 },
-    { time: "7:00 PM", percent: 90 },
-    { time: "9:00 PM", percent: 100 },
-  ].map((item, index, arr) => {
+  const scheduleData: Array<{ timeKey: ScheduleTimeKey; percent: number }> = [
+    { timeKey: "time0700", percent: 10 },
+    { timeKey: "time0900", percent: 20 },
+    { timeKey: "time1100", percent: 30 },
+    { timeKey: "time1300", percent: 45 },
+    { timeKey: "time1500", percent: 60 },
+    { timeKey: "time1700", percent: 75 },
+    { timeKey: "time1900", percent: 90 },
+    { timeKey: "time2100", percent: 100 },
+  ];
+
+  const schedule = scheduleData.map((item, index, arr) => {
     const prevPercent = index > 0 ? arr[index - 1].percent : 0;
     return {
-      time: item.time,
+      timeKey: item.timeKey,
       amount: Math.round(((item.percent - prevPercent) / 100) * dailyIntakeMl),
       cumulative: Math.round((item.percent / 100) * dailyIntakeMl),
     };
   });
 
-  const tips = [
-    "Drink a glass of water first thing in the morning",
-    "Carry a reusable water bottle with you",
-    "Set reminders on your phone to drink water",
-    "Drink water before, during, and after exercise",
-    "Eat water-rich foods like fruits and vegetables",
-    "Drink a glass of water before each meal",
-    "Monitor your urine color - pale yellow is ideal",
+  const tipKeys: WaterTipKey[] = [
+    "morningGlass",
+    "carryBottle",
+    "setReminders",
+    "exerciseDrink",
+    "waterRichFoods",
+    "beforeMeals",
+    "urineColor",
   ];
 
   return {
@@ -109,7 +130,7 @@ export function calculateWaterIntake(input: WaterIntakeInput): WaterIntakeResult
       climateAddition,
       specialAddition,
     },
-    tips,
+    tipKeys,
     schedule,
   };
 }

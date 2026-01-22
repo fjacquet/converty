@@ -564,10 +564,12 @@ Since this is a static site without automated tests, verification relies on syst
 **Pre-deletion verification:**
 
 1. Run codebase search for imports:
+
    ```bash
    grep -r "from.*use-converter" src/app --include="*.tsx"
    grep -r "from.*use-url-state" src/app --include="*.tsx"
    ```
+
 2. Confirm zero results for both searches
 
 **Post-deletion verification:**

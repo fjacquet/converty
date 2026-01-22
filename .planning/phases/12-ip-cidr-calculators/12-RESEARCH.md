@@ -17,17 +17,20 @@ The existing codebase already has robust infrastructure for IP manipulation via 
 The established libraries/tools for this domain:
 
 ### Core
+
 | Library | Version | Purpose | Why Standard |
 |---------|---------|---------|--------------|
 | ipaddr.js | 2.3.0 | IP address parsing, validation, and manipulation | Already in use, 55M+ weekly downloads, handles IPv4/IPv6 edge cases |
 
 ### Supporting
+
 | Library | Version | Purpose | When to Use |
 |---------|---------|---------|-------------|
 | zustand | (existing) | State management with URL sync | Calculator state and shareability |
 | next-intl | (existing) | Internationalization | Labels and translations |
 
 ### Alternatives Considered
+
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
 | ipaddr.js | ip-address npm | ipaddr.js already in codebase, well-tested patterns exist |
@@ -39,6 +42,7 @@ No new packages required - reuse existing ipaddr.js and Zustand patterns.
 ## Architecture Patterns
 
 ### Recommended Project Structure
+
 ```
 src/
 ├── lib/converters/network/
@@ -60,9 +64,11 @@ src/
 ```
 
 ### Pattern 1: IP Classification Logic
+
 **What:** Determine IP class (A-E) and public/private status
 **When to use:** IP Address Calculator main calculation
 **Example:**
+
 ```typescript
 // Source: RFC 791 (IP Classes), RFC 1918 (Private Addresses)
 import ipaddr from "ipaddr.js";
@@ -114,9 +120,11 @@ function getIPv4Class(firstOctet: number): "A" | "B" | "C" | "D" | "E" {
 ```
 
 ### Pattern 2: CIDR Range Calculation
+
 **What:** Calculate IP range from CIDR and check IP membership
 **When to use:** CIDR Range Calculator
 **Example:**
+
 ```typescript
 // Source: ipaddr.js match() API
 import ipaddr from "ipaddr.js";
@@ -148,6 +156,7 @@ export function calculateCIDRRange(cidr: string): CIDRRangeResult {
 ```
 
 ### Anti-Patterns to Avoid
+
 - **Manual IP-in-range bit math:** Use ipaddr.js `match()` instead of manual comparisons
 - **Hardcoded range lists:** Use ipaddr.js `range()` method which has authoritative ranges
 - **Separate IPv4/IPv6 code paths where unnecessary:** Many operations work for both
@@ -169,30 +178,35 @@ Problems that look simple but have existing solutions:
 ## Common Pitfalls
 
 ### Pitfall 1: IPv4 Class Confusion with 127.x.x.x
+
 **What goes wrong:** Treating 127.0.0.0/8 as Class A network space
 **Why it happens:** First octet 127 falls in Class A range (1-126... wait, it doesn't!)
 **How to avoid:** 127 is the loopback range, NOT Class A. Class A is 1-126, not 0-127.
 **Warning signs:** Tests failing for 127.0.0.1 classification
 
 ### Pitfall 2: IPv6 Has No Classes
+
 **What goes wrong:** Trying to classify IPv6 addresses into A/B/C/D/E
 **Why it happens:** Thinking all IP addresses have classes
 **How to avoid:** Return null for ipClass when IPv6 detected, use rangeType instead
 **Warning signs:** UI showing "Class: null" or crashes on IPv6 input
 
 ### Pitfall 3: Private vs Public is NOT the Same as Class
+
 **What goes wrong:** Assuming Class A = public, Class C = private
 **Why it happens:** Confusing classful addressing with RFC 1918 private ranges
 **How to avoid:** Use ipaddr.js `range()` for private detection, separate from class
 **Warning signs:** 10.0.0.1 classified as "public" because it's Class A
 
 ### Pitfall 4: Edge Cases in IP Ranges
+
 **What goes wrong:** Forgetting special cases like 0.0.0.0, 255.255.255.255
 **Why it happens:** Only testing "normal" IP addresses
 **How to avoid:** ipaddr.js `range()` returns "unspecified" for 0.0.0.0, "broadcast" for 255.255.255.255
 **Warning signs:** These IPs cause errors or wrong classifications
 
 ### Pitfall 5: CIDR Without Slash
+
 **What goes wrong:** User enters "192.168.1.0" expecting /24
 **Why it happens:** Users may not understand CIDR notation
 **How to avoid:** Validate for "/" presence, show helpful error message
@@ -203,6 +217,7 @@ Problems that look simple but have existing solutions:
 Verified patterns from ipaddr.js and existing codebase:
 
 ### IPv4 Range Types (from ipaddr.js source)
+
 ```typescript
 // Source: https://github.com/whitequark/ipaddr.js
 // ipaddr.js predefined IPv4 ranges
@@ -226,6 +241,7 @@ const ipv4Ranges = {
 ```
 
 ### IPv6 Range Types (from ipaddr.js source)
+
 ```typescript
 // Source: https://github.com/whitequark/ipaddr.js
 const ipv6Ranges = {
@@ -241,6 +257,7 @@ const ipv6Ranges = {
 ```
 
 ### Using ipaddr.js match() for IP-in-Range
+
 ```typescript
 // Source: ipaddr.js README
 import ipaddr from "ipaddr.js";
@@ -258,6 +275,7 @@ addr.match([ipaddr.parse("192.168.1.0"), 24]); // true
 ```
 
 ### IP Class Determination
+
 ```typescript
 // Source: RFC 791 - Internet Protocol
 // Class is determined by first octet's leading bits:
@@ -282,6 +300,7 @@ function getIPv4Class(firstOctet: number): "A" | "B" | "C" | "D" | "E" | "specia
 ```
 
 ### Existing Pattern: Zustand Store with URL Sync
+
 ```typescript
 // Source: src/stores/subnet-calculator-store.ts (existing pattern)
 export const useIPCalculatorStore = create<IPCalculatorState>()(
@@ -332,12 +351,14 @@ export const useIPCalculatorStore = create<IPCalculatorState>()(
 | Manual range tables | ipaddr.js built-in ranges | Library evolution | Use library for authoritative ranges |
 
 **Deprecated/outdated:**
+
 - **Classful addressing:** No longer used in practice, but educational value remains
 - **Site-local IPv6 (fec0::/10):** Deprecated by RFC 3879, replaced by Unique Local (fc00::/7)
 
 ## IP Address Classification Reference
 
 ### IPv4 Classes
+
 | Class | First Octet | Address Range | Default Mask | Purpose |
 |-------|-------------|---------------|--------------|---------|
 | A | 1-126 | 1.0.0.0 - 126.255.255.255 | 255.0.0.0 (/8) | Large networks |
@@ -349,6 +370,7 @@ export const useIPCalculatorStore = create<IPCalculatorState>()(
 Note: 0.x.x.x and 127.x.x.x are special (unspecified and loopback).
 
 ### Private IP Ranges (RFC 1918)
+
 | Range | CIDR | Class | Addresses |
 |-------|------|-------|-----------|
 | 10.0.0.0 - 10.255.255.255 | 10.0.0.0/8 | A | ~16.7 million |
@@ -356,6 +378,7 @@ Note: 0.x.x.x and 127.x.x.x are special (unspecified and loopback).
 | 192.168.0.0 - 192.168.255.255 | 192.168.0.0/16 | C | ~65,536 |
 
 ### Other Special IPv4 Ranges
+
 | Range | Purpose |
 |-------|---------|
 | 0.0.0.0/8 | Unspecified / "this" network |
@@ -365,6 +388,7 @@ Note: 0.x.x.x and 127.x.x.x are special (unspecified and loopback).
 | 255.255.255.255/32 | Limited Broadcast |
 
 ### IPv6 Special Ranges
+
 | Range | Purpose |
 |-------|---------|
 | ::/128 | Unspecified |
@@ -392,22 +416,26 @@ Things that couldn't be fully resolved:
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - ipaddr.js GitHub repository - API methods and predefined ranges
 - Existing codebase: `/src/lib/converters/network/subnet-calculator.ts` - patterns
 - Existing codebase: `/src/stores/subnet-calculator-store.ts` - Zustand patterns
 
 ### Secondary (MEDIUM confidence)
+
 - [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) - Private IP address allocation
 - [RFC 791](https://en.wikipedia.org/wiki/IPv4) - IPv4 classes (via Wikipedia summary)
 - [Meridian Outpost IPv4 Classes Guide](https://www.meridianoutpost.com/resources/articles/IP-classes.php) - Class ranges reference
 
 ### Tertiary (LOW confidence)
+
 - GeeksforGeeks Classful IP Addressing - educational reference
 - WebSearch results for IPv6 private ranges - verified against ipaddr.js source
 
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - ipaddr.js already in codebase, patterns established
 - Architecture: HIGH - follows existing subnet calculator patterns exactly
 - Pitfalls: HIGH - based on RFC specifications and ipaddr.js behavior

@@ -10,7 +10,7 @@ export interface BPMConversion {
 }
 
 export interface NoteValue {
-  name: string;
+  nameKey: string;
   symbol: string;
   beats: number;
   durationMs: number;
@@ -26,17 +26,17 @@ export function calculateBPM(bpm: number): BPMConversion | null {
   const hz = bpm / 60;
 
   const noteValues: NoteValue[] = [
-    { name: "Whole note", symbol: "1", beats: 4, durationMs: msPerBeat * 4 },
-    { name: "Half note", symbol: "1/2", beats: 2, durationMs: msPerBeat * 2 },
-    { name: "Quarter note", symbol: "1/4", beats: 1, durationMs: msPerBeat },
-    { name: "Eighth note", symbol: "1/8", beats: 0.5, durationMs: msPerBeat / 2 },
-    { name: "Sixteenth note", symbol: "1/16", beats: 0.25, durationMs: msPerBeat / 4 },
-    { name: "Thirty-second note", symbol: "1/32", beats: 0.125, durationMs: msPerBeat / 8 },
-    { name: "Dotted half", symbol: "1/2.", beats: 3, durationMs: msPerBeat * 3 },
-    { name: "Dotted quarter", symbol: "1/4.", beats: 1.5, durationMs: msPerBeat * 1.5 },
-    { name: "Dotted eighth", symbol: "1/8.", beats: 0.75, durationMs: msPerBeat * 0.75 },
-    { name: "Triplet quarter", symbol: "1/4T", beats: 2 / 3, durationMs: (msPerBeat * 2) / 3 },
-    { name: "Triplet eighth", symbol: "1/8T", beats: 1 / 3, durationMs: msPerBeat / 3 },
+    { nameKey: "whole-note", symbol: "1", beats: 4, durationMs: msPerBeat * 4 },
+    { nameKey: "half-note", symbol: "1/2", beats: 2, durationMs: msPerBeat * 2 },
+    { nameKey: "quarter-note", symbol: "1/4", beats: 1, durationMs: msPerBeat },
+    { nameKey: "eighth-note", symbol: "1/8", beats: 0.5, durationMs: msPerBeat / 2 },
+    { nameKey: "sixteenth-note", symbol: "1/16", beats: 0.25, durationMs: msPerBeat / 4 },
+    { nameKey: "thirty-second-note", symbol: "1/32", beats: 0.125, durationMs: msPerBeat / 8 },
+    { nameKey: "dotted-half", symbol: "1/2.", beats: 3, durationMs: msPerBeat * 3 },
+    { nameKey: "dotted-quarter", symbol: "1/4.", beats: 1.5, durationMs: msPerBeat * 1.5 },
+    { nameKey: "dotted-eighth", symbol: "1/8.", beats: 0.75, durationMs: msPerBeat * 0.75 },
+    { nameKey: "triplet-quarter", symbol: "1/4T", beats: 2 / 3, durationMs: (msPerBeat * 2) / 3 },
+    { nameKey: "triplet-eighth", symbol: "1/8T", beats: 1 / 3, durationMs: msPerBeat / 3 },
   ];
 
   return {
@@ -62,27 +62,33 @@ export function bpmFromMs(msPerBeat: number): number {
   return 60000 / msPerBeat;
 }
 
-// Common tempo markings
-export const TEMPO_MARKINGS = [
-  { name: "Larghissimo", minBpm: 1, maxBpm: 24 },
-  { name: "Grave", minBpm: 25, maxBpm: 45 },
-  { name: "Largo", minBpm: 40, maxBpm: 60 },
-  { name: "Lento", minBpm: 45, maxBpm: 60 },
-  { name: "Larghetto", minBpm: 60, maxBpm: 66 },
-  { name: "Adagio", minBpm: 66, maxBpm: 76 },
-  { name: "Andante", minBpm: 76, maxBpm: 108 },
-  { name: "Moderato", minBpm: 108, maxBpm: 120 },
-  { name: "Allegro", minBpm: 120, maxBpm: 156 },
-  { name: "Vivace", minBpm: 156, maxBpm: 176 },
-  { name: "Presto", minBpm: 168, maxBpm: 200 },
-  { name: "Prestissimo", minBpm: 200, maxBpm: 1000 },
+// Common tempo markings with keys for translation
+export interface TempoMarking {
+  key: string;
+  minBpm: number;
+  maxBpm: number;
+}
+
+export const TEMPO_MARKINGS: TempoMarking[] = [
+  { key: "larghissimo", minBpm: 1, maxBpm: 24 },
+  { key: "grave", minBpm: 25, maxBpm: 45 },
+  { key: "largo", minBpm: 40, maxBpm: 60 },
+  { key: "lento", minBpm: 45, maxBpm: 60 },
+  { key: "larghetto", minBpm: 60, maxBpm: 66 },
+  { key: "adagio", minBpm: 66, maxBpm: 76 },
+  { key: "andante", minBpm: 76, maxBpm: 108 },
+  { key: "moderato", minBpm: 108, maxBpm: 120 },
+  { key: "allegro", minBpm: 120, maxBpm: 156 },
+  { key: "vivace", minBpm: 156, maxBpm: 176 },
+  { key: "presto", minBpm: 168, maxBpm: 200 },
+  { key: "prestissimo", minBpm: 200, maxBpm: 1000 },
 ];
 
 export function getTempoMarking(bpm: number): string {
   for (const marking of TEMPO_MARKINGS) {
     if (bpm >= marking.minBpm && bpm <= marking.maxBpm) {
-      return marking.name;
+      return marking.key;
     }
   }
-  return "Unknown";
+  return "";
 }

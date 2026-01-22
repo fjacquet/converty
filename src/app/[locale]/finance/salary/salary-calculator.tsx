@@ -60,6 +60,7 @@ const COLORS = [
 export function SalaryCalculator() {
   const t = useTranslations("calculator");
   const tResults = useTranslations("calculator.results");
+  const tStates = useTranslations("calculator.finance.states");
   const format = useFormatter();
   const { values, setValue, result } = useSalaryStore();
 
@@ -165,9 +166,9 @@ export function SalaryCalculator() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {US_STATES.map((state) => (
-                    <SelectItem key={state.value} value={state.value}>
-                      {state.label}
+                  {US_STATES.map((stateCode) => (
+                    <SelectItem key={stateCode} value={stateCode}>
+                      {stateCode} - {tStates(stateCode as any)}
                     </SelectItem>
                   ))}
                 </SelectContent>

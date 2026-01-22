@@ -4,7 +4,7 @@ Next.js App Router pages with locale-based routing.
 
 ## Structure
 
-```
+```text
 app/
 ├── [locale]/                    # Dynamic locale segment
 │   ├── layout.tsx              # Root layout with providers

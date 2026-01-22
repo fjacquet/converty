@@ -1,9 +1,18 @@
+export type DayOfWeekKey =
+  | "sunday"
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday";
+
 export interface DayOfWeekInput {
   date: string;
 }
 
 export interface DayOfWeekResult {
-  dayOfWeek: string;
+  dayOfWeekKey: DayOfWeekKey;
   dayNumber: number;
   isWeekend: boolean;
   weekNumber: number;
@@ -12,7 +21,15 @@ export interface DayOfWeekResult {
   quarter: number;
 }
 
-const DAYS_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const DAY_OF_WEEK_KEYS: DayOfWeekKey[] = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
 
 function getWeekNumber(date: Date): number {
   const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
@@ -42,7 +59,7 @@ export function calculateDayOfWeek(input: DayOfWeekInput): DayOfWeekResult | nul
   const daysInYear = getDaysInYear(date.getFullYear());
 
   return {
-    dayOfWeek: DAYS_OF_WEEK[dayNumber],
+    dayOfWeekKey: DAY_OF_WEEK_KEYS[dayNumber],
     dayNumber,
     isWeekend: dayNumber === 0 || dayNumber === 6,
     weekNumber: getWeekNumber(date),

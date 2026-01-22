@@ -116,10 +116,10 @@ export function calculateCompoundInterest(
   };
 }
 
-export const COMPOUND_FREQUENCIES: { value: CompoundFrequency; label: string }[] = [
-  { value: "annually", label: "Annually" },
-  { value: "semi-annually", label: "Semi-Annually" },
-  { value: "quarterly", label: "Quarterly" },
-  { value: "monthly", label: "Monthly" },
-  { value: "daily", label: "Daily" },
+export const COMPOUND_FREQUENCIES: CompoundFrequency[] = [
+  "annually",
+  "semi-annually",
+  "quarterly",
+  "monthly",
+  "daily",
 ];

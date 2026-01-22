@@ -8,14 +8,15 @@ export interface GfrInput {
   height?: number; // cm (for body surface area adjustment)
 }
 
+// CKD stage keys for translation lookup
+export type CkdStageKey = "stage1" | "stage2" | "stage3a" | "stage3b" | "stage4" | "stage5";
+
 export interface GfrResult {
   egfrMdrd: number;
   egfrCkdEpi: number;
   egfrCockcroftGault: number | null;
   stage: number;
-  stageDescription: string;
-  kidneyFunction: string;
-  recommendation: string;
+  stageKey: CkdStageKey;
   creatinineMgdl: number;
 }
 
@@ -58,40 +59,26 @@ export function calculateGfr(input: GfrInput): GfrResult | null {
   // Determine CKD stage
   const gfr = egfrCkdEpi;
   let stage: number;
-  let stageDescription: string;
-  let kidneyFunction: string;
-  let recommendation: string;
+  let stageKey: CkdStageKey;
 
   if (gfr >= 90) {
     stage = 1;
-    stageDescription = "Stage 1: Normal or high GFR";
-    kidneyFunction = "Normal kidney function";
-    recommendation = "Monitor if you have risk factors for kidney disease";
+    stageKey = "stage1";
   } else if (gfr >= 60) {
     stage = 2;
-    stageDescription = "Stage 2: Mildly decreased GFR";
-    kidneyFunction = "Mild loss of kidney function";
-    recommendation = "Lifestyle changes, monitor blood pressure";
+    stageKey = "stage2";
   } else if (gfr >= 45) {
     stage = 3;
-    stageDescription = "Stage 3a: Mild to moderate decrease";
-    kidneyFunction = "Mild to moderate loss of kidney function";
-    recommendation = "See a nephrologist, manage complications";
+    stageKey = "stage3a";
   } else if (gfr >= 30) {
     stage = 3;
-    stageDescription = "Stage 3b: Moderate to severe decrease";
-    kidneyFunction = "Moderate to severe loss of kidney function";
-    recommendation = "See a nephrologist, dietary changes";
+    stageKey = "stage3b";
   } else if (gfr >= 15) {
     stage = 4;
-    stageDescription = "Stage 4: Severely decreased GFR";
-    kidneyFunction = "Severe loss of kidney function";
-    recommendation = "Prepare for dialysis or transplant";
+    stageKey = "stage4";
   } else {
     stage = 5;
-    stageDescription = "Stage 5: Kidney failure";
-    kidneyFunction = "Kidney failure (ESRD)";
-    recommendation = "Dialysis or kidney transplant needed";
+    stageKey = "stage5";
   }
 
   return {
@@ -99,9 +86,7 @@ export function calculateGfr(input: GfrInput): GfrResult | null {
     egfrCkdEpi,
     egfrCockcroftGault,
     stage,
-    stageDescription,
-    kidneyFunction,
-    recommendation,
+    stageKey,
     creatinineMgdl,
   };
 }

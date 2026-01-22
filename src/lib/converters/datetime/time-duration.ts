@@ -16,7 +16,10 @@ export interface TimeDurationResult {
   totalHours: number;
   totalMinutes: number;
   totalSeconds: number;
-  formattedDuration: string;
+  timeComponents: Array<{
+    count: number;
+    unitKey: "year" | "month" | "day" | "hour" | "minute" | "second";
+  }>;
 }
 
 export function calculateTimeDuration(input: TimeDurationInput): TimeDurationResult | null {
@@ -70,14 +73,18 @@ export function calculateTimeDuration(input: TimeDurationInput): TimeDurationRes
     years--;
   }
 
-  // Format duration string
-  const parts: string[] = [];
-  if (years > 0) parts.push(`${years} year${years !== 1 ? "s" : ""}`);
-  if (months > 0) parts.push(`${months} month${months !== 1 ? "s" : ""}`);
-  if (days > 0) parts.push(`${days} day${days !== 1 ? "s" : ""}`);
-  if (hours > 0) parts.push(`${hours} hour${hours !== 1 ? "s" : ""}`);
-  if (minutes > 0) parts.push(`${minutes} minute${minutes !== 1 ? "s" : ""}`);
-  if (seconds > 0 || parts.length === 0) parts.push(`${seconds} second${seconds !== 1 ? "s" : ""}`);
+  // Build time components array
+  const timeComponents: Array<{
+    count: number;
+    unitKey: "year" | "month" | "day" | "hour" | "minute" | "second";
+  }> = [];
+  if (years > 0) timeComponents.push({ count: years, unitKey: "year" });
+  if (months > 0) timeComponents.push({ count: months, unitKey: "month" });
+  if (days > 0) timeComponents.push({ count: days, unitKey: "day" });
+  if (hours > 0) timeComponents.push({ count: hours, unitKey: "hour" });
+  if (minutes > 0) timeComponents.push({ count: minutes, unitKey: "minute" });
+  if (seconds > 0 || timeComponents.length === 0)
+    timeComponents.push({ count: seconds, unitKey: "second" });
 
   return {
     years,
@@ -90,6 +97,6 @@ export function calculateTimeDuration(input: TimeDurationInput): TimeDurationRes
     totalHours,
     totalMinutes,
     totalSeconds,
-    formattedDuration: parts.join(", "),
+    timeComponents,
   };
 }

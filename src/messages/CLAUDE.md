@@ -97,6 +97,7 @@ JSON translation files for all 4 supported locales.
 ### For a New Calculator
 
 1. Add to `en.json`:
+
 ```json
 {
   "converters": {
@@ -109,11 +110,12 @@ JSON translation files for all 4 supported locales.
 }
 ```
 
-2. Copy structure to `fr.json`, `de.json`, `it.json` and translate
+1. Copy structure to `fr.json`, `de.json`, `it.json` and translate
 
 ### For Calculator-Specific Labels
 
 Add under `calculator.[category]`:
+
 ```json
 {
   "calculator": {
@@ -137,6 +139,7 @@ Use `{variable}` for dynamic values:
 ```
 
 Usage:
+
 ```typescript
 t("common.backTo", { category: categoryName })
 ```
@@ -156,6 +159,7 @@ Use ICU message format:
 ## Validation Checklist
 
 Before committing translations:
+
 - [ ] All 4 locale files have the same keys
 - [ ] Keys match registry IDs (kebab-case)
 - [ ] No placeholder text (e.g., "TODO", "TRANSLATE")

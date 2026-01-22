@@ -44,7 +44,7 @@ This ADR is being **superseded** because it was based on false premises. The dec
 
    - `package.json` shows `"jspdf": "^4.0.0"`
    - npm registry confirms v4.0.0 is latest stable (published 2025-01-03)
-   - GitHub releases: https://github.com/parallax/jsPDF/releases/tag/v4.0.0
+   - GitHub releases: <https://github.com/parallax/jsPDF/releases/tag/v4.0.0>
 
 2. **Code patterns (src/lib/utils/pdf-export.ts):**
 
@@ -140,17 +140,17 @@ export interface PdfItem {
 
 ## Sources
 
-- **npm registry:** https://www.npmjs.com/package/jspdf
+- **npm registry:** <https://www.npmjs.com/package/jspdf>
 
   - Latest version: 4.0.0 (published 2025-01-03)
   - Download stats: 500k+ weekly downloads
 
-- **GitHub releases:** https://github.com/parallax/jsPDF/releases/tag/v4.0.0
+- **GitHub releases:** <https://github.com/parallax/jsPDF/releases/tag/v4.0.0>
 
   - Release date: January 3, 2025
   - Changelog shows v4.0.0 is latest stable
 
-- **Official documentation:** https://raw.githack.com/MrRio/jsPDF/master/docs/index.html
+- **Official documentation:** <https://raw.githack.com/MrRio/jsPDF/master/docs/index.html>
 
   - Documents v4.0.0 API (named imports, TypeScript support)
 

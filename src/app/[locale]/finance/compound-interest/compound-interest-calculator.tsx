@@ -110,8 +110,8 @@ export function CompoundInterestCalculator() {
                 </SelectTrigger>
                 <SelectContent>
                   {COMPOUND_FREQUENCIES.map((freq) => (
-                    <SelectItem key={freq.value} value={freq.value}>
-                      {t(`finance.${freq.value}`)}
+                    <SelectItem key={freq} value={freq}>
+                      {t(`finance.${freq}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>

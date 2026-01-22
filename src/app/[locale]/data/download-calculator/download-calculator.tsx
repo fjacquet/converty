@@ -14,6 +14,9 @@ import {
 export function DownloadCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tDataUnits = useTranslations("calculator.data.units");
+  const tNetworks = useTranslations("calculator.data.networks");
+  const tSamples = useTranslations("calculator.data.fileSamples");
   const [fileSize, setFileSize] = useState("4");
   const [fileSizeUnit, setFileSizeUnit] = useState("GB");
   const [bandwidth, setBandwidth] = useState("100");
@@ -48,7 +51,7 @@ export function DownloadCalculator() {
           >
             {FILE_SIZE_UNITS.map((u) => (
               <option key={u.id} value={u.id}>
-                {u.name}
+                {tDataUnits(u.id as any)}
               </option>
             ))}
           </select>
@@ -56,14 +59,14 @@ export function DownloadCalculator() {
         <div className="flex flex-wrap gap-2">
           {FILE_SIZE_PRESETS.map((preset) => (
             <button
-              key={preset.name}
+              key={preset.key}
               onClick={() => {
                 setFileSize(preset.size.toString());
                 setFileSizeUnit(preset.unit);
               }}
               className="text-xs px-2 py-1 rounded border hover:bg-muted/50"
             >
-              {preset.name}
+              {tSamples(preset.key as any)}
             </button>
           ))}
         </div>
@@ -89,7 +92,7 @@ export function DownloadCalculator() {
           >
             {SPEED_UNITS.map((u) => (
               <option key={u.id} value={u.id}>
-                {u.name}
+                {tDataUnits(u.id as any)}
               </option>
             ))}
           </select>
@@ -97,14 +100,14 @@ export function DownloadCalculator() {
         <div className="flex flex-wrap gap-2">
           {BANDWIDTH_PRESETS.map((preset) => (
             <button
-              key={preset.name}
+              key={preset.key}
               onClick={() => {
                 setBandwidth(preset.speed.toString());
                 setBandwidthUnit(preset.unit);
               }}
               className="text-xs px-2 py-1 rounded border hover:bg-muted/50"
             >
-              {preset.name}
+              {tNetworks(preset.key as any)}
             </button>
           ))}
         </div>

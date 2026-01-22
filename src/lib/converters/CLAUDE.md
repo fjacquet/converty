@@ -4,7 +4,7 @@ Pure calculation functions organized by category.
 
 ## Directory Structure
 
-```
+```text
 converters/
 ├── health/           # 28 calculators
 │   ├── bmi.ts
@@ -77,17 +77,20 @@ export function calculateSomething(input: CalculatorInput): CalculatorResult | n
 ## Key Principles
 
 ### 1. Pure Functions
+
 - No side effects
 - No React imports
 - Same input always produces same output
 - Deterministic calculations
 
 ### 2. Comprehensive Types
+
 - Export all interfaces
 - Use union types for modes/options
 - Make optional params explicit with `?`
 
 ### 3. Steps Array
+
 Include a `steps: string[]` to show calculation work:
 
 ```typescript
@@ -98,6 +101,7 @@ steps.push(`BMI = ${bmi.toFixed(2)}`);
 ```
 
 ### 4. Null Returns
+
 Return `null` for invalid inputs instead of throwing:
 
 ```typescript
@@ -109,6 +113,7 @@ export function calculate(input: Input): Result | null {
 ```
 
 ### 5. Multiple Modes
+
 Support different calculation modes via union types:
 
 ```typescript
@@ -131,21 +136,25 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
 ## Category-Specific Notes
 
 ### Health (`health/`)
+
 - Use metric units internally (kg, cm)
 - Include health category classifications
 - Reference medical formulas in steps
 
 ### Finance (`finance/`)
+
 - Handle compound interest periods
 - Include amortization schedules where applicable
 - Currency-agnostic (formatting done in UI)
 
 ### Math (`math/`)
+
 - Show step-by-step solutions
 - Handle edge cases (division by zero, negative roots)
 - Include formula explanations
 
 ### Photo (`photo/`)
+
 - Standard aspect ratios and resolutions
 - DPI/PPI conversions
 - Color space calculations

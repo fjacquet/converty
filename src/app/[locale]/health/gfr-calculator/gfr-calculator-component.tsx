@@ -52,6 +52,7 @@ const useStore = createCalculatorStore<FormValues, GfrResult | null>({
 export function GfrCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
+  const tHealth = useTranslations("calculator.health");
 
   const { values, setValue, result } = useStore();
 
@@ -149,9 +150,9 @@ export function GfrCalculatorComponent() {
           />
 
           <div className={`p-4 rounded-lg ${getStageColor(result.stage)}`}>
-            <p className="font-semibold">{result.stageDescription}</p>
-            <p>{result.kidneyFunction}</p>
-            <p className="text-sm mt-2">{result.recommendation}</p>
+            <p className="font-semibold">{tHealth(`ckd.${result.stageKey}.description`)}</p>
+            <p>{tHealth(`ckd.${result.stageKey}.kidneyFunction`)}</p>
+            <p className="text-sm mt-2">{tHealth(`ckd.${result.stageKey}.recommendation`)}</p>
           </div>
 
           <h3 className="text-lg font-semibold">{tResults("gfrByFormula")}</h3>
@@ -182,12 +183,12 @@ export function GfrCalculatorComponent() {
           <div className="p-4 bg-muted rounded-lg">
             <h4 className="font-semibold mb-2">{tResults("ckdStages")}</h4>
             <ul className="space-y-1 text-sm">
-              <li>Stage 1: GFR ≥90 - Normal</li>
-              <li>Stage 2: GFR 60-89 - Mild decrease</li>
-              <li>Stage 3a: GFR 45-59 - Mild to moderate</li>
-              <li>Stage 3b: GFR 30-44 - Moderate to severe</li>
-              <li>Stage 4: GFR 15-29 - Severe decrease</li>
-              <li>Stage 5: GFR &lt;15 - Kidney failure</li>
+              <li>{tHealth("ckd.reference.stage1")}</li>
+              <li>{tHealth("ckd.reference.stage2")}</li>
+              <li>{tHealth("ckd.reference.stage3a")}</li>
+              <li>{tHealth("ckd.reference.stage3b")}</li>
+              <li>{tHealth("ckd.reference.stage4")}</li>
+              <li>{tHealth("ckd.reference.stage5")}</li>
             </ul>
           </div>
         </div>

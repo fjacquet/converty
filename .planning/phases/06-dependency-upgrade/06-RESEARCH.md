@@ -9,6 +9,7 @@
 **CRITICAL FINDING**: The project is **ALREADY on jsPDF v4.0.0**, which is the latest stable version released on January 3, 2025. There is **NO upgrade needed**. The ADR 0004 contains incorrect information about version numbering and upgrade requirements.
 
 The research reveals that:
+
 - **Current version**: jsPDF v4.0.0 (latest) installed via `"jspdf": "^4.0.0"` in package.json
 - **Version history**: jsPDF versions progressed v1.x → v2.x → v3.x → v4.0.0 (no version rollback occurred)
 - **ADR error**: ADR 0004 incorrectly claims v4.0.0 is from 2018 and that v2.5.2 is "newer"
@@ -21,11 +22,13 @@ The research reveals that:
 ## Standard Stack
 
 ### Core
+
 | Library | Version | Purpose | Why Standard |
 |---------|---------|---------|--------------|
 | jsPDF | 4.0.0 (latest) | Client-side PDF generation | Industry standard for browser-based PDF creation, 31k GitHub stars, actively maintained |
 
 ### Alternatives Considered
+
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
 | jsPDF | pdfmake | More declarative API but larger bundle (would require complete rewrite) |
@@ -33,11 +36,13 @@ The research reveals that:
 | jsPDF | html2pdf.js | Wrapper around jsPDF + html2canvas (adds unnecessary abstraction layer) |
 
 **Installation:**
+
 ```bash
 npm install jspdf@latest  # Already installed: v4.0.0
 ```
 
 **Current package.json:**
+
 ```json
 "jspdf": "^4.0.0"
 ```
@@ -45,6 +50,7 @@ npm install jspdf@latest  # Already installed: v4.0.0
 ## Architecture Patterns
 
 ### Current Implementation Structure
+
 ```
 src/
 ├── lib/
@@ -67,6 +73,7 @@ src/
 **When to use:** Any calculator that needs to export results to PDF
 
 **Example:**
+
 ```typescript
 // Source: src/lib/utils/pdf-export.ts (current implementation)
 import { jsPDF } from "jspdf";  // Named import (correct for v4.0.0)
@@ -102,6 +109,7 @@ export function exportToPdf(sections: PdfSection[], options: PdfExportOptions): 
 **When to use:** Any calculator with exportable results
 
 **Example:**
+
 ```typescript
 // Source: src/app/[locale]/datetime/age/age-calculator.tsx
 const pdfSections = useMemo(() => {
@@ -127,6 +135,7 @@ const pdfSections = useMemo(() => {
 ```
 
 ### Anti-Patterns to Avoid
+
 - **Default import**: Using `import jsPDF from "jspdf"` instead of named import `import { jsPDF } from "jspdf"`
 - **Direct jsPDF usage in calculators**: Each calculator creating its own PDF formatting (violates DRY)
 - **Inline PDF generation**: PDF logic mixed with calculator logic instead of using centralized utility
@@ -149,6 +158,7 @@ Problems that look simple but have existing solutions:
 ## Common Pitfalls
 
 ### Pitfall 1: Version Number Confusion
+
 **What goes wrong:** Assuming v4.0.0 is older than v2.5.2 based on version numbers
 **Why it happens:** Semantic versioning resets major versions (v4 is NEWER than v2, not older)
 **How to avoid:** Always check release dates, not just version numbers
@@ -156,6 +166,7 @@ Problems that look simple but have existing solutions:
 **Status:** ADR 0004 contains this error and needs correction
 
 ### Pitfall 2: Default Import vs Named Import
+
 **What goes wrong:** Using `import jsPDF from "jspdf"` causes TypeScript errors or runtime failures
 **Why it happens:** jsPDF v2.0+ exports as named export, not default export
 **How to avoid:** Always use `import { jsPDF } from "jspdf"`
@@ -163,6 +174,7 @@ Problems that look simple but have existing solutions:
 **Status:** Current code already uses correct named import
 
 ### Pitfall 3: Missing TypeScript Types
+
 **What goes wrong:** Attempting to install `@types/jspdf` when types are already built-in
 **Why it happens:** Older jsPDF (v1.x) required separate type definitions
 **How to avoid:** jsPDF v2.0+ includes built-in TypeScript definitions, no @types package needed
@@ -170,6 +182,7 @@ Problems that look simple but have existing solutions:
 **Status:** Project correctly has no @types/jspdf installed
 
 ### Pitfall 4: Node.js File System Access (v4.0.0 Breaking Change)
+
 **What goes wrong:** Code that loads fonts/images from filesystem fails in Node.js environments
 **Why it happens:** v4.0.0 restricts filesystem access by default (security fix for CVE-2025-68428)
 **How to avoid:** Use `jsPDF.allowFsRead = true` or Node's `--permission` flag if filesystem access needed
@@ -177,6 +190,7 @@ Problems that look simple but have existing solutions:
 **Status:** Not applicable - Converty is client-side only (static export)
 
 ### Pitfall 5: Large Bundle Size in Client Builds
+
 **What goes wrong:** jsPDF adds significant bundle size (~335KB minified ES module)
 **Why it happens:** Full PDF generation library with font metrics, compression, etc.
 **How to avoid:** Consider code-splitting, dynamic imports for PDF export functionality
@@ -188,6 +202,7 @@ Problems that look simple but have existing solutions:
 Verified patterns from official sources and current codebase:
 
 ### Basic Document Creation
+
 ```typescript
 // Source: https://raw.githack.com/MrRio/jsPDF/master/docs/index.html
 import { jsPDF } from "jspdf";
@@ -198,6 +213,7 @@ doc.save("document.pdf");
 ```
 
 ### Multi-Page Document with Headers
+
 ```typescript
 // Source: Current implementation (src/lib/utils/pdf-export.ts)
 const doc = new jsPDF();
@@ -233,6 +249,7 @@ for (let i = 1; i <= pageCount; i++) {
 ```
 
 ### Text Alignment and Colors
+
 ```typescript
 // Source: Current implementation
 doc.setTextColor(100);  // Gray (0-255)
@@ -242,6 +259,7 @@ doc.text("Right-aligned", pageWidth - 20, y, { align: "right" });
 ```
 
 ### Font Management
+
 ```typescript
 // Source: https://raw.githack.com/MrRio/jsPDF/master/docs/index.html
 doc.setFont("helvetica", "normal");  // normal, bold, italic, bolditalic
@@ -260,6 +278,7 @@ doc.setFontSize(16);
 | UMD bundles only | ES modules, UMD, Node variants | v2.0.0 (Aug 2020) | Better tree-shaking, smaller bundles |
 
 **Deprecated/outdated:**
+
 - `addHTML()`, `fromHTML()` - Removed in v2.0.0, use jspdf-html2canvas plugin if needed
 - Default import syntax - Use named import `{ jsPDF }` instead
 - @types/jspdf package - Types are now built-in
@@ -267,13 +286,16 @@ doc.setFontSize(16);
 ## Current Usage Analysis
 
 ### Calculators Using PDF Export
+
 1. **Age Calculator** (`src/app/[locale]/datetime/age/age-calculator.tsx`)
    - Exports: Age breakdown, zodiac signs, next birthday
    - Data format: Simple label/value pairs
    - Status: Working correctly
 
 ### Calculators NOT Using PDF Export (but could)
+
 Based on requirements mention of "DoF table, charts":
+
 - **DoF Table Calculator** (`src/app/[locale]/photo/dof-table/dof-table-calculator.tsx`) - Has HTML table, no PDF export
 - **Compound Interest Calculator** (`src/app/[locale]/finance/compound-interest/compound-interest-calculator.tsx`) - Has Recharts charts, no PDF export
 - **Mortgage Calculator** - Has charts
@@ -283,6 +305,7 @@ Based on requirements mention of "DoF table, charts":
 **Opportunity:** ~50+ calculators could potentially benefit from PDF export functionality
 
 ### API Methods Used in Current Implementation
+
 | Method | Usage | Status |
 |--------|-------|--------|
 | `new jsPDF()` | Constructor | Standard, correct |
@@ -300,6 +323,7 @@ Based on requirements mention of "DoF table, charts":
 **No deprecated methods detected.**
 
 ### TypeScript Integration
+
 ```bash
 # Verification commands run:
 npm list jspdf             # Shows: jspdf@4.0.0
@@ -310,6 +334,7 @@ npx tsc --noEmit           # Passes - no jsPDF type errors
 **Status:** TypeScript integration is correct and complete.
 
 ### Bundle Size Analysis
+
 ```
 jsPDF package size:       29MB (includes source, types, examples)
 Production bundles:
@@ -319,6 +344,7 @@ Production bundles:
 ```
 
 **Impact:** Adding jsPDF to a page increases bundle by ~335KB. Consider dynamic import for calculators with PDF export:
+
 ```typescript
 const { exportToPdf } = await import("@/lib/utils/pdf-export");
 ```
@@ -326,6 +352,7 @@ const { exportToPdf } = await import("@/lib/utils/pdf-export");
 ## Open Questions
 
 ### 1. Should Phase 6 scope be redefined?
+
 - **What we know:** No jsPDF upgrade is needed (already on latest)
 - **What's unclear:** Should Phase 6 focus on PDF export expansion instead?
 - **Recommendation:** Update Phase 6 goals:
@@ -335,14 +362,17 @@ const { exportToPdf } = await import("@/lib/utils/pdf-export");
   - CONSIDER: Adding chart-to-PDF functionality for finance calculators
 
 ### 2. Should PDF export be expanded to more calculators?
+
 - **What we know:** Infrastructure exists, only 1 calculator uses it
 - **What's unclear:** User demand for PDF export on other calculators
 - **Recommendation:** Gather analytics/feedback on Age Calculator PDF usage before expanding
 
 ### 3. Should charts/tables be exportable to PDF?
+
 - **What we know:** Recharts used in finance calculators, HTML tables in photo calculators
 - **What's unclear:** Best approach (html2canvas + addImage vs. native jsPDF rendering)
 - **Recommendation:** If needed, prototype with html2canvas library:
+
   ```typescript
   import html2canvas from "html2canvas";
   const canvas = await html2canvas(chartElement);
@@ -351,6 +381,7 @@ const { exportToPdf } = await import("@/lib/utils/pdf-export");
   ```
 
 ### 4. Should PDF export be code-split for performance?
+
 - **What we know:** 335KB bundle impact, only 1 calculator uses it
 - **What's unclear:** Performance impact on calculators without PDF export
 - **Recommendation:** Profile with Next.js bundle analyzer before optimizing
@@ -360,6 +391,7 @@ const { exportToPdf } = await import("@/lib/utils/pdf-export");
 Since no automated testing framework exists in the project:
 
 ### Manual Testing Checklist
+
 - [ ] **Age Calculator PDF Export**
   - [ ] Click "Export PDF" button generates download
   - [ ] PDF opens correctly in Chrome PDF viewer
@@ -373,20 +405,25 @@ Since no automated testing framework exists in the project:
   - [ ] Filename matches pattern `{calculator-name}.pdf`
 
 ### Visual Regression Testing
+
 Since current version is v4.0.0 (latest), no visual regression needed. If future upgrade occurs:
+
 - Generate PDFs with old version, save as baseline
 - Generate PDFs with new version
 - Compare visually: fonts, spacing, colors, layout
 - Verify file sizes haven't increased dramatically
 
 ### Performance Testing
+
 - [ ] Measure bundle size before/after PDF export feature
 - [ ] Test PDF generation speed with large datasets
 - [ ] Monitor memory usage during PDF generation
 - [ ] Test on mobile devices (iOS Safari, Android Chrome)
 
 ### Browser Compatibility
+
 Current jsPDF v4.0.0 supports:
+
 - Chrome/Edge (latest)
 - Firefox (latest)
 - Safari (latest)
@@ -396,18 +433,19 @@ Current jsPDF v4.0.0 supports:
 ## Sources
 
 ### Primary (HIGH confidence)
-- **jsPDF npm package**: https://www.npmjs.com/package/jspdf
+
+- **jsPDF npm package**: <https://www.npmjs.com/package/jspdf>
   - Verified latest version: v4.0.0
   - Verified release date: January 3, 2025
   - Confirmed built-in TypeScript types
 
-- **jsPDF GitHub Releases**: https://github.com/parallax/jsPDF/releases
+- **jsPDF GitHub Releases**: <https://github.com/parallax/jsPDF/releases>
   - v4.0.0 release notes (January 2025)
   - v3.0.4 release notes (November 2024)
   - v2.5.2 release notes (September 2023)
   - Version history confirms v1 → v2 → v3 → v4 progression
 
-- **jsPDF Official Documentation**: https://raw.githack.com/MrRio/jsPDF/master/docs/index.html
+- **jsPDF Official Documentation**: <https://raw.githack.com/MrRio/jsPDF/master/docs/index.html>
   - API reference for methods used
   - Import syntax confirmation (named export)
   - Code examples verified
@@ -419,16 +457,18 @@ Current jsPDF v4.0.0 supports:
   - `src/app/[locale]/datetime/age/age-calculator.tsx` is only user of PDF export
 
 ### Secondary (MEDIUM confidence)
-- **jsPDF v2.0.0 Release Notes** (LibHunt): https://js.libhunt.com/jspdf-changelog/2.0.0
+
+- **jsPDF v2.0.0 Release Notes** (LibHunt): <https://js.libhunt.com/jspdf-changelog/2.0.0>
   - Breaking changes from v1.x to v2.0.0
   - Named import introduction date (August 11, 2020)
   - Built-in TypeScript types introduction
 
-- **CVE-2025-68428 Security Advisory**: https://github.com/parallax/jsPDF/security/advisories/GHSA-f8cm-6447-x5h2
+- **CVE-2025-68428 Security Advisory**: <https://github.com/parallax/jsPDF/security/advisories/GHSA-f8cm-6447-x5h2>
   - v4.0.0 security fix details
   - File system access restrictions
 
 ### Tertiary (LOW confidence)
+
 - **WebSearch results** for jsPDF migration guides
   - Multiple sources confirm named import pattern
   - Community articles confirm version progression
@@ -436,6 +476,7 @@ Current jsPDF v4.0.0 supports:
 ## Metadata
 
 **Confidence breakdown:**
+
 - **Standard stack: HIGH** - jsPDF is industry standard, current version verified via npm
 - **Architecture: HIGH** - Current implementation code reviewed, patterns documented
 - **Pitfalls: HIGH** - Version confusion corrected via official release notes and dates
@@ -446,6 +487,7 @@ Current jsPDF v4.0.0 supports:
 **Valid until:** 2026-04-17 (90 days - jsPDF has stable release cycle)
 
 **Critical correction needed:**
+
 - ADR 0004 requires update: jsPDF is already current (v4.0.0), no upgrade needed
 - Phase 6 scope should be redefined: verification instead of upgrade
 - Requirements mention of "DoF table, charts" PDF export not currently implemented

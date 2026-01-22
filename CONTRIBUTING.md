@@ -28,15 +28,20 @@ Be respectful and inclusive. We welcome contributors of all backgrounds and expe
 
 1. Fork the repository on GitHub
 2. Clone your fork locally:
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/converty.git
    cd converty
    ```
+
 3. Install dependencies:
+
    ```bash
    npm install
    ```
+
 4. Create a branch for your changes:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -49,13 +54,13 @@ Be respectful and inclusive. We welcome contributors of all backgrounds and expe
 npm run dev
 ```
 
-This starts the Next.js development server with Turbopack at http://localhost:3000.
+This starts the Next.js development server with Turbopack at <http://localhost:3000>.
 
 ### Available Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server at http://localhost:3000 |
+| `npm run dev` | Start development server at <http://localhost:3000> |
 | `npm run build` | Build for production + generate service worker |
 | `npm run type-check` | Run TypeScript compiler check (no emit) |
 | `npm run format` | Auto-format code with Biome |
@@ -273,6 +278,7 @@ export function MyCalculator() {
 4. Follow the pattern from real examples like `src/app/[locale]/datetime/age/age-calculator.tsx`
 
 For more complex calculators, see other examples in the codebase that demonstrate:
+
 - Custom validation with `validate` option
 - PDF export with `PdfExportButton`
 - Charts and visualizations with `recharts`
@@ -301,6 +307,7 @@ import { CategoryIcon } from "lucide-react";
 ### Step 6: Document the Calculator
 
 Add documentation to `docs/CALCULATORS.md` explaining:
+
 - What the calculator does
 - The formulas used
 - Any reference values or presets
@@ -352,6 +359,7 @@ Before submitting, verify:
 ### Verifying Calculations
 
 For photography calculators, verify against:
+
 - [PhotoPills](https://www.photopills.com/calculators)
 - [DOFMaster](http://www.dofmaster.com/dofjs.html)
 
@@ -363,7 +371,7 @@ For other calculations, cite your reference sources.
 
 Use clear, descriptive commit messages:
 
-```
+```text
 Add [calculator name] calculator
 
 - Add calculation logic in src/lib/converters/...
@@ -395,6 +403,7 @@ Co-Authored-By: Your Name <your@email.com>
 ## Questions?
 
 If you have questions, feel free to:
+
 - Open an issue for discussion
 - Check existing issues and PRs for context
 

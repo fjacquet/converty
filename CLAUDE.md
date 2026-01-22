@@ -68,26 +68,31 @@ npx tsc --noEmit     # Check TypeScript types
 ## Code Conventions
 
 ### TypeScript
+
 - Strict mode enabled
 - Use interfaces for object shapes
 - Export types alongside implementations
 
 ### State Management
+
 - **Prefer Zustand** for calculator state
 - URL sync middleware for shareable links
 - Legacy `useConverter` hook exists but is being phased out
 
 ### Components
+
 - Use existing UI components from `src/components/ui/`
 - Use converter components from `src/components/converter/`
 - Follow established patterns before creating new components
 
 ### Styling
+
 - Tailwind CSS with CSS variables for theming
 - Use `cn()` utility for conditional classes
 - Mobile-first responsive design
 
 ### Naming
+
 - Files: kebab-case (`age-calculator.tsx`)
 - Components: PascalCase (`AgeCalculator`)
 - Functions: camelCase (`calculateAge`)
@@ -144,6 +149,7 @@ All pages are prefixed with locale: `/en/finance/mortgage`, `/fr/finance/mortgag
 ### Using Translations in Code
 
 **Server Components (pages):**
+
 ```typescript
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -156,6 +162,7 @@ export default async function MyPage({ params }: { params: Promise<{ locale: str
 ```
 
 **Client Components (calculators):**
+
 ```typescript
 "use client";
 import { useTranslations, useFormatter } from "next-intl";
@@ -215,6 +222,7 @@ export function generateStaticParams() {
 ## When to Update ARCHITECTURE.md
 
 Update `/docs/ARCHITECTURE.md` when:
+
 - Adding new categories
 - Creating new shared components
 - Changing state management patterns
@@ -226,6 +234,7 @@ Update `/docs/ARCHITECTURE.md` when:
 The project uses Biome for linting and formatting. Run `npm run lint:fix` before committing.
 
 Common issues:
+
 - Unused imports (remove them)
 - Missing return types (add explicit types)
 - Prefer `const` over `let`

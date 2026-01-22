@@ -30,6 +30,8 @@ const useDateStore = createCalculatorStore<DateInput, DateResult>({
 export function DateCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
+  const tResults = useTranslations("calculator.results");
+  const tDatetime = useTranslations("calculator.datetime");
   const { values, setValue, result } = useDateStore();
 
   return (
@@ -120,9 +122,12 @@ export function DateCalculator() {
             </div>
             <ResultGrid
               results={[
-                { label: "Day of Week", value: result.dayOfWeek },
-                { label: `${t("days")} Difference`, value: result.daysFromStart },
-                { label: "ISO Date", value: result.resultDate.toISOString().split("T")[0] },
+                { label: tResults("dayOfWeek"), value: tDatetime(`days.${result.dayOfWeekKey}`) },
+                { label: tResults("daysDifference"), value: result.daysFromStart },
+                {
+                  label: tResults("isoDate"),
+                  value: result.resultDate.toISOString().split("T")[0],
+                },
               ]}
               columns={3}
             />

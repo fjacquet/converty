@@ -4,8 +4,13 @@
     "tagline": "Calculatrices et convertisseurs en ligne gratuits",
     "allTools": "Tous les outils",
     "home": "Accueil",
-    "search": "Rechercher des calculatrices...",
-    "noResults": "Aucun resultat trouve",
+    "search": {
+      "placeholder": "Rechercher des calculatrices...",
+      "noResults": "Aucune calculatrice trouvee",
+      "calculators": "Calculatrices",
+      "loading": "Chargement de la recherche...",
+      "hint": "pour rechercher"
+    },
     "loading": "Chargement...",
     "error": "Erreur",
     "close": "Fermer",
@@ -52,7 +57,8 @@
     },
     "music": {
       "name": "Musique",
-      "description": "Theorie musicale et outils audio"
+      "description": "Theorie musicale et outils audio",
+      "comingSoon": "Calculateurs de musique a venir!"
     },
     "network": {
       "name": "Réseau",
@@ -1650,7 +1656,20 @@
       "proteinCalories": "Calories protéines",
       "carbsCalories": "Calories glucides",
       "fatCalories": "Calories lipides",
-      "carbs": "Glucides"
+      "carbs": "Glucides",
+      "dayOfWeek": "Jour de la semaine",
+      "daysDifference": "Différence en jours",
+      "isoDate": "Date ISO",
+      "dayNumber": "Numéro du jour",
+      "weekNumber": "Numéro de semaine",
+      "dayOfYear": "Jour de l'année",
+      "daysLeftInYear": "Jours restants dans l'année",
+      "quarter": "Trimestre",
+      "type": "Type",
+      "totalDays": "Total de jours",
+      "businessDays": "Jours ouvrables",
+      "weekendDays": "Jours de weekend",
+      "remainingDays": "Jours restants"
     },
     "time": {
       "yearsMonthsDays": "{years} ans, {months} mois, {days} jours",
@@ -1763,6 +1782,11 @@
       "initialInvestment": "Investissement initial",
       "investmentPeriod": "Période d'investissement (années)",
       "compoundFrequency": "Fréquence de capitalisation",
+      "annually": "Annuellement",
+      "semi-annually": "Semi-annuellement",
+      "quarterly": "Trimestriellement",
+      "monthly": "Mensuellement",
+      "daily": "Quotidiennement",
       "regularContributions": "Contributions régulières",
       "contributionTiming": "Timing des contributions",
       "beginningOfMonth": "Début du mois",
@@ -2380,7 +2404,361 @@
       "yearByYearImpact": "Impact Annee par Annee",
       "year": "Annee {year}",
       "enterValues": "Entrez les valeurs pour calculer",
-      "period": "Période"
+            "period": "Période",
+            "currencies": {
+        "USD": "Dollar américain",
+        "EUR": "Euro",
+        "GBP": "Livre sterling",
+        "CHF": "Franc suisse",
+        "JPY": "Yen japonais",
+        "CAD": "Dollar canadien",
+        "AUD": "Dollar australien",
+        "CNY": "Yuan chinois",
+        "INR": "Roupie indienne",
+        "MXN": "Peso mexicain",
+        "BRL": "Réal brésilien",
+        "KRW": "Won sud-coréen",
+        "SGD": "Dollar de Singapour",
+        "HKD": "Dollar de Hong Kong",
+        "SEK": "Couronne suédoise",
+        "NOK": "Couronne norvégienne",
+        "DKK": "Couronne danoise",
+        "NZD": "Dollar néo-zélandais",
+        "ZAR": "Rand sud-africain",
+        "RUB": "Rouble russe"
+      },
+      "states": {
+        "AL": "Alabama",
+        "AK": "Alaska",
+        "AZ": "Arizona",
+        "AR": "Arkansas",
+        "CA": "Californie",
+        "CO": "Colorado",
+        "CT": "Connecticut",
+        "DE": "Delaware",
+        "FL": "Floride",
+        "GA": "Géorgie",
+        "HI": "Hawaï",
+        "ID": "Idaho",
+        "IL": "Illinois",
+        "IN": "Indiana",
+        "IA": "Iowa",
+        "KS": "Kansas",
+        "KY": "Kentucky",
+        "LA": "Louisiane",
+        "ME": "Maine",
+        "MD": "Maryland",
+        "MA": "Massachusetts",
+        "MI": "Michigan",
+        "MN": "Minnesota",
+        "MS": "Mississippi",
+        "MO": "Missouri",
+        "MT": "Montana",
+        "NE": "Nebraska",
+        "NV": "Nevada",
+        "NH": "Nouvelle-Hampshir",
+        "NJ": "Nouvelle-Jérsey",
+        "NM": "Nouveau-Mexique",
+        "NY": "New York",
+        "NC": "Caroline du Nord",
+        "ND": "Dakota du Nord",
+        "OH": "Ohio",
+        "OK": "Oklahoma",
+        "OR": "Oregon",
+        "PA": "Pennsylvanie",
+        "RI": "Rhode Island",
+        "SC": "Caroline du Sud",
+        "SD": "Dakota du Sud",
+        "TN": "Tennessee",
+        "TX": "Texas",
+        "UT": "Utah",
+        "VT": "Vermont",
+        "VA": "Virginie",
+        "WA": "Washington",
+        "WV": "Virginie-Occidentale",
+        "WI": "Wisconsin",
+        "WY": "Wyoming",
+        "DC": "District de Columbia"
+      }
+    },
+    "health": {
+      "ckd": {
+        "stage1": {
+          "description": "MRC Stade 1 : DFG normal ou élevé",
+          "kidneyFunction": "Fonction rénale normale avec lésions structurelles possibles",
+          "recommendation": "Surveiller et gérer les facteurs de risque (diabète, hypertension)"
+        },
+        "stage2": {
+          "description": "MRC Stade 2 : DFG légèrement diminué",
+          "kidneyFunction": "Légère réduction de la fonction rénale",
+          "recommendation": "Continuer la surveillance et la gestion des facteurs de risque"
+        },
+        "stage3a": {
+          "description": "MRC Stade 3a : Diminution légère à modérée",
+          "kidneyFunction": "Fonction rénale légèrement à modérément réduite",
+          "recommendation": "Consulter un néphrologue, surveiller régulièrement"
+        },
+        "stage3b": {
+          "description": "MRC Stade 3b : Diminution modérée à sévère",
+          "kidneyFunction": "Fonction rénale modérément à sévèrement réduite",
+          "recommendation": "Travailler avec un néphrologue, préparer les options de traitement"
+        },
+        "stage4": {
+          "description": "MRC Stade 4 : DFG sévèrement diminué",
+          "kidneyFunction": "Fonction rénale sévèrement réduite",
+          "recommendation": "Préparer l'évaluation pour dialyse ou transplantation"
+        },
+        "stage5": {
+          "description": "MRC Stade 5 : Insuffisance rénale",
+          "kidneyFunction": "Insuffisance rénale nécessitant dialyse ou transplantation",
+          "recommendation": "Nécessite dialyse ou transplantation rénale"
+        },
+        "reference": {
+          "stage1": "Stade 1 : DFG ≥90 - Normal",
+          "stage2": "Stade 2 : DFG 60-89 - Légère diminution",
+          "stage3a": "Stade 3a : DFG 45-59 - Légère à modérée",
+          "stage3b": "Stade 3b : DFG 30-44 - Modérée à sévère",
+          "stage4": "Stade 4 : DFG 15-29 - Diminution sévère",
+          "stage5": "Stade 5 : DFG <15 - Insuffisance rénale"
+        }
+      },
+      "corpulence": {
+        "metric": "Métrique (kg/cm)",
+        "imperial": "Impérial (lbs/po)",
+        "healthRiskAssessment": "Évaluation du risque pour la santé",
+        "comparisonWithBmi": "Comparaison avec l'IMC",
+        "corpulenceIndexLabel": "Indice de corpulence",
+        "bmiLabel": "IMC",
+        "referenceTitle": "Référence de l'indice de corpulence",
+        "rangeColumn": "Plage (kg/m³)",
+        "categoryColumn": "Catégorie",
+        "aboutTitle": "À propos de l'indice de corpulence",
+        "aboutDescription": "L'indice de corpulence (IC), également connu sous le nom d'indice pondéral, est calculé en divisant le poids par la hauteur au cube (kg/m³). Contrairement à l'IMC qui utilise la hauteur au carré, l'IC peut fournir une évaluation plus précise pour les personnes très grandes ou petites.",
+        "underweight": {
+          "category": "Insuffisance pondérale",
+          "description": "En dessous de la plage de corpulence normale",
+          "healthRisk": "Risque accru de carences nutritionnelles"
+        },
+        "normalLower": {
+          "category": "Normal (bas)",
+          "description": "Limite inférieure de la plage de corpulence normale",
+          "healthRisk": "Faible risque pour la santé"
+        },
+        "normal": {
+          "category": "Normal",
+          "description": "Plage de corpulence optimale",
+          "healthRisk": "Risque minimal pour la santé"
+        },
+        "normalUpper": {
+          "category": "Normal (haut)",
+          "description": "Limite supérieure de la plage de corpulence normale",
+          "healthRisk": "Faible risque pour la santé"
+        },
+        "overweight": {
+          "category": "Surpoids",
+          "description": "Au-dessus de la plage de corpulence normale",
+          "healthRisk": "Risque modéré pour la santé"
+        },
+        "obese": {
+          "category": "Obèse",
+          "description": "Significativement au-dessus de la plage normale",
+          "healthRisk": "Risque accru pour la santé"
+        },
+        "comparison": {
+          "similar": "L'IMC et l'IC indiquent une composition corporelle similaire",
+          "ciHigher": "L'IC suggère relativement plus de masse pour la taille que l'IMC",
+          "ciLower": "L'IC suggère relativement moins de masse pour la taille que l'IMC"
+        },
+        "reference": {
+          "underweight": "< 11",
+          "normal": "11 - 15",
+          "overweight": "15 - 17",
+          "obese": "> 17"
+        }
+      },
+      "healthyWeight": {
+        "categories": {
+          "severelyUnderweight": "Insuffisance pondérale sévère",
+          "underweight": "Insuffisance pondérale",
+          "normal": "Normal (Sain)",
+          "overweight": "Surpoids",
+          "obeseClassI": "Obésité classe I",
+          "obeseClassII": "Obésité classe II",
+          "obeseClassIII": "Obésité classe III"
+        }
+      },
+      "carbs": {
+        "foods": {
+          "complex": {
+            "oats": "Flocons d'avoine",
+            "brownRice": "Riz complet",
+            "quinoa": "Quinoa",
+            "sweetPotatoes": "Patates douces",
+            "wholeGrainBread": "Pain complet",
+            "beansAndLentils": "Haricots et lentilles",
+            "vegetables": "Légumes",
+            "wholeWheatPasta": "Pâtes complètes"
+          },
+          "simple": {
+            "fruits": "Fruits",
+            "honeyModeration": "Miel (avec modération)",
+            "milk": "Lait",
+            "sportsDrinks": "Boissons sportives (autour des entraînements)"
+          },
+          "avoid": {
+            "whiteBread": "Pain blanc",
+            "sugaryCereals": "Céréales sucrées",
+            "candyAndSweets": "Bonbons et sucreries",
+            "sodaAndSugaryDrinks": "Sodas et boissons sucrées",
+            "pastriesAndBakedGoods": "Pâtisseries et viennoiseries",
+            "whiteRiceLimit": "Riz blanc (limiter)"
+          }
+        }
+      },
+      "fats": {
+        "foods": {
+          "healthy": {
+            "avocados": "Avocats",
+            "oliveOil": "Huile d'olive",
+            "nuts": "Noix (amandes, noix, cajous)",
+            "seeds": "Graines (chia, lin, courge)",
+            "fattyFish": "Poissons gras (saumon, maquereau, sardines)",
+            "eggs": "Œufs",
+            "darkChocolate": "Chocolat noir (70%+ cacao)",
+            "nutButters": "Beurres de noix"
+          },
+          "limit": {
+            "butter": "Beurre",
+            "cheese": "Fromage",
+            "redMeat": "Viande rouge",
+            "coconutOil": "Huile de coco",
+            "fullFatDairy": "Produits laitiers entiers",
+            "palmOil": "Huile de palme"
+          },
+          "avoid": {
+            "transFats": "Graisses trans (huiles partiellement hydrogénées)",
+            "deepFriedFoods": "Aliments frits",
+            "margarine": "Margarine",
+            "processedSnacks": "Snacks transformés",
+            "fastFood": "Fast-food",
+            "commerciallyBakedGoods": "Produits de boulangerie industriels"
+          }
+        }
+      },
+      "protein": {
+        "foods": {
+          "chickenBreast": { "name": "Blanc de poulet", "serving": "100g cuit" },
+          "eggs": { "name": "Œufs", "serving": "1 gros" },
+          "greekYogurt": { "name": "Yaourt grec", "serving": "170g" },
+          "salmon": { "name": "Saumon", "serving": "100g" },
+          "leanBeef": { "name": "Bœuf maigre", "serving": "100g" },
+          "tofu": { "name": "Tofu", "serving": "100g" },
+          "lentils": { "name": "Lentilles", "serving": "100g cuites" },
+          "wheyProtein": { "name": "Protéine de lactosérum", "serving": "1 dose (30g)" },
+          "cottageCheese": { "name": "Fromage blanc", "serving": "100g" },
+          "tuna": { "name": "Thon", "serving": "100g en conserve" }
+        }
+      },
+      "water": {
+        "schedule": {
+          "time0700": "7h00",
+          "time0900": "9h00",
+          "time1100": "11h00",
+          "time1300": "13h00",
+          "time1500": "15h00",
+          "time1700": "17h00",
+          "time1900": "19h00",
+          "time2100": "21h00"
+        },
+        "tips": {
+          "morningGlass": "Buvez un verre d'eau dès le réveil",
+          "carryBottle": "Gardez une bouteille d'eau réutilisable avec vous",
+          "setReminders": "Programmez des rappels pour boire régulièrement",
+          "exerciseDrink": "Buvez avant, pendant et après l'exercice",
+          "waterRichFoods": "Mangez des aliments riches en eau comme les fruits et légumes",
+          "beforeMeals": "Buvez un verre d'eau avant les repas",
+          "urineColor": "Vérifiez la couleur de votre urine - jaune clair indique une bonne hydratation"
+        }
+      }
+    },
+    "datetime": {
+      "days": {
+        "sunday": "Dimanche",
+        "monday": "Lundi",
+        "tuesday": "Mardi",
+        "wednesday": "Mercredi",
+        "thursday": "Jeudi",
+        "friday": "Vendredi",
+        "saturday": "Samedi"
+      },
+      "weekend": "Weekend",
+      "weekday": "Jour de semaine",
+      "and": "et",
+      "units": {
+        "year": "an",
+        "years": "ans",
+        "month": "mois",
+        "months": "mois",
+        "week": "semaine",
+        "weeks": "semaines",
+        "day": "jour",
+        "days": "jours",
+        "hour": "heure",
+        "hours": "heures",
+        "minute": "minute",
+        "minutes": "minutes",
+        "second": "seconde",
+        "seconds": "secondes"
+      },
+      "regions": {
+        "africa": "Afrique",
+        "america": "Amérique",
+        "antarctica": "Antarctique",
+        "arctic": "Arctique",
+        "asia": "Asie",
+        "atlantic": "Atlantique",
+        "australia": "Australie",
+        "europe": "Europe",
+        "indian": "Indien",
+        "pacific": "Pacifique",
+        "other": "Autre"
+            }
+    },
+    "data": {
+      "units": {
+        "B": "Octets",
+        "KB": "Kilooctets",
+        "MB": "Mégaoctets",
+        "GB": "Gigaoctets",
+        "TB": "Téraoctets",
+        "PB": "Pétaoctets",
+        "KiB": "Kibioctets",
+        "MiB": "Mébioctets",
+        "GiB": "Gibioctets",
+        "TiB": "Tébioctets",
+        "PiB": "Pébioctets",
+        "kbps": "Kilobits par seconde",
+        "mbps": "Mégabits par seconde",
+        "gbps": "Gigabits par seconde",
+        "KBps": "Kilooctets par seconde",
+        "MBps": "Mégaoctets par seconde"
+      },
+      "networks": {
+        "mobile_3g": "Mobile 3G",
+        "mobile_4g": "Mobile 4G LTE",
+        "mobile_5g": "Mobile 5G",
+        "broadband_basic": "Haut débit basique",
+        "broadband_fast": "Haut débit rapide",
+        "fiber_gigabit": "Fibre gigabit"
+      },
+      "fileSamples": {
+        "song_mp3": "Chanson MP3",
+        "photo_hd": "Photo HD",
+        "movie_hd": "Film HD",
+        "movie_4k": "Film 4K",
+        "game": "Jeu",
+        "os_image": "Image du système d'exploitation"
+      }
     },
     "errors": {
       "priceGreaterThanVariable": "Le prix doit être supérieur au coût variable"
@@ -2580,6 +2958,92 @@
         "first-usable": "Première utilisable",
         "last-usable": "Dernière utilisable"
       }
+    },
+    "video": {
+      "unitFootLamberts": "Foot-Lamberts (fL)",
+      "unitNits": "Nits (cd/m²)",
+      "unitLumens": "Lumens",
+      "labelFootLamberts": "Foot-Lamberts",
+      "labelNits": "Nits",
+      "labelCandelasPerM2": "Candelas par m²",
+      "labelLumens": "Lumens",
+      "screenWidth": "Largeur d'écran",
+      "screenHeight": "Hauteur d'écran",
+      "screenGain": "Gain d'écran",
+      "brightnesses": {
+        "very_dim": "Très faible",
+        "use_very_dim": "Projection cinéma économique, visionnage en pièce claire",
+        "dim": "Faible",
+        "use_dim": "Norme de cinéma numérique DCI 3D",
+        "standard_2d": "Standard 2D",
+        "use_standard_2d": "Norme de cinéma numérique DCI 2D",
+        "bright": "Lumineux",
+        "use_bright": "Projection IMAX",
+        "very_bright": "Très lumineux",
+        "use_very_bright": "Cinéma ordinaire typique",
+        "home_theater": "Cinéma maison",
+        "use_home_theater": "Calibrage cinéma maison",
+        "display": "Affichage",
+        "use_display": "Affichage lumineux, visionnage en extérieur"
+      },
+      "references": {
+        "dci_2d": "Norme DCI 2D",
+        "note_dci_2d": "Norme standard pour le cinéma numérique 2D",
+        "dci_3d": "Norme DCI 3D",
+        "note_dci_3d": "Norme standard pour le cinéma numérique 3D",
+        "dolby": "Dolby Cinema",
+        "note_dolby": "Norme cinéma haut de gamme Dolby",
+        "imax": "IMAX",
+        "note_imax": "Norme de projection IMAX",
+        "home_theater": "Cinéma maison",
+        "note_home_theater": "Point blanc de référence du cinéma maison",
+        "hdr_display": "Affichage HDR",
+        "note_hdr_display": "Luminosité de pointe haute gamme dynamique"
+      }
+    },
+    "music": {
+      "tempo": "Tempo",
+      "tempoMarking": "Indication de tempo",
+      "frequency": "Fréquence",
+      "beatDuration": "Durée du temps",
+      "beatsPerSecond": "Temps par seconde",
+      "bar4_4": "Durée de mesure 4/4",
+      "bar3_4": "Durée de mesure 3/4",
+      "noteDurations": "Durées de note",
+      "noteTableHeaders": {
+        "note": "Note",
+        "symbol": "Symbole",
+        "beats": "Temps",
+        "duration": "Durée (ms)"
+      },
+      "notes": {
+        "whole-note": "Ronde",
+        "half-note": "Blanche",
+        "quarter-note": "Noire",
+        "eighth-note": "Croche",
+        "sixteenth-note": "Double croche",
+        "thirty-second-note": "Triple croche",
+        "dotted-half": "Blanche pointée",
+        "dotted-quarter": "Noire pointée",
+        "dotted-eighth": "Croche pointée",
+        "triplet-quarter": "Triolet de noire",
+        "triplet-eighth": "Triolet de croche"
+      },
+      "tempoMarkings": {
+        "larghissimo": "Larghissimo",
+        "grave": "Grave",
+        "largo": "Largo",
+        "lento": "Lento",
+        "larghetto": "Larghetto",
+        "adagio": "Adagio",
+        "andante": "Andante",
+        "moderato": "Moderato",
+        "allegro": "Allegro",
+        "vivace": "Vivace",
+        "presto": "Presto",
+        "prestissimo": "Prestissimo"
+      },
+      "enterBpm": "Entrer BPM"
     }
   },
   "validation": {

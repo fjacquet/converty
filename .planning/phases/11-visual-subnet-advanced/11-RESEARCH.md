@@ -656,6 +656,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** User tries to split into 3 or 5 subnets (not power of 2).
 **Why it happens:** Subnetting math requires borrowing whole bits from host portion.
 **How to avoid:**
+
 - Validate `divisions` is power of 2: `(n & (n - 1)) === 0`
 - Only show valid options in dropdown (2, 4, 8, 16, etc.)
 - Display clear error message explaining the constraint
@@ -666,6 +667,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** Trying to split /30 into 8 subnets would require /33 (impossible).
 **Why it happens:** Not checking if `newCidr > maxCidr` before division.
 **How to avoid:**
+
 - Calculate `newCidr = currentCidr + log2(divisions)` first
 - Validate against max (32 for IPv4, 128 for IPv6)
 - Disable split options that would exceed limit
@@ -676,6 +678,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** Aggregating 192.168.1.0/24 + 192.168.2.0/24 fails.
 **Why it happens:** First network (192.168.1.0) is not on /23 boundary (should be 192.168.0.0).
 **How to avoid:**
+
 - Calculate expected supernet boundary using `networkAddressFromCIDR`
 - Compare against first network's address
 - Provide clear error: "First network must be on /23 boundary"
@@ -686,6 +689,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** Aggregating 192.168.0.0/24 + 192.168.2.0/24 (skipping .1.0).
 **Why it happens:** Networks have gap between them, can't form single CIDR block.
 **How to avoid:**
+
 - Sort networks by address
 - Verify each network starts exactly where previous ends
 - Calculate expected addresses based on block size
@@ -696,6 +700,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** BigInt operations overflow or produce incorrect results.
 **Why it happens:** IPv6 addresses are 128-bit, requiring careful BigInt handling.
 **How to avoid:**
+
 - Always use BigInt for address arithmetic (not Number)
 - Use `BigInt(2) ** BigInt(hostBits)` not `Math.pow()`
 - Test with large IPv6 prefixes like /48 and /64
@@ -706,6 +711,7 @@ Problems that look simple but have existing solutions:
 **What goes wrong:** UI shows stale data after rapid split/join operations.
 **Why it happens:** Zustand updates not propagating correctly or race conditions.
 **How to avoid:**
+
 - Use Zustand selectors properly
 - Ensure tree mutations are atomic (update entire tree at once)
 - Debounce rapid user interactions
@@ -808,6 +814,7 @@ function parseMultipleNetworks(input: string): string[] {
 | Flat result display | Hierarchical tree view | Current | Shows relationship between subnets |
 
 **Deprecated/outdated:**
+
 - **Server-side subnet APIs:** Privacy concern, unnecessary network calls. Client-side is standard.
 - **Flash-based visualizations:** Replaced by SVG/Canvas. All modern calculators use web standards.
 - **Fixed division options (only /2):** Modern tools allow any power-of-2 division.

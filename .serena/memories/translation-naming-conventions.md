@@ -14,10 +14,12 @@ Removed "Calculator" and equivalent terms from all calculator names across all 4
 | Italian | "Calcolatore di/Calcolatore " prefix | "Calcolatore Download" → "Download" |
 
 ### Files Modified
+
 - `src/messages/en.json`
 - `src/messages/fr.json`
 - `src/messages/de.json`
 - `src/messages/it.json`
 
 ### Note
+
 When adding new calculators, do NOT include "Calculator" or equivalent in the `name` field. Keep names concise (e.g., "BMI", "Mortgage", "Compound Interest").

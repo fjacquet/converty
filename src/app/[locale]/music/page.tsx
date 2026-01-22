@@ -59,7 +59,7 @@ export default async function MusicPage({ params }: { params: Promise<{ locale: 
         </div>
       ) : (
         <div className="text-center py-12 border rounded-lg bg-muted/50">
-          <p className="text-muted-foreground">Music calculators coming soon!</p>
+          <p className="text-muted-foreground">{t("comingSoon")}</p>
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
-import { BANDWIDTH_UNITS, type BandwidthUnit } from "@/lib/converters/data/bandwidth";
-import { FILE_SIZE_UNITS, type FileSizeUnit } from "@/lib/converters/data/download-calculator";
+import { BANDWIDTH_UNITS } from "@/lib/converters/data/bandwidth";
+import { FILE_SIZE_UNITS } from "@/lib/converters/data/download-calculator";
 
 /**
  * Time unit for transfer duration
