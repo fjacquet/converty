@@ -71,6 +71,31 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ URL parameter utilities consolidated (getUrlParams extracted) — v1.0
 - ✓ Pre-commit hooks (Husky v9 + lint-staged v16) — v1.0
 
+<!-- v2.0 Network Tools & User Experience (shipped 2026-01-22) -->
+
+**Network Calculators:**
+
+- ✓ Visual Subnet Calculator (IPv4/IPv6) with comprehensive visualization — v2.0
+- ✓ Network diagram, binary representation, breakdown table — v2.0
+- ✓ CIDR notation and subnet mask input support — v2.0
+- ✓ Subnetting and supernetting capabilities — v2.0
+- ✓ IP Address Calculator (class detection, public/private check) — v2.0
+- ✓ CIDR Range Calculator (IP range calculation, IP-in-range check) — v2.0
+- ✓ Network Speed/Latency Calculator (ping time conversions, throughput) — v2.0
+
+**Search Functionality:**
+
+- ✓ Global search across all calculators (Cmd+K) — v2.0
+- ✓ Fuzzy search with Fuse.js, real-time results — v2.0
+- ✓ Pre-built search indexes per locale — v2.0
+
+**Translation Compliance:**
+
+- ✓ All 156 registered calculators fully internationalized — v2.0
+- ✓ Zero hardcoded English strings in calculator components — v2.0
+- ✓ 100% translation coverage across all 4 locales (en, fr, de, it) — v2.0
+- ✓ All calculators verified working in all 4 locales — v2.0
+
 <!-- Existing capabilities from the codebase -->
 
 - ✓ 200+ calculators across 11 categories (Math, Finance, Health, Photo, Video, Web, Data, DateTime, Physics, Music, Color) — existing
@@ -82,55 +107,23 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ Tailwind CSS with theme support (light/dark mode) — existing
 - ✓ Radix UI component primitives — existing
 
-## Current Milestone: v2.0 Network Tools & User Experience
+## Current Milestone: v3.0 Calculator Expansion & Performance (Planning)
 
-**Goal:** Expand calculator suite with comprehensive network tools, add global search functionality, and achieve 100% translation coverage across all calculators.
+**Goal:** Expand calculator coverage with new categories, optimize performance, and enhance UX with bookmarking and history features.
 
 **Target features:**
 
-- Network calculator suite (4 new calculators with visual subnet calculator as flagship)
-- Global search functionality across 200+ calculators
-- Translation audit and compliance (eliminate hardcoded English strings)
+- Expand calculator collection with new categories (100+ new calculators)
+- Performance optimization (code splitting, lazy loading, virtualization)
+- User experience enhancements (favorites, calculation history, export)
 
 ### Active
 
-<!-- v2.0 Network Tools & User Experience -->
+<!-- v3.0 Planning Phase -->
 
-**Network Calculators:**
+**Planned phases:** 17-24 (8 phases estimated)
 
-- [ ] Visual Subnet Calculator (IPv4/IPv6) with comprehensive visualization — v2.0
-  - [ ] Network diagram showing IP ranges and subnet structure
-  - [ ] Binary representation of IP and subnet mask
-  - [ ] Breakdown table (network address, broadcast, usable range, total hosts)
-  - [ ] CIDR notation input (/24, /64)
-  - [ ] Subnet mask input (255.255.255.0)
-  - [ ] Subnetting calculator (divide network into smaller subnets)
-  - [ ] Supernetting/aggregation (combine multiple networks)
-- [ ] IP Address Calculator — v2.0
-  - [ ] IP class detection (A, B, C, D, E)
-  - [ ] Public/private IP check
-  - [ ] IP range validation
-- [ ] CIDR Range Calculator — v2.0
-  - [ ] Calculate IP ranges from CIDR notation
-  - [ ] Check if IP address is in CIDR range
-- [ ] Network Speed/Latency Calculator — v2.0
-  - [ ] Ping time conversions
-  - [ ] Throughput calculations
-
-**Search Functionality:**
-
-- [ ] Global search across all calculators — v2.0
-  - [ ] Search by calculator name
-  - [ ] Search by category
-  - [ ] Search by keywords
-  - [ ] Real-time search results
-
-**Translation Compliance:**
-
-- [ ] Audit all 200+ calculators for hardcoded English strings — v2.0
-- [ ] Move hardcoded strings to translation files (en, fr, de, it) — v2.0
-- [ ] Verify 100% translation coverage across all locales — v2.0
-- [ ] Test all calculators in all 4 locales — v2.0
+To be detailed after `/gsd:new-milestone` requirements gathering.
 
 ### Out of Scope
 
@@ -145,13 +138,14 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Context
 
-### Current State (as of v1.0 - 2026-01-18)
+### Current State (as of v2.0 - 2026-01-22)
 
-**Shipped v1.0 Infrastructure Upgrade:**
+**Shipped v2.0 Network Tools & User Experience:**
 
-Codebase: 59,381 LOC TypeScript
-Tech stack: Next.js 16, React 19, TypeScript 5, Zustand 5, Biome 2.3
+Codebase: ~89,000 LOC TypeScript (+29,789 lines from v2.0)
+Tech stack: Next.js 16, React 19, TypeScript 5, Zustand 5, Biome 2.3, Fuse.js
 Deployment: GitHub Pages (static export)
+Calculators: 156 registered (4 new network calculators added)
 
 **State Management:**
 
@@ -260,4 +254,4 @@ Deployment: GitHub Pages (static export)
 
 ---
 
-_Last updated: 2026-01-18 after v2.0 milestone initialization_
+_Last updated: 2026-01-22 after v2.0 milestone completion_
