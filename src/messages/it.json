@@ -2447,6 +2447,29 @@
         "what-is-hyperfocal": "Che cos'è la Distanza Iperfocale?",
         "tips": "Suggerimenti",
         "common-mistakes": "Errori Comuni"
+      },
+      "optics": {
+        "sensor-size": "Dimensioni sensore",
+        "print-width": "Larghezza di stampa",
+        "viewing-distance": "Distanza di visualizzazione",
+        "visual-acuity": "Acuità visiva",
+        "calculated-coc": "CoC calcolato",
+        "standard-coc": "CoC standard",
+        "more-relaxed-label": "Più rilassato",
+        "more-demanding-label": "Più esigente",
+        "enlargement": "Ingrandimento",
+        "sensor-to-print": "da sensore a stampa",
+        "resolution-needed": "Risoluzione richiesta",
+        "for-this-coc": "per questo CoC",
+        "analysis": "Analisi",
+        "standard-coc-values": "Valori CoC standard per sensore",
+        "sensor": "Sensore",
+        "size-mm": "Dimensioni (mm)",
+        "how-coc-calculated": "Come viene calcolato il CoC",
+        "traditional-formula": "Formula tradizionale",
+        "traditional-formula-note": "Ciò presuppone una stampa 8×10 pollici visualizzata a 25 cm (10 pollici) da qualcuno con acuità visiva media.",
+        "adjusted-formula": "Formula regolata (utilizzata qui)",
+        "adjusted-formula-note": "Questo calcolo tiene conto delle tue specifiche condizioni di visualizzazione e dimensioni di output."
       }
     },
     "inflation": {
