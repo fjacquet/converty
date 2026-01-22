@@ -2465,7 +2465,11 @@
         "near-limit-description": "Nächste Entfernung, die scharf erscheint",
         "far-limit-description": "Fernste Entfernung, die scharf erscheint (∞ = unendlich)",
         "hyperfocal-description": "Hier fokussieren für maximale Schärfentiefe bis zur Unendlichkeit",
-        "green-cells-description": "Grüne Zellen geben an, dass die Ferne Grenze die Unendlichkeit erreicht"
+        "green-cells-description": "Grüne Zellen geben an, dass die Ferne Grenze die Unendlichkeit erreicht",
+        "hyperfocal-table": "Hyperfokale Tabelle für",
+        "what-is-hyperfocal": "Was ist hyperfokale Distanz?",
+        "tips": "Tipps",
+        "common-mistakes": "Häufige Fehler"
       }
     },
     "inflation": {

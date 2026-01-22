@@ -2442,7 +2442,11 @@
         "near-limit-description": "Distanza più vicina che appare nitida",
         "far-limit-description": "Distanza più distante che appare nitida (∞ = infinito)",
         "hyperfocal-description": "Metti a fuoco qui per la profondità di campo massima che si estende all'infinito",
-        "green-cells-description": "Le celle verdi indicano che il limite distante raggiunge l'infinito"
+        "green-cells-description": "Le celle verdi indicano che il limite distante raggiunge l'infinito",
+        "hyperfocal-table": "Tabella iperfocale per",
+        "what-is-hyperfocal": "Che cos'è la Distanza Iperfocale?",
+        "tips": "Suggerimenti",
+        "common-mistakes": "Errori Comuni"
       }
     },
     "inflation": {
