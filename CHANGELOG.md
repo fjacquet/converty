@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Restructured documentation into focused guides in `docs/` folder
+  - `docs/CALCULATOR_GUIDE.md` - Step-by-step for adding calculators
+  - `docs/CODE_STYLE.md` - TypeScript, naming, linting conventions
+  - `docs/I18N_GUIDE.md` - Internationalization patterns
+- Slimmed down CONTRIBUTING.md (425 → 112 lines) with links to detailed guides
+- Slimmed down CLAUDE.md (243 → 80 lines) with links to detailed guides
+
 ### Fixed
 
 - Network category page 404 error - missing `src/app/[locale]/network/page.tsx` now created
