@@ -206,18 +206,23 @@ Plans:
 
 **Goal:** 100% translation coverage across all 4 locales (en, fr, de, it)
 **Depends on:** Phase 15
-**Requirements:** I18N-03, I18N-04, I18N-05, I18N-06, I18N-07, I18N-08, I18N-09
+**Requirements:** I18N-01, I18N-02 (completion), I18N-03, I18N-04, I18N-05, I18N-06, I18N-07, I18N-08, I18N-09
 **Success Criteria** (what must be TRUE):
 
 1. All strings translated to French, German, and Italian
 2. All calculators verified working in all 4 locales (en, fr, de, it)
 3. No missing translation keys in any locale
 4. Locale switcher works correctly on all calculator pages
-   **Plans:** 1 plan in 1 wave
+   **Plans:** 6 plans in 6 waves
 
 Plans:
 
-- [ ] 16-01-PLAN.md — Translation Validation & Locale Verification (fix i18n script, validate translations, verify locale functionality)
+- [ ] 16-01-PLAN.md — Urgent Fixes (sun-position missing keys, golden-hour-guide i18n)
+- [ ] 16-02-PLAN.md — Photo DoF Calculators (advanced-dof, dof-table, hyperfocal)
+- [ ] 16-03-PLAN.md — Photo Optical Calculators (circle-of-confusion, diffraction, focal-equivalent)
+- [ ] 16-04-PLAN.md — Photo Macro/Filter Calculators (macro-dof, macro-diffraction, nd-filter)
+- [ ] 16-05-PLAN.md — Photo Astro/Time Calculators (spot-stars, star-trails, time-lapse)
+- [ ] 16-06-PLAN.md — Video Calculators + Verification (common-bitrates, frame-rate, full verification)
 
 ## Progress
 
@@ -241,4 +246,4 @@ Phases execute in numeric order: 9 → 10 → 11 → 12 → 13 → 14 → 15 →
 | 13. Network Speed/Latency Calculator             | v2.0      | 2/2            | Complete    | 2026-01-21 |
 | 14. Global Search                                | v2.0      | 2/2            | Complete    | 2026-01-22 |
 | 15. Translation Audit                            | v2.0      | 2/2            | Complete    | 2026-01-22 |
-| 16. Translation Implementation                   | v2.0      | 0/1            | Not started | -          |
+| 16. Translation Implementation                   | v2.0      | 0/6            | Not started | -          |
