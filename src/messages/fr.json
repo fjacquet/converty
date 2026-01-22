@@ -2432,10 +2432,29 @@
       "getAccurateSunTimes": "Obtenir des heures de soleil precises",
       "getAccurateSunTimesDescription": "Utilisez votre emplacement pour calculer les heures dorees et crepusculaires precises de votre region.",
       "dof": {
-        "cameraSettings": "Parametres de l'appareil photo",
-        "viewingConditions": "Conditions de visualisation (pour l'ajustement du CoC)",
+        "camera-settings": "Paramètres de l'appareil photo",
+        "viewing-conditions": "Conditions de visualisation",
         "sensor": "Capteur",
-        "apertureF": "Ouverture (f/)"
+        "aperture": "Ouverture (f/)",
+        "focal-length": "Distance focale",
+        "subject-distance": "Distance du sujet",
+        "print-width": "Largeur d'impression",
+        "viewing-distance": "Distance de visualisation",
+        "visual-acuity": "Acuité visuelle",
+        "total-depth-of-field": "Profondeur totale de champ",
+        "near-limit": "Limite proche",
+        "in-front": "en avant",
+        "far-limit": "Limite lointaine",
+        "behind": "derrière",
+        "hyperfocal-distance": "Distance hyperfocale",
+        "adjusted-coc": "CoC ajusté (Vos conditions)",
+        "standard-coc": "CoC standard",
+        "near": "Proche",
+        "far": "Lointain",
+        "total-dof": "DoF total",
+        "difference-from-standard": "Différence par rapport à la norme",
+        "more-demanding": "Vos conditions de visualisation sont <strong>plus exigeantes</strong> que la norme. La profondeur de champ ajustée est <strong>plus étroite</strong> - vous devez être plus précis avec la mise au point.",
+        "more-relaxed": "Vos conditions de visualisation sont <strong>plus relaxantes</strong> que la norme. La profondeur de champ ajustée est <strong>plus large</strong> - vous avez plus de marge d'erreur."
       }
     },
     "inflation": {

@@ -2432,10 +2432,29 @@
       "getAccurateSunTimes": "Get Accurate Sun Times",
       "getAccurateSunTimesDescription": "Use your location to calculate precise golden hour and twilight times for your area.",
       "dof": {
-        "cameraSettings": "Camera Settings",
-        "viewingConditions": "Viewing Conditions (for CoC adjustment)",
+        "camera-settings": "Camera Settings",
+        "viewing-conditions": "Viewing Conditions",
         "sensor": "Sensor",
-        "apertureF": "Aperture (f/)"
+        "aperture": "Aperture (f/)",
+        "focal-length": "Focal Length",
+        "subject-distance": "Subject Distance",
+        "print-width": "Print Width",
+        "viewing-distance": "Viewing Distance",
+        "visual-acuity": "Visual Acuity",
+        "total-depth-of-field": "Total Depth of Field",
+        "near-limit": "Near Limit",
+        "in-front": "in front",
+        "far-limit": "Far Limit",
+        "behind": "behind",
+        "hyperfocal-distance": "Hyperfocal Distance",
+        "adjusted-coc": "Adjusted CoC (Your Conditions)",
+        "standard-coc": "Standard CoC",
+        "near": "Near",
+        "far": "Far",
+        "total-dof": "Total DoF",
+        "difference-from-standard": "Difference from Standard",
+        "more-demanding": "Your viewing conditions are <strong>more demanding</strong> than standard. The adjusted DoF is <strong>narrower</strong> - you need to be more precise with focus.",
+        "more-relaxed": "Your viewing conditions are <strong>more relaxed</strong> than standard. The adjusted DoF is <strong>wider</strong> - you have more margin for error."
       }
     },
     "inflation": {

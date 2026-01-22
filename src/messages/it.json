@@ -2409,10 +2409,29 @@
       "getAccurateSunTimes": "Ottieni orari accurati del sole",
       "getAccurateSunTimesDescription": "Utilizza la tua posizione per calcolare i tempi precisi delle ore dorate e crepuscolari della tua zona.",
       "dof": {
-        "cameraSettings": "Impostazioni fotocamera",
-        "viewingConditions": "Condizioni di visualizzazione (per regolazione CoC)",
+        "camera-settings": "Impostazioni fotocamera",
+        "viewing-conditions": "Condizioni di visualizzazione",
         "sensor": "Sensore",
-        "apertureF": "Apertura (f/)"
+        "aperture": "Apertura (f/)",
+        "focal-length": "Lunghezza focale",
+        "subject-distance": "Distanza dal soggetto",
+        "print-width": "Larghezza di stampa",
+        "viewing-distance": "Distanza di visualizzazione",
+        "visual-acuity": "Acuità visiva",
+        "total-depth-of-field": "Profondità totale di campo",
+        "near-limit": "Limite vicino",
+        "in-front": "davanti",
+        "far-limit": "Limite distante",
+        "behind": "dietro",
+        "hyperfocal-distance": "Distanza iperfocale",
+        "adjusted-coc": "CoC regolato (Le tue condizioni)",
+        "standard-coc": "CoC standard",
+        "near": "Vicino",
+        "far": "Distante",
+        "total-dof": "DoF totale",
+        "difference-from-standard": "Differenza dallo standard",
+        "more-demanding": "Le tue condizioni di visualizzazione sono <strong>più esigenti</strong> dello standard. La profondità di campo regolata è <strong>più stretta</strong> - devi essere più preciso con la messa a fuoco.",
+        "more-relaxed": "Le tue condizioni di visualizzazione sono <strong>più rilassate</strong> dello standard. La profondità di campo regolata è <strong>più ampia</strong> - hai più margine di errore."
       }
     },
     "inflation": {
