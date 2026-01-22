@@ -1,9 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { COMMON_BITRATES, getCategories } from "@/lib/converters/video/common-bitrates";
 
 export function CommonBitratesViewer() {
+  const t = useTranslations("calculator.video");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const categories = getCategories();
 
@@ -23,7 +25,7 @@ export function CommonBitratesViewer() {
               : "bg-muted hover:bg-muted/80"
           }`}
         >
-          All
+          {t("all")}
         </button>
         {categories.map((cat) => (
           <button
@@ -44,11 +46,11 @@ export function CommonBitratesViewer() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b">
-              <th className="text-left py-3 font-medium">Codec/Format</th>
-              <th className="text-left py-3 font-medium">Name</th>
-              <th className="text-right py-3 font-medium">Bitrate</th>
-              <th className="text-left py-3 font-medium pl-4">Resolution</th>
-              <th className="text-left py-3 font-medium pl-4">Description</th>
+              <th className="text-left py-3 font-medium">{t("codec-format")}</th>
+              <th className="text-left py-3 font-medium">{t("name")}</th>
+              <th className="text-right py-3 font-medium">{t("bitrate")}</th>
+              <th className="text-left py-3 font-medium pl-4">{t("resolution")}</th>
+              <th className="text-left py-3 font-medium pl-4">{t("description")}</th>
             </tr>
           </thead>
           <tbody>
@@ -81,7 +83,9 @@ export function CommonBitratesViewer() {
             <div key={cat} className="p-4 rounded-lg border bg-muted/50">
               <p className="font-medium">{cat}</p>
               <p className="text-2xl font-mono">{Math.round(avgBitrate)} Mbps</p>
-              <p className="text-xs text-muted-foreground">avg. of {catBitrates.length} presets</p>
+              <p className="text-xs text-muted-foreground">
+                {t("avg-of-presets", { count: catBitrates.length })}
+              </p>
             </div>
           );
         })}
