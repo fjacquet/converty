@@ -2430,7 +2430,13 @@
       "morningStart": "Morning Start",
       "eveningEnd": "Evening End",
       "getAccurateSunTimes": "Get Accurate Sun Times",
-      "getAccurateSunTimesDescription": "Use your location to calculate precise golden hour and twilight times for your area."
+      "getAccurateSunTimesDescription": "Use your location to calculate precise golden hour and twilight times for your area.",
+      "dof": {
+        "cameraSettings": "Camera Settings",
+        "viewingConditions": "Viewing Conditions (for CoC adjustment)",
+        "sensor": "Sensor",
+        "apertureF": "Aperture (f/)"
+      }
     },
     "inflation": {
       "currentAmount": "Current Amount",

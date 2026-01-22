@@ -2407,7 +2407,13 @@
       "morningStart": "Inizio mattutino",
       "eveningEnd": "Fine serale",
       "getAccurateSunTimes": "Ottieni orari accurati del sole",
-      "getAccurateSunTimesDescription": "Utilizza la tua posizione per calcolare i tempi precisi delle ore dorate e crepuscolari della tua zona."
+      "getAccurateSunTimesDescription": "Utilizza la tua posizione per calcolare i tempi precisi delle ore dorate e crepuscolari della tua zona.",
+      "dof": {
+        "cameraSettings": "Impostazioni fotocamera",
+        "viewingConditions": "Condizioni di visualizzazione (per regolazione CoC)",
+        "sensor": "Sensore",
+        "apertureF": "Apertura (f/)"
+      }
     },
     "inflation": {
       "currentAmount": "Importo Attuale",
