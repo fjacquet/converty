@@ -28,7 +28,11 @@
       "categories": "Categorie",
       "featured": "In evidenza",
       "moreTools": "Altri strumenti"
-    }
+    },
+    "at": "alle",
+    "duration": "Durata",
+    "start": "Inizio",
+    "end": "Fine"
   },
   "categories": {
     "color": {
@@ -1669,7 +1673,11 @@
       "totalDays": "Totale giorni",
       "businessDays": "Giorni lavorativi",
       "weekendDays": "Giorni di fine settimana",
-      "remainingDays": "Giorni rimanenti"
+      "remainingDays": "Giorni rimanenti",
+      "altitude": "Altitudine",
+      "azimuth": "Azimut",
+      "sunTimes": "Orari del sole",
+      "currentPhase": "Fase di luce attuale"
     },
     "time": {
       "yearsMonthsDays": "{years} anni, {months} mesi, {days} giorni",
@@ -1753,10 +1761,10 @@
       "stateTax": "Imposta statale",
       "fica": "FICA",
       "annual": "Annuale",
-      "monthly": "Mensile",
+      "monthly": "Mensilmente",
       "biweekly": "Bisettimanale",
       "weekly": "Settimanale",
-      "daily": "Giornaliero",
+      "daily": "Giornalmente",
       "hourly": "Orario",
       "perMonth": "al mese",
       "personalInformation": "Informazioni personali",
@@ -1783,10 +1791,8 @@
       "investmentPeriod": "Periodo investimento (anni)",
       "compoundFrequency": "Frequenza capitalizzazione",
       "annually": "Annualmente",
-      "semi-annually": "Semi-annualmente",
-      "quarterly": "Trimestralmente",
-      "monthly": "Mensilmente",
-      "daily": "Giornalmente",
+      "semi-annually": "Semestralmente",
+      "quarterly": "Trimestrale",
       "regularContributions": "Contributi regolari",
       "contributionTiming": "Tempistica contributi",
       "beginningOfMonth": "Inizio mese",
@@ -1893,7 +1899,6 @@
       "payoutPeriod": "Periodo di pagamento (anni)",
       "immediate": "Immediato",
       "deferred": "Differito",
-      "quarterly": "Trimestrale",
       "periodic": "Periodico",
       "principalAmountHelp": "Importo investito nella rendita",
       "deferralPeriodHelp": "Anni prima dell'inizio dei pagamenti",
@@ -2048,8 +2053,6 @@
       "gracePeriodInterestDetail": "+ Interessi periodo di grazia",
       "principalAtRepayment": "= Capitale al rimborso",
       "totalRepayment": "Rimborso totale",
-      "annually": "Annualmente",
-      "semi-annually": "Semestralmente",
       "totalContributions": "Contributi Totali",
       "startDate": "Data di inizio",
       "effectiveRate": "Tasso effettivo",
@@ -2382,14 +2385,29 @@
       "sunPosition": "Posizione del Sole",
       "sunrise": "Alba",
       "sunset": "Tramonto",
-      "solarNoon": "Mezzogiorno Solare",
+      "solarNoon": "Mezzodi solare",
       "goldenHour": "Ora Dorata",
       "blueHour": "Ora Blu",
       "twilight": "Crepuscolo",
-      "civilTwilight": "Crepuscolo Civile",
-      "nauticalTwilight": "Crepuscolo Nautico",
-      "astronomicalTwilight": "Crepuscolo Astronomico",
-      "dayLength": "Durata del Giorno"
+      "civilTwilight": "Crepuscolo civile",
+      "nauticalTwilight": "Crepuscolo nautico",
+      "astronomicalTwilight": "Crepuscolo astronomico",
+      "dayLength": "Lunghezza del giorno",
+      "gettingLocation": "Recupero della posizione...",
+      "updateLocation": "Aggiorna posizione",
+      "useGeolocation": "Usa geolocalizzazione",
+      "currentPhase": "Fase attuale",
+      "sunAltitude": "Altitudine del sole",
+      "nextGoldenHour": "Prossima ora dorata",
+      "startsIn": "Inizia tra",
+      "goldenHourNow": "Ora dorata ADESSO!",
+      "makeTheMostOfThis": "Sfrutta al massimo questa luce magica",
+      "sunTimesFor": "Orari del sole per",
+      "twilightPhase": "Fase del crepuscolo",
+      "morningStart": "Inizio mattutino",
+      "eveningEnd": "Fine serale",
+      "getAccurateSunTimes": "Ottieni orari accurati del sole",
+      "getAccurateSunTimesDescription": "Utilizza la tua posizione per calcolare i tempi precisi delle ore dorate e crepuscolari della tua zona."
     },
     "inflation": {
       "currentAmount": "Importo Attuale",
@@ -2404,8 +2422,8 @@
       "yearByYearImpact": "Impatto Anno per Anno",
       "year": "Anno {year}",
       "enterValues": "Inserire i valori per calcolare",
-            "period": "Periodo",
-            "currencies": {
+      "period": "Periodo",
+      "currencies": {
         "USD": "Dollaro americano",
         "EUR": "Euro",
         "GBP": "Sterlina britannica",
@@ -2647,16 +2665,46 @@
       },
       "protein": {
         "foods": {
-          "chickenBreast": { "name": "Petto di pollo", "serving": "100g cotto" },
-          "eggs": { "name": "Uova", "serving": "1 grande" },
-          "greekYogurt": { "name": "Yogurt greco", "serving": "170g" },
-          "salmon": { "name": "Salmone", "serving": "100g" },
-          "leanBeef": { "name": "Manzo magro", "serving": "100g" },
-          "tofu": { "name": "Tofu", "serving": "100g" },
-          "lentils": { "name": "Lenticchie", "serving": "100g cotte" },
-          "wheyProtein": { "name": "Proteine del siero", "serving": "1 misurino (30g)" },
-          "cottageCheese": { "name": "Fiocchi di latte", "serving": "100g" },
-          "tuna": { "name": "Tonno", "serving": "100g in scatola" }
+          "chickenBreast": {
+            "name": "Petto di pollo",
+            "serving": "100g cotto"
+          },
+          "eggs": {
+            "name": "Uova",
+            "serving": "1 grande"
+          },
+          "greekYogurt": {
+            "name": "Yogurt greco",
+            "serving": "170g"
+          },
+          "salmon": {
+            "name": "Salmone",
+            "serving": "100g"
+          },
+          "leanBeef": {
+            "name": "Manzo magro",
+            "serving": "100g"
+          },
+          "tofu": {
+            "name": "Tofu",
+            "serving": "100g"
+          },
+          "lentils": {
+            "name": "Lenticchie",
+            "serving": "100g cotte"
+          },
+          "wheyProtein": {
+            "name": "Proteine del siero",
+            "serving": "1 misurino (30g)"
+          },
+          "cottageCheese": {
+            "name": "Fiocchi di latte",
+            "serving": "100g"
+          },
+          "tuna": {
+            "name": "Tonno",
+            "serving": "100g in scatola"
+          }
         }
       },
       "water": {
@@ -2722,7 +2770,7 @@
         "indian": "Indiano",
         "pacific": "Pacifico",
         "other": "Altro"
-            }
+      }
     },
     "data": {
       "units": {

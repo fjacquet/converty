@@ -28,7 +28,11 @@
       "categories": "Categories",
       "featured": "En vedette",
       "moreTools": "Plus d'outils"
-    }
+    },
+    "at": "a",
+    "duration": "Duree",
+    "start": "Debut",
+    "end": "Fin"
   },
   "categories": {
     "color": {
@@ -1669,7 +1673,11 @@
       "totalDays": "Total de jours",
       "businessDays": "Jours ouvrables",
       "weekendDays": "Jours de weekend",
-      "remainingDays": "Jours restants"
+      "remainingDays": "Jours restants",
+      "altitude": "Altitude",
+      "azimuth": "Azimut",
+      "sunTimes": "Heures du soleil",
+      "currentPhase": "Phase de lumiere actuelle"
     },
     "time": {
       "yearsMonthsDays": "{years} ans, {months} mois, {days} jours",
@@ -1753,10 +1761,10 @@
       "stateTax": "Impôt d'État",
       "fica": "FICA",
       "annual": "Annuel",
-      "monthly": "Mensuel",
+      "monthly": "Mensuellement",
       "biweekly": "Bihebdomadaire",
       "weekly": "Hebdomadaire",
-      "daily": "Journalier",
+      "daily": "Quotidiennement",
       "hourly": "Horaire",
       "perMonth": "par mois",
       "personalInformation": "Informations personnelles",
@@ -1783,10 +1791,8 @@
       "investmentPeriod": "Période d'investissement (années)",
       "compoundFrequency": "Fréquence de capitalisation",
       "annually": "Annuellement",
-      "semi-annually": "Semi-annuellement",
-      "quarterly": "Trimestriellement",
-      "monthly": "Mensuellement",
-      "daily": "Quotidiennement",
+      "semi-annually": "Semestriellement",
+      "quarterly": "Trimestriel",
       "regularContributions": "Contributions régulières",
       "contributionTiming": "Timing des contributions",
       "beginningOfMonth": "Début du mois",
@@ -1893,7 +1899,6 @@
       "payoutPeriod": "Période de versement (années)",
       "immediate": "Immédiat",
       "deferred": "Différé",
-      "quarterly": "Trimestriel",
       "periodic": "Périodique",
       "principalAmountHelp": "Montant investi dans la rente",
       "deferralPeriodHelp": "Années avant le début des paiements",
@@ -2048,8 +2053,6 @@
       "gracePeriodInterestDetail": "+ Intérêts période de grâce",
       "principalAtRepayment": "= Capital au remboursement",
       "totalRepayment": "Remboursement total",
-      "annually": "Annuellement",
-      "semi-annually": "Semestriellement",
       "totalContributions": "Cotisations Totales",
       "startDate": "Date de début",
       "effectiveRate": "Taux effectif",
@@ -2371,7 +2374,12 @@
       "sampleMean": "Moyenne de l'échantillon",
       "inputMethod": "Méthode de saisie",
       "enterNumber": "Entrer le nombre",
-      "leaveBlankForInfinite": "Laisser vide pour infini"
+      "leaveBlankForInfinite": "Laisser vide pour infini",
+      "altitude": "Altitude",
+      "azimuth": "Azimut",
+      "sunTimes": "Heures du soleil",
+      "sunPosition": "Position du Soleil",
+      "currentPhase": "Phase de lumiere actuelle"
     },
     "color": {
       "colorConverter": "Convertisseur de Couleur",
@@ -2382,14 +2390,47 @@
       "sunPosition": "Position du Soleil",
       "sunrise": "Lever du Soleil",
       "sunset": "Coucher du Soleil",
-      "solarNoon": "Midi Solaire",
+      "solarNoon": "Midi solaire",
       "goldenHour": "Heure Doree",
       "blueHour": "Heure Bleue",
       "twilight": "Crepuscule",
-      "civilTwilight": "Crepuscule Civil",
-      "nauticalTwilight": "Crepuscule Nautique",
-      "astronomicalTwilight": "Crepuscule Astronomique",
-      "dayLength": "Duree du Jour"
+      "civilTwilight": "Crepuscule civil",
+      "nauticalTwilight": "Crepuscule nautique",
+      "astronomicalTwilight": "Crepuscule astronomique",
+      "dayLength": "Duree du jour",
+      "goldenBlueHour": "Heure doree et heure bleue",
+      "lightPhases": "Chronologie des phases de lumiere",
+      "morningGoldenHour": "Heure doree du matin",
+      "eveningGoldenHour": "Heure doree du soir",
+      "morningBlueHour": "Heure bleue du matin",
+      "eveningBlueHour": "Heure bleue du soir",
+      "location": "Emplacement",
+      "dateSelection": "Selection de la date",
+      "cameraSettings": "Parametres de l'appareil photo",
+      "useMyLocation": "Utiliser ma position",
+      "enterManually": "Entrer manuellement",
+      "enableLocation": "Activer la localisation",
+      "locationError": "Impossible d'obtenir votre position",
+      "locationPermissionDenied": "Permission de localisation refusee",
+      "locationUnavailable": "Position non disponible",
+      "goldenHourGuide": "Guide de l'heure doree",
+      "bestShootingTimes": "Meilleurs moments de prise",
+      "colorTemperature": "Temperature de couleur",
+      "gettingLocation": "Obtention de la localisation...",
+      "updateLocation": "Mettre a jour la localisation",
+      "useGeolocation": "Utiliser la geolocalisation",
+      "currentPhase": "Phase actuelle",
+      "sunAltitude": "Altitude du soleil",
+      "nextGoldenHour": "Heure doree suivante",
+      "startsIn": "Commence dans",
+      "goldenHourNow": "Heure doree maintenant!",
+      "makeTheMostOfThis": "Profitez de cette lumiere magique",
+      "sunTimesFor": "Heures du soleil pour",
+      "twilightPhase": "Phase de crepuscule",
+      "morningStart": "Debut du matin",
+      "eveningEnd": "Fin de la soiree",
+      "getAccurateSunTimes": "Obtenir des heures de soleil precises",
+      "getAccurateSunTimesDescription": "Utilisez votre emplacement pour calculer les heures dorees et crepusculaires precises de votre region."
     },
     "inflation": {
       "currentAmount": "Montant Actuel",
@@ -2404,8 +2445,8 @@
       "yearByYearImpact": "Impact Annee par Annee",
       "year": "Annee {year}",
       "enterValues": "Entrez les valeurs pour calculer",
-            "period": "Période",
-            "currencies": {
+      "period": "Période",
+      "currencies": {
         "USD": "Dollar américain",
         "EUR": "Euro",
         "GBP": "Livre sterling",
@@ -2647,16 +2688,46 @@
       },
       "protein": {
         "foods": {
-          "chickenBreast": { "name": "Blanc de poulet", "serving": "100g cuit" },
-          "eggs": { "name": "Œufs", "serving": "1 gros" },
-          "greekYogurt": { "name": "Yaourt grec", "serving": "170g" },
-          "salmon": { "name": "Saumon", "serving": "100g" },
-          "leanBeef": { "name": "Bœuf maigre", "serving": "100g" },
-          "tofu": { "name": "Tofu", "serving": "100g" },
-          "lentils": { "name": "Lentilles", "serving": "100g cuites" },
-          "wheyProtein": { "name": "Protéine de lactosérum", "serving": "1 dose (30g)" },
-          "cottageCheese": { "name": "Fromage blanc", "serving": "100g" },
-          "tuna": { "name": "Thon", "serving": "100g en conserve" }
+          "chickenBreast": {
+            "name": "Blanc de poulet",
+            "serving": "100g cuit"
+          },
+          "eggs": {
+            "name": "Œufs",
+            "serving": "1 gros"
+          },
+          "greekYogurt": {
+            "name": "Yaourt grec",
+            "serving": "170g"
+          },
+          "salmon": {
+            "name": "Saumon",
+            "serving": "100g"
+          },
+          "leanBeef": {
+            "name": "Bœuf maigre",
+            "serving": "100g"
+          },
+          "tofu": {
+            "name": "Tofu",
+            "serving": "100g"
+          },
+          "lentils": {
+            "name": "Lentilles",
+            "serving": "100g cuites"
+          },
+          "wheyProtein": {
+            "name": "Protéine de lactosérum",
+            "serving": "1 dose (30g)"
+          },
+          "cottageCheese": {
+            "name": "Fromage blanc",
+            "serving": "100g"
+          },
+          "tuna": {
+            "name": "Thon",
+            "serving": "100g en conserve"
+          }
         }
       },
       "water": {
@@ -2722,7 +2793,7 @@
         "indian": "Indien",
         "pacific": "Pacifique",
         "other": "Autre"
-            }
+      }
     },
     "data": {
       "units": {

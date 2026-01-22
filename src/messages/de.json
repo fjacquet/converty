@@ -28,7 +28,11 @@
       "categories": "Kategorien",
       "featured": "Empfohlen",
       "moreTools": "Weitere Werkzeuge"
-    }
+    },
+    "at": "um",
+    "duration": "Dauer",
+    "start": "Start",
+    "end": "Ende"
   },
   "categories": {
     "color": {
@@ -1669,7 +1673,11 @@
       "totalDays": "Gesamttage",
       "businessDays": "Werktage",
       "weekendDays": "Wochenendtage",
-      "remainingDays": "Verbleibende Tage"
+      "remainingDays": "Verbleibende Tage",
+      "altitude": "Hohe",
+      "azimuth": "Azimut",
+      "sunTimes": "Sonnenzeiten",
+      "currentPhase": "Aktuelle Lichtphase"
     },
     "time": {
       "yearsMonthsDays": "{years} Jahre, {months} Monate, {days} Tage",
@@ -1778,11 +1786,9 @@
       "initialInvestment": "Anfangsinvestition",
       "investmentPeriod": "Anlagezeitraum (Jahre)",
       "compoundFrequency": "Zinseszinsfrequenz",
-      "annually": "Jährlich",
-      "semi-annually": "Halbjährlich",
+      "annually": "Jaehrlich",
+      "semi-annually": "Halbjaehrlich",
       "quarterly": "Vierteljährlich",
-      "monthly": "Monatlich",
-      "daily": "Täglich",
       "regularContributions": "Regelmäßige Einzahlungen",
       "contributionTiming": "Einzahlungszeitpunkt",
       "beginningOfMonth": "Monatsanfang",
@@ -1889,7 +1895,6 @@
       "payoutPeriod": "Auszahlungszeitraum (Jahre)",
       "immediate": "Sofort",
       "deferred": "Aufgeschoben",
-      "quarterly": "Vierteljährlich",
       "periodic": "Periodisch",
       "principalAmountHelp": "In die Rente investierter Betrag",
       "deferralPeriodHelp": "Jahre bis zum Zahlungsbeginn",
@@ -2044,8 +2049,6 @@
       "gracePeriodInterestDetail": "+ Zinsen Karenzzeit",
       "principalAtRepayment": "= Kapital bei Rückzahlung",
       "totalRepayment": "Gesamtrückzahlung",
-      "annually": "Jaehrlich",
-      "semi-annually": "Halbjaehrlich",
       "totalContributions": "Gesamtbeitraege",
       "downPaymentAmount": "Anzahlung (CHF)",
       "paymentSchedule": "Zahlungsplan",
@@ -2371,7 +2374,12 @@
       "sampleMean": "Stichprobenmittelwert",
       "inputMethod": "Eingabemethode",
       "enterNumber": "Zahl eingeben",
-      "leaveBlankForInfinite": "Leer lassen für unendlich"
+      "leaveBlankForInfinite": "Leer lassen für unendlich",
+      "altitude": "Hohe",
+      "azimuth": "Azimut",
+      "sunTimes": "Sonnenzeiten",
+      "sunPosition": "Sonnenstand",
+      "currentPhase": "Aktuelle Lichtphase"
     },
     "color": {
       "colorConverter": "Farbkonverter",
@@ -2386,10 +2394,43 @@
       "goldenHour": "Goldene Stunde",
       "blueHour": "Blaue Stunde",
       "twilight": "Daemmerung",
-      "civilTwilight": "Buergerliche Daemmerung",
-      "nauticalTwilight": "Nautische Daemmerung",
-      "astronomicalTwilight": "Astronomische Daemmerung",
-      "dayLength": "Tageslaenge"
+      "civilTwilight": "Burgerliche Dammerung",
+      "nauticalTwilight": "Nautische Dammerung",
+      "astronomicalTwilight": "Astronomische Dammerung",
+      "dayLength": "Tageslange",
+      "goldenBlueHour": "Goldene Stunde und blaue Stunde",
+      "lightPhases": "Lichtphasen-Zeitachse",
+      "morningGoldenHour": "Morgendliche goldene Stunde",
+      "eveningGoldenHour": "Abendliche goldene Stunde",
+      "morningBlueHour": "Morgendliche blaue Stunde",
+      "eveningBlueHour": "Abendliche blaue Stunde",
+      "location": "Standort",
+      "dateSelection": "Datumsauswahl",
+      "cameraSettings": "Kameraeinstellungen",
+      "useMyLocation": "Meinen Standort verwenden",
+      "enterManually": "Manuell eingeben",
+      "enableLocation": "Standort aktivieren",
+      "locationError": "Standort konnte nicht ermittelt werden",
+      "locationPermissionDenied": "Standortberechtigung verweigert",
+      "locationUnavailable": "Standort nicht verfugbar",
+      "goldenHourGuide": "Goldene Stunde Anleitung",
+      "bestShootingTimes": "Beste Aufnahmezeiten",
+      "colorTemperature": "Farbtemperatur",
+      "gettingLocation": "Standort wird abgerufen...",
+      "updateLocation": "Standort aktualisieren",
+      "useGeolocation": "Geolokalisation verwenden",
+      "currentPhase": "Aktuelle Phase",
+      "sunAltitude": "Sonnenhohe",
+      "nextGoldenHour": "Nachste goldene Stunde",
+      "startsIn": "Beginnt in",
+      "goldenHourNow": "Goldene Stunde ist JETZT!",
+      "makeTheMostOfThis": "Nutzen Sie dieses magische Licht optimal",
+      "sunTimesFor": "Sonnenzeiten fur",
+      "twilightPhase": "Dammerungsphase",
+      "morningStart": "Morgenstart",
+      "eveningEnd": "Abendende",
+      "getAccurateSunTimes": "Genaue Sonnenzeiten abrufen",
+      "getAccurateSunTimesDescription": "Verwenden Sie Ihren Standort, um genaue Sonneneinstrah lungs- und Dammerungszeiten fur Ihre Region zu berechnen."
     },
     "inflation": {
       "currentAmount": "Aktueller Betrag",
@@ -2404,8 +2445,8 @@
       "yearByYearImpact": "Jaehrliche Auswirkung",
       "year": "Jahr {year}",
       "enterValues": "Werte eingeben zum Berechnen",
-            "period": "Zeitraum",
-            "currencies": {
+      "period": "Zeitraum",
+      "currencies": {
         "USD": "US-Dollar",
         "EUR": "Euro",
         "GBP": "Britisches Pfund",
@@ -2647,16 +2688,46 @@
       },
       "protein": {
         "foods": {
-          "chickenBreast": { "name": "Hähnchenbrust", "serving": "100g gekocht" },
-          "eggs": { "name": "Eier", "serving": "1 großes" },
-          "greekYogurt": { "name": "Griechischer Joghurt", "serving": "170g" },
-          "salmon": { "name": "Lachs", "serving": "100g" },
-          "leanBeef": { "name": "Mageres Rindfleisch", "serving": "100g" },
-          "tofu": { "name": "Tofu", "serving": "100g" },
-          "lentils": { "name": "Linsen", "serving": "100g gekocht" },
-          "wheyProtein": { "name": "Molkenprotein", "serving": "1 Portion (30g)" },
-          "cottageCheese": { "name": "Hüttenkäse", "serving": "100g" },
-          "tuna": { "name": "Thunfisch", "serving": "100g Dose" }
+          "chickenBreast": {
+            "name": "Hähnchenbrust",
+            "serving": "100g gekocht"
+          },
+          "eggs": {
+            "name": "Eier",
+            "serving": "1 großes"
+          },
+          "greekYogurt": {
+            "name": "Griechischer Joghurt",
+            "serving": "170g"
+          },
+          "salmon": {
+            "name": "Lachs",
+            "serving": "100g"
+          },
+          "leanBeef": {
+            "name": "Mageres Rindfleisch",
+            "serving": "100g"
+          },
+          "tofu": {
+            "name": "Tofu",
+            "serving": "100g"
+          },
+          "lentils": {
+            "name": "Linsen",
+            "serving": "100g gekocht"
+          },
+          "wheyProtein": {
+            "name": "Molkenprotein",
+            "serving": "1 Portion (30g)"
+          },
+          "cottageCheese": {
+            "name": "Hüttenkäse",
+            "serving": "100g"
+          },
+          "tuna": {
+            "name": "Thunfisch",
+            "serving": "100g Dose"
+          }
         }
       },
       "water": {
@@ -2722,7 +2793,7 @@
         "indian": "Indisch",
         "pacific": "Pazifik",
         "other": "Sonstige"
-            }
+      }
     },
     "data": {
       "units": {

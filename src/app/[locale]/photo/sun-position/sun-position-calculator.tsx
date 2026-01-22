@@ -21,6 +21,7 @@ export function SunPositionCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
   const tPhoto = useTranslations("calculator.photo");
+  const tCommon = useTranslations("common");
 
   const [latitude, setLatitude] = useState(46.9481); // Bern, Switzerland
   const [longitude, setLongitude] = useState(7.4474);
@@ -87,7 +88,7 @@ export function SunPositionCalculator() {
             onClick={handleGetLocation}
             className="text-sm text-primary hover:underline"
           >
-            {t("useMyLocation") || "Use my current location"}
+            {t("useMyLocation")}
           </button>
 
           <div className="grid grid-cols-2 gap-4">
@@ -106,7 +107,7 @@ export function SunPositionCalculator() {
       {currentPhase && (
         <Card>
           <CardHeader>
-            <CardTitle>{tResults("currentPhase") || "Current Light Phase"}</CardTitle>
+            <CardTitle>{tResults("currentPhase")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-center">
@@ -120,17 +121,17 @@ export function SunPositionCalculator() {
       {sunPosition && (
         <Card>
           <CardHeader>
-            <CardTitle>{tResults("sunPosition") || "Sun Position"}</CardTitle>
+            <CardTitle>{tResults("sunPosition")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ResultGrid
               results={[
                 {
-                  label: tResults("altitude") || "Altitude",
+                  label: tResults("altitude"),
                   value: `${sunPosition.altitude.toFixed(2)}°`,
                 },
                 {
-                  label: tResults("azimuth") || "Azimuth",
+                  label: tResults("azimuth"),
                   value: `${sunPosition.azimuth.toFixed(2)}°`,
                 },
               ]}
@@ -142,21 +143,21 @@ export function SunPositionCalculator() {
       {sunTimes && (
         <Card>
           <CardHeader>
-            <CardTitle>{tResults("sunTimes") || "Sun Times"}</CardTitle>
+            <CardTitle>{tResults("sunTimes")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ResultGrid
               results={[
                 {
-                  label: tResults("sunrise") || "Sunrise",
+                  label: tPhoto("sunrise"),
                   value: formatSunTime(sunTimes.sunrise),
                 },
                 {
-                  label: tResults("solarNoon") || "Solar Noon",
+                  label: tPhoto("solarNoon"),
                   value: formatSunTime(sunTimes.solarNoon),
                 },
                 {
-                  label: tResults("sunset") || "Sunset",
+                  label: tPhoto("sunset"),
                   value: formatSunTime(sunTimes.sunset),
                 },
               ]}
@@ -172,28 +173,28 @@ export function SunPositionCalculator() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h4 className="font-semibold mb-2">Morning Golden Hour</h4>
+              <h4 className="font-semibold mb-2">{tPhoto("morningGoldenHour")}</h4>
               <p className="text-sm text-muted-foreground">
                 {formatSunTime(sunTimes.goldenHourMorningStart)} -{" "}
                 {formatSunTime(sunTimes.goldenHourMorningEnd)}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Evening Golden Hour</h4>
+              <h4 className="font-semibold mb-2">{tPhoto("eveningGoldenHour")}</h4>
               <p className="text-sm text-muted-foreground">
                 {formatSunTime(sunTimes.goldenHourEveningStart)} -{" "}
                 {formatSunTime(sunTimes.goldenHourEveningEnd)}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Morning Blue Hour</h4>
+              <h4 className="font-semibold mb-2">{tPhoto("morningBlueHour")}</h4>
               <p className="text-sm text-muted-foreground">
                 {formatSunTime(sunTimes.blueHourMorningStart)} -{" "}
                 {formatSunTime(sunTimes.blueHourMorningEnd)}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Evening Blue Hour</h4>
+              <h4 className="font-semibold mb-2">{tPhoto("eveningBlueHour")}</h4>
               <p className="text-sm text-muted-foreground">
                 {formatSunTime(sunTimes.blueHourEveningStart)} -{" "}
                 {formatSunTime(sunTimes.blueHourEveningEnd)}
@@ -206,21 +207,21 @@ export function SunPositionCalculator() {
       {sunTimes && (
         <Card>
           <CardHeader>
-            <CardTitle>{tPhoto("twilight") || "Twilight Times"}</CardTitle>
+            <CardTitle>{tPhoto("twilight")}</CardTitle>
           </CardHeader>
           <CardContent>
             <ResultGrid
               results={[
                 {
-                  label: "Civil Twilight",
+                  label: tPhoto("civilTwilight"),
                   value: `${formatSunTime(sunTimes.civilTwilightStart)} - ${formatSunTime(sunTimes.civilTwilightEnd)}`,
                 },
                 {
-                  label: "Nautical Twilight",
+                  label: tPhoto("nauticalTwilight"),
                   value: `${formatSunTime(sunTimes.nauticalTwilightStart)} - ${formatSunTime(sunTimes.nauticalTwilightEnd)}`,
                 },
                 {
-                  label: "Astronomical Twilight",
+                  label: tPhoto("astronomicalTwilight"),
                   value: `${formatSunTime(sunTimes.astronomicalTwilightStart)} - ${formatSunTime(sunTimes.astronomicalTwilightEnd)}`,
                 },
               ]}
@@ -246,8 +247,8 @@ export function SunPositionCalculator() {
                   <div className="flex justify-between items-center">
                     <span className="font-medium">{phase.name}</span>
                     <span className="text-sm">
-                      {phase.startsAt ? formatSunTime(phase.startsAt) : "Start"} -{" "}
-                      {phase.endsAt ? formatSunTime(phase.endsAt) : "End"}
+                      {phase.startsAt ? formatSunTime(phase.startsAt) : tCommon("start")} -{" "}
+                      {phase.endsAt ? formatSunTime(phase.endsAt) : tCommon("end")}
                     </span>
                   </div>
                   <p

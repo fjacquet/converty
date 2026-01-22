@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import {
   formatDuration,
@@ -25,6 +26,10 @@ type LocationState =
   | { status: "error"; message: string };
 
 export function GoldenHourGuide() {
+  const t = useTranslations("calculator.labels");
+  const tPhoto = useTranslations("calculator.photo");
+  const tCommon = useTranslations("common");
+
   const [location, setLocation] = useState<LocationState>({ status: "idle" });
   const [selectedDate, setSelectedDate] = useState(() => {
     const today = new Date();
@@ -136,12 +141,14 @@ export function GoldenHourGuide() {
                 {location.status === "loading" ? (
                   <>
                     <span className="animate-spin">&#9696;</span>
-                    Getting location...
+                    {tPhoto("gettingLocation")}
                   </>
                 ) : (
                   <>
                     <span>&#128205;</span>
-                    {location.status === "success" ? "Update Location" : "Use My Location"}
+                    {location.status === "success"
+                      ? tPhoto("updateLocation")
+                      : tPhoto("useMyLocation")}
                   </>
                 )}
               </button>
@@ -150,11 +157,11 @@ export function GoldenHourGuide() {
               onClick={() => setManualMode(!manualMode)}
               className="px-3 py-2 rounded-md border hover:bg-muted text-sm"
             >
-              {manualMode ? "Use Geolocation" : "Enter Manually"}
+              {manualMode ? tPhoto("useGeolocation") : tPhoto("enterManually")}
             </button>
           </div>
           <div className="flex gap-2 items-center">
-            <label className="text-sm">Date:</label>
+            <label className="text-sm">{t("date")}:</label>
             <input
               type="date"
               value={selectedDate}
@@ -168,7 +175,7 @@ export function GoldenHourGuide() {
         {manualMode && (
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1">
-              <label className="text-sm font-medium">Latitude</label>
+              <label className="text-sm font-medium">{t("latitude")}</label>
               <input
                 type="number"
                 value={manualLat}
@@ -181,7 +188,7 @@ export function GoldenHourGuide() {
               />
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-medium">Longitude</label>
+              <label className="text-sm font-medium">{t("longitude")}</label>
               <input
                 type="number"
                 value={manualLng}
@@ -220,33 +227,33 @@ export function GoldenHourGuide() {
                   : "bg-muted/30"
             }`}
           >
-            <p className="text-sm text-muted-foreground">Current Phase</p>
+            <p className="text-sm text-muted-foreground">{tPhoto("currentPhase")}</p>
             <p className="text-xl font-bold">{currentPhase.name}</p>
             <p className="text-xs text-muted-foreground mt-1">{currentPhase.description}</p>
           </div>
           <div className="p-4 rounded-lg border bg-muted/30">
-            <p className="text-sm text-muted-foreground">Sun Altitude</p>
+            <p className="text-sm text-muted-foreground">{tPhoto("sunAltitude")}</p>
             <p className="text-xl font-bold">{sunPosition.altitude.toFixed(1)}°</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Azimuth: {sunPosition.azimuth.toFixed(1)}°
+              {t("azimuth")}: {sunPosition.azimuth.toFixed(1)}°
             </p>
           </div>
           {nextGoldenHour && !currentPhase.name.includes("Golden") && (
             <div className="p-4 rounded-lg border bg-amber-500/10 col-span-2">
-              <p className="text-sm text-muted-foreground">Next Golden Hour</p>
+              <p className="text-sm text-muted-foreground">{tPhoto("nextGoldenHour")}</p>
               <p className="text-xl font-bold">{nextGoldenHour.phase}</p>
               <p className="text-sm">
-                Starts in <strong>{formatDuration(nextGoldenHour.timeUntil)}</strong> at{" "}
-                {formatSunTime(nextGoldenHour.startTime)}
+                {tPhoto("startsIn")} <strong>{formatDuration(nextGoldenHour.timeUntil)}</strong>{" "}
+                {tCommon("at")} {formatSunTime(nextGoldenHour.startTime)}
               </p>
             </div>
           )}
           {currentPhase.name.includes("Golden") && (
             <div className="p-4 rounded-lg border bg-amber-500/20 border-amber-500 col-span-2">
               <p className="text-lg font-bold text-amber-600 dark:text-amber-400">
-                Golden Hour is NOW!
+                {tPhoto("goldenHourNow")}
               </p>
-              <p className="text-sm">Make the most of this magical light</p>
+              <p className="text-sm">{tPhoto("makeTheMostOfThis")}</p>
             </div>
           )}
         </div>
@@ -256,24 +263,30 @@ export function GoldenHourGuide() {
       {coords && sunTimes && (
         <div className="space-y-4">
           <p className="text-sm font-medium">
-            Sun Times for{" "}
+            {tPhoto("sunTimesFor")}{" "}
             {new Date(selectedDate).toLocaleDateString(undefined, { dateStyle: "full" })}
           </p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <div className="p-3 rounded-lg border bg-orange-500/10">
-              <p className="text-sm font-medium text-orange-600 dark:text-orange-400">Sunrise</p>
+              <p className="text-sm font-medium text-orange-600 dark:text-orange-400">
+                {tPhoto("sunrise")}
+              </p>
               <p className="text-xl font-bold">{formatSunTime(sunTimes.sunrise)}</p>
             </div>
             <div className="p-3 rounded-lg border bg-yellow-500/10">
-              <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400">Solar Noon</p>
+              <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400">
+                {tPhoto("solarNoon")}
+              </p>
               <p className="text-xl font-bold">{formatSunTime(sunTimes.solarNoon)}</p>
             </div>
             <div className="p-3 rounded-lg border bg-orange-500/10">
-              <p className="text-sm font-medium text-orange-600 dark:text-orange-400">Sunset</p>
+              <p className="text-sm font-medium text-orange-600 dark:text-orange-400">
+                {tPhoto("sunset")}
+              </p>
               <p className="text-xl font-bold">{formatSunTime(sunTimes.sunset)}</p>
             </div>
             <div className="p-3 rounded-lg border bg-muted/30">
-              <p className="text-sm font-medium">Day Length</p>
+              <p className="text-sm font-medium">{tPhoto("dayLength")}</p>
               <p className="text-xl font-bold">
                 {sunTimes.sunrise && sunTimes.sunset
                   ? formatDuration(sunTimes.sunset.getTime() - sunTimes.sunrise.getTime())
@@ -285,7 +298,7 @@ export function GoldenHourGuide() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="p-4 rounded-lg border bg-amber-500/10">
               <p className="font-medium text-amber-600 dark:text-amber-400 mb-2">
-                Morning Golden Hour
+                {tPhoto("morningGoldenHour")}
               </p>
               <p className="text-lg font-bold">
                 {formatSunTime(sunTimes.goldenHourMorningStart)} -{" "}
@@ -293,7 +306,7 @@ export function GoldenHourGuide() {
               </p>
               {sunTimes.goldenHourMorningStart && sunTimes.goldenHourMorningEnd && (
                 <p className="text-sm text-muted-foreground">
-                  Duration:{" "}
+                  {tCommon("duration")}:
                   {formatDuration(
                     sunTimes.goldenHourMorningEnd.getTime() -
                       sunTimes.goldenHourMorningStart.getTime()
@@ -303,7 +316,7 @@ export function GoldenHourGuide() {
             </div>
             <div className="p-4 rounded-lg border bg-amber-500/10">
               <p className="font-medium text-amber-600 dark:text-amber-400 mb-2">
-                Evening Golden Hour
+                {tPhoto("eveningGoldenHour")}
               </p>
               <p className="text-lg font-bold">
                 {formatSunTime(sunTimes.goldenHourEveningStart)} -{" "}
@@ -311,7 +324,7 @@ export function GoldenHourGuide() {
               </p>
               {sunTimes.goldenHourEveningStart && sunTimes.goldenHourEveningEnd && (
                 <p className="text-sm text-muted-foreground">
-                  Duration:{" "}
+                  {tCommon("duration")}:{" "}
                   {formatDuration(
                     sunTimes.goldenHourEveningEnd.getTime() -
                       sunTimes.goldenHourEveningStart.getTime()
@@ -320,14 +333,18 @@ export function GoldenHourGuide() {
               )}
             </div>
             <div className="p-4 rounded-lg border bg-blue-500/10">
-              <p className="font-medium text-blue-600 dark:text-blue-400 mb-2">Morning Blue Hour</p>
+              <p className="font-medium text-blue-600 dark:text-blue-400 mb-2">
+                {tPhoto("morningBlueHour")}
+              </p>
               <p className="text-lg font-bold">
                 {formatSunTime(sunTimes.blueHourMorningStart)} -{" "}
                 {formatSunTime(sunTimes.blueHourMorningEnd)}
               </p>
             </div>
             <div className="p-4 rounded-lg border bg-blue-500/10">
-              <p className="font-medium text-blue-600 dark:text-blue-400 mb-2">Evening Blue Hour</p>
+              <p className="font-medium text-blue-600 dark:text-blue-400 mb-2">
+                {tPhoto("eveningBlueHour")}
+              </p>
               <p className="text-lg font-bold">
                 {formatSunTime(sunTimes.blueHourEveningStart)} -{" "}
                 {formatSunTime(sunTimes.blueHourEveningEnd)}
@@ -340,24 +357,24 @@ export function GoldenHourGuide() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-2">Twilight Phase</th>
-                  <th className="text-left py-2">Morning Start</th>
-                  <th className="text-left py-2">Evening End</th>
+                  <th className="text-left py-2">{tPhoto("twilightPhase")}</th>
+                  <th className="text-left py-2">{tPhoto("morningStart")}</th>
+                  <th className="text-left py-2">{tPhoto("eveningEnd")}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-muted">
-                  <td className="py-2">Civil Twilight (-6°)</td>
+                  <td className="py-2">{tPhoto("civilTwilight")} (-6°)</td>
                   <td className="py-2">{formatSunTime(sunTimes.civilTwilightStart)}</td>
                   <td className="py-2">{formatSunTime(sunTimes.civilTwilightEnd)}</td>
                 </tr>
                 <tr className="border-b border-muted">
-                  <td className="py-2">Nautical Twilight (-12°)</td>
+                  <td className="py-2">{tPhoto("nauticalTwilight")} (-12°)</td>
                   <td className="py-2">{formatSunTime(sunTimes.nauticalTwilightStart)}</td>
                   <td className="py-2">{formatSunTime(sunTimes.nauticalTwilightEnd)}</td>
                 </tr>
                 <tr className="border-b border-muted">
-                  <td className="py-2">Astronomical Twilight (-18°)</td>
+                  <td className="py-2">{tPhoto("astronomicalTwilight")} (-18°)</td>
                   <td className="py-2">{formatSunTime(sunTimes.astronomicalTwilightStart)}</td>
                   <td className="py-2">{formatSunTime(sunTimes.astronomicalTwilightEnd)}</td>
                 </tr>
@@ -370,15 +387,13 @@ export function GoldenHourGuide() {
       {/* Prompt to use location if not set */}
       {!coords && (
         <div className="p-6 rounded-lg border bg-muted/30 text-center">
-          <p className="text-lg font-medium mb-2">Get Accurate Sun Times</p>
-          <p className="text-muted-foreground mb-4">
-            Use your location to calculate precise golden hour and twilight times for your area.
-          </p>
+          <p className="text-lg font-medium mb-2">{tPhoto("getAccurateSunTimes")}</p>
+          <p className="text-muted-foreground mb-4">{tPhoto("getAccurateSunTimesDescription")}</p>
           <button
             onClick={requestLocation}
             className="px-6 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
           >
-            Enable Location
+            {tPhoto("enableLocation")}
           </button>
         </div>
       )}
