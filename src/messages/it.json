@@ -2503,6 +2503,32 @@
         "dof-multiplier": "Moltiplicatore DoF",
         "how-it-works": "Come funziona",
         "examples": "Esempi"
+      },
+      "macro": {
+        "aperture": "Apertura (f/)",
+        "magnification": "Ingrandimento",
+        "sensor-size": "Dimensione sensore",
+        "focal-length": "Lunghezza focale",
+        "pupil-ratio": "Rapporto pupilla (Avanzato)",
+        "pupil-ratio-note": "1.0 per obiettivi simmetrici. Diverso per design retrofocus/teleobiettivo.",
+        "total-dof": "Profondità di campo totale",
+        "in-front-of-focus": "Davanti al punto di messa a fuoco",
+        "behind-focus": "Dietro il punto di messa a fuoco",
+        "effective-aperture": "Apertura effettiva",
+        "significant-light-loss": "Perdita di luce significativa",
+        "moderate-light-loss": "Perdita di luce moderata",
+        "working-distance": "Distanza di lavoro approssimativa",
+        "working-distance-note": "Distanza dalla parte anteriore dell'obiettivo al soggetto (approssimativa)",
+        "notes": "Note",
+        "focus-stacking-calculator": "Calcolatore di sovrapposizione fuoco",
+        "total-depth-needed": "Profondità totale necessaria",
+        "shots-required": "Scatti richiesti",
+        "overlap-note": "Con sovrapposizione del 30% tra i fotogrammi",
+        "macro-dof-formula": "Formula profondità di campo macro",
+        "formula-where": "Dove:",
+        "formula-n": "N = numero f (apertura)",
+        "formula-c": "c = Cerchio di confusione",
+        "formula-m": "m = rapporto di ingrandimento"
       }
     },
     "inflation": {

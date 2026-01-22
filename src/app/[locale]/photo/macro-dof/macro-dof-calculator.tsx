@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { COMMON_APERTURES } from "@/lib/converters/photo/depth-of-field";
 import {
@@ -10,6 +11,7 @@ import {
 } from "@/lib/converters/photo/macro-dof";
 
 export function MacroDoFCalculator() {
+  const t = useTranslations("calculator.photo.macro");
   const [aperture, setAperture] = useState("8");
   const [magnification, setMagnification] = useState("1");
   const [sensorPreset, setSensorPreset] = useState("Full Frame");
@@ -41,7 +43,7 @@ export function MacroDoFCalculator() {
       {/* Input Section */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Aperture (f/)</label>
+          <label className="text-sm font-medium">{t("aperture")}</label>
           <select
             value={aperture}
             onChange={(e) => setAperture(e.target.value)}
@@ -56,7 +58,7 @@ export function MacroDoFCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Magnification</label>
+          <label className="text-sm font-medium">{t("magnification")}</label>
           <select
             value={magnification}
             onChange={(e) => setMagnification(e.target.value)}
@@ -75,7 +77,7 @@ export function MacroDoFCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Sensor Size</label>
+          <label className="text-sm font-medium">{t("sensor-size")}</label>
           <select
             value={sensorPreset}
             onChange={(e) => setSensorPreset(e.target.value)}
@@ -90,7 +92,7 @@ export function MacroDoFCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Focal Length</label>
+          <label className="text-sm font-medium">{t("focal-length")}</label>
           <div className="flex gap-2">
             <input
               type="number"
@@ -120,7 +122,7 @@ export function MacroDoFCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Pupil Ratio (Advanced)</label>
+          <label className="text-sm font-medium">{t("pupil-ratio")}</label>
           <input
             type="number"
             value={pupilRatio}
@@ -130,9 +132,7 @@ export function MacroDoFCalculator() {
             max="3"
             step="0.1"
           />
-          <p className="text-xs text-muted-foreground">
-            1.0 for symmetric lenses. Different for retrofocus/telephoto designs.
-          </p>
+          <p className="text-xs text-muted-foreground">{t("pupil-ratio-note")}</p>
         </div>
       </div>
 
@@ -141,46 +141,44 @@ export function MacroDoFCalculator() {
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <div className="p-4 rounded-lg border bg-primary/10">
-              <p className="text-sm text-muted-foreground">Total Depth of Field</p>
+              <p className="text-sm text-muted-foreground">{t("total-dof")}</p>
               <p className="text-2xl font-bold">{result.totalDoF} mm</p>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">In Front of Focus</p>
+              <p className="text-sm text-muted-foreground">{t("in-front-of-focus")}</p>
               <p className="text-2xl font-bold">{result.inFront} mm</p>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">Behind Focus</p>
+              <p className="text-sm text-muted-foreground">{t("behind-focus")}</p>
               <p className="text-2xl font-bold">{result.behind} mm</p>
             </div>
             <div className="p-4 rounded-lg border bg-amber-500/10">
-              <p className="text-sm text-muted-foreground">Effective Aperture</p>
+              <p className="text-sm text-muted-foreground">{t("effective-aperture")}</p>
               <p className="text-2xl font-bold">f/{result.effectiveAperture}</p>
               <p className="text-xs text-muted-foreground">
                 {result.effectiveAperture > parseFloat(aperture) * 1.5
-                  ? "Significant light loss"
-                  : "Moderate light loss"}
+                  ? t("significant-light-loss")
+                  : t("moderate-light-loss")}
               </p>
             </div>
           </div>
 
           {result.workingDistance && (
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">Approximate Working Distance</p>
+              <p className="text-sm text-muted-foreground">{t("working-distance")}</p>
               <p className="text-xl font-bold">
                 {result.workingDistance < 1000
                   ? `${result.workingDistance} mm`
                   : `${(result.workingDistance / 10).toFixed(1)} cm`}
               </p>
-              <p className="text-xs text-muted-foreground">
-                Distance from front of lens to subject (approximate)
-              </p>
+              <p className="text-xs text-muted-foreground">{t("working-distance-note")}</p>
             </div>
           )}
 
           {/* Notes */}
           {result.notes.length > 0 && (
             <div className="p-4 rounded-lg border bg-amber-500/10">
-              <p className="font-medium mb-2">Notes</p>
+              <p className="font-medium mb-2">{t("notes")}</p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 {result.notes.map((note) => (
                   <li key={note}>&#8226; {note}</li>
@@ -193,10 +191,10 @@ export function MacroDoFCalculator() {
 
       {/* Focus Stacking Calculator */}
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-4">Focus Stacking Calculator</p>
+        <p className="font-medium mb-4">{t("focus-stacking-calculator")}</p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Total Depth Needed</label>
+            <label className="text-sm font-medium">{t("total-depth-needed")}</label>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -211,25 +209,25 @@ export function MacroDoFCalculator() {
             </div>
           </div>
           <div className="p-4 rounded-lg border bg-primary/10">
-            <p className="text-sm text-muted-foreground">Shots Required</p>
+            <p className="text-sm text-muted-foreground">{t("shots-required")}</p>
             <p className="text-2xl font-bold">{focusStackShots} shots</p>
-            <p className="text-xs text-muted-foreground">With 30% overlap between frames</p>
+            <p className="text-xs text-muted-foreground">{t("overlap-note")}</p>
           </div>
         </div>
       </div>
 
       {/* Reference */}
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-2">Macro DoF Formula</p>
+        <p className="font-medium mb-2">{t("macro-dof-formula")}</p>
         <p className="text-sm font-mono text-muted-foreground mb-2">
           DoF = 2 × N × c × (m + 1) / m²
         </p>
         <div className="text-sm text-muted-foreground">
-          <p>Where:</p>
+          <p>{t("formula-where")}</p>
           <ul className="ml-4">
-            <li>N = f-number (aperture)</li>
-            <li>c = Circle of Confusion</li>
-            <li>m = magnification ratio</li>
+            <li>{t("formula-n")}</li>
+            <li>{t("formula-c")}</li>
+            <li>{t("formula-m")}</li>
           </ul>
         </div>
       </div>

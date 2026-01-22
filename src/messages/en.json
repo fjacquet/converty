@@ -2526,6 +2526,32 @@
         "dof-multiplier": "DoF multiplier",
         "how-it-works": "How It Works",
         "examples": "Examples"
+      },
+      "macro": {
+        "aperture": "Aperture (f/)",
+        "magnification": "Magnification",
+        "sensor-size": "Sensor Size",
+        "focal-length": "Focal Length",
+        "pupil-ratio": "Pupil Ratio (Advanced)",
+        "pupil-ratio-note": "1.0 for symmetric lenses. Different for retrofocus/telephoto designs.",
+        "total-dof": "Total Depth of Field",
+        "in-front-of-focus": "In Front of Focus",
+        "behind-focus": "Behind Focus",
+        "effective-aperture": "Effective Aperture",
+        "significant-light-loss": "Significant light loss",
+        "moderate-light-loss": "Moderate light loss",
+        "working-distance": "Approximate Working Distance",
+        "working-distance-note": "Distance from front of lens to subject (approximate)",
+        "notes": "Notes",
+        "focus-stacking-calculator": "Focus Stacking Calculator",
+        "total-depth-needed": "Total Depth Needed",
+        "shots-required": "Shots Required",
+        "overlap-note": "With 30% overlap between frames",
+        "macro-dof-formula": "Macro DoF Formula",
+        "formula-where": "Where:",
+        "formula-n": "N = f-number (aperture)",
+        "formula-c": "c = Circle of Confusion",
+        "formula-m": "m = magnification ratio"
       }
     },
     "inflation": {
