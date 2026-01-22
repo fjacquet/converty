@@ -52,9 +52,7 @@ export const DURATION_UNITS: { id: DurationUnit; label: string }[] = [
   { id: "years", label: "yr" },
 ];
 
-function getTimeComponents(
-  totalSeconds: number
-): Array<{
+function getTimeComponents(totalSeconds: number): Array<{
   count: number;
   unitKey: "year" | "month" | "week" | "day" | "hour" | "minute" | "second";
 }> {
