@@ -2619,7 +2619,7 @@
         "npf-rule-label": "NPF-Regel",
         "rule-500-label": "500er-Regel",
         "rule-400-label": "400er-Regel",
-        "tips": "Tipps",
+        "tips": "Tipps und Informationen",
         "common-camera-reference": "Häufige Kamera-Referenz",
         "camera": "Kamera",
         "sensor-width": "Sensorbreite",
@@ -2639,7 +2639,21 @@
         "duration": "Dauer",
         "tips-and-information": "Tipps und Informationen",
         "best-conditions": "Beste Bedingungen",
-        "techniques": "Techniken"
+        "techniques": "Techniken",
+        "calculate": "Berechnen",
+        "clip-length-mode": "Clip-Länge (aus Intervall und Dauer)",
+        "interval-mode": "Intervall (aus Clip-Länge und Dauer)",
+        "event-duration-mode": "Ereignisdauer (aus Intervall und Clip)",
+        "event-duration": "Ereignisdauer (Minuten)",
+        "interval": "Intervall (Sekunden)",
+        "clip-length": "Clip-Länge (Sekunden)",
+        "frame-rate": "Bildrate (fps)",
+        "image-file-size": "Bilddateigröße (MB)",
+        "total-images": "Gesamtzahl der Bilder",
+        "storage-needed": "Erforderlicher Speicher",
+        "playback-duration": "Wiedergabedauer",
+        "interval-recommendations": "Intervallempfehlungen",
+        "equipment-prep": "Ausrüstungsvorbereitung"
       }
     },
     "inflation": {
