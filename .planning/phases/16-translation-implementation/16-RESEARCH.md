@@ -1,312 +1,146 @@
-# Phase 16: Translation Implementation - Research
+# Phase 16 Research: Translation Implementation
 
-**Researched:** 2026-01-22
-**Domain:** Internationalization (i18n) with next-intl
-**Confidence:** HIGH
+**Date:** 2026-01-22
+**Confidence:** HIGH (verified via codebase analysis)
 
-## Summary
+## Executive Summary
 
-Translation implementation for the Converty project is largely complete. Research reveals that all 4 locale files (en, fr, de, it) are already in sync with 2540 translation keys each. The project has robust tooling for translation validation including `@lingual/i18n-check` and a custom `scripts/check-i18n.js` script. Analysis shows no placeholder text or untranslated English content in non-English locales.
+**Critical Finding:** The i18n implementation is approximately **55% complete**, not 98% as previously reported. There are **14 calculator components with zero i18n support** and **200+ hardcoded English strings** across the codebase.
 
-The primary work for this phase involves:
-1. Adding 2 missing translation keys (`calculator.finance.currencies` and `calculator.finance.states`)
-2. Verifying all 168 pages render correctly in all 4 locales
-3. Testing the locale switcher functionality across all calculator pages
+## Detailed Findings
 
-**Primary recommendation:** Run a full build (`npm run build`) which generates all static pages for all locales, then spot-check critical calculator pages in each locale to verify correct rendering.
+### 1. Photo Category - Major Gaps (12 of 22 calculators missing i18n)
 
-## Standard Stack
+**Components WITHOUT any i18n (no `useTranslations` import):**
 
-The established libraries/tools for this domain:
+| Calculator | File | Estimated Strings |
+|------------|------|-------------------|
+| Advanced DoF | `photo/advanced-dof/advanced-dof-calculator.tsx` | ~25 |
+| Circle of Confusion | `photo/circle-of-confusion/circle-of-confusion-calculator.tsx` | ~30 |
+| Diffraction | `photo/diffraction/diffraction-calculator.tsx` | ~20 |
+| DoF Table | `photo/dof-table/dof-table-calculator.tsx` | ~15 |
+| Focal Equivalent | `photo/focal-equivalent/focal-equivalent-calculator.tsx` | ~20 |
+| Hyperfocal | `photo/hyperfocal/hyperfocal-calculator.tsx` | ~25 |
+| Macro DoF | `photo/macro-dof/macro-dof-calculator.tsx` | ~25 |
+| Macro Diffraction | `photo/macro-diffraction/macro-diffraction-calculator.tsx` | ~30 |
+| ND Filter | `photo/nd-filter/nd-filter-calculator.tsx` | ~20 |
+| Spot Stars | `photo/spot-stars/spot-stars-calculator.tsx` | ~20 |
+| Star Trails | `photo/star-trails/star-trails-calculator.tsx` | ~20 |
+| Time-lapse | `photo/time-lapse/time-lapse-calculator.tsx` | ~25 |
 
-### Core
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| next-intl | 4.7.0 | i18n for Next.js | Official recommended library for App Router, excellent TypeScript support |
+**Components WITH i18n but missing keys:**
 
-### Supporting
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| @lingual/i18n-check | 0.8.19 | Translation validation | CI/CD integration, missing key detection |
+| Calculator | File | Issue |
+|------------|------|-------|
+| Sun Position | `photo/sun-position/sun-position-calculator.tsx` | Uses keys that don't exist: `calculator.results.sunPosition`, `calculator.results.altitude`, `calculator.results.azimuth`, `calculator.results.sunTimes`, `calculator.results.sunrise`, `calculator.results.solarNoon`, `calculator.results.sunset`, `calculator.photo.goldenBlueHour`, `calculator.photo.twilight`, `calculator.photo.lightPhases`, `calculator.results.currentPhase`. Also has hardcoded: "Morning Golden Hour", "Evening Golden Hour", "Morning Blue Hour", "Evening Blue Hour", "Civil Twilight", "Nautical Twilight", "Astronomical Twilight" |
+| Golden Hour Guide | `photo/golden-hour/golden-hour-guide.tsx` | No useTranslations import. ~50 hardcoded strings including geolocation errors, button labels, section headings |
 
-### Alternatives Considered
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Custom check script | Only i18n-check | Custom script provides source code scanning; use both |
-| Manual verification | Automated testing | Use build verification as primary check |
+### 2. Video Category - Gaps (2 of 9 calculators missing i18n)
 
-**Already installed - no new dependencies needed.**
+**Components WITHOUT any i18n:**
 
-## Architecture Patterns
+| Calculator | File | Estimated Strings |
+|------------|------|-------------------|
+| Common Bitrates | `video/common-bitrates/common-bitrates-viewer.tsx` | ~10 (table headers, filter label) |
+| Frame Rate | `video/frame-rate/frame-rate-converter.tsx` | ~15 (labels, section titles, FFmpeg commands) |
 
-### Translation File Structure
-```
-src/messages/
-├── en.json        # 2540 keys - Source of truth
-├── fr.json        # 2540 keys - French translations
-├── de.json        # 2540 keys - German translations
-└── it.json        # 2540 keys - Italian translations
-```
+### 3. String Categories Identified
 
-### Translation Key Organization
-```json
-{
-  "common": { /* Site-wide strings */ },
-  "categories": { /* Category names and descriptions */ },
-  "subcategories": { /* Subcategory labels */ },
-  "converters": { /* Calculator metadata: name, description, metaDescription */ },
-  "calculator": {
-    "labels": { /* Input field labels */ },
-    "results": { /* Output labels */ },
-    "options": { /* Select/radio options */ },
-    "errors": { /* Error messages */ },
-    "health": { /* Health category specific */ },
-    "finance": { /* Finance category specific */ },
-    "math": { /* Math category specific */ },
-    /* ... other category-specific sections */
-  }
-}
-```
+**Labels & Headings (~100 strings):**
+- Form labels: "Aperture", "Focal Length", "Sensor Size", "Subject Distance"
+- Section headings: "Camera Settings", "Viewing Conditions", "Results"
+- Card titles: "Sun Position", "Golden Hour & Blue Hour"
 
-### Pattern 1: Calculator Component Translation Usage
-**What:** Client components use `useTranslations()` with namespaced keys
-**When to use:** All calculator components
+**Result Labels (~50 strings):**
+- "Total Depth of Field", "Near Limit", "Far Limit"
+- "Hyperfocal Distance", "Airy Disk", "Pixel Pitch"
+- "Effective Aperture", "Light Loss"
 
-```typescript
-// Source: Project codebase pattern
-"use client";
-import { useTranslations } from "next-intl";
+**Table Headers (~30 strings):**
+- "Sensor", "Size (mm)", "Standard CoC"
+- "Aperture", "Near Limit", "Twilight Phase"
 
-export function MyCalculator() {
-  const t = useTranslations("calculator.labels");
-  const tResults = useTranslations("calculator.results");
+**Descriptive/Explanatory Text (~40 strings):**
+- "in front", "behind", "sensor to print"
+- Formula explanations, usage tips
 
-  return (
-    <InputField
-      label={t("weightSimple")}
-      placeholder={t("enterWeight")}
-    />
-  );
-}
-```
+**Error Messages (~10 strings):**
+- Geolocation errors in golden-hour-guide.tsx
 
-### Pattern 2: Page Component Translation Usage
-**What:** Server components use `getTranslations()` with `setRequestLocale()`
-**When to use:** All page.tsx files
+**Button/Action Text (~15 strings):**
+- "Use My Location", "Enter Manually", "Enable Location"
 
-```typescript
-// Source: Project codebase pattern
-import { getTranslations, setRequestLocale } from "next-intl/server";
+### 4. Translation Key Namespace Analysis
 
-export default async function Page({ params }) {
-  const { locale } = await params;
-  setRequestLocale(locale);  // CRITICAL for static generation
+Current namespaces in use:
+- `calculator.labels` - Generic form labels
+- `calculator.results` - Result display labels
+- `calculator.photo` - Photo-specific terms
+- `calculator.video` - Video-specific terms
+- `calculator.math` - Math-specific terms
 
-  const t = await getTranslations("converters.my-calculator");
-  return <h1>{t("name")}</h1>;
-}
-```
+**Recommended new keys needed:**
+- `calculator.photo.dof` - Depth of field terms
+- `calculator.photo.diffraction` - Diffraction terms
+- `calculator.photo.macro` - Macro photography terms
+- `calculator.photo.astro` - Astrophotography terms (star trails, spot stars)
+- `calculator.photo.sun` - Sun position/golden hour terms
+- `calculator.common.errors` - Error messages
 
-### Pattern 3: Static Params Generation
-**What:** All pages export `generateStaticParams()` to generate pages for all locales
-**When to use:** Every page.tsx file
+### 5. Implementation Strategy
 
-```typescript
-// Source: Project codebase pattern
-import { locales } from "@/i18n/config";
+**Wave 1 - High Priority (user-facing display issues):**
+1. Fix sun-position-calculator.tsx missing keys (currently showing raw keys to users)
+2. Add i18n to golden-hour-guide.tsx (complex component, many strings)
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
-```
+**Wave 2 - Photo calculators batch 1 (6 calculators):**
+3. advanced-dof, circle-of-confusion, diffraction
+4. dof-table, focal-equivalent, hyperfocal
 
-### Anti-Patterns to Avoid
-- **Hardcoded strings in components:** Always use translation keys
-- **Missing setRequestLocale():** Causes hydration errors in SSG
-- **Translation key mismatches:** Keys must be kebab-case matching registry IDs
+**Wave 3 - Photo calculators batch 2 (6 calculators):**
+5. macro-dof, macro-diffraction, nd-filter
+6. spot-stars, star-trails, time-lapse
 
-## Don't Hand-Roll
+**Wave 4 - Video + Verification:**
+7. common-bitrates, frame-rate
+8. Full verification across all locales
 
-Problems that look simple but have existing solutions:
+### 6. Estimated Effort
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Missing key detection | Manual comparison | `scripts/check-i18n.js` or `i18n-check` | Automated, CI-ready |
-| Locale sync checking | Manual file diffing | `i18n-check --source en --locales src/messages` | Handles nested keys |
-| Translation extraction | Manual key hunting | `i18n-check -u src -f next-intl --unused` | Finds undefined/unused keys |
-| Page rendering verification | Manual browser testing | `npm run build` (static generation) | Build fails if translations missing |
+| Task | Files | New Keys | Effort |
+|------|-------|----------|--------|
+| Fix sun-position missing keys | 1 | ~15 | Small |
+| Add i18n to golden-hour-guide | 1 | ~50 | Medium |
+| Photo batch 1 (6 calculators) | 6 | ~120 | Large |
+| Photo batch 2 (6 calculators) | 6 | ~140 | Large |
+| Video calculators | 2 | ~25 | Small |
+| Translate FR/DE/IT | 4 | ~350 each | Large |
+| Verification | - | - | Medium |
 
-**Key insight:** The build process (`npm run build`) is the ultimate validator - it generates all 168 pages for all 4 locales and will fail if any translation key is missing.
+**Total new translation keys:** ~350 in en.json
+**Total translations needed:** ~1400 (350 × 4 locales)
 
-## Common Pitfalls
+### 7. Technical Considerations
 
-### Pitfall 1: Missing setRequestLocale() Call
-**What goes wrong:** Hydration mismatch errors, wrong locale on initial render
-**Why it happens:** Static generation requires explicit locale setting
-**How to avoid:** Always call `setRequestLocale(locale)` as first line in page components
-**Warning signs:** Console errors about hydration, text flashing/changing on load
+1. **Fallback Pattern:** Many components use `t("key") || "Fallback"` - this hides missing keys. Should use `t("key")` only.
 
-### Pitfall 2: Translation Key Casing Mismatch
-**What goes wrong:** `t("compoundInterest")` returns key itself, not translation
-**Why it happens:** Registry uses kebab-case (`compound-interest`), code uses camelCase
-**How to avoid:** Always use kebab-case for converter IDs and translation keys
-**Warning signs:** Raw translation keys appearing in UI
+2. **Component Structure:** Some calculators have sub-components (golden-hour has CameraSettingsCards, ColorTemperatureTable, etc.) that may also need i18n.
 
-### Pitfall 3: Untranslated Content in Non-English Locales
-**What goes wrong:** English text appears when viewing French/German/Italian pages
-**Why it happens:** Keys exist but values weren't actually translated
-**How to avoid:** Run translation analysis script to detect identical EN/target values
-**Warning signs:** Build passes but visual inspection shows English
+3. **Dynamic Content:** Some strings come from lib/converters files (e.g., `COMMON_MAGNIFICATIONS[].description`). These should use translation keys, not hardcoded descriptions.
 
-### Pitfall 4: Locale Switcher Not Preserving Path
-**What goes wrong:** Switching language redirects to homepage instead of same page
-**Why it happens:** Using standard Next.js Link instead of next-intl navigation
-**How to avoid:** Use `useRouter` and `usePathname` from `@/i18n/navigation`
-**Warning signs:** Users report losing their place when changing language
-
-## Code Examples
-
-Verified patterns from the project codebase:
-
-### Validation Commands
-```bash
-# Check translation sync across locales
-node scripts/check-i18n.js --sync
-
-# Check for missing keys used in source code
-node scripts/check-i18n.js
-
-# Check with i18n-check (more comprehensive)
-npx @lingual/i18n-check --source en --locales src/messages -f next-intl
-
-# Check for unused/undefined keys
-npx @lingual/i18n-check --source en --locales src/messages -f next-intl -u src
-```
-
-### Language Switcher Component
-```typescript
-// Source: src/components/layout/language-switcher.tsx
-"use client";
-import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
-
-export function LanguageSwitcher() {
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleLocaleChange = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
-  };
-  // ... render select component
-}
-```
-
-### Adding a New Translation Key
-```json
-// 1. Add to en.json first
-{
-  "calculator": {
-    "finance": {
-      "newLabel": "New Label Text"
-    }
-  }
-}
-
-// 2. Copy to fr.json, de.json, it.json and translate
-// 3. Run validation: node scripts/check-i18n.js --sync
-```
-
-## State of the Art
-
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| Manual JSON diffing | i18n-check CLI | 2024 | Automated CI validation |
-| react-intl | next-intl | Next.js 13+ | Better App Router support |
-| Per-page translations | Centralized JSON | Project start | Easier maintenance |
-
-**Current Status:**
-- All 4 locales have 2540 keys in sync
-- No placeholder or untranslated content detected
-- 2 minor missing keys to add: `calculator.finance.currencies`, `calculator.finance.states`
+4. **Build Validation:** `npm run build` will catch missing keys at build time since next-intl throws on missing translations in production mode.
 
 ## Open Questions
 
-Things that couldn't be fully resolved:
+1. Should we translate technical photography terms (CoC, DoF, Airy Disk) or keep them as universal abbreviations?
+2. Should formula explanations be translated or kept in English for technical accuracy?
 
-1. **End-to-end locale testing**
-   - What we know: Build validates page generation; locale switcher exists
-   - What's unclear: Whether all calculators function correctly in all locales (input/output)
-   - Recommendation: Add spot-check verification for representative calculators per category
+## Conclusion
 
-2. **ICU Message Format Usage**
-   - What we know: Some translations use interpolation (e.g., `{ip}`, `{count}`)
-   - What's unclear: Whether all interpolated values work correctly across locales
-   - Recommendation: Verify calculators with dynamic messages in all locales
+Phase 16 requires significantly more work than initially estimated. The scope includes:
+- 14 calculator components needing full i18n migration
+- ~350 new translation keys in en.json
+- ~1050 translations (FR + DE + IT)
+- Verification across all 4 locales
 
-## Sources
-
-### Primary (HIGH confidence)
-- Project codebase analysis - `/src/messages/*.json`, `/src/i18n/`, `/scripts/check-i18n.js`
-- Official next-intl documentation - https://next-intl.dev/docs/workflows/messages
-
-### Secondary (MEDIUM confidence)
-- [next-intl GitHub](https://github.com/amannn/next-intl) - Library patterns
-- [i18n-check documentation](https://lingual.dev/i18n-check/) - Validation tool
-- [Lingual blog on next-intl validation](https://lingual.dev/blog/validating-your-nextjs-internationalization/)
-
-### Tertiary (LOW confidence)
-- WebSearch results for i18n testing patterns in Next.js
-
-## Metadata
-
-**Confidence breakdown:**
-- Standard stack: HIGH - Verified from package.json and working implementation
-- Architecture: HIGH - Extracted from actual codebase patterns
-- Pitfalls: MEDIUM - Based on common i18n issues and project-specific patterns
-
-**Research date:** 2026-01-22
-**Valid until:** 60 days (translation infrastructure is stable)
-
----
-
-## Current Translation Status
-
-### Translation File Analysis
-| Locale | Keys | Status |
-|--------|------|--------|
-| en.json | 2540 | Source of truth |
-| fr.json | 2540 | Complete sync |
-| de.json | 2540 | Complete sync |
-| it.json | 2540 | Complete sync |
-
-### Validation Results
-```
-i18n-check --source en --locales src/messages -f next-intl
-Result: No missing keys found!
-
-scripts/check-i18n.js --sync
-Result: All locales are in sync!
-
-scripts/check-i18n.js (source code scan)
-Result: 2 missing keys (in all locales):
-- calculator.finance.currencies
-- calculator.finance.states
-```
-
-### Missing Keys to Add
-These keys are referenced in source code but don't exist in any translation file:
-
-| Key | Used In | Action |
-|-----|---------|--------|
-| `calculator.finance.currencies` | Finance calculators | Add to all 4 locale files |
-| `calculator.finance.states` | Finance calculators | Add to all 4 locale files |
-
-### Verification Checklist
-- [x] Translation files exist for all 4 locales
-- [x] All files have same key count (2540)
-- [x] No untranslated English content in non-English files
-- [x] No placeholder text (TODO, FIXME, etc.)
-- [ ] 2 missing keys need to be added
-- [ ] Build verification across all locales
-- [ ] Manual spot-check of locale switcher functionality
+Recommend splitting into multiple plans with clear wave structure.
