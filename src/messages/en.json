@@ -11,7 +11,6 @@
       "loading": "Loading search...",
       "hint": "to search"
     },
-    
     "loading": "Loading...",
     "error": "Error",
     "close": "Close",
@@ -29,7 +28,11 @@
       "categories": "Categories",
       "featured": "Featured",
       "moreTools": "More Tools"
-    }
+    },
+    "at": "at",
+    "duration": "Duration",
+    "start": "Start",
+    "end": "End"
   },
   "categories": {
     "color": {
@@ -1670,7 +1673,11 @@
       "totalDays": "Total Days",
       "businessDays": "Business Days",
       "weekendDays": "Weekend Days",
-      "remainingDays": "Remaining Days"
+      "remainingDays": "Remaining Days",
+      "altitude": "Altitude",
+      "azimuth": "Azimuth",
+      "sunTimes": "Sun Times",
+      "currentPhase": "Current Light Phase"
     },
     "time": {
       "yearsMonthsDays": "{years} years, {months} months, {days} days",
@@ -1783,8 +1790,6 @@
       "annually": "Annually",
       "semi-annually": "Semi-Annually",
       "quarterly": "Quarterly",
-      "monthly": "Monthly",
-      "daily": "Daily",
       "regularContributions": "Regular Contributions",
       "contributionTiming": "Contribution Timing",
       "beginningOfMonth": "Beginning of Month",
@@ -1891,7 +1896,6 @@
       "payoutPeriod": "Payout Period (years)",
       "immediate": "Immediate",
       "deferred": "Deferred",
-      "quarterly": "Quarterly",
       "periodic": "Periodic",
       "principalAmountHelp": "Amount invested in the annuity",
       "deferralPeriodHelp": "Years before payments begin",
@@ -2046,8 +2050,6 @@
       "gracePeriodInterestDetail": "+ Grace Period Interest",
       "principalAtRepayment": "= Principal at Repayment",
       "totalRepayment": "Total Repayment",
-      "annually": "Annually",
-      "semi-annually": "Semi-Annually",
       "totalContributions": "Total Contributions",
       "paymentSchedule": "Payment Schedule",
       "month": "Month",
@@ -2372,7 +2374,12 @@
       "sampleMean": "Sample Mean",
       "inputMethod": "Input Method",
       "enterNumber": "Enter Number",
-      "leaveBlankForInfinite": "Leave blank for infinite"
+      "leaveBlankForInfinite": "Leave blank for infinite",
+      "altitude": "Altitude",
+      "azimuth": "Azimuth",
+      "sunTimes": "Sun Times",
+      "sunPosition": "Sun Position",
+      "currentPhase": "Current Light Phase"
     },
     "color": {
       "colorConverter": "Color Converter",
@@ -2390,7 +2397,40 @@
       "civilTwilight": "Civil Twilight",
       "nauticalTwilight": "Nautical Twilight",
       "astronomicalTwilight": "Astronomical Twilight",
-      "dayLength": "Day Length"
+      "dayLength": "Day Length",
+      "goldenBlueHour": "Golden Hour & Blue Hour",
+      "lightPhases": "Light Phases Timeline",
+      "morningGoldenHour": "Morning Golden Hour",
+      "eveningGoldenHour": "Evening Golden Hour",
+      "morningBlueHour": "Morning Blue Hour",
+      "eveningBlueHour": "Evening Blue Hour",
+      "location": "Location",
+      "dateSelection": "Date Selection",
+      "cameraSettings": "Camera Settings",
+      "useMyLocation": "Use My Location",
+      "enterManually": "Enter Manually",
+      "enableLocation": "Enable Location",
+      "locationError": "Could not get your location",
+      "locationPermissionDenied": "Location permission denied",
+      "locationUnavailable": "Location unavailable",
+      "goldenHourGuide": "Golden Hour Guide",
+      "bestShootingTimes": "Best Shooting Times",
+      "colorTemperature": "Color Temperature",
+      "gettingLocation": "Getting location...",
+      "updateLocation": "Update Location",
+      "useGeolocation": "Use Geolocation",
+      "currentPhase": "Current Phase",
+      "sunAltitude": "Sun Altitude",
+      "nextGoldenHour": "Next Golden Hour",
+      "startsIn": "Starts in",
+      "goldenHourNow": "Golden Hour is NOW!",
+      "makeTheMostOfThis": "Make the most of this magical light",
+      "sunTimesFor": "Sun Times for",
+      "twilightPhase": "Twilight Phase",
+      "morningStart": "Morning Start",
+      "eveningEnd": "Evening End",
+      "getAccurateSunTimes": "Get Accurate Sun Times",
+      "getAccurateSunTimesDescription": "Use your location to calculate precise golden hour and twilight times for your area."
     },
     "inflation": {
       "currentAmount": "Current Amount",
@@ -2405,8 +2445,8 @@
       "yearByYearImpact": "Year-by-Year Impact",
       "year": "Year {year}",
       "enterValues": "Enter values to calculate",
-            "period": "Period",
-            "currencies": {
+      "period": "Period",
+      "currencies": {
         "USD": "US Dollar",
         "EUR": "Euro",
         "GBP": "British Pound",
@@ -2648,16 +2688,46 @@
       },
       "protein": {
         "foods": {
-          "chickenBreast": { "name": "Chicken Breast", "serving": "100g cooked" },
-          "eggs": { "name": "Eggs", "serving": "1 large" },
-          "greekYogurt": { "name": "Greek Yogurt", "serving": "170g" },
-          "salmon": { "name": "Salmon", "serving": "100g" },
-          "leanBeef": { "name": "Lean Beef", "serving": "100g" },
-          "tofu": { "name": "Tofu", "serving": "100g" },
-          "lentils": { "name": "Lentils", "serving": "100g cooked" },
-          "wheyProtein": { "name": "Whey Protein", "serving": "1 scoop (30g)" },
-          "cottageCheese": { "name": "Cottage Cheese", "serving": "100g" },
-          "tuna": { "name": "Tuna", "serving": "100g canned" }
+          "chickenBreast": {
+            "name": "Chicken Breast",
+            "serving": "100g cooked"
+          },
+          "eggs": {
+            "name": "Eggs",
+            "serving": "1 large"
+          },
+          "greekYogurt": {
+            "name": "Greek Yogurt",
+            "serving": "170g"
+          },
+          "salmon": {
+            "name": "Salmon",
+            "serving": "100g"
+          },
+          "leanBeef": {
+            "name": "Lean Beef",
+            "serving": "100g"
+          },
+          "tofu": {
+            "name": "Tofu",
+            "serving": "100g"
+          },
+          "lentils": {
+            "name": "Lentils",
+            "serving": "100g cooked"
+          },
+          "wheyProtein": {
+            "name": "Whey Protein",
+            "serving": "1 scoop (30g)"
+          },
+          "cottageCheese": {
+            "name": "Cottage Cheese",
+            "serving": "100g"
+          },
+          "tuna": {
+            "name": "Tuna",
+            "serving": "100g canned"
+          }
         }
       },
       "water": {
@@ -2723,7 +2793,7 @@
         "indian": "Indian",
         "pacific": "Pacific",
         "other": "Other"
-            }
+      }
     },
     "data": {
       "units": {
