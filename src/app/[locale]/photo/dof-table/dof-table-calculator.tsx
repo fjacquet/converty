@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   formatTableDistance,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/converters/photo/dof-table";
 
 export function DoFTableCalculator() {
+  const t = useTranslations("calculator.photo.dof");
   const [focalLength, setFocalLength] = useState("50");
   const [sensorPreset, setSensorPreset] = useState("Full Frame (35mm)");
   const [displayMode, setDisplayMode] = useState<"total" | "near" | "far">("total");
@@ -36,7 +38,7 @@ export function DoFTableCalculator() {
       {/* Controls */}
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Focal Length</label>
+          <label className="text-sm font-medium">{t("focal-length")}</label>
           <select
             value={focalLength}
             onChange={(e) => setFocalLength(e.target.value)}
@@ -51,7 +53,7 @@ export function DoFTableCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Sensor Size</label>
+          <label className="text-sm font-medium">{t("sensor-size")}</label>
           <select
             value={sensorPreset}
             onChange={(e) => setSensorPreset(e.target.value)}
@@ -66,26 +68,26 @@ export function DoFTableCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Display</label>
+          <label className="text-sm font-medium">{t("display")}</label>
           <select
             value={displayMode}
             onChange={(e) => setDisplayMode(e.target.value as "total" | "near" | "far")}
             className="w-full h-10 px-3 rounded-md border bg-background"
           >
-            <option value="total">Total DoF</option>
-            <option value="near">Near Limit</option>
-            <option value="far">Far Limit</option>
+            <option value="total">{t("total-dof")}</option>
+            <option value="near">{t("near-limit")}</option>
+            <option value="far">{t("far-limit")}</option>
           </select>
         </div>
       </div>
 
       {/* Quick Reference */}
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-2">Settings</p>
+        <p className="font-medium mb-2">{t("settings")}</p>
         <div className="text-sm text-muted-foreground">
           <p>
-            Focal Length: <strong>{focalLength}mm</strong> | Sensor: <strong>{sensorPreset}</strong>{" "}
-            | CoC: <strong>{sensor.coc}mm</strong>
+            {t("focal-length")}: <strong>{focalLength}mm</strong> | {t("sensor")}:{" "}
+            <strong>{sensorPreset}</strong> | CoC: <strong>{sensor.coc}mm</strong>
           </p>
         </div>
       </div>
@@ -95,13 +97,15 @@ export function DoFTableCalculator() {
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="border-b">
-              <th className="text-left py-2 px-2 sticky left-0 bg-background">f/</th>
+              <th className="text-left py-2 px-2 sticky left-0 bg-background">
+                {t("aperture-header")}
+              </th>
               {TABLE_DISTANCES.map((dist) => (
                 <th key={dist} className="text-center py-2 px-2 min-w-[70px]">
                   {formatTableDistance(dist)}
                 </th>
               ))}
-              <th className="text-center py-2 px-2 bg-amber-500/10">Hyperfocal</th>
+              <th className="text-center py-2 px-2 bg-amber-500/10">{t("hyperfocal-distance")}</th>
             </tr>
           </thead>
           <tbody>
@@ -161,31 +165,31 @@ export function DoFTableCalculator() {
       <div className="flex flex-wrap gap-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded bg-green-500/20 border border-green-500/50" />
-          <span className="text-muted-foreground">Infinity focus (far limit = ∞)</span>
+          <span className="text-muted-foreground">{t("infinity-focus")}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded bg-amber-500/20 border border-amber-500/50" />
-          <span className="text-muted-foreground">Hyperfocal distance</span>
+          <span className="text-muted-foreground">{t("hyperfocal-distance")}</span>
         </div>
       </div>
 
       {/* Tips */}
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-2">Understanding the Table</p>
+        <p className="font-medium mb-2">{t("understanding-table")}</p>
         <ul className="text-sm text-muted-foreground space-y-1">
           <li>
-            &#8226; <strong>Total DoF:</strong> The total depth from near to far that appears sharp
+            &#8226; <strong>{t("total-dof")}:</strong> {t("total-dof-description")}
           </li>
           <li>
-            &#8226; <strong>Near Limit:</strong> Closest distance that appears sharp
+            &#8226; <strong>{t("near-limit")}:</strong> {t("near-limit-description")}
           </li>
           <li>
-            &#8226; <strong>Far Limit:</strong> Farthest distance that appears sharp (∞ = infinity)
+            &#8226; <strong>{t("far-limit")}:</strong> {t("far-limit-description")}
           </li>
           <li>
-            &#8226; <strong>Hyperfocal:</strong> Focus here for maximum DoF extending to infinity
+            &#8226; <strong>{t("hyperfocal-distance")}:</strong> {t("hyperfocal-description")}
           </li>
-          <li>&#8226; Green cells indicate the far limit reaches infinity</li>
+          <li>&#8226; {t("green-cells-description")}</li>
         </ul>
       </div>
     </div>
