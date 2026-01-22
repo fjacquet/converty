@@ -2465,7 +2465,11 @@
         "near-limit-description": "Closest distance that appears sharp",
         "far-limit-description": "Farthest distance that appears sharp (∞ = infinity)",
         "hyperfocal-description": "Focus here for maximum DoF extending to infinity",
-        "green-cells-description": "Green cells indicate the far limit reaches infinity"
+        "green-cells-description": "Green cells indicate the far limit reaches infinity",
+        "hyperfocal-table": "Hyperfocal Table for",
+        "what-is-hyperfocal": "What is Hyperfocal Distance?",
+        "tips": "Tips",
+        "common-mistakes": "Common Mistakes"
       }
     },
     "inflation": {

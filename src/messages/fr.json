@@ -2465,7 +2465,11 @@
         "near-limit-description": "Distance la plus proche qui apparaît nette",
         "far-limit-description": "Distance la plus lointaine qui apparaît nette (∞ = infini)",
         "hyperfocal-description": "Focalisez ici pour une profondeur de champ maximale s'étendant à l'infini",
-        "green-cells-description": "Les cellules vertes indiquent que la limite lointaine atteint l'infini"
+        "green-cells-description": "Les cellules vertes indiquent que la limite lointaine atteint l'infini",
+        "hyperfocal-table": "Tableau hyperfocal pour",
+        "what-is-hyperfocal": "Qu'est-ce que la Distance Hyperfocale?",
+        "tips": "Conseils",
+        "common-mistakes": "Erreurs Courantes"
       }
     },
     "inflation": {

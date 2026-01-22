@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   APERTURES,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/converters/photo/hyperfocal";
 
 export function HyperfocalCalculator() {
+  const t = useTranslations("calculator.photo.dof");
   const [focalLength, setFocalLength] = useState(24);
   const [aperture, setAperture] = useState(8);
   const [sensorName, setSensorName] = useState("Full Frame (35mm)");
@@ -29,7 +31,7 @@ export function HyperfocalCalculator() {
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Sensor Size</label>
+          <label className="text-sm font-medium">{t("sensor-size")}</label>
           <select
             value={sensorName}
             onChange={(e) => setSensorName(e.target.value)}
@@ -44,7 +46,7 @@ export function HyperfocalCalculator() {
           <p className="text-xs text-muted-foreground">CoC: {selectedSensor.coc}mm</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Focal Length (mm)</label>
+          <label className="text-sm font-medium">{t("focal-length")}</label>
           <input
             type="number"
             value={focalLength}
@@ -66,7 +68,7 @@ export function HyperfocalCalculator() {
           </div>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Aperture (f/)</label>
+          <label className="text-sm font-medium">{t("aperture")}</label>
           <input
             type="number"
             value={aperture}
@@ -92,20 +94,20 @@ export function HyperfocalCalculator() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="p-4 rounded-lg border bg-primary/10 text-center">
-          <p className="text-sm text-muted-foreground">Hyperfocal Distance</p>
+          <p className="text-sm text-muted-foreground">{t("hyperfocal-distance")}</p>
           <p className="text-2xl font-bold text-primary">{result.hyperfocalDistance}m</p>
           <p className="text-xs text-muted-foreground">{result.hyperfocalDistanceFeet} ft</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Near Limit</p>
+          <p className="text-sm text-muted-foreground">{t("near-limit")}</p>
           <p className="text-2xl font-bold">{result.nearLimit}m</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Far Limit</p>
+          <p className="text-sm text-muted-foreground">{t("far-limit")}</p>
           <p className="text-2xl font-bold">{result.farLimit}</p>
         </div>
         <div className="p-4 rounded-lg border bg-muted/50 text-center">
-          <p className="text-sm text-muted-foreground">Depth of Field</p>
+          <p className="text-sm text-muted-foreground">{t("total-depth-of-field")}</p>
           <p className="text-lg font-bold">{result.depthOfField}</p>
         </div>
       </div>
@@ -115,14 +117,16 @@ export function HyperfocalCalculator() {
       </div>
 
       <div className="space-y-4">
-        <p className="text-sm font-medium">Hyperfocal Table for {focalLength}mm</p>
+        <p className="text-sm font-medium">
+          {t("hyperfocal-table")} {focalLength}mm
+        </p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2">Aperture</th>
-                <th className="text-left py-2">Hyperfocal</th>
-                <th className="text-left py-2">Near Limit</th>
+                <th className="text-left py-2">{t("aperture-header")}</th>
+                <th className="text-left py-2">{t("hyperfocal-distance")}</th>
+                <th className="text-left py-2">{t("near-limit")}</th>
               </tr>
             </thead>
             <tbody>
@@ -143,7 +147,7 @@ export function HyperfocalCalculator() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">What is Hyperfocal Distance?</p>
+          <p className="font-medium mb-2">{t("what-is-hyperfocal")}</p>
           <p className="text-sm text-muted-foreground">{HYPERFOCAL_INFO.definition}</p>
           <ul className="text-sm text-muted-foreground space-y-1 mt-2">
             {HYPERFOCAL_INFO.usage.map((tip) => (
@@ -152,7 +156,7 @@ export function HyperfocalCalculator() {
           </ul>
         </div>
         <div className="p-4 rounded-lg border bg-muted/30">
-          <p className="font-medium mb-2">Tips</p>
+          <p className="font-medium mb-2">{t("tips")}</p>
           <ul className="text-sm text-muted-foreground space-y-1">
             {HYPERFOCAL_INFO.tips.map((tip) => (
               <li key={tip}>• {tip}</li>
@@ -162,7 +166,7 @@ export function HyperfocalCalculator() {
       </div>
 
       <div className="p-4 rounded-lg border bg-yellow-500/10">
-        <p className="font-medium mb-2">Common Mistakes</p>
+        <p className="font-medium mb-2">{t("common-mistakes")}</p>
         <ul className="text-sm text-muted-foreground space-y-1">
           {HYPERFOCAL_INFO.commonMistakes.map((tip) => (
             <li key={tip}>• {tip}</li>
