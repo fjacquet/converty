@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { COMMON_APERTURES } from "@/lib/converters/photo/depth-of-field";
 import {
@@ -9,6 +10,7 @@ import {
 } from "@/lib/converters/photo/diffraction";
 
 export function DiffractionCalculator() {
+  const t = useTranslations("calculator.photo.optics");
   const [aperture, setAperture] = useState("11");
   const [sensorPreset, setSensorPreset] = useState("Full Frame 24MP");
   const [wavelength, setWavelength] = useState("550");
@@ -42,7 +44,7 @@ export function DiffractionCalculator() {
       {/* Input Section */}
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Aperture</label>
+          <label className="text-sm font-medium">{t("aperture")}</label>
           <select
             value={aperture}
             onChange={(e) => setAperture(e.target.value)}
@@ -57,7 +59,7 @@ export function DiffractionCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Camera/Sensor</label>
+          <label className="text-sm font-medium">{t("camera-sensor")}</label>
           <select
             value={sensorPreset}
             onChange={(e) => setSensorPreset(e.target.value)}
@@ -72,7 +74,7 @@ export function DiffractionCalculator() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Light Wavelength</label>
+          <label className="text-sm font-medium">{t("light-wavelength")}</label>
           <select
             value={wavelength}
             onChange={(e) => setWavelength(e.target.value)}
@@ -96,39 +98,39 @@ export function DiffractionCalculator() {
                 result.isDiffractionLimited ? "bg-red-500/10" : "bg-green-500/10"
               }`}
             >
-              <p className="text-sm text-muted-foreground">Status</p>
+              <p className="text-sm text-muted-foreground">{t("status")}</p>
               <p className="text-xl font-bold">
-                {result.isDiffractionLimited ? "Diffraction Limited" : "Within Optimal Range"}
+                {result.isDiffractionLimited ? t("diffraction-limited") : t("within-optimal-range")}
               </p>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">Airy Disk</p>
+              <p className="text-sm text-muted-foreground">{t("airy-disk")}</p>
               <p className="text-2xl font-bold">{result.airyDiskDiameter} µm</p>
             </div>
             <div className="p-4 rounded-lg border bg-muted/30">
-              <p className="text-sm text-muted-foreground">Pixel Pitch</p>
+              <p className="text-sm text-muted-foreground">{t("pixel-pitch")}</p>
               <p className="text-2xl font-bold">{result.pixelPitch} µm</p>
             </div>
             <div className="p-4 rounded-lg border bg-amber-500/10">
-              <p className="text-sm text-muted-foreground">Diffraction Limit</p>
+              <p className="text-sm text-muted-foreground">{t("diffraction-limit")}</p>
               <p className="text-2xl font-bold">f/{result.diffractionLimitAperture}</p>
             </div>
           </div>
 
           {/* Sharpness Impact */}
           <div className="p-4 rounded-lg border bg-muted/30">
-            <p className="font-medium mb-2">Sharpness Impact</p>
+            <p className="font-medium mb-2">{t("sharpness-impact")}</p>
             <p className="text-muted-foreground">{result.sharpnessImpact}</p>
             <p className="text-sm text-muted-foreground mt-2">
-              Optimal aperture range: <strong>f/{result.optimalApertureRange.min}</strong> to{" "}
-              <strong>f/{result.optimalApertureRange.max}</strong>
+              {t("optimal-aperture-range")}: <strong>f/{result.optimalApertureRange.min}</strong>{" "}
+              {t("to")} <strong>f/{result.optimalApertureRange.max}</strong>
             </p>
           </div>
 
           {/* Notes */}
           {result.notes.length > 0 && (
             <div className="p-4 rounded-lg border bg-blue-500/10">
-              <p className="font-medium mb-2">Analysis</p>
+              <p className="font-medium mb-2">{t("analysis")}</p>
               <ul className="text-sm text-muted-foreground space-y-1">
                 {result.notes.map((note) => (
                   <li key={note}>&#8226; {note}</li>
@@ -141,15 +143,15 @@ export function DiffractionCalculator() {
 
       {/* Aperture Comparison Chart */}
       <div className="space-y-4">
-        <p className="text-sm font-medium">Diffraction by Aperture</p>
+        <p className="text-sm font-medium">{t("diffraction-by-aperture")}</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-2 px-2">Aperture</th>
-                <th className="text-left py-2 px-2">Airy Disk</th>
-                <th className="text-left py-2 px-2">vs Pixel</th>
-                <th className="text-left py-2 px-2">Status</th>
+                <th className="text-left py-2 px-2">{t("aperture-header")}</th>
+                <th className="text-left py-2 px-2">{t("airy-disk")}</th>
+                <th className="text-left py-2 px-2">{t("vs-pixel")}</th>
+                <th className="text-left py-2 px-2">{t("status")}</th>
               </tr>
             </thead>
             <tbody>
@@ -171,10 +173,12 @@ export function DiffractionCalculator() {
                     <td className="py-2 px-2">
                       {data.isDiffractionLimited ? (
                         <span className="px-2 py-1 rounded-full text-xs bg-red-500/20">
-                          Limited
+                          {t("limited")}
                         </span>
                       ) : (
-                        <span className="px-2 py-1 rounded-full text-xs bg-green-500/20">OK</span>
+                        <span className="px-2 py-1 rounded-full text-xs bg-green-500/20">
+                          {t("ok")}
+                        </span>
                       )}
                     </td>
                   </tr>
@@ -187,7 +191,7 @@ export function DiffractionCalculator() {
 
       {/* Visual Bar Chart */}
       <div className="space-y-4">
-        <p className="text-sm font-medium">Visual Comparison</p>
+        <p className="text-sm font-medium">{t("visual-comparison")}</p>
         <div className="space-y-2">
           {apertureData.slice(0, 8).map((data) => {
             if (!data) return null;
@@ -218,22 +222,21 @@ export function DiffractionCalculator() {
           })}
         </div>
         <p className="text-xs text-muted-foreground">
-          Vertical line = pixel pitch ({result?.pixelPitch}µm). Bars exceeding this are
-          diffraction-limited.
+          {t("vertical-line-note")} ({result?.pixelPitch}µm). {t("bars-exceeding-note")}
         </p>
       </div>
 
       {/* Formula Reference */}
       <div className="p-4 rounded-lg border bg-muted/30">
-        <p className="font-medium mb-2">Diffraction Formula</p>
+        <p className="font-medium mb-2">{t("diffraction-formula")}</p>
         <p className="text-sm font-mono text-muted-foreground mb-2">
           Airy Disk Diameter = 2.44 × λ × N
         </p>
         <div className="text-sm text-muted-foreground">
-          <p>Where:</p>
+          <p>{t("where")}:</p>
           <ul className="ml-4">
-            <li>λ = wavelength of light (typically 550nm for green)</li>
-            <li>N = f-number (aperture)</li>
+            <li>λ = {t("wavelength-description")}</li>
+            <li>N = {t("f-number-description")}</li>
           </ul>
         </div>
       </div>
