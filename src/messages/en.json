@@ -2514,7 +2514,18 @@
         "diffraction-formula": "Diffraction Formula",
         "where": "Where",
         "wavelength-description": "wavelength of light (typically 550nm for green)",
-        "f-number-description": "f-number (aperture)"
+        "f-number-description": "f-number (aperture)",
+        "focal-equivalent-intro": "This calculator helps you find equivalent lens settings between different camera systems to achieve the same field of view and depth of field.",
+        "source-camera": "Source Camera",
+        "focal-length-mm": "Focal Length (mm)",
+        "subject-distance-m": "Subject Distance (m)",
+        "35mm-equiv": "35mm Equiv",
+        "field-of-view": "Field of View",
+        "target-camera": "Target Camera",
+        "focal-length": "Focal Length",
+        "dof-multiplier": "DoF multiplier",
+        "how-it-works": "How It Works",
+        "examples": "Examples"
       }
     },
     "inflation": {

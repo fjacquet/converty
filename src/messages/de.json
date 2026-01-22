@@ -2514,7 +2514,18 @@
         "diffraction-formula": "Beugungsformel",
         "where": "Wo",
         "wavelength-description": "Lichtwellenlänge (typischerweise 550nm für grün)",
-        "f-number-description": "Blendenwert (Blende)"
+        "f-number-description": "Blendenwert (Blende)",
+        "focal-equivalent-intro": "Dieser Rechner hilft Ihnen, äquivalente Objektiveinstellungen zwischen verschiedenen Kamerasystemen zu finden, um das gleiche Sichtfeld und die gleiche Schärfentiefe zu erreichen.",
+        "source-camera": "Quellkamera",
+        "focal-length-mm": "Brennweite (mm)",
+        "subject-distance-m": "Motivabstand (m)",
+        "35mm-equiv": "35mm Äquiv.",
+        "field-of-view": "Gesichtsfeld",
+        "target-camera": "Zielkamera",
+        "focal-length": "Brennweite",
+        "dof-multiplier": "DoF-Multiplikator",
+        "how-it-works": "Wie es funktioniert",
+        "examples": "Beispiele"
       }
     },
     "inflation": {
