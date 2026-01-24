@@ -72,13 +72,15 @@
 
 **Success Criteria:**
 
-- [ ] Recipe scaling calculations working (servings multiplier)
-- [ ] Nutrition facts calculations accurate (calories, macros, micros)
-- [ ] Cooking unit conversions accurate — **metric primary** (ml, grams, litres); conversions to cups/tbsp available
-- [ ] Food cost per serving calculations accurate
-- [ ] All 4 calculators localized to en/fr/de/it
-- [ ] All 4 calculators in Calculator registry
-- [ ] Unit conversions tested against standard equivalents
+- [x] Recipe scaling calculations working (servings multiplier) ✓
+- [x] Nutrition facts calculations accurate (calories, macros, micros) ✓
+- [x] Cooking unit conversions accurate — **metric primary** (ml, grams, litres); conversions to cups/tbsp available ✓
+- [x] Food cost per serving calculations accurate ✓
+- [x] All 4 calculators localized to en/fr/de/it ✓
+- [x] All 4 calculators in Calculator registry ✓
+- [x] Unit conversions tested against standard equivalents ✓
+
+**Status:** ✅ COMPLETE (2026-01-24)
 
 **Included in v3.0 Requirements:** COOK-01, COOK-02, COOK-03, COOK-04
 
