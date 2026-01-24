@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
+import { getCategoryById } from "@/lib/registry/categories";
 import { TireSizingCalculator } from "./tire-sizing-calculator";
 
 export function generateStaticParams() {
@@ -28,17 +29,14 @@ export default async function TireSizingPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "converters.tire-sizing" });
-  const categoryT = await getTranslations({ locale, namespace: "categories.automotive" });
+  const category = getCategoryById("automotive");
+
+  if (!category) {
+    throw new Error("Automotive category not found");
+  }
 
   return (
-    <ConverterLayout
-      title={t("name")}
-      description={t("description")}
-      category={{
-        name: categoryT("name"),
-        slug: "automotive",
-      }}
-    >
+    <ConverterLayout title={t("name")} description={t("description")} category={category}>
       <Suspense fallback={<div>Loading...</div>}>
         <TireSizingCalculator />
       </Suspense>
