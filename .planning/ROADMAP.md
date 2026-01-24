@@ -31,8 +31,8 @@
 **Success Criteria:**
 - [ ] MD5, SHA-1, SHA-256, SHA-512 hash functions working
 - [ ] Wallet address format conversion functioning
-- [ ] Crypto exchange rate lookups accurate
-- [ ] Mining profitability calculations correct
+- [ ] Crypto exchange rates accurate — **CHF/EUR primary currencies**; conversion features available
+- [ ] Mining profitability calculations correct — values in **CHF/EUR, kWh, difficulty units**
 - [ ] All 4 calculators localized to en/fr/de/it
 - [ ] All 4 calculators in Calculator registry
 - [ ] URL state persistence working for all 4
@@ -43,14 +43,14 @@
 
 ### Phase 18: Real Estate Foundation
 
-**Goal:** Create mortgage calculator, property valuation calculator, rent-to-value ratio calculator, and loan amortization calculator.
+**Goal:** Create mortgage calculator, property valuation calculator, rent-to-value ratio calculator, and loan amortization calculator (CHF/EUR).
 
 **Requirements:** REAL-01, REAL-02, REAL-03, REAL-04
 
 **Success Criteria:**
-- [ ] Mortgage payment calculations accurate (principal, interest, term)
-- [ ] Property valuation algorithms correct
-- [ ] Rent-to-value ratio and investment metrics accurate
+- [ ] Mortgage payment calculations accurate — values in **CHF/EUR**
+- [ ] Property valuation algorithms correct — market-aligned for Swiss/European context
+- [ ] Rent-to-value ratio and investment metrics accurate — appropriate for European property market
 - [ ] Loan amortization schedules generating correctly
 - [ ] All 4 calculators localized to en/fr/de/it
 - [ ] All 4 calculators in Calculator registry
@@ -62,14 +62,14 @@
 
 ### Phase 19: Cooking/Nutrition Foundation
 
-**Goal:** Create recipe scaler, nutrition calculator, cooking unit converter, and food cost calculator.
+**Goal:** Create recipe scaler, nutrition calculator, cooking unit converter, and food cost calculator (metric-first).
 
 **Requirements:** COOK-01, COOK-02, COOK-03, COOK-04
 
 **Success Criteria:**
 - [ ] Recipe scaling calculations working (servings multiplier)
 - [ ] Nutrition facts calculations accurate (calories, macros, micros)
-- [ ] Cooking unit conversions correct (cups, tbsp, ml, oz, grams)
+- [ ] Cooking unit conversions accurate — **metric primary** (ml, grams, litres); conversions to cups/tbsp available
 - [ ] Food cost per serving calculations accurate
 - [ ] All 4 calculators localized to en/fr/de/it
 - [ ] All 4 calculators in Calculator registry
@@ -81,18 +81,18 @@
 
 ### Phase 20: Automotive Calculators
 
-**Goal:** Create fuel efficiency calculator, tire sizing calculator, maintenance intervals calculator, and vehicle loan/lease calculator.
+**Goal:** Create fuel efficiency calculator, tire sizing calculator, maintenance intervals calculator, and vehicle loan/lease calculator (metric-first).
 
 **Requirements:** AUTO-01, AUTO-02, AUTO-03, AUTO-04
 
 **Success Criteria:**
-- [ ] Fuel efficiency calculations working (MPG, L/100km)
-- [ ] Tire sizing specifications accurate
-- [ ] Maintenance interval recommendations accurate
-- [ ] Vehicle loan/lease payment calculations correct
+- [ ] Fuel efficiency calculations accurate — **L/100km primary**; conversion to km/L available
+- [ ] Tire sizing specifications accurate — **metric notation** (e.g., 205/55R16); explain ratio/aspect systems
+- [ ] Maintenance intervals accurate — **km-based** (instead of miles)
+- [ ] Vehicle loan/lease payments in **CHF/EUR** with proper currency handling
 - [ ] All 4 calculators localized to en/fr/de/it
 - [ ] All 4 calculators in Calculator registry
-- [ ] Spec data verified against industry standards
+- [ ] Spec data verified against European/Swiss standards
 
 **Included in v3.0 Requirements:** AUTO-01, AUTO-02, AUTO-03, AUTO-04
 

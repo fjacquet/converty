@@ -25,15 +25,15 @@ Requirements for v3.0 Calculator Expansion & Performance milestone. Each maps to
 
 - [ ] **COOK-01**: User can scale recipes based on servings
 - [ ] **COOK-02**: User can calculate nutrition facts (calories, macros, micros)
-- [ ] **COOK-03**: User can convert between cooking units (cups, tbsp, ml, oz)
+- [ ] **COOK-03**: User can convert between cooking units (metric-first: ml, grams, litres; also support common conversions)
 - [ ] **COOK-04**: User can calculate food cost per serving
 
 ### Calculator Expansion — Automotive
 
-- [ ] **AUTO-01**: User can calculate fuel efficiency (MPG, L/100km)
-- [ ] **AUTO-02**: User can calculate tire sizing and specifications
-- [ ] **AUTO-03**: User can calculate vehicle maintenance intervals
-- [ ] **AUTO-04**: User can calculate loan/lease payments for vehicles
+- [ ] **AUTO-01**: User can calculate fuel efficiency (L/100km as primary; conversion to km/L available)
+- [ ] **AUTO-02**: User can calculate tire sizing (metric specifications: width/aspect ratio/diameter)
+- [ ] **AUTO-03**: User can calculate vehicle maintenance intervals (km-based)
+- [ ] **AUTO-04**: User can calculate loan/lease payments for vehicles (CHF/EUR)
 
 ### Performance Optimization
 

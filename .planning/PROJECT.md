@@ -258,6 +258,7 @@ Calculators: 156 registered (4 new network calculators added)
 - **URL Sharing**: Must maintain shareable calculator links with state in URL
 - **Zero Downtime**: Changes deployed incrementally, no breaking changes to users
 - **Functional Principles**: KISS (Keep It Simple, Stupid), DRY (Don't Repeat Yourself), functional programming
+- **Metric Units**: Swiss/European context — metric-first approach (km, kg, litres, °C, EUR/CHF). Imperial conversions available where relevant but secondary.
 
 ## Key Decisions
 
