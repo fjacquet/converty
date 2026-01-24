@@ -312,6 +312,11 @@
       "description": "Calculate golden hour times based on your location",
       "metaDescription": "Find golden hour and blue hour times for your location"
     },
+    "exchange-rate": {
+      "name": "Exchange Rate",
+      "description": "Convert between cryptocurrencies and fiat currencies (CHF, EUR, USD)",
+      "metaDescription": "Free cryptocurrency exchange rate calculator. Convert Bitcoin, Ethereum, Litecoin, Ripple, Dogecoin, and Cardano to CHF, EUR, or USD."
+    },
     "hash-calculator": {
       "name": "Hash Calculator",
       "description": "Calculate MD5, SHA-1, SHA-256, SHA-512 hash values",
@@ -2836,6 +2841,21 @@
           "testnetTitle": "Testnet Address",
           "testnetDescription": "This is a testnet address used for development and testing. It has no real value on the main blockchain."
         }
+      },
+      "exchange": {
+        "convert": "Convert",
+        "amount": "Amount",
+        "cryptocurrency": "Cryptocurrency",
+        "fiatCurrency": "Fiat Currency",
+        "result": "Result",
+        "exchangeRate": "Exchange Rate",
+        "inverseRate": "Inverse Rate",
+        "priceDataFrom": "Price data from",
+        "lastUpdated": "Last updated",
+        "hoursAgo": "{hours} hours ago",
+        "fallback": "fallback data",
+        "stalePriceTitle": "Price Data May Be Outdated",
+        "stalePriceDescription": "Price data is more than 24 hours old. Rebuild the site to fetch fresh prices from CoinGecko."
       }
     },
     "health": {

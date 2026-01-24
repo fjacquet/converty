@@ -312,6 +312,11 @@
       "description": "Calculez les heures dorees selon votre emplacement",
       "metaDescription": "Trouvez les heures dorees et bleues pour votre emplacement"
     },
+    "exchange-rate": {
+      "name": "Taux de change",
+      "description": "Convertir entre cryptomonnaies et devises fiduciaires (CHF, EUR, USD)",
+      "metaDescription": "Calculateur de taux de change de cryptomonnaie gratuit. Convertissez Bitcoin, Ethereum, Litecoin, Ripple, Dogecoin et Cardano en CHF, EUR ou USD."
+    },
     "hash-calculator": {
       "name": "Calculateur de hash",
       "description": "Calculer les valeurs de hachage MD5, SHA-1, SHA-256, SHA-512",
@@ -2801,6 +2806,21 @@
           "testnetTitle": "Adresse Testnet",
           "testnetDescription": "Il s'agit d'une adresse testnet utilisee pour le developpement et les tests. Elle n'a aucune valeur reelle sur la blockchain principale."
         }
+      },
+      "exchange": {
+        "convert": "Convertir",
+        "amount": "Montant",
+        "cryptocurrency": "Cryptomonnaie",
+        "fiatCurrency": "Devise fiduciaire",
+        "result": "Resultat",
+        "exchangeRate": "Taux de change",
+        "inverseRate": "Taux inverse",
+        "priceDataFrom": "Donnees de prix de",
+        "lastUpdated": "Derniere mise a jour",
+        "hoursAgo": "il y a {hours} heures",
+        "fallback": "donnees de secours",
+        "stalePriceTitle": "Les donnees de prix peuvent etre obsoletes",
+        "stalePriceDescription": "Les donnees de prix datent de plus de 24 heures. Reconstruisez le site pour recuperer les prix recents de CoinGecko."
       }
     },
     "health": {

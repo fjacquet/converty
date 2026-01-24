@@ -312,6 +312,11 @@
       "description": "Calcola gli orari dell'ora d'oro in base alla tua posizione",
       "metaDescription": "Trova gli orari dell'ora d'oro e dell'ora blu per la tua posizione"
     },
+    "exchange-rate": {
+      "name": "Tasso di cambio",
+      "description": "Converti tra criptovalute e valute fiat (CHF, EUR, USD)",
+      "metaDescription": "Calcolatore gratuito del tasso di cambio di criptovalute. Converti Bitcoin, Ethereum, Litecoin, Ripple, Dogecoin e Cardano in CHF, EUR o USD."
+    },
     "hash-calculator": {
       "name": "Calcolatore di hash",
       "description": "Calcola valori hash MD5, SHA-1, SHA-256, SHA-512",
@@ -2813,6 +2818,21 @@
           "testnetTitle": "Indirizzo Testnet",
           "testnetDescription": "Questo e un indirizzo testnet utilizzato per lo sviluppo e il testing. Non ha alcun valore reale sulla blockchain principale."
         }
+      },
+      "exchange": {
+        "convert": "Converti",
+        "amount": "Importo",
+        "cryptocurrency": "Criptovaluta",
+        "fiatCurrency": "Valuta fiat",
+        "result": "Risultato",
+        "exchangeRate": "Tasso di cambio",
+        "inverseRate": "Tasso inverso",
+        "priceDataFrom": "Dati di prezzo da",
+        "lastUpdated": "Ultimo aggiornamento",
+        "hoursAgo": "{hours} ore fa",
+        "fallback": "dati di riserva",
+        "stalePriceTitle": "I dati sui prezzi potrebbero essere obsoleti",
+        "stalePriceDescription": "I dati sui prezzi hanno piu di 24 ore. Ricostruisci il sito per ottenere prezzi freschi da CoinGecko."
       }
     },
     "health": {

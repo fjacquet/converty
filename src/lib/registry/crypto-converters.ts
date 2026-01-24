@@ -1,7 +1,34 @@
-import { Hash, Wallet } from "lucide-react";
+import { ArrowRightLeft, Hash, Wallet } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const cryptoConverters: Record<string, ConverterMeta> = {
+  "exchange-rate": {
+    id: "exchange-rate",
+    slug: "exchange-rate",
+    category: "crypto",
+    subcategory: "exchange",
+    keywords: [
+      "crypto",
+      "exchange",
+      "rate",
+      "bitcoin",
+      "ethereum",
+      "chf",
+      "eur",
+      "usd",
+      "convert",
+      "price",
+      "btc",
+      "eth",
+      "ltc",
+      "xrp",
+      "doge",
+      "ada",
+      "cryptocurrency",
+    ],
+    icon: ArrowRightLeft,
+    featured: true,
+  },
   "hash-calculator": {
     id: "hash-calculator",
     slug: "hash",

@@ -312,6 +312,11 @@
       "description": "Berechnen Sie die Zeiten der goldenen Stunde basierend auf Ihrem Standort",
       "metaDescription": "Finden Sie Zeiten der goldenen und blauen Stunde fuer Ihren Standort"
     },
+    "exchange-rate": {
+      "name": "Wechselkurs",
+      "description": "Konvertieren zwischen Kryptowahrungen und Fiat-Wahrungen (CHF, EUR, USD)",
+      "metaDescription": "Kostenloser Kryptowahrungswechselkursrechner. Konvertieren Sie Bitcoin, Ethereum, Litecoin, Ripple, Dogecoin und Cardano in CHF, EUR oder USD."
+    },
     "hash-calculator": {
       "name": "Hash-Rechner",
       "description": "Berechnen Sie MD5, SHA-1, SHA-256, SHA-512 Hash-Werte",
@@ -2801,6 +2806,21 @@
           "testnetTitle": "Testnet-Adresse",
           "testnetDescription": "Dies ist eine Testnet-Adresse, die fur Entwicklung und Tests verwendet wird. Sie hat keinen realen Wert auf der Haupt-Blockchain."
         }
+      },
+      "exchange": {
+        "convert": "Konvertieren",
+        "amount": "Betrag",
+        "cryptocurrency": "Kryptowahrung",
+        "fiatCurrency": "Fiat-Wahrung",
+        "result": "Ergebnis",
+        "exchangeRate": "Wechselkurs",
+        "inverseRate": "Umgekehrter Kurs",
+        "priceDataFrom": "Preisdaten von",
+        "lastUpdated": "Zuletzt aktualisiert",
+        "hoursAgo": "vor {hours} Stunden",
+        "fallback": "Ersatzdaten",
+        "stalePriceTitle": "Preisdaten konnen veraltet sein",
+        "stalePriceDescription": "Preisdaten sind alter als 24 Stunden. Erstellen Sie die Website neu, um aktuelle Preise von CoinGecko abzurufen."
       }
     },
     "health": {

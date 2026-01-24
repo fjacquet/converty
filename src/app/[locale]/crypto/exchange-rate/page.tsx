@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
+import { getCategoryBySlug } from "@/lib/registry/categories";
 import { ExchangeRateCalculator } from "./exchange-rate-calculator";
 
 export function generateStaticParams() {
@@ -55,14 +56,15 @@ export default async function ExchangeRatePage({
   setRequestLocale(locale);
 
   const t = await getTranslations("converters.exchange-rate");
-  const tCommon = await getTranslations("common");
+  const tc = await getTranslations("categories");
+  const category = getCategoryBySlug("crypto")!;
 
   return (
     <ConverterLayout
       title={t("name")}
       description={t("description")}
-      backLink={`/${locale}/crypto`}
-      backLabel={tCommon("backToCategory")}
+      category={category}
+      categoryName={tc("crypto.name")}
     >
       <Suspense fallback={<div>Loading...</div>}>
         <ExchangeRateCalculator />
