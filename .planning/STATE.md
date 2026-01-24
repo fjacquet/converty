@@ -202,6 +202,10 @@ Progress: ████████████░ 62.5% (v3.0 — 5 of 8 phases 
 | Money factor for lease calculations                              | 20-04 | Industry standard for lease payments (money factor = APR / 2400)                                   |
 | Swiss VAT (7.7%) as default                                      | 20-04 | Swiss/European context aligns with project focus                                                   |
 | Amortization schedule generation                                 | 20-04 | Provides transparency for loan payments breakdown                                                  |
+| European metric notation as primary tire size format              | 20-02 | 205/55R16 is worldwide standard tire notation, most familiar to users                             |
+| ETRTO standards for load index and speed ratings                  | 20-02 | European Tyre and Rim Technical Organisation is official tire specification source                |
+| ±3% diameter tolerance threshold for tire compatibility           | 20-02 | Industry standard - >3% warns speedometer impact, >5% warns ABS/traction control issues           |
+| Speedometer error based on diameter difference                    | 20-02 | Larger diameter = higher actual speed; formula: speedometerError% = diameterDifference%           |
 
 ### Milestone Evolution
 
