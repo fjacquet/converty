@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-01-24T07:22:34.621Z",
+  "source": "blockchain.info+coingecko",
+  "difficulty": 141668107417558,
+  "networkHashRate": 802829019.212,
+  "btcPrice": {
+    "chf": 69769,
+    "eur": 75624,
+    "usd": 89449
+  },
+  "blockReward": 3.125,
+  "blocksPerDay": 144
+}
