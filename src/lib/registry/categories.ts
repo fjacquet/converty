@@ -8,6 +8,7 @@ import {
   DollarSign,
   Globe,
   Heart,
+  Home,
   type LucideIcon,
   Music,
   Network,
@@ -86,6 +87,18 @@ export const categories: Category[] = [
       { id: "business", name: "Business", description: "Profit, break-even, margins" },
       { id: "everyday", name: "Everyday", description: "Tips, discounts, shopping" },
       { id: "conversion", name: "Conversion", description: "Currency and unit conversion" },
+    ],
+  },
+  {
+    id: "realestate",
+    slug: "realestate",
+    name: "Real Estate",
+    description: "Property valuation and mortgage calculators",
+    icon: Home,
+    subcategories: [
+      { id: "loans", name: "Loans & Mortgages", description: "Swiss mortgage calculators" },
+      { id: "valuation", name: "Property Valuation", description: "Property value assessment" },
+      { id: "investment", name: "Investment Analysis", description: "Rental yield and ROI" },
     ],
   },
   {
