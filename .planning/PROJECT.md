@@ -108,11 +108,11 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ Tailwind CSS with theme support (light/dark mode) — existing
 - ✓ Radix UI component primitives — existing
 
-## Current Milestone: v3.0 Calculator Expansion & Performance (Planning)
+## Current Milestone: v3.0 Calculator Expansion & Performance (Executing)
 
 **Goal:** Expand calculator coverage with 4 new categories, optimize performance with code splitting/lazy loading, and enhance UX with favorites, history, and export.
 
-**Status:** Planning phase — Requirements defined, roadmap created
+**Status:** Phase 17 complete — 4 crypto calculators delivered (hash, wallet validator, exchange rate, mining profitability). 158 total calculators. 7 phases remaining.
 
 ### Active
 

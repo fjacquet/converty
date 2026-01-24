@@ -29,13 +29,16 @@
 **Requirements:** CRYPT-01, CRYPT-02, CRYPT-03, CRYPT-04
 
 **Success Criteria:**
-- [ ] MD5, SHA-1, SHA-256, SHA-512 hash functions working
-- [ ] Wallet address format conversion functioning
-- [ ] Crypto exchange rates accurate — **CHF/EUR primary currencies**; conversion features available
-- [ ] Mining profitability calculations correct — values in **CHF/EUR, kWh, difficulty units**
-- [ ] All 4 calculators localized to en/fr/de/it
-- [ ] All 4 calculators in Calculator registry
-- [ ] URL state persistence working for all 4
+
+- [x] MD5, SHA-1, SHA-256, SHA-512 hash functions working ✓
+- [x] Wallet address format conversion functioning ✓
+- [x] Crypto exchange rates accurate — **CHF/EUR primary currencies**; conversion features available ✓
+- [x] Mining profitability calculations correct — values in **CHF/EUR, kWh, difficulty units** ✓
+- [x] All 4 calculators localized to en/fr/de/it ✓
+- [x] All 4 calculators in Calculator registry ✓
+- [x] URL state persistence working for all 4 ✓
+
+**Status:** ✅ COMPLETE (2026-01-24)
 
 **Included in v3.0 Requirements:** CRYPT-01, CRYPT-02, CRYPT-03, CRYPT-04
 
@@ -48,6 +51,7 @@
 **Requirements:** REAL-01, REAL-02, REAL-03, REAL-04
 
 **Success Criteria:**
+
 - [ ] Mortgage payment calculations accurate — values in **CHF/EUR**
 - [ ] Property valuation algorithms correct — market-aligned for Swiss/European context
 - [ ] Rent-to-value ratio and investment metrics accurate — appropriate for European property market
@@ -67,6 +71,7 @@
 **Requirements:** COOK-01, COOK-02, COOK-03, COOK-04
 
 **Success Criteria:**
+
 - [ ] Recipe scaling calculations working (servings multiplier)
 - [ ] Nutrition facts calculations accurate (calories, macros, micros)
 - [ ] Cooking unit conversions accurate — **metric primary** (ml, grams, litres); conversions to cups/tbsp available
@@ -86,6 +91,7 @@
 **Requirements:** AUTO-01, AUTO-02, AUTO-03, AUTO-04
 
 **Success Criteria:**
+
 - [ ] Fuel efficiency calculations accurate — **L/100km primary**; conversion to km/L available
 - [ ] Tire sizing specifications accurate — **metric notation** (e.g., 205/55R16); explain ratio/aspect systems
 - [ ] Maintenance intervals accurate — **km-based** (instead of miles)
@@ -105,6 +111,7 @@
 **Requirements:** PERF-01, PERF-02, PERF-03, PERF-04
 
 **Success Criteria:**
+
 - [ ] Calculator components code-split by category
 - [ ] Lazy loading implemented per category
 - [ ] Initial bundle size reduced (measure before/after)
@@ -125,6 +132,7 @@
 **Requirements:** FAV-01, FAV-02, FAV-03, FAV-04, FAV-05
 
 **Success Criteria:**
+
 - [ ] Users can bookmark calculators from calculator page
 - [ ] Bookmarked calculators viewable in dedicated "Favorites" section
 - [ ] Bookmark removal working
@@ -144,6 +152,7 @@
 **Requirements:** HIST-01, HIST-02, HIST-03, HIST-04, HIST-05
 
 **Success Criteria:**
+
 - [ ] Recent calculations displayed with inputs and results
 - [ ] Users can restore previous calculations (repopulate inputs)
 - [ ] History clear function working
@@ -163,6 +172,7 @@
 **Requirements:** EXP-01, EXP-02, EXP-03, EXP-04
 
 **Success Criteria:**
+
 - [ ] PDF export functionality working (using existing jsPDF)
 - [ ] CSV export functionality working
 - [ ] Exported files include calculator name, inputs, and results
@@ -180,15 +190,18 @@
 All v3.0 requirements mapped to phases:
 
 **Calculator Expansion (16 calculators):**
+
 - Phase 17: Crypto/Blockchain (4 calculators)
 - Phase 18: Real Estate (4 calculators)
 - Phase 19: Cooking/Nutrition (4 calculators)
 - Phase 20: Automotive (4 calculators)
 
 **Performance Optimization:**
+
 - Phase 21: Code splitting & lazy loading
 
 **UX Enhancements:**
+
 - Phase 22: Favorites
 - Phase 23: Calculation History
 - Phase 24: Export
