@@ -1,36 +1,36 @@
 {
-  "timestamp": "2026-01-24T08:28:37.109Z",
-  "source": "fallback",
+  "timestamp": "2026-01-24T08:48:39.380Z",
+  "source": "coingecko",
   "prices": {
     "bitcoin": {
-      "chf": 85000,
-      "eur": 90000,
-      "usd": 95000
+      "chf": 69822,
+      "eur": 75682,
+      "usd": 89516
     },
     "ethereum": {
-      "chf": 2800,
-      "eur": 2950,
-      "usd": 3100
+      "chf": 2305.67,
+      "eur": 2499.17,
+      "usd": 2956.01
     },
     "litecoin": {
-      "chf": 95,
-      "eur": 100,
-      "usd": 105
+      "chf": 53.46,
+      "eur": 57.95,
+      "usd": 68.54
     },
     "ripple": {
-      "chf": 2.35,
-      "eur": 2.48,
-      "usd": 2.6
+      "chf": 1.5,
+      "eur": 1.62,
+      "usd": 1.92
     },
     "dogecoin": {
-      "chf": 0.31,
-      "eur": 0.33,
-      "usd": 0.35
+      "chf": 0.097003,
+      "eur": 0.105144,
+      "usd": 0.124364
     },
     "cardano": {
-      "chf": 0.85,
-      "eur": 0.9,
-      "usd": 0.95
+      "chf": 0.280207,
+      "eur": 0.303722,
+      "usd": 0.359243
     }
   }
 }
