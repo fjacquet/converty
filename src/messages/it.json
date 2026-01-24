@@ -449,11 +449,6 @@
       "description": "Pianifica la tua pensione con proiezioni di risparmio e pianificazione del reddito",
       "metaDescription": "Pianifica i tuoi risparmi e il tuo reddito pensionistico"
     },
-    "salary": {
-      "name": "Stipendio e Tasse",
-      "description": "Calcola lo stipendio netto dopo tasse federali, cantonali e contributi sociali",
-      "metaDescription": "Calcola il tuo stipendio netto dopo le tasse"
-    },
     "tip": {
       "name": "Mancia",
       "description": "Calcola la mancia e dividi il conto tra piu persone",

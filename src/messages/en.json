@@ -449,11 +449,6 @@
       "description": "Plan your retirement with savings projections and income planning",
       "metaDescription": "Plan your retirement savings and income"
     },
-    "salary": {
-      "name": "Salary & Tax",
-      "description": "Calculate take-home pay after federal, state taxes, and FICA",
-      "metaDescription": "Calculate your take-home pay after taxes"
-    },
     "tip": {
       "name": "Tip",
       "description": "Calculate tip amount and split bills between multiple people",

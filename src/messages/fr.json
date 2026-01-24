@@ -449,11 +449,6 @@
       "description": "Planifiez votre retraite avec des projections d'epargne et de revenus",
       "metaDescription": "Planifiez votre epargne-retraite et vos revenus"
     },
-    "salary": {
-      "name": "Salaire et Impots",
-      "description": "Calculez le salaire net apres impots federaux, cantonaux et cotisations sociales",
-      "metaDescription": "Calculez votre salaire net apres impots"
-    },
     "tip": {
       "name": "Pourboire",
       "description": "Calculez le pourboire et partagez l'addition entre plusieurs personnes",

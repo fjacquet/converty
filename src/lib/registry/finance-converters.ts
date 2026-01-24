@@ -45,15 +45,6 @@ export const financeConverters: Record<string, ConverterMeta> = {
     icon: DollarSign,
     featured: true,
   },
-  salary: {
-    id: "salary",
-    slug: "salary",
-    category: "finance",
-    subcategory: "taxes",
-    keywords: ["salary", "tax", "paycheck", "take home", "income", "net pay", "federal", "state"],
-    icon: DollarSign,
-    featured: true,
-  },
   tip: {
     id: "tip",
     slug: "tip",

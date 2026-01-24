@@ -449,11 +449,6 @@
       "description": "Planen Sie Ihren Ruhestand mit Sparprognosen und Einkommensplanung",
       "metaDescription": "Planen Sie Ihre Altersvorsoge und Ihr Einkommen"
     },
-    "salary": {
-      "name": "Gehalts- und Steuer",
-      "description": "Berechnen Sie das Nettogehalt nach Bundes-, Kantonssteuern und Sozialabgaben",
-      "metaDescription": "Berechnen Sie Ihr Nettogehalt nach Steuern"
-    },
     "tip": {
       "name": "Trinkgeld",
       "description": "Berechnen Sie Trinkgeld und teilen Sie Rechnungen zwischen mehreren Personen",
