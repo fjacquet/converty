@@ -95,6 +95,10 @@
     "web": {
       "name": "Web",
       "description": "Outils de developpement web"
+    },
+    "automotive": {
+      "name": "Automobile",
+      "description": "Calculateurs pour carburant, pneus, entretien et financement de vehicules"
     }
   },
   "subcategories": {
@@ -134,7 +138,11 @@
     "composition": "Composition et Cadrage",
     "astro": "Astrophotographie",
     "optics": "Optique",
-    "uncategorized": "General"
+    "uncategorized": "General",
+    "fuel": "Carburant et efficacite",
+    "tires": "Pneus et roues",
+    "maintenance": "Entretien",
+    "financing": "Financement"
   },
   "converters": {
     "bmi": {
@@ -971,6 +979,21 @@
       "name": "Calculateur nutritionnel",
       "description": "Calculer les calories, les macros et les valeurs nutritionnelles des aliments selectionnes",
       "metaDescription": "Calculateur nutritionnel gratuit. Suivez les calories, proteines, glucides, lipides et autres nutriments."
+    },
+    "fuel-efficiency": {
+      "name": "Calculateur de consommation de carburant",
+      "description": "Calculez la consommation en L/100km, km/L et MPG avec estimations de trajet et couts",
+      "metaDescription": "Calculateur gratuit de consommation de carburant - conversions L/100km, km/L, MPG, carburant necessaire et estimation des couts annuels."
+    },
+    "vehicle-financing": {
+      "name": "Calculateur de financement vehicule",
+      "description": "Calculez les paiements de pret auto et de leasing avec comparaison achat vs location (CHF/EUR)",
+      "metaDescription": "Calculateur gratuit de financement vehicule - prets auto, leasing et comparaison achat vs location. Support CHF et EUR avec TVA suisse."
+    },
+    "tire-sizing": {
+      "name": "Calculateur de dimension de pneu",
+      "description": "Calculez les dimensions des pneus, comparez les tailles et verifiez l'erreur du compteur de vitesse",
+      "metaDescription": "Calculateur gratuit de dimension de pneu - dimensions, comparaison, erreur du compteur. Supporte la notation metrique europeenne."
     }
   },
   "calculator": {
@@ -3764,6 +3787,107 @@
         "prestissimo": "Prestissimo"
       },
       "enterBpm": "Entrer BPM"
+    },
+    "automotive": {
+      "fuelEfficiency": {
+        "input": "Entree",
+        "result": "Resultat",
+        "modes": {
+          "consumption": "Consommation",
+          "tripPlanning": "Planification de trajet",
+          "comparison": "Comparer"
+        },
+        "consumptionDescription": "Calculez la consommation a partir de la distance parcourue et du carburant utilise",
+        "tripPlanningDescription": "Planifiez le carburant necessaire pour un trajet selon la consommation connue",
+        "comparisonDescription": "Comparez l efficacite energetique entre deux vehicules",
+        "distanceTraveled": "Distance parcourue (km)",
+        "fuelUsed": "Carburant utilise (litres)",
+        "tripDistance": "Distance du trajet (km)",
+        "consumption": "Consommation (L/100km)",
+        "vehicle1": "Vehicule 1 (L/100km)",
+        "vehicle2": "Vehicule 2 (L/100km)",
+        "costSettings": "Parametres de cout",
+        "currency": "Devise",
+        "currencies": {
+          "chf": "Franc suisse (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "fuelPrice": "Prix du carburant par litre",
+        "annualDistance": "Distance annuelle (km)",
+        "lPer100km": "L/100km",
+        "kmPerL": "km/L",
+        "mpgUS": "MPG (US)",
+        "mpgUK": "MPG (UK)",
+        "costPer100km": "Cout par 100km",
+        "annualCost": "Cout annuel de carburant",
+        "tripFuel": "Carburant necessaire",
+        "tripCost": "Cout du trajet",
+        "moreEfficient": "Plus efficace",
+        "vehicleNumber": "Vehicule {number}",
+        "savingsPer100km": "Economies par 100km",
+        "annualSavings": "Economies annuelles",
+        "calculationSteps": "Etapes de calcul",
+        "ratings": {
+          "excellent": "Excellent (<5 L/100km)",
+          "good": "Bon (5-7 L/100km)",
+          "average": "Moyen (7-9 L/100km)",
+          "poor": "Faible (>9 L/100km)"
+        }
+      },
+      "financing": {
+        "modes": {
+          "loan": "Pret",
+          "lease": "Leasing",
+          "compare": "Comparer"
+        },
+        "vehicleDetails": "Details du vehicule",
+        "vehicleDetailsDescription": "Entrez le prix du vehicule et les details de paiement",
+        "vehiclePrice": "Prix du vehicule",
+        "downPayment": "Acompte",
+        "tradeInValue": "Valeur de reprise",
+        "currency": "Devise",
+        "currencies": {
+          "chf": "Franc suisse (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "includeVAT": "Inclure TVA suisse",
+        "loanDetails": "Details du pret",
+        "leaseDetails": "Details du leasing",
+        "interestRate": "Taux d'interet (%)",
+        "loanTerm": "Duree du pret",
+        "leaseTerm": "Duree du leasing",
+        "residualValue": "Valeur residuelle (%)",
+        "leaseAPR": "TAE leasing (%)",
+        "annualKmLimit": "Limite km annuelle",
+        "months": "mois",
+        "years": "ans",
+        "year": "an",
+        "month": "mois",
+        "loanResult": "Resume du pret",
+        "leaseResult": "Resume du leasing",
+        "comparisonResult": "Comparaison achat vs location",
+        "perMonth": "par mois",
+        "loanAmount": "Montant du pret",
+        "totalPayments": "Paiements totaux",
+        "totalInterest": "Interets totaux",
+        "totalCost": "Cout total",
+        "capitalizedCost": "Cout capitalise",
+        "depreciation": "Depreciation",
+        "financeCharge": "Frais financiers",
+        "total": "total",
+        "kmLimit": "Limite km",
+        "excessKmCharge": "Frais km excedentaires",
+        "amortizationSchedule": "Tableau d'amortissement",
+        "payment": "Paiement",
+        "principal": "Capital",
+        "interest": "Interets",
+        "balance": "Solde",
+        "showingFirst12Months": "Affichage des 12 premiers mois",
+        "lowerMonthlyPayment": "Paiement mensuel inferieur",
+        "lowerTotalCost": "Cout total inferieur",
+        "recommendation": "Recommandation",
+        "calculationSteps": "Etapes de calcul"
+      }
     }
   },
   "validation": {

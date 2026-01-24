@@ -95,6 +95,10 @@
     "web": {
       "name": "Web",
       "description": "Webentwicklungs-Werkzeuge"
+    },
+    "automotive": {
+      "name": "Automobil",
+      "description": "Fahrzeugrechner fur Kraftstoff, Reifen, Wartung und Finanzierung"
     }
   },
   "subcategories": {
@@ -134,7 +138,11 @@
     "composition": "Komposition und Bildausschnitt",
     "astro": "Astrofotografie",
     "optics": "Optik",
-    "uncategorized": "Allgemein"
+    "uncategorized": "Allgemein",
+    "fuel": "Kraftstoff und Effizienz",
+    "tires": "Reifen und Rader",
+    "maintenance": "Wartung",
+    "financing": "Finanzierung"
   },
   "converters": {
     "bmi": {
@@ -971,6 +979,16 @@
       "name": "Ernahrungsrechner",
       "description": "Berechnen Sie Kalorien, Makros und Nahrwerte aus ausgewahlten Lebensmitteln",
       "metaDescription": "Kostenloser Ernahrungsrechner. Verfolgen Sie Kalorien, Protein, Kohlenhydrate, Fett und andere Nahrstoffe."
+    },
+    "fuel-efficiency": {
+      "name": "Kraftstoffverbrauchsrechner",
+      "description": "Berechnen Sie den Kraftstoffverbrauch in L/100km, km/L und MPG mit Reise- und Kostenschatzungen",
+      "metaDescription": "Kostenloser Kraftstoffverbrauchsrechner - L/100km, km/L, MPG-Umrechnungen, benotigter Kraftstoff und jahrliche Kostenschatzung."
+    },
+    "vehicle-financing": {
+      "name": "Fahrzeugfinanzierungsrechner",
+      "description": "Berechnen Sie Autokredit- und Leasingzahlungen mit Kauf- vs. Leasingvergleich (CHF/EUR)",
+      "metaDescription": "Kostenloser Fahrzeugfinanzierungsrechner - Autokredite, Leasing und Kauf- vs. Leasingvergleich. CHF und EUR mit Schweizer MwSt."
     }
   },
   "calculator": {
@@ -3764,6 +3782,107 @@
         "prestissimo": "Prestissimo"
       },
       "enterBpm": "BPM eingeben"
+    },
+    "automotive": {
+      "fuelEfficiency": {
+        "input": "Eingabe",
+        "result": "Ergebnis",
+        "modes": {
+          "consumption": "Verbrauch",
+          "tripPlanning": "Reiseplanung",
+          "comparison": "Vergleichen"
+        },
+        "consumptionDescription": "Berechnen Sie den Kraftstoffverbrauch aus gefahrener Strecke und verbrauchtem Kraftstoff",
+        "tripPlanningDescription": "Planen Sie den benotigten Kraftstoff fur eine Reise basierend auf bekanntem Verbrauch",
+        "comparisonDescription": "Vergleichen Sie die Kraftstoffeffizienz zwischen zwei Fahrzeugen",
+        "distanceTraveled": "Gefahrene Strecke (km)",
+        "fuelUsed": "Verbrauchter Kraftstoff (Liter)",
+        "tripDistance": "Reisedistanz (km)",
+        "consumption": "Verbrauch (L/100km)",
+        "vehicle1": "Fahrzeug 1 (L/100km)",
+        "vehicle2": "Fahrzeug 2 (L/100km)",
+        "costSettings": "Kosteneinstellungen",
+        "currency": "Wahrung",
+        "currencies": {
+          "chf": "Schweizer Franken (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "fuelPrice": "Kraftstoffpreis pro Liter",
+        "annualDistance": "Jahrliche Distanz (km)",
+        "lPer100km": "L/100km",
+        "kmPerL": "km/L",
+        "mpgUS": "MPG (US)",
+        "mpgUK": "MPG (UK)",
+        "costPer100km": "Kosten pro 100km",
+        "annualCost": "Jahrliche Kraftstoffkosten",
+        "tripFuel": "Benotigter Kraftstoff",
+        "tripCost": "Reisekosten",
+        "moreEfficient": "Effizienter",
+        "vehicleNumber": "Fahrzeug {number}",
+        "savingsPer100km": "Ersparnis pro 100km",
+        "annualSavings": "Jahrliche Ersparnis",
+        "calculationSteps": "Berechnungsschritte",
+        "ratings": {
+          "excellent": "Ausgezeichnet (<5 L/100km)",
+          "good": "Gut (5-7 L/100km)",
+          "average": "Durchschnittlich (7-9 L/100km)",
+          "poor": "Schlecht (>9 L/100km)"
+        }
+      },
+      "financing": {
+        "modes": {
+          "loan": "Kredit",
+          "lease": "Leasing",
+          "compare": "Vergleichen"
+        },
+        "vehicleDetails": "Fahrzeugdetails",
+        "vehicleDetailsDescription": "Geben Sie den Fahrzeugpreis und Zahlungsdetails ein",
+        "vehiclePrice": "Fahrzeugpreis",
+        "downPayment": "Anzahlung",
+        "tradeInValue": "Inzahlungnahme",
+        "currency": "Wahrung",
+        "currencies": {
+          "chf": "Schweizer Franken (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "includeVAT": "Schweizer MwSt. einbeziehen",
+        "loanDetails": "Kreditdetails",
+        "leaseDetails": "Leasingdetails",
+        "interestRate": "Zinssatz (%)",
+        "loanTerm": "Kreditlaufzeit",
+        "leaseTerm": "Leasinglaufzeit",
+        "residualValue": "Restwert (%)",
+        "leaseAPR": "Leasing-Effektivzins (%)",
+        "annualKmLimit": "Jahrliche km-Grenze",
+        "months": "Monate",
+        "years": "Jahre",
+        "year": "Jahr",
+        "month": "Monat",
+        "loanResult": "Kreditzusammenfassung",
+        "leaseResult": "Leasingzusammenfassung",
+        "comparisonResult": "Kauf- vs. Leasingvergleich",
+        "perMonth": "pro Monat",
+        "loanAmount": "Kreditbetrag",
+        "totalPayments": "Gesamtzahlungen",
+        "totalInterest": "Gesamtzinsen",
+        "totalCost": "Gesamtkosten",
+        "capitalizedCost": "Kapitalisierte Kosten",
+        "depreciation": "Abschreibung",
+        "financeCharge": "Finanzierungskosten",
+        "total": "gesamt",
+        "kmLimit": "km-Grenze",
+        "excessKmCharge": "Uberschreitungsgebuhr",
+        "amortizationSchedule": "Tilgungsplan",
+        "payment": "Zahlung",
+        "principal": "Tilgung",
+        "interest": "Zinsen",
+        "balance": "Restschuld",
+        "showingFirst12Months": "Zeigt die ersten 12 Monate",
+        "lowerMonthlyPayment": "Niedrigere Monatsrate",
+        "lowerTotalCost": "Niedrigere Gesamtkosten",
+        "recommendation": "Empfehlung",
+        "calculationSteps": "Berechnungsschritte"
+      }
     }
   },
   "validation": {

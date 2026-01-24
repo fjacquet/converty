@@ -95,6 +95,10 @@
     "web": {
       "name": "Web",
       "description": "Strumenti per sviluppo web"
+    },
+    "automotive": {
+      "name": "Automobilistico",
+      "description": "Calcolatori per carburante, pneumatici, manutenzione e finanziamento veicoli"
     }
   },
   "subcategories": {
@@ -134,7 +138,11 @@
     "composition": "Composizione e Inquadratura",
     "astro": "Astrofotografia",
     "optics": "Ottica",
-    "uncategorized": "Generale"
+    "uncategorized": "Generale",
+    "fuel": "Carburante ed efficienza",
+    "tires": "Pneumatici e ruote",
+    "maintenance": "Manutenzione",
+    "financing": "Finanziamento"
   },
   "converters": {
     "bmi": {
@@ -971,6 +979,16 @@
       "name": "Calcolatore nutrizionale",
       "description": "Calcola calorie totali, macro e valori nutrizionali per i tuoi pasti",
       "metaDescription": "Calcolatore nutrizionale gratuito. Monitora calorie, proteine, carboidrati, grassi e altri valori nutrizionali per il cibo."
+    },
+    "fuel-efficiency": {
+      "name": "Calcolatore di efficienza del carburante",
+      "description": "Calcola il consumo di carburante in L/100km, km/L e MPG con stime di viaggio e costi",
+      "metaDescription": "Calcolatore gratuito di efficienza del carburante - conversioni L/100km, km/L, MPG, carburante necessario e stima dei costi annuali."
+    },
+    "vehicle-financing": {
+      "name": "Calcolatore finanziamento veicolo",
+      "description": "Calcola i pagamenti di prestiti auto e leasing con confronto acquisto vs noleggio (CHF/EUR)",
+      "metaDescription": "Calcolatore gratuito finanziamento veicolo - prestiti auto, leasing e confronto acquisto vs noleggio. Supporto CHF e EUR con IVA svizzera."
     }
   },
   "calculator": {
@@ -3782,6 +3800,107 @@
         "prestissimo": "Prestissimo"
       },
       "enterBpm": "Inserisci BPM"
+    },
+    "automotive": {
+      "fuelEfficiency": {
+        "input": "Input",
+        "result": "Risultato",
+        "modes": {
+          "consumption": "Consumo",
+          "tripPlanning": "Pianificazione viaggio",
+          "comparison": "Confronta"
+        },
+        "consumptionDescription": "Calcola il consumo di carburante dalla distanza percorsa e dal carburante utilizzato",
+        "tripPlanningDescription": "Pianifica il carburante necessario per un viaggio in base al consumo noto",
+        "comparisonDescription": "Confronta l efficienza del carburante tra due veicoli",
+        "distanceTraveled": "Distanza percorsa (km)",
+        "fuelUsed": "Carburante utilizzato (litri)",
+        "tripDistance": "Distanza del viaggio (km)",
+        "consumption": "Consumo (L/100km)",
+        "vehicle1": "Veicolo 1 (L/100km)",
+        "vehicle2": "Veicolo 2 (L/100km)",
+        "costSettings": "Impostazioni costi",
+        "currency": "Valuta",
+        "currencies": {
+          "chf": "Franco svizzero (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "fuelPrice": "Prezzo carburante per litro",
+        "annualDistance": "Distanza annuale (km)",
+        "lPer100km": "L/100km",
+        "kmPerL": "km/L",
+        "mpgUS": "MPG (US)",
+        "mpgUK": "MPG (UK)",
+        "costPer100km": "Costo per 100km",
+        "annualCost": "Costo annuale carburante",
+        "tripFuel": "Carburante necessario",
+        "tripCost": "Costo del viaggio",
+        "moreEfficient": "Piu efficiente",
+        "vehicleNumber": "Veicolo {number}",
+        "savingsPer100km": "Risparmio per 100km",
+        "annualSavings": "Risparmio annuale",
+        "calculationSteps": "Passaggi di calcolo",
+        "ratings": {
+          "excellent": "Eccellente (<5 L/100km)",
+          "good": "Buono (5-7 L/100km)",
+          "average": "Medio (7-9 L/100km)",
+          "poor": "Scarso (>9 L/100km)"
+        }
+      },
+      "financing": {
+        "modes": {
+          "loan": "Prestito",
+          "lease": "Leasing",
+          "compare": "Confronta"
+        },
+        "vehicleDetails": "Dettagli veicolo",
+        "vehicleDetailsDescription": "Inserisci il prezzo del veicolo e i dettagli di pagamento",
+        "vehiclePrice": "Prezzo veicolo",
+        "downPayment": "Anticipo",
+        "tradeInValue": "Valore permuta",
+        "currency": "Valuta",
+        "currencies": {
+          "chf": "Franco svizzero (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "includeVAT": "Includi IVA svizzera",
+        "loanDetails": "Dettagli prestito",
+        "leaseDetails": "Dettagli leasing",
+        "interestRate": "Tasso di interesse (%)",
+        "loanTerm": "Durata prestito",
+        "leaseTerm": "Durata leasing",
+        "residualValue": "Valore residuo (%)",
+        "leaseAPR": "TAEG leasing (%)",
+        "annualKmLimit": "Limite km annuale",
+        "months": "mesi",
+        "years": "anni",
+        "year": "anno",
+        "month": "mese",
+        "loanResult": "Riepilogo prestito",
+        "leaseResult": "Riepilogo leasing",
+        "comparisonResult": "Confronto acquisto vs noleggio",
+        "perMonth": "al mese",
+        "loanAmount": "Importo prestito",
+        "totalPayments": "Pagamenti totali",
+        "totalInterest": "Interessi totali",
+        "totalCost": "Costo totale",
+        "capitalizedCost": "Costo capitalizzato",
+        "depreciation": "Ammortamento",
+        "financeCharge": "Oneri finanziari",
+        "total": "totale",
+        "kmLimit": "Limite km",
+        "excessKmCharge": "Costo km eccedenti",
+        "amortizationSchedule": "Piano di ammortamento",
+        "payment": "Pagamento",
+        "principal": "Capitale",
+        "interest": "Interessi",
+        "balance": "Saldo",
+        "showingFirst12Months": "Mostra i primi 12 mesi del piano",
+        "lowerMonthlyPayment": "Rata mensile inferiore",
+        "lowerTotalCost": "Costo totale inferiore",
+        "recommendation": "Raccomandazione",
+        "calculationSteps": "Passaggi di calcolo"
+      }
     }
   },
   "validation": {

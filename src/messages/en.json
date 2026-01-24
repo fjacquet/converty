@@ -95,6 +95,10 @@
     "web": {
       "name": "Web",
       "description": "Web development tools"
+    },
+    "automotive": {
+      "name": "Automotive",
+      "description": "Vehicle calculators for fuel, tires, maintenance, and financing"
     }
   },
   "subcategories": {
@@ -134,7 +138,11 @@
     "composition": "Composition & Framing",
     "astro": "Astrophotography",
     "optics": "Optics",
-    "uncategorized": "General"
+    "uncategorized": "General",
+    "fuel": "Fuel & Efficiency",
+    "tires": "Tires & Wheels",
+    "maintenance": "Maintenance",
+    "financing": "Financing"
   },
   "converters": {
     "bmi": {
@@ -971,6 +979,21 @@
       "name": "Nutrition Calculator",
       "description": "Calculate calories, macros, and nutrition facts from selected foods",
       "metaDescription": "Free nutrition calculator. Track calories, protein, carbs, fat, and other nutrients from a database of 100+ common foods."
+    },
+    "fuel-efficiency": {
+      "name": "Fuel Efficiency Calculator",
+      "description": "Calculate fuel consumption in L/100km, km/L, and MPG with trip and cost estimates",
+      "metaDescription": "Free fuel efficiency calculator - L/100km, km/L, MPG conversions, trip fuel needed, and annual fuel cost estimates."
+    },
+    "vehicle-financing": {
+      "name": "Vehicle Financing Calculator",
+      "description": "Calculate auto loan and lease payments with buy vs lease comparison (CHF/EUR)",
+      "metaDescription": "Free vehicle financing calculator - auto loans, leases, and buy vs lease comparison. CHF and EUR support with Swiss VAT."
+    },
+    "tire-sizing": {
+      "name": "Tire Size Calculator",
+      "description": "Calculate tire dimensions, compare sizes, and check speedometer error",
+      "metaDescription": "Free tire size calculator - dimensions, comparison, speedometer error. Supports European metric notation (205/55R16)."
     }
   },
   "calculator": {
@@ -3805,6 +3828,136 @@
         "prestissimo": "Prestissimo"
       },
       "enterBpm": "Enter BPM"
+    },
+    "automotive": {
+      "fuelEfficiency": {
+        "input": "Input",
+        "result": "Result",
+        "modes": {
+          "consumption": "Consumption",
+          "tripPlanning": "Trip Planning",
+          "comparison": "Compare"
+        },
+        "consumptionDescription": "Calculate fuel consumption from distance traveled and fuel used",
+        "tripPlanningDescription": "Plan fuel needed for a trip based on known consumption",
+        "comparisonDescription": "Compare fuel efficiency between two vehicles",
+        "distanceTraveled": "Distance Traveled (km)",
+        "fuelUsed": "Fuel Used (liters)",
+        "tripDistance": "Trip Distance (km)",
+        "consumption": "Consumption (L/100km)",
+        "vehicle1": "Vehicle 1 (L/100km)",
+        "vehicle2": "Vehicle 2 (L/100km)",
+        "costSettings": "Cost Settings",
+        "currency": "Currency",
+        "currencies": {
+          "chf": "Swiss Franc (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "fuelPrice": "Fuel Price per Liter",
+        "annualDistance": "Annual Distance (km)",
+        "lPer100km": "L/100km",
+        "kmPerL": "km/L",
+        "mpgUS": "MPG (US)",
+        "mpgUK": "MPG (UK)",
+        "costPer100km": "Cost per 100km",
+        "annualCost": "Annual Fuel Cost",
+        "tripFuel": "Fuel Needed",
+        "tripCost": "Trip Cost",
+        "moreEfficient": "More Efficient",
+        "vehicleNumber": "Vehicle {number}",
+        "savingsPer100km": "Savings per 100km",
+        "annualSavings": "Annual Savings",
+        "calculationSteps": "Calculation Steps",
+        "ratings": {
+          "excellent": "Excellent (<5 L/100km)",
+          "good": "Good (5-7 L/100km)",
+          "average": "Average (7-9 L/100km)",
+          "poor": "Poor (>9 L/100km)"
+        }
+      },
+      "financing": {
+        "modes": {
+          "loan": "Loan",
+          "lease": "Lease",
+          "compare": "Compare"
+        },
+        "vehicleDetails": "Vehicle Details",
+        "vehicleDetailsDescription": "Enter the vehicle price and payment details",
+        "vehiclePrice": "Vehicle Price",
+        "downPayment": "Down Payment",
+        "tradeInValue": "Trade-in Value",
+        "currency": "Currency",
+        "currencies": {
+          "chf": "Swiss Franc (CHF)",
+          "eur": "Euro (EUR)"
+        },
+        "includeVAT": "Include Swiss VAT",
+        "loanDetails": "Loan Details",
+        "leaseDetails": "Lease Details",
+        "interestRate": "Interest Rate (%)",
+        "loanTerm": "Loan Term",
+        "leaseTerm": "Lease Term",
+        "residualValue": "Residual Value (%)",
+        "leaseAPR": "Lease APR (%)",
+        "annualKmLimit": "Annual km Limit",
+        "months": "months",
+        "years": "years",
+        "year": "year",
+        "month": "month",
+        "loanResult": "Loan Summary",
+        "leaseResult": "Lease Summary",
+        "comparisonResult": "Buy vs Lease Comparison",
+        "perMonth": "per month",
+        "loanAmount": "Loan Amount",
+        "totalPayments": "Total Payments",
+        "totalInterest": "Total Interest",
+        "totalCost": "Total Cost",
+        "capitalizedCost": "Capitalized Cost",
+        "depreciation": "Depreciation",
+        "financeCharge": "Finance Charge",
+        "total": "total",
+        "kmLimit": "Km Limit",
+        "excessKmCharge": "Excess km Charge",
+        "amortizationSchedule": "Amortization Schedule",
+        "payment": "Payment",
+        "principal": "Principal",
+        "interest": "Interest",
+        "balance": "Balance",
+        "showingFirst12Months": "Showing first 12 months of schedule",
+        "lowerMonthlyPayment": "Lower Monthly Payment",
+        "lowerTotalCost": "Lower Total Cost",
+        "recommendation": "Recommendation",
+        "calculationSteps": "Calculation Steps"
+      },
+      "tireSizing": {
+        "input": "Input",
+        "result": "Tire Dimensions",
+        "modes": {
+          "notation": "Tire Notation",
+          "manual": "Manual Entry"
+        },
+        "notationDescription": "Enter tire size notation (e.g., 205/55R16 or 205/55R16 91V)",
+        "manualDescription": "Enter tire dimensions manually",
+        "tireSize": "Tire Size",
+        "width": "Width (mm)",
+        "aspectRatio": "Aspect Ratio (%)",
+        "rimDiameter": "Rim Diameter (in)",
+        "loadIndex": "Load Index",
+        "speedRating": "Speed Rating",
+        "compareMode": "Compare Sizes",
+        "compareModeDescription": "Compare with another tire size",
+        "compareTire": "Comparison Tire Size",
+        "comparisonResult": "Size Comparison",
+        "sidewallHeight": "Sidewall Height",
+        "overallDiameter": "Overall Diameter",
+        "circumference": "Circumference",
+        "revolutionsPerKm": "Revolutions/km",
+        "diameterDifference": "Diameter Difference",
+        "speedometerError": "Speedometer Error",
+        "withinTolerance": "Within recommended tolerance (3%)",
+        "exceedsTolerance": "Exceeds recommended tolerance",
+        "calculationSteps": "Calculation Steps"
+      }
     }
   },
   "validation": {
