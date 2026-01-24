@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+**Phase 17: Crypto/Blockchain Foundation (2026-01-24)**
+- Hash Calculator (`src/app/[locale]/crypto/hash/`)
+  - MD5, SHA-1, SHA-256, SHA-512 hash algorithms
+  - WebCrypto for SHA algorithms, crypto-js for MD5
+  - Real-time calculation with copy-to-clipboard
+  - MD5 security warning (destructive alert)
+- Wallet Address Validator (`src/app/[locale]/crypto/wallet/`)
+  - Format detection for Bitcoin (P2PKH, P2SH, P2WPKH, P2WSH, P2TR), Ethereum, Litecoin
+  - Network detection (mainnet vs testnet)
+  - Private key pattern detection with security warnings
+  - wallet-address-validator library (~2KB)
+- Cryptocurrency Exchange Rate Calculator (`src/app/[locale]/crypto/exchange/`)
+  - Build-time price fetching from CoinGecko API
+  - Support for 6 cryptocurrencies (BTC, ETH, LTC, XRP, DOGE, ADA)
+  - Support for 3 fiat currencies (CHF, EUR, USD) with CHF/EUR as primary
+  - Staleness detection for price data (24-hour threshold warning)
+  - Static JSON data file for static export compatibility
+- Mining Profitability Calculator (`src/app/[locale]/crypto/mining/`)
+  - Real-time mining profit analysis (daily, monthly, yearly)
+  - Hash rate input with multiple units (H/s, KH/s, MH/s, GH/s, TH/s, PH/s)
+  - Power consumption and electricity cost calculation
+  - Miner presets (Antminer S19 Pro, S19j Pro, S19 XP, Whatsminer M30S++)
+  - ROI calculation and break-even date estimation
+  - Swiss electricity cost default (0.27 CHF/kWh)
+  - Build-time mining data fetching from Blockchain.info
+- Crypto category registration in calculator registry (4 new calculators, 158 total)
+- Complete i18n support for all crypto calculators (en, fr, de, it)
 - Downloadable offline package (`converty-local.zip`) available from GitHub Releases
 - Local server scripts for Mac/Linux (`start.sh`) and Windows (`start.bat`)
 - GitHub Actions workflow to automatically create releases with downloadable package
@@ -206,5 +233,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
-[unreleased]: https://github.com/fjacquet/converty/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/fjacquet/converty/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/fjacquet/converty/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/fjacquet/converty/releases/tag/v1.0.0
