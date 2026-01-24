@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 19 - Cooking/Nutrition Foundation (In Progress)
-Plan: 19-02 Food Cost Calculator (Complete)
-Status: Phase 19 progressing - food cost calculator with ingredient breakdown and currency support
-Last activity: 2026-01-24 — Food cost calculator completed with CHF/EUR/USD support and per-serving budgeting
+Plan: 19-03 Recipe Scaler (Complete)
+Status: Phase 19 advancing - recipe scaler with non-linear scaling rules operational
+Last activity: 2026-01-24 — Recipe Scaler completed with intelligent scaling for salt (67-75%), spices (75%), leavening (87.5%)
 
-Progress: ████████░░ 50% (v3.0 — 2 of 8 phases in progress, 2 of 4 plans in Phase 19 complete)
+Progress: █████████░ 60% (v3.0 — 2 of 8 phases in progress, 3 of 4 plans in Phase 19 complete)
 
 **Next Steps:**
 1. Continue Phase 19 (Recipe Scaling, Nutrition Calculator)
@@ -190,6 +190,10 @@ Progress: ████████░░ 50% (v3.0 — 2 of 8 phases in progress
 | Density table required for volume/weight conversions             | 19-01 | Different ingredients have different densities (1 cup flour ≠ 1 cup water in weight)                |
 | Fractional display for imperial units                            | 19-01 | Cooking recipes typically use fractions (1/4 cup) not decimals (0.25 cup) for better UX            |
 | CHF/EUR/USD currency support only (Swiss/European context)       | 19-02 | Aligns with v3.0 focus on Swiss and European users, additional currencies can be added later       |
+| Non-linear scaling for salt at 67-75% rate                       | 19-03 | Taste perception doesn't scale linearly; doubling recipe doesn't need double salt                  |
+| Spices and extracts scale at 75% rate                            | 19-03 | Volatile compounds concentrate; over-scaling produces overwhelming flavor                          |
+| Leavening agents scale at 87.5% rate                             | 19-03 | Chemical reaction efficiency changes; over-leavening causes collapse                               |
+| Liquids scale down at 70%, normally up                           | 19-03 | Evaporation rate doesn't change with quantity; large batches need less proportional liquid         |
 | Unit compatibility checking enforced for food cost               | 19-02 | Prevents invalid calculations (price per kg with amount in ml), provides clear error messages      |
 | Ingredients array not synced to URL (too complex)                | 19-02 | Multiple ingredients with nested fields create unwieldy URLs, only basic fields synced             |
 
@@ -205,8 +209,8 @@ Progress: ████████░░ 50% (v3.0 — 2 of 8 phases in progress
 
 ## Session Continuity
 
-Last session: 2026-01-24T10:30:00Z
-Stopped at: Completed 19-02-PLAN.md (Food Cost Calculator)
+Last session: 2026-01-24T11:31:00Z
+Stopped at: Completed 19-03-PLAN.md (Recipe Scaler)
 Resume file: None
 
 **Next Steps:**
@@ -221,4 +225,5 @@ Resume file: None
    - ✅ Phase 17 Complete (4/4 plans)
    - ✅ Phase 19-01 Cooking Unit Converter (Complete)
    - ✅ Phase 19-02 Food Cost Calculator (Complete)
-   - Next: Phase 19-03 (Recipe Scaler) or Phase 18 (Real Estate Foundation)
+   - ✅ Phase 19-03 Recipe Scaler (Complete)
+   - Next: Phase 19-04 (Nutrition Calculator) or Phase 18 (Real Estate Foundation)
