@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { IPCalculator } from "./ip-calculator";
+
+const IPCalculator = dynamic(() => import("./ip-calculator").then((mod) => mod.IPCalculator), {
+  loading: () => <CalculatorSkeleton />,
+});
 
 /**
  * Generate static params for all locales
@@ -63,7 +68,7 @@ export default async function IPCalculatorPage({
       category={category}
       categoryName={tc("network.name")}
     >
-      <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <IPCalculator />
       </Suspense>
     </ConverterLayout>

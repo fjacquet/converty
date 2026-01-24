@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { locales } from "@/i18n/config";
-import { PropertyValuationCalculator } from "./property-valuation-calculator";
+
+const PropertyValuationCalculator = dynamic(
+  () => import("./property-valuation-calculator").then((mod) => mod.PropertyValuationCalculator),
+  {
+    loading: () => <CalculatorSkeleton />,
+  }
+);
 
 interface PageProps {
   params: Promise<{ locale: string }>;

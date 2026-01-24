@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { TimeCalculator } from "./time-calculator";
+
+const TimeCalculator = dynamic(
+  () => import("./time-calculator").then((mod) => mod.TimeCalculator),
+  {
+    loading: () => <CalculatorSkeleton />,
+  }
+);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -40,7 +48,7 @@ export default async function TimePage({ params }: { params: Promise<{ locale: s
       category={category}
       categoryName={tc("datetime.name")}
     >
-      <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <TimeCalculator />
       </Suspense>
     </ConverterLayout>

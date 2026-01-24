@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { CIDRRangeCalculator } from "./cidr-range-calculator";
+
+const CIDRRangeCalculator = dynamic(
+  () => import("./cidr-range-calculator").then((mod) => mod.CIDRRangeCalculator),
+  {
+    loading: () => <CalculatorSkeleton />,
+  }
+);
 
 /**
  * Generate static params for all locales
@@ -60,7 +68,7 @@ export default async function CIDRRangePage({ params }: { params: Promise<{ loca
       category={category}
       categoryName={tc("network.name")}
     >
-      <Suspense fallback={<div className="animate-pulse h-64 bg-muted rounded-lg" />}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <CIDRRangeCalculator />
       </Suspense>
     </ConverterLayout>

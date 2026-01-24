@@ -1,12 +1,21 @@
 // src/app/[locale]/automotive/maintenance-intervals/page.tsx
 
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { categories } from "@/lib/registry/categories";
-import { MaintenanceIntervalsCalculator } from "./maintenance-intervals-calculator";
+
+const MaintenanceIntervalsCalculator = dynamic(
+  () =>
+    import("./maintenance-intervals-calculator").then((mod) => mod.MaintenanceIntervalsCalculator),
+  {
+    loading: () => <CalculatorSkeleton />,
+  }
+);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

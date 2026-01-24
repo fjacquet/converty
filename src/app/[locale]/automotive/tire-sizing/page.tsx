@@ -1,12 +1,20 @@
 // src/app/[locale]/automotive/tire-sizing/page.tsx
 
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryById } from "@/lib/registry/categories";
-import { TireSizingCalculator } from "./tire-sizing-calculator";
+
+const TireSizingCalculator = dynamic(
+  () => import("./tire-sizing-calculator").then((mod) => mod.TireSizingCalculator),
+  {
+    loading: () => <CalculatorSkeleton />,
+  }
+);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
