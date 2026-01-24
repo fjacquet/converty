@@ -1,4 +1,4 @@
-import { Hash } from "lucide-react";
+import { Hash, Wallet } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const cryptoConverters: Record<string, ConverterMeta> = {
@@ -20,5 +20,26 @@ export const cryptoConverters: Record<string, ConverterMeta> = {
     ],
     icon: Hash,
     featured: true,
+  },
+  "wallet-validator": {
+    id: "wallet-validator",
+    slug: "wallet-validator",
+    category: "crypto",
+    subcategory: "wallet",
+    keywords: [
+      "wallet",
+      "address",
+      "bitcoin",
+      "ethereum",
+      "validate",
+      "btc",
+      "eth",
+      "ltc",
+      "litecoin",
+      "crypto",
+      "blockchain",
+    ],
+    icon: Wallet,
+    featured: false,
   },
 };

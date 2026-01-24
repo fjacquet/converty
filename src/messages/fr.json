@@ -317,6 +317,11 @@
       "description": "Calculer les valeurs de hachage MD5, SHA-1, SHA-256, SHA-512",
       "metaDescription": "Calculateur de hash en ligne gratuit. Generez des hachages cryptographiques MD5, SHA-1, SHA-256, SHA-512 a partir de texte."
     },
+    "wallet-validator": {
+      "name": "Validateur de portefeuille",
+      "description": "Valider les adresses de portefeuille Bitcoin, Ethereum et Litecoin",
+      "metaDescription": "Validateur d'adresse de portefeuille en ligne gratuit. Verifiez si les adresses Bitcoin, Ethereum ou Litecoin sont valides avec detection de format."
+    },
     "sun-position": {
       "name": "Position du Soleil",
       "description": "Calculez la position du soleil, les heures de crepuscule et les phases de lumiere pour la photographie",
@@ -2771,6 +2776,30 @@
         "warnings": {
           "md5Title": "Avertissement de securite",
           "md5Description": "MD5 est cryptographiquement casse et ne devrait pas etre utilise a des fins de securite. Utilisez SHA-256 ou SHA-512 pour un hachage securise."
+        }
+      },
+      "wallet": {
+        "input": "Entree",
+        "walletType": "Type de portefeuille",
+        "addressLabel": "Adresse de portefeuille",
+        "addressPlaceholder": "Entrez l'adresse du portefeuille a valider...",
+        "publicAddressOnly": "Adresses publiques uniquement - ne jamais entrer de cles privees",
+        "securityNotice": "Adresses publiques uniquement",
+        "securityDescription": "Les adresses de portefeuille peuvent etre partagees publiquement en toute securite. Ne jamais entrer ou partager de cles privees, de phrases de recuperation ou de mots de passe.",
+        "result": "Resultat de la validation",
+        "validAddress": "Adresse valide",
+        "invalidAddress": "Adresse invalide",
+        "walletTypeLabel": "Type de portefeuille",
+        "addressFormat": "Format d'adresse",
+        "networkType": "Type de reseau",
+        "checksumValid": "Somme de controle valide",
+        "yes": "Oui",
+        "no": "Non",
+        "warnings": {
+          "privateKeyTitle": "Cle privee detectee !",
+          "privateKeyDescription": "Cela ressemble a une cle privee ! Ne jamais partager les cles privees publiquement. Les cles privees donnent un acces complet a vos fonds.",
+          "testnetTitle": "Adresse Testnet",
+          "testnetDescription": "Il s'agit d'une adresse testnet utilisee pour le developpement et les tests. Elle n'a aucune valeur reelle sur la blockchain principale."
         }
       }
     },

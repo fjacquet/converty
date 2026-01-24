@@ -317,6 +317,11 @@
       "description": "Calcola valori hash MD5, SHA-1, SHA-256, SHA-512",
       "metaDescription": "Calcolatore di hash online gratuito. Genera hash crittografici MD5, SHA-1, SHA-256, SHA-512 da testo."
     },
+    "wallet-validator": {
+      "name": "Validatore di portafoglio",
+      "description": "Valida indirizzi di portafoglio Bitcoin, Ethereum e Litecoin",
+      "metaDescription": "Validatore di indirizzo portafoglio online gratuito. Controlla se gli indirizzi Bitcoin, Ethereum o Litecoin sono validi con rilevamento del formato."
+    },
     "sun-position": {
       "name": "Posizione Solare",
       "description": "Calcola la posizione del sole, gli orari del crepuscolo e le fasi di luce per la fotografia",
@@ -2783,6 +2788,30 @@
         "warnings": {
           "md5Title": "Avviso di sicurezza",
           "md5Description": "MD5 e crittograficamente compromesso e non dovrebbe essere usato per scopi di sicurezza. Usa SHA-256 o SHA-512 per l'hashing sicuro."
+        }
+      },
+      "wallet": {
+        "input": "Input",
+        "walletType": "Tipo di portafoglio",
+        "addressLabel": "Indirizzo portafoglio",
+        "addressPlaceholder": "Inserisci l'indirizzo del portafoglio da validare...",
+        "publicAddressOnly": "Solo indirizzi pubblici - non inserire mai chiavi private",
+        "securityNotice": "Solo indirizzi pubblici",
+        "securityDescription": "Gli indirizzi di portafoglio possono essere condivisi pubblicamente in sicurezza. Non inserire mai o condividere chiavi private, frasi di recupero o password.",
+        "result": "Risultato della validazione",
+        "validAddress": "Indirizzo valido",
+        "invalidAddress": "Indirizzo non valido",
+        "walletTypeLabel": "Tipo di portafoglio",
+        "addressFormat": "Formato indirizzo",
+        "networkType": "Tipo di rete",
+        "checksumValid": "Checksum valido",
+        "yes": "Si",
+        "no": "No",
+        "warnings": {
+          "privateKeyTitle": "Chiave privata rilevata!",
+          "privateKeyDescription": "Questo sembra una chiave privata! Non condividere mai le chiavi private pubblicamente. Le chiavi private danno accesso completo ai tuoi fondi.",
+          "testnetTitle": "Indirizzo Testnet",
+          "testnetDescription": "Questo e un indirizzo testnet utilizzato per lo sviluppo e il testing. Non ha alcun valore reale sulla blockchain principale."
         }
       }
     },

@@ -317,6 +317,11 @@
       "description": "Berechnen Sie MD5, SHA-1, SHA-256, SHA-512 Hash-Werte",
       "metaDescription": "Kostenloser Online-Hash-Rechner. Generieren Sie MD5, SHA-1, SHA-256, SHA-512 kryptographische Hashes aus Text."
     },
+    "wallet-validator": {
+      "name": "Wallet-Validator",
+      "description": "Validieren Sie Bitcoin-, Ethereum- und Litecoin-Wallet-Adressen",
+      "metaDescription": "Kostenloser Online-Wallet-Adress-Validator. Prufen Sie, ob Bitcoin-, Ethereum- oder Litecoin-Adressen mit Formaterkennung gultig sind."
+    },
     "sun-position": {
       "name": "Sonnenpositions",
       "description": "Berechnen Sie Sonnenposition, Daemmerungszeiten und Lichtphasen fuer Fotografie",
@@ -2771,6 +2776,30 @@
         "warnings": {
           "md5Title": "Sicherheitswarnung",
           "md5Description": "MD5 ist kryptographisch gebrochen und sollte nicht fur Sicherheitszwecke verwendet werden. Verwenden Sie SHA-256 oder SHA-512 fur sicheres Hashing."
+        }
+      },
+      "wallet": {
+        "input": "Eingabe",
+        "walletType": "Wallet-Typ",
+        "addressLabel": "Wallet-Adresse",
+        "addressPlaceholder": "Geben Sie die Wallet-Adresse zur Validierung ein...",
+        "publicAddressOnly": "Nur offentliche Adressen - niemals private Schlussel eingeben",
+        "securityNotice": "Nur offentliche Adressen",
+        "securityDescription": "Wallet-Adressen konnen sicher offentlich geteilt werden. Geben Sie niemals private Schlussel, Wiederherstellungsphrasen oder Passworter ein oder teilen Sie diese.",
+        "result": "Validierungsergebnis",
+        "validAddress": "Gultige Adresse",
+        "invalidAddress": "Ungultige Adresse",
+        "walletTypeLabel": "Wallet-Typ",
+        "addressFormat": "Adressformat",
+        "networkType": "Netzwerktyp",
+        "checksumValid": "Prüfsumme gültig",
+        "yes": "Ja",
+        "no": "Nein",
+        "warnings": {
+          "privateKeyTitle": "Privater Schlussel erkannt!",
+          "privateKeyDescription": "Dies sieht nach einem privaten Schlussel aus! Teilen Sie niemals private Schlussel offentlich. Private Schlussel gewahren vollen Zugriff auf Ihre Guthaben.",
+          "testnetTitle": "Testnet-Adresse",
+          "testnetDescription": "Dies ist eine Testnet-Adresse, die fur Entwicklung und Tests verwendet wird. Sie hat keinen realen Wert auf der Haupt-Blockchain."
         }
       }
     },

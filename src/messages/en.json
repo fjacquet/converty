@@ -317,6 +317,11 @@
       "description": "Calculate MD5, SHA-1, SHA-256, SHA-512 hash values",
       "metaDescription": "Free online hash calculator. Generate MD5, SHA-1, SHA-256, SHA-512 cryptographic hashes from text input."
     },
+    "wallet-validator": {
+      "name": "Wallet Validator",
+      "description": "Validate Bitcoin, Ethereum, and Litecoin wallet addresses",
+      "metaDescription": "Free online wallet address validator. Check if Bitcoin, Ethereum, or Litecoin addresses are valid with format detection."
+    },
     "sun-position": {
       "name": "Sun Position",
       "description": "Calculate sun position, twilight times, and light phases for photography",
@@ -2806,6 +2811,30 @@
         "warnings": {
           "md5Title": "Security Warning",
           "md5Description": "MD5 is cryptographically broken and should not be used for security purposes. Use SHA-256 or SHA-512 for secure hashing."
+        }
+      },
+      "wallet": {
+        "input": "Input",
+        "walletType": "Wallet Type",
+        "addressLabel": "Wallet Address",
+        "addressPlaceholder": "Enter wallet address to validate...",
+        "publicAddressOnly": "Public addresses only - never enter private keys",
+        "securityNotice": "Public Addresses Only",
+        "securityDescription": "Wallet addresses are safe to share publicly. Never enter or share private keys, seed phrases, or passwords.",
+        "result": "Validation Result",
+        "validAddress": "Valid Address",
+        "invalidAddress": "Invalid Address",
+        "walletTypeLabel": "Wallet Type",
+        "addressFormat": "Address Format",
+        "networkType": "Network Type",
+        "checksumValid": "Checksum Valid",
+        "yes": "Yes",
+        "no": "No",
+        "warnings": {
+          "privateKeyTitle": "Private Key Detected!",
+          "privateKeyDescription": "This looks like a private key! Never share private keys publicly. Private keys give full access to your funds.",
+          "testnetTitle": "Testnet Address",
+          "testnetDescription": "This is a testnet address used for development and testing. It has no real value on the main blockchain."
         }
       }
     },
