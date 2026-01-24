@@ -10,14 +10,14 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 17 - Crypto/Blockchain Foundation
-Plan: 17-01 Hash Calculator (Complete)
-Status: Hash Calculator shipped with MD5/SHA-1/SHA-256/SHA-512 support
-Last activity: 2026-01-24 — Hash calculator completed with crypto-js and WebCrypto
+Plan: 17-02 Wallet Validator (Complete)
+Status: Wallet address validator shipped with Bitcoin/Ethereum/Litecoin support
+Last activity: 2026-01-24 — Wallet validator completed with format detection and security warnings
 
-Progress: ████████░░ 12.5% (v3.0 — 1 of 8 phases started, 1 of 4 plans in Phase 17 complete)
+Progress: ████████░░ 25% (v3.0 — 1 of 8 phases started, 2 of 4 plans in Phase 17 complete)
 
 **Next Steps:**
-1. Execute remaining plans in Phase 17: Base58/Base64 (17-02), QR Code (17-03), Blockchain Explorer (17-04)
+1. Execute remaining plans in Phase 17: Base58/Base64 (17-03), QR Code (17-04)
 2. Or continue to Phase 18-25 as defined in v3.0 roadmap
 
 ## Performance Metrics
@@ -166,6 +166,10 @@ Progress: ████████░░ 12.5% (v3.0 — 1 of 8 phases started, 
 | Use crypto-js for MD5, WebCrypto for SHA algorithms              | 17-01 | MD5 not available in WebCrypto, crypto-js provides compatibility for legacy algorithm              |
 | Card with destructive border for warnings without Alert          | 17-01 | Alert component not available in project, Card with styling provides equivalent warning UX         |
 | Auto-calculate hash on text/algorithm change                     | 17-01 | Better UX than manual button, async calculation handled with loading states                        |
+| Use wallet-address-validator library for crypto addresses        | 17-02 | 2KB gzipped, supports 30+ currencies including BTC/ETH/LTC, battle-tested validation logic         |
+| Detect private key patterns with security warnings               | 17-02 | Prevent accidental exposure - WIF (5/K/L prefix) and hex (64 chars) pattern detection              |
+| Provide format descriptions for educational value                | 17-02 | Help users understand address types (P2PKH Legacy vs P2WPKH Native SegWit vs P2TR Taproot)         |
+| Security notices use blue Card styling (non-destructive)         | 17-02 | Distinguish informational security context from critical warnings (destructive red border)          |
 
 ### Milestone Evolution
 
@@ -179,12 +183,15 @@ Progress: ████████░░ 12.5% (v3.0 — 1 of 8 phases started, 
 
 ## Session Continuity
 
-Last session: 2026-01-22T22:00:00Z
-Stopped at: v2.0 milestone archived and completed
+Last session: 2026-01-24T07:08:03Z
+Stopped at: Completed 17-02-PLAN.md (Wallet Validator)
 Resume file: None
 
 **Next Steps:**
 
 1. ✅ v1.0 Infrastructure Upgrade shipped (2026-01-18)
 2. ✅ v2.0 Network Tools & User Experience shipped (2026-01-22)
-3. Next: Start v3.0 planning with `/gsd:new-milestone`
+3. ▶ v3.0 Calculator Expansion & Performance (in progress)
+   - ✅ Phase 17-01 Hash Calculator (Complete)
+   - ✅ Phase 17-02 Wallet Validator (Complete)
+   - Next: Phase 17-03 Base58/Base64 or Phase 17-04 QR Code
