@@ -53,6 +53,7 @@
     "react-dom": "^19.2.3",
     "recharts": "^3.6.0",
     "tailwind-merge": "^3.4.0",
+    "wallet-address-validator": "^0.2.4",
     "workbox-window": "^7.4.0",
     "zustand": "^5.0.10"
   },
