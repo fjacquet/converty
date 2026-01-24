@@ -961,6 +961,11 @@
       "name": "Calculateur de cout alimentaire",
       "description": "Calculer le cout total de la recette et le cout par portion a partir des prix des ingredients",
       "metaDescription": "Calculateur de cout alimentaire gratuit. Calculez le cout des recettes, le cout par portion et la repartition des depenses en ingredients."
+    },
+    "recipe-scaler": {
+      "name": "Mise a l'echelle de recette",
+      "description": "Mettre a l'echelle les ingredients avec des ajustements intelligents pour le sel, les epices et les agents levants",
+      "metaDescription": "Mise a l'echelle de recettes gratuite. Doublez ou divisez par deux les recettes avec une mise a l'echelle intelligente."
     }
   },
   "calculator": {
@@ -3109,6 +3114,40 @@
         "leastExpensive": "Moins cher",
         "costBreakdown": "Repartition des couts par ingredient",
         "calculationSteps": "Etapes de calcul"
+      },
+      "recipeScaler": {
+        "recipeInfo": "Informations sur la recette",
+        "recipeInfoDescription": "Entrez les portions de votre recette pour calculer le facteur d'echelle",
+        "recipeName": "Nom de la recette",
+        "recipeNamePlaceholder": "ex: Cookies aux pepites de chocolat",
+        "originalServings": "Portions originales",
+        "desiredServings": "Portions souhaitees",
+        "scaleFactor": "Facteur d'echelle",
+        "scalingUp": "Augmentation",
+        "scalingDown": "Reduction",
+        "ingredients": "Ingredients",
+        "ingredientsDescription": "Ajoutez les ingredients avec leur type pour une mise a l'echelle intelligente",
+        "ingredientName": "Ingredient",
+        "ingredientPlaceholder": "ex: Farine",
+        "amount": "Quantite",
+        "unit": "Unite",
+        "type": "Type",
+        "addIngredient": "Ajouter un ingredient",
+        "result": "Recette mise a l'echelle",
+        "resultDescription": "Mise a l'echelle de {original} a {desired} portions",
+        "scalingNotes": "Notes de mise a l'echelle",
+        "original": "Original",
+        "scaled": "Mis a l'echelle",
+        "fractional": "Fractionnel",
+        "calculationSteps": "Etapes de calcul",
+        "types": {
+          "standard": "Standard",
+          "salt": "Sel",
+          "spice": "Epice/Herbe",
+          "leavening": "Agent levant",
+          "liquid": "Liquide",
+          "extract": "Extrait"
+        }
       }
     },
     "health": {

@@ -961,6 +961,11 @@
       "name": "Lebensmittelkostenrechner",
       "description": "Berechnen Sie die Gesamtrezeptkosten und Kosten pro Portion aus den Zutatenpreisen",
       "metaDescription": "Kostenloser Lebensmittelkostenrechner. Berechnen Sie Rezeptkosten, Kosten pro Portion und Aufschlusselung der Zutatenkosten."
+    },
+    "recipe-scaler": {
+      "name": "Rezeptskalierung",
+      "description": "Rezeptzutaten mit intelligenten Anpassungen fur Salz, Gewurze und Backtriebmittel skalieren",
+      "metaDescription": "Kostenlose Rezeptskalierung. Verdoppeln oder halbieren Sie Rezepte mit intelligenter Skalierung fur perfekte Ergebnisse."
     }
   },
   "calculator": {
@@ -3109,6 +3114,40 @@
         "leastExpensive": "Am gunstigsten",
         "costBreakdown": "Kostenaufschlusselung nach Zutat",
         "calculationSteps": "Berechnungsschritte"
+      },
+      "recipeScaler": {
+        "recipeInfo": "Rezeptinformationen",
+        "recipeInfoDescription": "Geben Sie die Portionen Ihres Rezepts ein, um den Skalierungsfaktor zu berechnen",
+        "recipeName": "Rezeptname",
+        "recipeNamePlaceholder": "z.B. Schokoladenkekse",
+        "originalServings": "Ursprungliche Portionen",
+        "desiredServings": "Gewunschte Portionen",
+        "scaleFactor": "Skalierungsfaktor",
+        "scalingUp": "Hochskalieren",
+        "scalingDown": "Herunterskalieren",
+        "ingredients": "Zutaten",
+        "ingredientsDescription": "Fugen Sie Zutaten mit ihrem Typ fur intelligente Skalierung hinzu",
+        "ingredientName": "Zutat",
+        "ingredientPlaceholder": "z.B. Mehl",
+        "amount": "Menge",
+        "unit": "Einheit",
+        "type": "Typ",
+        "addIngredient": "Zutat hinzufugen",
+        "result": "Skaliertes Rezept",
+        "resultDescription": "Skaliert von {original} auf {desired} Portionen",
+        "scalingNotes": "Skalierungshinweise",
+        "original": "Original",
+        "scaled": "Skaliert",
+        "fractional": "Bruch",
+        "calculationSteps": "Berechnungsschritte",
+        "types": {
+          "standard": "Standard",
+          "salt": "Salz",
+          "spice": "Gewurz/Kraut",
+          "leavening": "Backtriebmittel",
+          "liquid": "Flussigkeit",
+          "extract": "Extrakt"
+        }
       }
     },
     "health": {

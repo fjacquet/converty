@@ -961,6 +961,11 @@
       "name": "Calcolatore costo cibo",
       "description": "Calcola il costo totale della ricetta e il costo per porzione dai prezzi degli ingredienti",
       "metaDescription": "Calcolatore gratuito del costo del cibo. Calcola il costo della ricetta, il costo per porzione e la ripartizione delle spese degli ingredienti."
+    },
+    "recipe-scaler": {
+      "name": "Ridimensionamento ricetta",
+      "description": "Ridimensiona gli ingredienti delle ricette con regolazioni intelligenti per sale, spezie e agenti lievitanti",
+      "metaDescription": "Ridimensionamento ricette gratuito. Raddoppia o dimezza le ricette con scala intelligente per risultati perfetti."
     }
   },
   "calculator": {
@@ -3121,6 +3126,40 @@
         "leastExpensive": "Meno costoso",
         "costBreakdown": "Ripartizione costi per ingrediente",
         "calculationSteps": "Passaggi di calcolo"
+      },
+      "recipeScaler": {
+        "recipeInfo": "Informazioni sulla ricetta",
+        "recipeInfoDescription": "Inserisci le porzioni della ricetta per calcolare il fattore di scala",
+        "recipeName": "Nome ricetta",
+        "recipeNamePlaceholder": "es: Biscotti con gocce di cioccolato",
+        "originalServings": "Porzioni originali",
+        "desiredServings": "Porzioni desiderate",
+        "scaleFactor": "Fattore di scala",
+        "scalingUp": "Aumento",
+        "scalingDown": "Riduzione",
+        "ingredients": "Ingredienti",
+        "ingredientsDescription": "Aggiungi ingredienti con il loro tipo per una scalatura intelligente",
+        "ingredientName": "Ingrediente",
+        "ingredientPlaceholder": "es: Farina",
+        "amount": "Quantita",
+        "unit": "Unita",
+        "type": "Tipo",
+        "addIngredient": "Aggiungi ingrediente",
+        "result": "Ricetta ridimensionata",
+        "resultDescription": "Ridimensionata da {original} a {desired} porzioni",
+        "scalingNotes": "Note sulla scalatura",
+        "original": "Originale",
+        "scaled": "Scalato",
+        "fractional": "Frazionario",
+        "calculationSteps": "Passaggi di calcolo",
+        "types": {
+          "standard": "Standard",
+          "salt": "Sale",
+          "spice": "Spezia/Erba",
+          "leavening": "Agente lievitante",
+          "liquid": "Liquido",
+          "extract": "Estratto"
+        }
       }
     },
     "health": {
