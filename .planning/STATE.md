@@ -9,16 +9,17 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: 20 - Automotive Calculators (Complete)
-Plan: 20-03 Maintenance Intervals Calculator (Complete)
-Status: Phase 20 complete - all 4 automotive calculators operational (Fuel Efficiency, Tire Sizing, Maintenance Intervals, Vehicle Financing)
-Last activity: 2026-01-24 — Completed 20-03-PLAN.md (Maintenance Intervals Calculator with Swiss MFK support)
+Phase: 21 - Code Splitting & Lazy Loading
+Plan: 21-01 Bundle Analysis & Loading Infrastructure (Complete)
+Status: Phase 21 in progress - bundle analyzer integrated, baseline metrics captured
+Last activity: 2026-01-24 — Completed 21-01-PLAN.md (Bundle Analysis & Loading Infrastructure)
 
-Progress: ████████████████░░ 66.7% (v3.0 — 4 of 6 phases complete, Phases 17, 18, 19, 20 verified)
+Progress: ████████████████░░ 83.3% (v3.0 — 5 of 6 phases started, Phases 17-21 in progress)
 
 **Next Steps:**
-1. Begin Phase 21 or next milestone phase
-2. Continue v3.0 Calculator Expansion & Performance
+
+1. Continue Phase 21 (Plan 21-02: Dynamic imports for calculators)
+2. Complete v3.0 Calculator Expansion & Performance milestone
 
 ## Performance Metrics
 
@@ -67,6 +68,7 @@ Progress: ████████████████░░ 66.7% (v3.0 —
 | 18-real-estate-foundation       | 4/4   | 28 min | 7 min    |
 | 19-cooking-nutrition-foundation | 4/4   | 35 min | 8.75 min |
 | 20-automotive-calculators       | 4/4   | 30 min | 7.5 min  |
+| 21-code-splitting               | 1/?   | 5 min  | 5 min    |
 
 ## Accumulated Context
 
@@ -206,6 +208,9 @@ Progress: ████████████████░░ 66.7% (v3.0 —
 | ETRTO standards for load index and speed ratings                  | 20-02 | European Tyre and Rim Technical Organisation is official tire specification source                |
 | ±3% diameter tolerance threshold for tire compatibility           | 20-02 | Industry standard - >3% warns speedometer impact, >5% warns ABS/traction control issues           |
 | Speedometer error based on diameter difference                    | 20-02 | Larger diameter = higher actual speed; formula: speedometerError% = diameterDifference%           |
+| Bundle analyzer enabled via ANALYZE=true environment variable     | 21-01 | On-demand analysis prevents analyzer from running in every build, cleaner workflow                |
+| Baseline metrics with sample routes for comparison                | 21-01 | 210 chunks (6.4MB JS), sample pages ~184KB - comparison points for measuring code splitting      |
+| Configurable skeleton props for loading states                    | 21-01 | CalculatorSkeleton accepts inputCount and showResults for flexible Suspense fallbacks             |
 
 ### Milestone Evolution
 
@@ -219,8 +224,8 @@ Progress: ████████████████░░ 66.7% (v3.0 —
 
 ## Session Continuity
 
-Last session: 2026-01-24T15:30:00Z
-Stopped at: Completed 20-04-PLAN.md (Vehicle Financing Calculator)
+Last session: 2026-01-24T18:21:44Z
+Stopped at: Completed 21-01-PLAN.md (Bundle Analysis & Loading Infrastructure)
 Resume file: None
 
 **Next Steps:**
@@ -228,25 +233,10 @@ Resume file: None
 1. ✅ v1.0 Infrastructure Upgrade shipped (2026-01-18)
 2. ✅ v2.0 Network Tools & User Experience shipped (2026-01-22)
 3. ▶ v3.0 Calculator Expansion & Performance (in progress)
-   - ✅ Phase 17-01 Hash Calculator (Complete)
-   - ✅ Phase 17-02 Wallet Validator (Complete)
-   - ✅ Phase 17-03 Exchange Rate Calculator (Complete)
-   - ✅ Phase 17-04 Mining Profitability Calculator (Complete)
-   - ✅ Phase 17 Complete (4/4 plans)
-   - ✅ Phase 18-01 Setup & Static Data (Complete)
-   - ✅ Phase 18-02 Mortgage Calculator (Complete)
-   - ✅ Phase 18-03 Rental Yield Calculator (Complete)
-   - ✅ Phase 18-04 Property Valuation Calculator (Complete)
-   - ✅ Phase 18 Complete (4/4 plans)
-   - ✅ Phase 19-01 Cooking Unit Converter (Complete)
-   - ✅ Phase 19-02 Food Cost Calculator (Complete)
-   - ✅ Phase 19-03 Recipe Scaler (Complete)
-   - ✅ Phase 19-04 Nutrition Calculator (Complete)
-   - ✅ Phase 19 Complete (4/4 plans)
-   - ✅ Phase 20-01 Fuel Efficiency Calculator (Complete)
-   - ✅ Phase 20-02 Tire Sizing Calculator (Complete)
-   - ✅ Phase 20-03 Maintenance Intervals Calculator (Complete)
-   - ✅ Phase 20-04 Vehicle Financing Calculator (Complete)
-   - ✅ Phase 20 Complete (4/4 plans)
-   - Next: Phase 21 or next milestone phase
-
+   - ✅ Phase 17 Complete (4/4 plans) - Crypto & Blockchain
+   - ✅ Phase 18 Complete (4/4 plans) - Real Estate
+   - ✅ Phase 19 Complete (4/4 plans) - Cooking & Nutrition
+   - ✅ Phase 20 Complete (4/4 plans) - Automotive
+   - ▶ Phase 21 In Progress (1/? plans) - Code Splitting & Lazy Loading
+     - ✅ 21-01 Bundle Analysis & Loading Infrastructure (Complete)
+     - Next: 21-02 Dynamic Imports for Calculators
