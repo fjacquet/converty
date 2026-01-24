@@ -221,7 +221,7 @@ export function MaintenanceIntervalsCalculator() {
                     onCheckedChange={() => toggleService(service.id)}
                   />
                   <Label htmlFor={service.id} className="text-sm cursor-pointer">
-                    {service.name}
+                    {t(`serviceTypes.${service.id}`)}
                   </Label>
                 </div>
               ))}
@@ -242,11 +242,13 @@ export function MaintenanceIntervalsCalculator() {
               .map((service) => (
                 <div key={service.id} className="grid grid-cols-3 gap-4 items-end">
                   <div>
-                    <Label className="text-sm font-medium">{service.name}</Label>
+                    <Label className="text-sm font-medium">{t(`serviceTypes.${service.id}`)}</Label>
                     <p className="text-xs text-muted-foreground">
-                      {service.intervalKm ? `Every ${service.intervalKm.toLocaleString()} km` : ""}
-                      {service.intervalKm && service.intervalMonths ? " or " : ""}
-                      {service.intervalMonths ? `${service.intervalMonths} months` : ""}
+                      {service.intervalKm
+                        ? `${commonT("every")} ${service.intervalKm.toLocaleString()} km`
+                        : ""}
+                      {service.intervalKm && service.intervalMonths ? ` ${commonT("or")} ` : ""}
+                      {service.intervalMonths ? `${service.intervalMonths} ${t("months")}` : ""}
                     </p>
                   </div>
                   <div className="space-y-1">
@@ -378,7 +380,7 @@ export function MaintenanceIntervalsCalculator() {
                       {getStatusIcon(service.status)}
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <h4 className="font-medium">{service.service.name}</h4>
+                          <h4 className="font-medium">{t(`serviceTypes.${service.service.id}`)}</h4>
                           <span className="text-sm font-medium">{service.urgencyMessage}</span>
                         </div>
                         <p className="text-sm text-muted-foreground mt-1">
