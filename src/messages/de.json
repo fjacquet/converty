@@ -80,6 +80,10 @@
       "name": "Physik",
       "description": "Physikalische Einheitenkonverter"
     },
+    "realestate": {
+      "name": "Immobilien",
+      "description": "Immobilienbewertung und Hypothekenrechner"
+    },
     "video": {
       "name": "Video",
       "description": "Video- und Medien"
@@ -114,6 +118,8 @@
     "statistics": "Statistik",
     "numbers": "Zahlensysteme",
     "advanced": "Fortgeschritten",
+    "valuation": "Immobilienbewertung",
+    "investment": "Investitionsanalyse",
     "storage": "Speicher und Dateien",
     "network": "Netzwerk",
     "subnet": "Subnetting",
@@ -331,6 +337,21 @@
       "name": "Wallet-Validator",
       "description": "Validieren Sie Bitcoin-, Ethereum- und Litecoin-Wallet-Adressen",
       "metaDescription": "Kostenloser Online-Wallet-Adress-Validator. Prufen Sie, ob Bitcoin-, Ethereum- oder Litecoin-Adressen mit Formaterkennung gultig sind."
+    },
+    "mortgage-swiss": {
+      "name": "Schweizer Hypothekenrechner",
+      "description": "Berechnen Sie Hypothekenzahlungen mit CHF/EUR-Unterstutzung und Schweizer Marktzinsen",
+      "metaDescription": "Kostenloser Schweizer Hypothekenrechner mit CHF und EUR. Berechnen Sie monatliche Zahlungen, Amortisationsplane und Gesamtkosten."
+    },
+    "rental-yield": {
+      "name": "Mietrendite-Rechner",
+      "description": "Berechnen Sie Brutto- und Nettomietrendite fur Schweizer Immobilieninvestitionen",
+      "metaDescription": "Kostenloser Mietrendite-Rechner fur Schweizer Immobilieninvestoren. Berechnen Sie Brutto- und Nettorenditen."
+    },
+    "property-valuation": {
+      "name": "Immobilienbewertungsrechner",
+      "description": "Schatzen Sie Schweizer Immobilienwerte mit der hedonischen Methode",
+      "metaDescription": "Kostenloser Schweizer Immobilienbewertungsrechner. Schatzen Sie Wohnungs- und Hauswerte basierend auf Lage, Grosse und Zustand."
     },
     "sun-position": {
       "name": "Sonnenpositions",

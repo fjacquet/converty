@@ -12,6 +12,7 @@ import { musicConverters } from "./music-converters";
 import { networkConverters } from "./network-converters";
 import { photoConverters } from "./photo-converters";
 import { physicsConverters } from "./physics-converters";
+import { realestateConverters } from "./realestate-converters";
 import { videoConverters } from "./video-converters";
 import { webConverters } from "./web-converters";
 
@@ -29,6 +30,7 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   ...videoConverters,
   ...webConverters,
   ...financeConverters,
+  ...realestateConverters,
   ...mathConverters,
 };
 

@@ -80,6 +80,10 @@
       "name": "Physique",
       "description": "Convertisseurs d'unites physiques"
     },
+    "realestate": {
+      "name": "Immobilier",
+      "description": "Calculateurs d'evaluation immobiliere et hypotheques"
+    },
     "video": {
       "name": "Video",
       "description": "Calculateurs video et media"
@@ -114,6 +118,8 @@
     "statistics": "Statistiques",
     "numbers": "Systemes Numeriques",
     "advanced": "Avance",
+    "valuation": "Evaluation immobiliere",
+    "investment": "Analyse d'investissement",
     "storage": "Stockage et Fichiers",
     "network": "Reseau",
     "subnet": "Sous-réseautage",
@@ -331,6 +337,21 @@
       "name": "Validateur de portefeuille",
       "description": "Valider les adresses de portefeuille Bitcoin, Ethereum et Litecoin",
       "metaDescription": "Validateur d'adresse de portefeuille en ligne gratuit. Verifiez si les adresses Bitcoin, Ethereum ou Litecoin sont valides avec detection de format."
+    },
+    "mortgage-swiss": {
+      "name": "Calculateur hypothecaire suisse",
+      "description": "Calculez les paiements hypothecaires avec support CHF/EUR et taux suisses",
+      "metaDescription": "Calculateur hypothecaire suisse gratuit avec support CHF et EUR. Calculez les mensualites, plans d'amortissement et couts totaux."
+    },
+    "rental-yield": {
+      "name": "Calculateur de rendement locatif",
+      "description": "Calculez le rendement locatif brut et net pour les investissements immobiliers suisses",
+      "metaDescription": "Calculateur de rendement locatif gratuit pour les investisseurs immobiliers suisses. Calculez les rendements bruts et nets."
+    },
+    "property-valuation": {
+      "name": "Calculateur d'evaluation immobiliere",
+      "description": "Estimez la valeur des biens immobiliers suisses avec la methode hedonique",
+      "metaDescription": "Calculateur d'evaluation immobiliere suisse gratuit. Estimez la valeur des appartements et maisons selon l'emplacement, la taille et l'etat."
     },
     "sun-position": {
       "name": "Position du Soleil",

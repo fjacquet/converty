@@ -80,6 +80,10 @@
       "name": "Physics",
       "description": "Physics and unit converters"
     },
+    "realestate": {
+      "name": "Real Estate",
+      "description": "Property valuation and mortgage calculators"
+    },
     "video": {
       "name": "Video",
       "description": "Video and media calculators"
@@ -114,6 +118,8 @@
     "statistics": "Statistics",
     "numbers": "Number Systems",
     "advanced": "Advanced",
+    "valuation": "Property Valuation",
+    "investment": "Investment Analysis",
     "storage": "Storage & Files",
     "network": "Network",
     "subnet": "Subnetting",
@@ -331,6 +337,21 @@
       "name": "Wallet Validator",
       "description": "Validate Bitcoin, Ethereum, and Litecoin wallet addresses",
       "metaDescription": "Free online wallet address validator. Check if Bitcoin, Ethereum, or Litecoin addresses are valid with format detection."
+    },
+    "mortgage-swiss": {
+      "name": "Swiss Mortgage Calculator",
+      "description": "Calculate mortgage payments with CHF/EUR support and Swiss market rates",
+      "metaDescription": "Free Swiss mortgage calculator with CHF and EUR support. Calculate monthly payments, amortization schedules, and total costs with Swiss market rates."
+    },
+    "rental-yield": {
+      "name": "Rental Yield Calculator",
+      "description": "Calculate gross and net rental yield for Swiss property investments",
+      "metaDescription": "Free rental yield calculator for Swiss property investors. Calculate gross and net yields, compare to market averages, and analyze investment returns."
+    },
+    "property-valuation": {
+      "name": "Property Valuation Calculator",
+      "description": "Estimate Swiss property values using the hedonic method",
+      "metaDescription": "Free Swiss property valuation calculator. Estimate apartment and house values based on location, size, condition, and features."
     },
     "sun-position": {
       "name": "Sun Position",

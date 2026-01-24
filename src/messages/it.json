@@ -80,6 +80,10 @@
       "name": "Fisica",
       "description": "Convertitori unita fisiche"
     },
+    "realestate": {
+      "name": "Immobiliare",
+      "description": "Calcolatori di valutazione immobiliare e mutui"
+    },
     "video": {
       "name": "Video",
       "description": "Calcolatori video e media"
@@ -114,6 +118,8 @@
     "statistics": "Statistica",
     "numbers": "Sistemi Numerici",
     "advanced": "Avanzato",
+    "valuation": "Valutazione immobiliare",
+    "investment": "Analisi degli investimenti",
     "storage": "Archiviazione e File",
     "network": "Rete",
     "subnet": "Subnetting",
@@ -331,6 +337,21 @@
       "name": "Validatore di portafoglio",
       "description": "Valida indirizzi di portafoglio Bitcoin, Ethereum e Litecoin",
       "metaDescription": "Validatore di indirizzo portafoglio online gratuito. Controlla se gli indirizzi Bitcoin, Ethereum o Litecoin sono validi con rilevamento del formato."
+    },
+    "mortgage-swiss": {
+      "name": "Calcolatore ipotecario svizzero",
+      "description": "Calcola i pagamenti del mutuo con supporto CHF/EUR e tassi di mercato svizzeri",
+      "metaDescription": "Calcolatore ipotecario svizzero gratuito con supporto CHF e EUR. Calcola rate mensili, piani di ammortamento e costi totali."
+    },
+    "rental-yield": {
+      "name": "Calcolatore del rendimento da locazione",
+      "description": "Calcola il rendimento lordo e netto per gli investimenti immobiliari svizzeri",
+      "metaDescription": "Calcolatore gratuito del rendimento da locazione per investitori immobiliari svizzeri. Calcola rendimenti lordi e netti."
+    },
+    "property-valuation": {
+      "name": "Calcolatore di valutazione immobiliare",
+      "description": "Stima i valori immobiliari svizzeri utilizzando il metodo edonico",
+      "metaDescription": "Calcolatore gratuito di valutazione immobiliare svizzero. Stima il valore di appartamenti e case in base a posizione, dimensioni e condizioni."
     },
     "sun-position": {
       "name": "Posizione Solare",
