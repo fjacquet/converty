@@ -109,32 +109,58 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Current Milestone: v3.0 Calculator Expansion & Performance (Planning)
 
-**Goal:** Expand calculator coverage with new categories, optimize performance, and enhance UX with bookmarking and history features.
+**Goal:** Expand calculator coverage with 4 new categories, optimize performance with code splitting/lazy loading, and enhance UX with favorites, history, and export.
 
-**Target features:**
-
-- Expand calculator collection with new categories (100+ new calculators)
-- Performance optimization (code splitting, lazy loading, virtualization)
-- User experience enhancements (favorites, calculation history, export)
+**Status:** Planning phase — Requirements defined, roadmap created
 
 ### Active
 
 <!-- v3.0 Planning Phase -->
 
-**Planned phases:** 17-24 (8 phases estimated)
+**Confirmed Features:**
 
-To be detailed after `/gsd:new-milestone` requirements gathering.
+**Calculator Expansion (16 core calculators across 4 new categories):**
+- Crypto/Blockchain: Hash calculations, wallet conversions, exchange rates, mining profitability (4 calculators)
+- Real Estate: Mortgage, property valuation, ROI, amortization (4 calculators)
+- Cooking/Nutrition: Recipe scaling, nutrition facts, unit conversions, food cost (4 calculators)
+- Automotive: Fuel efficiency, tire sizing, maintenance, vehicle payments (4 calculators)
 
-### Out of Scope
+**Performance Optimization:**
+- Code splitting & lazy loading by calculator category
+- Initial bundle size reduction
+- Virtualized search/browse for 200+ calculators
+- FCP improvement through lazy loading
 
-- Adding new calculators to the collection — deferring calculator expansion to next phase
-- UI/UX redesigns or visual updates — existing design works well
-- Analytics or telemetry integration — privacy-focused, defer to future milestone
-- Major performance optimizations (code splitting, lazy loading, virtualization) — defer to performance phase
-- Error boundaries for calculators — good idea but not critical
-- Test framework setup — important but separate phase
-- Accessibility (a11y) rule fixes — important but separate phase
-- Real-time collaboration features — massive complexity, not core value
+**User Experience:**
+- Favorites/bookmarking system with localStorage persistence
+- Calculation history with restore functionality
+- Export results as PDF and CSV
+- Count badge for favorites in navigation
+
+**Planned phases:** 17-24 (8 phases)
+
+**Requirements:** 34 total (100% mapped to phases)
+- CRYPT-01 through CRYPT-04 (Crypto/Blockchain)
+- REAL-01 through REAL-04 (Real Estate)
+- COOK-01 through COOK-04 (Cooking/Nutrition)
+- AUTO-01 through AUTO-04 (Automotive)
+- PERF-01 through PERF-04 (Performance)
+- FAV-01 through FAV-05 (Favorites)
+- HIST-01 through HIST-05 (History)
+- EXP-01 through EXP-04 (Export)
+
+### Out of Scope for v3.0
+
+- Server-side rendering — static export constraint maintained
+- User accounts/authentication — localStorage sufficient for v3.0
+- Real-time collaboration — high complexity, deferred to v4.0+
+- Analytics/telemetry — privacy-focused, deferred to v5.0+
+- Native mobile apps — web app sufficient for v3.0
+- Advanced PWA features beyond v2.0 — keep current implementation
+- Test framework setup — important but separate milestone
+- Accessibility (a11y) comprehensive audit — important but separate milestone
+- Major UI/UX redesigns — existing design works well
+- Multi-language calculator logic — English for calculations, UI i18n maintained
 
 ## Context
 
@@ -254,4 +280,4 @@ Calculators: 156 registered (4 new network calculators added)
 
 ---
 
-_Last updated: 2026-01-22 after v2.0 milestone completion_
+_Last updated: 2026-01-24 after v3.0 milestone initialization_
