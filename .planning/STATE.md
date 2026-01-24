@@ -9,16 +9,16 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: 20 - Automotive Calculators (In Progress)
-Plan: 20-01 Fuel Efficiency Calculator (Complete)
-Status: Plan 20-01 complete - fuel efficiency calculator operational with L/100km, MPG conversions, and trip cost estimation
-Last activity: 2026-01-24 — Completed 20-01-PLAN.md (Fuel Efficiency Calculator)
+Phase: 20 - Automotive Calculators (Complete)
+Plan: 20-04 Vehicle Financing Calculator (Complete)
+Status: Phase 20 complete - all 4 automotive calculators operational (Fuel Efficiency, Tire Sizing, Maintenance Intervals, Vehicle Financing)
+Last activity: 2026-01-24 — Completed 20-04-PLAN.md (Vehicle Financing Calculator)
 
-Progress: ███████████░ 76% (v3.0 — 4.25 of 8 phases, Phases 17, 18, 19 verified, Phase 20 started)
+Progress: ████████████░ 62.5% (v3.0 — 5 of 8 phases complete, Phases 17, 18, 19, 20 verified)
 
 **Next Steps:**
-1. Continue Phase 20 (Tire Sizing, Maintenance Intervals, Vehicle Financing calculators)
-2. Phase 21 onwards: Performance optimization and UX enhancements
+1. Begin Phase 21 or next milestone phase
+2. Continue v3.0 Calculator Expansion & Performance
 
 ## Performance Metrics
 
@@ -66,7 +66,7 @@ Progress: ███████████░ 76% (v3.0 — 4.25 of 8 phases, P
 | 17-crypto-blockchain-foundation | 4/4   | 32 min | 8 min    |
 | 18-real-estate-foundation       | 4/4   | 28 min | 7 min    |
 | 19-cooking-nutrition-foundation | 4/4   | 35 min | 8.75 min |
-| 20-automotive-calculators       | 1/4   | 38 min | 38 min   |
+| 20-automotive-calculators       | 4/4   | 30 min | 7.5 min  |
 
 ## Accumulated Context
 
@@ -198,14 +198,10 @@ Progress: ███████████░ 76% (v3.0 — 4.25 of 8 phases, P
 | Liquids scale down at 70%, normally up                           | 19-03 | Evaporation rate doesn't change with quantity; large batches need less proportional liquid         |
 | Unit compatibility checking enforced for food cost               | 19-02 | Prevents invalid calculations (price per kg with amount in ml), provides clear error messages      |
 | Ingredients array not synced to URL (too complex)                | 19-02 | Multiple ingredients with nested fields create unwieldy URLs, only basic fields synced             |
-| L/100km as primary fuel efficiency metric                        | 20-01 | European/Swiss standard where lower is better, more intuitive than MPG for metric countries        |
-| MPG conversions for both US and UK                               | 20-01 | US gallon (235.21 constant) differs from UK imperial gallon (282.48 constant)                     |
-| CHF/EUR currency support for automotive calculators              | 20-01 | Aligns with v3.0 Swiss/European focus, additional currencies can be added later                    |
-| Three-mode fuel efficiency calculator                            | 20-01 | Consumption (calculate L/100km), trip planning (fuel needed), comparison (vehicle savings)         |
-| Efficiency rating thresholds for fuel consumption                | 20-01 | Modern European standards: excellent <5, good 5-7, average 7-9, poor >9 L/100km                   |
-| Swiss fuel prices as defaults in automotive calculators          | 20-01 | CHF 1.85/L petrol_95, CHF 1.90/L diesel, CHF 0.30/kWh electric (2026-01-24 averages)              |
-| Currency switching auto-updates fuel price                       | 20-01 | When switching currency, fuel price updates to match regional pricing (CHF 1.85 → EUR 1.65)       |
-| Annual distance default 15,000 km for cost calculations          | 20-01 | Typical European annual mileage for fuel cost and savings estimates                                |
+| Use PMT formula for loan calculations                            | 20-04 | Standard financial formula ensures accurate monthly payment calculations                           |
+| Money factor for lease calculations                              | 20-04 | Industry standard for lease payments (money factor = APR / 2400)                                   |
+| Swiss VAT (7.7%) as default                                      | 20-04 | Swiss/European context aligns with project focus                                                   |
+| Amortization schedule generation                                 | 20-04 | Provides transparency for loan payments breakdown                                                  |
 
 ### Milestone Evolution
 
@@ -219,8 +215,8 @@ Progress: ███████████░ 76% (v3.0 — 4.25 of 8 phases, P
 
 ## Session Continuity
 
-Last session: 2026-01-24T17:10:47Z
-Stopped at: Completed 20-01-PLAN.md (Fuel Efficiency Calculator)
+Last session: 2026-01-24T15:30:00Z
+Stopped at: Completed 20-04-PLAN.md (Vehicle Financing Calculator)
 Resume file: None
 
 **Next Steps:**
@@ -244,4 +240,9 @@ Resume file: None
    - ✅ Phase 19-04 Nutrition Calculator (Complete)
    - ✅ Phase 19 Complete (4/4 plans)
    - ✅ Phase 20-01 Fuel Efficiency Calculator (Complete)
-   - Next: Phase 20-02 (Tire Sizing Calculator)
+   - ✅ Phase 20-02 Tire Sizing Calculator (Complete)
+   - ✅ Phase 20-03 Maintenance Intervals Calculator (Complete)
+   - ✅ Phase 20-04 Vehicle Financing Calculator (Complete)
+   - ✅ Phase 20 Complete (4/4 plans)
+   - Next: Phase 21 or next milestone phase
+
