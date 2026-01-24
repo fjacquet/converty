@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { ProfitMarginCalculator } from "./profit-margin-calculator";
+
+const ProfitMarginCalculator = dynamic(
+  () => import("./profit-margin-calculator").then((mod) => mod.ProfitMarginCalculator),
+  {
+    loading: () => <CalculatorSkeleton />,
+  }
+);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

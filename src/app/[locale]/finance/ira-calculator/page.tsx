@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { IraCalculator } from "./ira-calculator";
+
+const IraCalculator = dynamic(() => import("./ira-calculator").then((mod) => mod.IraCalculator), {
+  loading: () => <CalculatorSkeleton />,
+});
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { CalculatorSkeleton } from "@/components/calculator-skeleton";
 import { ConverterLayout } from "@/components/converter/converter-layout";
 import { locales } from "@/i18n/config";
 import { getCategoryBySlug } from "@/lib/registry/categories";
-import { BreakEvenCalculator } from "./break-even-calculator";
+
+const BreakEvenCalculator = dynamic(
+  () => import("./break-even-calculator").then((mod) => mod.BreakEvenCalculator),
+  {
+    loading: () => <CalculatorSkeleton />,
+  }
+);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
