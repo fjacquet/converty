@@ -1,6 +1,7 @@
 import type { ConverterMeta } from "@/types";
 
 // Import category-specific converter registries
+import { automotiveConverters } from "./automotive-converters";
 import { colorConverters } from "./color-converters";
 import { cookingConverters } from "./cooking-converters";
 import { cryptoConverters } from "./crypto-converters";
@@ -23,6 +24,7 @@ export const converterRegistry: Record<string, ConverterMeta> = {
   ...datetimeConverters,
   ...colorConverters,
   ...cookingConverters,
+  ...automotiveConverters,
   ...cryptoConverters,
   ...dataConverters,
   ...physicsConverters,

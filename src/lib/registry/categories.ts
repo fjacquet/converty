@@ -4,6 +4,7 @@ import {
   Calculator,
   Calendar,
   Camera,
+  Car,
   Database,
   DollarSign,
   Globe,
@@ -51,6 +52,19 @@ export const categories: Category[] = [
       { id: "recipes", name: "Recipe Tools" },
       { id: "nutrition", name: "Nutrition" },
       { id: "cost", name: "Food Cost" },
+    ],
+  },
+  {
+    id: "automotive",
+    slug: "automotive",
+    name: "Automotive",
+    description: "Vehicle calculators for fuel, tires, maintenance, and financing",
+    icon: Car,
+    subcategories: [
+      { id: "fuel", name: "Fuel & Efficiency" },
+      { id: "tires", name: "Tires & Wheels" },
+      { id: "maintenance", name: "Maintenance" },
+      { id: "financing", name: "Financing" },
     ],
   },
   {
