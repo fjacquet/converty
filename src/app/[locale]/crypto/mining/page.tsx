@@ -1,0 +1,69 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
+import { ConverterLayout } from "@/components/converter/converter-layout";
+import { locales } from "@/i18n/config";
+import { getCategoryBySlug } from "@/lib/registry/categories";
+import { MiningCalculator } from "./mining-calculator";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "converters.mining-calculator" });
+
+  return {
+    title: t("name"),
+    description: t("metaDescription"),
+    keywords: [
+      "mining",
+      "bitcoin",
+      "profitability",
+      "hashrate",
+      "electricity",
+      "roi",
+      "asic",
+      "crypto",
+      "btc",
+      "miner",
+      "profit",
+      "calculator",
+      "antminer",
+      "whatsminer",
+      "s19",
+      "m30s",
+    ],
+  };
+}
+
+export default async function MiningCalculatorPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("converters.mining-calculator");
+  const tc = await getTranslations("categories");
+  const category = getCategoryBySlug("crypto")!;
+
+  return (
+    <ConverterLayout
+      title={t("name")}
+      description={t("description")}
+      category={category}
+      categoryName={tc("crypto.name")}
+    >
+      <Suspense fallback={<div>Loading...</div>}>
+        <MiningCalculator />
+      </Suspense>
+    </ConverterLayout>
+  );
+}
