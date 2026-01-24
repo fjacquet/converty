@@ -125,6 +125,13 @@
 - [ ] No impact on static export capability
 - [ ] URL state persistence still working with lazy-loaded components
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 21-01-PLAN.md — Bundle analysis baseline & skeleton component
+- [ ] 21-02-PLAN.md — Dynamic import implementation for all calculators
+- [ ] 21-03-PLAN.md — Search performance verification & final report
+
 **Included in v3.0 Requirements:** PERF-01, PERF-02, PERF-03, PERF-04
 
 ---
