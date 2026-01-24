@@ -1,4 +1,4 @@
-import { Scale, Utensils } from "lucide-react";
+import { Scale, Utensils, Wallet } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const cookingConverters: Record<string, ConverterMeta> = {
@@ -55,5 +55,30 @@ export const cookingConverters: Record<string, ConverterMeta> = {
     ],
     icon: Utensils,
     featured: true,
+  },
+  "food-cost": {
+    id: "food-cost",
+    slug: "food-cost",
+    category: "cooking",
+    subcategory: "cost",
+    keywords: [
+      "food",
+      "cost",
+      "recipe",
+      "price",
+      "ingredient",
+      "budget",
+      "cooking",
+      "meal",
+      "serving",
+      "expense",
+      "kitchen",
+      "grocery",
+      "calculation",
+      "per serving",
+      "total cost",
+    ],
+    icon: Wallet,
+    featured: false,
   },
 };
