@@ -39,6 +39,10 @@
       "name": "Color",
       "description": "Color conversion and palettes"
     },
+    "crypto": {
+      "name": "Crypto",
+      "description": "Cryptocurrency and blockchain tools"
+    },
     "data": {
       "name": "Data",
       "description": "Bandwidth and file size calculators"
@@ -87,6 +91,10 @@
   },
   "subcategories": {
     "date-time": "Date & Time",
+    "hashing": "Hashing",
+    "wallet": "Wallet",
+    "exchange": "Exchange",
+    "mining": "Mining",
     "loans": "Loans & Mortgages",
     "interest": "Interest & APR",
     "payments": "Payments & Debt",
@@ -303,6 +311,11 @@
       "name": "Golden Hour Guide",
       "description": "Calculate golden hour times based on your location",
       "metaDescription": "Find golden hour and blue hour times for your location"
+    },
+    "hash-calculator": {
+      "name": "Hash Calculator",
+      "description": "Calculate MD5, SHA-1, SHA-256, SHA-512 hash values",
+      "metaDescription": "Free online hash calculator. Generate MD5, SHA-1, SHA-256, SHA-512 cryptographic hashes from text input."
     },
     "sun-position": {
       "name": "Sun Position",
@@ -2775,6 +2788,25 @@
         "WI": "Wisconsin",
         "WY": "Wyoming",
         "DC": "District of Columbia"
+      }
+    },
+    "crypto": {
+      "hash": {
+        "input": "Input",
+        "algorithm": "Algorithm",
+        "textToHash": "Text to Hash",
+        "placeholder": "Enter text to hash...",
+        "result": "Hash Result",
+        "hashOutput": "Hash Output",
+        "calculating": "Calculating...",
+        "inputLength": "Input length",
+        "hashLength": "Hash length",
+        "characters": "characters",
+        "hexChars": "hex characters",
+        "warnings": {
+          "md5Title": "Security Warning",
+          "md5Description": "MD5 is cryptographically broken and should not be used for security purposes. Use SHA-256 or SHA-512 for secure hashing."
+        }
       }
     },
     "health": {

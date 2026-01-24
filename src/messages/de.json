@@ -39,6 +39,10 @@
       "name": "Farbe",
       "description": "Farbkonvertierung und Paletten"
     },
+    "crypto": {
+      "name": "Krypto",
+      "description": "Kryptowahrung und Blockchain-Tools"
+    },
     "data": {
       "name": "Daten",
       "description": "Bandbreiten- und Dateigroessen"
@@ -87,6 +91,10 @@
   },
   "subcategories": {
     "date-time": "Datum und Zeit",
+    "hashing": "Hashing",
+    "wallet": "Wallet",
+    "exchange": "Umtausch",
+    "mining": "Mining",
     "loans": "Kredite und Hypotheken",
     "interest": "Zinsen und effektiver Jahreszins",
     "payments": "Zahlungen und Schulden",
@@ -303,6 +311,11 @@
       "name": "Goldene-Stunde-Guide",
       "description": "Berechnen Sie die Zeiten der goldenen Stunde basierend auf Ihrem Standort",
       "metaDescription": "Finden Sie Zeiten der goldenen und blauen Stunde fuer Ihren Standort"
+    },
+    "hash-calculator": {
+      "name": "Hash-Rechner",
+      "description": "Berechnen Sie MD5, SHA-1, SHA-256, SHA-512 Hash-Werte",
+      "metaDescription": "Kostenloser Online-Hash-Rechner. Generieren Sie MD5, SHA-1, SHA-256, SHA-512 kryptographische Hashes aus Text."
     },
     "sun-position": {
       "name": "Sonnenpositions",
@@ -2740,6 +2753,25 @@
         "WI": "Wisconsin",
         "WY": "Wyoming",
         "DC": "District of Columbia"
+      }
+    },
+    "crypto": {
+      "hash": {
+        "input": "Eingabe",
+        "algorithm": "Algorithmus",
+        "textToHash": "Text zum Hashen",
+        "placeholder": "Geben Sie Text zum Hashen ein...",
+        "result": "Hash-Ergebnis",
+        "hashOutput": "Hash-Ausgabe",
+        "calculating": "Berechne...",
+        "inputLength": "Eingabelange",
+        "hashLength": "Hash-Lange",
+        "characters": "Zeichen",
+        "hexChars": "Hex-Zeichen",
+        "warnings": {
+          "md5Title": "Sicherheitswarnung",
+          "md5Description": "MD5 ist kryptographisch gebrochen und sollte nicht fur Sicherheitszwecke verwendet werden. Verwenden Sie SHA-256 oder SHA-512 fur sicheres Hashing."
+        }
       }
     },
     "health": {

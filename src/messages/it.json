@@ -39,6 +39,10 @@
       "name": "Colore",
       "description": "Conversione colori e palette"
     },
+    "crypto": {
+      "name": "Crypto",
+      "description": "Strumenti per criptovalute e blockchain"
+    },
     "data": {
       "name": "Dati",
       "description": "Calcolatori di banda e dimensione file"
@@ -87,6 +91,10 @@
   },
   "subcategories": {
     "date-time": "Data e Ora",
+    "hashing": "Hashing",
+    "wallet": "Portafoglio",
+    "exchange": "Cambio",
+    "mining": "Mining",
     "loans": "Prestiti e Mutui",
     "interest": "Interessi e TAEG",
     "payments": "Pagamenti e Debiti",
@@ -303,6 +311,11 @@
       "name": "Guida Ora d'Oro",
       "description": "Calcola gli orari dell'ora d'oro in base alla tua posizione",
       "metaDescription": "Trova gli orari dell'ora d'oro e dell'ora blu per la tua posizione"
+    },
+    "hash-calculator": {
+      "name": "Calcolatore di hash",
+      "description": "Calcola valori hash MD5, SHA-1, SHA-256, SHA-512",
+      "metaDescription": "Calcolatore di hash online gratuito. Genera hash crittografici MD5, SHA-1, SHA-256, SHA-512 da testo."
     },
     "sun-position": {
       "name": "Posizione Solare",
@@ -2752,6 +2765,25 @@
         "WI": "Wisconsin",
         "WY": "Wyoming",
         "DC": "Distretto di Columbia"
+      }
+    },
+    "crypto": {
+      "hash": {
+        "input": "Input",
+        "algorithm": "Algoritmo",
+        "textToHash": "Testo da hashare",
+        "placeholder": "Inserisci il testo da hashare...",
+        "result": "Risultato Hash",
+        "hashOutput": "Output Hash",
+        "calculating": "Calcolo in corso...",
+        "inputLength": "Lunghezza input",
+        "hashLength": "Lunghezza hash",
+        "characters": "caratteri",
+        "hexChars": "caratteri esadecimali",
+        "warnings": {
+          "md5Title": "Avviso di sicurezza",
+          "md5Description": "MD5 e crittograficamente compromesso e non dovrebbe essere usato per scopi di sicurezza. Usa SHA-256 o SHA-512 per l'hashing sicuro."
+        }
       }
     },
     "health": {
