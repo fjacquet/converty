@@ -39,6 +39,10 @@
       "name": "Colore",
       "description": "Conversione colori e palette"
     },
+    "cooking": {
+      "name": "Cucina",
+      "description": "Conversione ricette e calcolatori nutrizionali"
+    },
     "crypto": {
       "name": "Crypto",
       "description": "Strumenti per criptovalute e blockchain"
@@ -317,6 +321,11 @@
       "name": "Guida Ora d'Oro",
       "description": "Calcola gli orari dell'ora d'oro in base alla tua posizione",
       "metaDescription": "Trova gli orari dell'ora d'oro e dell'ora blu per la tua posizione"
+    },
+    "cooking-units": {
+      "name": "Unita di Cucina",
+      "description": "Converti tra misure metriche e imperiali con densita degli ingredienti",
+      "metaDescription": "Convertitore gratuito di unita di cucina. Converti tazze, cucchiai, cucchiaini in ml, grammi con conversioni basate sulla densita per farina, zucchero e altro."
     },
     "exchange-rate": {
       "name": "Tasso di cambio",
@@ -3054,6 +3063,34 @@
           "title": "Avviso di stima",
           "description": "Questo calcolatore fornisce stime basate sull'attuale difficoltà della rete e sul prezzo BTC. La redditività effettiva del mining varia con i cambiamenti di difficoltà, le fluttuazioni dei prezzi, le commissioni del pool e l'efficienza dell'hardware. Verifica sempre con il tuo pool di mining e le specifiche dell'hardware."
         }
+      }
+    },
+    "cooking": {
+      "units": {
+        "input": "Ingresso",
+        "inputDescription": "Inserisci la quantita e seleziona le unita da convertire",
+        "amount": "Quantita",
+        "from": "Da Unita",
+        "to": "A Unita",
+        "volumeMetric": "Volume (Metrico)",
+        "volumeImperial": "Volume (Imperiale)",
+        "weightMetric": "Peso (Metrico)",
+        "weightImperial": "Peso (Imperiale)",
+        "ingredient": "Ingrediente",
+        "selectIngredient": "Seleziona un ingrediente...",
+        "ingredientHint": "Richiesto per le conversioni volume-peso a causa delle diverse densita degli ingredienti",
+        "ingredientCategories": {
+          "flour": "Farine",
+          "sugar": "Zuccheri e Dolcificanti",
+          "liquid": "Liquidi",
+          "dairy": "Latticini",
+          "fat": "Grassi e Oli",
+          "other": "Altri Ingredienti"
+        },
+        "result": "Risultato",
+        "forIngredient": "Per ingrediente",
+        "conversionSteps": "Passaggi di Conversione",
+        "selectIngredientNotice": "Seleziona un ingrediente sopra per convertire tra unita di volume e peso"
       }
     },
     "health": {

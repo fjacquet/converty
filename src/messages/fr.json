@@ -39,6 +39,10 @@
       "name": "Couleur",
       "description": "Conversion de couleurs et palettes"
     },
+    "cooking": {
+      "name": "Cuisine",
+      "description": "Conversion de mesures et calculateurs nutritionnels"
+    },
     "crypto": {
       "name": "Crypto",
       "description": "Outils de cryptomonnaie et blockchain"
@@ -317,6 +321,11 @@
       "name": "Guide de l'Heure Doree",
       "description": "Calculez les heures dorees selon votre emplacement",
       "metaDescription": "Trouvez les heures dorees et bleues pour votre emplacement"
+    },
+    "cooking-units": {
+      "name": "Unites de Cuisine",
+      "description": "Convertir entre mesures metriques et imperiales avec densites d'ingredients",
+      "metaDescription": "Convertisseur d'unites de cuisine gratuit. Convertissez tasses, cuilleres a soupe, cuilleres a the en ml, grammes avec conversions de densite pour farine, sucre et plus."
     },
     "exchange-rate": {
       "name": "Taux de change",
@@ -3042,6 +3051,34 @@
           "title": "Avertissement sur les estimations",
           "description": "Ce calculateur fournit des estimations basees sur la difficulte actuelle du reseau et le prix BTC. La rentabilite reelle du minage varie avec les changements de difficulte, les fluctuations de prix, les frais de pool et l'efficacite du materiel. Verifiez toujours avec votre pool de minage et les specifications de votre materiel."
         }
+      }
+    },
+    "cooking": {
+      "units": {
+        "input": "Entree",
+        "inputDescription": "Entrez la quantite et selectionnez les unites a convertir",
+        "amount": "Quantite",
+        "from": "De l'unite",
+        "to": "A l'unite",
+        "volumeMetric": "Volume (Metrique)",
+        "volumeImperial": "Volume (Imperial)",
+        "weightMetric": "Poids (Metrique)",
+        "weightImperial": "Poids (Imperial)",
+        "ingredient": "Ingredient",
+        "selectIngredient": "Selectionnez un ingredient...",
+        "ingredientHint": "Requis pour les conversions volume-poids en raison des differentes densites d'ingredients",
+        "ingredientCategories": {
+          "flour": "Farines",
+          "sugar": "Sucres et Edulcorants",
+          "liquid": "Liquides",
+          "dairy": "Produits Laitiers",
+          "fat": "Graisses et Huiles",
+          "other": "Autres Ingredients"
+        },
+        "result": "Resultat",
+        "forIngredient": "Pour l'ingredient",
+        "conversionSteps": "Etapes de Conversion",
+        "selectIngredientNotice": "Selectionnez un ingredient ci-dessus pour convertir entre les unites de volume et de poids"
       }
     },
     "health": {

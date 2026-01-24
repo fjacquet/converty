@@ -39,6 +39,10 @@
       "name": "Color",
       "description": "Color conversion and palettes"
     },
+    "cooking": {
+      "name": "Cooking",
+      "description": "Recipe scaling and nutrition calculators"
+    },
     "crypto": {
       "name": "Crypto",
       "description": "Cryptocurrency and blockchain tools"
@@ -317,6 +321,11 @@
       "name": "Golden Hour Guide",
       "description": "Calculate golden hour times based on your location",
       "metaDescription": "Find golden hour and blue hour times for your location"
+    },
+    "cooking-units": {
+      "name": "Cooking Units",
+      "description": "Convert between metric and imperial cooking measurements with ingredient densities",
+      "metaDescription": "Free cooking unit converter. Convert cups, tablespoons, teaspoons to ml, grams with density-aware conversions for flour, sugar, and more."
     },
     "exchange-rate": {
       "name": "Exchange Rate",
@@ -3077,6 +3086,34 @@
           "title": "Estimation Disclaimer",
           "description": "This calculator provides estimates based on current network difficulty and BTC price. Actual mining profitability varies with difficulty changes, price fluctuations, pool fees, and hardware efficiency. Always verify with your mining pool and hardware specifications."
         }
+      }
+    },
+    "cooking": {
+      "units": {
+        "input": "Input",
+        "inputDescription": "Enter amount and select units to convert",
+        "amount": "Amount",
+        "from": "From Unit",
+        "to": "To Unit",
+        "volumeMetric": "Volume (Metric)",
+        "volumeImperial": "Volume (Imperial)",
+        "weightMetric": "Weight (Metric)",
+        "weightImperial": "Weight (Imperial)",
+        "ingredient": "Ingredient",
+        "selectIngredient": "Select an ingredient...",
+        "ingredientHint": "Required for volume to weight conversions due to different ingredient densities",
+        "ingredientCategories": {
+          "flour": "Flours",
+          "sugar": "Sugars & Sweeteners",
+          "liquid": "Liquids",
+          "dairy": "Dairy",
+          "fat": "Fats & Oils",
+          "other": "Other Ingredients"
+        },
+        "result": "Result",
+        "forIngredient": "For ingredient",
+        "conversionSteps": "Conversion Steps",
+        "selectIngredientNotice": "Select an ingredient above to convert between volume and weight units"
       }
     },
     "health": {

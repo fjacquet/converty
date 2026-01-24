@@ -39,6 +39,10 @@
       "name": "Farbe",
       "description": "Farbkonvertierung und Paletten"
     },
+    "cooking": {
+      "name": "Kochen",
+      "description": "Rezeptumrechnung und Nahrungsrechner"
+    },
     "crypto": {
       "name": "Krypto",
       "description": "Kryptowahrung und Blockchain-Tools"
@@ -317,6 +321,11 @@
       "name": "Goldene-Stunde-Guide",
       "description": "Berechnen Sie die Zeiten der goldenen Stunde basierend auf Ihrem Standort",
       "metaDescription": "Finden Sie Zeiten der goldenen und blauen Stunde fuer Ihren Standort"
+    },
+    "cooking-units": {
+      "name": "Kocheinheiten",
+      "description": "Konvertieren zwischen metrischen und imperialen Kochmassen mit Zutatendichten",
+      "metaDescription": "Kostenloser Kocheinheitenumrechner. Konvertieren Sie Tassen, Essloffel, Teeloffel in ml, Gramm mit dichteabhangigen Umrechnungen fuer Mehl, Zucker und mehr."
     },
     "exchange-rate": {
       "name": "Wechselkurs",
@@ -3042,6 +3051,34 @@
           "title": "Schatzungshinweis",
           "description": "Dieser Rechner liefert Schatzungen basierend auf der aktuellen Netzwerkschwierigkeit und dem BTC-Preis. Die tatsachliche Mining-Rentabilitat variiert mit Schwierigkeitsanderungen, Preisschwankungen, Pool-Gebuhren und Hardware-Effizienz. Uberprufen Sie immer mit Ihrem Mining-Pool und den Hardware-Spezifikationen."
         }
+      }
+    },
+    "cooking": {
+      "units": {
+        "input": "Eingabe",
+        "inputDescription": "Menge eingeben und Einheiten zum Konvertieren auswahlen",
+        "amount": "Menge",
+        "from": "Von Einheit",
+        "to": "Zu Einheit",
+        "volumeMetric": "Volumen (Metrisch)",
+        "volumeImperial": "Volumen (Imperial)",
+        "weightMetric": "Gewicht (Metrisch)",
+        "weightImperial": "Gewicht (Imperial)",
+        "ingredient": "Zutat",
+        "selectIngredient": "Wahlen Sie eine Zutat...",
+        "ingredientHint": "Erforderlich fur Volumen-Gewicht-Umrechnungen aufgrund unterschiedlicher Zutatendichten",
+        "ingredientCategories": {
+          "flour": "Mehle",
+          "sugar": "Zucker und Sussstoffe",
+          "liquid": "Flussigkeiten",
+          "dairy": "Milchprodukte",
+          "fat": "Fette und Ole",
+          "other": "Andere Zutaten"
+        },
+        "result": "Ergebnis",
+        "forIngredient": "Fur Zutat",
+        "conversionSteps": "Umrechnungsschritte",
+        "selectIngredientNotice": "Wahlen Sie oben eine Zutat aus, um zwischen Volumen- und Gewichtseinheiten zu konvertieren"
       }
     },
     "health": {
