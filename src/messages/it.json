@@ -322,6 +322,11 @@
       "description": "Calcola valori hash MD5, SHA-1, SHA-256, SHA-512",
       "metaDescription": "Calcolatore di hash online gratuito. Genera hash crittografici MD5, SHA-1, SHA-256, SHA-512 da testo."
     },
+    "mining-calculator": {
+      "name": "Redditività del mining",
+      "description": "Calcola la redditività del mining Bitcoin in base all'hash rate e al costo dell'elettricità",
+      "metaDescription": "Calcolatore gratuito della redditività del mining Bitcoin. Calcola i profitti giornalieri, mensili e annuali in base all'hash rate, al consumo energetico e ai costi dell'elettricità in CHF, EUR o USD."
+    },
     "wallet-validator": {
       "name": "Validatore di portafoglio",
       "description": "Valida indirizzi di portafoglio Bitcoin, Ethereum e Litecoin",
@@ -2833,6 +2838,37 @@
         "fallback": "dati di riserva",
         "stalePriceTitle": "I dati sui prezzi potrebbero essere obsoleti",
         "stalePriceDescription": "I dati sui prezzi hanno piu di 24 ore. Ricostruisci il sito per ottenere prezzi freschi da CoinGecko."
+      },
+      "mining": {
+        "minerPresets": "Preset di miner",
+        "miningParameters": "Parametri di mining",
+        "hashRate": "Hash rate",
+        "hashRateUnit": "Unità",
+        "powerConsumption": "Consumo energetico",
+        "electricityCost": "Costo dell'elettricità",
+        "currency": "Valuta",
+        "hardwareCost": "Costo dell'hardware",
+        "profitable": "Redditizio",
+        "notProfitable": "Non redditizio",
+        "dailyProfit": "al giorno",
+        "detailedResults": "Risultati dettagliati",
+        "daily": "Giornaliero",
+        "monthly": "Mensile",
+        "yearly": "Annuale",
+        "electricityCostDaily": "Costo dell'elettricità",
+        "roiDays": "ROI (Giorni)",
+        "breakEvenDate": "Data di pareggio",
+        "btcPrice": "Prezzo BTC",
+        "blockReward": "Ricompensa del blocco",
+        "dataFrom": "Dati da",
+        "lastUpdated": "Ultimo aggiornamento",
+        "hoursAgo": "{hours} ore fa",
+        "staleDataTitle": "I dati di mining potrebbero essere obsoleti",
+        "staleDataDescription": "I dati della rete hanno più di 24 ore. Ricostruisci il sito per ottenere dati aggiornati sulla difficoltà e sul prezzo.",
+        "disclaimer": {
+          "title": "Avviso di stima",
+          "description": "Questo calcolatore fornisce stime basate sull'attuale difficoltà della rete e sul prezzo BTC. La redditività effettiva del mining varia con i cambiamenti di difficoltà, le fluttuazioni dei prezzi, le commissioni del pool e l'efficienza dell'hardware. Verifica sempre con il tuo pool di mining e le specifiche dell'hardware."
+        }
       }
     },
     "health": {

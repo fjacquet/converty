@@ -322,6 +322,11 @@
       "description": "Calculer les valeurs de hachage MD5, SHA-1, SHA-256, SHA-512",
       "metaDescription": "Calculateur de hash en ligne gratuit. Generez des hachages cryptographiques MD5, SHA-1, SHA-256, SHA-512 a partir de texte."
     },
+    "mining-calculator": {
+      "name": "Rentabilite du minage",
+      "description": "Calculer la rentabilite du minage Bitcoin selon le taux de hachage et le cout de l'electricite",
+      "metaDescription": "Calculateur gratuit de rentabilite du minage Bitcoin. Calculez les profits quotidiens, mensuels et annuels selon le taux de hachage, la consommation electrique et les couts d'electricite en CHF, EUR ou USD."
+    },
     "wallet-validator": {
       "name": "Validateur de portefeuille",
       "description": "Valider les adresses de portefeuille Bitcoin, Ethereum et Litecoin",
@@ -2821,6 +2826,37 @@
         "fallback": "donnees de secours",
         "stalePriceTitle": "Les donnees de prix peuvent etre obsoletes",
         "stalePriceDescription": "Les donnees de prix datent de plus de 24 heures. Reconstruisez le site pour recuperer les prix recents de CoinGecko."
+      },
+      "mining": {
+        "minerPresets": "Preselections de mineurs",
+        "miningParameters": "Parametres de minage",
+        "hashRate": "Taux de hachage",
+        "hashRateUnit": "Unite",
+        "powerConsumption": "Consommation electrique",
+        "electricityCost": "Cout de l'electricite",
+        "currency": "Devise",
+        "hardwareCost": "Cout du materiel",
+        "profitable": "Rentable",
+        "notProfitable": "Non rentable",
+        "dailyProfit": "par jour",
+        "detailedResults": "Resultats detailles",
+        "daily": "Quotidien",
+        "monthly": "Mensuel",
+        "yearly": "Annuel",
+        "electricityCostDaily": "Cout de l'electricite",
+        "roiDays": "ROI (Jours)",
+        "breakEvenDate": "Date de rentabilite",
+        "btcPrice": "Prix BTC",
+        "blockReward": "Recompense de bloc",
+        "dataFrom": "Donnees de",
+        "lastUpdated": "Derniere mise a jour",
+        "hoursAgo": "il y a {hours} heures",
+        "staleDataTitle": "Les donnees de minage peuvent etre obsoletes",
+        "staleDataDescription": "Les donnees du reseau datent de plus de 24 heures. Reconstruisez le site pour recuperer les dernieres donnees de difficulte et de prix.",
+        "disclaimer": {
+          "title": "Avertissement sur les estimations",
+          "description": "Ce calculateur fournit des estimations basees sur la difficulte actuelle du reseau et le prix BTC. La rentabilite reelle du minage varie avec les changements de difficulte, les fluctuations de prix, les frais de pool et l'efficacite du materiel. Verifiez toujours avec votre pool de minage et les specifications de votre materiel."
+        }
       }
     },
     "health": {

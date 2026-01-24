@@ -322,6 +322,11 @@
       "description": "Berechnen Sie MD5, SHA-1, SHA-256, SHA-512 Hash-Werte",
       "metaDescription": "Kostenloser Online-Hash-Rechner. Generieren Sie MD5, SHA-1, SHA-256, SHA-512 kryptographische Hashes aus Text."
     },
+    "mining-calculator": {
+      "name": "Mining-Rentabilitat",
+      "description": "Berechnen Sie die Bitcoin-Mining-Rentabilitat basierend auf Hashrate und Stromkosten",
+      "metaDescription": "Kostenloser Bitcoin-Mining-Rentabilitatsrechner. Berechnen Sie tagliche, monatliche und jahrliche Gewinne basierend auf Hashrate, Stromverbrauch und Stromkosten in CHF, EUR oder USD."
+    },
     "wallet-validator": {
       "name": "Wallet-Validator",
       "description": "Validieren Sie Bitcoin-, Ethereum- und Litecoin-Wallet-Adressen",
@@ -2821,6 +2826,37 @@
         "fallback": "Ersatzdaten",
         "stalePriceTitle": "Preisdaten konnen veraltet sein",
         "stalePriceDescription": "Preisdaten sind alter als 24 Stunden. Erstellen Sie die Website neu, um aktuelle Preise von CoinGecko abzurufen."
+      },
+      "mining": {
+        "minerPresets": "Miner-Voreinstellungen",
+        "miningParameters": "Mining-Parameter",
+        "hashRate": "Hashrate",
+        "hashRateUnit": "Einheit",
+        "powerConsumption": "Stromverbrauch",
+        "electricityCost": "Stromkosten",
+        "currency": "Wahrung",
+        "hardwareCost": "Hardwarekosten",
+        "profitable": "Rentabel",
+        "notProfitable": "Nicht rentabel",
+        "dailyProfit": "pro Tag",
+        "detailedResults": "Detaillierte Ergebnisse",
+        "daily": "Taglich",
+        "monthly": "Monatlich",
+        "yearly": "Jahrlich",
+        "electricityCostDaily": "Stromkosten",
+        "roiDays": "ROI (Tage)",
+        "breakEvenDate": "Break-Even-Datum",
+        "btcPrice": "BTC-Preis",
+        "blockReward": "Block-Belohnung",
+        "dataFrom": "Daten von",
+        "lastUpdated": "Zuletzt aktualisiert",
+        "hoursAgo": "vor {hours} Stunden",
+        "staleDataTitle": "Mining-Daten konnen veraltet sein",
+        "staleDataDescription": "Netzwerkdaten sind alter als 24 Stunden. Erstellen Sie die Website neu, um aktuelle Schwierigkeits- und Preisdaten abzurufen.",
+        "disclaimer": {
+          "title": "Schatzungshinweis",
+          "description": "Dieser Rechner liefert Schatzungen basierend auf der aktuellen Netzwerkschwierigkeit und dem BTC-Preis. Die tatsachliche Mining-Rentabilitat variiert mit Schwierigkeitsanderungen, Preisschwankungen, Pool-Gebuhren und Hardware-Effizienz. Uberprufen Sie immer mit Ihrem Mining-Pool und den Hardware-Spezifikationen."
+        }
       }
     },
     "health": {

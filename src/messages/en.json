@@ -322,6 +322,11 @@
       "description": "Calculate MD5, SHA-1, SHA-256, SHA-512 hash values",
       "metaDescription": "Free online hash calculator. Generate MD5, SHA-1, SHA-256, SHA-512 cryptographic hashes from text input."
     },
+    "mining-calculator": {
+      "name": "Mining Profitability",
+      "description": "Calculate Bitcoin mining profitability based on hash rate and electricity cost",
+      "metaDescription": "Free Bitcoin mining profitability calculator. Calculate daily, monthly, and yearly profits based on hash rate, power consumption, and electricity costs in CHF, EUR, or USD."
+    },
     "wallet-validator": {
       "name": "Wallet Validator",
       "description": "Validate Bitcoin, Ethereum, and Litecoin wallet addresses",
@@ -2856,6 +2861,37 @@
         "fallback": "fallback data",
         "stalePriceTitle": "Price Data May Be Outdated",
         "stalePriceDescription": "Price data is more than 24 hours old. Rebuild the site to fetch fresh prices from CoinGecko."
+      },
+      "mining": {
+        "minerPresets": "Miner Presets",
+        "miningParameters": "Mining Parameters",
+        "hashRate": "Hash Rate",
+        "hashRateUnit": "Unit",
+        "powerConsumption": "Power Consumption",
+        "electricityCost": "Electricity Cost",
+        "currency": "Currency",
+        "hardwareCost": "Hardware Cost",
+        "profitable": "Profitable",
+        "notProfitable": "Not Profitable",
+        "dailyProfit": "per day",
+        "detailedResults": "Detailed Results",
+        "daily": "Daily",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "electricityCostDaily": "Electricity Cost",
+        "roiDays": "ROI (Days)",
+        "breakEvenDate": "Break-Even Date",
+        "btcPrice": "BTC Price",
+        "blockReward": "Block Reward",
+        "dataFrom": "Data from",
+        "lastUpdated": "Last updated",
+        "hoursAgo": "{hours} hours ago",
+        "staleDataTitle": "Mining Data May Be Outdated",
+        "staleDataDescription": "Network data is more than 24 hours old. Rebuild the site to fetch fresh difficulty and price data.",
+        "disclaimer": {
+          "title": "Estimation Disclaimer",
+          "description": "This calculator provides estimates based on current network difficulty and BTC price. Actual mining profitability varies with difficulty changes, price fluctuations, pool fees, and hardware efficiency. Always verify with your mining pool and hardware specifications."
+        }
       }
     },
     "health": {

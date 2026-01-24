@@ -1,4 +1,4 @@
-import { ArrowRightLeft, Hash, Wallet } from "lucide-react";
+import { ArrowRightLeft, Cpu, Hash, Wallet } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const cryptoConverters: Record<string, ConverterMeta> = {
@@ -67,6 +67,31 @@ export const cryptoConverters: Record<string, ConverterMeta> = {
       "blockchain",
     ],
     icon: Wallet,
+    featured: false,
+  },
+  "mining-calculator": {
+    id: "mining-calculator",
+    slug: "mining",
+    category: "crypto",
+    subcategory: "mining",
+    keywords: [
+      "mining",
+      "bitcoin",
+      "profitability",
+      "hashrate",
+      "electricity",
+      "roi",
+      "asic",
+      "crypto",
+      "btc",
+      "miner",
+      "profit",
+      "antminer",
+      "whatsminer",
+      "s19",
+      "m30s",
+    ],
+    icon: Cpu,
     featured: false,
   },
 };
