@@ -9,16 +9,16 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: Defining Phase 17
-Plan: Not started
-Status: v3.0 Roadmap created, requirements defined
-Last activity: 2026-01-24 — v3.0 milestone initialized, requirements gathered, roadmap created
+Phase: 17 - Crypto/Blockchain Foundation
+Plan: 17-01 Hash Calculator (Complete)
+Status: Hash Calculator shipped with MD5/SHA-1/SHA-256/SHA-512 support
+Last activity: 2026-01-24 — Hash calculator completed with crypto-js and WebCrypto
 
-Progress: ████████░░ 0% (v3.0 in planning — 8 phases planned, 0 started)
+Progress: ████████░░ 12.5% (v3.0 — 1 of 8 phases started, 1 of 4 plans in Phase 17 complete)
 
 **Next Steps:**
-1. Run `/gsd:discuss-phase 17` to gather context for Crypto/Blockchain calculator phase
-2. Or run `/gsd:plan-phase 17` to create detailed plan immediately
+1. Execute remaining plans in Phase 17: Base58/Base64 (17-02), QR Code (17-03), Blockchain Explorer (17-04)
+2. Or continue to Phase 18-25 as defined in v3.0 roadmap
 
 ## Performance Metrics
 
@@ -163,6 +163,9 @@ Progress: ████████░░ 0% (v3.0 in planning — 8 phases plann
 | Cmd+K keyboard shortcut for search                              | 14-02 | Standard UX pattern for search, familiar to developers and power users                             |
 | Verify existing i18n before making changes                       | 15-01 | Audit revealed prior sessions completed most externalization, minimal changes needed               |
 | Return translation keys from converters (not display strings)    | 15-02 | Consistent pattern: converters return keys like `stageKey`, UI translates with useTranslations()   |
+| Use crypto-js for MD5, WebCrypto for SHA algorithms              | 17-01 | MD5 not available in WebCrypto, crypto-js provides compatibility for legacy algorithm              |
+| Card with destructive border for warnings without Alert          | 17-01 | Alert component not available in project, Card with styling provides equivalent warning UX         |
+| Auto-calculate hash on text/algorithm change                     | 17-01 | Better UX than manual button, async calculation handled with loading states                        |
 
 ### Milestone Evolution
 
