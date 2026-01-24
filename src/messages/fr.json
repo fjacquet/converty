@@ -994,6 +994,11 @@
       "name": "Calculateur de dimension de pneu",
       "description": "Calculez les dimensions des pneus, comparez les tailles et verifiez l'erreur du compteur de vitesse",
       "metaDescription": "Calculateur gratuit de dimension de pneu - dimensions, comparaison, erreur du compteur. Supporte la notation metrique europeenne."
+    },
+    "maintenance-intervals": {
+      "name": "Calculateur d'intervalles d'entretien",
+      "description": "Suivez les plannings d'entretien du vehicule et calculez les prochaines echeances avec rappels MFK suisses",
+      "metaDescription": "Calculateur gratuit d'entretien vehicule - suivez les vidanges, filtres, freins et inspections MFK suisses. Intervalles en km."
     }
   },
   "calculator": {
@@ -3916,6 +3921,51 @@
         "withinTolerance": "Dans la tolerance recommandee (3%)",
         "exceedsTolerance": "Depasse la tolerance recommandee",
         "calculationSteps": "Etapes de calcul"
+      },
+      "maintenance": {
+        "vehicleInfo": "Informations du vehicule",
+        "vehicleInfoDescription": "Entrez les details de votre vehicule et vos habitudes de conduite",
+        "currentOdometer": "Compteur actuel (km)",
+        "averageKmPerMonth": "Moyenne km/mois",
+        "registrationYear": "Annee d'immatriculation",
+        "registrationMonth": "Mois d'immatriculation",
+        "oilType": "Type d'huile",
+        "oilTypes": {
+          "synthetic": "Synthetique (15 000 km)",
+          "conventional": "Conventionnelle (10 000 km)"
+        },
+        "estimateDefaults": "Estimer les derniers services",
+        "servicesTracked": "Services a suivre",
+        "servicesTrackedDescription": "Selectionnez les services a surveiller",
+        "lastServiceRecords": "Derniers services effectues",
+        "lastServiceRecordsDescription": "Entrez quand chaque service a ete effectue",
+        "lastKm": "Dernier service (km)",
+        "lastDate": "Date du dernier service",
+        "mfkInspection": "Inspection MFK suisse",
+        "dueDate": "Date d'echeance",
+        "months": "mois",
+        "overdue": "En retard",
+        "overdueServices": "En retard",
+        "dueSoonServices": "Bientot du",
+        "okServices": "OK",
+        "serviceSchedule": "Calendrier d'entretien",
+        "serviceTypes": {
+          "oil_synthetic": "Huile et filtre (Synthetique)",
+          "oil_conventional": "Huile et filtre (Conventionnelle)",
+          "air_filter": "Filtre a air",
+          "cabin_filter": "Filtre d'habitacle",
+          "spark_plugs": "Bougies d'allumage",
+          "brake_fluid": "Liquide de frein",
+          "coolant": "Liquide de refroidissement",
+          "transmission_fluid": "Huile de transmission",
+          "timing_belt": "Courroie de distribution",
+          "brake_pads_front": "Plaquettes de frein avant",
+          "brake_pads_rear": "Plaquettes de frein arriere",
+          "brake_discs_front": "Disques de frein avant",
+          "tires": "Pneus",
+          "battery": "Batterie",
+          "wiper_blades": "Essuie-glaces"
+        }
       }
     }
   },

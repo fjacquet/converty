@@ -989,6 +989,16 @@
       "name": "Fahrzeugfinanzierungsrechner",
       "description": "Berechnen Sie Autokredit- und Leasingzahlungen mit Kauf- vs. Leasingvergleich (CHF/EUR)",
       "metaDescription": "Kostenloser Fahrzeugfinanzierungsrechner - Autokredite, Leasing und Kauf- vs. Leasingvergleich. CHF und EUR mit Schweizer MwSt."
+    },
+    "tire-sizing": {
+      "name": "Reifengroßenrechner",
+      "description": "Berechnen Sie Reifenabmessungen, vergleichen Sie Großen und uberprufen Sie Tacho-Fehler",
+      "metaDescription": "Kostenloser Reifengroßenrechner - Abmessungen, Vergleich, Tacho-Fehler. Unterstutzt europaische metrische Notation (205/55R16)."
+    },
+    "maintenance-intervals": {
+      "name": "Wartungsintervall-Rechner",
+      "description": "Verfolgen Sie Fahrzeug-Wartungsplane und berechnen Sie nachste Falligkeiten mit Schweizer MFK-Erinnerungen",
+      "metaDescription": "Kostenloser Fahrzeug-Wartungsrechner - verfolgen Sie Olwechsel, Filter, Bremsen und Schweizer MFK-Inspektionen. Km-basierte Intervalle."
     }
   },
   "calculator": {
@@ -3882,6 +3892,80 @@
         "lowerTotalCost": "Niedrigere Gesamtkosten",
         "recommendation": "Empfehlung",
         "calculationSteps": "Berechnungsschritte"
+      },
+      "tireSizing": {
+        "input": "Eingabe",
+        "result": "Reifenabmessungen",
+        "modes": {
+          "notation": "Reifennotation",
+          "manual": "Manuelle Eingabe"
+        },
+        "notationDescription": "Reifengroßennotation eingeben (z.B. 205/55R16 oder 205/55R16 91V)",
+        "manualDescription": "Reifenabmessungen manuell eingeben",
+        "tireSize": "Reifengroße",
+        "width": "Breite (mm)",
+        "aspectRatio": "Seitenverhaltnis (%)",
+        "rimDiameter": "Felgendurchmesser (in)",
+        "loadIndex": "Lastindex",
+        "speedRating": "Geschwindigkeitsindex",
+        "compareMode": "Großen vergleichen",
+        "compareModeDescription": "Mit anderer Reifengroße vergleichen",
+        "compareTire": "Vergleichsreifengroße",
+        "comparisonResult": "Großenvergleich",
+        "sidewallHeight": "Seitenhohe",
+        "overallDiameter": "Gesamtdurchmesser",
+        "circumference": "Umfang",
+        "revolutionsPerKm": "Umdrehungen/km",
+        "diameterDifference": "Durchmesserdifferenz",
+        "speedometerError": "Tacho-Fehler",
+        "withinTolerance": "Innerhalb empfohlener Toleranz (3%)",
+        "exceedsTolerance": "Uberschreitet empfohlene Toleranz",
+        "calculationSteps": "Berechnungsschritte"
+      },
+      "maintenance": {
+        "vehicleInfo": "Fahrzeuginformationen",
+        "vehicleInfoDescription": "Geben Sie Ihre Fahrzeugdaten und Fahrgewohnheiten ein",
+        "currentOdometer": "Aktueller Kilometerstand",
+        "averageKmPerMonth": "Durchschnitt km/Monat",
+        "registrationYear": "Erstzulassungsjahr",
+        "registrationMonth": "Erstzulassungsmonat",
+        "oilType": "Oltyp",
+        "oilTypes": {
+          "synthetic": "Synthetisch (15.000 km)",
+          "conventional": "Konventionell (10.000 km)"
+        },
+        "estimateDefaults": "Letzte Services schatzen",
+        "servicesTracked": "Zu verfolgende Services",
+        "servicesTrackedDescription": "Wahlen Sie welche Services uberwacht werden sollen",
+        "lastServiceRecords": "Letzte Service-Aufzeichnungen",
+        "lastServiceRecordsDescription": "Geben Sie ein, wann jeder Service zuletzt durchgefuhrt wurde",
+        "lastKm": "Letzter Service (km)",
+        "lastDate": "Letztes Service-Datum",
+        "mfkInspection": "Schweizer MFK-Prufung",
+        "dueDate": "Falligkeitsdatum",
+        "months": "Monate",
+        "overdue": "Uberfällig",
+        "overdueServices": "Uberfällig",
+        "dueSoonServices": "Bald fällig",
+        "okServices": "OK",
+        "serviceSchedule": "Wartungsplan",
+        "serviceTypes": {
+          "oil_synthetic": "Ol und Filter (Synthetisch)",
+          "oil_conventional": "Ol und Filter (Konventionell)",
+          "air_filter": "Luftfilter",
+          "cabin_filter": "Innenraumfilter",
+          "spark_plugs": "Zundkerzen",
+          "brake_fluid": "Bremsflusigkeit",
+          "coolant": "Kuhlmittel",
+          "transmission_fluid": "Getriebeol",
+          "timing_belt": "Zahnriemen",
+          "brake_pads_front": "Bremsbelage vorne",
+          "brake_pads_rear": "Bremsbelage hinten",
+          "brake_discs_front": "Bremsscheiben vorne",
+          "tires": "Reifen",
+          "battery": "Batterie",
+          "wiper_blades": "Scheibenwischer"
+        }
       }
     }
   },

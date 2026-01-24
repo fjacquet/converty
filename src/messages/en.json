@@ -994,6 +994,11 @@
       "name": "Tire Size Calculator",
       "description": "Calculate tire dimensions, compare sizes, and check speedometer error",
       "metaDescription": "Free tire size calculator - dimensions, comparison, speedometer error. Supports European metric notation (205/55R16)."
+    },
+    "maintenance-intervals": {
+      "name": "Maintenance Intervals Calculator",
+      "description": "Track vehicle service schedules and calculate next due dates with Swiss MFK reminders",
+      "metaDescription": "Free vehicle maintenance calculator - track oil changes, filters, brakes, and Swiss MFK inspection schedules. Km-based intervals."
     }
   },
   "calculator": {
@@ -3957,6 +3962,51 @@
         "withinTolerance": "Within recommended tolerance (3%)",
         "exceedsTolerance": "Exceeds recommended tolerance",
         "calculationSteps": "Calculation Steps"
+      },
+      "maintenance": {
+        "vehicleInfo": "Vehicle Information",
+        "vehicleInfoDescription": "Enter your vehicle details and driving habits",
+        "currentOdometer": "Current Odometer (km)",
+        "averageKmPerMonth": "Average km/month",
+        "registrationYear": "Registration Year",
+        "registrationMonth": "Registration Month",
+        "oilType": "Oil Type",
+        "oilTypes": {
+          "synthetic": "Synthetic (15,000 km)",
+          "conventional": "Conventional (10,000 km)"
+        },
+        "estimateDefaults": "Estimate Last Services",
+        "servicesTracked": "Services to Track",
+        "servicesTrackedDescription": "Select which services to monitor",
+        "lastServiceRecords": "Last Service Records",
+        "lastServiceRecordsDescription": "Enter when each service was last performed",
+        "lastKm": "Last Service (km)",
+        "lastDate": "Last Service Date",
+        "mfkInspection": "Swiss MFK Inspection",
+        "dueDate": "Due Date",
+        "months": "months",
+        "overdue": "Overdue",
+        "overdueServices": "Overdue",
+        "dueSoonServices": "Due Soon",
+        "okServices": "OK",
+        "serviceSchedule": "Service Schedule",
+        "serviceTypes": {
+          "oil_synthetic": "Oil & Filter (Synthetic)",
+          "oil_conventional": "Oil & Filter (Conventional)",
+          "air_filter": "Air Filter",
+          "cabin_filter": "Cabin Air Filter",
+          "spark_plugs": "Spark Plugs",
+          "brake_fluid": "Brake Fluid",
+          "coolant": "Coolant",
+          "transmission_fluid": "Transmission Fluid",
+          "timing_belt": "Timing Belt",
+          "brake_pads_front": "Front Brake Pads",
+          "brake_pads_rear": "Rear Brake Pads",
+          "brake_discs_front": "Front Brake Discs",
+          "tires": "Tires",
+          "battery": "Battery",
+          "wiper_blades": "Wiper Blades"
+        }
       }
     }
   },

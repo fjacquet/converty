@@ -989,6 +989,16 @@
       "name": "Calcolatore finanziamento veicolo",
       "description": "Calcola i pagamenti di prestiti auto e leasing con confronto acquisto vs noleggio (CHF/EUR)",
       "metaDescription": "Calcolatore gratuito finanziamento veicolo - prestiti auto, leasing e confronto acquisto vs noleggio. Supporto CHF e EUR con IVA svizzera."
+    },
+    "tire-sizing": {
+      "name": "Calcolatore dimensioni pneumatici",
+      "description": "Calcola le dimensioni degli pneumatici, confronta le misure e verifica l'errore del tachimetro",
+      "metaDescription": "Calcolatore gratuito dimensioni pneumatici - dimensioni, confronto, errore tachimetro. Supporta la notazione metrica europea (205/55R16)."
+    },
+    "maintenance-intervals": {
+      "name": "Calcolatore intervalli di manutenzione",
+      "description": "Traccia i programmi di manutenzione del veicolo e calcola le prossime scadenze con promemoria MFK svizzeri",
+      "metaDescription": "Calcolatore gratuito manutenzione veicolo - traccia cambi olio, filtri, freni e ispezioni MFK svizzere. Intervalli in km."
     }
   },
   "calculator": {
@@ -3900,6 +3910,80 @@
         "lowerTotalCost": "Costo totale inferiore",
         "recommendation": "Raccomandazione",
         "calculationSteps": "Passaggi di calcolo"
+      },
+      "tireSizing": {
+        "input": "Input",
+        "result": "Dimensioni pneumatici",
+        "modes": {
+          "notation": "Notazione pneumatici",
+          "manual": "Inserimento manuale"
+        },
+        "notationDescription": "Inserisci la notazione della misura del pneumatico (es. 205/55R16 o 205/55R16 91V)",
+        "manualDescription": "Inserisci le dimensioni del pneumatico manualmente",
+        "tireSize": "Misura pneumatico",
+        "width": "Larghezza (mm)",
+        "aspectRatio": "Rapporto d'aspetto (%)",
+        "rimDiameter": "Diametro cerchio (in)",
+        "loadIndex": "Indice di carico",
+        "speedRating": "Indice di velocita",
+        "compareMode": "Confronta misure",
+        "compareModeDescription": "Confronta con un'altra misura di pneumatico",
+        "compareTire": "Misura pneumatico di confronto",
+        "comparisonResult": "Confronto dimensioni",
+        "sidewallHeight": "Altezza spalla",
+        "overallDiameter": "Diametro complessivo",
+        "circumference": "Circonferenza",
+        "revolutionsPerKm": "Giri/km",
+        "diameterDifference": "Differenza diametro",
+        "speedometerError": "Errore tachimetro",
+        "withinTolerance": "Entro la tolleranza consigliata (3%)",
+        "exceedsTolerance": "Supera la tolleranza consigliata",
+        "calculationSteps": "Passaggi di calcolo"
+      },
+      "maintenance": {
+        "vehicleInfo": "Informazioni veicolo",
+        "vehicleInfoDescription": "Inserisci i dettagli del tuo veicolo e le abitudini di guida",
+        "currentOdometer": "Contachilometri attuale (km)",
+        "averageKmPerMonth": "Media km/mese",
+        "registrationYear": "Anno di immatricolazione",
+        "registrationMonth": "Mese di immatricolazione",
+        "oilType": "Tipo di olio",
+        "oilTypes": {
+          "synthetic": "Sintetico (15.000 km)",
+          "conventional": "Convenzionale (10.000 km)"
+        },
+        "estimateDefaults": "Stima ultimi servizi",
+        "servicesTracked": "Servizi da monitorare",
+        "servicesTrackedDescription": "Seleziona quali servizi monitorare",
+        "lastServiceRecords": "Ultimi servizi effettuati",
+        "lastServiceRecordsDescription": "Inserisci quando ogni servizio e stato eseguito",
+        "lastKm": "Ultimo servizio (km)",
+        "lastDate": "Data ultimo servizio",
+        "mfkInspection": "Ispezione MFK svizzera",
+        "dueDate": "Data di scadenza",
+        "months": "mesi",
+        "overdue": "Scaduto",
+        "overdueServices": "Scaduti",
+        "dueSoonServices": "In scadenza",
+        "okServices": "OK",
+        "serviceSchedule": "Programma manutenzione",
+        "serviceTypes": {
+          "oil_synthetic": "Olio e filtro (Sintetico)",
+          "oil_conventional": "Olio e filtro (Convenzionale)",
+          "air_filter": "Filtro aria",
+          "cabin_filter": "Filtro abitacolo",
+          "spark_plugs": "Candele",
+          "brake_fluid": "Liquido freni",
+          "coolant": "Liquido refrigerante",
+          "transmission_fluid": "Olio cambio",
+          "timing_belt": "Cinghia di distribuzione",
+          "brake_pads_front": "Pastiglie freno anteriori",
+          "brake_pads_rear": "Pastiglie freno posteriori",
+          "brake_discs_front": "Dischi freno anteriori",
+          "tires": "Pneumatici",
+          "battery": "Batteria",
+          "wiper_blades": "Spazzole tergicristallo"
+        }
       }
     }
   },
