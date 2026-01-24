@@ -94,13 +94,15 @@
 
 **Success Criteria:**
 
-- [ ] Fuel efficiency calculations accurate — **L/100km primary**; conversion to km/L available
-- [ ] Tire sizing specifications accurate — **metric notation** (e.g., 205/55R16); explain ratio/aspect systems
-- [ ] Maintenance intervals accurate — **km-based** (instead of miles)
-- [ ] Vehicle loan/lease payments in **CHF/EUR** with proper currency handling
-- [ ] All 4 calculators localized to en/fr/de/it
-- [ ] All 4 calculators in Calculator registry
-- [ ] Spec data verified against European/Swiss standards
+- [x] Fuel efficiency calculations accurate — **L/100km primary**; conversion to km/L available ✓
+- [x] Tire sizing specifications accurate — **metric notation** (e.g., 205/55R16); explain ratio/aspect systems ✓
+- [x] Maintenance intervals accurate — **km-based** (instead of miles) ✓
+- [x] Vehicle loan/lease payments in **CHF/EUR** with proper currency handling ✓
+- [x] All 4 calculators localized to en/fr/de/it ✓
+- [x] All 4 calculators in Calculator registry ✓
+- [x] Spec data verified against European/Swiss standards ✓
+
+**Status:** ✅ COMPLETE (2026-01-24)
 
 **Included in v3.0 Requirements:** AUTO-01, AUTO-02, AUTO-03, AUTO-04
 

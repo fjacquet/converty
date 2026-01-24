@@ -30,10 +30,10 @@ Requirements for v3.0 Calculator Expansion & Performance milestone. Each maps to
 
 ### Calculator Expansion — Automotive
 
-- [ ] **AUTO-01**: User can calculate fuel efficiency (L/100km as primary; conversion to km/L available)
-- [ ] **AUTO-02**: User can calculate tire sizing (metric specifications: width/aspect ratio/diameter)
-- [ ] **AUTO-03**: User can calculate vehicle maintenance intervals (km-based)
-- [ ] **AUTO-04**: User can calculate loan/lease payments for vehicles (CHF/EUR)
+- [x] **AUTO-01**: User can calculate fuel efficiency (L/100km as primary; conversion to km/L available) ✓
+- [x] **AUTO-02**: User can calculate tire sizing (metric specifications: width/aspect ratio/diameter) ✓
+- [x] **AUTO-03**: User can calculate vehicle maintenance intervals (km-based) ✓
+- [x] **AUTO-04**: User can calculate loan/lease payments for vehicles (CHF/EUR) ✓
 
 ### Performance Optimization
 
