@@ -52,13 +52,15 @@
 
 **Success Criteria:**
 
-- [ ] Mortgage payment calculations accurate — values in **CHF/EUR**
-- [ ] Property valuation algorithms correct — market-aligned for Swiss/European context
-- [ ] Rent-to-value ratio and investment metrics accurate — appropriate for European property market
-- [ ] Loan amortization schedules generating correctly
-- [ ] All 4 calculators localized to en/fr/de/it
-- [ ] All 4 calculators in Calculator registry
-- [ ] Financial accuracy verified against known formulas
+- [x] Mortgage payment calculations accurate — values in **CHF/EUR** ✓
+- [x] Property valuation algorithms correct — market-aligned for Swiss/European context ✓
+- [x] Rent-to-value ratio and investment metrics accurate — appropriate for European property market ✓
+- [x] Loan amortization schedules generating correctly ✓
+- [x] All 4 calculators localized to en/fr/de/it ✓
+- [x] All 4 calculators in Calculator registry ✓
+- [x] Financial accuracy verified against known formulas ✓
+
+**Status:** ✅ COMPLETE (2026-01-24)
 
 **Included in v3.0 Requirements:** REAL-01, REAL-02, REAL-03, REAL-04
 

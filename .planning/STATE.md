@@ -9,15 +9,15 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: 19 - Cooking/Nutrition Foundation (Complete)
-Plan: 19-04 Nutrition Calculator (Complete)
-Status: Phase 19 complete - all 4 cooking calculators operational with full verification
-Last activity: 2026-01-24 — Completed all 4 plans: Cooking Units, Food Cost, Recipe Scaler, Nutrition Calculator
+Phase: 18 - Real Estate Foundation (Complete)
+Plan: 18-04 Property Valuation Calculator (Complete)
+Status: Phase 18 complete - all 3 real estate calculators operational with full verification
+Last activity: 2026-01-24 — Completed all 4 plans: Setup & Static Data, Mortgage, Rental Yield, Property Valuation
 
-Progress: ███████████░ 68% (v3.0 — 3 of 8 phases complete, Phase 19 verified)
+Progress: ███████████░ 75% (v3.0 — 4 of 8 phases complete, Phases 17, 18, 19 verified)
 
 **Next Steps:**
-1. Begin Phase 18 (Real Estate Foundation) or Phase 20 (Automotive Calculators)
+1. Begin Phase 20 (Automotive Calculators)
 2. Phase 21 onwards: Performance optimization and UX enhancements
 
 ## Performance Metrics
@@ -64,6 +64,7 @@ Progress: ███████████░ 68% (v3.0 — 3 of 8 phases compl
 | Phase                           | Plans | Total  | Avg/Plan |
 | ------------------------------- | ----- | ------ | -------- |
 | 17-crypto-blockchain-foundation | 4/4   | 32 min | 8 min    |
+| 18-real-estate-foundation       | 4/4   | 28 min | 7 min    |
 | 19-cooking-nutrition-foundation | 4/4   | 35 min | 8.75 min |
 
 ## Accumulated Context
@@ -223,9 +224,14 @@ Resume file: None
    - ✅ Phase 17-03 Exchange Rate Calculator (Complete)
    - ✅ Phase 17-04 Mining Profitability Calculator (Complete)
    - ✅ Phase 17 Complete (4/4 plans)
+   - ✅ Phase 18-01 Setup & Static Data (Complete)
+   - ✅ Phase 18-02 Mortgage Calculator (Complete)
+   - ✅ Phase 18-03 Rental Yield Calculator (Complete)
+   - ✅ Phase 18-04 Property Valuation Calculator (Complete)
+   - ✅ Phase 18 Complete (4/4 plans)
    - ✅ Phase 19-01 Cooking Unit Converter (Complete)
    - ✅ Phase 19-02 Food Cost Calculator (Complete)
    - ✅ Phase 19-03 Recipe Scaler (Complete)
    - ✅ Phase 19-04 Nutrition Calculator (Complete)
    - ✅ Phase 19 Complete (4/4 plans)
-   - Next: Phase 18 (Real Estate Foundation) or Phase 20 (Education Tools)
+   - Next: Phase 20 (Automotive Calculators)

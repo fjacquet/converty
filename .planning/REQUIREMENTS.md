@@ -9,24 +9,24 @@ Requirements for v3.0 Calculator Expansion & Performance milestone. Each maps to
 
 ### Calculator Expansion — Crypto/Blockchain
 
-- [ ] **CRYPT-01**: User can calculate hash values (MD5, SHA-1, SHA-256, SHA-512)
-- [ ] **CRYPT-02**: User can convert between wallet formats (addresses, private keys)
-- [ ] **CRYPT-03**: User can calculate cryptocurrency exchange rates and conversions
-- [ ] **CRYPT-04**: User can calculate mining profitability and rewards
+- [x] **CRYPT-01**: User can calculate hash values (MD5, SHA-1, SHA-256, SHA-512) ✓
+- [x] **CRYPT-02**: User can convert between wallet formats (addresses, private keys) ✓
+- [x] **CRYPT-03**: User can calculate cryptocurrency exchange rates and conversions ✓
+- [x] **CRYPT-04**: User can calculate mining profitability and rewards ✓
 
 ### Calculator Expansion — Real Estate
 
-- [ ] **REAL-01**: User can calculate mortgage payments (principal, interest, term)
-- [ ] **REAL-02**: User can calculate property valuation and ROI
-- [ ] **REAL-03**: User can calculate rent-to-value ratio and investment metrics
-- [ ] **REAL-04**: User can calculate loan amortization schedules
+- [x] **REAL-01**: User can calculate mortgage payments (principal, interest, term) ✓
+- [x] **REAL-02**: User can calculate property valuation and ROI ✓
+- [x] **REAL-03**: User can calculate rent-to-value ratio and investment metrics ✓
+- [x] **REAL-04**: User can calculate loan amortization schedules ✓
 
 ### Calculator Expansion — Cooking/Nutrition
 
-- [ ] **COOK-01**: User can scale recipes based on servings
-- [ ] **COOK-02**: User can calculate nutrition facts (calories, macros, micros)
-- [ ] **COOK-03**: User can convert between cooking units (metric-first: ml, grams, litres; also support common conversions)
-- [ ] **COOK-04**: User can calculate food cost per serving
+- [x] **COOK-01**: User can scale recipes based on servings ✓
+- [x] **COOK-02**: User can calculate nutrition facts (calories, macros, micros) ✓
+- [x] **COOK-03**: User can convert between cooking units (metric-first: ml, grams, litres; also support common conversions) ✓
+- [x] **COOK-04**: User can calculate food cost per serving ✓
 
 ### Calculator Expansion — Automotive
 
@@ -114,40 +114,40 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CRYPT-01 | Phase 17 | Pending |
-| CRYPT-02 | Phase 17 | Pending |
-| CRYPT-03 | Phase 17 | Pending |
-| CRYPT-04 | Phase 18 | Pending |
-| REAL-01 | Phase 18 | Pending |
-| REAL-02 | Phase 18 | Pending |
-| REAL-03 | Phase 19 | Pending |
-| REAL-04 | Phase 19 | Pending |
-| COOK-01 | Phase 20 | Pending |
-| COOK-02 | Phase 20 | Pending |
-| COOK-03 | Phase 21 | Pending |
-| COOK-04 | Phase 21 | Pending |
-| AUTO-01 | Phase 22 | Pending |
-| AUTO-02 | Phase 22 | Pending |
-| AUTO-03 | Phase 23 | Pending |
-| AUTO-04 | Phase 23 | Pending |
-| PERF-01 | Phase 24 | Pending |
-| PERF-02 | Phase 24 | Pending |
-| PERF-03 | Phase 25 | Pending |
-| PERF-04 | Phase 25 | Pending |
-| FAV-01 | Phase 26 | Pending |
-| FAV-02 | Phase 26 | Pending |
-| FAV-03 | Phase 26 | Pending |
-| FAV-04 | Phase 27 | Pending |
-| FAV-05 | Phase 27 | Pending |
-| HIST-01 | Phase 27 | Pending |
-| HIST-02 | Phase 28 | Pending |
-| HIST-03 | Phase 28 | Pending |
-| HIST-04 | Phase 28 | Pending |
-| HIST-05 | Phase 29 | Pending |
-| EXP-01 | Phase 29 | Pending |
-| EXP-02 | Phase 29 | Pending |
-| EXP-03 | Phase 30 | Pending |
-| EXP-04 | Phase 30 | Pending |
+| CRYPT-01 | Phase 17 | Complete |
+| CRYPT-02 | Phase 17 | Complete |
+| CRYPT-03 | Phase 17 | Complete |
+| CRYPT-04 | Phase 17 | Complete |
+| REAL-01 | Phase 18 | Complete |
+| REAL-02 | Phase 18 | Complete |
+| REAL-03 | Phase 18 | Complete |
+| REAL-04 | Phase 18 | Complete |
+| COOK-01 | Phase 19 | Complete |
+| COOK-02 | Phase 19 | Complete |
+| COOK-03 | Phase 19 | Complete |
+| COOK-04 | Phase 19 | Complete |
+| AUTO-01 | Phase 20 | Pending |
+| AUTO-02 | Phase 20 | Pending |
+| AUTO-03 | Phase 20 | Pending |
+| AUTO-04 | Phase 20 | Pending |
+| PERF-01 | Phase 21 | Pending |
+| PERF-02 | Phase 21 | Pending |
+| PERF-03 | Phase 21 | Pending |
+| PERF-04 | Phase 21 | Pending |
+| FAV-01 | Phase 22 | Pending |
+| FAV-02 | Phase 22 | Pending |
+| FAV-03 | Phase 22 | Pending |
+| FAV-04 | Phase 22 | Pending |
+| FAV-05 | Phase 22 | Pending |
+| HIST-01 | Phase 23 | Pending |
+| HIST-02 | Phase 23 | Pending |
+| HIST-03 | Phase 23 | Pending |
+| HIST-04 | Phase 23 | Pending |
+| HIST-05 | Phase 23 | Pending |
+| EXP-01 | Phase 24 | Pending |
+| EXP-02 | Phase 24 | Pending |
+| EXP-03 | Phase 24 | Pending |
+| EXP-04 | Phase 24 | Pending |
 
 **Coverage:**
 - v1 requirements: 34 total
@@ -157,4 +157,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 ---
 
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-24 after initial definition*
+*Last updated: 2026-01-24 after Phase 18 completion (12/34 requirements satisfied)*
