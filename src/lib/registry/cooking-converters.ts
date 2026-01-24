@@ -1,4 +1,4 @@
-import { Scale } from "lucide-react";
+import { Scale, Utensils } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const cookingConverters: Record<string, ConverterMeta> = {
@@ -29,6 +29,31 @@ export const cookingConverters: Record<string, ConverterMeta> = {
       "sugar",
     ],
     icon: Scale,
+    featured: true,
+  },
+  "recipe-scaler": {
+    id: "recipe-scaler",
+    slug: "recipe-scaler",
+    category: "cooking",
+    subcategory: "recipes",
+    keywords: [
+      "recipe",
+      "scale",
+      "scaler",
+      "servings",
+      "multiply",
+      "divide",
+      "cooking",
+      "baking",
+      "portion",
+      "adjust",
+      "double",
+      "half",
+      "ingredients",
+      "kitchen",
+      "conversion",
+    ],
+    icon: Utensils,
     featured: true,
   },
 };
