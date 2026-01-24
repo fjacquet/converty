@@ -99,6 +99,7 @@ A solid, maintainable foundation with zero technical debt in state management an
 <!-- Existing capabilities from the codebase -->
 
 - ✓ 200+ calculators across 11 categories (Math, Finance, Health, Photo, Video, Web, Data, DateTime, Physics, Music, Color) — existing
+  - Removed v3.0: Salary calculator (US-centric, non-metric focus) — 23 finance calculators remaining
 - ✓ Next.js 16 App Router with static export to GitHub Pages — existing
 - ✓ Internationalization support (4 locales: en, fr, de, it) — existing
 - ✓ URL state persistence for shareable calculator links — existing
@@ -278,7 +279,8 @@ Calculators: 156 registered (4 new network calculators added)
 | Container security false positive suppression            | Static site, no Docker usage, Dockerfile never executed          | ✓ Good - Documented with 6-month review cycle               |
 | Pre-commit hooks with Husky v9 + lint-staged             | Automated quality gates, fast feedback                           | ✓ Good - Hook infrastructure verified, <5s target           |
 | Phase numbering continues across milestones              | Clear history, no confusion with phase resets                    | ✓ Good - Next milestone starts at Phase 9                   |
+| Remove salary calculator for v3.0                        | US-focused, non-metric, incompatible with Swiss/European context | ✓ Good - Removed to align with metric-first approach        |
 
 ---
 
-_Last updated: 2026-01-24 after v3.0 milestone initialization_
+_Last updated: 2026-01-24 after v3.0 salary calculator removal_
