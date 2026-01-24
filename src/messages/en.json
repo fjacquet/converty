@@ -956,6 +956,11 @@
       "name": "Latency Converter",
       "description": "Convert between ping time units (seconds, milliseconds, microseconds, nanoseconds)",
       "metaDescription": "Free network latency converter. Convert ping times between seconds, milliseconds, microseconds, and nanoseconds with latency category context."
+    },
+    "food-cost": {
+      "name": "Food Cost Calculator",
+      "description": "Calculate total recipe cost and cost per serving from ingredient prices",
+      "metaDescription": "Free food cost calculator. Calculate recipe cost, cost per serving, and ingredient expense breakdown for meal planning and budgeting."
     }
   },
   "calculator": {
@@ -3114,6 +3119,31 @@
         "forIngredient": "For ingredient",
         "conversionSteps": "Conversion Steps",
         "selectIngredientNotice": "Select an ingredient above to convert between volume and weight units"
+      },
+      "foodCost": {
+        "recipeInfo": "Recipe Information",
+        "recipeInfoDescription": "Enter your recipe details and currency",
+        "recipeName": "Recipe Name",
+        "recipeNamePlaceholder": "e.g., Chocolate Cake",
+        "servings": "Number of Servings",
+        "servingsLabel": "servings",
+        "currency": "Currency",
+        "ingredients": "Ingredients",
+        "ingredientsDescription": "Add ingredients with their cost and amount used",
+        "ingredientName": "Ingredient",
+        "ingredientPlaceholder": "e.g., Flour",
+        "costPerUnit": "Cost per",
+        "unit": "Unit",
+        "amountUsed": "Amount",
+        "amountUnit": "Unit",
+        "addIngredient": "Add Ingredient",
+        "result": "Cost Analysis",
+        "totalCost": "Total Recipe Cost",
+        "costPerServing": "Cost per Serving",
+        "mostExpensive": "Most Expensive",
+        "leastExpensive": "Least Expensive",
+        "costBreakdown": "Cost Breakdown by Ingredient",
+        "calculationSteps": "Calculation Steps"
       }
     },
     "health": {

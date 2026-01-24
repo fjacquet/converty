@@ -956,6 +956,11 @@
       "name": "Latenz-Konverter",
       "description": "Zwischen Ping-Zeiteinheiten umrechnen (Sekunden, Millisekunden, Mikrosekunden, Nanosekunden)",
       "metaDescription": "Kostenloser Netzwerk-Latenz-Konverter. Ping-Zeiten zwischen Sekunden, Millisekunden, Mikrosekunden und Nanosekunden umrechnen."
+    },
+    "food-cost": {
+      "name": "Lebensmittelkostenrechner",
+      "description": "Berechnen Sie die Gesamtrezeptkosten und Kosten pro Portion aus den Zutatenpreisen",
+      "metaDescription": "Kostenloser Lebensmittelkostenrechner. Berechnen Sie Rezeptkosten, Kosten pro Portion und Aufschlusselung der Zutatenkosten."
     }
   },
   "calculator": {
@@ -3079,6 +3084,31 @@
         "forIngredient": "Fur Zutat",
         "conversionSteps": "Umrechnungsschritte",
         "selectIngredientNotice": "Wahlen Sie oben eine Zutat aus, um zwischen Volumen- und Gewichtseinheiten zu konvertieren"
+      },
+      "foodCost": {
+        "recipeInfo": "Rezeptinformationen",
+        "recipeInfoDescription": "Geben Sie Ihre Rezeptdetails und Wahrung ein",
+        "recipeName": "Rezeptname",
+        "recipeNamePlaceholder": "z.B. Schokoladenkuchen",
+        "servings": "Anzahl der Portionen",
+        "servingsLabel": "Portionen",
+        "currency": "Wahrung",
+        "ingredients": "Zutaten",
+        "ingredientsDescription": "Fugen Sie Zutaten mit ihren Kosten und der verwendeten Menge hinzu",
+        "ingredientName": "Zutat",
+        "ingredientPlaceholder": "z.B. Mehl",
+        "costPerUnit": "Preis pro",
+        "unit": "Einheit",
+        "amountUsed": "Menge",
+        "amountUnit": "Einheit",
+        "addIngredient": "Zutat hinzufugen",
+        "result": "Kostenanalyse",
+        "totalCost": "Gesamtrezeptkosten",
+        "costPerServing": "Kosten pro Portion",
+        "mostExpensive": "Am teuersten",
+        "leastExpensive": "Am gunstigsten",
+        "costBreakdown": "Kostenaufschlusselung nach Zutat",
+        "calculationSteps": "Berechnungsschritte"
       }
     },
     "health": {

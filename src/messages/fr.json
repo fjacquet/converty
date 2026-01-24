@@ -956,6 +956,11 @@
       "name": "Convertisseur de latence",
       "description": "Convertir entre les unités de temps de ping (secondes, millisecondes, microsecondes, nanosecondes)",
       "metaDescription": "Convertisseur de latence réseau gratuit. Convertissez les temps de ping entre secondes, millisecondes, microsecondes et nanosecondes."
+    },
+    "food-cost": {
+      "name": "Calculateur de cout alimentaire",
+      "description": "Calculer le cout total de la recette et le cout par portion a partir des prix des ingredients",
+      "metaDescription": "Calculateur de cout alimentaire gratuit. Calculez le cout des recettes, le cout par portion et la repartition des depenses en ingredients."
     }
   },
   "calculator": {
@@ -3079,6 +3084,31 @@
         "forIngredient": "Pour l'ingredient",
         "conversionSteps": "Etapes de Conversion",
         "selectIngredientNotice": "Selectionnez un ingredient ci-dessus pour convertir entre les unites de volume et de poids"
+      },
+      "foodCost": {
+        "recipeInfo": "Informations sur la recette",
+        "recipeInfoDescription": "Entrez les details de votre recette et la devise",
+        "recipeName": "Nom de la recette",
+        "recipeNamePlaceholder": "ex: Gateau au chocolat",
+        "servings": "Nombre de portions",
+        "servingsLabel": "portions",
+        "currency": "Devise",
+        "ingredients": "Ingredients",
+        "ingredientsDescription": "Ajoutez les ingredients avec leur cout et la quantite utilisee",
+        "ingredientName": "Ingredient",
+        "ingredientPlaceholder": "ex: Farine",
+        "costPerUnit": "Prix par",
+        "unit": "Unite",
+        "amountUsed": "Quantite",
+        "amountUnit": "Unite",
+        "addIngredient": "Ajouter un ingredient",
+        "result": "Analyse des couts",
+        "totalCost": "Cout total de la recette",
+        "costPerServing": "Cout par portion",
+        "mostExpensive": "Plus cher",
+        "leastExpensive": "Moins cher",
+        "costBreakdown": "Repartition des couts par ingredient",
+        "calculationSteps": "Etapes de calcul"
       }
     },
     "health": {

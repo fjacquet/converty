@@ -956,6 +956,11 @@
       "name": "Convertitore di latenza",
       "description": "Converti tra unità di tempo di ping (secondi, millisecondi, microsecondi, nanosecondi)",
       "metaDescription": "Convertitore di latenza di rete gratuito. Converti i tempi di ping tra secondi, millisecondi, microsecondi e nanosecondi."
+    },
+    "food-cost": {
+      "name": "Calcolatore costo cibo",
+      "description": "Calcola il costo totale della ricetta e il costo per porzione dai prezzi degli ingredienti",
+      "metaDescription": "Calcolatore gratuito del costo del cibo. Calcola il costo della ricetta, il costo per porzione e la ripartizione delle spese degli ingredienti."
     }
   },
   "calculator": {
@@ -3091,6 +3096,31 @@
         "forIngredient": "Per ingrediente",
         "conversionSteps": "Passaggi di Conversione",
         "selectIngredientNotice": "Seleziona un ingrediente sopra per convertire tra unita di volume e peso"
+      },
+      "foodCost": {
+        "recipeInfo": "Informazioni sulla ricetta",
+        "recipeInfoDescription": "Inserisci i dettagli della ricetta e la valuta",
+        "recipeName": "Nome ricetta",
+        "recipeNamePlaceholder": "es: Torta al cioccolato",
+        "servings": "Numero di porzioni",
+        "servingsLabel": "porzioni",
+        "currency": "Valuta",
+        "ingredients": "Ingredienti",
+        "ingredientsDescription": "Aggiungi ingredienti con il loro costo e la quantita utilizzata",
+        "ingredientName": "Ingrediente",
+        "ingredientPlaceholder": "es: Farina",
+        "costPerUnit": "Costo per",
+        "unit": "Unita",
+        "amountUsed": "Quantita",
+        "amountUnit": "Unita",
+        "addIngredient": "Aggiungi ingrediente",
+        "result": "Analisi dei costi",
+        "totalCost": "Costo totale ricetta",
+        "costPerServing": "Costo per porzione",
+        "mostExpensive": "Piu costoso",
+        "leastExpensive": "Meno costoso",
+        "costBreakdown": "Ripartizione costi per ingrediente",
+        "calculationSteps": "Passaggi di calcolo"
       }
     },
     "health": {
