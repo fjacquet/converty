@@ -10,15 +10,15 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 21 - Code Splitting & Lazy Loading
-Plan: 21-01 Bundle Analysis & Loading Infrastructure (Complete)
-Status: Phase 21 in progress - bundle analyzer integrated, baseline metrics captured
-Last activity: 2026-01-24 — Completed 21-01-PLAN.md (Bundle Analysis & Loading Infrastructure)
+Plan: 21-02 Dynamic Imports for Calculators (Complete)
+Status: Phase 21 in progress - all 167 calculator pages converted to dynamic imports
+Last activity: 2026-01-24 — Completed 21-02-PLAN.md (Dynamic Imports for Calculators)
 
-Progress: ████████████████░░ 83.3% (v3.0 — 5 of 6 phases started, Phases 17-21 in progress)
+Progress: ████████████████░░ 83.3% (v3.0 — 5 of 6 phases in progress, Phases 17-21 active)
 
 **Next Steps:**
 
-1. Continue Phase 21 (Plan 21-02: Dynamic imports for calculators)
+1. Continue Phase 21 or complete phase
 2. Complete v3.0 Calculator Expansion & Performance milestone
 
 ## Performance Metrics
@@ -68,7 +68,7 @@ Progress: ████████████████░░ 83.3% (v3.0 —
 | 18-real-estate-foundation       | 4/4   | 28 min | 7 min    |
 | 19-cooking-nutrition-foundation | 4/4   | 35 min | 8.75 min |
 | 20-automotive-calculators       | 4/4   | 30 min | 7.5 min  |
-| 21-code-splitting               | 1/?   | 5 min  | 5 min    |
+| 21-code-splitting               | 2/?   | 12 min | 6 min    |
 
 ## Accumulated Context
 
@@ -211,6 +211,9 @@ Progress: ████████████████░░ 83.3% (v3.0 —
 | Bundle analyzer enabled via ANALYZE=true environment variable     | 21-01 | On-demand analysis prevents analyzer from running in every build, cleaner workflow                |
 | Baseline metrics with sample routes for comparison                | 21-01 | 210 chunks (6.4MB JS), sample pages ~184KB - comparison points for measuring code splitting      |
 | Configurable skeleton props for loading states                    | 21-01 | CalculatorSkeleton accepts inputCount and showResults for flexible Suspense fallbacks             |
+| Dynamic imports for all 167 calculator pages                      | 21-02 | Enables on-demand bundle loading, reduces initial page weight for better performance              |
+| No ssr: false flag for dynamic imports                            | 21-02 | Calculators render on server for SEO, dynamic imports work with static export via hydration       |
+| CalculatorSkeleton in both dynamic loading and Suspense fallback   | 21-02 | Consistent loading UX whether chunk is being fetched or component is suspending                   |
 
 ### Milestone Evolution
 
@@ -224,8 +227,8 @@ Progress: ████████████████░░ 83.3% (v3.0 —
 
 ## Session Continuity
 
-Last session: 2026-01-24T18:21:44Z
-Stopped at: Completed 21-01-PLAN.md (Bundle Analysis & Loading Infrastructure)
+Last session: 2026-01-24T18:31:46Z
+Stopped at: Completed 21-02-PLAN.md (Dynamic Imports for Calculators)
 Resume file: None
 
 **Next Steps:**
@@ -237,6 +240,7 @@ Resume file: None
    - ✅ Phase 18 Complete (4/4 plans) - Real Estate
    - ✅ Phase 19 Complete (4/4 plans) - Cooking & Nutrition
    - ✅ Phase 20 Complete (4/4 plans) - Automotive
-   - ▶ Phase 21 In Progress (1/? plans) - Code Splitting & Lazy Loading
+   - ▶ Phase 21 In Progress (2/? plans) - Code Splitting & Lazy Loading
      - ✅ 21-01 Bundle Analysis & Loading Infrastructure (Complete)
-     - Next: 21-02 Dynamic Imports for Calculators
+     - ✅ 21-02 Dynamic Imports for Calculators (Complete)
+     - Next: Continue Phase 21 or move to next phase
