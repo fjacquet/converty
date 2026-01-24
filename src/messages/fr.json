@@ -3887,6 +3887,35 @@
         "lowerTotalCost": "Cout total inferieur",
         "recommendation": "Recommandation",
         "calculationSteps": "Etapes de calcul"
+      },
+      "tireSizing": {
+        "input": "Entree",
+        "result": "Dimensions du pneu",
+        "modes": {
+          "notation": "Notation du pneu",
+          "manual": "Saisie manuelle"
+        },
+        "notationDescription": "Entrez la notation de taille de pneu (ex: 205/55R16 ou 205/55R16 91V)",
+        "manualDescription": "Entrez les dimensions du pneu manuellement",
+        "tireSize": "Taille du pneu",
+        "width": "Largeur (mm)",
+        "aspectRatio": "Rapport d'aspect (%)",
+        "rimDiameter": "Diametre de jante (po)",
+        "loadIndex": "Indice de charge",
+        "speedRating": "Indice de vitesse",
+        "compareMode": "Comparer les tailles",
+        "compareModeDescription": "Comparer avec une autre taille de pneu",
+        "compareTire": "Taille du pneu de comparaison",
+        "comparisonResult": "Comparaison des tailles",
+        "sidewallHeight": "Hauteur du flanc",
+        "overallDiameter": "Diametre total",
+        "circumference": "Circonference",
+        "revolutionsPerKm": "Tours/km",
+        "diameterDifference": "Difference de diametre",
+        "speedometerError": "Erreur du compteur",
+        "withinTolerance": "Dans la tolerance recommandee (3%)",
+        "exceedsTolerance": "Depasse la tolerance recommandee",
+        "calculationSteps": "Etapes de calcul"
       }
     }
   },
