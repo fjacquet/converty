@@ -9,16 +9,16 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: 17 - Crypto/Blockchain Foundation (Complete)
-Plan: 17-04 Mining Profitability Calculator (Complete)
-Status: Phase 17 complete - 4 crypto calculators delivered (hash, wallet validator, exchange rate, mining profitability)
-Last activity: 2026-01-24 — Mining profitability calculator completed with hash rate, ROI analysis, and miner presets
+Phase: 19 - Cooking/Nutrition Foundation (In Progress)
+Plan: 19-01 Cooking Unit Converter (Complete)
+Status: Phase 19 started - cooking category established with metric-first unit converter
+Last activity: 2026-01-24 — Cooking unit converter completed with density-aware conversions for 30 ingredients
 
-Progress: ████████░░ 40% (v3.0 — 1 of 8 phases complete, 4 of 4 plans in Phase 17 complete)
+Progress: ████████░░ 40% (v3.0 — 2 of 8 phases in progress, 1 of 4 plans in Phase 19 complete)
 
 **Next Steps:**
-1. Begin Phase 18 as defined in v3.0 roadmap
-2. Or continue with remaining phases 18-25
+1. Continue Phase 19 (Recipe Scaling, Nutrition Calculators)
+2. Or begin Phase 18 (Real Estate Foundation) as defined in v3.0 roadmap
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Progress: ████████░░ 40% (v3.0 — 1 of 8 phases complete, 4
 | Phase                           | Plans | Total  | Avg/Plan |
 | ------------------------------- | ----- | ------ | -------- |
 | 17-crypto-blockchain-foundation | 4/4   | 32 min | 8 min    |
+| 19-cooking-nutrition-foundation | 1/4   | 10 min | 10 min   |
 
 ## Accumulated Context
 
@@ -184,6 +185,10 @@ Progress: ████████░░ 40% (v3.0 — 1 of 8 phases complete, 4
 | Miner presets for quick configuration                            | 17-04 | Common ASIC miners (Antminer S19 series, Whatsminer M30S++) simplify user experience                |
 | Optional hardware cost for ROI calculation                       | 17-04 | Not all users care about ROI - make it optional, calculate only when provided                       |
 | Swiss electricity cost as default (0.27 CHF/kWh)                 | 17-04 | Swiss/European context for v3.0, aligns with project focus                                          |
+| Metric units primary (ml, g) with imperial support              | 19-01 | European/Swiss context, metric is standard - imperial available for convenience                     |
+| US standard cup (240ml) not UK cup (284ml)                       | 19-01 | US recipes more common internationally, clear standard for conversions                              |
+| Density table required for volume/weight conversions             | 19-01 | Different ingredients have different densities (1 cup flour ≠ 1 cup water in weight)                |
+| Fractional display for imperial units                            | 19-01 | Cooking recipes typically use fractions (1/4 cup) not decimals (0.25 cup) for better UX            |
 
 ### Milestone Evolution
 
@@ -197,8 +202,8 @@ Progress: ████████░░ 40% (v3.0 — 1 of 8 phases complete, 4
 
 ## Session Continuity
 
-Last session: 2026-01-24T07:29:09Z
-Stopped at: Completed 17-04-PLAN.md (Mining Profitability Calculator)
+Last session: 2026-01-24T10:15:06Z
+Stopped at: Completed 19-01-PLAN.md (Cooking Unit Converter)
 Resume file: None
 
 **Next Steps:**
@@ -211,4 +216,5 @@ Resume file: None
    - ✅ Phase 17-03 Exchange Rate Calculator (Complete)
    - ✅ Phase 17-04 Mining Profitability Calculator (Complete)
    - ✅ Phase 17 Complete (4/4 plans)
-   - Next: Phase 18+ per v3.0 roadmap
+   - ✅ Phase 19-01 Cooking Unit Converter (Complete)
+   - Next: Phase 19-02+ (Recipe Scaling) or Phase 18 (Real Estate Foundation)
