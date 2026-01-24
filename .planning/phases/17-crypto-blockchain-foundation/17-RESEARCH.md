@@ -16,6 +16,7 @@ This document provides comprehensive research findings for implementing Phase 17
 ## Section 1: Hash Calculation Strategy
 
 ### Decision Made
+
 **Use WebCrypto API (native browser) for SHA-1, SHA-256, SHA-512; supplement with crypto-js for MD5 (if required)**
 
 ### Rationale
@@ -56,7 +57,7 @@ async function calculateHash(input: string, algo: HashAlgorithm): Promise<string
     // Use crypto-js (sync)
     return CryptoJS.MD5(input).toString();
   }
-  
+
   // Use WebCrypto (async) for SHA algorithms
   const encoder = new TextEncoder();
   const data = encoder.encode(input);
@@ -66,6 +67,7 @@ async function calculateHash(input: string, algo: HashAlgorithm): Promise<string
 ```
 
 ### References
+
 - [Web Crypto API MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
 - [crypto-js npm](https://www.npmjs.com/package/crypto-js)
 - [SHA-256 Performance Analysis](https://medium.com/@ronantech/exploring-sha-256-performance-on-the-browser-browser-apis-javascript-libraries-wasm-webgpu-9d9e8e681c81)
@@ -75,6 +77,7 @@ async function calculateHash(input: string, algo: HashAlgorithm): Promise<string
 ## Section 2: Wallet Format Conversion Approach
 
 ### Decision Made
+
 **Implement address validation + conversion for Bitcoin (P2PKH, P2WPKH) and Ethereum (ERC-20); use lighter validation library + pure JS conversion logic**
 
 ### Rationale
@@ -132,6 +135,7 @@ export function getAddressInfo(address: string, type: WalletType) {
 ```
 
 ### References
+
 - [wallet-address-validator npm](https://www.npmjs.com/package/wallet-address-validator)
 - [ethereumjs-wallet GitHub](https://github.com/ethereumjs/ethereumjs-wallet)
 - [bitcoinjs-lib GitHub](https://github.com/bitcoinjs/bitcoinjs-lib)
@@ -142,6 +146,7 @@ export function getAddressInfo(address: string, type: WalletType) {
 ## Section 3: Exchange Rate Data Strategy
 
 ### Decision Made
+
 **Fetch crypto prices at build time using CoinGecko API; embed prices in static bundle; display timestamp of last update**
 
 ### Rationale
@@ -176,7 +181,8 @@ export function getAddressInfo(address: string, type: WalletType) {
 
 **Risk:** Prices are stale until next build. For a static site, this is acceptable; document update frequency clearly.
 
-**Trade-off:** 
+**Trade-off:**
+
 - MVP (recommended): Build-time prices only, document clearly when prices were last fetched
 - Future option: Add client-side warning if prices older than 1 hour, redirect to CoinGecko for real-time
 
@@ -199,6 +205,7 @@ fs.writeFileSync('src/lib/data/crypto-prices.json', JSON.stringify(data, null, 2
 ```
 
 ### References
+
 - [CoinGecko API Documentation](https://docs.coingecko.com/)
 - [CoinGecko Pricing](https://www.coingecko.com/en/api/pricing)
 - [Next.js Static Exports Guide](https://nextjs.org/docs/app/guides/static-exports)
@@ -208,6 +215,7 @@ fs.writeFileSync('src/lib/data/crypto-prices.json', JSON.stringify(data, null, 2
 ## Section 4: Mining Profitability Calculations
 
 ### Decision Made
+
 **Implement formula-based calculator; fetch difficulty & block reward at build time; display in CHF/EUR, kWh, difficulty units**
 
 ### Rationale
@@ -216,6 +224,7 @@ fs.writeFileSync('src/lib/data/crypto-prices.json', JSON.stringify(data, null, 2
    - **Inputs:** Hash rate (H/s, MH/s, GH/s, TH/s), Power (watts), Electricity cost (CHF/kWh), Algorithm
    - **Constants (build-time):** Network difficulty, Block reward (BTC/ETH per block)
    - **Calculation:**
+
      ```
      Revenue per day = (HashRate / NetworkHashRate) × BlocksPerDay × BlockReward
      Cost per day = (Power / 1000) × 24 × ElectricityCost
@@ -245,6 +254,7 @@ fs.writeFileSync('src/lib/data/crypto-prices.json', JSON.stringify(data, null, 2
 **Risk:** Difficulty changes ~every 2 weeks; stale data makes projections inaccurate.
 
 **Trade-off:**
+
 - Acceptable: Display "Data last updated [DATE]" and recommend rebuilding frequently
 - Not critical: Mining is inherently unprofitable for individual miners (industrial scale dominates)
 
@@ -264,11 +274,11 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
   const currentReward = 6.25; // BTC
   const currentDifficulty = 100_000_000_000; // Load from build-time data
   const networkHashRate = 500_000_000_000; // Load from build-time data
-  
+
   const revenuePerDay = (input.hashRateTH * 1e12 / networkHashRate) * dailyBlocks * currentReward;
   const costPerDay = (input.powerWatts / 1000) * 24 * input.costPerKWh;
   const profitPerDay = revenuePerDay - costPerDay;
-  
+
   return {
     revenuePerDay,
     costPerDay,
@@ -281,6 +291,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
 ```
 
 ### References
+
 - [CoinWarz Mining Calculator](https://www.coinwarz.com/mining/bitcoin/calculator)
 - [HashRate Index Calculator](https://hashrateindex.com/tools/calculator)
 - [Bitcoin Difficulty API](https://data.hashrateindex.com/network-data/difficulty)
@@ -291,11 +302,13 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
 ## Section 5: I18n & Translation Keys
 
 ### Decision Made
+
 **Follow existing project pattern: Namespace-based translation keys; technical terms (hash algorithms, wallet types) use English abbreviations; translate category names**
 
 ### Rationale
 
 1. **Translation structure (per project conventions):**
+
    ```
    converters:
      hash-calculator:
@@ -376,6 +389,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
 ```
 
 ### References
+
 - [Existing i18n Guide: docs/I18N_GUIDE.md](https://converty.local/docs/I18N_GUIDE.md)
 - [Project Messages Structure: src/messages/](https://converty.local/src/messages/)
 
@@ -384,6 +398,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
 ## Section 6: URL State Design
 
 ### Decision Made
+
 **Use existing createCalculatorStore pattern with URL sync middleware for all 4 calculators**
 
 ### Rationale
@@ -391,6 +406,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
 1. **State shape per calculator:**
 
    **Hash Calculator:**
+
    ```typescript
    interface HashInput {
      text: string;                    // Input text to hash
@@ -400,6 +416,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
    ```
 
    **Wallet Converter:**
+
    ```typescript
    interface WalletInput {
      address: string;
@@ -409,6 +426,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
    ```
 
    **Crypto Exchange Rate:**
+
    ```typescript
    interface ExchangeInput {
      amount: string;
@@ -419,6 +437,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
    ```
 
    **Mining Profitability:**
+
    ```typescript
    interface MiningInput {
      hashRateTH: string;
@@ -430,6 +449,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
    ```
 
 2. **Implementation (reuse existing pattern):**
+
    ```typescript
    const useHashStore = createCalculatorStore<HashInput, HashResult>({
      name: 'hash-calculator',
@@ -457,6 +477,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult {
 URL state is proven to work across 120+ existing calculators (phase 02-url-sync-infrastructure verified).
 
 ### References
+
 - [src/stores/calculator-store.ts](https://converty.local/src/stores/calculator-store.ts)
 - [URL Sync Middleware: src/lib/middleware/url-sync.ts](https://converty.local/src/lib/middleware/url-sync.ts)
 - [Phase 02 Verification: .planning/phases/02-url-sync-infrastructure/02-VERIFICATION.md](https://converty.local/.planning/phases/02-url-sync-infrastructure/02-VERIFICATION.md)
@@ -466,6 +487,7 @@ URL state is proven to work across 120+ existing calculators (phase 02-url-sync-
 ## Section 7: Testing & Verification Strategy
 
 ### Decision Made
+
 **Implement test vectors for hashing; cross-validate exchange rates against CoinGecko; verify mining calculations with public calculators**
 
 ### Rationale
@@ -504,6 +526,7 @@ URL state is proven to work across 120+ existing calculators (phase 02-url-sync-
 - [ ] URL state preserves all inputs across page reload
 
 ### References
+
 - [NIST FIPS 180-4: SHA Standard](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf) (test vectors)
 - [CoinWarz Mining Calculator](https://www.coinwarz.com/mining/bitcoin/calculator) (validation reference)
 - [CoinGecko API](https://docs.coingecko.com/) (price source)
@@ -513,11 +536,13 @@ URL state is proven to work across 120+ existing calculators (phase 02-url-sync-
 ## Section 8: Dependency Analysis & Bundle Impact
 
 ### Decision Made
+
 **Add crypto-js (16 KB minified, 4 KB gzipped); wallet-address-validator (2 KB minified, 0.8 KB gzipped); total impact: ~5 KB gzipped**
 
 ### Current Dependencies (Relevant)
 
 From package.json:
+
 - zustand@5.0.10 (1.2 KB gzipped)
 - fuse.js@7.1.0 (2.3 KB gzipped)
 - recharts@3.6.0 (45 KB gzipped)
@@ -540,6 +565,7 @@ From package.json:
 1. **No code splitting needed** — 5 KB is negligible
 2. **Tree-shaking:** Both libraries support modern tree-shaking
 3. **Dynamic import (if needed later):** Could lazy-load crypto-js only on hash calculator page
+
    ```typescript
    const CryptoJS = await import('crypto-js');
    ```
@@ -567,6 +593,7 @@ npx webpack --mode production --analyze
 ```
 
 ### References
+
 - [BundlePhobia](https://bundlephobia.com/) (package size tracker)
 - [Webpack Bundle Analyzer](https://github.com/webpack-bundle-size-analyzer/webpack-bundle-size-analyzer)
 
@@ -575,6 +602,7 @@ npx webpack --mode production --analyze
 ## Section 9: Privacy & Security Considerations
 
 ### Decision Made
+
 **Implement address validation only (no private key handling); warn users clearly in UI; use HTTPS only for any API calls; do NOT store sensitive data**
 
 ### Rationale
@@ -595,14 +623,14 @@ npx webpack --mode production --analyze
    - **Hash calculator:** Outputs hashed user input, not reversible (unless weak password)
      - Risk: User hashing passwords locally (visible in URL)
      - Mitigation: Add UI warning "Do NOT hash passwords here; use proper key derivation"
-   
+
    - **Wallet address conversion:** Works with public addresses only
      - Risk: User pastes private key by mistake
      - Mitigation: Add clear label "PUBLIC ADDRESS ONLY" in input field
-   
+
    - **Exchange rates:** All public data
      - Risk: None (same as checking prices on CoinGecko)
-   
+
    - **Mining calculator:** All public data
      - Risk: None
 
@@ -626,6 +654,7 @@ npx webpack --mode production --analyze
 - [ ] Add help text for each calculator explaining security model
 
 ### References
+
 - [OWASP: Client-Side Data Protection](https://owasp.org/www-community/attacks/Client-Side_Encryption)
 - [MDN: Web Crypto API Security](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API#security_considerations)
 - [ethers.js Security Discussion](https://github.com/ethers-io/ethers.js/discussions/3504)
@@ -635,6 +664,7 @@ npx webpack --mode production --analyze
 ## Section 10: Build-Time vs Runtime Trade-offs
 
 ### Decision Made
+
 **Hybrid approach: (1) Hash/Wallet/Mining logic runs client-side (runtime); (2) Crypto prices & difficulty fetched at build-time, embedded in bundle**
 
 ### Trade-off Analysis
@@ -652,12 +682,14 @@ npx webpack --mode production --analyze
 **Build-Time (Crypto Prices & Difficulty):**
 
 Pros:
+
 - Zero runtime cost (prices already in JS bundle)
 - Consistent data for all users (no race conditions)
 - Static export compatible
 - Cache-friendly (CDN can cache forever, except date header)
 
 Cons:
+
 - Prices stale until next build
 - Requires rebuild to update prices
 - Difficult for real-time trading (acceptable — this is educational)
@@ -665,12 +697,14 @@ Cons:
 **Runtime (Hash, Wallet, Mining Logic):**
 
 Pros:
+
 - Instant results (no network latency)
 - Always up-to-date inputs
 - User doesn't need to rebuild for new hash inputs
 - Scales infinitely (no server needed)
 
 Cons:
+
 - None (static export ideal for this)
 
 ### Build Process Flow
@@ -721,6 +755,7 @@ Resulting static site
 - [ ] Set up CI/CD to run `npm run build` daily
 
 ### References
+
 - [Next.js Static Exports](https://nextjs.org/docs/app/guides/static-exports)
 - [Next.js Static Generation with Data](https://nextjs.org/learn/dashboard-app/static-and-dynamic-rendering)
 - [GitHub Actions: Scheduled Builds](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule)
@@ -730,18 +765,23 @@ Resulting static site
 ## Critical Implementation Questions & Decisions Remaining
 
 ### Q1: Should we implement Ethereum mining profitability?
+
 **Answer:** No (MVP). Ethereum moved to Proof-of-Stake in Sep 2022; no more PoW mining.
 
 ### Q2: What about Litecoin, Monero, or other altcoins?
+
 **Answer:** Scope to Bitcoin only (MVP). Can add others later if demand justifies bundle size.
 
 ### Q3: Private key conversion — really out of scope?
+
 **Answer:** Yes. Too risky, requires educational context we don't have space for.
 
 ### Q4: Should hash calculator support HMAC?
+
 **Answer:** No (MVP). Keep focused on basic hashing.
 
 ### Q5: Real-time price updates — can we add them later?
+
 **Answer:** Yes, but it breaks static export. Would require moving to hybrid (SSG + API routes). Document as future enhancement.
 
 ---
@@ -751,12 +791,14 @@ Resulting static site
 ### MVP Scope (Recommended)
 
 **Must include:**
+
 1. Hash Calculator (MD5, SHA-1, SHA-256, SHA-512)
 2. Wallet Address Validator (Bitcoin P2PKH/P2WPKH, Ethereum ERC-20)
 3. Crypto Exchange Rate (BTC/ETH to CHF/EUR)
 4. Mining Profitability (Bitcoin SHA-256 only)
 
 **Must include for quality:**
+
 - URL state persistence for all 4
 - Full i18n (en/fr/de/it)
 - Test vectors for hashing
@@ -764,17 +806,20 @@ Resulting static site
 - Clear disclaimers/warnings in UI
 
 ### Bundle Cost
+
 - +5 KB gzipped (crypto-js + wallet-validator)
 - +2 KB for build-time scripts
 - Total impact: Negligible (1.2% increase)
 
 ### Complexity Estimate
+
 - Hash Calculator: 4/10 (straightforward)
 - Wallet Converter: 5/10 (validation library needed)
 - Exchange Rate: 6/10 (build-time data fetch)
 - Mining Profitability: 7/10 (formula, data management, unit conversions)
 
 ### Timeline Estimate
+
 - Research & setup: 2-3 hours (done)
 - Implementation (all 4): 12-16 hours
 - Testing & QA: 4-6 hours

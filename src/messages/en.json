@@ -2736,6 +2736,49 @@
         "avg-of-presets": "avg. of {count} presets"
       }
     },
+    "realestate": {
+      "currency": "Currency",
+      "mortgage": {
+        "propertyDetails": "Property Details",
+        "propertyPrice": "Property Price",
+        "downPayment": "Down Payment",
+        "downPaymentPercent": "Down Payment %",
+        "loanDetails": "Loan Details",
+        "loanTerm": "Loan Term",
+        "interestRate": "Interest Rate (%)",
+        "startDate": "Start Date",
+        "years": "years",
+        "currentRates": "Current Swiss rates",
+        "fixed5y": "5-year fixed",
+        "fixed10y": "10-year fixed",
+        "monthlyPayment": "Monthly Payment",
+        "perMonth": "per month",
+        "loanAmount": "Loan Amount",
+        "ltv": "Loan-to-Value (LTV)",
+        "totalInterest": "Total Interest",
+        "totalCost": "Total Cost",
+        "payoffDate": "Payoff Date",
+        "principal": "Principal",
+        "interest": "Interest",
+        "principalVsInterest": "Principal vs Interest",
+        "balanceOverTime": "Balance Over Time",
+        "yearlyPrincipalVsInterest": "Yearly Principal vs Interest",
+        "remainingBalance": "Remaining Balance",
+        "year": "Year",
+        "perYear": "per year",
+        "affordabilityCheck": "Affordability Check",
+        "affordabilityDescription": "Swiss banks use a 5% stress test rate to ensure you can afford the mortgage even if rates rise.",
+        "stressTestPayment": "Monthly Payment at 5% Rate",
+        "requiredIncome": "Required Annual Gross Income",
+        "swissRequirementsTitle": "Swiss Mortgage Requirements",
+        "swissRequirementsDescription": "Swiss regulations require minimum 20% down payment and maximum 80% loan-to-value ratio. Mortgage must be amortized to 2/3 LTV within 15 years.",
+        "warningsTitle": "Regulatory Warnings",
+        "warnings": {
+          "minDownPayment": "Down payment is below the Swiss minimum of 20%. Most banks will not approve this loan.",
+          "maxLtv": "Loan-to-value exceeds the Swiss maximum of 80%. Reduce the loan amount or increase down payment."
+        }
+      }
+    },
     "inflation": {
       "currentAmount": "Current Amount",
       "inflationRate": "Annual Inflation Rate (%)",

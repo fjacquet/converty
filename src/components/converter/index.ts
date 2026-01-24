@@ -1,5 +1,6 @@
 export * from "./breadcrumbs";
 export * from "./converter-layout";
+export * from "./currency-selector";
 export * from "./input-field";
 export * from "./output-display";
 export * from "./pdf-export-button";

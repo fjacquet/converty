@@ -2713,6 +2713,49 @@
         "avg-of-presets": "media di {count} preset"
       }
     },
+    "realestate": {
+      "currency": "Valuta",
+      "mortgage": {
+        "propertyDetails": "Dettagli dell'immobile",
+        "propertyPrice": "Prezzo dell'immobile",
+        "downPayment": "Capitale proprio",
+        "downPaymentPercent": "Capitale proprio %",
+        "loanDetails": "Dettagli del prestito",
+        "loanTerm": "Durata del prestito",
+        "interestRate": "Tasso d'interesse (%)",
+        "startDate": "Data di inizio",
+        "years": "anni",
+        "currentRates": "Tassi svizzeri attuali",
+        "fixed5y": "Fisso 5 anni",
+        "fixed10y": "Fisso 10 anni",
+        "monthlyPayment": "Rata mensile",
+        "perMonth": "al mese",
+        "loanAmount": "Importo del prestito",
+        "ltv": "Rapporto prestito/valore (LTV)",
+        "totalInterest": "Interessi totali",
+        "totalCost": "Costo totale",
+        "payoffDate": "Data di estinzione",
+        "principal": "Capitale",
+        "interest": "Interessi",
+        "principalVsInterest": "Capitale vs Interessi",
+        "balanceOverTime": "Saldo nel tempo",
+        "yearlyPrincipalVsInterest": "Capitale vs Interessi annuali",
+        "remainingBalance": "Saldo residuo",
+        "year": "Anno",
+        "perYear": "all'anno",
+        "affordabilityCheck": "Verifica di accessibilità",
+        "affordabilityDescription": "Le banche svizzere utilizzano un tasso di stress del 5% per assicurarsi che possiate permettervi l'ipoteca anche se i tassi aumentano.",
+        "stressTestPayment": "Rata mensile al tasso del 5%",
+        "requiredIncome": "Reddito annuo lordo richiesto",
+        "swissRequirementsTitle": "Requisiti ipotecari svizzeri",
+        "swissRequirementsDescription": "I regolamenti svizzeri richiedono un capitale proprio minimo del 20% e un rapporto prestito/valore massimo dell'80%. L'ipoteca deve essere ammortizzata al 2/3 LTV entro 15 anni.",
+        "warningsTitle": "Avvertenze regolamentari",
+        "warnings": {
+          "minDownPayment": "Il capitale proprio è inferiore al minimo svizzero del 20%. La maggior parte delle banche non approverà questo prestito.",
+          "maxLtv": "Il rapporto prestito/valore supera il massimo svizzero dell'80%. Riducete l'importo del prestito o aumentate il capitale proprio."
+        }
+      }
+    },
     "inflation": {
       "currentAmount": "Importo Attuale",
       "inflationRate": "Tasso d'Inflazione Annuale (%)",

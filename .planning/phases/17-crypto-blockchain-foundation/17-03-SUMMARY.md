@@ -87,6 +87,7 @@ Created a comprehensive cryptocurrency exchange rate calculator that converts be
 ### Technical Implementation
 
 **Build Pipeline:**
+
 ```bash
 npm run prebuild
   → fetch-crypto-prices.ts → crypto-prices.json
@@ -94,11 +95,13 @@ npm run prebuild
 ```
 
 **Data Flow:**
+
 1. Build-time: Fetch prices from CoinGecko → save to JSON
 2. Runtime: Import static JSON → convert amounts → display results
 3. No runtime API calls (compatible with static export)
 
 **Files Created:**
+
 - `scripts/fetch-crypto-prices.ts` - Build-time price fetch script (172 lines)
 - `src/lib/data/crypto-prices.json` - Static price data with timestamp
 - `src/lib/converters/crypto/exchange-rate.ts` - Calculation logic (185 lines)
@@ -107,6 +110,7 @@ npm run prebuild
 - `src/app/[locale]/crypto/exchange-rate/exchange-rate-calculator.tsx` - UI (181 lines)
 
 **Registry & Translations:**
+
 - Added to `crypto-converters.ts` with `featured: true`
 - Translations in all 4 locales (en, fr, de, it)
 - 18 translation keys in `calculator.crypto.exchange` namespace
@@ -118,11 +122,13 @@ npm run prebuild
 **Context:** Static export mode prevents runtime API calls, but users need current prices.
 
 **Options:**
+
 1. Client-side API calls (breaks static export)
 2. Build-time fetch with static JSON (chosen)
 3. Hardcoded prices only (no freshness)
 
 **Decision:** Build-time fetch with fallback
+
 - Fetches fresh prices during build
 - Falls back to reasonable defaults if API unavailable
 - Build never fails due to API issues
@@ -133,6 +139,7 @@ npm run prebuild
 **Context:** Need reliable price data for 6 cryptocurrencies in 3 fiat currencies.
 
 **Decision:** Use CoinGecko free tier
+
 - No API key required (simpler setup)
 - Supports all needed currencies
 - Reliable uptime
@@ -145,6 +152,7 @@ npm run prebuild
 **Context:** Prices fetched at build time can become outdated.
 
 **Decision:** Show red warning card when data > 24 hours old
+
 - Visual indicator (AlertTriangle icon)
 - Clear message: "Price Data May Be Outdated"
 - Guidance: "Rebuild the site to fetch fresh prices"
@@ -175,6 +183,7 @@ npm run prebuild
 ### Auto-fixed Issues
 
 **1. [Rule 1 - Bug] Fixed ConverterLayout props**
+
 - **Found during:** Task 4 verification (TypeScript check)
 - **Issue:** page.tsx used non-existent `backLink` and `backLabel` props
 - **Fix:** Updated to use `category` and `categoryName` props (pattern from hash calculator)
@@ -184,6 +193,7 @@ npm run prebuild
 ## Testing Performed
 
 **Functional Tests:**
+
 - ✅ 1 BTC → CHF shows correct conversion (~69,822 CHF at current rates)
 - ✅ 1 ETH → EUR shows correct conversion with inverse rate
 - ✅ Price source and timestamp displayed ("CoinGecko, last updated...")
@@ -192,11 +202,13 @@ npm run prebuild
 - ✅ All 4 locales display proper translations
 
 **Build Tests:**
+
 - ✅ `npm run fetch-crypto-prices` successfully fetches live prices
 - ✅ TypeScript compilation passes with no errors
 - ✅ Price fetch integrated into prebuild pipeline
 
 **Price Data Verification:**
+
 ```json
 {
   "timestamp": "2026-01-24T07:12:26.378Z",
@@ -219,11 +231,13 @@ npm run prebuild
 ## Next Phase Readiness
 
 **Phase 17-04 (QR Code Generator) can proceed:**
+
 - ✅ Crypto category established with 3 calculators
 - ✅ Pattern for crypto-specific UI components clear
 - ✅ Translation structure for calculator.crypto.* namespace consistent
 
 **Dependencies:**
+
 - Exchange rate calculator is independent
 - Provides pricing context for future crypto calculators
 

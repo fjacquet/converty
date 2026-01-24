@@ -55,6 +55,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 ### Mining Data Infrastructure
 
 **Build-time data fetch** (`scripts/fetch-mining-data.ts`):
+
 - Fetches Bitcoin difficulty from Blockchain.info API
 - Fetches network hash rate from Blockchain.info (GH/s → TH/s conversion)
 - Fetches BTC price from CoinGecko (CHF/EUR/USD)
@@ -67,6 +68,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 ### Calculation Logic
 
 **Mining profitability calculator** (`src/lib/converters/crypto/mining-profitability.ts`):
+
 - `MiningInput` interface: hashRate, hashRateUnit, powerWatts, electricityCost, currency, hardwareCost
 - `MiningResult` interface: revenue, costs, profit (daily/monthly/yearly), BTC amounts, ROI, profitability status
 - Hash rate units: H/s, KH/s, MH/s, GH/s, TH/s, PH/s
@@ -84,6 +86,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 ### State Management
 
 **Zustand store** (`src/stores/mining-calculator-store.ts`):
+
 - State: hashRate, hashRateUnit, powerWatts, electricityCost, currency, hardwareCost, result, error
 - URL sync middleware with 300ms debounce
 - Default: 100 TH/s, 3000W, 0.27 CHF/kWh (Swiss rate), CHF currency
@@ -100,6 +103,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 **Miner presets section**: Quick-select buttons for popular ASIC miners
 
 **Input card**:
+
 - Hash rate with unit selector (H/s to PH/s)
 - Power consumption (W)
 - Electricity cost (per kWh)
@@ -107,11 +111,13 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 - Hardware cost (optional, for ROI)
 
 **Profitability indicator card**:
+
 - Green/red border based on profit/loss
 - Large daily profit display with +/- prefix
 - TrendingUp/TrendingDown icons
 
 **Detailed results card**:
+
 - Daily breakdown: Revenue (with BTC), Electricity cost, Profit
 - Monthly breakdown: Revenue (with BTC), Electricity cost, Profit
 - Yearly breakdown: Revenue (with BTC), Electricity cost, Profit
@@ -122,6 +128,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 **Stale data warning**: Alert if mining data older than 24 hours
 
 **Static page** (`page.tsx`):
+
 - Server component with metadata generation
 - Static generation for all 4 locales
 - SEO-optimized keywords
@@ -129,6 +136,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 ### Registry and Translations
 
 **Registry entry** (`src/lib/registry/crypto-converters.ts`):
+
 - ID: `mining-calculator`
 - Slug: `mining` (URL: `/[locale]/crypto/mining`)
 - Category: `crypto`, Subcategory: `mining`
@@ -137,6 +145,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 - Keywords: mining, bitcoin, profitability, hashrate, electricity, roi, asic
 
 **Translations** (all 4 locales: en, fr, de, it):
+
 - `converters.mining-calculator`: name, description, metaDescription
 - `calculator.crypto.mining`: 35+ translation keys
   - Miner presets, mining parameters
@@ -178,11 +187,13 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 **Decision:** Fetch mining data during build, not runtime
 
 **Rationale:**
+
 - Static export (`output: "export"`) prevents runtime API calls
 - Build-time fetch with fallback ensures calculator always works
 - Pattern established in 17-03 (crypto prices), reused here
 
 **Implementation:**
+
 - `scripts/fetch-mining-data.ts` runs in `prebuild` script
 - Fetches from Blockchain.info (difficulty, hash rate) and CoinGecko (price)
 - Writes to `src/lib/data/mining-data.json`
@@ -194,11 +205,13 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 **Decision:** Store network hash rate in TH/s, support H/s to PH/s for user input
 
 **Rationale:**
+
 - Bitcoin miners typically advertise in TH/s (e.g., Antminer S19 Pro: 110 TH/s)
 - Network hash rate is ~800 EH/s (800 million TH/s)
 - TH/s strikes balance between readability and scale
 
 **Implementation:**
+
 - `HASH_RATE_MULTIPLIERS` object maps all units to H/s
 - User selects unit via dropdown
 - Calculation converts both miner hash rate and network hash rate to H/s
@@ -209,11 +222,13 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 **Decision:** Include popular ASIC miner presets (Antminer S19 series, Whatsminer M30S++)
 
 **Rationale:**
+
 - Simplifies user experience - one click to configure
 - Covers 80%+ of current-generation mining hardware
 - Educational value - shows real-world specifications
 
 **Implementation:**
+
 - `MINER_PRESETS` array with name, hash rate, unit, power watts
 - Buttons in UI trigger `applyPreset()` action
 - Preset fills hash rate, unit, and power consumption
@@ -224,11 +239,13 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 **Decision:** Make hardware cost optional, calculate ROI only when provided
 
 **Rationale:**
+
 - Not all users care about ROI (existing miners vs. prospective buyers)
 - Allows simpler "profit estimation" mode without upfront cost
 - When provided, enables full ROI analysis (days, months, break-even date)
 
 **Implementation:**
+
 - `hardwareCost` field accepts empty string or number
 - `calculateMiningProfitability()` checks `if (hardwareCost && hardwareCost > 0)`
 - ROI calculation: `roiDays = hardwareCost / profitPerDay`
@@ -239,11 +256,13 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 **Decision:** Default to 0.27 CHF/kWh (Swiss average electricity cost)
 
 **Rationale:**
+
 - Aligns with v3.0 milestone focus on Swiss/European context
 - Switzerland has high electricity costs (0.27 CHF/kWh) → realistic profitability assessment
 - Users can easily adjust to their local rates
 
 **Implementation:**
+
 - Default `electricityCost: "0.27"` in Zustand store
 - Default `currency: "CHF"` in Zustand store
 - `ELECTRICITY_COSTS` object provides regional reference values
@@ -251,6 +270,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 ## Success Criteria Verification
 
 ✅ **CRYPT-04: Mining calculator with hash rate, power, electricity cost inputs**
+
 - Hash rate input with unit selector (H/s to PH/s)
 - Power consumption input (W)
 - Electricity cost input (per kWh)
@@ -258,24 +278,28 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 - Hardware cost input (optional)
 
 ✅ **Daily/monthly/yearly profit projections**
+
 - Daily: Revenue, electricity cost, profit
 - Monthly: Revenue, electricity cost, profit (×30)
 - Yearly: Revenue, electricity cost, profit (×365)
 - BTC amounts shown alongside fiat values
 
 ✅ **ROI and break-even calculations**
+
 - ROI days calculation when hardware cost provided
 - ROI months conversion (days / 30)
 - Break-even date calculation (current date + ROI days)
 - Conditional rendering (only shows if hardware cost entered)
 
 ✅ **Profitability indicator**
+
 - Green card with TrendingUp icon if `profitPerDay > 0`
 - Red card with TrendingDown icon if `profitPerDay <= 0`
 - Large daily profit display with +/- prefix
 - Clear "Profitable" / "Not Profitable" status
 
 ✅ **Miner presets working**
+
 - Antminer S19 Pro (110 TH/s, 3250W)
 - Antminer S19j Pro (104 TH/s, 3068W)
 - Antminer S19 XP (140 TH/s, 3010W)
@@ -283,12 +307,14 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 - `applyPreset()` fills hash rate, unit, and power consumption
 
 ✅ **CHF/EUR/USD support**
+
 - Currency selector in input card
 - BTC price fetched in all 3 currencies
 - Profit displayed in selected currency
 - Electricity cost labeled with currency symbol
 
 ✅ **All 4 locales translated**
+
 - English (en.json): Source of truth
 - French (fr.json): Translated
 - German (de.json): Translated
@@ -296,12 +322,14 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 - 35+ translation keys in `calculator.crypto.mining`
 
 ✅ **Accessible at /[locale]/crypto/mining**
+
 - Route: `/en/crypto/mining`, `/fr/crypto/mining`, etc.
 - Static generation for all locales
 - SEO metadata with keywords
 - Listed in crypto category
 
 ✅ **Functional tests pass**
+
 - **Antminer S19 Pro (110 TH/s, 3250W) shows realistic estimates**: ✅
   - Network hash rate: ~803M TH/s
   - BTC per day: (110 / 803,000,000) × 144 × 3.125 ≈ 0.00000006 BTC
@@ -332,6 +360,7 @@ Bitcoin mining profitability calculator with daily/monthly/yearly projections, R
 Phase 17-04 (Mining Calculator) is the final plan in Phase 17. Phase 17 is now complete.
 
 **Phase 17 Deliverables:**
+
 - ✅ 17-01: Hash Calculator (MD5, SHA-1, SHA-256, SHA-512)
 - ✅ 17-02: Wallet Validator (BTC, ETH, LTC with format detection)
 - ✅ 17-03: Exchange Rate Calculator (6 crypto, 3 fiat, build-time pricing)
@@ -350,16 +379,19 @@ Phase 17-04 (Mining Calculator) is the final plan in Phase 17. Phase 17 is now c
 ## Dependencies
 
 **Requires (from previous plans):**
+
 - 17-03: Exchange Rate Calculator - Established build-time crypto price fetching pattern with CoinGecko
 - All v1.0/v2.0 infrastructure: Zustand stores, URL sync, i18n, static generation
 
 **Provides (for future plans):**
+
 - Mining profitability calculator accessible at `/[locale]/crypto/mining`
 - Build-time mining data fetch infrastructure (`scripts/fetch-mining-data.ts`)
 - Mining data JSON (`src/lib/data/mining-data.json`)
 - Mining calculation logic for potential reuse
 
 **Affects:**
+
 - Crypto category now has 4 calculators (hash, wallet validator, exchange rate, mining)
 - Homepage may feature mining calculator (currently `featured: false`)
 
