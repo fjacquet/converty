@@ -14,7 +14,7 @@ Plan: 20-03 Maintenance Intervals Calculator (Complete)
 Status: Phase 20 complete - all 4 automotive calculators operational (Fuel Efficiency, Tire Sizing, Maintenance Intervals, Vehicle Financing)
 Last activity: 2026-01-24 — Completed 20-03-PLAN.md (Maintenance Intervals Calculator with Swiss MFK support)
 
-Progress: ████████████░ 62.5% (v3.0 — 5 of 8 phases complete, Phases 17, 18, 19, 20 verified)
+Progress: ████████████████░░ 66.7% (v3.0 — 4 of 6 phases complete, Phases 17, 18, 19, 20 verified)
 
 **Next Steps:**
 1. Begin Phase 21 or next milestone phase

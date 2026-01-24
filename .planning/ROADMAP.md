@@ -2,8 +2,8 @@
 
 **Milestone:** v3.0 Calculator Expansion & Performance
 **Defined:** 2026-01-24
-**Total Phases:** 14 (Phases 17-30)
-**Requirements Mapped:** 34/34 (100%)
+**Total Phases:** 6 (Phases 17-21, 24)
+**Requirements Mapped:** 24/24 (100%)
 
 ## Phase Overview
 
@@ -14,8 +14,6 @@
 | 19 | Cooking/Nutrition Foundation | Implement recipe and nutrition calculators | COOK-01, COOK-02, COOK-03, COOK-04 | 4 new calculators, unit conversions accurate |
 | 20 | Automotive Calculators | Add fuel efficiency and vehicle calculators | AUTO-01, AUTO-02, AUTO-03, AUTO-04 | 4 new calculators, spec data accurate |
 | 21 | Code Splitting & Lazy Loading | Implement category-based code splitting | PERF-01, PERF-02, PERF-03, PERF-04 | Bundle size reduced, FCP improved |
-| 22 | Favorites Feature | Add calculator bookmarking system | FAV-01, FAV-02, FAV-03, FAV-04, FAV-05 | Bookmarks persist, badge displays count |
-| 23 | Calculation History | Implement history tracking and restore | HIST-01, HIST-02, HIST-03, HIST-04, HIST-05 | History persists, timestamps display |
 | 24 | Export Functionality | Add PDF and CSV export capability | EXP-01, EXP-02, EXP-03, EXP-04 | Exports accurate, accessible from calculators |
 
 ---
@@ -129,46 +127,6 @@
 
 ---
 
-### Phase 22: Favorites Feature
-
-**Goal:** Implement calculator bookmarking system with localStorage persistence.
-
-**Requirements:** FAV-01, FAV-02, FAV-03, FAV-04, FAV-05
-
-**Success Criteria:**
-
-- [ ] Users can bookmark calculators from calculator page
-- [ ] Bookmarked calculators viewable in dedicated "Favorites" section
-- [ ] Bookmark removal working
-- [ ] Favorites persist across browser sessions (localStorage)
-- [ ] Badge displays count of bookmarked calculators
-- [ ] Bookmarks accessible from navigation
-- [ ] Clear, intuitive UI for bookmark actions
-
-**Included in v3.0 Requirements:** FAV-01, FAV-02, FAV-03, FAV-04, FAV-05
-
----
-
-### Phase 23: Calculation History
-
-**Goal:** Implement calculation history tracking with restore capability.
-
-**Requirements:** HIST-01, HIST-02, HIST-03, HIST-04, HIST-05
-
-**Success Criteria:**
-
-- [ ] Recent calculations displayed with inputs and results
-- [ ] Users can restore previous calculations (repopulate inputs)
-- [ ] History clear function working
-- [ ] History persists across browser sessions (localStorage)
-- [ ] Timestamps display for each history entry
-- [ ] History accessible from all calculator pages
-- [ ] No performance impact from history tracking
-
-**Included in v3.0 Requirements:** HIST-01, HIST-02, HIST-03, HIST-04, HIST-05
-
----
-
 ### Phase 24: Export Functionality
 
 **Goal:** Implement PDF and CSV export for calculation results.
@@ -206,12 +164,10 @@ All v3.0 requirements mapped to phases:
 
 **UX Enhancements:**
 
-- Phase 22: Favorites
-- Phase 23: Calculation History
 - Phase 24: Export
 
 **Total Calculators:** ~50-75 additional across 4 new categories (estimate)
-**Total Requirements:** 34 mapped to 8 phases
+**Total Requirements:** 24 mapped to 6 phases
 
 ---
 
@@ -229,16 +185,14 @@ Phase 17-20: New Calculator Categories (parallel possible)
 Phase 21: Performance Optimization
     └─ Enables efficient loading of 16+ new calculators
 
-Phase 22-24: UX Enhancements (can run after Phase 21)
-    ├─ Phase 22: Favorites
-    ├─ Phase 23: History
+Phase 24: UX Enhancement (can run after Phase 21)
     └─ Phase 24: Export
 ```
 
 ### Parallelization Opportunities
 
 - Phases 17-20 (calculator development) can run in parallel
-- Phases 22-24 (UX enhancements) can run in parallel after Phase 21
+- Phase 24 (Export) can run after Phase 21
 - Performance optimization (Phase 21) should complete before heavy load testing
 
 ### Integration Points
@@ -248,7 +202,7 @@ Phase 22-24: UX Enhancements (can run after Phase 21)
 - All calculators must support i18n (en, fr, de, it)
 - All calculators must support URL state persistence
 - Performance optimization requires completed calculators to measure impact
-- Favorites/History/Export operate on existing calculator infrastructure
+- Export operates on existing calculator infrastructure
 
 ---
 
@@ -261,8 +215,6 @@ Phase 22-24: UX Enhancements (can run after Phase 21)
 - [ ] Code splitting implemented for all categories
 - [ ] Bundle size reduced significantly
 - [ ] FCP improved through lazy loading
-- [ ] Favorites feature working with persistence
-- [ ] Calculation history working with persistence
 - [ ] Export (PDF/CSV) working for all calculators
 - [ ] All new calculators localized to en/fr/de/it
 - [ ] Zero Biome lint errors
