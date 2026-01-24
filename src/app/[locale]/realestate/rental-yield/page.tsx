@@ -9,11 +9,11 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "realestate.rental-yield" });
+  const t = await getTranslations({ locale, namespace: "converters.rental-yield" });
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title: t("name"),
+    description: t("metaDescription"),
   };
 }
 

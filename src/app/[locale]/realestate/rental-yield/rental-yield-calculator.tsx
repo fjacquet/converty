@@ -14,7 +14,7 @@ import {
 import { useRentalYieldStore } from "@/stores/rental-yield-store";
 
 export function RentalYieldCalculator() {
-  const t = useTranslations("realestate.rental-yield");
+  const t = useTranslations("calculator.realestate.rental-yield");
   const [result, setResult] = useState<RentalYieldResult | null>(null);
   const [mounted, setMounted] = useState(false);
 

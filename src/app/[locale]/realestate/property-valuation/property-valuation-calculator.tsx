@@ -18,7 +18,7 @@ import {
 import { usePropertyValuationStore } from "@/stores/property-valuation-store";
 
 export function PropertyValuationCalculator() {
-  const t = useTranslations("realestate.property-valuation");
+  const t = useTranslations("calculator.realestate.property-valuation");
   const [result, setResult] = useState<PropertyValuationResult | null>(null);
   const [mounted, setMounted] = useState(false);
 
