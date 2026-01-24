@@ -32,7 +32,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "percent-error": {
     id: "percent-error",
-    slug: "percent-error",
+    slug: "percent-error-calculator",
     category: "math",
     subcategory: "basic",
     keywords: ["percent error", "error", "experimental", "actual", "accuracy"],
@@ -115,7 +115,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "gcd-calculator": {
     id: "gcd-calculator",
-    slug: "gcd-calculator",
+    slug: "gcd-lcm-calculator",
     category: "math",
     subcategory: "algebra",
     keywords: ["gcd", "greatest common divisor", "gcf", "hcf", "euclidean"],
@@ -124,7 +124,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "lcm-calculator": {
     id: "lcm-calculator",
-    slug: "lcm-calculator",
+    slug: "gcd-lcm-calculator",
     category: "math",
     subcategory: "algebra",
     keywords: ["lcm", "least common multiple", "common multiple"],
@@ -133,7 +133,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "prime-factorization": {
     id: "prime-factorization",
-    slug: "prime-factorization",
+    slug: "prime-factorization-calculator",
     category: "math",
     subcategory: "algebra",
     keywords: ["prime", "factorization", "prime factors", "divisors", "factor tree"],
@@ -150,15 +150,6 @@ export const mathConverters: Record<string, ConverterMeta> = {
     keywords: ["triangle", "sides", "angles", "area", "perimeter", "law of cosines"],
     icon: Calculator,
     featured: true,
-  },
-  "right-triangle": {
-    id: "right-triangle",
-    slug: "right-triangle",
-    category: "math",
-    subcategory: "geometry",
-    keywords: ["right triangle", "hypotenuse", "legs", "trigonometry", "90 degrees"],
-    icon: Calculator,
-    featured: false,
   },
   "pythagorean-calculator": {
     id: "pythagorean-calculator",
@@ -218,7 +209,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   // Statistics
   "standard-deviation": {
     id: "standard-deviation",
-    slug: "standard-deviation",
+    slug: "standard-deviation-calculator",
     category: "math",
     subcategory: "statistics",
     keywords: ["standard deviation", "variance", "population", "sample", "spread"],
@@ -245,7 +236,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "sample-size": {
     id: "sample-size",
-    slug: "sample-size",
+    slug: "sample-size-calculator",
     category: "math",
     subcategory: "statistics",
     keywords: ["sample size", "survey", "confidence level", "margin of error"],
@@ -272,7 +263,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "confidence-interval": {
     id: "confidence-interval",
-    slug: "confidence-interval",
+    slug: "confidence-interval-calculator",
     category: "math",
     subcategory: "statistics",
     keywords: ["confidence interval", "margin of error", "CI", "estimation"],
@@ -281,7 +272,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "permutation-combination": {
     id: "permutation-combination",
-    slug: "permutation-combination",
+    slug: "permutation-combination-calculator",
     category: "math",
     subcategory: "statistics",
     keywords: ["permutation", "combination", "nPr", "nCr", "factorial", "arrangements"],
@@ -375,7 +366,7 @@ export const mathConverters: Record<string, ConverterMeta> = {
   },
   "random-number": {
     id: "random-number",
-    slug: "random-number",
+    slug: "random-number-calculator",
     category: "math",
     subcategory: "advanced",
     keywords: ["random", "generator", "dice", "lottery", "shuffle"],
