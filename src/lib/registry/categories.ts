@@ -1,5 +1,6 @@
 import {
   Atom,
+  Bitcoin,
   Calculator,
   Calendar,
   Camera,
@@ -36,6 +37,19 @@ export const categories: Category[] = [
     name: "Color",
     description: "Color conversion and palettes",
     icon: Palette,
+  },
+  {
+    id: "crypto",
+    slug: "crypto",
+    name: "Crypto",
+    description: "Cryptocurrency and blockchain tools",
+    icon: Bitcoin,
+    subcategories: [
+      { id: "hashing", name: "Hashing" },
+      { id: "wallet", name: "Wallet" },
+      { id: "exchange", name: "Exchange" },
+      { id: "mining", name: "Mining" },
+    ],
   },
   {
     id: "data",
