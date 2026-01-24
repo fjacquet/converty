@@ -9,6 +9,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+**Phase 18: Real Estate Foundation (2026-01-24)**
+- Real Estate Calculator Suite with Swiss market focus (3 calculators: mortgage, rental-yield, property-valuation)
+- Swiss Mortgage Calculator (`src/app/[locale]/realestate/mortgage-swiss/`)
+  - PMT formula for monthly payment calculation
+  - Amortization schedule with yearly breakdown
+  - Swiss regulatory compliance checks (20% minimum down payment, 80% max LTV)
+  - Affordability stress test at 5% rate (Swiss banking standard)
+  - CHF/EUR currency support with Swiss formatting
+  - 3 charts: Principal vs Interest, Balance Over Time, Yearly breakdown
+- Rental Yield Calculator (`src/app/[locale]/realestate/rental-yield/`)
+  - Gross/Net yield calculations with market comparison
+  - GRM (Gross Rent Multiplier) and capitalization rate analysis
+  - Monthly/annual cash flow with optional mortgage integration
+  - Investment rating system (excellent/good/fair/poor)
+  - Swiss city yield comparison (8 regions from Zurich 2.45% to Lucerne 3.05%)
+  - Break-even calculations and transaction cost analysis (3-6% range)
+  - Negative cash flow warnings with detailed analysis
+- Property Valuation Calculator (`src/app/[locale]/realestate/property-valuation/`)
+  - Hedonic method for property valuation
+  - 8 Swiss regions with regional pricing (CHF 8,500-12,500/m²)
+  - 3 property types (apartment, house, commercial)
+  - 5 condition levels (poor to excellent)
+  - 11 property features with CHF bonuses (garage CHF 50k, garden CHF 40k, etc.)
+  - Age-based adjustments (1.10x for new, 0.85x for 80+ years)
+  - Confidence levels (low/medium/high) based on input completeness
+  - ±15% value range with regional comparisons
+- Real estate category registration in calculator registry (156→159 calculators, 12→13 categories)
+- Swiss property market data files
+  - `src/lib/data/swiss-property-prices.json` - Regional pricing by property type
+  - `src/lib/data/real-estate-benchmarks.json` - Market yields, mortgage rates, regulatory requirements
+- Complete i18n support for all real estate calculators (en, fr, de, it)
+- URL parameter persistence for calculator state sharing across all 3 calculators
+- Zustand state management with createUrlSyncMiddleware for reactive updates
+
 **Phase 17: Crypto/Blockchain Foundation (2026-01-24)**
 - Hash Calculator (`src/app/[locale]/crypto/hash/`)
   - MD5, SHA-1, SHA-256, SHA-512 hash algorithms
