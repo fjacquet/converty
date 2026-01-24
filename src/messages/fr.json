@@ -966,6 +966,11 @@
       "name": "Mise a l'echelle de recette",
       "description": "Mettre a l'echelle les ingredients avec des ajustements intelligents pour le sel, les epices et les agents levants",
       "metaDescription": "Mise a l'echelle de recettes gratuite. Doublez ou divisez par deux les recettes avec une mise a l'echelle intelligente."
+    },
+    "nutrition-calculator": {
+      "name": "Calculateur nutritionnel",
+      "description": "Calculer les calories, les macros et les valeurs nutritionnelles des aliments selectionnes",
+      "metaDescription": "Calculateur nutritionnel gratuit. Suivez les calories, proteines, glucides, lipides et autres nutriments."
     }
   },
   "calculator": {
@@ -3148,6 +3153,28 @@
           "liquid": "Liquide",
           "extract": "Extrait"
         }
+      },
+      "nutrition": {
+        "selectFoods": "Selectionner les aliments",
+        "selectFoodsDescription": "Recherchez et ajoutez des aliments pour calculer la nutrition totale",
+        "searchPlaceholder": "Rechercher des aliments (ex: poulet, riz, pomme)...",
+        "selectedFoods": "Aliments selectionnes",
+        "noFoodsSelected": "Aucun aliment selectionne. Recherchez ci-dessus pour ajouter des aliments.",
+        "calories": "Calories",
+        "protein": "Proteines",
+        "carbs": "Glucides",
+        "fat": "Lipides",
+        "calorieBreakdown": "Repartition des calories",
+        "detailedNutrition": "Nutrition detaillee",
+        "saturatedFat": "Graisses saturees",
+        "transFat": "Graisses trans",
+        "cholesterol": "Cholesterol",
+        "sodium": "Sodium",
+        "fiber": "Fibres alimentaires",
+        "sugars": "Sucres totaux",
+        "foodBreakdown": "Nutrition par aliment",
+        "food": "Aliment",
+        "amount": "Quantite"
       }
     },
     "health": {

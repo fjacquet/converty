@@ -966,6 +966,11 @@
       "name": "Recipe Scaler",
       "description": "Scale recipe ingredients with smart adjustments for salt, spices, and leavening agents",
       "metaDescription": "Free recipe scaler. Double or halve recipes with intelligent scaling that adjusts seasonings and leavening for perfect results."
+    },
+    "nutrition-calculator": {
+      "name": "Nutrition Calculator",
+      "description": "Calculate calories, macros, and nutrition facts from selected foods",
+      "metaDescription": "Free nutrition calculator. Track calories, protein, carbs, fat, and other nutrients from a database of 100+ common foods."
     }
   },
   "calculator": {
@@ -3183,6 +3188,28 @@
           "liquid": "Liquid",
           "extract": "Extract"
         }
+      },
+      "nutrition": {
+        "selectFoods": "Select Foods",
+        "selectFoodsDescription": "Search and add foods to calculate total nutrition",
+        "searchPlaceholder": "Search foods (e.g., chicken, rice, apple)...",
+        "selectedFoods": "Selected Foods",
+        "noFoodsSelected": "No foods selected. Search above to add foods.",
+        "calories": "Calories",
+        "protein": "Protein",
+        "carbs": "Carbs",
+        "fat": "Fat",
+        "calorieBreakdown": "Calorie Breakdown",
+        "detailedNutrition": "Detailed Nutrition",
+        "saturatedFat": "Saturated Fat",
+        "transFat": "Trans Fat",
+        "cholesterol": "Cholesterol",
+        "sodium": "Sodium",
+        "fiber": "Dietary Fiber",
+        "sugars": "Total Sugars",
+        "foodBreakdown": "Nutrition by Food",
+        "food": "Food",
+        "amount": "Amount"
       }
     },
     "health": {

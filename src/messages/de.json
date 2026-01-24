@@ -966,6 +966,11 @@
       "name": "Rezeptskalierung",
       "description": "Rezeptzutaten mit intelligenten Anpassungen fur Salz, Gewurze und Backtriebmittel skalieren",
       "metaDescription": "Kostenlose Rezeptskalierung. Verdoppeln oder halbieren Sie Rezepte mit intelligenter Skalierung fur perfekte Ergebnisse."
+    },
+    "nutrition-calculator": {
+      "name": "Ernahrungsrechner",
+      "description": "Berechnen Sie Kalorien, Makros und Nahrwerte aus ausgewahlten Lebensmitteln",
+      "metaDescription": "Kostenloser Ernahrungsrechner. Verfolgen Sie Kalorien, Protein, Kohlenhydrate, Fett und andere Nahrstoffe."
     }
   },
   "calculator": {
@@ -3148,6 +3153,28 @@
           "liquid": "Flussigkeit",
           "extract": "Extrakt"
         }
+      },
+      "nutrition": {
+        "selectFoods": "Lebensmittel auswählen",
+        "selectFoodsDescription": "Suchen und fügen Sie Lebensmittel hinzu, um die Gesamternährung zu berechnen",
+        "searchPlaceholder": "Lebensmittel suchen (z.B. Hähnchen, Reis, Apfel)...",
+        "selectedFoods": "Ausgewählte Lebensmittel",
+        "noFoodsSelected": "Keine Lebensmittel ausgewählt. Suchen Sie oben, um Lebensmittel hinzuzufügen.",
+        "calories": "Kalorien",
+        "protein": "Protein",
+        "carbs": "Kohlenhydrate",
+        "fat": "Fett",
+        "calorieBreakdown": "Kalorienaufschlüsselung",
+        "detailedNutrition": "Detaillierte Nährwerte",
+        "saturatedFat": "Gesättigte Fettsäuren",
+        "transFat": "Transfette",
+        "cholesterol": "Cholesterin",
+        "sodium": "Natrium",
+        "fiber": "Ballaststoffe",
+        "sugars": "Gesamtzucker",
+        "foodBreakdown": "Nährwerte nach Lebensmittel",
+        "food": "Lebensmittel",
+        "amount": "Menge"
       }
     },
     "health": {

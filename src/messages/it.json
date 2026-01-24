@@ -966,6 +966,11 @@
       "name": "Ridimensionamento ricetta",
       "description": "Ridimensiona gli ingredienti delle ricette con regolazioni intelligenti per sale, spezie e agenti lievitanti",
       "metaDescription": "Ridimensionamento ricette gratuito. Raddoppia o dimezza le ricette con scala intelligente per risultati perfetti."
+    },
+    "nutrition-calculator": {
+      "name": "Calcolatore nutrizionale",
+      "description": "Calcola calorie totali, macro e valori nutrizionali per i tuoi pasti",
+      "metaDescription": "Calcolatore nutrizionale gratuito. Monitora calorie, proteine, carboidrati, grassi e altri valori nutrizionali per il cibo."
     }
   },
   "calculator": {
@@ -3160,6 +3165,28 @@
           "liquid": "Liquido",
           "extract": "Estratto"
         }
+      },
+      "nutrition": {
+        "selectFoods": "Seleziona alimenti",
+        "selectFoodsDescription": "Cerca e aggiungi alimenti per calcolare la nutrizione totale",
+        "searchPlaceholder": "Cerca alimenti (es. pollo, riso, mela)...",
+        "selectedFoods": "Alimenti selezionati",
+        "noFoodsSelected": "Nessun alimento selezionato. Cerca sopra per aggiungere alimenti.",
+        "calories": "Calorie",
+        "protein": "Proteine",
+        "carbs": "Carboidrati",
+        "fat": "Grassi",
+        "calorieBreakdown": "Ripartizione calorie",
+        "detailedNutrition": "Nutrizione dettagliata",
+        "saturatedFat": "Grassi saturi",
+        "transFat": "Grassi trans",
+        "cholesterol": "Colesterolo",
+        "sodium": "Sodio",
+        "fiber": "Fibre",
+        "sugars": "Zuccheri totali",
+        "foodBreakdown": "Nutrizione per alimento",
+        "food": "Alimento",
+        "amount": "Quantità"
       }
     },
     "health": {
