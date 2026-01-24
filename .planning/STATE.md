@@ -9,15 +9,15 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: 18 - Real Estate Foundation (Complete)
-Plan: 18-04 Property Valuation Calculator (Complete)
-Status: Phase 18 complete - all 3 real estate calculators operational with full verification
-Last activity: 2026-01-24 — Completed all 4 plans: Setup & Static Data, Mortgage, Rental Yield, Property Valuation
+Phase: 20 - Automotive Calculators (In Progress)
+Plan: 20-01 Fuel Efficiency Calculator (Complete)
+Status: Plan 20-01 complete - fuel efficiency calculator operational with L/100km, MPG conversions, and trip cost estimation
+Last activity: 2026-01-24 — Completed 20-01-PLAN.md (Fuel Efficiency Calculator)
 
-Progress: ███████████░ 75% (v3.0 — 4 of 8 phases complete, Phases 17, 18, 19 verified)
+Progress: ███████████░ 76% (v3.0 — 4.25 of 8 phases, Phases 17, 18, 19 verified, Phase 20 started)
 
 **Next Steps:**
-1. Begin Phase 20 (Automotive Calculators)
+1. Continue Phase 20 (Tire Sizing, Maintenance Intervals, Vehicle Financing calculators)
 2. Phase 21 onwards: Performance optimization and UX enhancements
 
 ## Performance Metrics
@@ -66,6 +66,7 @@ Progress: ███████████░ 75% (v3.0 — 4 of 8 phases compl
 | 17-crypto-blockchain-foundation | 4/4   | 32 min | 8 min    |
 | 18-real-estate-foundation       | 4/4   | 28 min | 7 min    |
 | 19-cooking-nutrition-foundation | 4/4   | 35 min | 8.75 min |
+| 20-automotive-calculators       | 1/4   | 38 min | 38 min   |
 
 ## Accumulated Context
 
@@ -197,6 +198,14 @@ Progress: ███████████░ 75% (v3.0 — 4 of 8 phases compl
 | Liquids scale down at 70%, normally up                           | 19-03 | Evaporation rate doesn't change with quantity; large batches need less proportional liquid         |
 | Unit compatibility checking enforced for food cost               | 19-02 | Prevents invalid calculations (price per kg with amount in ml), provides clear error messages      |
 | Ingredients array not synced to URL (too complex)                | 19-02 | Multiple ingredients with nested fields create unwieldy URLs, only basic fields synced             |
+| L/100km as primary fuel efficiency metric                        | 20-01 | European/Swiss standard where lower is better, more intuitive than MPG for metric countries        |
+| MPG conversions for both US and UK                               | 20-01 | US gallon (235.21 constant) differs from UK imperial gallon (282.48 constant)                     |
+| CHF/EUR currency support for automotive calculators              | 20-01 | Aligns with v3.0 Swiss/European focus, additional currencies can be added later                    |
+| Three-mode fuel efficiency calculator                            | 20-01 | Consumption (calculate L/100km), trip planning (fuel needed), comparison (vehicle savings)         |
+| Efficiency rating thresholds for fuel consumption                | 20-01 | Modern European standards: excellent <5, good 5-7, average 7-9, poor >9 L/100km                   |
+| Swiss fuel prices as defaults in automotive calculators          | 20-01 | CHF 1.85/L petrol_95, CHF 1.90/L diesel, CHF 0.30/kWh electric (2026-01-24 averages)              |
+| Currency switching auto-updates fuel price                       | 20-01 | When switching currency, fuel price updates to match regional pricing (CHF 1.85 → EUR 1.65)       |
+| Annual distance default 15,000 km for cost calculations          | 20-01 | Typical European annual mileage for fuel cost and savings estimates                                |
 
 ### Milestone Evolution
 
@@ -210,8 +219,8 @@ Progress: ███████████░ 75% (v3.0 — 4 of 8 phases compl
 
 ## Session Continuity
 
-Last session: 2026-01-24T14:00:00Z
-Stopped at: Completed 19-04-PLAN.md (Nutrition Calculator)
+Last session: 2026-01-24T17:10:47Z
+Stopped at: Completed 20-01-PLAN.md (Fuel Efficiency Calculator)
 Resume file: None
 
 **Next Steps:**
@@ -234,4 +243,5 @@ Resume file: None
    - ✅ Phase 19-03 Recipe Scaler (Complete)
    - ✅ Phase 19-04 Nutrition Calculator (Complete)
    - ✅ Phase 19 Complete (4/4 plans)
-   - Next: Phase 20 (Automotive Calculators)
+   - ✅ Phase 20-01 Fuel Efficiency Calculator (Complete)
+   - Next: Phase 20-02 (Tire Sizing Calculator)
