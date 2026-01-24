@@ -9,16 +9,16 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: 17 - Crypto/Blockchain Foundation
-Plan: 17-03 Exchange Rate Calculator (Complete)
-Status: Crypto exchange rate calculator with BTC/ETH/LTC/XRP/DOGE/ADA and build-time CoinGecko pricing
-Last activity: 2026-01-24 — Exchange rate calculator completed with 6 cryptocurrencies and 3 fiat currencies
+Phase: 17 - Crypto/Blockchain Foundation (Complete)
+Plan: 17-04 Mining Profitability Calculator (Complete)
+Status: Phase 17 complete - 4 crypto calculators delivered (hash, wallet validator, exchange rate, mining profitability)
+Last activity: 2026-01-24 — Mining profitability calculator completed with hash rate, ROI analysis, and miner presets
 
-Progress: ████████░░ 37% (v3.0 — 1 of 8 phases started, 3 of 4 plans in Phase 17 complete)
+Progress: ████████░░ 40% (v3.0 — 1 of 8 phases complete, 4 of 4 plans in Phase 17 complete)
 
 **Next Steps:**
-1. Execute remaining plan in Phase 17: QR Code (17-04)
-2. Or continue to Phase 18-25 as defined in v3.0 roadmap
+1. Begin Phase 18 as defined in v3.0 roadmap
+2. Or continue with remaining phases 18-25
 
 ## Performance Metrics
 
@@ -46,7 +46,7 @@ Progress: ████████░░ 37% (v3.0 — 1 of 8 phases started, 3 
 | 07-code-quality-validation | 2/2   | 23.4 min | 11.7 min |
 | 08-developer-experience    | 2/2   | 5 min    | 2.5 min  |
 
-**v2.0 Milestone (in progress):**
+**v2.0 Milestone:**
 
 | Phase                           | Plans | Total  | Avg/Plan |
 | ------------------------------- | ----- | ------ | -------- |
@@ -58,6 +58,12 @@ Progress: ████████░░ 37% (v3.0 — 1 of 8 phases started, 3 
 | 14-global-search                | 2/2   | 13 min | 6.5 min  |
 | 15-translation-audit            | 2/2   | 5 min  | 2.5 min  |
 | 16-translation-implementation   | 6/6   | 18 min | 3 min    |
+
+**v3.0 Milestone (in progress):**
+
+| Phase                           | Plans | Total  | Avg/Plan |
+| ------------------------------- | ----- | ------ | -------- |
+| 17-crypto-blockchain-foundation | 4/4   | 32 min | 8 min    |
 
 ## Accumulated Context
 
@@ -173,6 +179,11 @@ Progress: ████████░░ 37% (v3.0 — 1 of 8 phases started, 3 
 | Build-time crypto price fetch instead of runtime                 | 17-03 | Static export prevents runtime APIs, build-time fetch with fallback ensures always-working calculator |
 | Use CoinGecko free API for cryptocurrency prices                 | 17-03 | Reliable, no API key needed, supports all required crypto/fiat pairs (BTC/ETH/LTC/XRP/DOGE/ADA)     |
 | Show staleness warning when price data older than 24 hours       | 17-03 | Transparency about price reliability, encourages site rebuild for fresh data                         |
+| Build-time mining data fetch with fallback                       | 17-04 | Static export prevents runtime APIs, build-time fetch ensures always-working calculator             |
+| GH/s to TH/s conversion for network hash rate                    | 17-04 | Blockchain.info API returns GH/s, not H/s - correct conversion is divide by 1000                    |
+| Miner presets for quick configuration                            | 17-04 | Common ASIC miners (Antminer S19 series, Whatsminer M30S++) simplify user experience                |
+| Optional hardware cost for ROI calculation                       | 17-04 | Not all users care about ROI - make it optional, calculate only when provided                       |
+| Swiss electricity cost as default (0.27 CHF/kWh)                 | 17-04 | Swiss/European context for v3.0, aligns with project focus                                          |
 
 ### Milestone Evolution
 
@@ -186,8 +197,8 @@ Progress: ████████░░ 37% (v3.0 — 1 of 8 phases started, 3 
 
 ## Session Continuity
 
-Last session: 2026-01-24T07:17:41Z
-Stopped at: Completed 17-03-PLAN.md (Exchange Rate Calculator)
+Last session: 2026-01-24T07:29:09Z
+Stopped at: Completed 17-04-PLAN.md (Mining Profitability Calculator)
 Resume file: None
 
 **Next Steps:**
@@ -198,4 +209,6 @@ Resume file: None
    - ✅ Phase 17-01 Hash Calculator (Complete)
    - ✅ Phase 17-02 Wallet Validator (Complete)
    - ✅ Phase 17-03 Exchange Rate Calculator (Complete)
-   - Next: Phase 17-04 QR Code
+   - ✅ Phase 17-04 Mining Profitability Calculator (Complete)
+   - ✅ Phase 17 Complete (4/4 plans)
+   - Next: Phase 18+ per v3.0 roadmap
