@@ -1,4 +1,4 @@
-import { Scale, Utensils, Wallet } from "lucide-react";
+import { Apple, Scale, Utensils, Wallet } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const cookingConverters: Record<string, ConverterMeta> = {
@@ -80,5 +80,32 @@ export const cookingConverters: Record<string, ConverterMeta> = {
     ],
     icon: Wallet,
     featured: false,
+  },
+  "nutrition-calculator": {
+    id: "nutrition-calculator",
+    slug: "nutrition-calculator",
+    category: "cooking",
+    subcategory: "nutrition",
+    keywords: [
+      "nutrition",
+      "calories",
+      "protein",
+      "carbs",
+      "fat",
+      "macro",
+      "food",
+      "diet",
+      "meal",
+      "calculator",
+      "health",
+      "fitness",
+      "tracking",
+      "fiber",
+      "sodium",
+      "cholesterol",
+      "vitamins",
+    ],
+    icon: Apple,
+    featured: true,
   },
 };
