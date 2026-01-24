@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npx tsx scripts/generate-search-index.ts",
+    "fetch-crypto-prices": "npx tsx scripts/fetch-crypto-prices.ts",
+    "prebuild": "npx tsx scripts/fetch-crypto-prices.ts && npx tsx scripts/generate-search-index.ts",
     "build:next": "next build",
     "build": "npm run prebuild && next build && node scripts/generate-sw.js",
     "start": "next start",
