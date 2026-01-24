@@ -13,6 +13,7 @@ import {
   Music,
   Network,
   Palette,
+  UtensilsCrossed,
   Video,
 } from "lucide-react";
 
@@ -38,6 +39,19 @@ export const categories: Category[] = [
     name: "Color",
     description: "Color conversion and palettes",
     icon: Palette,
+  },
+  {
+    id: "cooking",
+    slug: "cooking",
+    name: "Cooking",
+    description: "Recipe scaling and nutrition calculators",
+    icon: UtensilsCrossed,
+    subcategories: [
+      { id: "units", name: "Unit Conversion" },
+      { id: "recipes", name: "Recipe Tools" },
+      { id: "nutrition", name: "Nutrition" },
+      { id: "cost", name: "Food Cost" },
+    ],
   },
   {
     id: "crypto",
