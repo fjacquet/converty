@@ -10,14 +10,14 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 17 - Crypto/Blockchain Foundation
-Plan: 17-02 Wallet Validator (Complete)
-Status: Wallet address validator shipped with Bitcoin/Ethereum/Litecoin support
-Last activity: 2026-01-24 — Wallet validator completed with format detection and security warnings
+Plan: 17-03 Exchange Rate Calculator (Complete)
+Status: Crypto exchange rate calculator with BTC/ETH/LTC/XRP/DOGE/ADA and build-time CoinGecko pricing
+Last activity: 2026-01-24 — Exchange rate calculator completed with 6 cryptocurrencies and 3 fiat currencies
 
-Progress: ████████░░ 25% (v3.0 — 1 of 8 phases started, 2 of 4 plans in Phase 17 complete)
+Progress: ████████░░ 37% (v3.0 — 1 of 8 phases started, 3 of 4 plans in Phase 17 complete)
 
 **Next Steps:**
-1. Execute remaining plans in Phase 17: Base58/Base64 (17-03), QR Code (17-04)
+1. Execute remaining plan in Phase 17: QR Code (17-04)
 2. Or continue to Phase 18-25 as defined in v3.0 roadmap
 
 ## Performance Metrics
@@ -170,6 +170,9 @@ Progress: ████████░░ 25% (v3.0 — 1 of 8 phases started, 2 
 | Detect private key patterns with security warnings               | 17-02 | Prevent accidental exposure - WIF (5/K/L prefix) and hex (64 chars) pattern detection              |
 | Provide format descriptions for educational value                | 17-02 | Help users understand address types (P2PKH Legacy vs P2WPKH Native SegWit vs P2TR Taproot)         |
 | Security notices use blue Card styling (non-destructive)         | 17-02 | Distinguish informational security context from critical warnings (destructive red border)          |
+| Build-time crypto price fetch instead of runtime                 | 17-03 | Static export prevents runtime APIs, build-time fetch with fallback ensures always-working calculator |
+| Use CoinGecko free API for cryptocurrency prices                 | 17-03 | Reliable, no API key needed, supports all required crypto/fiat pairs (BTC/ETH/LTC/XRP/DOGE/ADA)     |
+| Show staleness warning when price data older than 24 hours       | 17-03 | Transparency about price reliability, encourages site rebuild for fresh data                         |
 
 ### Milestone Evolution
 
@@ -183,8 +186,8 @@ Progress: ████████░░ 25% (v3.0 — 1 of 8 phases started, 2 
 
 ## Session Continuity
 
-Last session: 2026-01-24T07:08:03Z
-Stopped at: Completed 17-02-PLAN.md (Wallet Validator)
+Last session: 2026-01-24T07:17:41Z
+Stopped at: Completed 17-03-PLAN.md (Exchange Rate Calculator)
 Resume file: None
 
 **Next Steps:**
@@ -194,4 +197,5 @@ Resume file: None
 3. ▶ v3.0 Calculator Expansion & Performance (in progress)
    - ✅ Phase 17-01 Hash Calculator (Complete)
    - ✅ Phase 17-02 Wallet Validator (Complete)
-   - Next: Phase 17-03 Base58/Base64 or Phase 17-04 QR Code
+   - ✅ Phase 17-03 Exchange Rate Calculator (Complete)
+   - Next: Phase 17-04 QR Code
