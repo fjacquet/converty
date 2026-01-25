@@ -1,9 +1,9 @@
 ---
-status: complete
+status: diagnosed
 phase: 28-k8s-capacity-calculator
 source: 28-01-SUMMARY.md, 28-02-SUMMARY.md
 started: 2026-01-25T19:30:00Z
-updated: 2026-01-25T19:47:00Z
+updated: 2026-01-25T19:50:00Z
 ---
 
 ## Current Test
@@ -89,7 +89,11 @@ skipped: 0
   reason: "User reported: Invalid input parameters"
   severity: major
   test: 4
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Transient input state - parseFloat('') returns NaN which defaults to 0, creating temporarily invalid inputs that fail validation during typing. Calculation logic works correctly with 40 replicas (returns 5 nodes, CPU limiting as expected)."
+  artifacts:
+    - path: "src/app/[locale]/infrastructure/k8s-capacity-calculator/k8s-capacity-calculator.tsx"
+      issue: "Input onChange handlers use `parseFloat(v) || 0` which defaults to 0 during field clearing"
+  missing:
+    - "Implement safeParsePositive() and safeParseNonNegative() helpers that preserve previous valid values instead of defaulting to 0"
+    - "Update all 11 input onChange handlers to use safe parse helpers"
+  debug_session: ".planning/debug/k8s-capacity-40-replicas-invalid.md"
