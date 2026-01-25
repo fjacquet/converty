@@ -866,6 +866,11 @@
       "description": "Calculate volume of 3D shapes",
       "metaDescription": "Calculate volume of cube, sphere, cylinder, cone, prism, and more"
     },
+    "vm-storage-calculator": {
+      "name": "VM Storage Calculator",
+      "description": "Calculate vSphere ESX cluster storage capacity requirements",
+      "metaDescription": "Free VMware vSphere storage calculator. Calculate VM storage capacity including provisioned disk, swap files, snapshots, and growth allocation. Supports thick and thin provisioning."
+    },
     "slope-calculator": {
       "name": "Slope",
       "description": "Calculate slope, equation, and angle of a line",
@@ -1416,6 +1421,35 @@
         "pig": "Pig",
         "unknown": "Unknown"
       }
+    },
+    "vmStorage": {
+      "vmProfiles": "VM Profiles",
+      "addProfile": "Add VM Profile",
+      "removeProfile": "Remove",
+      "diskSize": "Disk Size (GB)",
+      "ramSize": "RAM (GB)",
+      "vmCount": "VM Count",
+      "includeSwapFiles": "Include Swap Files",
+      "configLogPerVm": "Config/Log per VM (GB)",
+      "snapshotPercent": "Snapshot Allocation (%)",
+      "esxHosts": "ESX Hosts",
+      "esxStoragePerHost": "ESX Storage per Host (GB)",
+      "thinProvisioningPercent": "Thin Provisioning (%)",
+      "growthPercent": "Growth Allocation (%)",
+      "totalProvisioned": "Total Provisioned",
+      "usedDisk": "Used Disk",
+      "overSubscribed": "Over-subscribed",
+      "snapshotAllocation": "Snapshot Allocation",
+      "swapAllocation": "Swap Allocation",
+      "configLogAllocation": "Config/Log Files",
+      "totalVmStorage": "Total VM Storage",
+      "esxOverhead": "ESX Overhead",
+      "growthAllocation": "Growth Allocation",
+      "totalRequired": "Total Required Storage",
+      "breakdown": "Storage Breakdown",
+      "provisioningWarning": "Warning: Thin provisioning enables over-subscription. Monitor actual usage to prevent storage exhaustion.",
+      "snapshotHelp": "Allocate 20-30% for general VMs, up to 100% for high-change-rate workloads (databases, Exchange)",
+      "swapHelp": "Swap files equal configured RAM when no memory reservation is set"
     },
     "results": {
       "perMonth": "per month",

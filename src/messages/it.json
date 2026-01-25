@@ -866,6 +866,11 @@
       "description": "Calcola il volume di forme 3D",
       "metaDescription": "Calcola volume di cubo, sfera, cilindro, cono, prisma e altro"
     },
+    "vm-storage-calculator": {
+      "name": "Calcolatore Storage VM",
+      "description": "Calcola i requisiti di capacità di storage per cluster vSphere ESX",
+      "metaDescription": "Calcolatore di storage VMware vSphere gratuito. Calcola la capacità di storage VM inclusi dischi provisioned, file swap, snapshot e allocazione di crescita."
+    },
     "slope-calculator": {
       "name": "Pendenza",
       "description": "Calcola pendenza, equazione e angolo di una retta",
@@ -1416,6 +1421,35 @@
         "pig": "Maiale",
         "unknown": "Sconosciuto"
       }
+    },
+    "vmStorage": {
+      "vmProfiles": "Profili VM",
+      "addProfile": "Aggiungi Profilo VM",
+      "removeProfile": "Rimuovi",
+      "diskSize": "Dimensione Disco (GB)",
+      "ramSize": "RAM (GB)",
+      "vmCount": "Numero VM",
+      "includeSwapFiles": "Includi File Swap",
+      "configLogPerVm": "Config/Log per VM (GB)",
+      "snapshotPercent": "Allocazione Snapshot (%)",
+      "esxHosts": "Host ESX",
+      "esxStoragePerHost": "Storage ESX per Host (GB)",
+      "thinProvisioningPercent": "Thin Provisioning (%)",
+      "growthPercent": "Allocazione Crescita (%)",
+      "totalProvisioned": "Totale Provisioned",
+      "usedDisk": "Disco Utilizzato",
+      "overSubscribed": "Over-subscribed",
+      "snapshotAllocation": "Allocazione Snapshot",
+      "swapAllocation": "Allocazione Swap",
+      "configLogAllocation": "File Config/Log",
+      "totalVmStorage": "Storage VM Totale",
+      "esxOverhead": "Overhead ESX",
+      "growthAllocation": "Allocazione Crescita",
+      "totalRequired": "Storage Totale Richiesto",
+      "breakdown": "Ripartizione Storage",
+      "provisioningWarning": "Attenzione: Il thin provisioning abilita l'over-subscription. Monitorare l'utilizzo effettivo per prevenire l'esaurimento dello storage.",
+      "snapshotHelp": "Allocare 20-30% per VM generiche, fino a 100% per carichi di lavoro ad alto tasso di modifica (database, Exchange)",
+      "swapHelp": "I file swap sono uguali alla RAM configurata quando non è impostata alcuna riserva di memoria"
     },
     "results": {
       "perMonth": "al mese",
