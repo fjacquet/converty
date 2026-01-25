@@ -177,7 +177,7 @@ Plans:
 
 - [x] 28-01-PLAN.md — Create calculation logic, registry entry, and translations
 - [x] 28-02-PLAN.md — Create UI component and page with URL state
-- [ ] 28-03-PLAN.md — (Gap closure) Fix transient input validation error during typing
+- [x] 28-03-PLAN.md — (Gap closure) Fix transient input validation error during typing
 
 **Deliverables:**
 
@@ -215,7 +215,7 @@ Plans:
 - [x] Visual breakdown shows limiting factor
 - [x] URL state works correctly
 - [x] All 4 locales translated
-- [ ] No error flash when changing replicas from 10 to 40
+- [x] No error flash when changing replicas from 10 to 40
 
 **Estimated Complexity:** Medium
 **Dependencies:** Phase 26

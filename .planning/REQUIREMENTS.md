@@ -167,7 +167,7 @@ Eliminate all security vulnerabilities and expand calculator offerings into ente
 | SEC-02 | Medium | TBD | Pending |
 | SEC-03 | Medium | TBD | Pending |
 | INFRA-01 | High | TBD | Pending |
-| INFRA-02 | High | TBD | Pending |
+| INFRA-02 | High | 28 | Complete |
 | INFRA-03 | High | TBD | Pending |
 | INFRA-04 | High | TBD | Pending |
 | INFRA-05 | Medium | TBD | Pending |
