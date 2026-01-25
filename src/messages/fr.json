@@ -1508,7 +1508,21 @@
       "cores": "cœurs",
       "millicores": "millicœurs",
       "mib": "Mio",
-      "mb": "Mo"
+      "mb": "Mo",
+      "cpuConstrained": "Contrainte CPU",
+      "memoryConstrained": "Contrainte Mémoire",
+      "cpuResults": "Résultats CPU",
+      "memoryResults": "Résultats Mémoire",
+      "allocatableCpuPerNode": "CPU Allouable par Nœud",
+      "allocatableMemoryPerNode": "Mémoire Allouable par Nœud",
+      "nodesNeededByCpu": "Nœuds Nécessaires (CPU)",
+      "nodesNeededByMemory": "Nœuds Nécessaires (Mémoire)",
+      "step1": "Étape 1 : Calculer les ressources allouables par nœud",
+      "step2": "Étape 2 : Calculer les demandes totales de ressources des pods",
+      "step3": "Étape 3 : Appliquer l'utilisation cible",
+      "step4": "Étape 4 : Calculer les nœuds nécessaires par ressource",
+      "step5": "Étape 5 : Déterminer le nombre final de nœuds",
+      "reset": "Réinitialiser"
     },
     "serverVirtualizationCalculator": {
       "title": "Calculateur de virtualisation serveur",

@@ -1508,7 +1508,21 @@
       "cores": "cores",
       "millicores": "millicores",
       "mib": "MiB",
-      "mb": "MB"
+      "mb": "MB",
+      "cpuConstrained": "CPU Constrained",
+      "memoryConstrained": "Memory Constrained",
+      "cpuResults": "CPU Results",
+      "memoryResults": "Memory Results",
+      "allocatableCpuPerNode": "Allocatable CPU per Node",
+      "allocatableMemoryPerNode": "Allocatable Memory per Node",
+      "nodesNeededByCpu": "Nodes Needed (CPU)",
+      "nodesNeededByMemory": "Nodes Needed (Memory)",
+      "step1": "Step 1: Calculate allocatable resources per node",
+      "step2": "Step 2: Calculate total pod resource requests",
+      "step3": "Step 3: Apply target utilization",
+      "step4": "Step 4: Calculate nodes needed by each resource",
+      "step5": "Step 5: Determine final node count",
+      "reset": "Reset"
     },
     "serverVirtualizationCalculator": {
       "title": "Server Virtualization Calculator",

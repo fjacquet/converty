@@ -1493,7 +1493,21 @@
       "cores": "Kerne",
       "millicores": "Millikerne",
       "mib": "MiB",
-      "mb": "MB"
+      "mb": "MB",
+      "cpuConstrained": "CPU-Beschränkung",
+      "memoryConstrained": "Arbeitsspeicher-Beschränkung",
+      "cpuResults": "CPU-Ergebnisse",
+      "memoryResults": "Arbeitsspeicher-Ergebnisse",
+      "allocatableCpuPerNode": "Verfügbare CPU pro Knoten",
+      "allocatableMemoryPerNode": "Verfügbarer Arbeitsspeicher pro Knoten",
+      "nodesNeededByCpu": "Benötigte Knoten (CPU)",
+      "nodesNeededByMemory": "Benötigte Knoten (Arbeitsspeicher)",
+      "step1": "Schritt 1: Verfügbare Ressourcen pro Knoten berechnen",
+      "step2": "Schritt 2: Gesamte Pod-Ressourcenanforderungen berechnen",
+      "step3": "Schritt 3: Zielauslastung anwenden",
+      "step4": "Schritt 4: Benötigte Knoten pro Ressource berechnen",
+      "step5": "Schritt 5: Endgültige Knotenanzahl bestimmen",
+      "reset": "Zurücksetzen"
     },
     "serverVirtualizationCalculator": {
       "title": "Server-Virtualisierungsrechner",
