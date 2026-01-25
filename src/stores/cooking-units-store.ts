@@ -73,20 +73,26 @@ export const useCookingUnitsStore = create<CookingUnitsState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedAmount = parseNumberParam(urlParams.amount, initialState.amount);
+      if (urlParams.size > 0) {
+        loadedAmount = parseNumberParam(urlParams.get("amount") ?? null, initialState.amount);
 
-        const fromParam = parseStringParam(urlParams.fromUnit, initialState.fromUnit);
+        const fromParam = parseStringParam(
+          urlParams.get("fromUnit") ?? null,
+          initialState.fromUnit
+        );
         if (VALID_UNITS.includes(fromParam as CookingUnit)) {
           loadedFromUnit = fromParam as CookingUnit;
         }
 
-        const toParam = parseStringParam(urlParams.toUnit, initialState.toUnit);
+        const toParam = parseStringParam(urlParams.get("toUnit") ?? null, initialState.toUnit);
         if (VALID_UNITS.includes(toParam as CookingUnit)) {
           loadedToUnit = toParam as CookingUnit;
         }
 
-        loadedIngredientId = parseStringParam(urlParams.ingredientId, initialState.ingredientId);
+        loadedIngredientId = parseStringParam(
+          urlParams.get("ingredientId") ?? null,
+          initialState.ingredientId
+        );
       }
     }
 

@@ -47,9 +47,12 @@ export const useWalletValidatorStore = create<WalletValidatorState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedAddress = parseStringParam(urlParams.address, initialState.address);
-        const typeParam = parseStringParam(urlParams.walletType, initialState.walletType);
+      if (urlParams.size > 0) {
+        loadedAddress = parseStringParam(urlParams.get("address") ?? null, initialState.address);
+        const typeParam = parseStringParam(
+          urlParams.get("walletType") ?? null,
+          initialState.walletType
+        );
         if (["BTC", "ETH", "LTC"].includes(typeParam)) {
           loadedWalletType = typeParam as WalletType;
         }

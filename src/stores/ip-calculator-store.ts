@@ -54,8 +54,8 @@ export const useIPCalculatorStore = create<IPCalculatorState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedIpInput = parseStringParam(urlParams.ipInput, initialState.ipInput);
+      if (urlParams.size > 0) {
+        loadedIpInput = parseStringParam(urlParams.get("ipInput") ?? null, initialState.ipInput);
       }
     }
 

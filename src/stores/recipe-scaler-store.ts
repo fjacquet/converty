@@ -67,14 +67,17 @@ export const useRecipeScalerStore = create<RecipeScalerState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedRecipeName = parseStringParam(urlParams.recipeName, initialState.recipeName);
+      if (urlParams.size > 0) {
+        loadedRecipeName = parseStringParam(
+          urlParams.get("recipeName") ?? null,
+          initialState.recipeName
+        );
         loadedOriginalServings = parseNumberParam(
-          urlParams.originalServings,
+          urlParams.get("originalServings") ?? null,
           initialState.originalServings
         );
         loadedDesiredServings = parseNumberParam(
-          urlParams.desiredServings,
+          urlParams.get("desiredServings") ?? null,
           initialState.desiredServings
         );
       }

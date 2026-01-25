@@ -72,16 +72,28 @@ export const useSwissMortgageStore = create<MortgageSwissState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
+      if (urlParams.size > 0) {
         loaded.propertyPrice = parseNumberParam(
-          urlParams.propertyPrice,
+          urlParams.get("propertyPrice") ?? null,
           initialState.propertyPrice
         );
-        loaded.downPayment = parseNumberParam(urlParams.downPayment, initialState.downPayment);
-        loaded.loanTerm = parseNumberParam(urlParams.loanTerm, initialState.loanTerm);
-        loaded.interestRate = parseNumberParam(urlParams.interestRate, initialState.interestRate);
+        loaded.downPayment = parseNumberParam(
+          urlParams.get("downPayment") ?? null,
+          initialState.downPayment
+        );
+        loaded.loanTerm = parseNumberParam(
+          urlParams.get("loanTerm") ?? null,
+          initialState.loanTerm
+        );
+        loaded.interestRate = parseNumberParam(
+          urlParams.get("interestRate") ?? null,
+          initialState.interestRate
+        );
 
-        const currencyParam = parseStringParam(urlParams.currency, initialState.currency);
+        const currencyParam = parseStringParam(
+          urlParams.get("currency") ?? null,
+          initialState.currency
+        );
         if (["CHF", "EUR"].includes(currencyParam)) {
           loaded.currency = currencyParam as SupportedCurrency;
         }

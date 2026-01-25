@@ -63,31 +63,37 @@ export const useRentalYieldStore = create<RentalYieldStoreState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
+      if (urlParams.size > 0) {
         loaded.purchasePrice = parseNumberParam(
-          urlParams.purchasePrice,
+          urlParams.get("purchasePrice") ?? null,
           SWISS_DEFAULTS.purchasePrice
         );
-        loaded.annualRent = parseNumberParam(urlParams.annualRent, SWISS_DEFAULTS.annualRent);
+        loaded.annualRent = parseNumberParam(
+          urlParams.get("annualRent") ?? null,
+          SWISS_DEFAULTS.annualRent
+        );
         loaded.annualExpenses = parseNumberParam(
-          urlParams.annualExpenses,
+          urlParams.get("annualExpenses") ?? null,
           SWISS_DEFAULTS.annualExpenses
         );
         loaded.transactionCostsPercent = parseNumberParam(
-          urlParams.transactionCostsPercent,
+          urlParams.get("transactionCostsPercent") ?? null,
           SWISS_DEFAULTS.transactionCostsPercent
         );
         loaded.monthlyMortgagePayment = parseNumberParam(
-          urlParams.monthlyMortgagePayment,
+          urlParams.get("monthlyMortgagePayment") ?? null,
           SWISS_DEFAULTS.monthlyMortgagePayment
         );
 
-        const currencyParam = parseStringParam(urlParams.currency, "");
+        const currencyParam = parseStringParam(urlParams.get("currency") ?? null, "");
         if (["CHF", "EUR"].includes(currencyParam)) {
           loaded.currency = currencyParam as SupportedCurrency;
         }
 
-        const includeMortgageParam = parseStringParam(urlParams.includeMortgage, "false");
+        const includeMortgageParam = parseStringParam(
+          urlParams.get("includeMortgage") ?? null,
+          "false"
+        );
         loaded.includeMortgage = includeMortgageParam === "true";
       }
     }

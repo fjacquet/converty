@@ -92,25 +92,25 @@ export const useMaintenanceIntervalsStore = create<MaintenanceIntervalsState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
+      if (urlParams.size > 0) {
         loaded.currentOdometerKm = parseNumberParam(
-          urlParams.currentOdometerKm,
+          urlParams.get("currentOdometerKm") ?? null,
           initialState.currentOdometerKm
         );
         loaded.averageKmPerMonth = parseNumberParam(
-          urlParams.averageKmPerMonth,
+          urlParams.get("averageKmPerMonth") ?? null,
           initialState.averageKmPerMonth
         );
         loaded.vehicleRegistrationYear = parseNumberParam(
-          urlParams.vehicleRegistrationYear,
+          urlParams.get("vehicleRegistrationYear") ?? null,
           initialState.vehicleRegistrationYear
         );
         loaded.vehicleRegistrationMonth = parseNumberParam(
-          urlParams.vehicleRegistrationMonth,
+          urlParams.get("vehicleRegistrationMonth") ?? null,
           initialState.vehicleRegistrationMonth
         );
 
-        const oilParam = parseStringParam(urlParams.oilType, initialState.oilType);
+        const oilParam = parseStringParam(urlParams.get("oilType") ?? null, initialState.oilType);
         if (oilParam === "synthetic" || oilParam === "conventional") {
           loaded.oilType = oilParam;
         }

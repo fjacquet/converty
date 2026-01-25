@@ -53,18 +53,21 @@ export const useExchangeRateStore = create<ExchangeRateState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        const amountParam = parseNumberParam(urlParams.amount, parseFloat(initialState.amount));
+      if (urlParams.size > 0) {
+        const amountParam = parseNumberParam(
+          urlParams.get("amount") ?? null,
+          parseFloat(initialState.amount)
+        );
         if (amountParam > 0) {
           loadedAmount = String(amountParam);
         }
 
-        const cryptoParam = parseStringParam(urlParams.crypto, initialState.crypto);
+        const cryptoParam = parseStringParam(urlParams.get("crypto") ?? null, initialState.crypto);
         if (["BTC", "ETH", "LTC", "XRP", "DOGE", "ADA"].includes(cryptoParam)) {
           loadedCrypto = cryptoParam as CryptoCurrency;
         }
 
-        const fiatParam = parseStringParam(urlParams.fiat, initialState.fiat);
+        const fiatParam = parseStringParam(urlParams.get("fiat") ?? null, initialState.fiat);
         if (["CHF", "EUR", "USD"].includes(fiatParam)) {
           loadedFiat = fiatParam as FiatCurrency;
         }

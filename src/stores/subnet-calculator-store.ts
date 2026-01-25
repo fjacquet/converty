@@ -101,15 +101,24 @@ export const useSubnetCalculatorStore = create<SubnetCalculatorState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedIpInput = parseStringParam(urlParams.ipInput, initialState.ipInput);
-        loadedSubnetMask = parseStringParam(urlParams.subnetMask, initialState.subnetMask);
-        loadedMode = parseStringParam(urlParams.mode, initialState.mode) as CalculatorMode;
+      if (urlParams.size > 0) {
+        loadedIpInput = parseStringParam(urlParams.get("ipInput") ?? null, initialState.ipInput);
+        loadedSubnetMask = parseStringParam(
+          urlParams.get("subnetMask") ?? null,
+          initialState.subnetMask
+        );
+        loadedMode = parseStringParam(
+          urlParams.get("mode") ?? null,
+          initialState.mode
+        ) as CalculatorMode;
         loadedDivisionCount = parseNumberParam(
-          urlParams.divisionCount,
+          urlParams.get("divisionCount") ?? null,
           initialState.divisionCount
         ) as DivisionCount;
-        loadedNetworksInput = parseStringParam(urlParams.networksInput, initialState.networksInput);
+        loadedNetworksInput = parseStringParam(
+          urlParams.get("networksInput") ?? null,
+          initialState.networksInput
+        );
       }
     }
 

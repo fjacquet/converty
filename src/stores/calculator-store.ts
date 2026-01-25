@@ -73,10 +73,10 @@ export function createCalculatorStore<T extends object, R>({
     let mergedInitialValues = initialValues;
     if (syncUrl && typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
+      if (urlParams.size > 0) {
         mergedInitialValues = { ...initialValues };
-        for (const [key, value] of Object.entries(urlParams)) {
-          if (key in mergedInitialValues) {
+        for (const [key, value] of urlParams.entries()) {
+          if (Object.hasOwn(mergedInitialValues, key)) {
             const originalValue = (mergedInitialValues as Record<string, unknown>)[key];
             if (typeof originalValue === "number") {
               (mergedInitialValues as Record<string, unknown>)[key] = parseNumberParam(

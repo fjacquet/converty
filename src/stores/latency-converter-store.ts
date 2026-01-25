@@ -44,8 +44,8 @@ export const useLatencyConverterStore = create<LatencyConverterState>()(
   })((set, get) => {
     // Load initial values from URL params if present
     const params = getUrlParams();
-    const initialValue = parseStringParam(params.value, "");
-    const initialUnit = parseStringParam(params.unit, "ms");
+    const initialValue = parseStringParam(params.get("value") ?? null, "");
+    const initialUnit = parseStringParam(params.get("unit") ?? null, "ms");
 
     return {
       // Initialize with URL params or defaults

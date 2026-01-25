@@ -105,38 +105,47 @@ export const useTireSizingStore = create<TireSizingState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        const modeParam = parseStringParam(urlParams.inputMode, initialState.inputMode);
+      if (urlParams.size > 0) {
+        const modeParam = parseStringParam(
+          urlParams.get("inputMode") ?? null,
+          initialState.inputMode
+        );
         if (modeParam === "notation" || modeParam === "manual") {
           loaded.inputMode = modeParam;
         }
 
         loaded.tire1Notation = parseStringParam(
-          urlParams.tire1Notation,
+          urlParams.get("tire1Notation") ?? null,
           initialState.tire1Notation
         );
         loaded.tire2Notation = parseStringParam(
-          urlParams.tire2Notation,
+          urlParams.get("tire2Notation") ?? null,
           initialState.tire2Notation
         );
-        loaded.tire1Width = parseNumberParam(urlParams.tire1Width, initialState.tire1Width);
+        loaded.tire1Width = parseNumberParam(
+          urlParams.get("tire1Width") ?? null,
+          initialState.tire1Width
+        );
         loaded.tire1AspectRatio = parseNumberParam(
-          urlParams.tire1AspectRatio,
+          urlParams.get("tire1AspectRatio") ?? null,
           initialState.tire1AspectRatio
         );
         loaded.tire1RimDiameter = parseNumberParam(
-          urlParams.tire1RimDiameter,
+          urlParams.get("tire1RimDiameter") ?? null,
           initialState.tire1RimDiameter
         );
         loaded.tire1LoadIndex = parseStringParam(
-          urlParams.tire1LoadIndex,
+          urlParams.get("tire1LoadIndex") ?? null,
           initialState.tire1LoadIndex
         );
         loaded.tire1SpeedRating = parseStringParam(
-          urlParams.tire1SpeedRating,
+          urlParams.get("tire1SpeedRating") ?? null,
           initialState.tire1SpeedRating
         );
-        loaded.compareMode = parseBooleanParam(urlParams.compareMode, initialState.compareMode);
+        loaded.compareMode = parseBooleanParam(
+          urlParams.get("compareMode") ?? null,
+          initialState.compareMode
+        );
       }
     }
 

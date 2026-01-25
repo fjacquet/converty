@@ -66,9 +66,15 @@ export const useCIDRRangeStore = create<CIDRRangeState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedCidrInput = parseStringParam(urlParams.cidrInput, initialState.cidrInput);
-        loadedIpToCheck = parseStringParam(urlParams.ipToCheck, initialState.ipToCheck);
+      if (urlParams.size > 0) {
+        loadedCidrInput = parseStringParam(
+          urlParams.get("cidrInput") ?? null,
+          initialState.cidrInput
+        );
+        loadedIpToCheck = parseStringParam(
+          urlParams.get("ipToCheck") ?? null,
+          initialState.ipToCheck
+        );
       }
     }
 

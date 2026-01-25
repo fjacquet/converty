@@ -45,9 +45,12 @@ export const useHashCalculatorStore = create<HashCalculatorState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedText = parseStringParam(urlParams.text, initialState.text);
-        const algoParam = parseStringParam(urlParams.algorithm, initialState.algorithm);
+      if (urlParams.size > 0) {
+        loadedText = parseStringParam(urlParams.get("text") ?? null, initialState.text);
+        const algoParam = parseStringParam(
+          urlParams.get("algorithm") ?? null,
+          initialState.algorithm
+        );
         if (["MD5", "SHA-1", "SHA-256", "SHA-512"].includes(algoParam)) {
           loadedAlgorithm = algoParam as HashAlgorithm;
         }

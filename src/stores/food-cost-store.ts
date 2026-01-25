@@ -69,10 +69,16 @@ export const useFoodCostStore = create<FoodCostState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        loadedRecipeName = parseStringParam(urlParams.recipeName, initialState.recipeName);
-        loadedServings = parseNumberParam(urlParams.servings, initialState.servings);
-        const currencyParam = parseStringParam(urlParams.currency, initialState.currency);
+      if (urlParams.size > 0) {
+        loadedRecipeName = parseStringParam(
+          urlParams.get("recipeName") ?? null,
+          initialState.recipeName
+        );
+        loadedServings = parseNumberParam(urlParams.get("servings") ?? null, initialState.servings);
+        const currencyParam = parseStringParam(
+          urlParams.get("currency") ?? null,
+          initialState.currency
+        );
         if (["CHF", "EUR", "USD"].includes(currencyParam)) {
           loadedCurrency = currencyParam as Currency;
         }

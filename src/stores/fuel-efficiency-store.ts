@@ -89,41 +89,50 @@ export const useFuelEfficiencyStore = create<FuelEfficiencyState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        const modeParam = parseStringParam(urlParams.mode, initialState.mode);
+      if (urlParams.size > 0) {
+        const modeParam = parseStringParam(urlParams.get("mode") ?? null, initialState.mode);
         if (VALID_MODES.includes(modeParam as CalculationMode)) {
           loaded.mode = modeParam as CalculationMode;
         }
 
-        const currencyParam = parseStringParam(urlParams.currency, initialState.currency);
+        const currencyParam = parseStringParam(
+          urlParams.get("currency") ?? null,
+          initialState.currency
+        );
         if (VALID_CURRENCIES.includes(currencyParam as Currency)) {
           loaded.currency = currencyParam as Currency;
         }
 
-        loaded.distanceKm = parseNumberParam(urlParams.distanceKm, initialState.distanceKm);
-        loaded.fuelLiters = parseNumberParam(urlParams.fuelLiters, initialState.fuelLiters);
+        loaded.distanceKm = parseNumberParam(
+          urlParams.get("distanceKm") ?? null,
+          initialState.distanceKm
+        );
+        loaded.fuelLiters = parseNumberParam(
+          urlParams.get("fuelLiters") ?? null,
+          initialState.fuelLiters
+        );
         loaded.tripDistanceKm = parseNumberParam(
-          urlParams.tripDistanceKm,
+          urlParams.get("tripDistanceKm") ?? null,
           initialState.tripDistanceKm
         );
         loaded.consumptionLPer100km = parseNumberParam(
-          urlParams.consumptionLPer100km,
+          urlParams.get("consumptionLPer100km") ?? null,
           initialState.consumptionLPer100km
         );
         loaded.vehicle1LPer100km = parseNumberParam(
-          urlParams.vehicle1LPer100km,
+          urlParams.get("vehicle1LPer100km") ?? null,
           initialState.vehicle1LPer100km
         );
         loaded.vehicle2LPer100km = parseNumberParam(
-          urlParams.vehicle2LPer100km,
+          urlParams.get("vehicle2LPer100km") ?? null,
           initialState.vehicle2LPer100km
         );
         loaded.fuelPricePerLiter = parseNumberParam(
-          urlParams.fuelPricePerLiter,
+          urlParams.get("fuelPricePerLiter") ?? null,
           initialState.fuelPricePerLiter
         );
         loaded.annualDistanceKm = parseNumberParam(
-          urlParams.annualDistanceKm,
+          urlParams.get("annualDistanceKm") ?? null,
           initialState.annualDistanceKm
         );
       }

@@ -73,13 +73,13 @@ export const usePropertyValuationStore = create<PropertyValuationStoreState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        const propertyTypeParam = parseStringParam(urlParams.propertyType, "");
+      if (urlParams.size > 0) {
+        const propertyTypeParam = parseStringParam(urlParams.get("propertyType") ?? null, "");
         if (["apartment", "house", "commercial"].includes(propertyTypeParam)) {
           loaded.propertyType = propertyTypeParam as PropertyType;
         }
 
-        const regionParam = parseStringParam(urlParams.region, "");
+        const regionParam = parseStringParam(urlParams.get("region") ?? null, "");
         if (
           [
             "zurich",
@@ -95,24 +95,24 @@ export const usePropertyValuationStore = create<PropertyValuationStoreState>()(
           loaded.region = regionParam as SwissRegion;
         }
 
-        loaded.size = parseNumberParam(urlParams.size, SWISS_DEFAULTS.size);
-        loaded.rooms = parseNumberParam(urlParams.rooms, SWISS_DEFAULTS.rooms);
+        loaded.size = parseNumberParam(urlParams.get("size") ?? null, SWISS_DEFAULTS.size);
+        loaded.rooms = parseNumberParam(urlParams.get("rooms") ?? null, SWISS_DEFAULTS.rooms);
         loaded.constructionYear = parseNumberParam(
-          urlParams.constructionYear,
+          urlParams.get("constructionYear") ?? null,
           SWISS_DEFAULTS.constructionYear
         );
 
-        const conditionParam = parseStringParam(urlParams.condition, "");
+        const conditionParam = parseStringParam(urlParams.get("condition") ?? null, "");
         if (["poor", "fair", "good", "very_good", "excellent"].includes(conditionParam)) {
           loaded.condition = conditionParam as PropertyCondition;
         }
 
-        const currencyParam = parseStringParam(urlParams.currency, "");
+        const currencyParam = parseStringParam(urlParams.get("currency") ?? null, "");
         if (["CHF", "EUR"].includes(currencyParam)) {
           loaded.currency = currencyParam as SupportedCurrency;
         }
 
-        const featuresParam = parseStringParam(urlParams.features, "");
+        const featuresParam = parseStringParam(urlParams.get("features") ?? null, "");
         if (featuresParam) {
           loaded.features = featuresParam.split(",");
         }

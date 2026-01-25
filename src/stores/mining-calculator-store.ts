@@ -69,9 +69,9 @@ export const useMiningCalculatorStore = create<MiningCalculatorState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
+      if (urlParams.size > 0) {
         const hashRateParam = parseNumberParam(
-          urlParams.hashRate,
+          urlParams.get("hashRate") ?? null,
           parseFloat(initialState.hashRate)
         );
         if (hashRateParam > 0) {
@@ -79,7 +79,7 @@ export const useMiningCalculatorStore = create<MiningCalculatorState>()(
         }
 
         const hashRateUnitParam = parseStringParam(
-          urlParams.hashRateUnit,
+          urlParams.get("hashRateUnit") ?? null,
           initialState.hashRateUnit
         );
         if (["H/s", "KH/s", "MH/s", "GH/s", "TH/s", "PH/s"].includes(hashRateUnitParam)) {
@@ -87,7 +87,7 @@ export const useMiningCalculatorStore = create<MiningCalculatorState>()(
         }
 
         const powerWattsParam = parseNumberParam(
-          urlParams.powerWatts,
+          urlParams.get("powerWatts") ?? null,
           parseFloat(initialState.powerWatts)
         );
         if (powerWattsParam > 0) {
@@ -95,19 +95,22 @@ export const useMiningCalculatorStore = create<MiningCalculatorState>()(
         }
 
         const electricityCostParam = parseNumberParam(
-          urlParams.electricityCost,
+          urlParams.get("electricityCost") ?? null,
           parseFloat(initialState.electricityCost)
         );
         if (electricityCostParam >= 0) {
           loadedElectricityCost = String(electricityCostParam);
         }
 
-        const currencyParam = parseStringParam(urlParams.currency, initialState.currency);
+        const currencyParam = parseStringParam(
+          urlParams.get("currency") ?? null,
+          initialState.currency
+        );
         if (["CHF", "EUR", "USD"].includes(currencyParam)) {
           loadedCurrency = currencyParam as FiatCurrency;
         }
 
-        const hardwareCostParam = parseNumberParam(urlParams.hardwareCost, 0);
+        const hardwareCostParam = parseNumberParam(urlParams.get("hardwareCost") ?? null, 0);
         if (hardwareCostParam > 0) {
           loadedHardwareCost = String(hardwareCostParam);
         }

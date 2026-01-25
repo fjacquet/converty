@@ -53,10 +53,10 @@ export const useThroughputCalculatorStore = create<ThroughputCalculatorState>()(
   })((set, get) => {
     // Load initial values from URL
     const params = getUrlParams();
-    const initialDataSize = parseStringParam(params.dataSize, "");
-    const initialDataSizeUnit = parseStringParam(params.dataSizeUnit, "MB");
-    const initialTransferTime = parseStringParam(params.transferTime, "");
-    const initialTransferTimeUnit = parseStringParam(params.transferTimeUnit, "s");
+    const initialDataSize = parseStringParam(params.get("dataSize") ?? null, "");
+    const initialDataSizeUnit = parseStringParam(params.get("dataSizeUnit") ?? null, "MB");
+    const initialTransferTime = parseStringParam(params.get("transferTime") ?? null, "");
+    const initialTransferTimeUnit = parseStringParam(params.get("transferTimeUnit") ?? null, "s");
 
     // Helper to check if calculation should trigger
     const shouldCalculate = () => {

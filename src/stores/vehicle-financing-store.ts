@@ -118,38 +118,56 @@ export const useVehicleFinancingStore = create<VehicleFinancingState>()(
 
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (Object.keys(urlParams).length > 0) {
-        const modeParam = parseStringParam(urlParams.mode, initialState.mode);
+      if (urlParams.size > 0) {
+        const modeParam = parseStringParam(urlParams.get("mode") ?? null, initialState.mode);
         if (VALID_MODES.includes(modeParam as FinancingMode)) {
           loaded.mode = modeParam as FinancingMode;
         }
 
-        const currencyParam = parseStringParam(urlParams.currency, initialState.currency);
+        const currencyParam = parseStringParam(
+          urlParams.get("currency") ?? null,
+          initialState.currency
+        );
         if (VALID_CURRENCIES.includes(currencyParam as Currency)) {
           loaded.currency = currencyParam as Currency;
         }
 
-        loaded.vehiclePrice = parseNumberParam(urlParams.vehiclePrice, initialState.vehiclePrice);
-        loaded.downPayment = parseNumberParam(urlParams.downPayment, initialState.downPayment);
-        loaded.tradeInValue = parseNumberParam(urlParams.tradeInValue, initialState.tradeInValue);
-        loaded.includeVAT = parseBooleanParam(urlParams.includeVAT, initialState.includeVAT);
+        loaded.vehiclePrice = parseNumberParam(
+          urlParams.get("vehiclePrice") ?? null,
+          initialState.vehiclePrice
+        );
+        loaded.downPayment = parseNumberParam(
+          urlParams.get("downPayment") ?? null,
+          initialState.downPayment
+        );
+        loaded.tradeInValue = parseNumberParam(
+          urlParams.get("tradeInValue") ?? null,
+          initialState.tradeInValue
+        );
+        loaded.includeVAT = parseBooleanParam(
+          urlParams.get("includeVAT") ?? null,
+          initialState.includeVAT
+        );
         loaded.loanInterestRate = parseNumberParam(
-          urlParams.loanInterestRate,
+          urlParams.get("loanInterestRate") ?? null,
           initialState.loanInterestRate
         );
         loaded.loanTermMonths = parseNumberParam(
-          urlParams.loanTermMonths,
+          urlParams.get("loanTermMonths") ?? null,
           initialState.loanTermMonths
         );
         loaded.leaseTermMonths = parseNumberParam(
-          urlParams.leaseTermMonths,
+          urlParams.get("leaseTermMonths") ?? null,
           initialState.leaseTermMonths
         );
         loaded.residualPercent = parseNumberParam(
-          urlParams.residualPercent,
+          urlParams.get("residualPercent") ?? null,
           initialState.residualPercent
         );
-        loaded.leaseAPR = parseNumberParam(urlParams.leaseAPR, initialState.leaseAPR);
+        loaded.leaseAPR = parseNumberParam(
+          urlParams.get("leaseAPR") ?? null,
+          initialState.leaseAPR
+        );
       }
     }
 
