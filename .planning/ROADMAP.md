@@ -114,8 +114,8 @@ Plans:
 
 Plans:
 
-- [ ] 27-01-PLAN.md — Create calculation logic, registry entry, and translations
-- [ ] 27-02-PLAN.md — Create UI component and page with URL state
+- [x] 27-01-PLAN.md — Create calculation logic, registry entry, and translations
+- [x] 27-02-PLAN.md — Create UI component and page with URL state
 
 **Deliverables:**
 
@@ -143,10 +143,10 @@ Plans:
 
 **Success Criteria:**
 
-- [ ] Storage calculations match VMware reference tools
-- [ ] URL state works correctly
-- [ ] All 4 locales translated
-- [ ] Responsive design verified
+- [x] Storage calculations match VMware reference tools
+- [x] URL state works correctly
+- [x] All 4 locales translated
+- [x] Responsive design verified
 
 **Estimated Complexity:** Medium
 **Dependencies:** Phase 26
