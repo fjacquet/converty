@@ -1322,6 +1322,13 @@
     "hints": {
       "down-payment-annual-return": "Expected return on savings/investments"
     },
+    "export": {
+      "exportPdf": "Export PDF",
+      "exportCsv": "Export CSV",
+      "pdfTooltip": "Download results as PDF document",
+      "csvTooltip": "Download results as CSV spreadsheet",
+      "noData": "No data to export"
+    },
     "sections": {
       "input": "Input",
       "results": "Results",

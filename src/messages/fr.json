@@ -1322,6 +1322,13 @@
     "hints": {
       "down-payment-annual-return": "Rendement attendu sur l'epargne/investissements"
     },
+    "export": {
+      "exportPdf": "Exporter PDF",
+      "exportCsv": "Exporter CSV",
+      "pdfTooltip": "Télécharger les résultats en document PDF",
+      "csvTooltip": "Télécharger les résultats en feuille de calcul CSV",
+      "noData": "Aucune donnée à exporter"
+    },
     "sections": {
       "input": "Entrée",
       "results": "Résultats",

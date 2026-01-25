@@ -1322,6 +1322,13 @@
     "hints": {
       "down-payment-annual-return": "Rendimento previsto su risparmi/investimenti"
     },
+    "export": {
+      "exportPdf": "Esporta PDF",
+      "exportCsv": "Esporta CSV",
+      "pdfTooltip": "Scarica i risultati come documento PDF",
+      "csvTooltip": "Scarica i risultati come foglio di calcolo CSV",
+      "noData": "Nessun dato da esportare"
+    },
     "sections": {
       "input": "Input",
       "results": "Risultati",
