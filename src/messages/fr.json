@@ -1446,6 +1446,7 @@
       "vmProfiles": "Profils VM",
       "addProfile": "Ajouter un Profil VM",
       "removeProfile": "Supprimer",
+      "profile": "Profil",
       "diskSize": "Taille du Disque (Go)",
       "ramSize": "RAM (Go)",
       "vmCount": "Nombre de VM",
