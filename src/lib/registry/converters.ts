@@ -9,6 +9,7 @@ import { dataConverters } from "./data-converters";
 import { datetimeConverters } from "./datetime-converters";
 import { financeConverters } from "./finance-converters";
 import { healthConverters } from "./health-converters";
+import { infrastructureConverters } from "./infrastructure-converters";
 import { mathConverters } from "./math-converters";
 import { musicConverters } from "./music-converters";
 import { networkConverters } from "./network-converters";
@@ -21,6 +22,7 @@ import { webConverters } from "./web-converters";
 // Merge all category registries into a single registry
 export const converterRegistry: Record<string, ConverterMeta> = {
   ...healthConverters,
+  ...infrastructureConverters,
   ...datetimeConverters,
   ...colorConverters,
   ...cookingConverters,
