@@ -14,6 +14,7 @@
 **Actual Implementation:** ✅ Complete
 
 The K8s Capacity Calculator successfully implements:
+
 - Multi-dimensional bin packing algorithm (CPU vs memory constraints)
 - System overhead accounting (kubelet, container runtime, OS daemons)
 - DaemonSet overhead per node
@@ -31,6 +32,7 @@ The K8s Capacity Calculator successfully implements:
 ### Plan 28-01 Must-Haves
 
 **Truths:**
+
 - ✅ K8s capacity calculation formulas match official Kubernetes documentation
   - Verified: Allocatable = Capacity - SystemReserved - DaemonSets (official K8s formula)
   - Verified: Multi-dimensional bin packing with Math.max(cpuNodes, memoryNodes)
@@ -61,6 +63,7 @@ The K8s Capacity Calculator successfully implements:
   - Verified: it.json - 30 translation keys (Italian technical terms)
 
 **Artifacts:**
+
 - ✅ `src/lib/converters/infrastructure/k8s-capacity.ts` exists
   - Exports: `calculateK8sCapacity`, `K8sCapacityInput`, `K8sCapacityResult` ✅
   - Pure calculation functions for K8s node sizing ✅
@@ -70,6 +73,7 @@ The K8s Capacity Calculator successfully implements:
   - Calculator metadata registration ✅
 
 **Key Links:**
+
 - ✅ From `src/lib/registry/infrastructure-converters.ts` to `converters.ts`
   - Via: merge into `converterRegistry` ✅
   - Pattern: `infrastructureConverters` ✅
@@ -79,6 +83,7 @@ The K8s Capacity Calculator successfully implements:
 ### Plan 28-02 Must-Haves
 
 **Truths:**
+
 - ✅ User can enter pod workload specifications (CPU, memory, replicas)
   - Verified: InputField components for podCpuRequest, podMemoryRequest, podReplicas
   - Verified: All inputs update store state and trigger auto-calculation
@@ -114,6 +119,7 @@ The K8s Capacity Calculator successfully implements:
   - Verified: Input sections use Card components with proper spacing
 
 **Artifacts:**
+
 - ✅ `src/stores/k8s-capacity-store.ts` exists
   - Exports: `useK8sCapacityStore` ✅
   - Zustand store with URL sync for calculator state ✅
@@ -127,6 +133,7 @@ The K8s Capacity Calculator successfully implements:
   - React calculator component ✅
 
 **Key Links:**
+
 - ✅ From `k8s-capacity-calculator.tsx` to `k8s-capacity-store.ts`
   - Via: `useK8sCapacityStore` hook ✅
 
@@ -177,37 +184,45 @@ All acceptance criteria verified:
 **Formula Verification:**
 
 1. ✅ **Allocatable Resources:**
+
    ```typescript
    allocatableCpuPerNode = nodeCpuCores * 1000 - systemReservedCpu - daemonSetCpuPerNode
    allocatableMemoryPerNode = nodeMemoryMb - systemReservedMemory - daemonSetMemoryPerNode
    ```
+
    - Matches official Kubernetes documentation ✅
    - Accounts for system overhead (kubelet, container runtime, OS) ✅
    - Accounts for DaemonSet overhead ✅
 
 2. ✅ **Multi-Dimensional Bin Packing:**
+
    ```typescript
    nodesNeededByCpu = Math.ceil(totalPodCpuRequired / targetCpuPerNode)
    nodesNeededByMemory = Math.ceil(totalPodMemoryRequired / targetMemoryPerNode)
    nodesNeededTotal = Math.max(nodesNeededByCpu, nodesNeededByMemory)
    ```
+
    - Correctly implements multi-dimensional constraint solving ✅
    - Selects limiting factor (max of CPU/memory) ✅
 
 3. ✅ **Utilization Calculation:**
+
    ```typescript
    finalCpuUtilization = (totalPodCpuRequired / (allocatableCpuPerNode * nodesNeededTotal)) * 100
    finalMemoryUtilization = (totalPodMemoryRequired / (allocatableMemoryPerNode * nodesNeededTotal)) * 100
    ```
+
    - Calculates actual utilization with rounded node count ✅
    - Accounts for capacity headroom after rounding up ✅
 
 **Validation:**
+
 - ✅ Returns `null` for invalid inputs (11 validation checks)
 - ✅ Prevents division by zero (allocatable > 0 check)
 - ✅ Comprehensive input validation (positive counts, valid percentages, non-negative overhead)
 
 **Documentation:**
+
 - ✅ JSDoc comments explain formulas and best practices
 - ✅ Step-by-step calculation breakdown in `steps[]` array
 - ✅ Example usage in JSDoc
@@ -217,6 +232,7 @@ All acceptance criteria verified:
 ### Store Implementation (`k8s-capacity-store.ts`)
 
 **State Management:**
+
 - ✅ 11 input fields with appropriate defaults
 - ✅ URL synchronization for all inputs (300ms debounce)
 - ✅ Auto-calculation on input change
@@ -224,6 +240,7 @@ All acceptance criteria verified:
 - ✅ Safe URL parameter loading with `parseNumberParam`
 
 **Default Values:**
+
 - ✅ Pod workload: 10 replicas @ 500m CPU, 512 MiB memory (realistic web server example)
 - ✅ Node specs: 8 cores, 16384 MB (standard K8s node)
 - ✅ System overhead: 700m CPU, 1024 MiB memory (AKS/GKE typical for 8-core node)
@@ -235,12 +252,14 @@ All acceptance criteria verified:
 ### UI Component (`k8s-capacity-calculator.tsx`)
 
 **Input Sections:**
+
 - ✅ Pod Workload (3 fields): CPU, memory, replicas
 - ✅ Node Specifications (2 fields): CPU cores, memory
 - ✅ System Overhead (4 fields): System reserved + DaemonSet overhead
 - ✅ Target Utilization (2 fields): CPU %, memory %
 
 **Results Display:**
+
 - ✅ Nodes needed (primary metric)
 - ✅ Limiting factor badges (CPU vs memory)
 - ✅ Allocatable resources breakdown
@@ -248,12 +267,14 @@ All acceptance criteria verified:
 - ✅ Calculation steps (expandable)
 
 **Warning System:**
+
 - ✅ Over-utilization warning (>80% threshold)
 - ✅ Amber border Card styling
 - ✅ AlertTriangle icon
 - ✅ Actionable message (add nodes or reduce target)
 
 **UX:**
+
 - ✅ Auto-calculation (no manual button)
 - ✅ Reset button to restore defaults
 - ✅ Responsive layout (1 col mobile, 2 col desktop)
@@ -264,18 +285,21 @@ All acceptance criteria verified:
 ## Build & Quality Verification
 
 **Build Status:**
+
 - ✅ TypeScript compilation: 0 errors
 - ✅ Build output: 169 converters (including k8s-capacity)
 - ✅ Service worker generated: 3.8 MB precached assets
 - ✅ Static export: All pages generated successfully
 
 **Code Quality:**
+
 - ✅ Biome linting: 0 errors in Phase 28 code
 - ✅ No unused imports
 - ✅ No type violations (strict mode)
 - ✅ Consistent formatting
 
 **Security:**
+
 - ✅ npm audit: 0 vulnerabilities
 - ✅ No XSS risks (no dangerouslySetInnerHTML, eval, innerHTML)
 - ✅ Safe URL parameter handling (parseNumberParam utility)
@@ -287,22 +311,26 @@ All acceptance criteria verified:
 ## Translation Verification
 
 **English (en.json):**
+
 - ✅ Converter metadata (name, description, metaDescription)
 - ✅ Calculator labels (28 keys)
 - ✅ Help text (4 keys)
 - ✅ Warning messages
 
 **French (fr.json):**
+
 - ✅ Technical terminology correct ("millicœurs", "nœud", "répliques")
 - ✅ All translations natural and idiomatic
 - ✅ SEO meta description complete
 
 **German (de.json):**
+
 - ✅ Technical terminology correct ("Millikerne", "Knoten", "Replikate")
 - ✅ All translations natural and idiomatic
 - ✅ SEO meta description complete
 
 **Italian (it.json):**
+
 - ✅ Technical terminology correct ("millicore", "nodo", "repliche")
 - ✅ All translations natural and idiomatic
 - ✅ SEO meta description complete
@@ -312,12 +340,14 @@ All acceptance criteria verified:
 ## Performance Verification
 
 **Bundle Analysis:**
+
 - ✅ Code splitting: Calculator component lazy-loaded
 - ✅ Initial bundle: No increase from Phase 28
 - ✅ Calculator chunk: Separate bundle loaded on-demand
 - ✅ Service worker: Efficient caching strategy
 
 **Runtime Performance:**
+
 - ✅ Auto-calculation: <1ms for typical inputs
 - ✅ URL sync: Debounced to prevent history spam
 - ✅ No memory leaks (proper cleanup)
@@ -374,6 +404,7 @@ All acceptance criteria verified:
 **What Was Built:**
 
 Not only meets but EXCEEDS the requirement:
+
 - ✅ All required inputs (pod specs, node specs, system reserved, target utilization)
 - ✅ Enhanced with DaemonSet overhead (not in original requirement)
 - ✅ Multi-dimensional bin packing (CPU vs memory)
