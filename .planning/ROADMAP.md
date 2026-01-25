@@ -75,8 +75,8 @@ Plans:
 
 Plans:
 
-- [ ] 26-01-PLAN.md — Create infrastructure category in registry with Server icon
-- [ ] 26-02-PLAN.md — Add translations and create category landing page
+- [x] 26-01-PLAN.md — Create infrastructure category in registry with Server icon
+- [x] 26-02-PLAN.md — Add translations and create category landing page
 
 **Deliverables:**
 
