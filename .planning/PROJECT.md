@@ -121,18 +121,21 @@ A solid, maintainable foundation with zero technical debt in state management an
 **Confirmed Features:**
 
 **Calculator Expansion (16 core calculators across 4 new categories):**
+
 - Crypto/Blockchain: Hash calculations, wallet conversions, exchange rates, mining profitability (4 calculators)
 - Real Estate: Mortgage, property valuation, ROI, amortization (4 calculators)
 - Cooking/Nutrition: Recipe scaling, nutrition facts, unit conversions, food cost (4 calculators)
 - Automotive: Fuel efficiency, tire sizing, maintenance, vehicle payments (4 calculators)
 
 **Performance Optimization:**
+
 - Code splitting & lazy loading by calculator category
 - Initial bundle size reduction
 - Virtualized search/browse for 200+ calculators
 - FCP improvement through lazy loading
 
 **User Experience:**
+
 - Favorites/bookmarking system with localStorage persistence
 - Calculation history with restore functionality
 - Export results as PDF and CSV
@@ -141,6 +144,7 @@ A solid, maintainable foundation with zero technical debt in state management an
 **Planned phases:** 17-24 (8 phases)
 
 **Requirements:** 34 total (100% mapped to phases)
+
 - CRYPT-01 through CRYPT-04 (Crypto/Blockchain)
 - REAL-01 through REAL-04 (Real Estate)
 - COOK-01 through COOK-04 (Cooking/Nutrition)

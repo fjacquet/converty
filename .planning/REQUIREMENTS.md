@@ -150,11 +150,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXP-04 | Phase 24 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 34 total
 - Mapped to phases: 34
 - Unmapped: 0 ✓
 
 ---
 
-*Requirements defined: 2026-01-24*
-*Last updated: 2026-01-24 after Phase 18 completion (12/34 requirements satisfied)*
+_Requirements defined: 2026-01-24_
+_Last updated: 2026-01-24 after Phase 18 completion (12/34 requirements satisfied)_
