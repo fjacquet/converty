@@ -1,5 +1,44 @@
 # Project Milestones: Converty
 
+## v4.0 Security & Infrastructure (In Progress: Started 2026-01-25)
+
+**Scope:** Eliminate all security vulnerabilities and expand into enterprise infrastructure calculators.
+
+**Phases planned:** 25-30 (6 phases)
+
+**Target deliverables:**
+
+- Fix 16 CodeQL security issues (3 High, 1 Warning, 12 Note)
+- Add 5 new infrastructure calculators: VM Storage, Kubernetes Capacity, Server Virtualization, VMware Licensing, Virtualization Cost
+- New "Infrastructure" category for DevOps/IT professionals
+- Code splitting and lazy loading for infrastructure calculators
+- PDF/CSV export support for all new calculators
+
+**Requirements:**
+
+- 11 total requirements (7 High priority, 4 Medium priority)
+- 3 Security & Code Quality requirements
+- 5 Infrastructure Calculator requirements
+- 3 User Experience requirements
+
+**Research completed:**
+
+- VMware vSphere storage capacity formulas and best practices
+- Kubernetes capacity planning (CPU/memory, 85-115% average usage, 70% utilization target)
+- VMware licensing models (VCF $350/core/year, VVF $135/core/year, 16-core minimum)
+- Server virtualization ratios (7-11 VMs/core for VDI, N+1 HA)
+- CodeQL remote property injection remediation strategies
+
+**Stats (in progress):**
+
+- 0/6 phases completed
+- 0/11 requirements satisfied
+- Target calculators: 172 total (167 current + 5 new)
+
+**What's next:** Plan and execute Phase 25 (Security Hardening)
+
+---
+
 ## v3.0 Calculator Expansion & Performance (Shipped: 2026-01-25)
 
 **Delivered:** 16 new calculators across 4 categories, code splitting for performance, and PDF/CSV export functionality with internationalization.

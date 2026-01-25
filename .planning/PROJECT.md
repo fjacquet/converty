@@ -110,21 +110,26 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Current Status
 
-**v3.0 Calculator Expansion & Performance:** ✅ SHIPPED 2026-01-25
+**v4.0 Security & Infrastructure:** 🔄 IN PROGRESS
 
-**Delivered:** 16 new calculators across 4 categories (Crypto/Blockchain, Real Estate, Cooking/Nutrition, Automotive), code splitting for performance optimization, and PDF/CSV export functionality with internationalization support.
+**Scope:** Eliminate all security vulnerabilities and expand into enterprise infrastructure calculators.
 
-**Total Calculators:** 167 (across 11 categories)
+**Total Calculators (Target):** 172 (167 current + 5 new infrastructure)
+
+**Phases:** 6 (25-30)
+
+- Phase 25: Security Hardening
+- Phase 26: Infrastructure Category Foundation
+- Phase 27: VM Storage Calculator
+- Phase 28: Kubernetes Capacity Calculator
+- Phase 29: VMware Server & Licensing Calculators
+- Phase 30: Virtualization Cost Calculator & Export
 
 **Milestone Stats:**
-- 6 phases completed (17, 18, 19, 20, 21, 24)
-- 23 plans executed
-- 90+ commits
-- 337 files modified
-- +79,192 lines added, -510 lines removed
-- 24/24 requirements satisfied (100%)
 
-**Next:** v4.0 milestone planning
+- 0/6 phases completed
+- 11 requirements defined (7 High, 4 Medium priority)
+- Research complete (VMware, K8s, CodeQL remediation)
 
 <!-- v3.0 Calculator Expansion & Performance (shipped 2026-01-25) -->
 
@@ -172,9 +177,27 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ### Active
 
-<!-- v4.0 Planning -->
+<!-- v4.0 Security & Infrastructure (in progress) -->
 
-Pending requirements definition via `/gsd:new-milestone`.
+**Security & Code Quality:**
+
+- User can use application without remote property injection vulnerabilities — v4.0 (SEC-01)
+- User understands why libpng Trivy alerts don't affect production — v4.0 (SEC-02)
+- User sees clean codebase with zero unused code — v4.0 (SEC-03)
+
+**Infrastructure Calculators:**
+
+- User can calculate vSphere ESX cluster storage capacity requirements — v4.0 (INFRA-01)
+- User can calculate Kubernetes cluster node requirements — v4.0 (INFRA-02)
+- User can calculate ESX host count for VM workload — v4.0 (INFRA-03)
+- User can calculate VMware VCF/VVF licensing costs — v4.0 (INFRA-04)
+- User can estimate total cost of ownership for virtualization infrastructure — v4.0 (INFRA-05)
+
+**User Experience:**
+
+- User can discover infrastructure calculators in dedicated category — v4.0 (UX-01)
+- User experiences fast load times (infrastructure calculators lazy-loaded) — v4.0 (UX-02)
+- User can export infrastructure calculator results as PDF/CSV — v4.0 (UX-03)
 
 ### Out of Scope for v3.0
 

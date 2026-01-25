@@ -5,21 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-24)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** v3.0 Calculator Expansion & Performance
+**Current focus:** v4.0 Security & Infrastructure
 
 ## Current Position
 
-Phase: 24 - Export Functionality
-Plan: 3/3 complete
-Status: Phase 24 complete - all must-haves satisfied
-Last activity: 2026-01-25 — Completed Phase 24 (Export Functionality)
+Milestone: v4.0 Security & Infrastructure
+Phase: 25 - Security Hardening
+Plan: 0/TBD (pending planning)
+Status: Milestone initialized - ready for phase planning
+Last activity: 2026-01-25 — v4.0 milestone created with 11 requirements, 6 phases
 
-Progress: ██████████████████ 100% (v3.0 — 6 of 6 phases complete)
+Progress: ░░░░░░░░░░░░░░░░░░ 0% (v4.0 — 0 of 6 phases complete)
 
 **Next Steps:**
 
-1. Audit v3.0 milestone completion
-2. Archive v3.0 and prepare for next milestone
+1. Plan Phase 25 (Security Hardening) — `/gsd:plan-phase 25`
+2. Execute Phase 25 after planning
+3. Continue through phases 26-30
 
 ## Performance Metrics
 
