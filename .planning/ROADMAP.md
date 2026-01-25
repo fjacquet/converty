@@ -116,21 +116,25 @@
 
 **Success Criteria:**
 
-- [ ] Calculator components code-split by category
-- [ ] Lazy loading implemented per category
-- [ ] Initial bundle size reduced (measure before/after)
-- [ ] Categories load on demand
-- [ ] Search/browse list virtualized for 200+ calculators
-- [ ] First Contentful Paint (FCP) improved
-- [ ] No impact on static export capability
-- [ ] URL state persistence still working with lazy-loaded components
+- [x] Calculator components code-split by category ✓
+- [x] Lazy loading implemented per category ✓
+- [x] Initial bundle size reduced (measure before/after) ✓
+- [x] Categories load on demand ✓
+- [x] Search/browse list virtualized for 200+ calculators ✓ (not needed - 167 calculators)
+- [x] First Contentful Paint (FCP) improved ✓
+- [x] No impact on static export capability ✓
+- [x] URL state persistence still working with lazy-loaded components ✓
 
-**Plans:** 3 plans
+**Plans:** 3 plans complete
 
 Plans:
-- [ ] 21-01-PLAN.md — Bundle analysis baseline & skeleton component
-- [ ] 21-02-PLAN.md — Dynamic import implementation for all calculators
-- [ ] 21-03-PLAN.md — Search performance verification & final report
+- [x] 21-01-PLAN.md — Bundle analysis baseline & skeleton component ✓
+- [x] 21-02-PLAN.md — Dynamic import implementation for all calculators ✓
+- [x] 21-03-PLAN.md — Search performance verification & final report ✓
+
+**Status:** ⚠ NEEDS GAP CLOSURE (2026-01-25)
+
+**Gap:** 13 calculator pages use inconsistent loading fallback (needs CalculatorSkeleton)
 
 **Included in v3.0 Requirements:** PERF-01, PERF-02, PERF-03, PERF-04
 
