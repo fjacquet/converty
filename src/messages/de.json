@@ -871,6 +871,11 @@
       "description": "Berechnen Sie den Speicherbedarf für vSphere ESX-Cluster",
       "metaDescription": "Kostenloser VMware vSphere Speicherrechner. Berechnen Sie VM-Speicherkapazität einschließlich bereitgestellter Festplatten, Swap-Dateien, Snapshots und Wachstumszuweisung."
     },
+    "k8s-capacity-calculator": {
+      "name": "Kubernetes-Kapazitätsrechner",
+      "description": "Berechnen Sie die Knotenanforderungen für Ihren Kubernetes-Cluster",
+      "metaDescription": "Kostenloser Kubernetes-Kapazitätsplaner. Berechnen Sie die benötigten Knoten für K8s-Cluster basierend auf Pod-CPU/Speicher-Anforderungen, reservierten Systemressourcen und Zielauslastung."
+    },
     "slope-calculator": {
       "name": "Steigungs",
       "description": "Berechnen Sie Steigung, Gleichung und Winkel einer Geraden",
@@ -1450,6 +1455,41 @@
       "provisioningWarning": "Warnung: Thin Provisioning ermöglicht Überzeichnung. Überwachen Sie die tatsächliche Nutzung, um Speichererschöpfung zu vermeiden.",
       "snapshotHelp": "Weisen Sie 20-30% für allgemeine VMs zu, bis zu 100% für Workloads mit hoher Änderungsrate (Datenbanken, Exchange)",
       "swapHelp": "Swap-Dateien entsprechen dem konfigurierten RAM, wenn keine Speicherreservierung festgelegt ist"
+    },
+    "k8sCapacity": {
+      "podWorkload": "Pod-Arbeitslast",
+      "podCpuRequest": "CPU-Anforderung pro Pod (Millikerne)",
+      "podMemoryRequest": "Speicheranforderung pro Pod (MiB)",
+      "podReplicas": "Pod-Replikate",
+      "nodeSpecs": "Knotenspezifikationen",
+      "nodeCpuCores": "CPU-Kerne pro Knoten",
+      "nodeMemoryMb": "Speicher pro Knoten (MB)",
+      "systemOverhead": "System-Overhead (pro Knoten)",
+      "systemReservedCpu": "Reservierte System-CPU (Millikerne)",
+      "systemReservedMemory": "Reservierter Systemspeicher (MiB)",
+      "daemonSetCpuPerNode": "DaemonSet-CPU (Millikerne)",
+      "daemonSetMemoryPerNode": "DaemonSet-Speicher (MiB)",
+      "targetUtilization": "Zielauslastung",
+      "targetCpuUtilization": "Ziel-CPU-Auslastung (%)",
+      "targetMemoryUtilization": "Zielspeicherauslastung (%)",
+      "results": "Kapazitätsergebnisse",
+      "nodesNeeded": "Benötigte Knoten",
+      "limitingFactor": "Begrenzender Faktor",
+      "cpuConstraint": "CPU-Einschränkung",
+      "memoryConstraint": "Speichereinschränkung",
+      "allocatableCpu": "Verfügbare CPU pro Knoten",
+      "allocatableMemory": "Verfügbarer Speicher pro Knoten",
+      "finalCpuUtilization": "Finale CPU-Auslastung",
+      "finalMemoryUtilization": "Finale Speicherauslastung",
+      "breakdown": "Kapazitätsaufteilung",
+      "cpuBreakdown": "CPU-Aufteilung",
+      "memoryBreakdown": "Speicheraufteilung",
+      "calculationSteps": "Berechnungsschritte",
+      "overUtilizationWarning": "Warnung: Auslastung überschreitet 80%. Erwägen Sie, mehr Knoten hinzuzufügen oder die Zielauslastung zu reduzieren für bessere Zuverlässigkeit und Autoscaling-Reserve.",
+      "systemReservedHelp": "Reservierte Systemressourcen umfassen OS-Daemons, Kubernetes-Komponenten (kubelet, Container-Runtime) und Eviction-Schwellenwerte. Typische Werte: 500-1000m CPU, 500-1000 MiB Speicher.",
+      "daemonSetHelp": "DaemonSets laufen auf jedem Knoten (Monitoring-Agenten, Log-Sammler, Netzwerk-Plugins). Typische Werte: 200-500m CPU, 256-512 MiB Speicher pro Knoten.",
+      "targetUtilizationHelp": "Zielauslastung lässt Reserve für Autoscaling und Traffic-Spitzen. Industriestandard: 70% CPU, 80% Speicher. 100% lässt keinen Puffer.",
+      "limitingFactorHelp": "Kubernetes-Scheduling ist mehrdimensional. Speicher ist typischerweise der begrenzende Faktor (nicht komprimierbar, verursacht OOM-Kills)."
     },
     "results": {
       "perMonth": "pro Monat",

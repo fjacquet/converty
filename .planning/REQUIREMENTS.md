@@ -62,16 +62,18 @@ Eliminate all security vulnerabilities and expand calculator offerings into ente
 
 **INFRA-02: Kubernetes Capacity Calculator**
 
-- Status: Pending
+- Status: Complete ✅
 - User can calculate Kubernetes cluster node requirements
 - **Acceptance:**
-  - Input: Pod count, CPU per pod (millicores), memory per pod (Mi)
-  - Input: Node specs (CPU cores, RAM GB)
-  - Input: System reserved %, target utilization %
-  - Calculate: Nodes needed (by CPU and memory constraints)
-  - Output: Recommended node count, utilization breakdown
-  - Warning if utilization > 80%
-  - All 4 locales translated
+  - Input: Pod count, CPU per pod (millicores), memory per pod (Mi) ✅
+  - Input: Node specs (CPU cores, RAM GB) ✅
+  - Input: System reserved %, target utilization % ✅
+  - Calculate: Nodes needed (by CPU and memory constraints) ✅
+  - Output: Recommended node count, utilization breakdown ✅
+  - Warning if utilization > 80% ✅
+  - All 4 locales translated ✅
+- **Phase:** 28-k8s-capacity-calculator
+- **Verification:** .planning/phases/28-k8s-capacity-calculator/28-VERIFICATION.md
 
 **INFRA-03: Server Virtualization Calculator**
 

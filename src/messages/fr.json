@@ -871,6 +871,11 @@
       "description": "Calculer les besoins en capacité de stockage d'un cluster vSphere ESX",
       "metaDescription": "Calculateur de stockage VMware vSphere gratuit. Calculez la capacité de stockage VM incluant les disques provisionnés, fichiers swap, snapshots et allocation de croissance."
     },
+    "k8s-capacity-calculator": {
+      "name": "Calculateur de Capacité Kubernetes",
+      "description": "Calculer les besoins en nœuds pour votre cluster Kubernetes",
+      "metaDescription": "Calculateur de planification de capacité Kubernetes gratuit. Calculez les nœuds nécessaires pour un cluster K8s selon les requêtes CPU/mémoire des pods, ressources réservées système et utilisation cible."
+    },
     "slope-calculator": {
       "name": "Pente",
       "description": "Calculez pente, equation et angle d'une droite",
@@ -1450,6 +1455,41 @@
       "provisioningWarning": "Attention : Le provisionnement léger permet la sur-allocation. Surveillez l'utilisation réelle pour éviter l'épuisement du stockage.",
       "snapshotHelp": "Allouez 20-30% pour les VM générales, jusqu'à 100% pour les charges de travail à fort taux de changement (bases de données, Exchange)",
       "swapHelp": "Les fichiers swap sont égaux à la RAM configurée lorsqu'aucune réservation mémoire n'est définie"
+    },
+    "k8sCapacity": {
+      "podWorkload": "Charge de Travail Pod",
+      "podCpuRequest": "Requête CPU par Pod (millicœurs)",
+      "podMemoryRequest": "Requête Mémoire par Pod (MiB)",
+      "podReplicas": "Répliques de Pod",
+      "nodeSpecs": "Spécifications des Nœuds",
+      "nodeCpuCores": "Cœurs CPU par Nœud",
+      "nodeMemoryMb": "Mémoire par Nœud (Mo)",
+      "systemOverhead": "Surcharge Système (par nœud)",
+      "systemReservedCpu": "CPU Réservé Système (millicœurs)",
+      "systemReservedMemory": "Mémoire Réservée Système (MiB)",
+      "daemonSetCpuPerNode": "CPU DaemonSet (millicœurs)",
+      "daemonSetMemoryPerNode": "Mémoire DaemonSet (MiB)",
+      "targetUtilization": "Utilisation Cible",
+      "targetCpuUtilization": "Utilisation CPU Cible (%)",
+      "targetMemoryUtilization": "Utilisation Mémoire Cible (%)",
+      "results": "Résultats de Capacité",
+      "nodesNeeded": "Nœuds Nécessaires",
+      "limitingFactor": "Facteur Limitant",
+      "cpuConstraint": "Contrainte CPU",
+      "memoryConstraint": "Contrainte Mémoire",
+      "allocatableCpu": "CPU Allouable par Nœud",
+      "allocatableMemory": "Mémoire Allouable par Nœud",
+      "finalCpuUtilization": "Utilisation CPU Finale",
+      "finalMemoryUtilization": "Utilisation Mémoire Finale",
+      "breakdown": "Répartition de Capacité",
+      "cpuBreakdown": "Répartition CPU",
+      "memoryBreakdown": "Répartition Mémoire",
+      "calculationSteps": "Étapes de Calcul",
+      "overUtilizationWarning": "Attention : L'utilisation dépasse 80%. Envisagez d'ajouter plus de nœuds ou de réduire l'utilisation cible pour une meilleure fiabilité et marge d'autoscaling.",
+      "systemReservedHelp": "Ressources réservées système incluent démons OS, composants Kubernetes (kubelet, runtime de conteneur) et seuils d'éviction. Valeurs typiques : 500-1000m CPU, 500-1000 MiB mémoire.",
+      "daemonSetHelp": "Les DaemonSets s'exécutent sur chaque nœud (agents de surveillance, collecteurs de logs, plugins réseau). Valeurs typiques : 200-500m CPU, 256-512 MiB mémoire par nœud.",
+      "targetUtilizationHelp": "L'utilisation cible laisse de la marge pour l'autoscaling et les pics de trafic. Standard industrie : 70% CPU, 80% mémoire. 100% ne laisse aucune marge.",
+      "limitingFactorHelp": "La planification Kubernetes est multidimensionnelle. La mémoire est généralement le facteur limitant (non compressible, cause des arrêts OOM)."
     },
     "results": {
       "perMonth": "par mois",

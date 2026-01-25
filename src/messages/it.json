@@ -871,6 +871,11 @@
       "description": "Calcola i requisiti di capacità di storage per cluster vSphere ESX",
       "metaDescription": "Calcolatore di storage VMware vSphere gratuito. Calcola la capacità di storage VM inclusi dischi provisioned, file swap, snapshot e allocazione di crescita."
     },
+    "k8s-capacity-calculator": {
+      "name": "Calcolatore Capacità Kubernetes",
+      "description": "Calcola i requisiti di nodi per il tuo cluster Kubernetes",
+      "metaDescription": "Calcolatore gratuito di pianificazione capacità Kubernetes. Calcola i nodi necessari per cluster K8s in base a richieste CPU/memoria dei pod, risorse riservate di sistema e utilizzo target."
+    },
     "slope-calculator": {
       "name": "Pendenza",
       "description": "Calcola pendenza, equazione e angolo di una retta",
@@ -1450,6 +1455,41 @@
       "provisioningWarning": "Attenzione: Il thin provisioning abilita l'over-subscription. Monitorare l'utilizzo effettivo per prevenire l'esaurimento dello storage.",
       "snapshotHelp": "Allocare 20-30% per VM generiche, fino a 100% per carichi di lavoro ad alto tasso di modifica (database, Exchange)",
       "swapHelp": "I file swap sono uguali alla RAM configurata quando non è impostata alcuna riserva di memoria"
+    },
+    "k8sCapacity": {
+      "podWorkload": "Carico di Lavoro Pod",
+      "podCpuRequest": "Richiesta CPU per Pod (millicore)",
+      "podMemoryRequest": "Richiesta Memoria per Pod (MiB)",
+      "podReplicas": "Repliche Pod",
+      "nodeSpecs": "Specifiche Nodi",
+      "nodeCpuCores": "Core CPU per Nodo",
+      "nodeMemoryMb": "Memoria per Nodo (MB)",
+      "systemOverhead": "Overhead Sistema (per nodo)",
+      "systemReservedCpu": "CPU Riservata Sistema (millicore)",
+      "systemReservedMemory": "Memoria Riservata Sistema (MiB)",
+      "daemonSetCpuPerNode": "CPU DaemonSet (millicore)",
+      "daemonSetMemoryPerNode": "Memoria DaemonSet (MiB)",
+      "targetUtilization": "Utilizzo Target",
+      "targetCpuUtilization": "Utilizzo CPU Target (%)",
+      "targetMemoryUtilization": "Utilizzo Memoria Target (%)",
+      "results": "Risultati Capacità",
+      "nodesNeeded": "Nodi Necessari",
+      "limitingFactor": "Fattore Limitante",
+      "cpuConstraint": "Vincolo CPU",
+      "memoryConstraint": "Vincolo Memoria",
+      "allocatableCpu": "CPU Allocabile per Nodo",
+      "allocatableMemory": "Memoria Allocabile per Nodo",
+      "finalCpuUtilization": "Utilizzo CPU Finale",
+      "finalMemoryUtilization": "Utilizzo Memoria Finale",
+      "breakdown": "Ripartizione Capacità",
+      "cpuBreakdown": "Ripartizione CPU",
+      "memoryBreakdown": "Ripartizione Memoria",
+      "calculationSteps": "Passaggi di Calcolo",
+      "overUtilizationWarning": "Attenzione: Utilizzo supera 80%. Considerare l'aggiunta di più nodi o ridurre l'utilizzo target per migliore affidabilità e margine di autoscaling.",
+      "systemReservedHelp": "Risorse riservate sistema includono daemon OS, componenti Kubernetes (kubelet, runtime container) e soglie di eviction. Valori tipici: 500-1000m CPU, 500-1000 MiB memoria.",
+      "daemonSetHelp": "I DaemonSet vengono eseguiti su ogni nodo (agenti di monitoraggio, collettori di log, plugin di rete). Valori tipici: 200-500m CPU, 256-512 MiB memoria per nodo.",
+      "targetUtilizationHelp": "L'utilizzo target lascia margine per autoscaling e picchi di traffico. Standard industria: 70% CPU, 80% memoria. 100% non lascia buffer.",
+      "limitingFactorHelp": "Lo scheduling Kubernetes è multidimensionale. La memoria è tipicamente il fattore limitante (non comprimibile, causa kill OOM)."
     },
     "results": {
       "perMonth": "al mese",

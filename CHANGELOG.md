@@ -9,6 +9,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+**Phase 28: Kubernetes Capacity Calculator (2026-01-25)**
+
+- Kubernetes (K8s) Capacity Planning Calculator (`src/app/[locale]/infrastructure/k8s-capacity-calculator/`)
+  - Multi-dimensional bin packing (CPU vs memory constraints)
+  - Node sizing calculator for K8s clusters based on pod workload requirements
+  - Identifies limiting factor (CPU-constrained vs memory-constrained scheduling)
+  - Industry-standard capacity planning with 70% CPU / 80% memory target utilization
+  - System overhead accounting (kubelet, container runtime, OS daemons, eviction thresholds)
+  - DaemonSet resource reservation per node (monitoring, logging, networking)
+  - Over-utilization warnings when capacity exceeds 80% threshold
+- K8s capacity calculation function (`src/lib/converters/infrastructure/k8s-capacity.ts`)
+  - Allocatable resource calculation (Capacity - SystemReserved - KubeReserved - DaemonSets)
+  - Target utilization adjustment (leaves headroom for autoscaling and traffic spikes)
+  - Dual constraint analysis (CPU millicores and memory MiB)
+  - Final utilization calculation with rounded node count
+  - Comprehensive input validation (11 parameters)
+- K8s capacity UI component with 4-section input layout
+  - Pod Workload section (CPU request, memory request, replica count)
+  - Node Specifications section (CPU cores, memory MB per node)
+  - System Overhead section (system reserved CPU/memory, DaemonSet CPU/memory)
+  - Target Utilization section (CPU %, memory % with industry standard defaults)
+- Limiting factor visualization with badge UI
+  - CPU-constrained badge (primary variant) when CPU is limiting
+  - Memory-constrained badge (secondary variant) when memory is limiting
+  - Industry guidance: "Memory is typically the limiting factor (non-compressible, causes OOM kills)"
+- Detailed capacity breakdown results
+  - Allocatable resources per node (after system overhead deduction)
+  - Nodes needed by CPU constraint vs memory constraint
+  - Final utilization percentages (highlights >80% in destructive color)
+  - Calculation steps breakdown (5 steps with formulas and intermediate values)
+- Zustand store with URL state synchronization (`src/stores/k8s-capacity-store.ts`)
+  - All 11 input parameters synced to URL for shareability
+  - 300ms debounce for smooth typing experience
+  - Auto-calculation on parameter changes
+- Infrastructure category expansion
+  - Second featured calculator in infrastructure category (after VM Storage Calculator)
+  - Server icon semantic match for Kubernetes nodes
+  - 13 targeted keywords (kubernetes, k8s, capacity, node sizing, cluster, pods, containers, resources, cpu, memory, scheduling, allocatable, utilization)
+- Translations for all 4 locales (en, fr, de, it)
+  - Converter metadata (name, description, SEO metaDescription)
+  - 30+ UI labels (input fields, results, warnings, help text)
+  - Technical terminology accurately translated (millicores → millicœurs/Millikerne/millicore, nodes → nœuds/Knoten/nodi)
+
 ### Changed
 
 ### Fixed

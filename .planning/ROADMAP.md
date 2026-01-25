@@ -163,8 +163,8 @@ Plans:
 
 Plans:
 
-- [ ] 28-01-PLAN.md — Create calculation logic, registry entry, and translations
-- [ ] 28-02-PLAN.md — Create UI component and page with URL state
+- [x] 28-01-PLAN.md — Create calculation logic, registry entry, and translations
+- [x] 28-02-PLAN.md — Create UI component and page with URL state
 
 **Deliverables:**
 
@@ -193,10 +193,10 @@ Plans:
 
 **Success Criteria:**
 
-- [ ] Calculations follow K8s best practices (85-115% of average)
-- [ ] Visual breakdown shows limiting factor
-- [ ] URL state works correctly
-- [ ] All 4 locales translated
+- [x] Calculations follow K8s best practices (85-115% of average)
+- [x] Visual breakdown shows limiting factor
+- [x] URL state works correctly
+- [x] All 4 locales translated
 
 **Estimated Complexity:** Medium
 **Dependencies:** Phase 26

@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Milestone: v4.0 Security & Infrastructure
-Phase: 27 - VM Storage Calculator
-Plan: 2/2 complete (27-01, 27-02)
-Status: Phase 27 complete - ready for next phase
-Last activity: 2026-01-25 — Phase 27 complete (VM storage calculator with VMware formulas)
+Phase: 28 - K8s Capacity Calculator
+Plan: 2/2 complete (28-01, 28-02)
+Status: Phase 28 complete - ready for next phase
+Last activity: 2026-01-25 — Phase 28 complete (K8s capacity calculator with multi-dimensional bin packing)
 
-Progress: ████████░░░░░░░░░░ 33% (v4.0 — 2 of 6 phases complete)
+Progress: ████████████░░░░░░ 50% (v4.0 — 3 of 6 phases complete)
 
 **Next Steps:**
 
-1. Plan Phase 28 (K8s Capacity Calculator) — `/gsd:plan-phase 28`
-2. Execute Phase 28 after planning
-3. Continue through phases 29-30
+1. Plan Phase 29 (VMware Server & Licensing Calculators) — `/gsd:plan-phase 29`
+2. Execute Phase 29 after planning
+3. Continue through Phase 30
 
 ## Performance Metrics
 
@@ -79,6 +79,7 @@ Progress: ████████░░░░░░░░░░ 33% (v4.0 — 2
 | ------------------------------------ | ----- | ------ | -------- |
 | 26-infrastructure-category-foundation | 2/2   | TBD    | TBD      |
 | 27-vm-storage-calculator              | 2/2   | ~8 min | ~4 min   |
+| 28-k8s-capacity-calculator            | 2/2   | ~8 min | ~4 min   |
 
 ## Accumulated Context
 

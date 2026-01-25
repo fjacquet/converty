@@ -871,6 +871,11 @@
       "description": "Calculate vSphere ESX cluster storage capacity requirements",
       "metaDescription": "Free VMware vSphere storage calculator. Calculate VM storage capacity including provisioned disk, swap files, snapshots, and growth allocation. Supports thick and thin provisioning."
     },
+    "k8s-capacity-calculator": {
+      "name": "Kubernetes Capacity Calculator",
+      "description": "Calculate Kubernetes cluster node requirements for your workload",
+      "metaDescription": "Free Kubernetes capacity planning calculator. Calculate nodes needed for K8s cluster based on pod CPU/memory requests, system reserved resources, and target utilization. Shows limiting factor (CPU vs memory)."
+    },
     "slope-calculator": {
       "name": "Slope",
       "description": "Calculate slope, equation, and angle of a line",
@@ -1450,6 +1455,41 @@
       "provisioningWarning": "Warning: Thin provisioning enables over-subscription. Monitor actual usage to prevent storage exhaustion.",
       "snapshotHelp": "Allocate 20-30% for general VMs, up to 100% for high-change-rate workloads (databases, Exchange)",
       "swapHelp": "Swap files equal configured RAM when no memory reservation is set"
+    },
+    "k8sCapacity": {
+      "podWorkload": "Pod Workload",
+      "podCpuRequest": "CPU Request per Pod (millicores)",
+      "podMemoryRequest": "Memory Request per Pod (MiB)",
+      "podReplicas": "Pod Replicas",
+      "nodeSpecs": "Node Specifications",
+      "nodeCpuCores": "CPU Cores per Node",
+      "nodeMemoryMb": "Memory per Node (MB)",
+      "systemOverhead": "System Overhead (per node)",
+      "systemReservedCpu": "System Reserved CPU (millicores)",
+      "systemReservedMemory": "System Reserved Memory (MiB)",
+      "daemonSetCpuPerNode": "DaemonSet CPU (millicores)",
+      "daemonSetMemoryPerNode": "DaemonSet Memory (MiB)",
+      "targetUtilization": "Target Utilization",
+      "targetCpuUtilization": "Target CPU Utilization (%)",
+      "targetMemoryUtilization": "Target Memory Utilization (%)",
+      "results": "Capacity Results",
+      "nodesNeeded": "Nodes Needed",
+      "limitingFactor": "Limiting Factor",
+      "cpuConstraint": "CPU Constraint",
+      "memoryConstraint": "Memory Constraint",
+      "allocatableCpu": "Allocatable CPU per Node",
+      "allocatableMemory": "Allocatable Memory per Node",
+      "finalCpuUtilization": "Final CPU Utilization",
+      "finalMemoryUtilization": "Final Memory Utilization",
+      "breakdown": "Capacity Breakdown",
+      "cpuBreakdown": "CPU Breakdown",
+      "memoryBreakdown": "Memory Breakdown",
+      "calculationSteps": "Calculation Steps",
+      "overUtilizationWarning": "Warning: Utilization exceeds 80%. Consider adding more nodes or reducing target utilization for better reliability and autoscaling headroom.",
+      "systemReservedHelp": "System reserved includes OS daemons, Kubernetes components (kubelet, container runtime), and eviction thresholds. Typical values: 500-1000m CPU, 500-1000 MiB memory.",
+      "daemonSetHelp": "DaemonSets run on every node (monitoring agents, log collectors, network plugins). Typical values: 200-500m CPU, 256-512 MiB memory per node.",
+      "targetUtilizationHelp": "Target utilization leaves headroom for autoscaling and traffic spikes. Industry standard: 70% CPU, 80% memory. 100% leaves no buffer.",
+      "limitingFactorHelp": "Kubernetes scheduling is multi-dimensional. Memory is typically the limiting factor (non-compressible, causes OOM kills)."
     },
     "results": {
       "perMonth": "per month",
