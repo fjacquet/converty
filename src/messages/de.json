@@ -1484,7 +1484,11 @@
       "limitingFactorHelp": "Die Ressource, die die meisten Nodes erfordert",
       "finalCpuUtilization": "Finale CPU-Auslastung (%)",
       "finalRamUtilization": "Finale RAM-Auslastung (%)",
-      "finalStorageUtilization": "Finale Speicher-Auslastung (%)"
+      "finalStorageUtilization": "Finale Speicher-Auslastung (%)",
+      "cores": "Kerne",
+      "millicores": "Millikerne",
+      "mib": "MiB",
+      "mb": "MB"
     },
     "serverVirtualizationCalculator": {
       "title": "Server-Virtualisierungsrechner",
@@ -1502,7 +1506,9 @@
       "limitingFactor": "Begrenzender Faktor",
       "vcpuConsolidationRatio": "vCPU-Konsolidierungsverhältnis",
       "finalCpuUtilization": "Finale CPU-Auslastung (%)",
-      "finalRamUtilization": "Finale RAM-Auslastung (%)"
+      "finalRamUtilization": "Finale RAM-Auslastung (%)",
+      "cores": "Kerne",
+      "gb": "GB"
     },
     "vmwareLicensingCalculator": {
       "title": "VMware-Lizenzrechner",
@@ -1522,7 +1528,11 @@
       "vsanEntitlementTib": "vSAN-Berechtigung (TiB)",
       "coresPerCpuLicensed": "Kerne pro CPU (Lizenziert)",
       "minCoreEnforced": "16-Kern-Minimum angewendet",
-      "pricingDisclaimer": "Preise basieren auf VMware-Listenpreisen 2026. Die tatsächlichen Kosten können variieren."
+      "pricingDisclaimer": "Preise basieren auf VMware-Listenpreisen 2026. Die tatsächlichen Kosten können variieren.",
+      "cores": "Kerne",
+      "hosts": "Hosts",
+      "cpus": "CPUs",
+      "years": "Jahre"
     },
     "results": {
       "perMonth": "pro Monat",

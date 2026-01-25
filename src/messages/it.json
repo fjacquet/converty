@@ -1499,7 +1499,11 @@
       "systemReservedHelp": "Risorse riservate sistema includono daemon OS, componenti Kubernetes (kubelet, runtime container) e soglie di eviction. Valori tipici: 500-1000m CPU, 500-1000 MiB memoria.",
       "daemonSetHelp": "I DaemonSet vengono eseguiti su ogni nodo (agenti di monitoraggio, collettori di log, plugin di rete). Valori tipici: 200-500m CPU, 256-512 MiB memoria per nodo.",
       "targetUtilizationHelp": "L'utilizzo target lascia margine per autoscaling e picchi di traffico. Standard industria: 70% CPU, 80% memoria. 100% non lascia buffer.",
-      "limitingFactorHelp": "Lo scheduling Kubernetes è multidimensionale. La memoria è tipicamente il fattore limitante (non comprimibile, causa kill OOM)."
+      "limitingFactorHelp": "Lo scheduling Kubernetes è multidimensionale. La memoria è tipicamente il fattore limitante (non comprimibile, causa kill OOM).",
+      "cores": "core",
+      "millicores": "millicore",
+      "mib": "MiB",
+      "mb": "MB"
     },
     "serverVirtualizationCalculator": {
       "title": "Calcolatore virtualizzazione server",
@@ -1517,7 +1521,9 @@
       "limitingFactor": "Fattore limitante",
       "vcpuConsolidationRatio": "Rapporto di consolidamento vCPU",
       "finalCpuUtilization": "Utilizzo CPU Finale (%)",
-      "finalRamUtilization": "Utilizzo RAM Finale (%)"
+      "finalRamUtilization": "Utilizzo RAM Finale (%)",
+      "cores": "core",
+      "gb": "GB"
     },
     "vmwareLicensingCalculator": {
       "title": "Calcolatore licenze VMware",
@@ -1537,7 +1543,11 @@
       "vsanEntitlementTib": "Diritto vSAN (TiB)",
       "coresPerCpuLicensed": "Core per CPU (Licenziati)",
       "minCoreEnforced": "Minimo 16 core applicato",
-      "pricingDisclaimer": "Prezzi basati sui listini VMware 2026. I costi effettivi possono variare."
+      "pricingDisclaimer": "Prezzi basati sui listini VMware 2026. I costi effettivi possono variare.",
+      "cores": "core",
+      "hosts": "host",
+      "cpus": "CPU",
+      "years": "anni"
     },
     "results": {
       "perMonth": "al mese",
