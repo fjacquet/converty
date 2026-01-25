@@ -2,26 +2,25 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-24)
+See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** v4.0 Security & Infrastructure
+**Current focus:** Planning v5.0
 
 ## Current Position
 
-Milestone: v4.0 Security & Infrastructure
-Phase: 28 - K8s Capacity Calculator
-Plan: 3/3 complete (28-01, 28-02, 28-03)
-Status: Phase 28 complete - input validation robustness implemented
-Last activity: 2026-01-25 — Completed 28-03 (transient input validation fix)
+Milestone: v4.0 Security & Infrastructure (COMPLETE ✅)
+Phase: All 6 phases complete (25-30)
+Status: v4.0 shipped — Ready to plan next milestone
+Last activity: 2026-01-25 — v4.0 milestone completion
 
-Progress: ████████████░░░░░░ 50% (v4.0 — 3 of 6 phases complete)
+Progress: ████████████████████ 100% (v4.0 — 6 of 6 phases complete)
 
 **Next Steps:**
 
-1. Plan Phase 29 (VMware Server & Licensing Calculators) — `/gsd:plan-phase 29`
-2. Execute Phase 29 after planning
-3. Continue through Phase 30
+1. Start v5.0 planning — `/gsd:new-milestone`
+2. Define requirements for next iteration
+3. Research and plan new features
 
 ## Performance Metrics
 
@@ -73,13 +72,18 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 | 21-code-splitting               | 4/4   | 15 min | 3.75 min |
 | 24-export-functionality         | 3/3   | 18 min | 6 min    |
 
-**v4.0 Milestone (in progress):**
+**v4.0 Milestone (complete):**
 
-| Phase                                | Plans | Total    | Avg/Plan |
-| ------------------------------------ | ----- | -------- | -------- |
-| 26-infrastructure-category-foundation | 3/3   | ~12 min  | ~4 min   |
-| 27-vm-storage-calculator              | 3/3   | ~11 min  | ~3.7 min |
-| 28-k8s-capacity-calculator            | 3/3   | ~11 min  | ~3.7 min |
+| Phase                                    | Plans | Total    | Avg/Plan |
+| ---------------------------------------- | ----- | -------- | -------- |
+| 25-security-hardening                     | 2/2   | ~8 min   | ~4 min   |
+| 26-infrastructure-category-foundation     | 3/3   | ~12 min  | ~4 min   |
+| 27-vm-storage-calculator                  | 3/3   | ~11 min  | ~3.7 min |
+| 28-k8s-capacity-calculator                | 3/3   | ~11 min  | ~3.7 min |
+| 29-vmware-server-licensing                | 3/3   | ~15 min  | ~5 min   |
+| 30-virtualization-cost-and-export         | 3/3   | ~18 min  | ~6 min   |
+
+**Total v4.0:** 6 phases, 17 plans, ~75 minutes (~4.4 min/plan), 58 commits, 106 files, +15,840/-224 lines
 
 ## Accumulated Context
 
@@ -240,6 +244,10 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 
 ### Milestone Evolution
 
+- **v4.0 Security & Infrastructure** (2026-01-25): Enterprise-grade security hardening and 5 new infrastructure calculators. 6 phases, 17 plans, 58 commits, 106 files modified. All 11 requirements satisfied (100% coverage). Eliminated all CodeQL vulnerabilities with Map-based URL parameters. Added VM Storage, Kubernetes Capacity, Server Virtualization, VMware Licensing, and Virtualization Cost calculators. Created Infrastructure category with 3 subcategories. PDF/CSV export for all infrastructure tools. Completed in 13 hours (same day).
+
+- **v3.0 Calculator Expansion & Performance** (2026-01-25): 16 new calculators and export functionality. 6 phases, 23 plans, 90+ commits, 337 files modified. All 24 requirements satisfied (100% coverage). Added Crypto/Blockchain, Real Estate, Cooking/Nutrition, and Automotive categories. Implemented code splitting for performance. PDF/CSV export with zero dependencies.
+
 - **v2.0 Network Tools & User Experience** (2026-01-22): Comprehensive network calculator suite with global search and 100% translation coverage. 8 phases, 22 plans, 55 commits, 217 files modified. All 29 requirements satisfied (100% coverage). Network category with visual subnet calculator, IP address calculator, CIDR range calculator, and network speed/latency tools. Global search with Cmd+K shortcut. All 156 registered calculators internationalized for en/fr/de/it.
 
 - **v1.0 Infrastructure Upgrade** (2026-01-18): Comprehensive infrastructure upgrade with strict TypeScript, Zustand state management, PWA support, and complete documentation. 8 phases, 19 plans, 103 commits, 131 files modified. All 32 requirements satisfied (100% coverage).
@@ -250,23 +258,21 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 
 ## Session Continuity
 
-Last session: 2026-01-25T21:20:03Z
-Stopped at: Completed 28-03 (transient input validation fix)
+Last session: 2026-01-25T23:30:00Z
+Stopped at: v4.0 milestone completion
 Resume file: None
 
-**Next Steps:**
+**Milestones Completed:**
 
 1. ✅ v1.0 Infrastructure Upgrade shipped (2026-01-18)
 2. ✅ v2.0 Network Tools & User Experience shipped (2026-01-22)
 3. ✅ v3.0 Calculator Expansion & Performance shipped (2026-01-25)
-   - ✅ Phase 17 Complete (4/4 plans) - Crypto & Blockchain
-   - ✅ Phase 18 Complete (4/4 plans) - Real Estate
-   - ✅ Phase 19 Complete (4/4 plans) - Cooking & Nutrition
-   - ✅ Phase 20 Complete (4/4 plans) - Automotive
-   - ✅ Phase 21 Complete (4/4 plans) - Code Splitting & Lazy Loading
-   - ✅ Phase 24 Complete (3/3 plans) - Export Functionality
-4. 🚀 v4.0 Security & Infrastructure in progress
+4. ✅ v4.0 Security & Infrastructure shipped (2026-01-25)
+   - ✅ Phase 25 Complete (2/2 plans) - Security Hardening
    - ✅ Phase 26 Complete (3/3 plans) - Infrastructure Category Foundation
    - ✅ Phase 27 Complete (3/3 plans) - VM Storage Calculator
    - ✅ Phase 28 Complete (3/3 plans) - K8s Capacity Calculator
-   - Next: Phase 29 (VMware Server & Licensing Calculators)
+   - ✅ Phase 29 Complete (3/3 plans) - VMware Server & Licensing
+   - ✅ Phase 30 Complete (3/3 plans) - Virtualization Cost & Export
+
+**Next:** Start v5.0 planning with `/gsd:new-milestone`

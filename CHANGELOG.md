@@ -9,52 +9,166 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-**Phase 28: Kubernetes Capacity Calculator (2026-01-25)**
-
-- Kubernetes (K8s) Capacity Planning Calculator (`src/app/[locale]/infrastructure/k8s-capacity-calculator/`)
-  - Multi-dimensional bin packing (CPU vs memory constraints)
-  - Node sizing calculator for K8s clusters based on pod workload requirements
-  - Identifies limiting factor (CPU-constrained vs memory-constrained scheduling)
-  - Industry-standard capacity planning with 70% CPU / 80% memory target utilization
-  - System overhead accounting (kubelet, container runtime, OS daemons, eviction thresholds)
-  - DaemonSet resource reservation per node (monitoring, logging, networking)
-  - Over-utilization warnings when capacity exceeds 80% threshold
-- K8s capacity calculation function (`src/lib/converters/infrastructure/k8s-capacity.ts`)
-  - Allocatable resource calculation (Capacity - SystemReserved - KubeReserved - DaemonSets)
-  - Target utilization adjustment (leaves headroom for autoscaling and traffic spikes)
-  - Dual constraint analysis (CPU millicores and memory MiB)
-  - Final utilization calculation with rounded node count
-  - Comprehensive input validation (11 parameters)
-- K8s capacity UI component with 4-section input layout
-  - Pod Workload section (CPU request, memory request, replica count)
-  - Node Specifications section (CPU cores, memory MB per node)
-  - System Overhead section (system reserved CPU/memory, DaemonSet CPU/memory)
-  - Target Utilization section (CPU %, memory % with industry standard defaults)
-- Limiting factor visualization with badge UI
-  - CPU-constrained badge (primary variant) when CPU is limiting
-  - Memory-constrained badge (secondary variant) when memory is limiting
-  - Industry guidance: "Memory is typically the limiting factor (non-compressible, causes OOM kills)"
-- Detailed capacity breakdown results
-  - Allocatable resources per node (after system overhead deduction)
-  - Nodes needed by CPU constraint vs memory constraint
-  - Final utilization percentages (highlights >80% in destructive color)
-  - Calculation steps breakdown (5 steps with formulas and intermediate values)
-- Zustand store with URL state synchronization (`src/stores/k8s-capacity-store.ts`)
-  - All 11 input parameters synced to URL for shareability
-  - 300ms debounce for smooth typing experience
-  - Auto-calculation on parameter changes
-- Infrastructure category expansion
-  - Second featured calculator in infrastructure category (after VM Storage Calculator)
-  - Server icon semantic match for Kubernetes nodes
-  - 13 targeted keywords (kubernetes, k8s, capacity, node sizing, cluster, pods, containers, resources, cpu, memory, scheduling, allocatable, utilization)
-- Translations for all 4 locales (en, fr, de, it)
-  - Converter metadata (name, description, SEO metaDescription)
-  - 30+ UI labels (input fields, results, warnings, help text)
-  - Technical terminology accurately translated (millicores → millicœurs/Millikerne/millicore, nodes → nœuds/Knoten/nodi)
-
 ### Changed
 
 ### Fixed
+
+## [4.0.0] - 2026-01-25
+
+### Added
+
+**Phase 25: Security Hardening (2026-01-25)**
+
+- Map-based URL parameter storage to prevent remote property injection
+  - Refactored `getUrlParams()` to return Map<string, string> instead of Record
+  - Eliminated dynamic property access from untrusted URL input
+  - Updated all calculator stores to use `Map.get()` API for safe parameter retrieval
+  - Added `Object.hasOwn()` checks before property assignment
+- Security vulnerability documentation
+  - Comprehensive `.trivyignore` with false positive explanations
+  - 6-month review cycle for container security (expires 2026-07-25)
+  - Static export clarification: No Docker containers in production (GitHub Pages)
+  - npm audit --production verification: 0 vulnerabilities
+- Code quality cleanup
+  - Removed all unused imports across codebase (12 files)
+  - Biome lint passes with 0 warnings
+  - Pre-commit hooks enforce code quality gates
+
+**Phase 26: Infrastructure Category Foundation (2026-01-25)**
+
+- Infrastructure category (`src/lib/registry/categories.ts`)
+  - New "Infrastructure" category with Server icon
+  - 3 subcategories: VMware, Kubernetes, Cost
+  - Category landing page at `/[locale]/infrastructure`
+  - Search integration with infrastructure-specific keywords
+- Infrastructure converter registry (`src/lib/registry/infrastructure-converters.ts`)
+  - Dedicated registry module for infrastructure calculators
+  - Integrated into main converters registry
+  - 5 calculators organized by subcategory
+- Translations for all 4 locales (en, fr, de, it)
+  - Infrastructure category metadata
+  - Kubernetes capacity calculator labels (51 keys)
+  - Complete translation coverage for new category
+
+**Phase 27: VM Storage Calculator (2026-01-25)**
+
+- VM Storage Calculator for vSphere ESX clusters (`src/app/[locale]/infrastructure/vm-storage-calculator/`)
+  - Multi-profile VM configuration (unlimited profiles)
+  - Thin vs thick provisioning support
+  - RAID overhead calculation
+  - Snapshot space allocation
+  - Growth capacity planning
+- VM storage calculation logic (`src/lib/converters/infrastructure/vm-storage.ts`)
+  - Provisioned disk space (over-subscription for thin provisioning)
+  - Swap space calculation (100% of VM RAM)
+  - Snapshot allocation (percentage-based)
+  - ESX configuration overhead (2GB per host)
+  - Growth capacity (future VM additions)
+- Dynamic VM profile management
+  - Add/remove profiles with validation (minimum 1 profile)
+  - Independent disk size, RAM, and VM count per profile
+  - Profile-level configuration controls
+- Results breakdown with 8 metrics
+  - Used Disk, Over-subscribed, Snapshots, Swap, Config/Log
+  - Total VM Storage, ESX Overhead, Growth
+  - Percentage breakdown visualization
+- Thin provisioning warning (>50% over-subscription)
+- Zustand store with URL synchronization (`src/stores/vm-storage-store.ts`)
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 28: Kubernetes Capacity Calculator (2026-01-25)**
+
+- Kubernetes Capacity Planning Calculator (`src/app/[locale]/infrastructure/k8s-capacity-calculator/`)
+  - Multi-dimensional bin packing (CPU vs memory constraints)
+  - Node sizing calculator for K8s clusters
+  - Identifies limiting factor (CPU vs memory scheduling)
+  - Industry-standard capacity planning (70% CPU / 80% memory target)
+  - System overhead accounting (kubelet, container runtime, OS)
+  - DaemonSet resource reservation per node
+  - Over-utilization warnings (>80% threshold)
+- K8s capacity calculation (`src/lib/converters/infrastructure/k8s-capacity.ts`)
+  - Allocatable resource calculation (Capacity - SystemReserved - DaemonSets)
+  - Target utilization adjustment (autoscaling headroom)
+  - Dual constraint analysis (CPU millicores and memory MiB)
+  - Input validation (11 parameters)
+- Limiting factor visualization with badge UI
+- Detailed capacity breakdown results with 5 calculation steps
+- Zustand store with URL synchronization (`src/stores/k8s-capacity-store.ts`)
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 29: VMware Server & Licensing Calculators (2026-01-25)**
+
+- Server Virtualization Calculator (`src/app/[locale]/infrastructure/server-virtualization-calculator/`)
+  - ESX host sizing with multi-dimensional bin packing
+  - N+1 high availability support (+1 host exactly)
+  - vCPU-to-core ratio configuration (default 4:1)
+  - Target utilization thresholds (70% CPU, 80% RAM)
+  - Limiting factor identification (CPU vs RAM constrained)
+  - VM consolidation ratio display
+- VMware Licensing Calculator (`src/app/[locale]/infrastructure/vmware-licensing-calculator/`)
+  - Core-based licensing with 16-core minimum per CPU
+  - Product types: VCF ($350/core/year), VVF ($135/core/year), vSphere EP, vSphere Standard
+  - vSAN storage entitlement calculation (1.0 TiB/core VCF, 0.25 TiB/core VVF)
+  - Multi-year term support (1/3/5 years)
+  - 16-core minimum warning display
+  - Pricing disclaimer (2026 list prices)
+- Server virtualization logic (`src/lib/converters/infrastructure/server-virtualization.ts`)
+- VMware licensing logic (`src/lib/converters/infrastructure/vmware-licensing.ts`)
+- Zustand stores with URL synchronization
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 30: Virtualization Cost & Export (2026-01-25)**
+
+- Virtualization Cost Calculator (TCO analysis) (`src/app/[locale]/infrastructure/virtualization-cost-calculator/`)
+  - CAPEX calculation (hardware costs: servers, storage, network)
+  - OPEX calculation (power, software licensing, datacenter, labor)
+  - Total Cost of Ownership (TCO) over term
+  - Cost per VM metrics
+  - Visual cost breakdown by category with percentages
+  - 4 organized input sections (Hardware, Software, Operational, Term)
+- TCO calculation logic (`src/lib/converters/infrastructure/virtualization-cost.ts`)
+  - Power consumption costs (kWh × PUE × electricity rate)
+  - Software licensing annual costs
+  - Datacenter space costs (rack units × $/RU)
+  - Labor costs (FTE count × annual salary)
+  - Growth allocation for future expansion
+- PDF export for all 5 infrastructure calculators
+  - VM Storage, K8s Capacity, Server Virtualization, VMware Licensing, Virtualization Cost
+  - PdfExportButton component integration
+  - Formatted currency and percentage values
+  - Multi-section document support
+- CSV export for all 5 infrastructure calculators
+  - CsvExportButton component integration
+  - UTF-8 BOM for Excel compatibility
+  - Formula injection prevention
+  - Field-Value-Unit structure
+- Zustand store (`src/stores/virtualization-cost-store.ts`)
+- Translations for all 4 locales (en, fr, de, it)
+
+### Security
+
+- **FIXED:** Remote property injection vulnerability (CodeQL High severity)
+  - Map-based URL parameter storage eliminates prototype pollution risk
+  - Safe property access with Object.hasOwn() checks
+  - All calculator stores updated to use Map API
+- **DOCUMENTED:** Container security false positives
+  - libpng CVE-2024-44191 does not affect production (static export, no Docker)
+  - Workbox Dockerfile is dev dependency only, never executed
+  - 6-month review cycle established
+
+### Changed
+
+- URL parameter retrieval now uses Map API instead of object property access
+- All infrastructure calculators use category-based organization
+- Calculator count increased to 172 total (167 + 5 new infrastructure)
+
+### Fixed
+
+- Phase 25: Removed all unused imports (12 files)
+- Phase 26: Fixed German k8sCapacity translation namespace (36 keys → 51 keys)
+- Phase 27: Added missing 'profile' translation key to all 4 locales
+- Phase 28: Implemented safe parse helpers to prevent transient input validation errors
+- Phase 29: Fixed translation namespace mismatches (camelCase consistency)
 
 ## [3.0.0] - 2026-01-25
 

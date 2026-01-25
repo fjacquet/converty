@@ -110,26 +110,19 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Current Status
 
-**v4.0 Security & Infrastructure:** 🔄 IN PROGRESS
+**v4.0 Security & Infrastructure:** ✅ SHIPPED (2026-01-25)
 
-**Scope:** Eliminate all security vulnerabilities and expand into enterprise infrastructure calculators.
+**Delivered:** Enterprise-grade security hardening and 5 new infrastructure calculators.
 
-**Total Calculators (Target):** 172 (167 current + 5 new infrastructure)
-
-**Phases:** 6 (25-30)
-
-- Phase 25: Security Hardening
-- Phase 26: Infrastructure Category Foundation
-- Phase 27: VM Storage Calculator
-- Phase 28: Kubernetes Capacity Calculator
-- Phase 29: VMware Server & Licensing Calculators
-- Phase 30: Virtualization Cost Calculator & Export
+**Total Calculators:** 172 (167 + 5 new infrastructure)
 
 **Milestone Stats:**
 
-- 0/6 phases completed
-- 11 requirements defined (7 High, 4 Medium priority)
-- Research complete (VMware, K8s, CodeQL remediation)
+- 6/6 phases completed (25-30)
+- 17 plans executed
+- 11/11 requirements satisfied (100%)
+- 58 commits, 106 files modified
+- +15,840 lines added, -224 lines removed
 
 <!-- v3.0 Calculator Expansion & Performance (shipped 2026-01-25) -->
 
@@ -175,29 +168,31 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ Exported files include calculator name, inputs, and results — v3.0
 - ✓ Export is accessible from calculator results — v3.0
 
-### Active
-
-<!-- v4.0 Security & Infrastructure (in progress) -->
+<!-- v4.0 Security & Infrastructure (shipped 2026-01-25) -->
 
 **Security & Code Quality:**
 
-- User can use application without remote property injection vulnerabilities — v4.0 (SEC-01)
-- User understands why libpng Trivy alerts don't affect production — v4.0 (SEC-02)
-- User sees clean codebase with zero unused code — v4.0 (SEC-03)
+- ✓ User can use application without remote property injection vulnerabilities — v4.0 (Map-based URL storage)
+- ✓ User understands why libpng Trivy alerts don't affect production — v4.0 (.trivyignore documentation)
+- ✓ User sees clean codebase with zero unused code — v4.0 (Biome auto-fix, pre-commit hooks)
 
 **Infrastructure Calculators:**
 
-- User can calculate vSphere ESX cluster storage capacity requirements — v4.0 (INFRA-01)
-- User can calculate Kubernetes cluster node requirements — v4.0 (INFRA-02)
-- User can calculate ESX host count for VM workload — v4.0 (INFRA-03)
-- User can calculate VMware VCF/VVF licensing costs — v4.0 (INFRA-04)
-- User can estimate total cost of ownership for virtualization infrastructure — v4.0 (INFRA-05)
+- ✓ User can calculate vSphere ESX cluster storage capacity requirements — v4.0 (VM Storage Calculator)
+- ✓ User can calculate Kubernetes cluster node requirements — v4.0 (K8s Capacity Calculator, bin packing)
+- ✓ User can calculate ESX host count for VM workload — v4.0 (Server Virtualization Calculator, N+1 HA)
+- ✓ User can calculate VMware VCF/VVF licensing costs — v4.0 (Licensing Calculator, 16-core minimum)
+- ✓ User can estimate total cost of ownership for virtualization infrastructure — v4.0 (TCO Calculator)
 
 **User Experience:**
 
-- User can discover infrastructure calculators in dedicated category — v4.0 (UX-01)
-- User experiences fast load times (infrastructure calculators lazy-loaded) — v4.0 (UX-02)
-- User can export infrastructure calculator results as PDF/CSV — v4.0 (UX-03)
+- ✓ User can discover infrastructure calculators in dedicated category — v4.0 (Infrastructure category, 3 subcategories)
+- ✓ User experiences fast load times (infrastructure calculators lazy-loaded) — v4.0 (Phase 21 code splitting)
+- ✓ User can export infrastructure calculator results as PDF/CSV — v4.0 (PDF/CSV export components)
+
+### Active
+
+<!-- Ready for v5.0 planning -->
 
 ### Out of Scope for v3.0
 
@@ -214,14 +209,15 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Context
 
-### Current State (as of v2.0 - 2026-01-22)
+### Current State (as of v4.0 - 2026-01-25)
 
-**Shipped v2.0 Network Tools & User Experience:**
+**Shipped v4.0 Security & Infrastructure:**
 
-Codebase: ~89,000 LOC TypeScript (+29,789 lines from v2.0)
+Codebase: ~84,125 LOC TypeScript (+15,840 lines from v4.0)
 Tech stack: Next.js 16, React 19, TypeScript 5, Zustand 5, Biome 2.3, Fuse.js
 Deployment: GitHub Pages (static export)
-Calculators: 156 registered (4 new network calculators added)
+Calculators: 172 registered (5 new infrastructure calculators)
+Security: 0 CodeQL vulnerabilities, Map-based URL parameters
 
 **State Management:**
 
@@ -267,7 +263,7 @@ Calculators: 156 registered (4 new network calculators added)
 - React 19.2.3
 - Zustand 5.0.10
 
-**Milestone Stats:**
+**v1.0 Milestone Stats:**
 
 - 8 phases completed
 - 19 plans executed
@@ -276,6 +272,16 @@ Calculators: 156 registered (4 new network calculators added)
 - +23,496 lines added, -874 lines removed
 - 2 days from start to ship (2026-01-17 → 2026-01-18)
 - 32/32 requirements satisfied (100%)
+
+**v4.0 Milestone Stats:**
+
+- 6 phases completed (25-30)
+- 17 plans executed
+- 58 commits
+- 106 files modified
+- +15,840 lines added, -224 lines removed
+- 1 day from start to ship (2026-01-25, 13 hours)
+- 11/11 requirements satisfied (100%)
 
 ### Known Issues / Tech Debt
 
@@ -332,4 +338,4 @@ Calculators: 156 registered (4 new network calculators added)
 
 ---
 
-_Last updated: 2026-01-25 after v3.0 milestone completion_
+_Last updated: 2026-01-25 after v4.0 milestone completion_
