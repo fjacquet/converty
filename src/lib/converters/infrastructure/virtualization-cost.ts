@@ -1,19 +1,24 @@
 /**
- * Virtualization TCO (Total Cost of Ownership) Calculator
+ * Virtualization Cost Calculator
  *
- * Calculates total cost of ownership for virtualization infrastructure
+ * Calculates Total Cost of Ownership (TCO) for virtualization infrastructure
  * including hardware (CAPEX) and operational expenses (OPEX).
  *
- * TCO Components:
+ * TCO Formula:
  * - CAPEX: Hardware costs (servers, storage, network)
- * - OPEX: Software licensing, power, datacenter space, labor
+ * - OPEX: Annual operating costs (power, software, datacenter, labor)
+ * - TCO: CAPEX + (OPEX × term years)
  */
 
 /**
- * Default values for common datacenter metrics
+ * Default Power Usage Effectiveness (typical data center)
  */
-const DEFAULT_PUE = 1.5; // Typical data center Power Usage Effectiveness
-const HOURS_PER_YEAR = 8760; // 365 days × 24 hours
+const DEFAULT_PUE = 1.5;
+
+/**
+ * Hours in a year (for power cost calculations)
+ */
+const HOURS_PER_YEAR = 8760;
 
 /**
  * Input parameters for virtualization cost calculation
@@ -28,11 +33,11 @@ export interface VirtualizationCostInput {
   networkCost: number;
 
   // Software costs (annual OPEX)
-  /** Annual VMware licensing ($) */
+  /** Annual VMware licensing cost ($) */
   vmwareLicenseCost: number;
-  /** Annual OS licensing ($) */
+  /** Annual OS licensing cost ($) */
   osLicenseCost: number;
-  /** Annual backup software ($) */
+  /** Annual backup software cost ($) */
   backupSoftwareCost: number;
 
   // Operational costs
@@ -57,7 +62,39 @@ export interface VirtualizationCostInput {
 }
 
 /**
- * Detailed cost breakdown and analysis
+ * Cost breakdown by category
+ */
+export interface CostBreakdown {
+  /** Total hardware costs (CAPEX) */
+  hardware: number;
+  /** Total software costs over term */
+  software: number;
+  /** Total power costs over term */
+  power: number;
+  /** Total datacenter costs over term */
+  datacenter: number;
+  /** Total labor costs over term */
+  labor: number;
+}
+
+/**
+ * Percentage breakdown of costs
+ */
+export interface CostPercentages {
+  /** Percentage from hardware */
+  hardware: number;
+  /** Percentage from software */
+  software: number;
+  /** Percentage from power */
+  power: number;
+  /** Percentage from datacenter */
+  datacenter: number;
+  /** Percentage from labor */
+  labor: number;
+}
+
+/**
+ * Result of virtualization cost calculation
  */
 export interface VirtualizationCostResult {
   /** Total capital expenditure (hardware) */
@@ -66,70 +103,46 @@ export interface VirtualizationCostResult {
   opexAnnual: number;
   /** Total OPEX over term */
   opexTotal: number;
-  /** Total Cost of Ownership (CAPEX + OPEX over term) */
+  /** Total Cost of Ownership */
   tco: number;
   /** TCO per VM over term */
   costPerVm: number;
   /** Monthly cost per VM */
   costPerVmMonthly: number;
-
   /** Cost breakdown by category */
-  breakdown: {
-    /** Total hardware (CAPEX) */
-    hardware: number;
-    /** Total software over term */
-    software: number;
-    /** Total power cost over term */
-    power: number;
-    /** Total datacenter cost over term */
-    datacenter: number;
-    /** Total labor cost over term */
-    labor: number;
-  };
-
-  /** Percentage breakdown for visualization */
-  percentages: {
-    /** % of TCO from hardware */
-    hardware: number;
-    /** % of TCO from software */
-    software: number;
-    /** % of TCO from power */
-    power: number;
-    /** % of TCO from datacenter */
-    datacenter: number;
-    /** % of TCO from labor */
-    labor: number;
-  };
-
+  breakdown: CostBreakdown;
+  /** Percentage breakdown */
+  percentages: CostPercentages;
   /** Step-by-step calculation breakdown */
   steps: string[];
 }
 
 /**
- * Calculate virtualization infrastructure Total Cost of Ownership (TCO)
+ * Calculate virtualization Total Cost of Ownership
  *
- * Implements TCO analysis for virtualization infrastructure including:
- * - CAPEX: Hardware acquisition costs
- * - OPEX: Software, power (with PUE), datacenter space, and labor
+ * Implements TCO calculation for virtualization infrastructure including:
+ * - CAPEX: Hardware costs (servers, storage, network)
+ * - OPEX: Software (VMware, OS, backup), Power (with PUE), Datacenter, Labor
+ * - Cost per VM metrics
  *
  * @param input - Virtualization cost calculation parameters
  * @returns Detailed cost breakdown or null if invalid input
  *
  * @example
- * // Calculate TCO for 4 hosts over 3 years
+ * // Calculate TCO for 100 VMs over 3 years
  * const result = calculateVirtualizationCost({
- *   serverCost: 120000,
+ *   serverCost: 100000,
  *   storageCost: 50000,
- *   networkCost: 30000,
+ *   networkCost: 20000,
  *   vmwareLicenseCost: 35000,
  *   osLicenseCost: 10000,
  *   backupSoftwareCost: 5000,
  *   powerCostPerKwh: 0.12,
- *   totalPowerKw: 8,
+ *   totalPowerKw: 10,
  *   pue: 1.5,
- *   datacenterCostPerRu: 25,
- *   totalRackUnits: 16,
- *   laborCostAnnual: 40000,
+ *   datacenterCostPerRu: 50,
+ *   totalRackUnits: 20,
+ *   laborCostAnnual: 80000,
  *   vmCount: 100,
  *   termYears: 3
  * });
@@ -174,32 +187,22 @@ export function calculateVirtualizationCost(
   // Step 1: Calculate CAPEX (hardware costs)
   const capex = input.serverCost + input.storageCost + input.networkCost;
 
-  steps.push(`CAPEX (Hardware Costs):`);
-  steps.push(`  Servers: $${input.serverCost.toLocaleString()}`);
-  steps.push(`  Storage: $${input.storageCost.toLocaleString()}`);
-  steps.push(`  Network: $${input.networkCost.toLocaleString()}`);
-  steps.push(`  Total CAPEX: $${capex.toLocaleString()}`);
-  steps.push("");
+  steps.push(
+    `CAPEX (Hardware): $${input.serverCost.toLocaleString()} (servers) + $${input.storageCost.toLocaleString()} (storage) + $${input.networkCost.toLocaleString()} (network) = $${capex.toLocaleString()}`
+  );
 
-  // Step 2: Calculate annual power cost (with PUE)
+  // Step 2: Calculate annual power cost (includes PUE)
   const annualPowerCost = input.totalPowerKw * input.pue * HOURS_PER_YEAR * input.powerCostPerKwh;
 
-  steps.push(`Annual Operating Expenses (OPEX):`);
   steps.push(
-    `  Power: ${input.totalPowerKw} kW × ${input.pue} PUE × ${HOURS_PER_YEAR} hours × $${input.powerCostPerKwh}/kWh`
-  );
-  steps.push(
-    `  Annual power cost: $${annualPowerCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    `Annual power cost: ${input.totalPowerKw} kW × ${input.pue} PUE × ${HOURS_PER_YEAR} hours × $${input.powerCostPerKwh}/kWh = $${annualPowerCost.toLocaleString()}`
   );
 
   // Step 3: Calculate annual datacenter cost
   const annualDatacenterCost = input.datacenterCostPerRu * input.totalRackUnits * 12;
 
   steps.push(
-    `  Datacenter: ${input.totalRackUnits} RU × $${input.datacenterCostPerRu}/RU/month × 12 months`
-  );
-  steps.push(
-    `  Annual datacenter cost: $${annualDatacenterCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    `Annual datacenter cost: $${input.datacenterCostPerRu}/RU/month × ${input.totalRackUnits} RU × 12 months = $${annualDatacenterCost.toLocaleString()}`
   );
 
   // Step 4: Calculate annual software cost
@@ -207,54 +210,47 @@ export function calculateVirtualizationCost(
     input.vmwareLicenseCost + input.osLicenseCost + input.backupSoftwareCost;
 
   steps.push(
-    `  Software: $${input.vmwareLicenseCost.toLocaleString()} (VMware) + $${input.osLicenseCost.toLocaleString()} (OS) + $${input.backupSoftwareCost.toLocaleString()} (Backup)`
+    `Annual software cost: $${input.vmwareLicenseCost.toLocaleString()} (VMware) + $${input.osLicenseCost.toLocaleString()} (OS) + $${input.backupSoftwareCost.toLocaleString()} (backup) = $${annualSoftwareCost.toLocaleString()}`
   );
-  steps.push(`  Annual software cost: $${annualSoftwareCost.toLocaleString()}`);
 
-  // Step 5: Annual labor cost
-  steps.push(`  Labor: $${input.laborCostAnnual.toLocaleString()}`);
-
-  // Step 6: Calculate total annual OPEX
+  // Step 5: Calculate total annual OPEX
   const opexAnnual =
     annualPowerCost + annualDatacenterCost + annualSoftwareCost + input.laborCostAnnual;
 
   steps.push(
-    `  Total Annual OPEX: $${opexAnnual.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    `Annual OPEX: $${annualPowerCost.toLocaleString()} (power) + $${annualDatacenterCost.toLocaleString()} (datacenter) + $${annualSoftwareCost.toLocaleString()} (software) + $${input.laborCostAnnual.toLocaleString()} (labor) = $${opexAnnual.toLocaleString()}`
   );
-  steps.push("");
 
-  // Step 7: Calculate total OPEX over term
+  // Step 6: Calculate total OPEX over term
   const opexTotal = opexAnnual * input.termYears;
 
   steps.push(
-    `Total OPEX over ${input.termYears}-year term: $${opexAnnual.toLocaleString(undefined, { maximumFractionDigits: 2 })} × ${input.termYears} = $${opexTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    `Total OPEX (${input.termYears}-year term): $${opexAnnual.toLocaleString()} × ${input.termYears} = $${opexTotal.toLocaleString()}`
   );
-  steps.push("");
 
-  // Step 8: Calculate TCO
+  // Step 7: Calculate TCO
   const tco = capex + opexTotal;
 
   steps.push(
-    `Total Cost of Ownership (TCO): $${capex.toLocaleString()} (CAPEX) + $${opexTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })} (OPEX) = $${tco.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    `Total Cost of Ownership: $${capex.toLocaleString()} (CAPEX) + $${opexTotal.toLocaleString()} (OPEX) = $${tco.toLocaleString()}`
   );
-  steps.push("");
 
-  // Step 9: Calculate cost per VM
+  // Step 8: Calculate cost per VM
   const costPerVm = tco / input.vmCount;
 
   steps.push(
-    `Cost per VM over ${input.termYears}-year term: $${tco.toLocaleString(undefined, { maximumFractionDigits: 2 })} ÷ ${input.vmCount} VMs = $${costPerVm.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    `Cost per VM (${input.termYears}-year term): $${tco.toLocaleString()} ÷ ${input.vmCount} VMs = $${costPerVm.toLocaleString()}`
   );
 
-  // Step 10: Calculate monthly cost per VM
+  // Step 9: Calculate monthly cost per VM
   const costPerVmMonthly = tco / input.termYears / 12 / input.vmCount;
 
   steps.push(
-    `Monthly cost per VM: $${costPerVm.toLocaleString(undefined, { maximumFractionDigits: 2 })} ÷ ${input.termYears * 12} months = $${costPerVmMonthly.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    `Monthly cost per VM: $${tco.toLocaleString()} ÷ ${input.termYears} years ÷ 12 months ÷ ${input.vmCount} VMs = $${costPerVmMonthly.toLocaleString()}`
   );
 
-  // Build breakdown by category (over full term)
-  const breakdown = {
+  // Build breakdown
+  const breakdown: CostBreakdown = {
     hardware: capex,
     software: annualSoftwareCost * input.termYears,
     power: annualPowerCost * input.termYears,
@@ -262,8 +258,8 @@ export function calculateVirtualizationCost(
     labor: input.laborCostAnnual * input.termYears,
   };
 
-  // Calculate percentage breakdown
-  const percentages = {
+  // Build percentages
+  const percentages: CostPercentages = {
     hardware: (breakdown.hardware / tco) * 100,
     software: (breakdown.software / tco) * 100,
     power: (breakdown.power / tco) * 100,
