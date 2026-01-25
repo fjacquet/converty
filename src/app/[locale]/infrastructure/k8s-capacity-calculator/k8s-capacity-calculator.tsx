@@ -180,7 +180,7 @@ export function K8sCapacityCalculator() {
             id="podCpuRequest"
             label={t("podCpuRequest")}
             value={podCpuRequest.toString()}
-            onChange={(v) => setPodCpuRequest(parseFloat(v) || 0)}
+            onChange={(v) => setPodCpuRequest(safeParsePositive(v, podCpuRequest, 0))}
             type="number"
             min={0}
             step={100}
@@ -190,7 +190,7 @@ export function K8sCapacityCalculator() {
             id="podMemoryRequest"
             label={t("podMemoryRequest")}
             value={podMemoryRequest.toString()}
-            onChange={(v) => setPodMemoryRequest(parseFloat(v) || 0)}
+            onChange={(v) => setPodMemoryRequest(safeParsePositive(v, podMemoryRequest, 0))}
             type="number"
             min={0}
             step={64}
@@ -200,7 +200,7 @@ export function K8sCapacityCalculator() {
             id="podReplicas"
             label={t("podReplicas")}
             value={podReplicas.toString()}
-            onChange={(v) => setPodReplicas(parseFloat(v) || 0)}
+            onChange={(v) => setPodReplicas(safeParsePositive(v, podReplicas, 1))}
             type="number"
             min={1}
             step={1}
@@ -221,7 +221,7 @@ export function K8sCapacityCalculator() {
             id="nodeCpuCores"
             label={t("nodeCpuCores")}
             value={nodeCpuCores.toString()}
-            onChange={(v) => setNodeCpuCores(parseFloat(v) || 0)}
+            onChange={(v) => setNodeCpuCores(safeParsePositive(v, nodeCpuCores, 1))}
             type="number"
             min={1}
             step={1}
@@ -231,7 +231,7 @@ export function K8sCapacityCalculator() {
             id="nodeMemoryMb"
             label={t("nodeMemoryMb")}
             value={nodeMemoryMb.toString()}
-            onChange={(v) => setNodeMemoryMb(parseFloat(v) || 0)}
+            onChange={(v) => setNodeMemoryMb(safeParsePositive(v, nodeMemoryMb, 512))}
             type="number"
             min={512}
             step={1024}
@@ -253,7 +253,7 @@ export function K8sCapacityCalculator() {
             id="systemReservedCpu"
             label={t("systemReservedCpu")}
             value={systemReservedCpu.toString()}
-            onChange={(v) => setSystemReservedCpu(parseFloat(v) || 0)}
+            onChange={(v) => setSystemReservedCpu(safeParseNonNegative(v, systemReservedCpu))}
             type="number"
             min={0}
             step={100}
@@ -264,7 +264,7 @@ export function K8sCapacityCalculator() {
             id="systemReservedMemory"
             label={t("systemReservedMemory")}
             value={systemReservedMemory.toString()}
-            onChange={(v) => setSystemReservedMemory(parseFloat(v) || 0)}
+            onChange={(v) => setSystemReservedMemory(safeParseNonNegative(v, systemReservedMemory))}
             type="number"
             min={0}
             step={128}
@@ -275,7 +275,7 @@ export function K8sCapacityCalculator() {
             id="daemonSetCpuPerNode"
             label={t("daemonSetCpuPerNode")}
             value={daemonSetCpuPerNode.toString()}
-            onChange={(v) => setDaemonSetCpuPerNode(parseFloat(v) || 0)}
+            onChange={(v) => setDaemonSetCpuPerNode(safeParseNonNegative(v, daemonSetCpuPerNode))}
             type="number"
             min={0}
             step={50}
@@ -286,7 +286,9 @@ export function K8sCapacityCalculator() {
             id="daemonSetMemoryPerNode"
             label={t("daemonSetMemoryPerNode")}
             value={daemonSetMemoryPerNode.toString()}
-            onChange={(v) => setDaemonSetMemoryPerNode(parseFloat(v) || 0)}
+            onChange={(v) =>
+              setDaemonSetMemoryPerNode(safeParseNonNegative(v, daemonSetMemoryPerNode))
+            }
             type="number"
             min={0}
             step={64}
@@ -309,7 +311,7 @@ export function K8sCapacityCalculator() {
             id="targetCpuUtilization"
             label={t("targetCpuUtilization")}
             value={targetCpuUtilization.toString()}
-            onChange={(v) => setTargetCpuUtilization(parseFloat(v) || 0)}
+            onChange={(v) => setTargetCpuUtilization(safeParsePositive(v, targetCpuUtilization, 1))}
             type="number"
             min={1}
             max={100}
@@ -321,7 +323,9 @@ export function K8sCapacityCalculator() {
             id="targetMemoryUtilization"
             label={t("targetMemoryUtilization")}
             value={targetMemoryUtilization.toString()}
-            onChange={(v) => setTargetMemoryUtilization(parseFloat(v) || 0)}
+            onChange={(v) =>
+              setTargetMemoryUtilization(safeParsePositive(v, targetMemoryUtilization, 1))
+            }
             type="number"
             min={1}
             max={100}
