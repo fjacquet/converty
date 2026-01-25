@@ -106,11 +106,11 @@ Plans:
 
 ## Phase 27: VM Storage Calculator
 
-**Goal:** Implement vSphere ESX cluster storage capacity calculator.
+**Goal:** Implement vSphere ESX cluster storage capacity calculator with VMware-accurate formulas.
 
 **Requirements:** INFRA-01
 
-**Plans:** 2 plans
+**Plans:** 2 plans (2 waves)
 
 Plans:
 
