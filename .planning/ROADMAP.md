@@ -71,12 +71,13 @@ Plans:
 
 **Requirements:** UX-01, UX-02
 
-**Plans:** 2 plans
+**Plans:** 3 plans
 
 Plans:
 
 - [x] 26-01-PLAN.md — Create infrastructure category in registry with Server icon
 - [x] 26-02-PLAN.md — Add translations and create category landing page
+- [ ] 26-03-PLAN.md — (Gap closure) Fix missing German k8sCapacity translations
 
 **Deliverables:**
 
@@ -92,12 +93,17 @@ Plans:
    - Verify initial bundle size unchanged
    - Test search performance
 
+3. **Gap closure: Fix German translations**
+   - Replace outdated k8sCapacity section in de.json (36 keys -> 51 keys)
+   - Verify build succeeds without MISSING_MESSAGE errors
+
 **Success Criteria:**
 
-- [ ] Infrastructure category visible in UI
-- [ ] Category translated in all 4 locales
-- [ ] Lazy loading infrastructure ready
-- [ ] No bundle size increase
+- [x] Infrastructure category visible in UI
+- [x] Category translated in all 4 locales
+- [x] Lazy loading infrastructure ready
+- [x] No bundle size increase
+- [ ] Production build succeeds without translation errors
 
 **Estimated Complexity:** Low
 **Dependencies:** None
