@@ -10,10 +10,10 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Milestone: v4.0 Security & Infrastructure
-Phase: 26 - Infrastructure Category Foundation
-Plan: 3/3 complete (26-01, 26-02, 26-03)
-Status: Phase 26 complete with gap closure - infrastructure foundation verified
-Last activity: 2026-01-25 — Completed 26-03 gap closure (German k8sCapacity translations)
+Phase: 28 - K8s Capacity Calculator
+Plan: 3/3 complete (28-01, 28-02, 28-03)
+Status: Phase 28 complete - input validation robustness implemented
+Last activity: 2026-01-25 — Completed 28-03 (transient input validation fix)
 
 Progress: ████████████░░░░░░ 50% (v4.0 — 3 of 6 phases complete)
 
@@ -79,7 +79,7 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 | ------------------------------------ | ----- | -------- | -------- |
 | 26-infrastructure-category-foundation | 3/3   | ~12 min  | ~4 min   |
 | 27-vm-storage-calculator              | 3/3   | ~11 min  | ~3.7 min |
-| 28-k8s-capacity-calculator            | 2/2   | ~8 min   | ~4 min   |
+| 28-k8s-capacity-calculator            | 3/3   | ~11 min  | ~3.7 min |
 
 ## Accumulated Context
 
@@ -236,6 +236,7 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 | Age Calculator as export reference implementation                 | 24-03 | First calculator with both exports - pattern for future integrations                             |
 | Replace entire translation section for consistency                | 26-03 | Full section replacement prevents translation drift and ensures complete key structure alignment  |
 | German k8sCapacity requires exact 51-key structure match          | 26-03 | All locales must have identical key structure for proper i18n mapping and MISSING_MESSAGE prevention |
+| Preserve previous valid value on invalid input                     | 28-03 | safeParsePositive/safeParseNonNegative prevent transient errors during typing by keeping last valid value |
 
 ### Milestone Evolution
 
@@ -249,8 +250,8 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 
 ## Session Continuity
 
-Last session: 2026-01-25T21:06:42Z
-Stopped at: Completed 27-03 gap closure (profile translation for vmStorage)
+Last session: 2026-01-25T21:20:03Z
+Stopped at: Completed 28-03 (transient input validation fix)
 Resume file: None
 
 **Next Steps:**
@@ -265,8 +266,7 @@ Resume file: None
    - ✅ Phase 21 Complete (4/4 plans) - Code Splitting & Lazy Loading
    - ✅ Phase 24 Complete (3/3 plans) - Export Functionality
 4. 🚀 v4.0 Security & Infrastructure in progress
-   - ✅ Phase 26 Complete (3/3 plans) - Infrastructure Category Foundation (including gap closure)
-   - ✅ Phase 27 Complete (3/3 plans) - VM Storage Calculator (including gap closure)
-   - ✅ Phase 28 Complete (2/2 plans) - K8s Capacity Calculator
-   - ✅ Phase 28 Complete (2/2 plans) - K8s Capacity Calculator
+   - ✅ Phase 26 Complete (3/3 plans) - Infrastructure Category Foundation
+   - ✅ Phase 27 Complete (3/3 plans) - VM Storage Calculator
+   - ✅ Phase 28 Complete (3/3 plans) - K8s Capacity Calculator
    - Next: Phase 29 (VMware Server & Licensing Calculators)
