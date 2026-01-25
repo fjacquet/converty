@@ -101,35 +101,38 @@ export function parseBooleanParam(value: string | null, fallback: boolean): bool
 }
 
 /**
- * Extract all URL parameters as a key-value record
+ * Extract all URL parameters as a Map for safe property access
  *
- * Server-side safe: Returns empty object when window is undefined
+ * Server-side safe: Returns empty Map when window is undefined
  *
- * @returns Object with parameter names as keys and values as strings
+ * Security: Uses Map instead of Object to eliminate prototype pollution risk.
+ * Map has no prototype chain, so __proto__, constructor, and prototype keys
+ * are safely stored as regular entries without affecting the object prototype.
+ *
+ * @returns Map with parameter names as keys and values as strings
  *
  * @example
  * // URL: ?amount=100&currency=USD&enabled=true
  * const params = getUrlParams();
- * // Returns: { amount: "100", currency: "USD", enabled: "true" }
+ * // Returns: Map { "amount" => "100", "currency" => "USD", "enabled" => "true" }
  *
  * // Use with type-safe parsing helpers:
- * const amount = parseNumberParam(params.amount, 0);
- * const currency = parseStringParam(params.currency, "USD");
- * const enabled = parseBooleanParam(params.enabled, false);
+ * const amount = parseNumberParam(params.get("amount"), 0);
+ * const currency = parseStringParam(params.get("currency"), "USD");
+ * const enabled = parseBooleanParam(params.get("enabled"), false);
  */
-export function getUrlParams(): Record<string, string> {
+export function getUrlParams(): Map<string, string> {
   // Server-side rendering safety
-  if (typeof window === "undefined") return {};
+  if (typeof window === "undefined") return new Map();
 
-  // Use null prototype to prevent prototype pollution
-  const params: Record<string, string> = Object.create(null);
+  const params = new Map<string, string>();
   const searchParams = new URLSearchParams(window.location.search);
 
-  // Convert URLSearchParams to plain object
-  // Filter out dangerous property names to prevent prototype pollution
+  // Convert URLSearchParams to Map
+  // Defense-in-depth: Filter dangerous property names even though Map is safe
   searchParams.forEach((value, key) => {
     if (key !== "__proto__" && key !== "constructor" && key !== "prototype") {
-      params[key] = value;
+      params.set(key, value);
     }
   });
 
