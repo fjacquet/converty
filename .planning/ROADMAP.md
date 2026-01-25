@@ -71,6 +71,13 @@ Plans:
 
 **Requirements:** UX-01, UX-02
 
+**Plans:** 2 plans
+
+Plans:
+
+- [ ] 26-01-PLAN.md — Create infrastructure category in registry with Server icon
+- [ ] 26-02-PLAN.md — Add translations and create category landing page
+
 **Deliverables:**
 
 1. **Create infrastructure category**
