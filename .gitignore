@@ -58,3 +58,4 @@ public/sitemap.xml
 # Local package
 converty-local/
 converty-local.zip
+.grepai/

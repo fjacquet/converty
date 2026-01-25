@@ -2163,7 +2163,29 @@
       "yearlyPrincipalVsInterest": "Capitale vs Interessi annuale",
       "downPaymentAmount": "Acconto (CHF)",
       "preTaxDeductionsMonthly": "Deduzioni pre-tasse (mensile)",
-      "postTaxDeductionsMonthly": "Deduzioni post-tasse (mensile)"
+      "postTaxDeductionsMonthly": "Deduzioni post-tasse (mensile)",
+      "currencies": {
+        "USD": "Dollaro statunitense",
+        "EUR": "Euro",
+        "GBP": "Sterlina britannica",
+        "CHF": "Franco svizzero",
+        "JPY": "Yen giapponese",
+        "CAD": "Dollaro canadese",
+        "AUD": "Dollaro australiano",
+        "CNY": "Yuan cinese",
+        "INR": "Rupia indiana",
+        "MXN": "Peso messicano",
+        "BRL": "Real brasiliano",
+        "KRW": "Won sudcoreano",
+        "SGD": "Dollaro di Singapore",
+        "HKD": "Dollaro di Hong Kong",
+        "SEK": "Corona svedese",
+        "NOK": "Corona norvegese",
+        "DKK": "Corona danese",
+        "NZD": "Dollaro neozelandese",
+        "ZAR": "Rand sudafricano",
+        "RUB": "Rublo russo"
+      }
     },
     "math": {
       "calculationType": "Tipo di calcolo",
@@ -2476,7 +2498,12 @@
       "sampleMean": "Media campionaria",
       "inputMethod": "Metodo di input",
       "enterNumber": "Inserisci numero",
-      "leaveBlankForInfinite": "Lascia vuoto per infinito"
+      "leaveBlankForInfinite": "Lascia vuoto per infinito",
+      "altitude": "Altitudine",
+      "azimuth": "Azimut",
+      "sunTimes": "Orari del Sole",
+      "sunPosition": "Posizione del Sole",
+      "currentPhase": "Fase di Luce Attuale"
     },
     "color": {
       "colorConverter": "Convertitore Colore",
@@ -2495,6 +2522,24 @@
       "nauticalTwilight": "Crepuscolo nautico",
       "astronomicalTwilight": "Crepuscolo astronomico",
       "dayLength": "Lunghezza del giorno",
+      "goldenBlueHour": "Ora Dorata e Ora Blu",
+      "lightPhases": "Timeline delle Fasi di Luce",
+      "morningGoldenHour": "Ora Dorata Mattutina",
+      "eveningGoldenHour": "Ora Dorata Serale",
+      "morningBlueHour": "Ora Blu Mattutina",
+      "eveningBlueHour": "Ora Blu Serale",
+      "location": "Posizione",
+      "dateSelection": "Selezione Data",
+      "cameraSettings": "Impostazioni Fotocamera",
+      "useMyLocation": "Usa la Mia Posizione",
+      "enterManually": "Inserisci Manualmente",
+      "enableLocation": "Attiva Posizione",
+      "locationError": "Impossibile ottenere la tua posizione",
+      "locationPermissionDenied": "Autorizzazione posizione negata",
+      "locationUnavailable": "Posizione non disponibile",
+      "goldenHourGuide": "Guida all'Ora Dorata",
+      "bestShootingTimes": "Migliori Orari per Scattare",
+      "colorTemperature": "Temperatura Colore",
       "gettingLocation": "Recupero della posizione...",
       "updateLocation": "Aggiorna posizione",
       "useGeolocation": "Usa geolocalizzazione",
@@ -2594,6 +2639,8 @@
         "where": "Dove",
         "wavelength-description": "lunghezza d'onda della luce (tipicamente 550nm per il verde)",
         "f-number-description": "numero f (apertura)",
+        "aperture": "Apertura",
+        "aperture-header": "f/",
         "focal-equivalent-intro": "Questo calcolatore ti aiuta a trovare impostazioni obiettive equivalenti tra diversi sistemi di fotocamere per ottenere lo stesso campo visivo e profondità di campo.",
         "source-camera": "Fotocamera sorgente",
         "focal-length-mm": "Lunghezza focale (mm)",
@@ -2655,7 +2702,9 @@
         "formula-light-loss": "Perdita di luce: stop = 2 × log₂(1 + m)",
         "formula-macro-n": "N = numero f marcato",
         "formula-macro-m": "m = rapporto di ingrandimento (ad esempio, 1 per 1:1)",
-        "formula-macro-wavelength": "λ = lunghezza d'onda della luce (550 nm per il verde)"
+        "formula-macro-wavelength": "λ = lunghezza d'onda della luce (550 nm per il verde)",
+        "airy-disk": "Disco d'Airy",
+        "pixel-pitch": "Passo dei pixel"
       },
       "nd-filter": {
         "base-shutter-speed": "Velocità dell'otturatore di base (senza filtro)",
@@ -3661,7 +3710,8 @@
         "crossCountry": "Trans-nazionale",
         "crossOcean": "Trans-oceanico",
         "satellite": "Satellite o rete molto congestionata"
-      }
+      },
+      "reset": "Reimposta"
     },
     "subnet": {
       "diagram": {
@@ -3773,7 +3823,46 @@
         "note_home_theater": "Punto bianco di riferimento home theater",
         "hdr_display": "Display HDR",
         "note_hdr_display": "Luminosità massima gamma dinamica elevata"
-      }
+      },
+      "all": "Tutti",
+      "codec-format": "Codec/Formato",
+      "name": "Nome",
+      "bitrate": "Bitrate",
+      "resolution": "Risoluzione",
+      "description": "Descrizione",
+      "avg-of-presets": "media di {count} preset",
+      "unit": "Unità",
+      "brightnessLevel": "Livello di luminosità",
+      "referenceValues": "Valori di riferimento",
+      "standard": "Standard",
+      "note": "Nota",
+      "source-frame-rate": "Frame rate sorgente",
+      "target-frame-rate": "Frame rate di destinazione",
+      "speed-change": "Cambio di velocità",
+      "duration-change": "Cambio di durata",
+      "conversion-method": "Metodo di conversione",
+      "audio": "Audio",
+      "warnings": "Avvisi",
+      "ffmpeg-command": "Comando FFmpeg",
+      "sox-audio-command": "Comando audio Sox",
+      "frame-rate": "Frequenza fotogrammi",
+      "common-bitrates": "Bitrate comuni",
+      "bitrate-header": "Bitrate (Mbps)",
+      "use-case": "Caso d'uso",
+      "notes": "Note",
+      "mbps": "Mbps",
+      "p-sd": "p (SD)",
+      "p-hd": "p (HD)",
+      "p-uhd": "p (UHD)",
+      "convert": "Converti",
+      "from-frame-rate": "Da Frequenza fotogrammi",
+      "to-frame-rate": "A Frequenza fotogrammi",
+      "output-duration": "Durata output",
+      "frame-count": "Numero di fotogrammi",
+      "playback-speed": "Velocità riproduzione",
+      "common-frame-rates": "Frequenze fotogrammi comuni",
+      "fps": "fps",
+      "input-duration": "Durata input"
     },
     "music": {
       "tempo": "Tempo",
@@ -3993,6 +4082,12 @@
           "wiper_blades": "Spazzole tergicristallo"
         }
       }
+    }
+  },
+  "realestate": {
+    "property-valuation": {
+      "title": "Calcolatore di Valutazione Immobiliare",
+      "description": "Stima i valori degli immobili svizzeri utilizzando il metodo edonico"
     }
   },
   "validation": {

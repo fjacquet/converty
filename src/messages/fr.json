@@ -2163,7 +2163,29 @@
       "yearlyPrincipalVsInterest": "Capital vs Intérêts annuel",
       "downPaymentAmount": "Acompte (CHF)",
       "preTaxDeductionsMonthly": "Déductions avant impôts (mensuel)",
-      "postTaxDeductionsMonthly": "Déductions après impôts (mensuel)"
+      "postTaxDeductionsMonthly": "Déductions après impôts (mensuel)",
+      "currencies": {
+        "USD": "Dollar américain",
+        "EUR": "Euro",
+        "GBP": "Livre sterling",
+        "CHF": "Franc suisse",
+        "JPY": "Yen japonais",
+        "CAD": "Dollar canadien",
+        "AUD": "Dollar australien",
+        "CNY": "Yuan chinois",
+        "INR": "Roupie indienne",
+        "MXN": "Peso mexicain",
+        "BRL": "Réal brésilien",
+        "KRW": "Won sud-coréen",
+        "SGD": "Dollar de Singapour",
+        "HKD": "Dollar de Hong Kong",
+        "SEK": "Couronne suédoise",
+        "NOK": "Couronne norvégienne",
+        "DKK": "Couronne danoise",
+        "NZD": "Dollar néo-zélandais",
+        "ZAR": "Rand sud-africain",
+        "RUB": "Rouble russe"
+      }
     },
     "math": {
       "calculationType": "Type de calcul",
@@ -2617,6 +2639,8 @@
         "where": "Où",
         "wavelength-description": "longueur d'onde de la lumière (typiquement 550nm pour le vert)",
         "f-number-description": "nombre f (ouverture)",
+        "aperture": "Ouverture",
+        "aperture-header": "f/",
         "focal-equivalent-intro": "Cette calculatrice vous aide à trouver des paramètres de lentille équivalents entre différents systèmes de caméra pour obtenir le même champ de vision et profondeur de champ.",
         "source-camera": "Appareil source",
         "focal-length-mm": "Distance focale (mm)",
@@ -2678,7 +2702,9 @@
         "formula-light-loss": "Perte de lumière : stops = 2 × log₂(1 + m)",
         "formula-macro-n": "N = nombre f marqué",
         "formula-macro-m": "m = rapport de grossissement (par exemple, 1 pour 1:1)",
-        "formula-macro-wavelength": "λ = longueur d'onde de la lumière (550 nm pour le vert)"
+        "formula-macro-wavelength": "λ = longueur d'onde de la lumière (550 nm pour le vert)",
+        "airy-disk": "Disque d'Airy",
+        "pixel-pitch": "Pas de pixel"
       },
       "nd-filter": {
         "base-shutter-speed": "Vitesse d'obturation de base (sans filtre)",
@@ -2759,7 +2785,42 @@
         "interval-recommendations": "Recommandations d'intervalle",
         "equipment-prep": "Préparation de l'équipement"
       },
-      "video": {}
+      "video": {
+        "bitrate": "Débit",
+        "resolution": "Résolution",
+        "frame-rate": "Fréquence d'images",
+        "common-bitrates": "Débits courants",
+        "bitrate-header": "Débit (Mbps)",
+        "use-case": "Cas d'usage",
+        "notes": "Notes",
+        "mbps": "Mbps",
+        "p-sd": "p (SD)",
+        "p-hd": "p (HD)",
+        "p-uhd": "p (UHD)",
+        "convert": "Convertir",
+        "from-frame-rate": "De fréquence d'images",
+        "to-frame-rate": "À fréquence d'images",
+        "output-duration": "Durée de sortie",
+        "frame-count": "Nombre d'images",
+        "playback-speed": "Vitesse de lecture",
+        "common-frame-rates": "Fréquences d'images courantes",
+        "fps": "fps",
+        "input-duration": "Durée d'entrée",
+        "source-frame-rate": "Fréquence d'images source",
+        "target-frame-rate": "Fréquence d'images cible",
+        "speed-change": "Changement de vitesse",
+        "duration-change": "Changement de durée",
+        "conversion-method": "Méthode de conversion",
+        "audio": "Audio",
+        "warnings": "Avertissements",
+        "ffmpeg-command": "Commande FFmpeg",
+        "sox-audio-command": "Commande audio Sox",
+        "codec-format": "Codec/Format",
+        "name": "Nom",
+        "description": "Description",
+        "all": "Tous",
+        "avg-of-presets": "moy. de {count} présets"
+      }
     },
     "realestate": {
       "currency": "Devise",
@@ -3649,7 +3710,8 @@
         "crossCountry": "Trans-national",
         "crossOcean": "Trans-océanique",
         "satellite": "Satellite ou réseau très congestionné"
-      }
+      },
+      "reset": "Réinitialiser"
     },
     "subnet": {
       "diagram": {
@@ -3755,7 +3817,52 @@
       "name": "Nom",
       "description": "Description",
       "all": "Tous",
-      "avg-of-presets": "moy. de {count} présets"
+      "avg-of-presets": "moy. de {count} présets",
+      "unit": "Unité",
+      "brightnessLevel": "Niveau de luminosité",
+      "referenceValues": "Valeurs de référence",
+      "standard": "Standard",
+      "note": "Note",
+      "unitFootLamberts": "Foot-Lamberts (fL)",
+      "unitNits": "Nits (cd/m²)",
+      "unitLumens": "Lumens",
+      "labelFootLamberts": "Foot-Lamberts",
+      "labelNits": "Nits",
+      "labelCandelasPerM2": "Candelas par m²",
+      "labelLumens": "Lumens",
+      "screenWidth": "Largeur de l'écran",
+      "screenHeight": "Hauteur de l'écran",
+      "screenGain": "Gain de l'écran",
+      "brightnesses": {
+        "very_dim": "Très sombre",
+        "use_very_dim": "Projection de film bas de gamme, visionnage à domicile dans une pièce lumineuse",
+        "dim": "Sombre",
+        "use_dim": "Standard DCI pour le cinéma 3D",
+        "standard_2d": "Standard 2D",
+        "use_standard_2d": "Standard DCI pour le cinéma 2D",
+        "bright": "Lumineux",
+        "use_bright": "Projection IMAX",
+        "very_bright": "Très lumineux",
+        "use_very_bright": "Salle de cinéma typique",
+        "home_theater": "Cinéma maison",
+        "use_home_theater": "Calibration de cinéma maison",
+        "display": "Écran",
+        "use_display": "Écran lumineux, visionnage extérieur"
+      },
+      "references": {
+        "dci_2d": "Standard DCI 2D",
+        "note_dci_2d": "Standard de l'industrie pour le cinéma numérique 2D",
+        "dci_3d": "Standard DCI 3D",
+        "note_dci_3d": "Standard de l'industrie pour le cinéma numérique 3D",
+        "dolby": "Dolby Cinema",
+        "note_dolby": "Standard de cinéma premium de Dolby",
+        "imax": "IMAX",
+        "note_imax": "Standard de projection IMAX",
+        "home_theater": "Cinéma maison",
+        "note_home_theater": "Point blanc de référence pour cinéma maison",
+        "hdr_display": "Écran HDR",
+        "note_hdr_display": "Luminosité de pointe à gamme dynamique élevée"
+      }
     },
     "music": {
       "tempo": "Tempo",
@@ -3975,6 +4082,12 @@
           "wiper_blades": "Essuie-glaces"
         }
       }
+    }
+  },
+  "realestate": {
+    "property-valuation": {
+      "title": "Calculatrice d'Évaluation Immobilière",
+      "description": "Estimez les valeurs immobilières suisses en utilisant la méthode hédonique"
     }
   },
   "validation": {

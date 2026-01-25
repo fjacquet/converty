@@ -39,7 +39,7 @@ export function StarTrailsCalculator() {
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">{t("$1")}</label>
+          <label className="text-sm font-medium">{t("hemisphere")}</label>
           <select
             value={hemisphere}
             onChange={(e) => setHemisphere(e.target.value as "north" | "south")}

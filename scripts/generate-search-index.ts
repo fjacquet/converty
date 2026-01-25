@@ -32,18 +32,22 @@ function loadConverters(): ConverterEntry[] {
   // Dynamically import all converter registries and extract metadata
   // We read the compiled JS or use require for simplicity in the script
   const registryFiles = [
-    "health-converters",
-    "datetime-converters",
+    "automotive-converters",
     "color-converters",
+    "cooking-converters",
+    "crypto-converters",
     "data-converters",
-    "physics-converters",
-    "photo-converters",
+    "datetime-converters",
+    "finance-converters",
+    "health-converters",
+    "math-converters",
     "music-converters",
     "network-converters",
+    "photo-converters",
+    "physics-converters",
+    "realestate-converters",
     "video-converters",
     "web-converters",
-    "finance-converters",
-    "math-converters",
   ];
 
   const converters: ConverterEntry[] = [];

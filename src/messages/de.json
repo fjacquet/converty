@@ -2163,7 +2163,29 @@
       "retirementDetails": "Rentendetails",
       "expectedReturn": "Erwartete Rendite (%)",
       "projectedSavings": "Voraussichtliche Ersparnisse",
-      "totalGrowth": "Gesamtwachstum"
+      "totalGrowth": "Gesamtwachstum",
+      "currencies": {
+        "USD": "US-Dollar",
+        "EUR": "Euro",
+        "GBP": "Britisches Pfund",
+        "CHF": "Schweizer Franken",
+        "JPY": "Japanischer Yen",
+        "CAD": "Kanadischer Dollar",
+        "AUD": "Australischer Dollar",
+        "CNY": "Chinesischer Yuan",
+        "INR": "Indische Rupie",
+        "MXN": "Mexikanischer Peso",
+        "BRL": "Brasilianischer Real",
+        "KRW": "Südkoreanischer Won",
+        "SGD": "Singapur-Dollar",
+        "HKD": "Hongkong-Dollar",
+        "SEK": "Schwedische Krone",
+        "NOK": "Norwegische Krone",
+        "DKK": "Dänische Krone",
+        "NZD": "Neuseeland-Dollar",
+        "ZAR": "Südafrikanischer Rand",
+        "RUB": "Russischer Rubel"
+      }
     },
     "math": {
       "calculationType": "Berechnungsart",
@@ -2617,6 +2639,8 @@
         "where": "Wo",
         "wavelength-description": "Lichtwellenlänge (typischerweise 550nm für grün)",
         "f-number-description": "Blendenwert (Blende)",
+        "aperture": "Blende",
+        "aperture-header": "f/",
         "focal-equivalent-intro": "Dieser Rechner hilft Ihnen, äquivalente Objektiveinstellungen zwischen verschiedenen Kamerasystemen zu finden, um das gleiche Sichtfeld und die gleiche Schärfentiefe zu erreichen.",
         "source-camera": "Quellkamera",
         "focal-length-mm": "Brennweite (mm)",
@@ -2678,7 +2702,9 @@
         "formula-light-loss": "Lichtverlust: Blendenstufen = 2 × log₂(1 + m)",
         "formula-macro-n": "N = markierte Blendenzahl",
         "formula-macro-m": "m = Vergrößerungsverhältnis (z. B. 1 für 1:1)",
-        "formula-macro-wavelength": "λ = Lichtwellenlänge (550 nm für Grün)"
+        "formula-macro-wavelength": "λ = Lichtwellenlänge (550 nm für Grün)",
+        "airy-disk": "Airy-Scheibe",
+        "pixel-pitch": "Pixelabstand"
       },
       "nd-filter": {
         "base-shutter-speed": "Basis-Verschlusszeit (ohne Filter)",
@@ -2759,7 +2785,42 @@
         "interval-recommendations": "Intervallempfehlungen",
         "equipment-prep": "Ausrüstungsvorbereitung"
       },
-      "video": {}
+      "video": {
+        "bitrate": "Bitrate",
+        "resolution": "Auflösung",
+        "frame-rate": "Bildrate",
+        "common-bitrates": "Gängige Bitraten",
+        "bitrate-header": "Bitrate (Mbps)",
+        "use-case": "Anwendungsfall",
+        "notes": "Hinweise",
+        "mbps": "Mbps",
+        "p-sd": "p (SD)",
+        "p-hd": "p (HD)",
+        "p-uhd": "p (UHD)",
+        "convert": "Konvertieren",
+        "from-frame-rate": "Von Bildrate",
+        "to-frame-rate": "Zu Bildrate",
+        "output-duration": "Ausgabedauer",
+        "frame-count": "Bildanzahl",
+        "playback-speed": "Wiedergabegeschwindigkeit",
+        "common-frame-rates": "Gängige Bildraten",
+        "fps": "fps",
+        "input-duration": "Eingabedauer",
+        "source-frame-rate": "Quell-Bildrate",
+        "target-frame-rate": "Ziel-Bildrate",
+        "speed-change": "Geschwindigkeitsänderung",
+        "duration-change": "Daueränderung",
+        "conversion-method": "Konvertierungsmethode",
+        "audio": "Audio",
+        "warnings": "Warnungen",
+        "ffmpeg-command": "FFmpeg-Befehl",
+        "sox-audio-command": "Sox-Audio-Befehl",
+        "codec-format": "Codec/Format",
+        "name": "Name",
+        "description": "Beschreibung",
+        "all": "Alle",
+        "avg-of-presets": "Durchschn. von {count} Voreinst."
+      }
     },
     "realestate": {
       "currency": "Währung",
@@ -3649,7 +3710,8 @@
         "crossCountry": "Landesübergreifend",
         "crossOcean": "Ozeanübergreifend",
         "satellite": "Satellit oder stark überlastetes Netzwerk"
-      }
+      },
+      "reset": "Zurücksetzen"
     },
     "subnet": {
       "diagram": {
@@ -3755,7 +3817,52 @@
       "name": "Name",
       "description": "Beschreibung",
       "all": "Alle",
-      "avg-of-presets": "Durchschn. von {count} Voreinstellungen"
+      "avg-of-presets": "Durchschn. von {count} Voreinstellungen",
+      "unitFootLamberts": "Foot-Lamberts (fL)",
+      "unitNits": "Nits (cd/m²)",
+      "unitLumens": "Lumen",
+      "labelFootLamberts": "Foot-Lamberts",
+      "labelNits": "Nits",
+      "labelCandelasPerM2": "Candela pro m²",
+      "labelLumens": "Lumen",
+      "screenWidth": "Bildschirmbreite",
+      "screenHeight": "Bildschirmhöhe",
+      "screenGain": "Bildschirmverstärkung",
+      "unit": "Einheit",
+      "brightnessLevel": "Helligkeitsstufe",
+      "referenceValues": "Referenzwerte",
+      "standard": "Standard",
+      "note": "Hinweis",
+      "brightnesses": {
+        "very_dim": "Sehr dunkel",
+        "use_very_dim": "Kostengünstige Filmprojektion, Heimkino in hellem Raum",
+        "dim": "Dunkel",
+        "use_dim": "DCI 3D Kinostandard",
+        "standard_2d": "Standard 2D",
+        "use_standard_2d": "DCI 2D Kinostandard",
+        "bright": "Hell",
+        "use_bright": "IMAX-Projektion",
+        "very_bright": "Sehr hell",
+        "use_very_bright": "Typisches Kino",
+        "home_theater": "Heimkino",
+        "use_home_theater": "Heimkino-Kalibrierung",
+        "display": "Display",
+        "use_display": "Helles Display, Außenbetrachtung"
+      },
+      "references": {
+        "dci_2d": "DCI 2D Standard",
+        "note_dci_2d": "Industriestandard für digitales 2D-Kino",
+        "dci_3d": "DCI 3D Standard",
+        "note_dci_3d": "Industriestandard für digitales 3D-Kino",
+        "dolby": "Dolby Cinema",
+        "note_dolby": "Dolbys Premium-Kinostandard",
+        "imax": "IMAX",
+        "note_imax": "IMAX-Projektionsstandard",
+        "home_theater": "Heimkino",
+        "note_home_theater": "Heimkino-Referenzweißpunkt",
+        "hdr_display": "HDR-Display",
+        "note_hdr_display": "High Dynamic Range Spitzenhelligkeit"
+      }
     },
     "music": {
       "tempo": "Tempo",
@@ -3975,6 +4082,12 @@
           "wiper_blades": "Scheibenwischer"
         }
       }
+    }
+  },
+  "realestate": {
+    "property-valuation": {
+      "title": "Immobilienbewertungsrechner",
+      "description": "Schätzen Sie Schweizer Immobilienwerte mit der hedonischen Methode"
     }
   },
   "validation": {

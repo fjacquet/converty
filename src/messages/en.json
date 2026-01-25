@@ -2163,7 +2163,29 @@
       "retirementDetails": "Retirement Details",
       "expectedReturn": "Expected Return (%)",
       "projectedSavings": "Projected Savings",
-      "totalGrowth": "Total Growth"
+      "totalGrowth": "Total Growth",
+      "currencies": {
+        "USD": "US Dollar",
+        "EUR": "Euro",
+        "GBP": "British Pound",
+        "CHF": "Swiss Franc",
+        "JPY": "Japanese Yen",
+        "CAD": "Canadian Dollar",
+        "AUD": "Australian Dollar",
+        "CNY": "Chinese Yuan",
+        "INR": "Indian Rupee",
+        "MXN": "Mexican Peso",
+        "BRL": "Brazilian Real",
+        "KRW": "South Korean Won",
+        "SGD": "Singapore Dollar",
+        "HKD": "Hong Kong Dollar",
+        "SEK": "Swedish Krona",
+        "NOK": "Norwegian Krone",
+        "DKK": "Danish Krone",
+        "NZD": "New Zealand Dollar",
+        "ZAR": "South African Rand",
+        "RUB": "Russian Ruble"
+      }
     },
     "math": {
       "calculationType": "Calculation Type",
@@ -2617,6 +2639,8 @@
         "where": "Where",
         "wavelength-description": "wavelength of light (typically 550nm for green)",
         "f-number-description": "f-number (aperture)",
+        "aperture": "Aperture",
+        "aperture-header": "f/",
         "focal-equivalent-intro": "This calculator helps you find equivalent lens settings between different camera systems to achieve the same field of view and depth of field.",
         "source-camera": "Source Camera",
         "focal-length-mm": "Focal Length (mm)",
@@ -2678,7 +2702,9 @@
         "formula-light-loss": "Light Loss: stops = 2 × log₂(1 + m)",
         "formula-macro-n": "N = marked f-number",
         "formula-macro-m": "m = magnification ratio (e.g., 1 for 1:1)",
-        "formula-macro-wavelength": "λ = wavelength of light (550nm for green)"
+        "formula-macro-wavelength": "λ = wavelength of light (550nm for green)",
+        "airy-disk": "Airy Disk",
+        "pixel-pitch": "Pixel Pitch"
       },
       "nd-filter": {
         "base-shutter-speed": "Base Shutter Speed (without filter)",
@@ -3684,7 +3710,8 @@
         "crossCountry": "Cross-country",
         "crossOcean": "Cross-ocean",
         "satellite": "Satellite or heavily congested network"
-      }
+      },
+      "reset": "Reset"
     },
     "subnet": {
       "diagram": {
@@ -3796,7 +3823,46 @@
         "note_home_theater": "Home theater reference white point",
         "hdr_display": "HDR Display",
         "note_hdr_display": "High Dynamic Range peak brightness"
-      }
+      },
+      "all": "All",
+      "codec-format": "Codec/Format",
+      "name": "Name",
+      "bitrate": "Bitrate",
+      "resolution": "Resolution",
+      "description": "Description",
+      "avg-of-presets": "avg. of {count} presets",
+      "unit": "Unit",
+      "brightnessLevel": "Brightness Level",
+      "referenceValues": "Reference Values",
+      "standard": "Standard",
+      "note": "Note",
+      "source-frame-rate": "Source Frame Rate",
+      "target-frame-rate": "Target Frame Rate",
+      "speed-change": "Speed Change",
+      "duration-change": "Duration Change",
+      "conversion-method": "Conversion Method",
+      "audio": "Audio",
+      "warnings": "Warnings",
+      "ffmpeg-command": "FFmpeg Command",
+      "sox-audio-command": "Sox Audio Command",
+      "frame-rate": "Frame Rate",
+      "common-bitrates": "Common Bitrates",
+      "bitrate-header": "Bitrate (Mbps)",
+      "use-case": "Use Case",
+      "notes": "Notes",
+      "mbps": "Mbps",
+      "p-sd": "p (SD)",
+      "p-hd": "p (HD)",
+      "p-uhd": "p (UHD)",
+      "convert": "Convert",
+      "from-frame-rate": "From Frame Rate",
+      "to-frame-rate": "To Frame Rate",
+      "output-duration": "Output Duration",
+      "frame-count": "Frame Count",
+      "playback-speed": "Playback Speed",
+      "common-frame-rates": "Common Frame Rates",
+      "fps": "fps",
+      "input-duration": "Input Duration"
     },
     "music": {
       "tempo": "Tempo",
@@ -4016,6 +4082,12 @@
           "wiper_blades": "Wiper Blades"
         }
       }
+    }
+  },
+  "realestate": {
+    "property-valuation": {
+      "title": "Property Valuation Calculator",
+      "description": "Estimate Swiss property values using the hedonic method"
     }
   },
   "validation": {
