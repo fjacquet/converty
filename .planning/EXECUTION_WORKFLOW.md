@@ -1,7 +1,7 @@
 # GSD Execution Workflow
 
-**Preference:** Direct Tool Usage (Serena + grepai)  
-**Established:** 2026-01-25 (Phase 24)  
+**Preference:** Direct Tool Usage (Serena + grepai)
+**Established:** 2026-01-25 (Phase 24)
 **Status:** Standard for all projects
 
 ## Execution Modes
@@ -11,6 +11,7 @@
 Use Serena and grepai directly instead of spawning executor subagents.
 
 **Benefits:**
+
 - **Faster execution** - No subagent spawn overhead
 - **Lower context burn** - Direct tool calls more efficient than agent-to-agent communication
 - **Better visibility** - User sees each step in main context
@@ -18,6 +19,7 @@ Use Serena and grepai directly instead of spawning executor subagents.
 - **More control** - Can adjust approach mid-execution
 
 **When to use:**
+
 - Default for all phase execution
 - Research tasks (grepai semantic search)
 - Code modifications (Serena symbol operations)
@@ -26,12 +28,14 @@ Use Serena and grepai directly instead of spawning executor subagents.
 **Tools available:**
 
 **grepai (Semantic Code Search):**
+
 - `grepai_search` - Natural language code search
 - `grepai_trace_callers` - Find who calls a function
 - `grepai_trace_callees` - Find what a function calls
 - `grepai_trace_graph` - Build call graph
 
 **Serena (Semantic Code Editing):**
+
 - `find_symbol` - Find functions/classes by name
 - `get_symbols_overview` - Get file structure
 - `find_referencing_symbols` - Find all references
@@ -46,12 +50,14 @@ Use Serena and grepai directly instead of spawning executor subagents.
 Spawn specialized subagents (gsd-executor, gsd-planner, etc.) via Task tool.
 
 **Drawbacks:**
+
 - Higher context usage (each agent loads full context)
 - Slower (spawn overhead + agent reasoning time)
 - Less visibility (user sees summary, not details)
 - Harder to debug (need to check agent output files)
 
 **When to use:**
+
 - Only when explicitly required by orchestrator patterns
 - Complex multi-step workflows requiring checkpoints
 - Parallel execution of independent plans
@@ -97,7 +103,7 @@ For each plan in phase:
 For research tasks:
 
 1. **Semantic search** - Find by intent, not exact text
-   - Use: `grepai_search("authentication flow")` 
+   - Use: `grepai_search("authentication flow")`
    - Not: `grep "login"` (too literal)
 
 2. **Understand structure** - Get file overview
@@ -149,6 +155,7 @@ For refactoring tasks:
 ```
 
 **Values:**
+
 - `"direct_tools"` - Use Serena/grepai directly (RECOMMENDED)
 - `"subagent"` - Spawn executor subagents (legacy)
 
@@ -173,5 +180,5 @@ For refactoring tasks:
 
 ---
 
-_Established: 2026-01-25_  
+_Established: 2026-01-25_
 _Last updated: 2026-01-25_

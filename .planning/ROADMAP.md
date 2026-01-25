@@ -30,6 +30,7 @@
 **Plans:** 2 plans
 
 Plans:
+
 - [ ] 25-01-PLAN.md — Fix remote property injection with Map-based URL params
 - [ ] 25-02-PLAN.md — Document container vulnerabilities and remove unused imports
 
