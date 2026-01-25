@@ -125,16 +125,18 @@
 - [x] No impact on static export capability ✓
 - [x] URL state persistence still working with lazy-loaded components ✓
 
-**Plans:** 3 plans complete
+**Plans:** 4 plans (3 complete, 1 gap closure pending)
 
 Plans:
+
 - [x] 21-01-PLAN.md — Bundle analysis baseline & skeleton component ✓
 - [x] 21-02-PLAN.md — Dynamic import implementation for all calculators ✓
 - [x] 21-03-PLAN.md — Search performance verification & final report ✓
+- [ ] 21-04-PLAN.md — Gap closure: Fix CalculatorSkeleton consistency in 13 pages
 
 **Status:** ⚠ NEEDS GAP CLOSURE (2026-01-25)
 
-**Gap:** 13 calculator pages use inconsistent loading fallback (needs CalculatorSkeleton)
+**Gap:** 13 calculator pages use `<div>Loading...</div>` instead of `<CalculatorSkeleton />` in Suspense fallback
 
 **Included in v3.0 Requirements:** PERF-01, PERF-02, PERF-03, PERF-04
 
