@@ -2,7 +2,8 @@
 
 import { Cpu, HardDrive, Server, Settings } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-import { InputField, ResultGrid } from "@/components/converter";
+import { useMemo } from "react";
+import { CsvExportButton, InputField, PdfExportButton, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -12,6 +13,8 @@ import {
   type ServerVirtualizationInput,
   type ServerVirtualizationResult,
 } from "@/lib/converters/infrastructure/server-virtualization";
+import type { CsvRow } from "@/lib/utils/csv-export";
+import type { PdfSection } from "@/lib/utils/pdf-export";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useServerVirtualizationStore = createCalculatorStore<
@@ -38,6 +41,91 @@ export function ServerVirtualizationCalculator() {
   const tCommon = useTranslations("common");
   const format = useFormatter();
   const { values, setValue, result } = useServerVirtualizationStore();
+
+  // PDF export sections
+  const pdfSections: PdfSection[] = useMemo(() => {
+    if (!result) return [];
+    return [
+      {
+        title: "VM Workload",
+        items: [
+          { label: t("vmCount"), value: values.vmCount, unit: "" },
+          { label: t("vCpuPerVm"), value: values.vCpuPerVm, unit: "vCPU" },
+          { label: t("ramPerVm"), value: values.ramPerVmGb, unit: "GB" },
+        ],
+      },
+      {
+        title: "Host Specifications",
+        items: [
+          { label: t("hostCores"), value: values.hostCores, unit: "cores" },
+          { label: t("hostRam"), value: values.hostRamGb, unit: "GB" },
+          { label: t("vCpuToCoreRatio"), value: `${values.vCpuToCoreRatio}:1`, unit: "" },
+          { label: t("targetCpuUtilization"), value: values.targetCpuUtilization, unit: "%" },
+          { label: t("targetRamUtilization"), value: values.targetRamUtilization, unit: "%" },
+          {
+            label: t("highAvailability"),
+            value: values.highAvailability ? tCommon("yes") : tCommon("no"),
+            unit: "",
+          },
+        ],
+      },
+      {
+        title: "Results",
+        items: [
+          { label: t("hostsNeededTotal"), value: result.hostsNeededTotal, unit: "" },
+          {
+            label: t("limitingFactor"),
+            value: result.limitingFactor === "cpu" ? "CPU" : "RAM",
+            unit: "",
+          },
+          {
+            label: t("consolidationRatio"),
+            value: `${result.vCpuConsolidationRatio.toFixed(1)}:1`,
+            unit: "",
+          },
+          { label: t("cpuUtilization"), value: result.finalCpuUtilization.toFixed(1), unit: "%" },
+          {
+            label: t("memoryUtilization"),
+            value: result.finalRamUtilization.toFixed(1),
+            unit: "%",
+          },
+        ],
+      },
+    ];
+  }, [result, values, t, tCommon]);
+
+  // CSV export data
+  const csvData: CsvRow[] = useMemo(() => {
+    if (!result) return [];
+    return [
+      { Field: t("vmCount"), Value: values.vmCount, Unit: "" },
+      { Field: t("vCpuPerVm"), Value: values.vCpuPerVm, Unit: "vCPU" },
+      { Field: t("ramPerVm"), Value: values.ramPerVmGb, Unit: "GB" },
+      { Field: t("hostCores"), Value: values.hostCores, Unit: "cores" },
+      { Field: t("hostRam"), Value: values.hostRamGb, Unit: "GB" },
+      { Field: t("vCpuToCoreRatio"), Value: `${values.vCpuToCoreRatio}:1`, Unit: "" },
+      { Field: t("targetCpuUtilization"), Value: values.targetCpuUtilization, Unit: "%" },
+      { Field: t("targetRamUtilization"), Value: values.targetRamUtilization, Unit: "%" },
+      {
+        Field: t("highAvailability"),
+        Value: values.highAvailability ? tCommon("yes") : tCommon("no"),
+        Unit: "",
+      },
+      { Field: t("hostsNeededTotal"), Value: result.hostsNeededTotal, Unit: "" },
+      {
+        Field: t("limitingFactor"),
+        Value: result.limitingFactor === "cpu" ? "CPU" : "RAM",
+        Unit: "",
+      },
+      {
+        Field: t("consolidationRatio"),
+        Value: `${result.vCpuConsolidationRatio.toFixed(1)}:1`,
+        Unit: "",
+      },
+      { Field: t("cpuUtilization"), Value: result.finalCpuUtilization.toFixed(1), Unit: "%" },
+      { Field: t("memoryUtilization"), Value: result.finalRamUtilization.toFixed(1), Unit: "%" },
+    ];
+  }, [result, values, t, tCommon]);
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
@@ -177,8 +265,12 @@ export function ServerVirtualizationCalculator() {
           <>
             {/* Host Requirements Card */}
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Host Requirements</CardTitle>
+                <div className="flex gap-2">
+                  <PdfExportButton sections={pdfSections} options={{ title: t("title") }} />
+                  <CsvExportButton data={csvData} filename="server-virtualization-calculator" />
+                </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Large prominent number */}

@@ -2,7 +2,8 @@
 
 import { AlertCircle, DollarSign, HardDrive, Server, Zap } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-import { InputField, ResultGrid } from "@/components/converter";
+import { useMemo } from "react";
+import { CsvExportButton, InputField, PdfExportButton, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
@@ -17,6 +18,8 @@ import {
   type VirtualizationCostInput,
   type VirtualizationCostResult,
 } from "@/lib/converters/infrastructure/virtualization-cost";
+import type { CsvRow } from "@/lib/utils/csv-export";
+import type { PdfSection } from "@/lib/utils/pdf-export";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useVirtualizationCostStore = createCalculatorStore<
@@ -47,6 +50,195 @@ export default function VirtualizationCostCalculator() {
   const t = useTranslations("calculator.virtualizationCost");
   const format = useFormatter();
   const { values, setValue, result } = useVirtualizationCostStore();
+
+  // PDF export sections
+  const pdfSections: PdfSection[] = useMemo(() => {
+    if (!result) return [];
+    return [
+      {
+        title: t("hardware"),
+        items: [
+          {
+            label: t("serverCost"),
+            value: format.number(values.serverCost, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "",
+          },
+          {
+            label: t("storageCost"),
+            value: format.number(values.storageCost, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "",
+          },
+          {
+            label: t("networkCost"),
+            value: format.number(values.networkCost, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "",
+          },
+        ],
+      },
+      {
+        title: t("software"),
+        items: [
+          {
+            label: t("vmwareLicense"),
+            value: format.number(values.vmwareLicenseCost, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "/year",
+          },
+          {
+            label: t("osLicense"),
+            value: format.number(values.osLicenseCost, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "/year",
+          },
+          {
+            label: t("backupSoftware"),
+            value: format.number(values.backupSoftwareCost, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "/year",
+          },
+        ],
+      },
+      {
+        title: t("operational"),
+        items: [
+          { label: t("powerCostPerKwh"), value: `$${values.powerCostPerKwh}`, unit: "/kWh" },
+          { label: t("totalPowerKw"), value: values.totalPowerKw, unit: "kW" },
+          { label: t("pue"), value: values.pue, unit: "" },
+          {
+            label: t("datacenterCostPerRu"),
+            value: `$${values.datacenterCostPerRu}`,
+            unit: "/RU/month",
+          },
+          { label: t("totalRackUnits"), value: values.totalRackUnits, unit: "RU" },
+          {
+            label: t("laborCostAnnual"),
+            value: format.number(values.laborCostAnnual, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "/year",
+          },
+        ],
+      },
+      {
+        title: t("results"),
+        items: [
+          {
+            label: t("capex"),
+            value: format.number(result.capex, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "",
+          },
+          {
+            label: t("opexAnnual"),
+            value: format.number(result.opexAnnual, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "",
+          },
+          {
+            label: t("tco"),
+            value: format.number(result.tco, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }),
+            unit: "",
+          },
+          {
+            label: t("costPerVm"),
+            value: format.number(result.costPerVm, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 2,
+            }),
+            unit: "",
+          },
+          {
+            label: t("costPerVmMonthly"),
+            value: format.number(result.costPerVmMonthly, {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 2,
+            }),
+            unit: "",
+          },
+        ],
+      },
+      {
+        title: t("breakdown"),
+        items: Object.entries(result.breakdown).map(([key, value]) => ({
+          label: t(`${key}Cost`),
+          value: `${format.number(value, { style: "currency", currency: "USD", maximumFractionDigits: 0 })} (${result.percentages[key as keyof typeof result.percentages].toFixed(1)}%)`,
+          unit: "",
+        })),
+      },
+    ];
+  }, [result, values, t, format]);
+
+  // CSV export data
+  const csvData: CsvRow[] = useMemo(() => {
+    if (!result) return [];
+    const rows: CsvRow[] = [
+      { Field: t("serverCost"), Value: values.serverCost, Unit: "USD" },
+      { Field: t("storageCost"), Value: values.storageCost, Unit: "USD" },
+      { Field: t("networkCost"), Value: values.networkCost, Unit: "USD" },
+      { Field: t("vmwareLicense"), Value: values.vmwareLicenseCost, Unit: "USD/year" },
+      { Field: t("osLicense"), Value: values.osLicenseCost, Unit: "USD/year" },
+      { Field: t("backupSoftware"), Value: values.backupSoftwareCost, Unit: "USD/year" },
+      { Field: t("powerCostPerKwh"), Value: values.powerCostPerKwh, Unit: "USD/kWh" },
+      { Field: t("totalPowerKw"), Value: values.totalPowerKw, Unit: "kW" },
+      { Field: t("pue"), Value: values.pue, Unit: "" },
+      { Field: t("datacenterCostPerRu"), Value: values.datacenterCostPerRu, Unit: "USD/RU/month" },
+      { Field: t("totalRackUnits"), Value: values.totalRackUnits, Unit: "RU" },
+      { Field: t("laborCostAnnual"), Value: values.laborCostAnnual, Unit: "USD/year" },
+      { Field: t("vmCount"), Value: values.vmCount, Unit: "" },
+      { Field: t("termYears"), Value: values.termYears, Unit: "years" },
+      { Field: t("capex"), Value: result.capex.toFixed(2), Unit: "USD" },
+      { Field: t("opexAnnual"), Value: result.opexAnnual.toFixed(2), Unit: "USD" },
+      { Field: t("tco"), Value: result.tco.toFixed(2), Unit: "USD" },
+      { Field: t("costPerVm"), Value: result.costPerVm.toFixed(2), Unit: "USD" },
+      { Field: t("costPerVmMonthly"), Value: result.costPerVmMonthly.toFixed(2), Unit: "USD" },
+    ];
+
+    // Add breakdown
+    Object.entries(result.breakdown).forEach(([key, value]) => {
+      rows.push({
+        Field: t(`${key}Cost`),
+        Value: `${value.toFixed(2)} (${result.percentages[key as keyof typeof result.percentages].toFixed(1)}%)`,
+        Unit: "USD",
+      });
+    });
+
+    return rows;
+  }, [result, values, t]);
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
@@ -251,8 +443,12 @@ export default function VirtualizationCostCalculator() {
           <>
             {/* Cost Analysis Card */}
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>{t("results")}</CardTitle>
+                <div className="flex gap-2">
+                  <PdfExportButton sections={pdfSections} options={{ title: t("title") }} />
+                  <CsvExportButton data={csvData} filename="virtualization-cost-calculator" />
+                </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Large prominent TCO display */}

@@ -2,10 +2,13 @@
 
 import { AlertTriangle, Cpu, HardDrive, Server, Settings } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { InputField } from "@/components/converter";
+import { useMemo } from "react";
+import { CsvExportButton, InputField, PdfExportButton } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { CsvRow } from "@/lib/utils/csv-export";
+import type { PdfSection } from "@/lib/utils/pdf-export";
 import { useK8sCapacityStore } from "@/stores/k8s-capacity-store";
 
 export function K8sCapacityCalculator() {
@@ -38,6 +41,105 @@ export function K8sCapacityCalculator() {
     setTargetMemoryUtilization,
     reset,
   } = useK8sCapacityStore();
+
+  // PDF export sections
+  const pdfSections: PdfSection[] = useMemo(() => {
+    if (!result) return [];
+    return [
+      {
+        title: t("podWorkload"),
+        items: [
+          { label: t("podCpuRequest"), value: podCpuRequest, unit: "millicores" },
+          { label: t("podMemoryRequest"), value: podMemoryRequest, unit: "Mi" },
+          { label: t("podReplicas"), value: podReplicas, unit: "" },
+        ],
+      },
+      {
+        title: t("nodeSpecs"),
+        items: [
+          { label: t("nodeCpuCores"), value: nodeCpuCores, unit: "cores" },
+          { label: t("nodeMemoryMb"), value: nodeMemoryMb, unit: "MB" },
+          { label: t("systemReservedCpu"), value: systemReservedCpu, unit: "%" },
+          { label: t("systemReservedMemory"), value: systemReservedMemory, unit: "%" },
+          { label: t("daemonSetCpuPerNode"), value: daemonSetCpuPerNode, unit: "millicores" },
+          { label: t("daemonSetMemoryPerNode"), value: daemonSetMemoryPerNode, unit: "Mi" },
+          { label: t("targetCpuUtilization"), value: targetCpuUtilization, unit: "%" },
+          { label: t("targetMemoryUtilization"), value: targetMemoryUtilization, unit: "%" },
+        ],
+      },
+      {
+        title: t("results"),
+        items: [
+          { label: t("nodesNeeded"), value: result.nodesNeededTotal, unit: "" },
+          {
+            label: t("limitingFactor"),
+            value: t(result.limitingFactor === "cpu" ? "cpuConstrained" : "memoryConstrained"),
+            unit: "",
+          },
+          { label: t("cpuUtilization"), value: result.finalCpuUtilization.toFixed(1), unit: "%" },
+          {
+            label: t("memoryUtilization"),
+            value: result.finalMemoryUtilization.toFixed(1),
+            unit: "%",
+          },
+        ],
+      },
+    ];
+  }, [
+    result,
+    podCpuRequest,
+    podMemoryRequest,
+    podReplicas,
+    nodeCpuCores,
+    nodeMemoryMb,
+    systemReservedCpu,
+    systemReservedMemory,
+    daemonSetCpuPerNode,
+    daemonSetMemoryPerNode,
+    targetCpuUtilization,
+    targetMemoryUtilization,
+    t,
+  ]);
+
+  // CSV export data
+  const csvData: CsvRow[] = useMemo(() => {
+    if (!result) return [];
+    return [
+      { Field: t("podCpuRequest"), Value: podCpuRequest, Unit: "millicores" },
+      { Field: t("podMemoryRequest"), Value: podMemoryRequest, Unit: "Mi" },
+      { Field: t("podReplicas"), Value: podReplicas, Unit: "" },
+      { Field: t("nodeCpuCores"), Value: nodeCpuCores, Unit: "cores" },
+      { Field: t("nodeMemoryMb"), Value: nodeMemoryMb, Unit: "MB" },
+      { Field: t("systemReservedCpu"), Value: systemReservedCpu, Unit: "%" },
+      { Field: t("systemReservedMemory"), Value: systemReservedMemory, Unit: "%" },
+      { Field: t("daemonSetCpuPerNode"), Value: daemonSetCpuPerNode, Unit: "millicores" },
+      { Field: t("daemonSetMemoryPerNode"), Value: daemonSetMemoryPerNode, Unit: "Mi" },
+      { Field: t("targetCpuUtilization"), Value: targetCpuUtilization, Unit: "%" },
+      { Field: t("targetMemoryUtilization"), Value: targetMemoryUtilization, Unit: "%" },
+      { Field: t("nodesNeeded"), Value: result.nodesNeededTotal, Unit: "" },
+      {
+        Field: t("limitingFactor"),
+        Value: t(result.limitingFactor === "cpu" ? "cpuConstrained" : "memoryConstrained"),
+        Unit: "",
+      },
+      { Field: t("cpuUtilization"), Value: result.finalCpuUtilization.toFixed(1), Unit: "%" },
+      { Field: t("memoryUtilization"), Value: result.finalMemoryUtilization.toFixed(1), Unit: "%" },
+    ];
+  }, [
+    result,
+    podCpuRequest,
+    podMemoryRequest,
+    podReplicas,
+    nodeCpuCores,
+    nodeMemoryMb,
+    systemReservedCpu,
+    systemReservedMemory,
+    daemonSetCpuPerNode,
+    daemonSetMemoryPerNode,
+    targetCpuUtilization,
+    targetMemoryUtilization,
+    t,
+  ]);
 
   return (
     <div className="space-y-6">
@@ -223,8 +325,12 @@ export function K8sCapacityCalculator() {
         <div className="space-y-6">
           {/* Primary Result */}
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>{t("nodesNeeded")}</CardTitle>
+              <div className="flex gap-2">
+                <PdfExportButton sections={pdfSections} options={{ title: t("title") }} />
+                <CsvExportButton data={csvData} filename="k8s-capacity-calculator" />
+              </div>
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-bold text-primary">{result.nodesNeededTotal}</div>

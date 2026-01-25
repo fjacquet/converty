@@ -2,11 +2,20 @@
 
 import { AlertCircle, HardDrive, Plus, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
+import { useMemo } from "react";
+import {
+  CsvExportButton,
+  InputField,
+  OutputDisplay,
+  PdfExportButton,
+  ResultGrid,
+} from "@/components/converter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import type { CsvRow } from "@/lib/utils/csv-export";
+import type { PdfSection } from "@/lib/utils/pdf-export";
 import { useVmStorageStore } from "@/stores/vm-storage-store";
 
 export function VmStorageCalculator() {
@@ -40,6 +49,143 @@ export function VmStorageCalculator() {
 
   // Warning threshold for thin provisioning
   const showProvisioningWarning = thinProvisioningPercent > 50;
+
+  // PDF export sections
+  const pdfSections: PdfSection[] = useMemo(() => {
+    if (!result) return [];
+
+    const sections: PdfSection[] = [
+      {
+        title: t("vmProfiles"),
+        items: vmConfigs.flatMap((config, index) => [
+          {
+            label: `${t("profile")} ${index + 1} - ${t("diskSize")}`,
+            value: config.diskGb,
+            unit: "GB",
+          },
+          {
+            label: `${t("profile")} ${index + 1} - ${t("ramSize")}`,
+            value: config.ramGb,
+            unit: "GB",
+          },
+          {
+            label: `${t("profile")} ${index + 1} - ${t("vmCount")}`,
+            value: config.count,
+            unit: "",
+          },
+        ]),
+      },
+      {
+        title: t("configuration"),
+        items: [
+          {
+            label: t("includeSwapFiles"),
+            value: includeSwapFiles ? tCommon("yes") : tCommon("no"),
+            unit: "",
+          },
+          { label: t("configLogPerVm"), value: configLogGbPerVm, unit: "GB" },
+          { label: t("snapshotPercent"), value: snapshotPercent, unit: "%" },
+          { label: t("esxHosts"), value: esxHosts, unit: "" },
+          { label: t("esxStoragePerHost"), value: esxStorageGbPerHost, unit: "GB" },
+          { label: t("thinProvisioningPercent"), value: thinProvisioningPercent, unit: "%" },
+          { label: t("growthPercent"), value: growthPercent, unit: "%" },
+        ],
+      },
+      {
+        title: tSections("output"),
+        items: [
+          { label: t("totalRequired"), value: result.totalRequiredGb.toFixed(2), unit: "GB" },
+          { label: t("totalProvisioned"), value: result.totalProvisionedGb.toFixed(2), unit: "GB" },
+          { label: t("usedDisk"), value: result.usedDiskGb.toFixed(2), unit: "GB" },
+          { label: t("snapshotAllocation"), value: result.snapshotGb.toFixed(2), unit: "GB" },
+          { label: t("swapAllocation"), value: result.swapGb.toFixed(2), unit: "GB" },
+          { label: t("configLogAllocation"), value: result.configLogGb.toFixed(2), unit: "GB" },
+          { label: t("esxOverhead"), value: result.esxStorageGb.toFixed(2), unit: "GB" },
+          { label: t("growthAllocation"), value: result.growthAllocationGb.toFixed(2), unit: "GB" },
+        ],
+      },
+    ];
+
+    return sections;
+  }, [
+    result,
+    vmConfigs,
+    includeSwapFiles,
+    configLogGbPerVm,
+    snapshotPercent,
+    esxHosts,
+    esxStorageGbPerHost,
+    thinProvisioningPercent,
+    growthPercent,
+    t,
+    tSections,
+    tCommon,
+  ]);
+
+  // CSV export data
+  const csvData: CsvRow[] = useMemo(() => {
+    if (!result) return [];
+
+    const rows: CsvRow[] = [];
+
+    // VM Profiles
+    vmConfigs.forEach((config, index) => {
+      rows.push(
+        {
+          Field: `${t("profile")} ${index + 1} - ${t("diskSize")}`,
+          Value: config.diskGb,
+          Unit: "GB",
+        },
+        {
+          Field: `${t("profile")} ${index + 1} - ${t("ramSize")}`,
+          Value: config.ramGb,
+          Unit: "GB",
+        },
+        { Field: `${t("profile")} ${index + 1} - ${t("vmCount")}`, Value: config.count, Unit: "" }
+      );
+    });
+
+    // Configuration
+    rows.push(
+      {
+        Field: t("includeSwapFiles"),
+        Value: includeSwapFiles ? tCommon("yes") : tCommon("no"),
+        Unit: "",
+      },
+      { Field: t("configLogPerVm"), Value: configLogGbPerVm, Unit: "GB" },
+      { Field: t("snapshotPercent"), Value: snapshotPercent, Unit: "%" },
+      { Field: t("esxHosts"), Value: esxHosts, Unit: "" },
+      { Field: t("esxStoragePerHost"), Value: esxStorageGbPerHost, Unit: "GB" },
+      { Field: t("thinProvisioningPercent"), Value: thinProvisioningPercent, Unit: "%" },
+      { Field: t("growthPercent"), Value: growthPercent, Unit: "%" }
+    );
+
+    // Results
+    rows.push(
+      { Field: t("totalRequired"), Value: result.totalRequiredGb.toFixed(2), Unit: "GB" },
+      { Field: t("totalProvisioned"), Value: result.totalProvisionedGb.toFixed(2), Unit: "GB" },
+      { Field: t("usedDisk"), Value: result.usedDiskGb.toFixed(2), Unit: "GB" },
+      { Field: t("snapshotAllocation"), Value: result.snapshotGb.toFixed(2), Unit: "GB" },
+      { Field: t("swapAllocation"), Value: result.swapGb.toFixed(2), Unit: "GB" },
+      { Field: t("configLogAllocation"), Value: result.configLogGb.toFixed(2), Unit: "GB" },
+      { Field: t("esxOverhead"), Value: result.esxStorageGb.toFixed(2), Unit: "GB" },
+      { Field: t("growthAllocation"), Value: result.growthAllocationGb.toFixed(2), Unit: "GB" }
+    );
+
+    return rows;
+  }, [
+    result,
+    vmConfigs,
+    includeSwapFiles,
+    configLogGbPerVm,
+    snapshotPercent,
+    esxHosts,
+    esxStorageGbPerHost,
+    thinProvisioningPercent,
+    growthPercent,
+    t,
+    tCommon,
+  ]);
 
   return (
     <div className="space-y-6">
@@ -238,11 +384,15 @@ export function VmStorageCalculator() {
       {/* Results Section */}
       {result && (
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <HardDrive className="h-5 w-5" />
               {tSections("output")}
             </CardTitle>
+            <div className="flex gap-2">
+              <PdfExportButton sections={pdfSections} options={{ title: t("title") }} />
+              <CsvExportButton data={csvData} filename="vm-storage-calculator" />
+            </div>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Primary Metric */}
