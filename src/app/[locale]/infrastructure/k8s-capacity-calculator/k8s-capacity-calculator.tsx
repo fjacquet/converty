@@ -11,6 +11,30 @@ import type { CsvRow } from "@/lib/utils/csv-export";
 import type { PdfSection } from "@/lib/utils/pdf-export";
 import { useK8sCapacityStore } from "@/stores/k8s-capacity-store";
 
+/**
+ * Safely parse a positive number, returning the previous value if input is invalid.
+ * Prevents transient error states during typing (e.g., clearing field shows NaN → 0).
+ */
+function safeParsePositive(input: string, previousValue: number, minValue = 1): number {
+  const parsed = parseFloat(input);
+  if (Number.isNaN(parsed) || parsed < minValue) {
+    return previousValue;
+  }
+  return parsed;
+}
+
+/**
+ * Safely parse a non-negative number, returning the previous value if input is invalid.
+ * Used for fields where 0 is valid (e.g., system reserved resources).
+ */
+function safeParseNonNegative(input: string, previousValue: number): number {
+  const parsed = parseFloat(input);
+  if (Number.isNaN(parsed) || parsed < 0) {
+    return previousValue;
+  }
+  return parsed;
+}
+
 export function K8sCapacityCalculator() {
   const t = useTranslations("calculator.k8sCapacity");
 
