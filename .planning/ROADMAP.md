@@ -209,6 +209,14 @@ Plans:
 
 **Requirements:** INFRA-03, INFRA-04
 
+**Plans:** 3 plans (2 waves)
+
+Plans:
+
+- [ ] 29-01-PLAN.md — Create calculation logic for both calculators, registry entries, and translations
+- [ ] 29-02-PLAN.md — Create server virtualization UI component and page
+- [ ] 29-03-PLAN.md — Create VMware licensing UI component and page
+
 **Deliverables:**
 
 ### Calculator 1: Server Virtualization
