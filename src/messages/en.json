@@ -65,6 +65,15 @@
       "name": "Health",
       "description": "Health and fitness calculators"
     },
+    "infrastructure": {
+      "name": "Infrastructure",
+      "description": "Virtualization, Kubernetes, and datacenter tools",
+      "subcategories": {
+        "vmware": "VMware",
+        "kubernetes": "Kubernetes",
+        "cost": "Cost Analysis"
+      }
+    },
     "math": {
       "name": "Math",
       "description": "Mathematical calculators"

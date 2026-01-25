@@ -65,6 +65,15 @@
       "name": "Gesundheit",
       "description": "Gesundheits- und Fitness"
     },
+    "infrastructure": {
+      "name": "Infrastruktur",
+      "description": "Virtualisierung, Kubernetes und Rechenzentrum-Tools",
+      "subcategories": {
+        "vmware": "VMware",
+        "kubernetes": "Kubernetes",
+        "cost": "Kostenanalyse"
+      }
+    },
     "math": {
       "name": "Mathematik",
       "description": "Mathematische"

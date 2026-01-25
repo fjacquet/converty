@@ -65,6 +65,15 @@
       "name": "Sante",
       "description": "Calculateurs de sante et de condition physique"
     },
+    "infrastructure": {
+      "name": "Infrastructure",
+      "description": "Outils de virtualisation, Kubernetes et centres de donnees",
+      "subcategories": {
+        "vmware": "VMware",
+        "kubernetes": "Kubernetes",
+        "cost": "Analyse des Couts"
+      }
+    },
     "math": {
       "name": "Mathematiques",
       "description": "Calculateurs mathematiques"
