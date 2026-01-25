@@ -886,6 +886,11 @@
       "description": "Calculate VMware VCF/VVF licensing costs",
       "metaDescription": "Free VMware licensing cost calculator. Calculate VMware Cloud Foundation and vSphere Foundation subscription costs with 16-core minimum enforcement."
     },
+    "virtualization-cost": {
+      "name": "Virtualization Cost Calculator",
+      "description": "Calculate total cost of ownership for virtualization infrastructure",
+      "metaDescription": "Free virtualization TCO calculator. Calculate total cost of ownership including CAPEX and OPEX for virtualization infrastructure."
+    },
     "slope-calculator": {
       "name": "Slope",
       "description": "Calculate slope, equation, and angle of a line",

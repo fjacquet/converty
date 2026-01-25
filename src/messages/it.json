@@ -877,9 +877,14 @@
       "metaDescription": "Calcolatore gratuito di dimensionamento host VMware ESX. Calcola gli host necessari in base ai requisiti CPU/RAM delle VM con supporto per alta disponibilità N+1."
     },
     "vmware-licensing-calculator": {
-      "name": "Calcolatore licenze VMware",
+      "name": "Calcolatore Licenze VMware",
       "description": "Calcola i costi delle licenze VMware VCF/VVF",
       "metaDescription": "Calcolatore gratuito dei costi delle licenze VMware. Calcola i costi di abbonamento VMware Cloud Foundation e vSphere Foundation con applicazione del minimo di 16 core."
+    },
+    "virtualization-cost": {
+      "name": "Calcolatore Costo Virtualizzazione",
+      "description": "Calcola il costo totale di proprietà per l'infrastruttura di virtualizzazione",
+      "metaDescription": "Calcolatore TCO di virtualizzazione gratuito. Calcola il costo totale di proprietà inclusi CAPEX e OPEX per l'infrastruttura di virtualizzazione."
     },
     "k8s-capacity-calculator": {
       "name": "Calcolatore Capacità Kubernetes",
@@ -1548,43 +1553,6 @@
       "hosts": "host",
       "cpus": "CPU",
       "years": "anni"
-    },
-    "virtualizationCost": {
-      "title": "Calcolatore costi virtualizzazione",
-      "description": "Calcola il costo totale di proprietà per l'infrastruttura di virtualizzazione",
-      "hardware": "Costi hardware",
-      "serverCost": "Costo server",
-      "storageCost": "Costo storage",
-      "networkCost": "Costo rete",
-      "software": "Costi software (annuali)",
-      "vmwareLicense": "Licenze VMware",
-      "osLicense": "Licenze OS",
-      "backupSoftware": "Software backup",
-      "operational": "Costi operativi",
-      "powerCostPerKwh": "Costo energia ($/kWh)",
-      "totalPowerKw": "Potenza totale (kW)",
-      "pue": "PUE (Efficienza energetica)",
-      "datacenterCostPerRu": "Costo datacenter ($/RU/mese)",
-      "totalRackUnits": "Unità rack totali",
-      "laborCostAnnual": "Costo lavoro annuale",
-      "configuration": "Configurazione",
-      "vmCount": "Numero di VM",
-      "termYears": "Periodo analisi (anni)",
-      "results": "Analisi costi",
-      "capex": "Spese in conto capitale (CAPEX)",
-      "opexAnnual": "Spese operative annuali",
-      "opexTotal": "OPEX totale (periodo)",
-      "tco": "Costo totale di proprietà",
-      "costPerVm": "Costo per VM (periodo)",
-      "costPerVmMonthly": "Costo mensile per VM",
-      "breakdown": "Ripartizione costi",
-      "percentages": "Ripartizione percentuale",
-      "hardwareCost": "Hardware",
-      "softwareCost": "Software",
-      "powerCost": "Energia",
-      "datacenterCost": "Datacenter",
-      "laborCost": "Lavoro",
-      "pueHelp": "Valori tipici: 1.3 (efficiente) a 2.0 (legacy). Misura energia totale vs carico IT."
     },
     "results": {
       "perMonth": "al mese",
