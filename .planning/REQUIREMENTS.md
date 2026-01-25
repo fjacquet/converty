@@ -171,8 +171,8 @@ Eliminate all security vulnerabilities and expand calculator offerings into ente
 | INFRA-03 | High | TBD | Pending |
 | INFRA-04 | High | TBD | Pending |
 | INFRA-05 | Medium | TBD | Pending |
-| UX-01 | High | TBD | Pending |
-| UX-02 | Medium | TBD | Pending |
+| UX-01 | High | 26 | Complete |
+| UX-02 | Medium | 26 | Complete |
 | UX-03 | Medium | TBD | Pending |
 
 **Total Requirements:** 11

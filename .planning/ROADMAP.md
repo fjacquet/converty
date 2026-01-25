@@ -77,7 +77,7 @@ Plans:
 
 - [x] 26-01-PLAN.md — Create infrastructure category in registry with Server icon
 - [x] 26-02-PLAN.md — Add translations and create category landing page
-- [ ] 26-03-PLAN.md — (Gap closure) Fix missing German k8sCapacity translations
+- [x] 26-03-PLAN.md — (Gap closure) Fix missing German k8sCapacity translations
 
 **Deliverables:**
 
@@ -103,7 +103,7 @@ Plans:
 - [x] Category translated in all 4 locales
 - [x] Lazy loading infrastructure ready
 - [x] No bundle size increase
-- [ ] Production build succeeds without translation errors
+- [x] Production build succeeds without translation errors
 
 **Estimated Complexity:** Low
 **Dependencies:** None
