@@ -159,6 +159,13 @@ Plans:
 
 **Requirements:** INFRA-02
 
+**Plans:** 2 plans (2 waves)
+
+Plans:
+
+- [ ] 28-01-PLAN.md — Create calculation logic, registry entry, and translations
+- [ ] 28-02-PLAN.md — Create UI component and page with URL state
+
 **Deliverables:**
 
 1. **Calculation logic**
