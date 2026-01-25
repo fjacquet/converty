@@ -1,9 +1,9 @@
 ---
-status: diagnosed
+status: complete
 phase: 27-vm-storage-calculator
 source: 27-01-SUMMARY.md, 27-02-SUMMARY.md
 started: 2026-01-25T14:15:00Z
-updated: 2026-01-25T14:30:00Z
+updated: 2026-01-25T21:30:00Z
 ---
 
 ## Current Test
@@ -14,9 +14,8 @@ updated: 2026-01-25T14:30:00Z
 
 ### 1. Access VM Storage Calculator
 expected: Navigate to /en/infrastructure/vm-storage-calculator - Page loads with VM Storage Calculator heading and input form
-result: issue
-reported: "MISSING_MESSAGE: Could not resolve `calculator.vmStorage.profile` in messages for locale `en`. src/app/[locale]/infrastructure/vm-storage-calculator/vm-storage-calculator.tsx (62:23)"
-severity: blocker
+result: pass
+note: Fixed via 27-03-PLAN.md - Added 'profile' translation to all 4 locales (commit 9805025)
 
 ### 2. Default Configuration Loads
 expected: Calculator shows 2 VM profiles by default (100GB/8GB×10 and 200GB/16GB×5) with configuration defaults (swap enabled, 20% snapshots, 33% thin provisioning, 30% growth, 3 ESX hosts)
@@ -57,32 +56,32 @@ result: pass
 ## Summary
 
 total: 10
-passed: 9
-issues: 1
+passed: 10
+issues: 0
 pending: 0
 skipped: 0
 
 ## Gaps
 
 - truth: "Page loads with VM Storage Calculator heading and input form"
-  status: failed
+  status: fixed
   reason: "User reported: MISSING_MESSAGE: Could not resolve `calculator.vmStorage.profile` in messages for locale `en`. src/app/[locale]/infrastructure/vm-storage-calculator/vm-storage-calculator.tsx (62:23)"
   severity: blocker
   test: 1
   root_cause: "Translation key 'profile' is missing from the calculator.vmStorage namespace in all 4 locale files (en, fr, de, it). The component references this key at 6 locations in PDF/CSV export sections to create labels like 'Profile 1 - Disk Size'."
+  fix_plan: "27-03-PLAN.md"
+  fix_commit: "9805025"
   artifacts:
     - path: "src/messages/en.json"
       issue: "Missing 'profile' key in calculator.vmStorage namespace"
+      fixed: "Added \"profile\": \"Profile\""
     - path: "src/messages/fr.json"
       issue: "Missing 'profile' key in calculator.vmStorage namespace"
+      fixed: "Added \"profile\": \"Profil\""
     - path: "src/messages/de.json"
       issue: "Missing 'profile' key in calculator.vmStorage namespace"
+      fixed: "Added \"profile\": \"Profil\""
     - path: "src/messages/it.json"
       issue: "Missing 'profile' key in calculator.vmStorage namespace"
-  missing:
-    - "Add 'profile' translation key to calculator.vmStorage in all 4 locale files"
-    - "en: \"profile\": \"Profile\""
-    - "fr: \"profile\": \"Profil\""
-    - "de: \"profile\": \"Profil\""
-    - "it: \"profile\": \"Profilo\""
+      fixed: "Added \"profile\": \"Profilo\""
   debug_session: ".planning/debug/vm-storage-profile-translation.md"
