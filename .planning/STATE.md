@@ -10,17 +10,16 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 21 - Code Splitting & Lazy Loading
-Plan: All 3 plans complete, awaiting gap closure
-Status: Phase 21 verification found 1 gap - 13 files need CalculatorSkeleton consistency fix
-Last activity: 2026-01-25 — Phase 21 verification complete (19/21 must-haves verified)
+Plan: 4/4 complete (including gap closure)
+Status: Phase 21 complete - all must-haves satisfied
+Last activity: 2026-01-25 — Completed 21-04-PLAN.md (CalculatorSkeleton consistency gap closure)
 
-Progress: ████████████████░░ 88.9% (v3.0 — 5 of 6 phases near complete, Phase 21 needs gap closure)
+Progress: ████████████████░░ 89.3% (v3.0 — 5 of 6 phases complete, ready for Phase 24)
 
 **Next Steps:**
 
-1. Fix Phase 21 gap (CalculatorSkeleton consistency)
-2. Complete Phase 21 verification
-3. Move to Phase 24 (Export Functionality)
+1. Move to Phase 24 (Export Functionality)
+2. Continue v3.0 Calculator Expansion milestone
 
 ## Performance Metrics
 
@@ -69,7 +68,7 @@ Progress: ████████████████░░ 88.9% (v3.0 —
 | 18-real-estate-foundation       | 4/4   | 28 min | 7 min    |
 | 19-cooking-nutrition-foundation | 4/4   | 35 min | 8.75 min |
 | 20-automotive-calculators       | 4/4   | 30 min | 7.5 min  |
-| 21-code-splitting               | 2/?   | 12 min | 6 min    |
+| 21-code-splitting               | 4/4   | 15 min | 3.75 min |
 
 ## Accumulated Context
 
@@ -215,6 +214,8 @@ Progress: ████████████████░░ 88.9% (v3.0 —
 | Dynamic imports for all 167 calculator pages                      | 21-02 | Enables on-demand bundle loading, reduces initial page weight for better performance              |
 | No ssr: false flag for dynamic imports                            | 21-02 | Calculators render on server for SEO, dynamic imports work with static export via hydration       |
 | CalculatorSkeleton in both dynamic loading and Suspense fallback   | 21-02 | Consistent loading UX whether chunk is being fetched or component is suspending                   |
+| Auto-fix pre-existing linting issues during verification          | 21-04 | Improves code quality opportunistically during gap closure verification                           |
+| Document but not fix array index key warnings                     | 21-04 | Pre-existing warnings beyond gap closure scope, deferred for future cleanup                       |
 
 ### Milestone Evolution
 
@@ -228,8 +229,8 @@ Progress: ████████████████░░ 88.9% (v3.0 —
 
 ## Session Continuity
 
-Last session: 2026-01-24T18:31:46Z
-Stopped at: Completed 21-02-PLAN.md (Dynamic Imports for Calculators)
+Last session: 2026-01-25T07:00:04Z
+Stopped at: Completed 21-04-PLAN.md (CalculatorSkeleton Consistency Gap Closure)
 Resume file: None
 
 **Next Steps:**
@@ -241,7 +242,9 @@ Resume file: None
    - ✅ Phase 18 Complete (4/4 plans) - Real Estate
    - ✅ Phase 19 Complete (4/4 plans) - Cooking & Nutrition
    - ✅ Phase 20 Complete (4/4 plans) - Automotive
-   - ▶ Phase 21 In Progress (2/? plans) - Code Splitting & Lazy Loading
-     - ✅ 21-01 Bundle Analysis & Loading Infrastructure (Complete)
-     - ✅ 21-02 Dynamic Imports for Calculators (Complete)
-     - Next: Continue Phase 21 or move to next phase
+   - ✅ Phase 21 Complete (4/4 plans) - Code Splitting & Lazy Loading
+     - ✅ 21-01 Bundle Analysis & Loading Infrastructure
+     - ✅ 21-02 Dynamic Imports for Calculators
+     - ✅ 21-03 Route-level Code Splitting
+     - ✅ 21-04 CalculatorSkeleton Consistency Gap Closure
+     - Next: Move to Phase 24 (Export Functionality)
