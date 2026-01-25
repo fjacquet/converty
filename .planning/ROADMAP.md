@@ -125,18 +125,16 @@
 - [x] No impact on static export capability ✓
 - [x] URL state persistence still working with lazy-loaded components ✓
 
-**Plans:** 4 plans (3 complete, 1 gap closure pending)
+**Plans:** 4 plans
 
 Plans:
 
 - [x] 21-01-PLAN.md — Bundle analysis baseline & skeleton component ✓
 - [x] 21-02-PLAN.md — Dynamic import implementation for all calculators ✓
 - [x] 21-03-PLAN.md — Search performance verification & final report ✓
-- [ ] 21-04-PLAN.md — Gap closure: Fix CalculatorSkeleton consistency in 13 pages
+- [x] 21-04-PLAN.md — Gap closure: Fix CalculatorSkeleton consistency in 13 pages ✓
 
-**Status:** ⚠ NEEDS GAP CLOSURE (2026-01-25)
-
-**Gap:** 13 calculator pages use `<div>Loading...</div>` instead of `<CalculatorSkeleton />` in Suspense fallback
+**Status:** ✅ COMPLETE (2026-01-25)
 
 **Included in v3.0 Requirements:** PERF-01, PERF-02, PERF-03, PERF-04
 
@@ -157,6 +155,16 @@ Plans:
 - [ ] File naming descriptive and timestamped
 - [ ] Export formatting clean and readable
 - [ ] Works across all calculator categories
+
+**Plans:** 3 plans
+
+Plans:
+
+- [ ] 24-01-PLAN.md — Export foundation (CSV utility + i18n translations)
+- [ ] 24-02-PLAN.md — Export components (update PdfExportButton, create CsvExportButton)
+- [ ] 24-03-PLAN.md — Integration example (Age Calculator with both exports)
+
+**Status:** READY FOR EXECUTION
 
 **Included in v3.0 Requirements:** EXP-01, EXP-02, EXP-03, EXP-04
 
