@@ -255,7 +255,10 @@ export function RecipeScalerCalculator() {
                     </p>
                     <ul className="list-disc list-inside space-y-1">
                       {result.notes.map((note, i) => (
-                        <li key={i} className="text-sm text-blue-700 dark:text-blue-300">
+                        <li
+                          key={`note-${i}-${note.slice(0, 20)}`}
+                          className="text-sm text-blue-700 dark:text-blue-300"
+                        >
                           {note}
                         </li>
                       ))}
@@ -309,7 +312,7 @@ export function RecipeScalerCalculator() {
               <Label>{t("calculationSteps")}</Label>
               <div className="p-4 bg-muted rounded-md text-sm space-y-1">
                 {result.steps.map((step, i) => (
-                  <div key={i} className="font-mono">
+                  <div key={`step-${i}-${step.slice(0, 20)}`} className="font-mono">
                     {i + 1}. {step}
                   </div>
                 ))}

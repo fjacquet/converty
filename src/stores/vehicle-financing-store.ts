@@ -223,7 +223,7 @@ export const useVehicleFinancingStore = create<VehicleFinancingState>()(
 
       setLeaseTermMonths: (value: number) => {
         // Adjust residual based on lease term
-        let residualPercent = initialState.residualPercent;
+        let residualPercent: number;
         if (value <= 36) residualPercent = 50;
         else if (value <= 48) residualPercent = 40;
         else residualPercent = 35;

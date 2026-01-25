@@ -309,7 +309,7 @@ export function TireSizingCalculator() {
               <Label>{t("calculationSteps")}</Label>
               <div className="p-4 bg-muted rounded-md text-sm space-y-1">
                 {tire1Result.steps.map((step, i) => (
-                  <div key={i} className="font-mono">
+                  <div key={`tire1-step-${i}-${step.slice(0, 20)}`} className="font-mono">
                     {i + 1}. {step}
                   </div>
                 ))}
@@ -408,7 +408,7 @@ export function TireSizingCalculator() {
               <Label>{t("calculationSteps")}</Label>
               <div className="p-4 bg-muted rounded-md text-sm space-y-1">
                 {comparisonResult.steps.map((step, i) => (
-                  <div key={i} className="font-mono">
+                  <div key={`comparison-step-${i}-${step.slice(0, 20)}`} className="font-mono">
                     {i + 1}. {step}
                   </div>
                 ))}

@@ -209,7 +209,10 @@ export function VmStorageCalculator() {
             </div>
 
             {vmConfigs.map((config, index) => (
-              <Card key={index} className="border-muted">
+              <Card
+                key={`vm-config-${index}-${config.diskGb}-${config.count}`}
+                className="border-muted"
+              >
                 <CardContent className="pt-6">
                   <div className="grid gap-4 md:grid-cols-4">
                     <InputField
@@ -455,7 +458,7 @@ export function VmStorageCalculator() {
                 <h3 className="text-lg font-semibold mb-3">{tCommon("calculationSteps")}</h3>
                 <div className="space-y-2 rounded-lg bg-muted p-4">
                   {result.steps.map((step, index) => (
-                    <div key={index} className="flex gap-3">
+                    <div key={`step-${index}-${step.slice(0, 20)}`} className="flex gap-3">
                       <span className="text-sm font-medium text-muted-foreground">
                         {index + 1}.
                       </span>

@@ -90,7 +90,7 @@ export function BinaryRepresentation({ result }: BinaryRepresentationProps) {
             const isNetworkBit = index < result.cidr;
             return (
               <span
-                key={`ip-bit-${index}`}
+                key={`ip-bit-${index}-${bit}`}
                 className={cn(
                   "px-1 py-0.5 rounded font-mono text-xs",
                   isNetworkBit

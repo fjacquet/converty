@@ -300,7 +300,7 @@ export function VmwareLicensingCalculator() {
               <CardContent>
                 <div className="space-y-2 rounded-lg bg-muted p-4">
                   {result.steps.map((step, index) => (
-                    <div key={index} className="flex gap-3">
+                    <div key={`step-${index}-${step.slice(0, 20)}`} className="flex gap-3">
                       <span className="text-sm font-medium text-muted-foreground">
                         {index + 1}.
                       </span>

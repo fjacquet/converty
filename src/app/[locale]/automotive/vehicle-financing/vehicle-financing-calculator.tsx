@@ -462,7 +462,7 @@ export function VehicleFinancingCalculator() {
               <Label>{t("calculationSteps")}</Label>
               <div className="p-4 bg-muted rounded-md text-sm space-y-1">
                 {loanResult.steps.map((step, i) => (
-                  <div key={i} className="font-mono">
+                  <div key={`loan-step-${i}-${step.slice(0, 20)}`} className="font-mono">
                     {i + 1}. {step}
                   </div>
                 ))}
@@ -544,7 +544,7 @@ export function VehicleFinancingCalculator() {
               <Label>{t("calculationSteps")}</Label>
               <div className="p-4 bg-muted rounded-md text-sm space-y-1">
                 {leaseResult.steps.map((step, i) => (
-                  <div key={i} className="font-mono">
+                  <div key={`lease-step-${i}-${step.slice(0, 20)}`} className="font-mono">
                     {i + 1}. {step}
                   </div>
                 ))}
@@ -641,7 +641,10 @@ export function VehicleFinancingCalculator() {
               <Label>{t("calculationSteps")}</Label>
               <div className="p-4 bg-muted rounded-md text-sm space-y-1">
                 {comparisonResult.steps.map((step, i) => (
-                  <div key={i} className="font-mono">
+                  <div
+                    key={`financing-comparison-step-${i}-${step.slice(0, 20)}`}
+                    className="font-mono"
+                  >
                     {i + 1}. {step}
                   </div>
                 ))}

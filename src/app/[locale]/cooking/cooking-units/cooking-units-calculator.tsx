@@ -276,7 +276,7 @@ export function CookingUnitsCalculator() {
               <Label>{t("conversionSteps")}</Label>
               <div className="p-4 bg-muted rounded-md text-sm space-y-1">
                 {result.steps.map((step, i) => (
-                  <div key={i} className="font-mono">
+                  <div key={`step-${i}-${step.slice(0, 20)}`} className="font-mono">
                     {i + 1}. {step}
                   </div>
                 ))}
