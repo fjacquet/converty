@@ -49,7 +49,7 @@ export default async function WalletValidatorPage({
       category={category}
       categoryName={tc("crypto.name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <WalletValidatorCalculator />
       </Suspense>
     </ConverterLayout>

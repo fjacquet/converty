@@ -53,7 +53,7 @@ export default async function VehicleFinancingPage({
       category={category}
       categoryName={categoryT("name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <VehicleFinancingCalculator />
       </Suspense>
     </ConverterLayout>

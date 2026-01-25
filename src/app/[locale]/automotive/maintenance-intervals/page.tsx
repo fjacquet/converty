@@ -56,7 +56,7 @@ export default async function MaintenanceIntervalsPage({
       category={automotiveCategory}
       categoryName={categoryT("name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <MaintenanceIntervalsCalculator />
       </Suspense>
     </ConverterLayout>

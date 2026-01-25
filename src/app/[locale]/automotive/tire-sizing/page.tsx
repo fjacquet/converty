@@ -45,7 +45,7 @@ export default async function TireSizingPage({ params }: { params: Promise<{ loc
 
   return (
     <ConverterLayout title={t("name")} description={t("description")} category={category}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <TireSizingCalculator />
       </Suspense>
     </ConverterLayout>

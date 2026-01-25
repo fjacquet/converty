@@ -49,7 +49,7 @@ export default async function NutritionCalculatorPage({
       category={category}
       categoryName={categoryT("name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <NutritionCalculatorComponent />
       </Suspense>
     </ConverterLayout>

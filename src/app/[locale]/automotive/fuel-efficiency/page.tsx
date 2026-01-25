@@ -49,7 +49,7 @@ export default async function FuelEfficiencyPage({
       category={category}
       categoryName={tc("automotive.name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <FuelEfficiencyCalculator />
       </Suspense>
     </ConverterLayout>

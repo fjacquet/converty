@@ -49,7 +49,7 @@ export default async function HashCalculatorPage({
       category={category}
       categoryName={tc("crypto.name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <HashCalculator />
       </Suspense>
     </ConverterLayout>

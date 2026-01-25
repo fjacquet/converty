@@ -49,7 +49,7 @@ export default async function RecipeScalerPage({
       category={category}
       categoryName={tc("cooking.name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <RecipeScalerCalculator />
       </Suspense>
     </ConverterLayout>

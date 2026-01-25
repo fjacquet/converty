@@ -49,7 +49,7 @@ export default async function MortgageSwissPage({
       category={category}
       categoryName={tc("realestate.name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <MortgageSwissCalculator />
       </Suspense>
     </ConverterLayout>

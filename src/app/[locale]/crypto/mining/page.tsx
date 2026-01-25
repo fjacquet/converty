@@ -69,7 +69,7 @@ export default async function MiningCalculatorPage({
       category={category}
       categoryName={tc("crypto.name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <MiningCalculator />
       </Suspense>
     </ConverterLayout>

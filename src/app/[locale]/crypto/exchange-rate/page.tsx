@@ -74,7 +74,7 @@ export default async function ExchangeRatePage({
       category={category}
       categoryName={tc("crypto.name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <ExchangeRateCalculator />
       </Suspense>
     </ConverterLayout>

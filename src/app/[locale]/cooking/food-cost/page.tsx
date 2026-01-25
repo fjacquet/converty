@@ -45,7 +45,7 @@ export default async function FoodCostPage({ params }: { params: Promise<{ local
       category={category}
       categoryName={categoryT("name")}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalculatorSkeleton />}>
         <FoodCostCalculator />
       </Suspense>
     </ConverterLayout>
