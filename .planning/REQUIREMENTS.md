@@ -37,10 +37,10 @@ Requirements for v3.0 Calculator Expansion & Performance milestone. Each maps to
 
 ### Performance Optimization
 
-- [ ] **PERF-01**: Calculator components are code-split and lazy-loaded by category
-- [ ] **PERF-02**: Initial bundle size reduced (defer non-critical categories)
-- [ ] **PERF-03**: Search results load instantly (virtualized list for 200+ calculators)
-- [ ] **PERF-04**: First Contentful Paint (FCP) improved through lazy loading
+- [x] **PERF-01**: Calculator components are code-split and lazy-loaded by category ✓
+- [x] **PERF-02**: Initial bundle size reduced (defer non-critical categories) ✓
+- [x] **PERF-03**: Search results load instantly (virtualized list for 200+ calculators) ✓
+- [x] **PERF-04**: First Contentful Paint (FCP) improved through lazy loading ✓
 
 ### User Experience — Favorites
 
@@ -60,10 +60,10 @@ Requirements for v3.0 Calculator Expansion & Performance milestone. Each maps to
 
 ### User Experience — Export
 
-- [ ] **EXP-01**: User can export calculation results as PDF
-- [ ] **EXP-02**: User can export calculation results as CSV
-- [ ] **EXP-03**: Exported files include calculator name, inputs, and results
-- [ ] **EXP-04**: Export is accessible from calculator results
+- [x] **EXP-01**: User can export calculation results as PDF ✓
+- [x] **EXP-02**: User can export calculation results as CSV ✓
+- [x] **EXP-03**: Exported files include calculator name, inputs, and results ✓
+- [x] **EXP-04**: Export is accessible from calculator results ✓
 
 ## v2 Requirements
 
@@ -126,14 +126,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COOK-02 | Phase 19 | Complete |
 | COOK-03 | Phase 19 | Complete |
 | COOK-04 | Phase 19 | Complete |
-| AUTO-01 | Phase 20 | Pending |
-| AUTO-02 | Phase 20 | Pending |
-| AUTO-03 | Phase 20 | Pending |
-| AUTO-04 | Phase 20 | Pending |
-| PERF-01 | Phase 21 | Pending |
-| PERF-02 | Phase 21 | Pending |
-| PERF-03 | Phase 21 | Pending |
-| PERF-04 | Phase 21 | Pending |
+| AUTO-01 | Phase 20 | Complete |
+| AUTO-02 | Phase 20 | Complete |
+| AUTO-03 | Phase 20 | Complete |
+| AUTO-04 | Phase 20 | Complete |
+| PERF-01 | Phase 21 | Complete |
+| PERF-02 | Phase 21 | Complete |
+| PERF-03 | Phase 21 | Complete |
+| PERF-04 | Phase 21 | Complete |
 | FAV-01 | Phase 22 | Pending |
 | FAV-02 | Phase 22 | Pending |
 | FAV-03 | Phase 22 | Pending |
@@ -144,10 +144,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HIST-03 | Phase 23 | Pending |
 | HIST-04 | Phase 23 | Pending |
 | HIST-05 | Phase 23 | Pending |
-| EXP-01 | Phase 24 | Pending |
-| EXP-02 | Phase 24 | Pending |
-| EXP-03 | Phase 24 | Pending |
-| EXP-04 | Phase 24 | Pending |
+| EXP-01 | Phase 24 | Complete |
+| EXP-02 | Phase 24 | Complete |
+| EXP-03 | Phase 24 | Complete |
+| EXP-04 | Phase 24 | Complete |
 
 **Coverage:**
 
@@ -158,4 +158,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 ---
 
 _Requirements defined: 2026-01-24_
-_Last updated: 2026-01-24 after Phase 18 completion (12/34 requirements satisfied)_
+_Last updated: 2026-01-25 after Phase 24 completion (24/24 v3.0 requirements satisfied)_

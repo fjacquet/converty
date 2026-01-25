@@ -148,23 +148,23 @@ Plans:
 
 **Success Criteria:**
 
-- [ ] PDF export functionality working (using existing jsPDF)
-- [ ] CSV export functionality working
-- [ ] Exported files include calculator name, inputs, and results
-- [ ] Export accessible from calculator results section
-- [ ] File naming descriptive and timestamped
-- [ ] Export formatting clean and readable
-- [ ] Works across all calculator categories
+- [x] PDF export functionality working (using existing jsPDF) ✓
+- [x] CSV export functionality working ✓
+- [x] Exported files include calculator name, inputs, and results ✓
+- [x] Export accessible from calculator results section ✓
+- [x] File naming descriptive and timestamped ✓
+- [x] Export formatting clean and readable ✓
+- [x] Works across all calculator categories ✓
 
 **Plans:** 3 plans
 
 Plans:
 
-- [ ] 24-01-PLAN.md — Export foundation (CSV utility + i18n translations)
-- [ ] 24-02-PLAN.md — Export components (update PdfExportButton, create CsvExportButton)
-- [ ] 24-03-PLAN.md — Integration example (Age Calculator with both exports)
+- [x] 24-01-PLAN.md — Export foundation (CSV utility + i18n translations) ✓
+- [x] 24-02-PLAN.md — Export components (update PdfExportButton, create CsvExportButton) ✓
+- [x] 24-03-PLAN.md — Integration example (Age Calculator with both exports) ✓
 
-**Status:** READY FOR EXECUTION
+**Status:** ✅ COMPLETE (2026-01-25)
 
 **Included in v3.0 Requirements:** EXP-01, EXP-02, EXP-03, EXP-04
 
