@@ -116,12 +116,13 @@ Plans:
 
 **Requirements:** INFRA-01
 
-**Plans:** 2 plans (2 waves)
+**Plans:** 3 plans
 
 Plans:
 
 - [x] 27-01-PLAN.md — Create calculation logic, registry entry, and translations
 - [x] 27-02-PLAN.md — Create UI component and page with URL state
+- [ ] 27-03-PLAN.md — (Gap closure) Add missing 'profile' translation key
 
 **Deliverables:**
 
@@ -147,12 +148,17 @@ Plans:
    - Calculator title, description, inputs, results
    - Help text for complex fields
 
+5. **Gap closure: Fix missing profile key**
+   - Add 'profile' translation to all 4 locale files
+   - Required for PDF/CSV export labels (Profile 1 - Disk Size, etc.)
+
 **Success Criteria:**
 
 - [x] Storage calculations match VMware reference tools
 - [x] URL state works correctly
 - [x] All 4 locales translated
 - [x] Responsive design verified
+- [ ] No MISSING_MESSAGE errors for profile key
 
 **Estimated Complexity:** Medium
 **Dependencies:** Phase 26
