@@ -1,9 +1,9 @@
 ---
-status: diagnosed
+status: complete
 phase: 26-infrastructure-category-foundation
 source: 26-01-SUMMARY.md, 26-02-SUMMARY.md
 started: 2026-01-25T14:30:00Z
-updated: 2026-01-25T14:40:00Z
+updated: 2026-01-25T21:30:00Z
 ---
 
 ## Current Test
@@ -45,51 +45,21 @@ result: pass
 ### 7. Production build generates all locale pages
 
 expected: Running `npm run build` successfully generates infrastructure category pages for all 4 locales without TypeScript errors or build failures.
-result: issue
-reported: "oups
-
-✓ Collecting page data using 9 workers in 646.0ms
-Error: MISSING_MESSAGE: calculator.k8sCapacity.podWorkload (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.podCpuRequest (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.podMemoryRequest (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.podReplicas (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.nodeSpecs (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.nodeMemoryMb (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.systemOverhead (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.systemReservedCpu (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.systemReservedHelp (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.systemReservedMemory (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.daemonSetCpuPerNode (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.daemonSetHelp (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.daemonSetMemoryPerNode (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.targetUtilization (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.targetUtilizationHelp (de)
-Error: MISSING_MESSAGE: calculator.k8sCapacity.targetMemoryUtilization (de)
-(build completes but with errors)"
-severity: major
+result: pass
+verified: Fixed by 26-03-PLAN.md (German k8sCapacity translations). Build now completes successfully with no MISSING_MESSAGE errors.
 
 ## Summary
 
 total: 7
-passed: 6
-issues: 1
+passed: 7
+issues: 0
 pending: 0
 skipped: 0
 
 ## Gaps
 
-- truth: "Running `npm run build` successfully generates infrastructure category pages for all 4 locales without TypeScript errors or build failures"
-  status: failed
-  reason: "User reported: Build completes but emits 19 MISSING_MESSAGE errors for calculator.k8sCapacity.* keys in German (de) locale"
-  severity: major
-  test: 7
-  root_cause: "German locale file (src/messages/de.json) contains outdated k8sCapacity translations from before Phase 28 calculator redesign with 36 old keys instead of required 51 keys"
-  artifacts:
-  - path: "src/messages/de.json"
-      issue: "calculator.k8sCapacity section has outdated structure with 28 missing keys and 13 obsolete keys"
-  - path: "src/messages/en.json"
-      issue: "Reference for correct structure (51 keys)"
-  missing:
-  - "Replace entire calculator.k8sCapacity section in de.json with German translations of current 51 keys from en.json"
-  - "Missing keys: allocatableCpu, allocatableMemory, breakdown, calculationSteps, cpuBreakdown, cpuConstraint, daemonSetCpuPerNode, daemonSetHelp, daemonSetMemoryPerNode, finalMemoryUtilization, memoryBreakdown, memoryConstraint, nodeMemoryMb, nodesNeeded, nodeSpecs, overUtilizationWarning, podCpuRequest, podMemoryRequest, podReplicas, podWorkload, results, systemOverhead, systemReservedCpu, systemReservedHelp, systemReservedMemory, targetMemoryUtilization, targetUtilization, targetUtilizationHelp"
-  debug_session: ".planning/debug/missing-k8s-de-translations.md"
+[All gaps closed]
+
+- Test 7 gap resolved by 26-03-PLAN.md (2026-01-25)
+- German k8sCapacity translations updated from 36 to 51 keys
+- Production build now succeeds without MISSING_MESSAGE errors
