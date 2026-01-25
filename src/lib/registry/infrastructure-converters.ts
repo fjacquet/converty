@@ -1,4 +1,3 @@
-import { Server } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const infrastructureConverters: Record<string, ConverterMeta> = {
