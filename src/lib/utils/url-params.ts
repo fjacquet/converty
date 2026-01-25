@@ -138,6 +138,3 @@ export function getUrlParams(): Map<string, string> {
 
   return params;
 }
-
-// test unused import
-import { unused } from "./test";
