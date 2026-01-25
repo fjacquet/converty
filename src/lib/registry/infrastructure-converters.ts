@@ -1,4 +1,4 @@
-import { HardDrive, Receipt, Server } from "lucide-react";
+import { DollarSign, HardDrive, Receipt, Server } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const infrastructureConverters: Record<string, ConverterMeta> = {
@@ -90,5 +90,13 @@ export const infrastructureConverters: Record<string, ConverterMeta> = {
     icon: Receipt,
     featured: true,
   },
-  // Virtualization Cost Calculator - Phase 30
+  "virtualization-cost": {
+    id: "virtualization-cost",
+    slug: "virtualization-cost",
+    category: "infrastructure",
+    subcategory: "cost",
+    keywords: ["tco", "cost", "virtualization", "capex", "opex", "datacenter"],
+    icon: DollarSign,
+    featured: true,
+  },
 };
