@@ -276,6 +276,14 @@ Plans:
 
 **Requirements:** INFRA-05, UX-03
 
+**Plans:** 3 plans (3 waves)
+
+Plans:
+
+- [ ] 30-01-PLAN.md — Create TCO calculation logic, registry entry, and translations
+- [ ] 30-02-PLAN.md — Create virtualization cost UI component and page
+- [ ] 30-03-PLAN.md — Add PDF/CSV export to all 5 infrastructure calculators
+
 **Deliverables:**
 
 ### Calculator: Virtualization Cost
