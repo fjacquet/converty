@@ -217,6 +217,13 @@ Progress: ██████████████████ 100% (v3.0 — 
 | CalculatorSkeleton in both dynamic loading and Suspense fallback   | 21-02 | Consistent loading UX whether chunk is being fetched or component is suspending                   |
 | Auto-fix pre-existing linting issues during verification          | 21-04 | Improves code quality opportunistically during gap closure verification                           |
 | Document but not fix array index key warnings                     | 21-04 | Pre-existing warnings beyond gap closure scope, deferred for future cleanup                       |
+| Use Serena/grepai for phase execution instead of subagents        | 24    | Direct tool usage more efficient than spawning executors - faster feedback, lower context burn   |
+| Zero dependencies for CSV export (native Blob API)                | 24-01 | Browser APIs sufficient, no external library needed for simple CSV generation                     |
+| CSV injection prevention (escape =+\-@ prefixes)                  | 24-01 | Security best practice - prevents formula injection in Excel/Sheets when opening CSVs            |
+| UTF-8 BOM for CSV Excel compatibility                             | 24-01 | Excel requires BOM to detect UTF-8 encoding correctly for international characters               |
+| Timestamped export filenames (YYYY-MM-DD_HH-MM-SS)                | 24-02 | ISO 8601 adapted for filesystems - sortable, unambiguous, avoids filename collisions             |
+| FileText icon for PDF vs Download for CSV                         | 24-02 | Semantic distinction - PDF is document (FileText), CSV is data download (Download)               |
+| Age Calculator as export reference implementation                 | 24-03 | First calculator with both exports - pattern for future integrations                             |
 
 ### Milestone Evolution
 
