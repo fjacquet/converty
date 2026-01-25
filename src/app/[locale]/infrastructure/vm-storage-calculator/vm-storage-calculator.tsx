@@ -67,6 +67,7 @@ export function VmStorageCalculator() {
                 <CardContent className="pt-6">
                   <div className="grid gap-4 md:grid-cols-4">
                     <InputField
+                      id={`diskSize-${index}`}
                       label={t("diskSize")}
                       type="number"
                       value={config.diskGb}
@@ -76,6 +77,7 @@ export function VmStorageCalculator() {
                       step={10}
                     />
                     <InputField
+                      id={`ramSize-${index}`}
                       label={t("ramSize")}
                       type="number"
                       value={config.ramGb}
@@ -85,6 +87,7 @@ export function VmStorageCalculator() {
                       step={1}
                     />
                     <InputField
+                      id={`vmCount-${index}`}
                       label={t("vmCount")}
                       type="number"
                       value={config.count}
@@ -129,6 +132,7 @@ export function VmStorageCalculator() {
               </div>
 
               <InputField
+                id="configLogPerVm"
                 label={t("configLogPerVm")}
                 type="number"
                 value={configLogGbPerVm}
@@ -140,6 +144,7 @@ export function VmStorageCalculator() {
 
             <div className="space-y-2">
               <InputField
+                id="snapshotPercent"
                 label={t("snapshotPercent")}
                 type="number"
                 value={snapshotPercent}
@@ -153,6 +158,7 @@ export function VmStorageCalculator() {
 
             <div className="grid gap-4 md:grid-cols-2">
               <InputField
+                id="esxHosts"
                 label={t("esxHosts")}
                 type="number"
                 value={esxHosts}
@@ -161,6 +167,7 @@ export function VmStorageCalculator() {
                 step={1}
               />
               <InputField
+                id="esxStoragePerHost"
                 label={t("esxStoragePerHost")}
                 type="number"
                 value={esxStorageGbPerHost}
@@ -172,6 +179,7 @@ export function VmStorageCalculator() {
 
             <div className="grid gap-4 md:grid-cols-2">
               <InputField
+                id="thinProvisioningPercent"
                 label={t("thinProvisioningPercent")}
                 type="number"
                 value={thinProvisioningPercent}
@@ -181,6 +189,7 @@ export function VmStorageCalculator() {
                 step={5}
               />
               <InputField
+                id="growthPercent"
                 label={t("growthPercent")}
                 type="number"
                 value={growthPercent}
@@ -256,28 +265,23 @@ export function VmStorageCalculator() {
                 results={[
                   {
                     label: t("usedDisk"),
-                    value: `${result.usedDiskGb.toFixed(2)} GB`,
-                    description: `${result.percentages.usedDisk.toFixed(1)}%`,
+                    value: `${result.usedDiskGb.toFixed(2)} GB (${result.percentages.usedDisk.toFixed(1)}%)`,
                   },
                   {
                     label: t("overSubscribed"),
-                    value: `${result.overSubscribedGb.toFixed(2)} GB`,
-                    description: `${result.percentages.overSubscribed.toFixed(1)}%`,
+                    value: `${result.overSubscribedGb.toFixed(2)} GB (${result.percentages.overSubscribed.toFixed(1)}%)`,
                   },
                   {
                     label: t("snapshotAllocation"),
-                    value: `${result.snapshotGb.toFixed(2)} GB`,
-                    description: `${result.percentages.snapshot.toFixed(1)}%`,
+                    value: `${result.snapshotGb.toFixed(2)} GB (${result.percentages.snapshot.toFixed(1)}%)`,
                   },
                   {
                     label: t("swapAllocation"),
-                    value: `${result.swapGb.toFixed(2)} GB`,
-                    description: `${result.percentages.swap.toFixed(1)}%`,
+                    value: `${result.swapGb.toFixed(2)} GB (${result.percentages.swap.toFixed(1)}%)`,
                   },
                   {
                     label: t("configLogAllocation"),
-                    value: `${result.configLogGb.toFixed(2)} GB`,
-                    description: `${result.percentages.configLog.toFixed(1)}%`,
+                    value: `${result.configLogGb.toFixed(2)} GB (${result.percentages.configLog.toFixed(1)}%)`,
                   },
                   {
                     label: t("totalVmStorage"),
@@ -285,13 +289,11 @@ export function VmStorageCalculator() {
                   },
                   {
                     label: t("esxOverhead"),
-                    value: `${result.esxStorageGb.toFixed(2)} GB`,
-                    description: `${result.percentages.esxOverhead.toFixed(1)}%`,
+                    value: `${result.esxStorageGb.toFixed(2)} GB (${result.percentages.esxOverhead.toFixed(1)}%)`,
                   },
                   {
                     label: t("growthAllocation"),
-                    value: `${result.growthAllocationGb.toFixed(2)} GB`,
-                    description: `${result.percentages.growth.toFixed(1)}%`,
+                    value: `${result.growthAllocationGb.toFixed(2)} GB (${result.percentages.growth.toFixed(1)}%)`,
                   },
                 ]}
               />
