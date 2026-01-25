@@ -19,6 +19,7 @@ VMware storage calculations involve multiple overhead factors: VM swap files (eq
 The established libraries/tools for this domain:
 
 ### Core
+
 | Library | Version | Purpose | Why Standard |
 |---------|---------|---------|--------------|
 | Next.js | 15.1.5 | Framework | Static export, established in codebase v1.0 |
@@ -27,6 +28,7 @@ The established libraries/tools for this domain:
 | Zustand | 5.0.3 | State management | Lightweight state with URL sync middleware |
 
 ### Supporting
+
 | Library | Version | Purpose | When to Use |
 |---------|---------|---------|-------------|
 | next-intl | 4.0.0-beta.9 | Internationalization | All user-facing text (4 locales: en, fr, de, it) |
@@ -34,12 +36,14 @@ The established libraries/tools for this domain:
 | Lucide React | 0.469.0 | Icons | Calculator category icons |
 
 ### Alternatives Considered
+
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
 | Zustand | Redux Toolkit | Zustand lighter, URL sync middleware already built |
 | Pure functions | Class-based | Pure functions easier to test, framework-agnostic |
 
 **Installation:**
+
 ```bash
 # No new packages needed - all dependencies exist in project
 npm install  # Uses existing package.json
@@ -48,6 +52,7 @@ npm install  # Uses existing package.json
 ## Architecture Patterns
 
 ### Recommended Project Structure
+
 ```
 src/
 ├── lib/
@@ -70,9 +75,11 @@ src/
 ```
 
 ### Pattern 1: Pure Calculation Function
+
 **What:** Calculation logic separated from UI, no side effects
 **When to use:** All calculator implementations (established v1.0 pattern)
 **Example:**
+
 ```typescript
 // Source: Established pattern from src/lib/converters/health/bmi.ts
 
@@ -143,9 +150,11 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
 ```
 
 ### Pattern 2: Zustand Store with URL Sync
+
 **What:** Factory pattern for calculator state with automatic URL parameter synchronization
 **When to use:** Every calculator (established v1.0 pattern)
 **Example:**
+
 ```typescript
 // Source: src/stores/calculator-store.ts factory
 
@@ -175,9 +184,11 @@ export const useVmStorageStore = createCalculatorStore<VmStorageInput, VmStorage
 ```
 
 ### Pattern 3: Component Structure
+
 **What:** Client component using store hook, translation hook, responsive layout
 **When to use:** All calculator UI components
 **Example:**
+
 ```typescript
 // Source: Established pattern from existing calculators
 
@@ -239,6 +250,7 @@ export function VmStorageCalculator() {
 ```
 
 ### Anti-Patterns to Avoid
+
 - **Direct state mutation:** Always use `setValue()` or `setValues()` from store, never mutate `values` directly
 - **Missing null checks:** Always check `if (result)` before rendering results
 - **Hardcoded strings:** All user-facing text must use `t()` from `useTranslations()`
@@ -263,9 +275,11 @@ Problems that look simple but have existing solutions:
 ## Common Pitfalls
 
 ### Pitfall 1: Over-Provisioning Without Monitoring
+
 **What goes wrong:** Thin provisioning allows over-subscription (allocating more storage than physically available), but if actual usage exceeds capacity, the entire storage system can halt or fail.
 **Why it happens:** Users set high thin provisioning percentages without understanding actual VM disk usage patterns.
 **How to avoid:**
+
 - Default to conservative thin provisioning (20-30%, not 50%+)
 - Include warning text in UI about monitoring requirements
 - Show both provisioned and used capacity clearly
@@ -274,9 +288,11 @@ Problems that look simple but have existing solutions:
 **Source:** [VMware NGX Storage KB - Best Practices](https://kb.ngxstorage.com/knowledge-base/vmware-vsphere-best-practices/)
 
 ### Pitfall 2: Incorrect Swap File Calculation
+
 **What goes wrong:** Calculating swap file size incorrectly by using a fixed percentage of RAM or including it when memory reservation is set.
 **Why it happens:** Misunderstanding that swap file size = configured RAM - memory reservation.
 **How to avoid:**
+
 - Formula: `swapFileSize = configuredRAM - memoryReservation`
 - If no reservation: `swapFileSize = configuredRAM`
 - Allow users to disable swap file allocation entirely
@@ -285,31 +301,38 @@ Problems that look simple but have existing solutions:
 **Source:** [VMware ESXi Swap Files - ituda.com](https://ituda.com/vmware-esxi-swap-files/)
 
 ### Pitfall 3: Snapshot Storage Underestimation
+
 **What goes wrong:** Allocating insufficient space for snapshots (e.g., 5%) when high-change-rate VMs (SQL, Exchange) can consume 20-30% or more.
 **Why it happens:** Not accounting for workload characteristics and snapshot duration.
 **How to avoid:**
+
 - Default to 20-30% for general VMs
 - Include help text: "Allocate 20-30% for general VMs, up to 100% for high-change-rate workloads"
 - Warn that snapshots shouldn't be kept >72 hours
 **Warning signs:** Snapshot percentage <10% without workload context.
 
 **Sources:**
+
 - [Best practices for using VMware snapshots](https://knowledge.broadcom.com/external/article/318825/best-practices-for-using-vmware-snapshot.html)
 - [NAKIVO - VMware Snapshot Best Practices](https://www.nakivo.com/blog/vmware-snapshots-vsphere-how-to/)
 
 ### Pitfall 4: Missing Growth Allocation
+
 **What goes wrong:** Calculating exact current capacity without headroom for growth, leading to capacity issues months later.
 **Why it happens:** Focusing only on current workload without planning for expansion.
 **How to avoid:**
+
 - Default growth allocation to 30%
 - Apply growth percentage to total before growth (not circular calculation)
 - Include help text explaining this is for future expansion
 **Warning signs:** Growth percentage is 0% or not included in calculation.
 
 ### Pitfall 5: RAID Overhead Confusion
+
 **What goes wrong:** Not accounting for RAID overhead, or applying it incorrectly (e.g., reducing provisioned capacity instead of calculating required raw capacity).
 **Why it happens:** RAID calculations are complex and vSAN-specific overhead differs from traditional RAID.
 **How to avoid:**
+
 - For traditional RAID, this calculator doesn't include RAID overhead (document in help text)
 - For vSAN: RAID-1 = 50% usable, RAID-5 = 75% usable, RAID-6 = 67% usable
 - Consider adding RAID overhead as optional advanced feature
@@ -318,9 +341,11 @@ Problems that look simple but have existing solutions:
 **Source:** [Planning Capacity in vSAN](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vsan-planning.doc/GUID-581D2D5C-A88F-4318-A8B3-5A5F343F1247.html)
 
 ### Pitfall 6: Configuration File Overhead Ignored
+
 **What goes wrong:** Not allocating space for VM configuration files, logs, and nvram, leading to small but cumulative capacity shortfalls.
 **Why it happens:** These files are small (~250 MB per VM) and often overlooked.
 **How to avoid:**
+
 - Default to 0.25 GB per VM
 - Include in calculation even though small
 - Document that this excludes swap files
@@ -331,6 +356,7 @@ Problems that look simple but have existing solutions:
 Verified patterns from official sources:
 
 ### VMware Storage Calculation Formulas
+
 ```typescript
 // Source: https://wintelguy.com/vm-storage-calc.pl (reference implementation)
 // Verified against VMware vSphere documentation
@@ -387,6 +413,7 @@ percentages = {
 ```
 
 ### Input Validation Pattern
+
 ```typescript
 // Source: Established pattern from src/lib/converters/health/bmi.ts
 
@@ -419,6 +446,7 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
 ```
 
 ### Dynamic VM Configuration Array in UI
+
 ```typescript
 // Pattern for handling dynamic array of VM configurations
 
@@ -516,6 +544,7 @@ export function VmStorageCalculator() {
 | Physical servers only | Include virtual infrastructure | Phase 26 (2026) | Infrastructure category created |
 
 **Deprecated/outdated:**
+
 - Manual `useState` for calculator values: Use `createCalculatorStore` factory instead
 - Direct `window.location.search` manipulation: URL sync middleware handles this
 - Hardcoded English text: Use translation keys from `src/messages/*.json`
@@ -547,6 +576,7 @@ Things that couldn't be fully resolved:
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - VMware vSphere Official Documentation (6.7/7.0/8.0) - [vSAN Planning](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vsan-planning.doc/GUID-581D2D5C-A88F-4318-A8B3-5A5F343F1247.html)
 - VMware Knowledge Base - [Snapshot Best Practices](https://knowledge.broadcom.com/external/article/318825/best-practices-for-using-vmware-snapshot.html)
 - VMware Knowledge Base - [Thick/Thin Provisioning](https://knowledge.broadcom.com/external/article/323114/changing-the-thick-or-thin-provisioning.html)
@@ -555,6 +585,7 @@ Things that couldn't be fully resolved:
 - WintelGuy VM Storage Calculator - [Reference Implementation](https://wintelguy.com/vm-storage-calc.pl)
 
 ### Secondary (MEDIUM confidence)
+
 - NAKIVO - [VMware Snapshot Best Practices](https://www.nakivo.com/blog/vmware-snapshots-vsphere-how-to/)
 - NAKIVO - [Thick vs Thin Provisioning](https://www.nakivo.com/blog/thick-and-thin-provisioning-difference/)
 - Paessler Blog - [Thin vs Thick Provisioning Strategy](https://blog.paessler.com/thin-vs-thick-provisioning-making-the-right-storage-choice-for-your-it-infrastructure)
@@ -562,6 +593,7 @@ Things that couldn't be fully resolved:
 - VMinstall - [ESX Swap File Size Best Practice](https://www.vminstall.com/esx-swap-file-size-best-practice/)
 
 ### Tertiary (LOW confidence)
+
 - Community discussions on storage capacity monitoring thresholds (20% warning, 5% critical)
 - Blog posts on vSAN capacity reporting complexities
 - General RAID calculator sites (not vSphere-specific)
@@ -569,6 +601,7 @@ Things that couldn't be fully resolved:
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - Established in codebase since v1.0, no new dependencies needed
 - Architecture: HIGH - Verified patterns from existing calculators, `createCalculatorStore` factory documented
 - VMware formulas: HIGH - Verified from official VMware documentation and reference implementation
@@ -579,6 +612,7 @@ Things that couldn't be fully resolved:
 **Valid until:** 2026-02-25 (30 days - VMware storage formulas are stable, codebase patterns established)
 
 **Notes:**
+
 - No compression or deduplication calculations (per reference implementation)
 - Calculations assume VMFS datastores, not vSAN (vSAN requires different overhead calculations)
 - All calculations in GB (not GiB) per infrastructure category decision from Phase 26
