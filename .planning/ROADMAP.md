@@ -21,7 +21,7 @@
 
 ---
 
-## Phase 25: Security Hardening
+## Phase 25: Security Hardening ✅
 
 **Goal:** Eliminate all CodeQL security vulnerabilities and code quality issues.
 
@@ -31,8 +31,8 @@
 
 Plans:
 
-- [ ] 25-01-PLAN.md — Fix remote property injection with Map-based URL params
-- [ ] 25-02-PLAN.md — Document container vulnerabilities and remove unused imports
+- [x] 25-01-PLAN.md — Fix remote property injection with Map-based URL params
+- [x] 25-02-PLAN.md — Document container vulnerabilities and remove unused imports
 
 **Deliverables:**
 
@@ -55,10 +55,10 @@ Plans:
 
 **Success Criteria:**
 
-- [ ] Zero CodeQL High severity alerts
-- [ ] Zero Biome warnings
-- [ ] All 167 calculators work with URL state
-- [ ] Security documentation updated
+- [x] Zero CodeQL High severity alerts
+- [x] Zero Biome warnings
+- [x] All 167 calculators work with URL state
+- [x] Security documentation updated
 
 **Estimated Complexity:** Medium
 **Dependencies:** None
@@ -339,9 +339,9 @@ graph TD
 
 **Security:**
 
-- [ ] Zero CodeQL High/Warning/Note severity issues
-- [ ] All security vulnerabilities documented or fixed
-- [ ] Clean Biome lint (0 warnings)
+- [x] Zero CodeQL High/Warning/Note severity issues
+- [x] All security vulnerabilities documented or fixed
+- [x] Clean Biome lint (0 warnings)
 
 **Functionality:**
 
