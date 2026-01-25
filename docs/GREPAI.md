@@ -5,6 +5,7 @@
 ## Overview
 
 grepai provides:
+
 1. **Semantic Search** - Find code by describing what it does
 2. **Call Graph Analysis** - Understand function relationships and dependencies
 3. **MCP Integration** - Native tool support for AI agents
@@ -56,6 +57,7 @@ grepai search "payment processing" --json --compact
 ### Search Result Formats
 
 **Standard Output:**
+
 ```
 Found 5 results for: "user authentication flow"
 
@@ -67,6 +69,7 @@ File: src/lib/auth.ts:45-72
 ```
 
 **JSON Output:**
+
 ```json
 [
   {
@@ -80,6 +83,7 @@ File: src/lib/auth.ts:45-72
 ```
 
 **Compact JSON (recommended for AI agents):**
+
 ```json
 [
   {
@@ -114,6 +118,7 @@ grepai trace callers "validateToken" --json
 ```
 
 **Use cases:**
+
 - Before modifying a function: "What will break?"
 - Understanding function usage: "Where is this called?"
 - Impact analysis: "How widely used is this?"
@@ -139,6 +144,7 @@ grepai trace callees "processPayment" --json
 ```
 
 **Use cases:**
+
 - Understanding dependencies: "What does this rely on?"
 - Analyzing complexity: "How many functions does this call?"
 - Refactoring prep: "What needs to be available?"
@@ -168,6 +174,7 @@ grepai trace graph "AuthMiddleware" --depth 3 --json
 ```
 
 **Use cases:**
+
 - Visualizing architecture: "How does this subsystem work?"
 - Dependency analysis: "What's the full call chain?"
 - Refactoring planning: "What's the blast radius?"

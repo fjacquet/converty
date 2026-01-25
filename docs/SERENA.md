@@ -5,6 +5,7 @@
 ## Overview
 
 Serena provides:
+
 1. **Semantic Symbol Operations** - Find, read, and manipulate code symbols (classes, functions, methods)
 2. **Symbol-Based Editing** - Replace entire symbol bodies, rename across codebase
 3. **Reference Analysis** - Find all references to symbols for impact analysis
@@ -16,6 +17,7 @@ Serena provides:
 ## When to Use Serena
 
 Use Serena's semantic tools when:
+
 - **Finding symbols** - Locate classes, functions, methods by name path
 - **Editing code** - Replace entire function/method bodies precisely
 - **Renaming symbols** - Rename across entire codebase with LSP support
@@ -169,6 +171,7 @@ find_symbol(
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -200,6 +203,7 @@ find_symbol(
 ```
 
 **Common kinds for TypeScript/JavaScript:**
+
 - `5` = Class
 - `6` = Method
 - `12` = Function
@@ -218,6 +222,7 @@ get_symbols_overview(
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -244,6 +249,7 @@ find_referencing_symbols(
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -378,6 +384,7 @@ search_for_pattern(
 ```
 
 **Response:**
+
 ```json
 {
   "src/components/calculator.tsx": [
@@ -425,6 +432,7 @@ list_dir(
 ```
 
 **Response:**
+
 ```json
 {
   "dirs": ["src/models", "src/services", "src/utils"],
@@ -443,6 +451,7 @@ find_file(
 ```
 
 **Response:**
+
 ```json
 {
   "files": [
@@ -478,6 +487,7 @@ execute_shell_command(
 ```
 
 **Response:**
+
 ```json
 {
   "stdout": "...",
