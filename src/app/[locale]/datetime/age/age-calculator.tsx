@@ -2,9 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { InputField, PdfExportButton, ResultGrid } from "@/components/converter";
+import { CsvExportButton, InputField, PdfExportButton, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type AgeInput, type AgeResult, calculateAge } from "@/lib/converters/datetime/age";
+import type { CsvRow } from "@/lib/utils/csv-export";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useAgeStore = createCalculatorStore<AgeInput, AgeResult>({
@@ -56,6 +57,22 @@ export function AgeCalculator() {
     ];
   }, [result, t, tSections, tZodiacWestern, tZodiacChinese]);
 
+  const csvData: CsvRow[] = useMemo(() => {
+    if (!result) return [];
+    return [
+      { Field: t("birthDate"), Value: values.birthDate, Unit: "" },
+      { Field: t("years"), Value: result.years, Unit: "" },
+      { Field: t("months"), Value: result.months, Unit: "" },
+      { Field: t("days"), Value: result.days, Unit: "" },
+      { Field: `${t("days")} (${tSections("summary")})`, Value: result.totalDays, Unit: "" },
+      { Field: `${t("weeks")} (${tSections("summary")})`, Value: result.totalWeeks, Unit: "" },
+      { Field: `${t("months")} (${tSections("summary")})`, Value: result.totalMonths, Unit: "" },
+      { Field: t("zodiacSign"), Value: tZodiacWestern(result.zodiacSign), Unit: "" },
+      { Field: t("chineseZodiac"), Value: tZodiacChinese(result.chineseZodiac), Unit: "" },
+      { Field: t("daysUntilBirthday"), Value: result.nextBirthday.daysUntil, Unit: "" },
+    ];
+  }, [result, values.birthDate, t, tSections, tZodiacWestern, tZodiacChinese]);
+
   return (
     <div className="space-y-6">
       <Card>
@@ -78,13 +95,16 @@ export function AgeCalculator() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-lg">{t("age")}</CardTitle>
-              <PdfExportButton
-                sections={pdfSections}
-                options={{
-                  title: t("age"),
-                  subtitle: `${t("birthDate")}: ${values.birthDate}`,
-                }}
-              />
+              <div className="flex gap-2">
+                <PdfExportButton
+                  sections={pdfSections}
+                  options={{
+                    title: t("age"),
+                    subtitle: `${t("birthDate")}: ${values.birthDate}`,
+                  }}
+                />
+                <CsvExportButton data={csvData} filename="age-calculator" />
+              </div>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-center p-4 bg-primary/10 rounded-lg">
