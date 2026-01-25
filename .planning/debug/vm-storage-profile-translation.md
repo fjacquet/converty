@@ -41,7 +41,8 @@ root_cause: Translation key "profile" is missing from calculator.vmStorage names
 fix: Add "profile" key to vmStorage section in all 4 locale files with appropriate translations
 verification: Run calculator, generate PDF/CSV exports, verify no MISSING_MESSAGE errors
 files_changed:
-  - src/messages/en.json (add "profile": "Profile")
-  - src/messages/fr.json (add "profile": "Profil")
-  - src/messages/de.json (add "profile": "Profil")
-  - src/messages/it.json (add "profile": "Profilo")
+
+- src/messages/en.json (add "profile": "Profile")
+- src/messages/fr.json (add "profile": "Profil")
+- src/messages/de.json (add "profile": "Profil")
+- src/messages/it.json (add "profile": "Profilo")

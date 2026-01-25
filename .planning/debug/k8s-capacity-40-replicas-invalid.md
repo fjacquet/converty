@@ -20,6 +20,7 @@ expected: Change pod replicas to 40 (keeping other defaults). CPU should become 
 actual: "Invalid input parameters" error displayed
 errors: "Invalid input parameters"
 reproduction:
+
 1. Set pod replicas to 40
 2. Keep defaults: 500m CPU, 512 MiB memory per pod
 3. Node: 8 cores, 16384 MB
@@ -29,6 +30,7 @@ reproduction:
 started: Test 4 in UAT phase 26
 
 context:
+
 - Test 2 passed: 10 replicas works correctly
 - Test 5 passed: Memory limiting factor works
 - Test 4 failed: 40 replicas shows error
@@ -104,22 +106,25 @@ root_cause: |
   The reported error "Invalid input parameters" when setting pod replicas to 40 CANNOT be reproduced with direct function calls. The calculation logic is correct and produces expected results (5 nodes, CPU limiting factor).
 
   Most likely causes:
+
   1. **Transient state during typing**: If user clears field before typing "40", parseFloat("") returns NaN which becomes 0, triggering temporary error until typing completes
   2. **Test execution issue**: User may have accidentally modified another field (setting CPU/memory to 0 or invalid value) during test
   3. **Stale test result**: Issue may have already been fixed, or test was performed on different code version
   4. **Missing test context**: Additional steps or conditions not captured in bug report
 
   The calculation function itself is working correctly. With the documented inputs (replicas=40, all other defaults), the calculator should display:
-  - 5 nodes needed
-  - CPU as limiting factor (badge filled)
-  - Memory badge outline (not limiting)
-  - CPU utilization: 57.1%
-  - Memory utilization: 27.4%
+
+- 5 nodes needed
+- CPU as limiting factor (badge filled)
+- Memory badge outline (not limiting)
+- CPU utilization: 57.1%
+- Memory utilization: 27.4%
 
   **UNABLE TO CONFIRM BUG WITH PROVIDED INFORMATION** - calculation logic is correct.
 
 fix: |
   If the issue persists in actual usage, recommended fixes:
+
   1. Improve parseFloat fallback: `parseFloat(v) || (prevValue)` to preserve previous valid value instead of defaulting to 0
   2. Add debouncing to prevent auto-calculate during typing
   3. Add input validation feedback before calculation runs
@@ -128,8 +133,9 @@ fix: |
 
 verification: |
   Direct function testing confirms:
-  - calculateK8sCapacity({..., podReplicas: 40, ...}) returns valid result
-  - All validation checks pass
-  - Result matches expected behavior (CPU limiting factor, 5 nodes)
+
+- calculateK8sCapacity({..., podReplicas: 40, ...}) returns valid result
+- All validation checks pass
+- Result matches expected behavior (CPU limiting factor, 5 nodes)
 
 files_changed: []
