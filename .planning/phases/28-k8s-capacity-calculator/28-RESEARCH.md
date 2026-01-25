@@ -424,6 +424,7 @@ Problems that look simple but have existing solutions:
 **Warning signs:** Calculator showing all CPU/memory available for pods without system overhead deduction.
 
 **Sources:**
+
 - [Kubernetes: Reserve Compute Resources](https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/)
 - [AKS Node Resource Reservations](https://learn.microsoft.com/en-us/azure/aks/node-resource-reservations)
 
@@ -453,6 +454,7 @@ Problems that look simple but have existing solutions:
 **Warning signs:** Calculator shows only one constraint, no limiting factor indication.
 
 **Sources:**
+
 - [Kubernetes Bin Packing Strategies](https://blog.techiescamp.com/docs/kubernetes-bin-packing/)
 - [Optimizing Resource Utilization - InfoQ](https://www.infoq.com/articles/kubernetes-bin-packing/)
 
@@ -469,6 +471,7 @@ Problems that look simple but have existing solutions:
 **Warning signs:** Target utilization set to 90-100%, no mention of autoscaling headroom.
 
 **Sources:**
+
 - [Kubernetes HPA Best Practices](https://www.devzero.io/blog/kubernetes-hpa)
 - [Kubernetes Best Practices 2026 - Qovery](https://www.qovery.com/guide/kubernetes-best-practices)
 
@@ -485,6 +488,7 @@ Problems that look simple but have existing solutions:
 **Warning signs:** Using fixed percentages for all node sizes, not consulting provider docs.
 
 **Sources:**
+
 - [AKS Node Resource Reservations](https://learn.microsoft.com/en-us/azure/aks/node-resource-reservations)
 - [GKE Node Sizing](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/plan-node-sizes)
 
