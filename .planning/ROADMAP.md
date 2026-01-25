@@ -110,6 +110,13 @@ Plans:
 
 **Requirements:** INFRA-01
 
+**Plans:** 2 plans
+
+Plans:
+
+- [ ] 27-01-PLAN.md — Create calculation logic, registry entry, and translations
+- [ ] 27-02-PLAN.md — Create UI component and page with URL state
+
 **Deliverables:**
 
 1. **Calculation logic**
