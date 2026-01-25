@@ -98,7 +98,7 @@ export function HashCalculator() {
       )}
 
       {/* Results Section */}
-      {result && result.hash && (
+      {result?.hash && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center justify-between">

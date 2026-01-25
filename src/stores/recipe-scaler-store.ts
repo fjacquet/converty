@@ -6,7 +6,6 @@ import {
   type RecipeScaleResult,
   scaleRecipe,
 } from "@/lib/converters/cooking/recipe-scaler";
-import type { IngredientType } from "@/lib/converters/cooking/types";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
 import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
 

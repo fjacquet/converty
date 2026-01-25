@@ -5,7 +5,6 @@ import {
   type CookingUnit,
   formatAsFraction,
   isVolumeUnit,
-  isWeightUnit,
   UNIT_LABELS,
   type VolumeUnit,
   type WeightUnit,

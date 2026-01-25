@@ -3,7 +3,6 @@
 import {
   ArrowLeftRight,
   Calculator,
-  CircleDollarSign,
   CreditCard,
   Key,
   RotateCcw,

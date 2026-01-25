@@ -4,7 +4,6 @@ import { create } from "zustand";
 import {
   calculateTireDimensions,
   compareTireSizes,
-  parseTireNotation,
   type TireComparisonResult,
   type TireDimensionsResult,
   type TireSizeComponents,

@@ -1,10 +1,4 @@
-import {
-  type Currency,
-  type EfficiencyRating,
-  type FuelType,
-  formatCurrency,
-  getEfficiencyRating,
-} from "./types";
+import { type Currency, type EfficiencyRating, formatCurrency, getEfficiencyRating } from "./types";
 
 export type CalculationMode = "consumption" | "tripPlanning" | "comparison";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, Check, Info } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Button } from "@/components/ui/button";

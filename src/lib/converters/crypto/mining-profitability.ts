@@ -192,7 +192,7 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult |
 /**
  * Format currency amount for display
  */
-export function formatMiningCurrency(amount: number, currency: FiatCurrency): string {
+export function formatMiningCurrency(amount: number, _currency: FiatCurrency): string {
   return amount.toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,

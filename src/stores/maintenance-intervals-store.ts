@@ -5,8 +5,6 @@ import { create } from "zustand";
 import {
   getDefaultLastServices,
   getServiceSchedule,
-  getServiceTypes,
-  type ServiceInterval,
   type ServiceScheduleResult,
 } from "@/lib/converters/automotive/maintenance-intervals";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";

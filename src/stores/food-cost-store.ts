@@ -2,7 +2,6 @@
 
 import { create } from "zustand";
 import {
-  type CostUnit,
   type Currency,
   calculateFoodCost,
   type FoodCostResult,

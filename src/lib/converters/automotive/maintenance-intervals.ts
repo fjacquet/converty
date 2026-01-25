@@ -108,7 +108,7 @@ export function getServiceById(id: string): ServiceInterval | undefined {
 function calculateStatus(
   kmRemaining: number | null,
   daysRemaining: number | null,
-  priority: number
+  _priority: number
 ): ServiceStatus {
   // Check km-based status
   if (kmRemaining !== null) {
