@@ -876,6 +876,16 @@
       "description": "Calculer les besoins en nœuds pour votre cluster Kubernetes",
       "metaDescription": "Calculateur de planification de capacité Kubernetes gratuit. Calculez les nœuds nécessaires pour un cluster K8s selon les requêtes CPU/mémoire des pods, ressources réservées système et utilisation cible."
     },
+    "server-virtualization-calculator": {
+      "name": "Calculateur de virtualisation serveur",
+      "description": "Calculer les besoins en hôtes ESX pour les charges de travail VM",
+      "metaDescription": "Calculateur gratuit de dimensionnement d'hôtes VMware ESX. Calculez les hôtes requis en fonction des besoins CPU/RAM des VM avec support de haute disponibilité N+1."
+    },
+    "vmware-licensing-calculator": {
+      "name": "Calculateur de licences VMware",
+      "description": "Calculer les coûts de licence VMware VCF/VVF",
+      "metaDescription": "Calculateur gratuit de coûts de licence VMware. Calculez les coûts d'abonnement VMware Cloud Foundation et vSphere Foundation avec application du minimum de 16 cœurs."
+    },
     "slope-calculator": {
       "name": "Pente",
       "description": "Calculez pente, equation et angle d'une droite",
@@ -1490,6 +1500,46 @@
       "daemonSetHelp": "Les DaemonSets s'exécutent sur chaque nœud (agents de surveillance, collecteurs de logs, plugins réseau). Valeurs typiques : 200-500m CPU, 256-512 MiB mémoire par nœud.",
       "targetUtilizationHelp": "L'utilisation cible laisse de la marge pour l'autoscaling et les pics de trafic. Standard industrie : 70% CPU, 80% mémoire. 100% ne laisse aucune marge.",
       "limitingFactorHelp": "La planification Kubernetes est multidimensionnelle. La mémoire est généralement le facteur limitant (non compressible, cause des arrêts OOM)."
+    },
+    "infrastructure": {
+      "server-virtualization-calculator": {
+        "title": "Calculateur de virtualisation serveur",
+        "description": "Calculer les besoins en hôtes ESX pour les charges de travail VM",
+        "vm-count": "Nombre de VM",
+        "vcpu-per-vm": "vCPU par VM",
+        "ram-per-vm-gb": "RAM par VM (GB)",
+        "host-cores": "Cœurs CPU de l'hôte",
+        "host-ram-gb": "RAM de l'hôte (GB)",
+        "vcpu-to-core-ratio": "Ratio vCPU-Cœur",
+        "target-cpu-utilization": "Utilisation CPU cible (%)",
+        "target-ram-utilization": "Utilisation RAM cible (%)",
+        "high-availability": "Haute disponibilité N+1",
+        "hosts-needed-total": "Nombre total d'hôtes requis",
+        "limiting-factor": "Facteur limitant",
+        "vcpu-consolidation-ratio": "Ratio de consolidation vCPU",
+        "final-cpu-utilization": "Utilisation CPU finale (%)",
+        "final-ram-utilization": "Utilisation RAM finale (%)"
+      },
+      "vmware-licensing-calculator": {
+        "title": "Calculateur de licences VMware",
+        "description": "Calculer les coûts de licence VMware VCF/VVF",
+        "host-count": "Nombre d'hôtes",
+        "cpus-per-host": "CPUs par hôte",
+        "cores-per-cpu": "Cœurs par CPU",
+        "product-type": "Type de produit",
+        "product-vcf": "VMware Cloud Foundation (VCF)",
+        "product-vvf": "VMware vSphere Foundation (VVF)",
+        "product-vsphere-ep": "vSphere Enterprise Plus",
+        "product-vsphere-std": "vSphere Standard",
+        "term-years": "Durée (années)",
+        "total-licensed-cores": "Total des cœurs sous licence",
+        "annual-cost": "Coût annuel",
+        "total-cost": "Coût total",
+        "vsan-entitlement-tib": "Droit vSAN (TiB)",
+        "cores-per-cpu-licensed": "Cœurs par CPU (sous licence)",
+        "min-core-enforced": "Minimum de 16 cœurs appliqué",
+        "pricing-disclaimer": "Prix basés sur les tarifs VMware 2026. Les coûts réels peuvent varier."
+      }
     },
     "results": {
       "perMonth": "par mois",

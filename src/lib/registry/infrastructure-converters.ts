@@ -1,4 +1,4 @@
-import { HardDrive, Server } from "lucide-react";
+import { HardDrive, Receipt, Server } from "lucide-react";
 import type { ConverterMeta } from "@/types";
 
 export const infrastructureConverters: Record<string, ConverterMeta> = {
@@ -48,7 +48,47 @@ export const infrastructureConverters: Record<string, ConverterMeta> = {
     icon: Server,
     featured: true,
   },
-  // VMware Server Calculator - Phase 29
-  // VMware Licensing Calculator - Phase 29
+  "server-virtualization-calculator": {
+    id: "server-virtualization-calculator",
+    slug: "server-virtualization-calculator",
+    category: "infrastructure",
+    subcategory: "virtualization",
+    keywords: [
+      "vmware",
+      "esx",
+      "esxi",
+      "host",
+      "sizing",
+      "virtualization",
+      "n+1",
+      "ha",
+      "high availability",
+      "capacity",
+      "vcpu",
+      "consolidation",
+    ],
+    icon: Server,
+    featured: true,
+  },
+  "vmware-licensing-calculator": {
+    id: "vmware-licensing-calculator",
+    slug: "vmware-licensing-calculator",
+    category: "infrastructure",
+    subcategory: "vmware",
+    keywords: [
+      "vmware",
+      "vcf",
+      "vvf",
+      "licensing",
+      "subscription",
+      "vsan",
+      "cost",
+      "broadcom",
+      "cloud foundation",
+      "vsphere foundation",
+    ],
+    icon: Receipt,
+    featured: true,
+  },
   // Virtualization Cost Calculator - Phase 30
 };

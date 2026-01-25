@@ -876,6 +876,16 @@
       "description": "Calculate Kubernetes cluster node requirements for your workload",
       "metaDescription": "Free Kubernetes capacity planning calculator. Calculate nodes needed for K8s cluster based on pod CPU/memory requests, system reserved resources, and target utilization. Shows limiting factor (CPU vs memory)."
     },
+    "server-virtualization-calculator": {
+      "name": "Server Virtualization Calculator",
+      "description": "Calculate ESX host requirements for VM workloads",
+      "metaDescription": "Free VMware ESX host sizing calculator. Calculate required hosts based on VM CPU/RAM requirements with N+1 high availability support."
+    },
+    "vmware-licensing-calculator": {
+      "name": "VMware Licensing Calculator",
+      "description": "Calculate VMware VCF/VVF licensing costs",
+      "metaDescription": "Free VMware licensing cost calculator. Calculate VMware Cloud Foundation and vSphere Foundation subscription costs with 16-core minimum enforcement."
+    },
     "slope-calculator": {
       "name": "Slope",
       "description": "Calculate slope, equation, and angle of a line",
@@ -1490,6 +1500,46 @@
       "daemonSetHelp": "DaemonSets run on every node (monitoring agents, log collectors, network plugins). Typical values: 200-500m CPU, 256-512 MiB memory per node.",
       "targetUtilizationHelp": "Target utilization leaves headroom for autoscaling and traffic spikes. Industry standard: 70% CPU, 80% memory. 100% leaves no buffer.",
       "limitingFactorHelp": "Kubernetes scheduling is multi-dimensional. Memory is typically the limiting factor (non-compressible, causes OOM kills)."
+    },
+    "infrastructure": {
+      "server-virtualization-calculator": {
+        "title": "Server Virtualization Calculator",
+        "description": "Calculate ESX host requirements for VM workloads",
+        "vm-count": "VM Count",
+        "vcpu-per-vm": "vCPU per VM",
+        "ram-per-vm-gb": "RAM per VM (GB)",
+        "host-cores": "Host CPU Cores",
+        "host-ram-gb": "Host RAM (GB)",
+        "vcpu-to-core-ratio": "vCPU-to-Core Ratio",
+        "target-cpu-utilization": "Target CPU Utilization (%)",
+        "target-ram-utilization": "Target RAM Utilization (%)",
+        "high-availability": "N+1 High Availability",
+        "hosts-needed-total": "Total Hosts Needed",
+        "limiting-factor": "Limiting Factor",
+        "vcpu-consolidation-ratio": "vCPU Consolidation Ratio",
+        "final-cpu-utilization": "Final CPU Utilization (%)",
+        "final-ram-utilization": "Final RAM Utilization (%)"
+      },
+      "vmware-licensing-calculator": {
+        "title": "VMware Licensing Calculator",
+        "description": "Calculate VMware VCF/VVF licensing costs",
+        "host-count": "Number of Hosts",
+        "cpus-per-host": "CPUs per Host",
+        "cores-per-cpu": "Cores per CPU",
+        "product-type": "Product Type",
+        "product-vcf": "VMware Cloud Foundation (VCF)",
+        "product-vvf": "VMware vSphere Foundation (VVF)",
+        "product-vsphere-ep": "vSphere Enterprise Plus",
+        "product-vsphere-std": "vSphere Standard",
+        "term-years": "Term (Years)",
+        "total-licensed-cores": "Total Licensed Cores",
+        "annual-cost": "Annual Cost",
+        "total-cost": "Total Cost",
+        "vsan-entitlement-tib": "vSAN Entitlement (TiB)",
+        "cores-per-cpu-licensed": "Cores per CPU (Licensed)",
+        "min-core-enforced": "16-Core Minimum Applied",
+        "pricing-disclaimer": "Prices based on 2026 VMware list prices. Actual costs may vary."
+      }
     },
     "results": {
       "perMonth": "per month",

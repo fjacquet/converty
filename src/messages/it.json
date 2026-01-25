@@ -871,6 +871,16 @@
       "description": "Calcola i requisiti di capacità di storage per cluster vSphere ESX",
       "metaDescription": "Calcolatore di storage VMware vSphere gratuito. Calcola la capacità di storage VM inclusi dischi provisioned, file swap, snapshot e allocazione di crescita."
     },
+    "server-virtualization-calculator": {
+      "name": "Calcolatore virtualizzazione server",
+      "description": "Calcola i requisiti di host ESX per i carichi di lavoro VM",
+      "metaDescription": "Calcolatore gratuito di dimensionamento host VMware ESX. Calcola gli host necessari in base ai requisiti CPU/RAM delle VM con supporto per alta disponibilità N+1."
+    },
+    "vmware-licensing-calculator": {
+      "name": "Calcolatore licenze VMware",
+      "description": "Calcola i costi delle licenze VMware VCF/VVF",
+      "metaDescription": "Calcolatore gratuito dei costi delle licenze VMware. Calcola i costi di abbonamento VMware Cloud Foundation e vSphere Foundation con applicazione del minimo di 16 core."
+    },
     "k8s-capacity-calculator": {
       "name": "Calcolatore Capacità Kubernetes",
       "description": "Calcola i requisiti di nodi per il tuo cluster Kubernetes",
@@ -1490,6 +1500,44 @@
       "daemonSetHelp": "I DaemonSet vengono eseguiti su ogni nodo (agenti di monitoraggio, collettori di log, plugin di rete). Valori tipici: 200-500m CPU, 256-512 MiB memoria per nodo.",
       "targetUtilizationHelp": "L'utilizzo target lascia margine per autoscaling e picchi di traffico. Standard industria: 70% CPU, 80% memoria. 100% non lascia buffer.",
       "limitingFactorHelp": "Lo scheduling Kubernetes è multidimensionale. La memoria è tipicamente il fattore limitante (non comprimibile, causa kill OOM)."
+    },
+    "serverVirtualizationCalculator": {
+      "title": "Calcolatore virtualizzazione server",
+      "description": "Calcola i requisiti di host ESX per i carichi di lavoro VM",
+      "vmCount": "Numero di VM",
+      "vcpuPerVm": "vCPU per VM",
+      "ramPerVmGb": "RAM per VM (GB)",
+      "hostCores": "Core CPU Host",
+      "hostRamGb": "RAM Host (GB)",
+      "vcpuToCoreRatio": "Rapporto vCPU-Core",
+      "targetCpuUtilization": "Utilizzo CPU Target (%)",
+      "targetRamUtilization": "Utilizzo RAM Target (%)",
+      "highAvailability": "Alta disponibilità N+1",
+      "hostsNeededTotal": "Totale Host Necessari",
+      "limitingFactor": "Fattore limitante",
+      "vcpuConsolidationRatio": "Rapporto di consolidamento vCPU",
+      "finalCpuUtilization": "Utilizzo CPU Finale (%)",
+      "finalRamUtilization": "Utilizzo RAM Finale (%)"
+    },
+    "vmwareLicensingCalculator": {
+      "title": "Calcolatore licenze VMware",
+      "description": "Calcola i costi delle licenze VMware VCF/VVF",
+      "hostCount": "Numero di Host",
+      "cpusPerHost": "CPU per Host",
+      "coresPerCpu": "Core per CPU",
+      "productType": "Tipo di prodotto",
+      "productVcf": "VMware Cloud Foundation (VCF)",
+      "productVvf": "VMware vSphere Foundation (VVF)",
+      "productVsphereEp": "vSphere Enterprise Plus",
+      "productVsphereStd": "vSphere Standard",
+      "termYears": "Durata (Anni)",
+      "totalLicensedCores": "Totale Core Licenziati",
+      "annualCost": "Costo Annuale",
+      "totalCost": "Costo Totale",
+      "vsanEntitlementTib": "Diritto vSAN (TiB)",
+      "coresPerCpuLicensed": "Core per CPU (Licenziati)",
+      "minCoreEnforced": "Minimo 16 core applicato",
+      "pricingDisclaimer": "Prezzi basati sui listini VMware 2026. I costi effettivi possono variare."
     },
     "results": {
       "perMonth": "al mese",
