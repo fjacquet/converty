@@ -10,10 +10,10 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Milestone: v4.0 Security & Infrastructure
-Phase: 26 - Infrastructure Category Foundation
-Plan: 3/3 complete (26-01, 26-02, 26-03)
-Status: Phase 26 gap closure complete, Phases 27-28 complete - ready for Phase 29
-Last activity: 2026-01-25 — Completed 26-03 gap closure (German k8sCapacity translations - 51 keys)
+Phase: 27 - VM Storage Calculator
+Plan: 3/3 complete (27-01, 27-02, 27-03)
+Status: Phase 27 gap closure complete - all Infrastructure phases (26-28) complete, ready for Phase 29
+Last activity: 2026-01-25 — Completed 27-03 gap closure (profile translation for vmStorage)
 
 Progress: ████████████░░░░░░ 50% (v4.0 — 3 of 6 phases complete)
 
@@ -78,7 +78,7 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 | Phase                                | Plans | Total    | Avg/Plan |
 | ------------------------------------ | ----- | -------- | -------- |
 | 26-infrastructure-category-foundation | 3/3   | ~12 min  | ~4 min   |
-| 27-vm-storage-calculator              | 2/2   | ~8 min   | ~4 min   |
+| 27-vm-storage-calculator              | 3/3   | ~11 min  | ~3.7 min |
 | 28-k8s-capacity-calculator            | 2/2   | ~8 min   | ~4 min   |
 
 ## Accumulated Context
@@ -249,8 +249,8 @@ Progress: ████████████░░░░░░ 50% (v4.0 — 3
 
 ## Session Continuity
 
-Last session: 2026-01-25T20:42:22Z
-Stopped at: Completed 26-03 gap closure (German k8sCapacity translations)
+Last session: 2026-01-25T21:06:42Z
+Stopped at: Completed 27-03 gap closure (profile translation for vmStorage)
 Resume file: None
 
 **Next Steps:**
@@ -266,6 +266,7 @@ Resume file: None
    - ✅ Phase 24 Complete (3/3 plans) - Export Functionality
 4. 🚀 v4.0 Security & Infrastructure in progress
    - ✅ Phase 26 Complete (3/3 plans) - Infrastructure Category Foundation (including gap closure)
-   - ✅ Phase 27 Complete (2/2 plans) - VM Storage Calculator
+   - ✅ Phase 27 Complete (3/3 plans) - VM Storage Calculator (including gap closure)
+   - ✅ Phase 28 Complete (2/2 plans) - K8s Capacity Calculator
    - ✅ Phase 28 Complete (2/2 plans) - K8s Capacity Calculator
    - Next: Phase 29 (VMware Server & Licensing Calculators)
