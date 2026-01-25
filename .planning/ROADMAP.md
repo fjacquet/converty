@@ -27,6 +27,12 @@
 
 **Requirements:** SEC-01, SEC-02, SEC-03
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 25-01-PLAN.md — Fix remote property injection with Map-based URL params
+- [ ] 25-02-PLAN.md — Document container vulnerabilities and remove unused imports
+
 **Deliverables:**
 
 1. **Fix remote property injection in url-params.ts**
