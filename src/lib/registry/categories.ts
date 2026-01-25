@@ -14,6 +14,7 @@ import {
   Music,
   Network,
   Palette,
+  Server,
   UtensilsCrossed,
   Video,
 } from "lucide-react";
@@ -141,6 +142,18 @@ export const categories: Category[] = [
       { id: "fitness", name: "Fitness", description: "Exercise and workout calculators" },
       { id: "pregnancy", name: "Pregnancy & Fertility", description: "Pregnancy tracking" },
       { id: "medical", name: "Medical", description: "Medical calculators" },
+    ],
+  },
+  {
+    id: "infrastructure",
+    slug: "infrastructure",
+    name: "Infrastructure",
+    description: "Virtualization, Kubernetes, and datacenter tools",
+    icon: Server,
+    subcategories: [
+      { id: "vmware", name: "VMware", description: "vSphere and ESX calculators" },
+      { id: "kubernetes", name: "Kubernetes", description: "K8s capacity planning" },
+      { id: "cost", name: "Cost Analysis", description: "TCO and licensing calculators" },
     ],
   },
   {
