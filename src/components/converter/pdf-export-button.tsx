@@ -1,6 +1,7 @@
 "use client";
 
-import { Download } from "lucide-react";
+import { FileText } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { exportToPdf, type PdfExportOptions, type PdfSection } from "@/lib/utils/pdf-export";
 
@@ -10,6 +11,7 @@ interface PdfExportButtonProps {
   variant?: "default" | "outline" | "ghost" | "secondary";
   size?: "default" | "sm" | "lg" | "icon";
   className?: string;
+  disabled?: boolean;
 }
 
 export function PdfExportButton({
@@ -18,15 +20,33 @@ export function PdfExportButton({
   variant = "outline",
   size = "sm",
   className,
+  disabled = false,
 }: PdfExportButtonProps) {
+  const t = useTranslations("calculator.export");
+
   const handleExport = () => {
-    exportToPdf(sections, options);
+    // Generate timestamp for filename
+    const timestamp = new Date().toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "-");
+
+    // Compute base filename
+    const baseFilename = options.filename || options.title.toLowerCase().replace(/\s+/g, "-");
+    const fullFilename = `${baseFilename}_${timestamp}.pdf`;
+
+    // Export with timestamped filename
+    exportToPdf(sections, { ...options, filename: fullFilename });
   };
 
   return (
-    <Button variant={variant} size={size} onClick={handleExport} className={className}>
-      <Download className="h-4 w-4 mr-2" />
-      Export PDF
+    <Button
+      variant={variant}
+      size={size}
+      onClick={handleExport}
+      className={className}
+      disabled={disabled || sections.length === 0}
+      title={t("pdfTooltip")}
+    >
+      <FileText className="h-4 w-4 mr-2" />
+      {t("exportPdf")}
     </Button>
   );
 }
