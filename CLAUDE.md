@@ -4,7 +4,7 @@ Project context for Claude (AI assistant).
 
 ## Project Overview
 
-Converty is a collection of **156+ calculators** built with Next.js 16, React 19, and TypeScript 5. Static site generation for GitHub Pages deployment.
+Converty is a collection of **167+ calculators** built with Next.js 16, React 19, and TypeScript 5. Static site generation for GitHub Pages deployment.
 
 ## Quick Start
 
@@ -42,12 +42,15 @@ npm run type-check   # TypeScript check
 |----------|------|-------|
 | Math | `math` | 38 |
 | Health | `health` | 28 |
-| Finance | `finance` | 24 |
+| Finance | `finance` | 28 |
 | Photo | `photo` | 22 |
 | Web | `web` | 10 |
 | Video | `video` | 9 |
 | DateTime | `datetime` | 8 |
 | Network | `network` | 5 |
+| Crypto | `crypto` | 4 |
+| Cooking | `cooking` | 4 |
+| Automotive | `automotive` | 4 |
 | Data | `data` | 3 |
 | Physics | `physics` | 1 |
 | Music | `music` | 1 |

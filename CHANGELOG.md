@@ -9,6 +9,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [3.0.0] - 2026-01-25
+
+### Added
+
+**Phase 24: Export Functionality (2026-01-25)**
+
+- PDF and CSV export for calculation results
+  - Zero-dependency CSV export using native Blob API
+  - jsPDF for PDF generation (v4.0.0)
+  - Internationalization support across all 4 locales (en, fr, de, it)
+- CsvExportButton component (`src/components/converter/csv-export-button.tsx`)
+  - CSV injection prevention (escape =, +, -, @ prefixes)
+  - UTF-8 BOM for Excel compatibility
+  - Timestamped filenames (YYYY-MM-DD_HH-MM-SS format)
+  - Download icon semantic distinction from PDF (FileText vs Download)
+- PdfExportButton component (`src/components/converter/pdf-export-button.tsx`)
+  - Multi-section document support
+  - Configurable title and subtitle
+  - ISO 8601 timestamp formatting
+  - FileText icon for document semantics
+- CSV export utility (`src/lib/utils/csv-export.ts`)
+  - Type-safe CsvRow interface (Field, Value, Unit columns)
+  - Security: Formula injection prevention
+  - Excel compatibility: UTF-8 BOM support
+  - RFC 4180 compliant CSV formatting
+- Age Calculator export integration (reference implementation)
+  - Both PDF and CSV export buttons in results section
+  - Comprehensive data export (10 fields including zodiac signs)
+  - Button group layout with flex gap-2 spacing
+- Export translation keys across all 4 locales
+  - exportPdf, exportCsv labels
+  - Export success/error messages
+  - Accessible button aria-labels
+
 **Phase 21: Code Splitting & Lazy Loading (2026-01-24)**
 
 - Dynamic imports for all 167 calculator pages
@@ -383,6 +421,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
-[unreleased]: https://github.com/fjacquet/converty/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/fjacquet/converty/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/fjacquet/converty/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/fjacquet/converty/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/fjacquet/converty/releases/tag/v1.0.0

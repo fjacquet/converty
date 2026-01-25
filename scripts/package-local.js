@@ -175,7 +175,7 @@ One of:
 
 ## What's Included
 
-- 156+ calculators across 12 categories
+- 167+ calculators across 15 categories
 - Works completely offline
 - Supports English, French, German, Italian
 - Dark/light mode
