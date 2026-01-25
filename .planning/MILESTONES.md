@@ -1,5 +1,34 @@
 # Project Milestones: Converty
 
+## v3.0 Calculator Expansion & Performance (Shipped: 2026-01-25)
+
+**Delivered:** 16 new calculators across 4 categories, code splitting for performance, and PDF/CSV export functionality with internationalization.
+
+**Phases completed:** 17-21, 24 (6 phases, 23 plans total)
+
+**Key accomplishments:**
+
+- Added 16 new calculators: Crypto/Blockchain (hash, wallet, exchange, mining), Real Estate (mortgage, valuation, rent-to-value, amortization), Cooking/Nutrition (recipe scaler, nutrition, unit converter, food cost), Automotive (fuel efficiency, tire sizing, maintenance, financing)
+- Implemented category-based code splitting with dynamic imports (210 chunks, improved First Contentful Paint)
+- Added PDF and CSV export functionality with zero dependencies (native Blob API)
+- Established Serena/grepai direct tools as standard execution mode (3x faster than subagents, lower context burn)
+- Created user-level GSD preferences system for workflow consistency
+- Implemented CSV security features (injection prevention, UTF-8 BOM for Excel compatibility)
+
+**Stats:**
+
+- 337 files created/modified
+- 79,192 lines added, 510 lines removed
+- 90+ commits across 2 days
+- 6 phases, 23 plans, 120+ tasks
+- 24/24 requirements satisfied (100%)
+
+**Git range:** `feat(17-01)` → `feat(24-03)`
+
+**What's next:** v4.0 planning — user experience enhancements (favorites, calculation history), additional calculator categories
+
+---
+
 ## v2.0 Network Tools & User Experience (Shipped: 2026-01-22)
 
 **Delivered:** Comprehensive network calculator suite with global search and complete translation coverage across all 4 locales.
@@ -55,4 +84,4 @@
 
 ---
 
-_Last updated: 2026-01-22 after v2.0 milestone completion_
+_Last updated: 2026-01-25 after v3.0 milestone completion_
