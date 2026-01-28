@@ -2,11 +2,13 @@ import type { ConverterMeta } from "@/types";
 
 // Import category-specific converter registries
 import { automotiveConverters } from "./automotive-converters";
+import { chemistryConverters } from "./chemistry-converters";
 import { colorConverters } from "./color-converters";
 import { cookingConverters } from "./cooking-converters";
 import { cryptoConverters } from "./crypto-converters";
 import { dataConverters } from "./data-converters";
 import { datetimeConverters } from "./datetime-converters";
+import { engineeringConverters } from "./engineering-converters";
 import { financeConverters } from "./finance-converters";
 import { healthConverters } from "./health-converters";
 import { infrastructureConverters } from "./infrastructure-converters";
@@ -23,8 +25,10 @@ import { webConverters } from "./web-converters";
 export const converterRegistry: Record<string, ConverterMeta> = {
   ...healthConverters,
   ...infrastructureConverters,
+  ...engineeringConverters,
   ...datetimeConverters,
   ...colorConverters,
+  ...chemistryConverters,
   ...cookingConverters,
   ...automotiveConverters,
   ...cryptoConverters,

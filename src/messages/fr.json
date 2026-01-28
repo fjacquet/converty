@@ -74,6 +74,26 @@
         "cost": "Analyse des Couts"
       }
     },
+    "engineering": {
+      "name": "Ingénierie",
+      "description": "Calculs structurels, propriétés des matériaux et analyse des poutres",
+      "subcategories": {
+        "structural": "Structurel",
+        "materials": "Matériaux",
+        "hydraulics": "Hydraulique",
+        "conversion": "Conversion"
+      }
+    },
+    "chemistry": {
+      "name": "Chimie",
+      "description": "Calculs chimiques et outils moléculaires",
+      "subcategories": {
+        "general": "Général",
+        "solutions": "Solutions",
+        "reactions": "Réactions",
+        "reference": "Référence"
+      }
+    },
     "math": {
       "name": "Mathematiques",
       "description": "Calculateurs mathematiques"
@@ -866,6 +886,51 @@
       "description": "Calculez le volume des formes 3D",
       "metaDescription": "Calculez volume de cube, sphere, cylindre, cone, prisme et plus"
     },
+    "moment-of-inertia": {
+      "name": "Calculateur de Moment d'Inertie",
+      "description": "Calculer le moment d'inertie pour diverses sections transversales",
+      "metaDescription": "Calculateur gratuit de moment d'inertie. Calculez le moment quadratique pour les sections rectangulaires, circulaires, en I, creuses et personnalisées. Inclut le théorème des axes parallèles."
+    },
+    "beam-deflection": {
+      "name": "Calculateur de Flèche de Poutre",
+      "description": "Calculer la flèche, l'effort tranchant et le moment de flexion avec diagrammes",
+      "metaDescription": "Calculateur gratuit de flèche de poutre. Analysez les poutres simplement appuyées, en porte-à-faux et encastrées avec charges concentrées ou réparties. Inclut les diagrammes d'effort tranchant et de moment."
+    },
+    "stress-strain": {
+      "name": "Calculateur de Contrainte-Déformation",
+      "description": "Calculer la contrainte, la déformation et le module de Young avec base de données de matériaux",
+      "metaDescription": "Calculateur gratuit de contrainte-déformation. Calculez la contrainte, la déformation, le module de Young et le facteur de sécurité. Inclut une base de données de 30+ matériaux (acier, aluminium, bois, béton)."
+    },
+    "column-buckling": {
+      "name": "Calculateur de flambement de colonne",
+      "description": "Calculez la charge critique d'Euler, la charge admissible AISC et le rapport d'élancement",
+      "metaDescription": "Calculateur gratuit de flambement de colonne. Charge critique d'Euler, contrainte admissible AISC, rapport d'élancement et longueur effective avec base de données de matériaux et sections."
+    },
+    "pipe-flow": {
+      "name": "Calculateur d'écoulement en conduite",
+      "description": "Calculez la perte de charge, le nombre de Reynolds et le facteur de friction",
+      "metaDescription": "Calculateur gratuit d'écoulement en conduite. Perte de charge Darcy-Weisbach, nombre de Reynolds, facteur de friction Colebrook-White avec base de données de matériaux et fluides."
+    },
+    "engineering-unit-converter": {
+      "name": "Convertisseur d'unités d'ingénierie",
+      "description": "Convertissez entre les unités d'ingénierie : force, pression, contrainte, couple et plus",
+      "metaDescription": "Convertisseur gratuit d'unités d'ingénierie avec précision NIST. Force, pression, contrainte, couple, densité, longueur, surface, moment d'inertie et module de section."
+    },
+    "molecular-weight": {
+      "name": "Calculateur de masse moléculaire",
+      "description": "Calculez la masse molaire et la composition à partir de la formule chimique",
+      "metaDescription": "Calculateur gratuit de masse moléculaire. Calculez la masse molaire, la composition élémentaire et le pourcentage massique à partir de formules chimiques (H2O, Ca(OH)2, CuSO4·5H2O). Inclut 118 éléments IUPAC 2024."
+    },
+    "molarity": {
+      "name": "Calculateur de molarité",
+      "description": "Calculez la concentration de solution à partir de masse, moles et volume",
+      "metaDescription": "Calculateur gratuit de molarité. Calculez la concentration de solution (M, mM, µM, nM) à partir masse/volume ou moles/volume avec calculs détaillés."
+    },
+    "dilution": {
+      "name": "Calculateur de dilution",
+      "description": "Calculez les paramètres de dilution avec la formule M₁V₁ = M₂V₂",
+      "metaDescription": "Calculateur gratuit de dilution. Calculez le volume initial, le volume final ou la molarité finale avec M₁V₁ = M₂V₂, support de dilutions en série et avertissements de sécurité."
+    },
     "vm-storage-calculator": {
       "name": "Calculateur de Stockage VM",
       "description": "Calculer les besoins en capacité de stockage d'un cluster vSphere ESX",
@@ -1137,7 +1202,6 @@
       "female": "Femme",
       "age": "Age",
       "weight": "Poids (kg)",
-      "height": "Taille (cm)",
       "weightSimple": "Poids",
       "heightSimple": "Taille",
       "enterWeight": "Entrer le poids",
@@ -1317,7 +1381,6 @@
       "sellingPricePerUnit": "Prix de Vente par Unite",
       "swapCurrencies": "Echanger les Devises",
       "timeSaved": "Temps Economise",
-      "timeToPayoff": "Delai de Remboursement",
       "total-repayment": "Remboursement Total",
       "totalDebt": "Dette Totale",
       "totalPaid": "Total Paye",
@@ -1326,6 +1389,15 @@
       "variableCostPerUnitHint": "Cout par unite produite",
       "yearsToMaturity": "Annees jusqu'a l'Echeance",
       "category": "Categorie",
+      "timeToPayoff": "Temps de remboursement",
+      "dimensions": "Dimensions",
+      "diameter": "Diamètre",
+      "thickness": "Épaisseur",
+      "base": "Base",
+      "outer": "Extérieur",
+      "inner": "Intérieur",
+      "width": "Largeur",
+      "height": "Hauteur",
       "decimalPlaces": "Décimales",
       "dividend": "Dividende",
       "divisor": "Diviseur",
@@ -3786,6 +3858,211 @@
         "movie_4k": "Film 4K",
         "game": "Jeu",
         "os_image": "Image du système d'exploitation"
+      }
+    },
+    "engineering": {
+      "mode": "Mode de Calcul",
+      "material": "Matériau",
+      "customMaterial": "Matériau Personnalisé",
+      "beamType": "Type de Poutre",
+      "loadType": "Type de Charge",
+      "safetyFactor": "Facteur de Sécurité",
+      "exceedsYield": "⚠️ La Contrainte Dépasse la Limite d'Élasticité",
+      "shape": "Forme de Section",
+      "inputMode": "Mode de Saisie",
+      "customDimensions": "Dimensions Personnalisées",
+      "standardSection": "Section Standard",
+      "beamSection": "Section de Poutre",
+      "selectBeamSection": "Sélectionner une Section",
+      "parallelAxisTheorem": "Théorème des Axes Parallèles (Optionnel)",
+      "crossSectionPreview": "Aperçu de la Section",
+      "showCentroid": "Afficher le Centre de Gravité",
+      "showAxes": "Afficher les Axes",
+      "momentInUnits": "Moment d'Inertie dans Différentes Unités",
+      "beamConfiguration": "Configuration de la Poutre",
+      "crossSection": "Section Transversale",
+      "customSection": "Section Personnalisée",
+      "beamDiagram": "Diagramme de la Poutre",
+      "actualRatio": "Rapport Réel",
+      "criteriaDescriptions": {
+        "l180": "Planchers (non critique)",
+        "l240": "Planchers avec plafonds plâtrés",
+        "l360": "Toitures",
+        "l600": "Cas spéciaux (équipement de précision)"
+      },
+      "labels": {
+        "stress": "Contrainte",
+        "strain": "Déformation",
+        "youngsModulus": "Module de Young",
+        "force": "Force",
+        "area": "Section Transversale",
+        "originalLength": "Longueur Initiale",
+        "changeInLength": "Changement de Longueur",
+        "length": "Longueur",
+        "deflection": "Déflexion Maximale",
+        "maxShear": "Effort Tranchant Maximal",
+        "maxMoment": "Moment de Flexion Maximal",
+        "shape": "Forme de Section",
+        "width": "Largeur",
+        "height": "Hauteur",
+        "diameter": "Diamètre",
+        "thickness": "Épaisseur",
+        "flangeWidth": "Largeur de Semelle",
+        "flangeThickness": "Épaisseur de Semelle",
+        "webThickness": "Épaisseur d'Âme",
+        "momentOfInertia": "Moment d'Inertie",
+        "radiusOfGyration": "Rayon de Giration",
+        "centroid": "Centroïde",
+        "yieldStrength": "Limite d'Élasticité",
+        "beamLength": "Longueur de la Poutre",
+        "maxDeflection": "Flèche Maximale",
+        "deflectionLocation": "Position de la Flèche",
+        "pointLoad": "Charge Concentrée",
+        "distributedLoad": "Charge Répartie",
+        "slopeLeft": "Pente à l'Extrémité Gauche",
+        "slopeRight": "Pente à l'Extrémité Droite",
+        "depth": "Profondeur",
+        "momentOfInertiaX": "Moment d'Inertie (Axe X)",
+        "momentOfInertiaY": "Moment d'Inertie (Axe Y)",
+        "radiusOfGyrationX": "Rayon de Giration (X)",
+        "radiusOfGyrationY": "Rayon de Giration (Y)",
+        "offsetX": "Décalage X",
+        "offsetY": "Décalage Y",
+        "leg1Width": "Largeur Aile 1",
+        "leg2Width": "Largeur Aile 2"
+      },
+      "modes": {
+        "stress": "Calculer la Contrainte",
+        "strain": "Calculer la Déformation",
+        "youngsModulus": "Calculer le Module de Young"
+      },
+      "beamTypes": {
+        "simplySupported": "Simplement Appuyée",
+        "cantilever": "Porte-à-Faux",
+        "fixedFixed": "Encastrée-Encastrée"
+      },
+      "loadTypes": {
+        "pointLoad": "Charge Concentrée (Centre)",
+        "distributedLoad": "Charge Uniformément Répartie"
+      },
+      "shapes": {
+        "rectangle": "Rectangle",
+        "circle": "Cercle",
+        "iBeam": "Poutre en I",
+        "hollowRectangle": "Rectangle Creux",
+        "hollowCircle": "Cercle Creux (Tube)",
+        "triangle": "Triangle",
+        "channel": "Profilé en C",
+        "angle": "Cornière"
+      },
+      "deflectionCriteria": "Critères de Déflexion",
+      "criteriaTable": {
+        "limit": "Limite",
+        "description": "Application",
+        "passes": "Statut",
+        "floors": "Planchers (non critique)",
+        "floorsPlaster": "Planchers avec plafonds en plâtre",
+        "roofs": "Toitures",
+        "special": "Cas spéciaux"
+      },
+      "calculationSteps": "Étapes de calcul",
+      "columnBuckling": {
+        "section": "Section de colonne",
+        "beamSection": "Section de poutre",
+        "customSection": "Section personnalisée",
+        "crossSectionalArea": "Section transversale",
+        "momentOfInertia": "Moment d'inertie",
+        "bucklingAxis": "Axe de flambement",
+        "strongAxisX": "Axe fort (X)",
+        "weakAxisY": "Axe faible (Y)",
+        "columnLength": "Longueur de colonne",
+        "endCondition": "Condition d'extrémité",
+        "pinnedPinned": "Articulé-Articulé",
+        "fixedPinned": "Encastré-Articulé",
+        "fixedFixed": "Encastré-Encastré",
+        "fixedFree": "Encastré-Libre",
+        "eulerCriticalLoad": "Charge critique d'Euler",
+        "aiscAllowableLoad": "Charge admissible AISC",
+        "slendernessRatio": "Rapport d'élancement (KL/r)",
+        "effectiveLength": "Longueur effective (KL)",
+        "kFactor": "Facteur K",
+        "bucklingMode": "Mode de flambement",
+        "elastic": "Élastique",
+        "inelastic": "Inélastique",
+        "elasticBuckling": "La colonne est dans la zone de flambement élastique. Le rapport d'élancement dépasse la valeur critique — envisagez de réduire la longueur effective ou d'augmenter les propriétés de la section."
+      },
+      "pipeFlow": {
+        "pipeMaterial": "Matériau du tuyau",
+        "customPipe": "Tuyau personnalisé",
+        "roughness": "Rugosité de surface",
+        "fluid": "Fluide",
+        "customFluid": "Fluide personnalisé",
+        "density": "Densité",
+        "viscosity": "Viscosité dynamique",
+        "innerDiameter": "Diamètre intérieur",
+        "pipeLength": "Longueur du tuyau",
+        "flowVelocity": "Vitesse d'écoulement",
+        "pressureDrop": "Perte de charge",
+        "headLoss": "Perte de hauteur",
+        "reynoldsNumber": "Nombre de Reynolds",
+        "flowRegime": "Régime d'écoulement",
+        "frictionFactor": "Facteur de friction de Darcy",
+        "flowRate": "Débit",
+        "laminar": "Laminaire",
+        "transitional": "Transitionnel",
+        "turbulent": "Turbulent"
+      },
+      "unitConverter": {
+        "category": "Catégorie d'unités",
+        "value": "Valeur",
+        "from": "De",
+        "to": "Vers",
+        "swap": "Inverser les unités",
+        "conversionFactor": "Facteur de conversion",
+        "allConversions": "Toutes les conversions"
+      }
+    },
+    "chemistry": {
+      "mode": "Mode de calcul",
+      "commonCompounds": "Composés courants",
+      "selectCompound": "Sélectionner un composé",
+      "customFormula": "Formule personnalisée",
+      "formulaExamples": "Exemples",
+      "invalidFormula": "Formule chimique invalide. Veuillez vérifier votre saisie.",
+      "elementBreakdown": "Décomposition élémentaire",
+      "totalAtoms": "Nombre total d'atomes",
+      "concentrationUnits": "Unités de concentration",
+      "dilutionFormula": "Formule de dilution (Molarité initiale × Volume initial = Molarité finale × Volume final)",
+      "dilutionFactor": "Facteur de dilution",
+      "solventToAdd": "Solvant à ajouter",
+      "calculationSteps": "Étapes de calcul",
+      "labels": {
+        "formula": "Formule chimique",
+        "molarMass": "Masse molaire",
+        "mass": "Masse",
+        "moles": "Moles",
+        "molecularWeight": "Poids moléculaire",
+        "volume": "Volume",
+        "volumeUnit": "Unité de volume",
+        "molarity": "Molarité",
+        "initialMolarity": "Molarité initiale (M₁)",
+        "finalMolarity": "Molarité finale (M₂)",
+        "initialVolume": "Volume initial (V₁)",
+        "finalVolume": "Volume final (V₂)"
+      },
+      "modes": {
+        "massVolume": "À partir de masse et volume",
+        "molesVolume": "À partir de moles et volume",
+        "findV1": "Trouver volume initial (V₁)",
+        "findV2": "Trouver volume final (V₂)",
+        "findM2": "Trouver molarité finale (M₂)"
+      },
+      "modeDescriptions": {
+        "massVolume": "Calculer la molarité à partir de la masse de soluté, du poids moléculaire et du volume",
+        "molesVolume": "Calculer la molarité à partir des moles de soluté et du volume",
+        "findV1": "Calculer le volume de solution mère nécessaire",
+        "findV2": "Calculer le volume final après dilution",
+        "findM2": "Calculer la concentration finale après dilution"
       }
     },
     "errors": {

@@ -74,6 +74,26 @@
         "cost": "Kostenanalyse"
       }
     },
+    "engineering": {
+      "name": "Ingenieurwesen",
+      "description": "Strukturberechnungen, Materialeigenschaften und Trägeranalyse",
+      "subcategories": {
+        "structural": "Strukturell",
+        "materials": "Materialien",
+        "hydraulics": "Hydraulik",
+        "conversion": "Umrechnung"
+      }
+    },
+    "chemistry": {
+      "name": "Chemie",
+      "description": "Chemische Berechnungen und molekulare Werkzeuge",
+      "subcategories": {
+        "general": "Allgemein",
+        "solutions": "Lösungen",
+        "reactions": "Reaktionen",
+        "reference": "Referenz"
+      }
+    },
     "math": {
       "name": "Mathematik",
       "description": "Mathematische"
@@ -866,6 +886,51 @@
       "description": "Berechnen Sie das Volumen von 3D-Formen",
       "metaDescription": "Berechnen Sie Volumen von Wuerfel, Kugel, Zylinder, Kegel und mehr"
     },
+    "moment-of-inertia": {
+      "name": "Flächenträgheitsmoment-Rechner",
+      "description": "Berechnen Sie das Flächenträgheitsmoment für verschiedene Querschnitte",
+      "metaDescription": "Kostenloser Flächenträgheitsmoment-Rechner. Berechnen Sie das Trägheitsmoment für rechteckige, kreisförmige, I-Träger, hohle und benutzerdefinierte Querschnitte. Enthält Steinerschen Satz."
+    },
+    "beam-deflection": {
+      "name": "Trägerdurchbiegungs-Rechner",
+      "description": "Berechnen Sie Trägerdurchbiegung, Querkraft und Biegemoment mit Diagrammen",
+      "metaDescription": "Kostenloser Trägerdurchbiegungs-Rechner. Analysieren Sie einfach gestützte, freitragende und beidseitig eingespannte Träger mit Einzellasten oder Streckenlasten. Enthält Querkraft- und Momentendiagramme."
+    },
+    "stress-strain": {
+      "name": "Spannungs-Dehnungs-Rechner",
+      "description": "Berechnen Sie Spannung, Dehnung und Elastizitätsmodul mit Materialdatenbank",
+      "metaDescription": "Kostenloser Spannungs-Dehnungs-Rechner. Berechnen Sie Spannung, Dehnung, Elastizitätsmodul und Sicherheitsfaktor. Enthält Datenbank mit 30+ Materialien (Stahl, Aluminium, Holz, Beton)."
+    },
+    "column-buckling": {
+      "name": "Knicklast-Rechner",
+      "description": "Berechnen Sie die Euler-Knicklast, die AISC-zulässige Last und den Schlankheitsgrad",
+      "metaDescription": "Kostenloser Knicklast-Rechner. Euler-Knicklast, AISC-zulässige Spannung, Schlankheitsgrad und Knicklänge mit Material- und Profildatenbank."
+    },
+    "pipe-flow": {
+      "name": "Rohrströmungs-Rechner",
+      "description": "Berechnen Sie Druckverlust, Reynolds-Zahl und Reibungsbeiwert für Rohrströmung",
+      "metaDescription": "Kostenloser Rohrströmungs-Rechner. Darcy-Weisbach-Druckverlust, Reynolds-Zahl, Colebrook-White-Reibungsbeiwert mit Rohr- und Fluiddatenbank."
+    },
+    "engineering-unit-converter": {
+      "name": "Technischer Einheitenumrechner",
+      "description": "Umrechnung zwischen technischen Einheiten: Kraft, Druck, Spannung, Drehmoment und mehr",
+      "metaDescription": "Kostenloser technischer Einheitenumrechner mit NIST-Präzision. Kraft, Druck, Spannung, Drehmoment, Dichte, Länge, Fläche, Trägheitsmoment und Widerstandsmoment."
+    },
+    "molecular-weight": {
+      "name": "Molekulargewichtsrechner",
+      "description": "Berechnen Sie Molmasse und Zusammensetzung aus chemischer Formel",
+      "metaDescription": "Kostenloser Molekulargewichtsrechner. Berechnen Sie Molmasse, Elementzusammensetzung und Massenprozent aus chemischen Formeln (H2O, Ca(OH)2, CuSO4·5H2O). Enthält 118 Elemente IUPAC 2024."
+    },
+    "molarity": {
+      "name": "Molaritätsrechner",
+      "description": "Berechnen Sie Lösungskonzentration aus Masse, Mol und Volumen",
+      "metaDescription": "Kostenloser Molaritätsrechner. Berechnen Sie Lösungskonzentration (M, mM, µM, nM) aus Masse/Volumen oder Mol/Volumen mit Schritt-für-Schritt-Berechnungen."
+    },
+    "dilution": {
+      "name": "Verdünnungsrechner",
+      "description": "Berechnen Sie Verdünnungsparameter mit der Formel M₁V₁ = M₂V₂",
+      "metaDescription": "Kostenloser Verdünnungsrechner. Berechnen Sie Anfangsvolumen, Endvolumen oder Endmolarität mit M₁V₁ = M₂V₂, Unterstützung für serielle Verdünnungen und Sicherheitswarnungen."
+    },
     "vm-storage-calculator": {
       "name": "VM-Speicherrechner",
       "description": "Berechnen Sie den Speicherbedarf für vSphere ESX-Cluster",
@@ -1137,7 +1202,6 @@
       "female": "Weiblich",
       "age": "Alter",
       "weight": "Gewicht (kg)",
-      "height": "Groesse (cm)",
       "weightSimple": "Gewicht",
       "heightSimple": "Groesse",
       "enterWeight": "Gewicht eingeben",
@@ -1317,7 +1381,6 @@
       "sellingPricePerUnit": "Verkaufspreis pro Einheit",
       "swapCurrencies": "Waehrungen tauschen",
       "timeSaved": "Eingesparte Zeit",
-      "timeToPayoff": "Zeit bis zur Tilgung",
       "total-repayment": "Gesamtrueckzahlung",
       "totalDebt": "Gesamtschuld",
       "totalPaid": "Gesamt bezahlt",
@@ -1326,6 +1389,15 @@
       "variableCostPerUnitHint": "Kosten pro produzierter Einheit",
       "yearsToMaturity": "Jahre bis Faelligkeit",
       "category": "Kategorie",
+      "timeToPayoff": "Zeit bis zur Rückzahlung",
+      "dimensions": "Abmessungen",
+      "diameter": "Durchmesser",
+      "thickness": "Dicke",
+      "base": "Basis",
+      "outer": "Äußere",
+      "inner": "Innere",
+      "width": "Breite",
+      "height": "Höhe",
       "decimalPlaces": "Dezimalstellen",
       "dividend": "Dividend",
       "divisor": "Divisor",
@@ -3786,6 +3858,211 @@
         "movie_4k": "4K Film",
         "game": "Spiel",
         "os_image": "Betriebssystem-Image"
+      }
+    },
+    "engineering": {
+      "mode": "Berechnungsmodus",
+      "material": "Material",
+      "customMaterial": "Benutzerdefiniertes Material",
+      "beamType": "Trägertyp",
+      "loadType": "Lasttyp",
+      "safetyFactor": "Sicherheitsfaktor",
+      "exceedsYield": "⚠️ Spannung Überschreitet Streckgrenze",
+      "shape": "Querschnittsform",
+      "inputMode": "Eingabemodus",
+      "customDimensions": "Benutzerdefinierte Abmessungen",
+      "standardSection": "Standardprofil",
+      "beamSection": "Trägerprofil",
+      "selectBeamSection": "Profil Auswählen",
+      "parallelAxisTheorem": "Satz von Steiner (Optional)",
+      "crossSectionPreview": "Querschnittsvorschau",
+      "showCentroid": "Schwerpunkt Anzeigen",
+      "showAxes": "Achsen Anzeigen",
+      "momentInUnits": "Trägheitsmoment in Verschiedenen Einheiten",
+      "beamConfiguration": "Trägerkonfiguration",
+      "crossSection": "Querschnitt",
+      "customSection": "Benutzerdefinierter Querschnitt",
+      "beamDiagram": "Trägerdiagramm",
+      "actualRatio": "Tatsächliches Verhältnis",
+      "criteriaDescriptions": {
+        "l180": "Decken (nicht kritisch)",
+        "l240": "Decken mit verputzten Decken",
+        "l360": "Dächer",
+        "l600": "Sonderfälle (Präzisionsgeräte)"
+      },
+      "labels": {
+        "stress": "Spannung",
+        "strain": "Dehnung",
+        "youngsModulus": "Elastizitätsmodul",
+        "force": "Kraft",
+        "area": "Querschnittsfläche",
+        "originalLength": "Ursprüngliche Länge",
+        "changeInLength": "Längenänderung",
+        "length": "Länge",
+        "deflection": "Maximale Durchbiegung",
+        "maxShear": "Maximale Querkraft",
+        "maxMoment": "Maximales Biegemoment",
+        "shape": "Querschnittsform",
+        "width": "Breite",
+        "height": "Höhe",
+        "diameter": "Durchmesser",
+        "thickness": "Dicke",
+        "flangeWidth": "Flanschbreite",
+        "flangeThickness": "Flanschdicke",
+        "webThickness": "Stegdicke",
+        "momentOfInertia": "Flächenträgheitsmoment",
+        "radiusOfGyration": "Trägheitsradius",
+        "centroid": "Schwerpunkt",
+        "yieldStrength": "Streckgrenze",
+        "beamLength": "Trägerlänge",
+        "maxDeflection": "Maximale Durchbiegung",
+        "deflectionLocation": "Durchbiegungsposition",
+        "pointLoad": "Einzellast",
+        "distributedLoad": "Streckenlast",
+        "slopeLeft": "Neigung am linken Ende",
+        "slopeRight": "Neigung am rechten Ende",
+        "depth": "Tiefe",
+        "momentOfInertiaX": "Flächenträgheitsmoment (X-Achse)",
+        "momentOfInertiaY": "Flächenträgheitsmoment (Y-Achse)",
+        "radiusOfGyrationX": "Trägheitsradius (X)",
+        "radiusOfGyrationY": "Trägheitsradius (Y)",
+        "offsetX": "Versatz X",
+        "offsetY": "Versatz Y",
+        "leg1Width": "Schenkelbreite 1",
+        "leg2Width": "Schenkelbreite 2"
+      },
+      "modes": {
+        "stress": "Spannung Berechnen",
+        "strain": "Dehnung Berechnen",
+        "youngsModulus": "Elastizitätsmodul Berechnen"
+      },
+      "beamTypes": {
+        "simplySupported": "Einfach Gestützt",
+        "cantilever": "Freitragend",
+        "fixedFixed": "Beidseitig Eingespannt"
+      },
+      "loadTypes": {
+        "pointLoad": "Einzellast (Mitte)",
+        "distributedLoad": "Gleichmäßig Verteilte Last"
+      },
+      "shapes": {
+        "rectangle": "Rechteck",
+        "circle": "Kreis",
+        "iBeam": "I-Träger",
+        "hollowRectangle": "Hohlrechteck",
+        "hollowCircle": "Hohlkreis (Rohr)",
+        "triangle": "Dreieck",
+        "channel": "C-Profil",
+        "angle": "Winkelprofil"
+      },
+      "deflectionCriteria": "Durchbiegungskriterien",
+      "criteriaTable": {
+        "limit": "Grenzwert",
+        "description": "Anwendung",
+        "passes": "Status",
+        "floors": "Decken (unkritisch)",
+        "floorsPlaster": "Decken mit Putz",
+        "roofs": "Dächer",
+        "special": "Sonderfälle"
+      },
+      "calculationSteps": "Berechnungsschritte",
+      "columnBuckling": {
+        "section": "Stützenquerschnitt",
+        "beamSection": "Trägerquerschnitt",
+        "customSection": "Benutzerdefinierter Querschnitt",
+        "crossSectionalArea": "Querschnittsfläche",
+        "momentOfInertia": "Trägheitsmoment",
+        "bucklingAxis": "Knickachse",
+        "strongAxisX": "Starke Achse (X)",
+        "weakAxisY": "Schwache Achse (Y)",
+        "columnLength": "Stützenlänge",
+        "endCondition": "Lagerbedingung",
+        "pinnedPinned": "Gelenkig-Gelenkig",
+        "fixedPinned": "Eingespannt-Gelenkig",
+        "fixedFixed": "Eingespannt-Eingespannt",
+        "fixedFree": "Eingespannt-Frei",
+        "eulerCriticalLoad": "Euler-Knicklast",
+        "aiscAllowableLoad": "AISC-zulässige Last",
+        "slendernessRatio": "Schlankheitsgrad (KL/r)",
+        "effectiveLength": "Knicklänge (KL)",
+        "kFactor": "K-Faktor",
+        "bucklingMode": "Knickmodus",
+        "elastic": "Elastisch",
+        "inelastic": "Inelastisch",
+        "elasticBuckling": "Die Stütze befindet sich im elastischen Knickbereich. Der Schlankheitsgrad überschreitet den kritischen Wert — erwägen Sie eine Reduzierung der Knicklänge oder eine Vergrößerung der Querschnittswerte."
+      },
+      "pipeFlow": {
+        "pipeMaterial": "Rohrmaterial",
+        "customPipe": "Benutzerdefiniertes Rohr",
+        "roughness": "Oberflächenrauheit",
+        "fluid": "Fluid",
+        "customFluid": "Benutzerdefiniertes Fluid",
+        "density": "Dichte",
+        "viscosity": "Dynamische Viskosität",
+        "innerDiameter": "Innendurchmesser",
+        "pipeLength": "Rohrlänge",
+        "flowVelocity": "Strömungsgeschwindigkeit",
+        "pressureDrop": "Druckverlust",
+        "headLoss": "Verlusthöhe",
+        "reynoldsNumber": "Reynolds-Zahl",
+        "flowRegime": "Strömungsregime",
+        "frictionFactor": "Darcy-Reibungsbeiwert",
+        "flowRate": "Volumenstrom",
+        "laminar": "Laminar",
+        "transitional": "Übergang",
+        "turbulent": "Turbulent"
+      },
+      "unitConverter": {
+        "category": "Einheitenkategorie",
+        "value": "Wert",
+        "from": "Von",
+        "to": "Nach",
+        "swap": "Einheiten tauschen",
+        "conversionFactor": "Umrechnungsfaktor",
+        "allConversions": "Alle Umrechnungen"
+      }
+    },
+    "chemistry": {
+      "mode": "Berechnungsmodus",
+      "commonCompounds": "Häufige Verbindungen",
+      "selectCompound": "Verbindung auswählen",
+      "customFormula": "Benutzerdefinierte Formel",
+      "formulaExamples": "Beispiele",
+      "invalidFormula": "Ungültige chemische Formel. Bitte überprüfen Sie Ihre Eingabe.",
+      "elementBreakdown": "Elementaufschlüsselung",
+      "totalAtoms": "Gesamtanzahl der Atome",
+      "concentrationUnits": "Konzentrationseinheiten",
+      "dilutionFormula": "Verdünnungsformel (Anfangsmolarität × Anfangsvolumen = Endmolarität × Endvolumen)",
+      "dilutionFactor": "Verdünnungsfaktor",
+      "solventToAdd": "Hinzuzufügendes Lösungsmittel",
+      "calculationSteps": "Berechnungsschritte",
+      "labels": {
+        "formula": "Chemische Formel",
+        "molarMass": "Molmasse",
+        "mass": "Masse",
+        "moles": "Mol",
+        "molecularWeight": "Molekulargewicht",
+        "volume": "Volumen",
+        "volumeUnit": "Volumeneinheit",
+        "molarity": "Molarität",
+        "initialMolarity": "Anfangsmolarität (M₁)",
+        "finalMolarity": "Endmolarität (M₂)",
+        "initialVolume": "Anfangsvolumen (V₁)",
+        "finalVolume": "Endvolumen (V₂)"
+      },
+      "modes": {
+        "massVolume": "Aus Masse & Volumen",
+        "molesVolume": "Aus Mol & Volumen",
+        "findV1": "Anfangsvolumen finden (V₁)",
+        "findV2": "Endvolumen finden (V₂)",
+        "findM2": "Endmolarität finden (M₂)"
+      },
+      "modeDescriptions": {
+        "massVolume": "Molarität aus Masse des gelösten Stoffes, Molekulargewicht und Volumen berechnen",
+        "molesVolume": "Molarität aus Mol des gelösten Stoffes und Volumen berechnen",
+        "findV1": "Benötigtes Stammlösungsvolumen berechnen",
+        "findV2": "Endvolumen nach Verdünnung berechnen",
+        "findM2": "Endkonzentration nach Verdünnung berechnen"
       }
     },
     "errors": {

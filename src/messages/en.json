@@ -74,6 +74,26 @@
         "cost": "Cost Analysis"
       }
     },
+    "engineering": {
+      "name": "Engineering",
+      "description": "Structural calculations, material properties, and beam analysis",
+      "subcategories": {
+        "structural": "Structural",
+        "materials": "Materials",
+        "hydraulics": "Hydraulics",
+        "conversion": "Conversion"
+      }
+    },
+    "chemistry": {
+      "name": "Chemistry",
+      "description": "Chemical calculations and molecular tools",
+      "subcategories": {
+        "general": "General",
+        "solutions": "Solutions",
+        "reactions": "Reactions",
+        "reference": "Reference"
+      }
+    },
     "math": {
       "name": "Math",
       "description": "Mathematical calculators"
@@ -866,6 +886,51 @@
       "description": "Calculate volume of 3D shapes",
       "metaDescription": "Calculate volume of cube, sphere, cylinder, cone, prism, and more"
     },
+    "moment-of-inertia": {
+      "name": "Moment of Inertia Calculator",
+      "description": "Calculate second moment of area for various cross-sections",
+      "metaDescription": "Free moment of inertia calculator. Calculate second moment of area for rectangular, circular, I-beam, hollow, and custom cross-sections. Includes parallel axis theorem."
+    },
+    "beam-deflection": {
+      "name": "Beam Deflection Calculator",
+      "description": "Calculate beam deflection, shear, and bending moment with diagrams",
+      "metaDescription": "Free beam deflection calculator. Analyze simply supported, cantilever, and fixed-fixed beams with point or distributed loads. Includes shear and moment diagrams."
+    },
+    "stress-strain": {
+      "name": "Stress-Strain Calculator",
+      "description": "Calculate stress, strain, and Young's modulus with material database",
+      "metaDescription": "Free stress-strain calculator. Calculate engineering stress, strain, Young's modulus, and safety factor. Includes material database with 30+ materials (steel, aluminum, wood, concrete)."
+    },
+    "column-buckling": {
+      "name": "Column Buckling Calculator",
+      "description": "Calculate Euler critical load, AISC allowable load, and slenderness ratio for columns",
+      "metaDescription": "Free column buckling calculator. Compute Euler critical load, AISC allowable stress, slenderness ratio, and effective length with material and section databases."
+    },
+    "pipe-flow": {
+      "name": "Pipe Flow Calculator",
+      "description": "Calculate pressure drop, Reynolds number, and friction factor for pipe flow",
+      "metaDescription": "Free pipe flow calculator. Compute Darcy-Weisbach pressure drop, Reynolds number, Colebrook-White friction factor, and head loss with pipe material and fluid databases."
+    },
+    "engineering-unit-converter": {
+      "name": "Engineering Unit Converter",
+      "description": "Convert between engineering units: force, pressure, stress, torque, and more",
+      "metaDescription": "Free engineering unit converter with NIST-precision factors. Convert force, pressure, stress, torque, density, length, area, moment of inertia, and section modulus."
+    },
+    "molecular-weight": {
+      "name": "Molecular Weight Calculator",
+      "description": "Calculate molar mass and composition from chemical formula",
+      "metaDescription": "Free molecular weight calculator. Calculate molar mass, element composition, and mass percentage from chemical formulas (H2O, Ca(OH)2, CuSO4·5H2O). Includes 118 elements from IUPAC 2024."
+    },
+    "molarity": {
+      "name": "Molarity Calculator",
+      "description": "Calculate solution concentration from mass, moles, and volume",
+      "metaDescription": "Free molarity calculator. Calculate solution concentration (M, mM, µM, nM) from mass/volume or moles/volume with step-by-step calculations."
+    },
+    "dilution": {
+      "name": "Dilution Calculator",
+      "description": "Calculate dilution parameters using M₁V₁ = M₂V₂ formula",
+      "metaDescription": "Free dilution calculator. Calculate initial volume, final volume, or final molarity using M₁V₁ = M₂V₂ with serial dilution support and safety warnings."
+    },
     "vm-storage-calculator": {
       "name": "VM Storage Calculator",
       "description": "Calculate vSphere ESX cluster storage capacity requirements",
@@ -1138,7 +1203,6 @@
       "age": "Age",
       "weight": "Weight (kg)",
       "weightSimple": "Weight",
-      "height": "Height (cm)",
       "heightSimple": "Height",
       "enterWeight": "Enter weight",
       "enterHeight": "Enter height",
@@ -1326,6 +1390,14 @@
       "yearsToMaturity": "Years to Maturity",
       "category": "Category",
       "timeToPayoff": "Time to Payoff",
+      "dimensions": "Dimensions",
+      "diameter": "Diameter",
+      "thickness": "Thickness",
+      "base": "Base",
+      "outer": "Outer",
+      "inner": "Inner",
+      "width": "Width",
+      "height": "Height",
       "decimalPlaces": "Decimal Places",
       "dividend": "Dividend",
       "divisor": "Divisor",
@@ -3786,6 +3858,210 @@
         "movie_4k": "4K Movie",
         "game": "Game",
         "os_image": "OS Image"
+      }
+    },
+    "engineering": {
+      "mode": "Calculation Mode",
+      "material": "Material",
+      "customMaterial": "Custom Material",
+      "beamType": "Beam Type",
+      "loadType": "Load Type",
+      "safetyFactor": "Safety Factor",
+      "exceedsYield": "⚠️ Stress Exceeds Yield Strength",
+      "shape": "Cross-Section Shape",
+      "inputMode": "Input Mode",
+      "customDimensions": "Custom Dimensions",
+      "standardSection": "Standard Section",
+      "beamSection": "Beam Section",
+      "selectBeamSection": "Select Beam Section",
+      "parallelAxisTheorem": "Parallel Axis Theorem (Optional)",
+      "crossSectionPreview": "Cross-Section Preview",
+      "showCentroid": "Show Centroid",
+      "showAxes": "Show Axes",
+      "momentInUnits": "Moment of Inertia in Different Units",
+      "beamConfiguration": "Beam Configuration",
+      "crossSection": "Cross-Section",
+      "customSection": "Custom Section",
+      "beamDiagram": "Beam Diagram",
+      "actualRatio": "Actual Ratio",
+      "criteriaDescriptions": {
+        "l180": "Floors (non-critical)",
+        "l240": "Floors with plaster ceilings",
+        "l360": "Roofs",
+        "l600": "Special cases (precision equipment)"
+      },
+      "labels": {
+        "stress": "Stress",
+        "strain": "Strain",
+        "youngsModulus": "Young's Modulus",
+        "force": "Force",
+        "area": "Cross-sectional Area",
+        "originalLength": "Original Length",
+        "changeInLength": "Change in Length",
+        "length": "Length",
+        "deflection": "Maximum Deflection",
+        "maxShear": "Maximum Shear Force",
+        "maxMoment": "Maximum Bending Moment",
+        "width": "Width",
+        "height": "Height",
+        "diameter": "Diameter",
+        "thickness": "Thickness",
+        "depth": "Depth",
+        "flangeWidth": "Flange Width",
+        "flangeThickness": "Flange Thickness",
+        "webThickness": "Web Thickness",
+        "momentOfInertia": "Moment of Inertia",
+        "momentOfInertiaX": "Moment of Inertia (X-axis)",
+        "momentOfInertiaY": "Moment of Inertia (Y-axis)",
+        "radiusOfGyration": "Radius of Gyration",
+        "radiusOfGyrationX": "Radius of Gyration (X)",
+        "radiusOfGyrationY": "Radius of Gyration (Y)",
+        "centroid": "Centroid",
+        "yieldStrength": "Yield Strength",
+        "beamLength": "Beam Length",
+        "maxDeflection": "Maximum Deflection",
+        "deflectionLocation": "Deflection Location",
+        "pointLoad": "Point Load",
+        "distributedLoad": "Distributed Load",
+        "slopeLeft": "Slope at Left End",
+        "slopeRight": "Slope at Right End",
+        "offsetX": "Offset X",
+        "offsetY": "Offset Y",
+        "leg1Width": "Leg 1 Width",
+        "leg2Width": "Leg 2 Width"
+      },
+      "modes": {
+        "stress": "Calculate Stress",
+        "strain": "Calculate Strain",
+        "youngsModulus": "Calculate Young's Modulus"
+      },
+      "beamTypes": {
+        "simplySupported": "Simply Supported",
+        "cantilever": "Cantilever",
+        "fixedFixed": "Fixed-Fixed"
+      },
+      "loadTypes": {
+        "pointLoad": "Point Load (Center)",
+        "distributedLoad": "Uniformly Distributed Load"
+      },
+      "shapes": {
+        "rectangle": "Rectangle",
+        "circle": "Circle",
+        "iBeam": "I-Beam",
+        "hollowRectangle": "Hollow Rectangle",
+        "hollowCircle": "Hollow Circle (Tube)",
+        "triangle": "Triangle",
+        "channel": "Channel",
+        "angle": "Angle"
+      },
+      "deflectionCriteria": "Deflection Criteria",
+      "criteriaTable": {
+        "limit": "Limit",
+        "description": "Application",
+        "passes": "Status",
+        "floors": "Floors (non-critical)",
+        "floorsPlaster": "Floors with plastered ceilings",
+        "roofs": "Roofs",
+        "special": "Special cases"
+      },
+      "calculationSteps": "Calculation Steps",
+      "columnBuckling": {
+        "section": "Column Section",
+        "beamSection": "Beam Section",
+        "customSection": "Custom Section",
+        "crossSectionalArea": "Cross-Sectional Area",
+        "momentOfInertia": "Moment of Inertia",
+        "bucklingAxis": "Buckling Axis",
+        "strongAxisX": "Strong Axis (X)",
+        "weakAxisY": "Weak Axis (Y)",
+        "columnLength": "Column Length",
+        "endCondition": "End Condition",
+        "pinnedPinned": "Pinned-Pinned",
+        "fixedPinned": "Fixed-Pinned",
+        "fixedFixed": "Fixed-Fixed",
+        "fixedFree": "Fixed-Free",
+        "eulerCriticalLoad": "Euler Critical Load",
+        "aiscAllowableLoad": "AISC Allowable Load",
+        "slendernessRatio": "Slenderness Ratio (KL/r)",
+        "effectiveLength": "Effective Length (KL)",
+        "kFactor": "K Factor",
+        "bucklingMode": "Buckling Mode",
+        "elastic": "Elastic",
+        "inelastic": "Inelastic",
+        "elasticBuckling": "Column is in the elastic buckling range. Slenderness ratio exceeds the critical value — consider reducing effective length or increasing section properties."
+      },
+      "pipeFlow": {
+        "pipeMaterial": "Pipe Material",
+        "customPipe": "Custom Pipe",
+        "roughness": "Surface Roughness",
+        "fluid": "Fluid",
+        "customFluid": "Custom Fluid",
+        "density": "Density",
+        "viscosity": "Dynamic Viscosity",
+        "innerDiameter": "Inner Diameter",
+        "pipeLength": "Pipe Length",
+        "flowVelocity": "Flow Velocity",
+        "pressureDrop": "Pressure Drop",
+        "headLoss": "Head Loss",
+        "reynoldsNumber": "Reynolds Number",
+        "flowRegime": "Flow Regime",
+        "frictionFactor": "Darcy Friction Factor",
+        "flowRate": "Flow Rate",
+        "laminar": "Laminar",
+        "transitional": "Transitional",
+        "turbulent": "Turbulent"
+      },
+      "unitConverter": {
+        "category": "Unit Category",
+        "value": "Value",
+        "from": "From",
+        "to": "To",
+        "swap": "Swap Units",
+        "conversionFactor": "Conversion Factor",
+        "allConversions": "All Conversions"
+      }
+    },
+    "chemistry": {
+      "mode": "Calculation Mode",
+      "commonCompounds": "Common Compounds",
+      "selectCompound": "Select Compound",
+      "customFormula": "Custom Formula",
+      "formulaExamples": "Examples",
+      "invalidFormula": "Invalid chemical formula. Please check your input.",
+      "elementBreakdown": "Element Breakdown",
+      "totalAtoms": "Total Atoms",
+      "concentrationUnits": "Concentration Units",
+      "dilutionFormula": "Dilution Formula (Initial Molarity × Initial Volume = Final Molarity × Final Volume)",
+      "dilutionFactor": "Dilution Factor",
+      "solventToAdd": "Solvent to Add",
+      "calculationSteps": "Calculation Steps",
+      "labels": {
+        "formula": "Chemical Formula",
+        "molarMass": "Molar Mass",
+        "mass": "Mass",
+        "moles": "Moles",
+        "molecularWeight": "Molecular Weight",
+        "volume": "Volume",
+        "volumeUnit": "Volume Unit",
+        "molarity": "Molarity",
+        "initialMolarity": "Initial Molarity (M₁)",
+        "finalMolarity": "Final Molarity (M₂)",
+        "initialVolume": "Initial Volume (V₁)",
+        "finalVolume": "Final Volume (V₂)"
+      },
+      "modes": {
+        "massVolume": "From Mass & Volume",
+        "molesVolume": "From Moles & Volume",
+        "findV1": "Find Initial Volume (V₁)",
+        "findV2": "Find Final Volume (V₂)",
+        "findM2": "Find Final Molarity (M₂)"
+      },
+      "modeDescriptions": {
+        "massVolume": "Calculate molarity from mass of solute, molecular weight, and volume",
+        "molesVolume": "Calculate molarity from moles of solute and volume",
+        "findV1": "Calculate the volume of stock solution needed",
+        "findV2": "Calculate the final volume after dilution",
+        "findM2": "Calculate the final concentration after dilution"
       }
     },
     "errors": {

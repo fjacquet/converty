@@ -7,7 +7,9 @@ import {
   Car,
   Database,
   DollarSign,
+  FlaskConical,
   Globe,
+  Hammer,
   Heart,
   Home,
   type LucideIcon,
@@ -69,6 +71,19 @@ export const categories: Category[] = [
     ],
   },
   {
+    id: "chemistry",
+    slug: "chemistry",
+    name: "Chemistry",
+    description: "Chemical calculations and molecular tools",
+    icon: FlaskConical,
+    subcategories: [
+      { id: "general", name: "General", description: "Basic chemistry calculations" },
+      { id: "solutions", name: "Solutions", description: "Solution concentration and dilution" },
+      { id: "reactions", name: "Reactions", description: "Chemical reactions and stoichiometry" },
+      { id: "reference", name: "Reference", description: "Periodic table and compound data" },
+    ],
+  },
+  {
     id: "crypto",
     slug: "crypto",
     name: "Crypto",
@@ -100,6 +115,23 @@ export const categories: Category[] = [
     icon: Calendar,
     subcategories: [
       { id: "date-time", name: "Date & Time", description: "Date and time calculations" },
+    ],
+  },
+  {
+    id: "engineering",
+    slug: "engineering",
+    name: "Engineering",
+    description: "Structural calculations, material properties, and beam analysis",
+    icon: Hammer,
+    subcategories: [
+      { id: "structural", name: "Structural", description: "Beam and structural calculations" },
+      {
+        id: "materials",
+        name: "Materials",
+        description: "Material properties and stress analysis",
+      },
+      { id: "hydraulics", name: "Hydraulics", description: "Fluid flow and pipe calculations" },
+      { id: "conversion", name: "Conversion", description: "Engineering unit conversion" },
     ],
   },
   {

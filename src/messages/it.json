@@ -74,6 +74,26 @@
         "cost": "Analisi dei Costi"
       }
     },
+    "engineering": {
+      "name": "Ingegneria",
+      "description": "Calcoli strutturali, proprietà dei materiali e analisi delle travi",
+      "subcategories": {
+        "structural": "Strutturale",
+        "materials": "Materiali",
+        "hydraulics": "Idraulica",
+        "conversion": "Conversione"
+      }
+    },
+    "chemistry": {
+      "name": "Chimica",
+      "description": "Calcoli chimici e strumenti molecolari",
+      "subcategories": {
+        "general": "Generale",
+        "solutions": "Soluzioni",
+        "reactions": "Reazioni",
+        "reference": "Riferimento"
+      }
+    },
     "math": {
       "name": "Matematica",
       "description": "Calcolatori matematici"
@@ -866,6 +886,51 @@
       "description": "Calcola il volume di forme 3D",
       "metaDescription": "Calcola volume di cubo, sfera, cilindro, cono, prisma e altro"
     },
+    "moment-of-inertia": {
+      "name": "Calcolatore del Momento d'Inerzia",
+      "description": "Calcola il momento d'inerzia per varie sezioni trasversali",
+      "metaDescription": "Calcolatore gratuito del momento d'inerzia. Calcola il momento d'inerzia per sezioni rettangolari, circolari, a I, cave e personalizzate. Include teorema degli assi paralleli."
+    },
+    "beam-deflection": {
+      "name": "Calcolatore della Freccia della Trave",
+      "description": "Calcola freccia, taglio e momento flettente della trave con diagrammi",
+      "metaDescription": "Calcolatore gratuito della freccia della trave. Analizza travi semplicemente appoggiate, a sbalzo e incastrate con carichi concentrati o distribuiti. Include diagrammi di taglio e momento."
+    },
+    "stress-strain": {
+      "name": "Calcolatore Tensione-Deformazione",
+      "description": "Calcola tensione, deformazione e modulo di Young con database materiali",
+      "metaDescription": "Calcolatore gratuito tensione-deformazione. Calcola tensione, deformazione, modulo di Young e fattore di sicurezza. Include database con 30+ materiali (acciaio, alluminio, legno, calcestruzzo)."
+    },
+    "column-buckling": {
+      "name": "Calcolatore di instabilità a compressione",
+      "description": "Calcola il carico critico di Euler, il carico ammissibile AISC e il rapporto di snellezza",
+      "metaDescription": "Calcolatore gratuito di instabilità a compressione. Carico critico di Euler, tensione ammissibile AISC, rapporto di snellezza e lunghezza efficace con database di materiali e sezioni."
+    },
+    "pipe-flow": {
+      "name": "Calcolatore di flusso in condotta",
+      "description": "Calcola la perdita di carico, il numero di Reynolds e il fattore di attrito",
+      "metaDescription": "Calcolatore gratuito di flusso in condotta. Perdita di carico Darcy-Weisbach, numero di Reynolds, fattore di attrito Colebrook-White con database di materiali e fluidi."
+    },
+    "engineering-unit-converter": {
+      "name": "Convertitore di unità ingegneristiche",
+      "description": "Converti tra unità ingegneristiche: forza, pressione, tensione, coppia e altro",
+      "metaDescription": "Convertitore gratuito di unità ingegneristiche con precisione NIST. Forza, pressione, tensione, coppia, densità, lunghezza, area, momento d'inerzia e modulo di resistenza."
+    },
+    "molecular-weight": {
+      "name": "Calcolatore di Peso Molecolare",
+      "description": "Calcola la massa molare e la composizione dalla formula chimica",
+      "metaDescription": "Calcolatore gratuito di peso molecolare. Calcola massa molare, composizione elementare e percentuale di massa da formule chimiche (H2O, Ca(OH)2, CuSO4·5H2O). Include 118 elementi IUPAC 2024."
+    },
+    "molarity": {
+      "name": "Calcolatore di Molarità",
+      "description": "Calcola la concentrazione della soluzione da massa, moli e volume",
+      "metaDescription": "Calcolatore gratuito di molarità. Calcola la concentrazione della soluzione (M, mM, µM, nM) da massa/volume o moli/volume con calcoli passo passo."
+    },
+    "dilution": {
+      "name": "Calcolatore di Diluizione",
+      "description": "Calcola i parametri di diluizione usando la formula M₁V₁ = M₂V₂",
+      "metaDescription": "Calcolatore gratuito di diluizione. Calcola volume iniziale, volume finale o molarità finale con M₁V₁ = M₂V₂, supporto per diluizioni seriali e avvisi di sicurezza."
+    },
     "vm-storage-calculator": {
       "name": "Calcolatore Storage VM",
       "description": "Calcola i requisiti di capacità di storage per cluster vSphere ESX",
@@ -1137,7 +1202,6 @@
       "female": "Femmina",
       "age": "Età",
       "weight": "Peso (kg)",
-      "height": "Altezza (cm)",
       "weightSimple": "Peso",
       "heightSimple": "Altezza",
       "enterWeight": "Inserisci peso",
@@ -1317,7 +1381,6 @@
       "sellingPricePerUnit": "Prezzo di Vendita per Unita",
       "swapCurrencies": "Scambia Valute",
       "timeSaved": "Tempo Risparmiato",
-      "timeToPayoff": "Tempo per Estinguere",
       "total-repayment": "Rimborso Totale",
       "totalDebt": "Debito Totale",
       "totalPaid": "Totale Pagato",
@@ -1326,6 +1389,15 @@
       "variableCostPerUnitHint": "Costo per unita prodotta",
       "yearsToMaturity": "Anni alla Scadenza",
       "category": "Categoria",
+      "timeToPayoff": "Tempo di rimborso",
+      "dimensions": "Dimensioni",
+      "diameter": "Diametro",
+      "thickness": "Spessore",
+      "base": "Base",
+      "outer": "Esterno",
+      "inner": "Interno",
+      "width": "Larghezza",
+      "height": "Altezza",
       "decimalPlaces": "Cifre decimali",
       "dividend": "Dividendo",
       "divisor": "Divisore",
@@ -3786,6 +3858,211 @@
         "movie_4k": "Film 4K",
         "game": "Gioco",
         "os_image": "Immagine del sistema operativo"
+      }
+    },
+    "engineering": {
+      "mode": "Modalità di Calcolo",
+      "material": "Materiale",
+      "customMaterial": "Materiale Personalizzato",
+      "beamType": "Tipo di Trave",
+      "loadType": "Tipo di Carico",
+      "safetyFactor": "Fattore di Sicurezza",
+      "exceedsYield": "⚠️ La Tensione Supera il Limite di Snervamento",
+      "shape": "Forma della Sezione",
+      "inputMode": "Modalità di Immissione",
+      "customDimensions": "Dimensioni Personalizzate",
+      "standardSection": "Sezione Standard",
+      "beamSection": "Sezione Trave",
+      "selectBeamSection": "Seleziona Sezione",
+      "parallelAxisTheorem": "Teorema di Huygens-Steiner (Opzionale)",
+      "crossSectionPreview": "Anteprima Sezione",
+      "showCentroid": "Mostra Baricentro",
+      "showAxes": "Mostra Assi",
+      "momentInUnits": "Momento d'Inerzia in Diverse Unità",
+      "beamConfiguration": "Configurazione Trave",
+      "crossSection": "Sezione Trasversale",
+      "customSection": "Sezione Personalizzata",
+      "beamDiagram": "Diagramma della Trave",
+      "actualRatio": "Rapporto Effettivo",
+      "criteriaDescriptions": {
+        "l180": "Solai (non critico)",
+        "l240": "Solai con soffitti intonacati",
+        "l360": "Coperture",
+        "l600": "Casi speciali (apparecchiature di precisione)"
+      },
+      "labels": {
+        "stress": "Tensione",
+        "strain": "Deformazione",
+        "youngsModulus": "Modulo di Young",
+        "force": "Forza",
+        "area": "Area Sezione Trasversale",
+        "originalLength": "Lunghezza Originale",
+        "changeInLength": "Variazione di Lunghezza",
+        "length": "Lunghezza",
+        "deflection": "Deflessione Massima",
+        "maxShear": "Forza di Taglio Massima",
+        "maxMoment": "Momento Flettente Massimo",
+        "shape": "Forma Sezione",
+        "width": "Larghezza",
+        "height": "Altezza",
+        "diameter": "Diametro",
+        "thickness": "Spessore",
+        "flangeWidth": "Larghezza Flangia",
+        "flangeThickness": "Spessore Flangia",
+        "webThickness": "Spessore Anima",
+        "momentOfInertia": "Momento d'Inerzia",
+        "radiusOfGyration": "Raggio di Girazione",
+        "centroid": "Baricentro",
+        "yieldStrength": "Limite di Snervamento",
+        "beamLength": "Lunghezza Trave",
+        "maxDeflection": "Freccia Massima",
+        "deflectionLocation": "Posizione della Freccia",
+        "pointLoad": "Carico Concentrato",
+        "distributedLoad": "Carico Distribuito",
+        "slopeLeft": "Pendenza all'Estremità Sinistra",
+        "slopeRight": "Pendenza all'Estremità Destra",
+        "depth": "Profondità",
+        "momentOfInertiaX": "Momento d'Inerzia (Asse X)",
+        "momentOfInertiaY": "Momento d'Inerzia (Asse Y)",
+        "radiusOfGyrationX": "Raggio di Girazione (X)",
+        "radiusOfGyrationY": "Raggio di Girazione (Y)",
+        "offsetX": "Scostamento X",
+        "offsetY": "Scostamento Y",
+        "leg1Width": "Larghezza Ala 1",
+        "leg2Width": "Larghezza Ala 2"
+      },
+      "modes": {
+        "stress": "Calcola Tensione",
+        "strain": "Calcola Deformazione",
+        "youngsModulus": "Calcola Modulo di Young"
+      },
+      "beamTypes": {
+        "simplySupported": "Semplicemente Appoggiata",
+        "cantilever": "A Sbalzo",
+        "fixedFixed": "Incastrata-Incastrata"
+      },
+      "loadTypes": {
+        "pointLoad": "Carico Concentrato (Centro)",
+        "distributedLoad": "Carico Uniformemente Distribuito"
+      },
+      "shapes": {
+        "rectangle": "Rettangolo",
+        "circle": "Cerchio",
+        "iBeam": "Trave a I",
+        "hollowRectangle": "Rettangolo Cavo",
+        "hollowCircle": "Cerchio Cavo (Tubo)",
+        "triangle": "Triangolo",
+        "channel": "Profilo a C",
+        "angle": "Angolare"
+      },
+      "deflectionCriteria": "Criteri di Deflessione",
+      "criteriaTable": {
+        "limit": "Limite",
+        "description": "Applicazione",
+        "passes": "Stato",
+        "floors": "Pavimenti (non critico)",
+        "floorsPlaster": "Pavimenti con soffitti intonacati",
+        "roofs": "Tetti",
+        "special": "Casi speciali"
+      },
+      "calculationSteps": "Passaggi di calcolo",
+      "columnBuckling": {
+        "section": "Sezione della colonna",
+        "beamSection": "Sezione della trave",
+        "customSection": "Sezione personalizzata",
+        "crossSectionalArea": "Area della sezione trasversale",
+        "momentOfInertia": "Momento d'inerzia",
+        "bucklingAxis": "Asse di instabilità",
+        "strongAxisX": "Asse forte (X)",
+        "weakAxisY": "Asse debole (Y)",
+        "columnLength": "Lunghezza della colonna",
+        "endCondition": "Condizione di vincolo",
+        "pinnedPinned": "Cerniera-Cerniera",
+        "fixedPinned": "Incastro-Cerniera",
+        "fixedFixed": "Incastro-Incastro",
+        "fixedFree": "Incastro-Libero",
+        "eulerCriticalLoad": "Carico critico di Euler",
+        "aiscAllowableLoad": "Carico ammissibile AISC",
+        "slendernessRatio": "Rapporto di snellezza (KL/r)",
+        "effectiveLength": "Lunghezza efficace (KL)",
+        "kFactor": "Fattore K",
+        "bucklingMode": "Modo di instabilità",
+        "elastic": "Elastico",
+        "inelastic": "Inelastico",
+        "elasticBuckling": "La colonna si trova nella zona di instabilità elastica. Il rapporto di snellezza supera il valore critico — considerare la riduzione della lunghezza efficace o l'aumento delle proprietà della sezione."
+      },
+      "pipeFlow": {
+        "pipeMaterial": "Materiale del tubo",
+        "customPipe": "Tubo personalizzato",
+        "roughness": "Rugosità superficiale",
+        "fluid": "Fluido",
+        "customFluid": "Fluido personalizzato",
+        "density": "Densità",
+        "viscosity": "Viscosità dinamica",
+        "innerDiameter": "Diametro interno",
+        "pipeLength": "Lunghezza del tubo",
+        "flowVelocity": "Velocità di flusso",
+        "pressureDrop": "Perdita di carico",
+        "headLoss": "Perdita di quota",
+        "reynoldsNumber": "Numero di Reynolds",
+        "flowRegime": "Regime di flusso",
+        "frictionFactor": "Fattore di attrito di Darcy",
+        "flowRate": "Portata",
+        "laminar": "Laminare",
+        "transitional": "Transizionale",
+        "turbulent": "Turbolento"
+      },
+      "unitConverter": {
+        "category": "Categoria di unità",
+        "value": "Valore",
+        "from": "Da",
+        "to": "A",
+        "swap": "Inverti unità",
+        "conversionFactor": "Fattore di conversione",
+        "allConversions": "Tutte le conversioni"
+      }
+    },
+    "chemistry": {
+      "mode": "Modalità di Calcolo",
+      "commonCompounds": "Composti Comuni",
+      "selectCompound": "Seleziona Composto",
+      "customFormula": "Formula Personalizzata",
+      "formulaExamples": "Esempi",
+      "invalidFormula": "Formula chimica non valida. Controlla il tuo input.",
+      "elementBreakdown": "Scomposizione Elementare",
+      "totalAtoms": "Atomi Totali",
+      "concentrationUnits": "Unità di Concentrazione",
+      "dilutionFormula": "Formula di Diluizione (Molarità Iniziale × Volume Iniziale = Molarità Finale × Volume Finale)",
+      "dilutionFactor": "Fattore di Diluizione",
+      "solventToAdd": "Solvente da Aggiungere",
+      "calculationSteps": "Passaggi di Calcolo",
+      "labels": {
+        "formula": "Formula Chimica",
+        "molarMass": "Massa Molare",
+        "mass": "Massa",
+        "moles": "Moli",
+        "molecularWeight": "Peso Molecolare",
+        "volume": "Volume",
+        "volumeUnit": "Unità di Volume",
+        "molarity": "Molarità",
+        "initialMolarity": "Molarità Iniziale (M₁)",
+        "finalMolarity": "Molarità Finale (M₂)",
+        "initialVolume": "Volume Iniziale (V₁)",
+        "finalVolume": "Volume Finale (V₂)"
+      },
+      "modes": {
+        "massVolume": "Da Massa e Volume",
+        "molesVolume": "Da Moli e Volume",
+        "findV1": "Trova Volume Iniziale (V₁)",
+        "findV2": "Trova Volume Finale (V₂)",
+        "findM2": "Trova Molarità Finale (M₂)"
+      },
+      "modeDescriptions": {
+        "massVolume": "Calcola la molarità dalla massa del soluto, peso molecolare e volume",
+        "molesVolume": "Calcola la molarità dalle moli del soluto e volume",
+        "findV1": "Calcola il volume di soluzione madre necessario",
+        "findV2": "Calcola il volume finale dopo la diluizione",
+        "findM2": "Calcola la concentrazione finale dopo la diluizione"
       }
     },
     "errors": {
