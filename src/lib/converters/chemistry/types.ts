@@ -20,6 +20,13 @@ export interface Element {
     | "transition metal"
     | "lanthanide"
     | "actinide";
+  electronConfiguration?: string;
+  oxidationStates?: string;
+  electronegativity?: number;
+  density?: number;
+  meltingPoint?: number;
+  boilingPoint?: number;
+  metalType?: "metal" | "nonmetal" | "metalloid";
 }
 
 /**

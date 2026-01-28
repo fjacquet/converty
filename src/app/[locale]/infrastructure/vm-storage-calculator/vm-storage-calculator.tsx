@@ -14,6 +14,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import type { HypervisorPlatform } from "@/lib/converters/infrastructure/types";
 import type { CsvRow } from "@/lib/utils/csv-export";
 import type { PdfSection } from "@/lib/utils/pdf-export";
 import { useVmStorageStore } from "@/stores/vm-storage-store";
@@ -24,6 +32,8 @@ export function VmStorageCalculator() {
   const tCommon = useTranslations("common");
 
   const {
+    platform,
+    setPlatform,
     vmConfigs,
     addVmConfig,
     removeVmConfig,
@@ -261,6 +271,25 @@ export function VmStorageCalculator() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Platform Selection */}
+          <div className="space-y-2">
+            <Label htmlFor="platform">{t("platform")}</Label>
+            <Select
+              value={platform}
+              onValueChange={(value) => setPlatform(value as HypervisorPlatform)}
+            >
+              <SelectTrigger id="platform">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="vmware">{t("platformVmware")}</SelectItem>
+                <SelectItem value="hyperv">{t("platformHyperv")}</SelectItem>
+                <SelectItem value="proxmox">{t("platformProxmox")}</SelectItem>
+                <SelectItem value="xcp-ng">{t("platformXcpng")}</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Configuration Options */}

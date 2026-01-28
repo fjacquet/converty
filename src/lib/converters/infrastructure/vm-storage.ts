@@ -1,16 +1,20 @@
 /**
- * VM Storage Calculator for VMware vSphere ESX clusters
+ * VM Storage Calculator for Multi-Platform Virtualization
  *
  * Calculates total storage capacity requirements including:
  * - Provisioned disk capacity (thick or thin provisioning)
- * - Swap file allocation (equal to VM RAM)
+ * - Platform-specific swap/overhead allocation
  * - Snapshot storage allocation
  * - Configuration and log file overhead
- * - ESX host installation overhead
+ * - Hypervisor host installation overhead
  * - Growth headroom allocation
  *
- * Based on VMware best practices and reference implementations.
+ * Supports: VMware vSphere, Hyper-V, Proxmox VE, XCP-ng
+ * Based on vendor best practices and reference implementations.
  */
+
+import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
+import type { HypervisorPlatform } from "./types";
 
 /**
  * VM configuration profile
@@ -28,22 +32,29 @@ export interface VmConfig {
  * Input parameters for VM storage calculation
  */
 export interface VmStorageInput {
+  /** Hypervisor platform (default: "vmware" for backward compatibility) */
+  platform?: HypervisorPlatform;
   /** Array of VM configuration profiles */
   vmConfigs: VmConfig[];
-  /** Whether to allocate swap files (equal to RAM) */
+  /** Whether to allocate swap files (VMware: equal to RAM, others: platform-specific) */
   includeSwapFiles: boolean;
   /** Config/log overhead per VM in GB (typical: 0.25) */
   configLogGbPerVm: number;
   /** Snapshot allocation as percentage of provisioned storage (0-100) */
   snapshotPercent: number;
-  /** Number of ESX hosts in cluster */
-  esxHosts: number;
-  /** ESX installation overhead per host in GB (typical: 8) */
-  esxStorageGbPerHost: number;
+  /** Number of hypervisor hosts in cluster */
+  hypervisorHosts: number;
+  /** Hypervisor installation overhead per host in GB (VMware: 8, Hyper-V: 32, Proxmox: 16, XCP-ng: 8) */
+  hypervisorStorageGbPerHost: number;
   /** Thin provisioning over-subscription percentage (0-100, 0 = thick provisioning) */
   thinProvisioningPercent: number;
   /** Future growth allocation as percentage (0-100) */
   growthPercent: number;
+
+  /** @deprecated Use hypervisorHosts instead. Kept for backward compatibility. */
+  esxHosts?: number;
+  /** @deprecated Use hypervisorStorageGbPerHost instead. Kept for backward compatibility. */
+  esxStorageGbPerHost?: number;
 }
 
 /**
@@ -64,7 +75,7 @@ export interface VmStorageResult {
   configLogGb: number;
   /** Total VM storage (used + snapshot + swap + configLog) */
   totalVmStorageGb: number;
-  /** ESX hosts overhead */
+  /** Hypervisor hosts overhead (ESX/Hyper-V/Proxmox/XCP-ng) */
   esxStorageGb: number;
   /** Growth headroom allocation */
   growthAllocationGb: number;
@@ -87,14 +98,15 @@ export interface VmStorageResult {
 }
 
 /**
- * Calculate VMware vSphere ESX cluster storage capacity requirements
+ * Calculate multi-platform virtualization storage capacity requirements
  *
  * @param input - VM storage calculation parameters
  * @returns Detailed storage breakdown or null if invalid input
  *
  * @example
- * // Calculate storage for 2 VM profiles with thin provisioning
+ * // Calculate storage for 2 VM profiles with thin provisioning (VMware)
  * const result = calculateVmStorage({
+ *   platform: "vmware", // Optional, defaults to "vmware"
  *   vmConfigs: [
  *     { diskGb: 100, ramGb: 8, count: 10 },
  *     { diskGb: 200, ramGb: 16, count: 5 }
@@ -102,14 +114,31 @@ export interface VmStorageResult {
  *   includeSwapFiles: true,
  *   configLogGbPerVm: 0.25,
  *   snapshotPercent: 20,
- *   esxHosts: 3,
- *   esxStorageGbPerHost: 8,
+ *   hypervisorHosts: 3,
+ *   hypervisorStorageGbPerHost: 8,
  *   thinProvisioningPercent: 33,
  *   growthPercent: 30
  * });
  */
 export function calculateVmStorage(input: VmStorageInput): VmStorageResult | null {
   const steps: string[] = [];
+
+  // Platform selection: default to VMware for backward compatibility
+  const platform = input.platform || "vmware";
+
+  // Backward compatibility: use deprecated ESX fields if new fields not provided
+  const hypervisorHosts = input.hypervisorHosts ?? input.esxHosts ?? 1;
+  const hypervisorStorageGbPerHost =
+    input.hypervisorStorageGbPerHost ?? input.esxStorageGbPerHost ?? 8;
+
+  // Get platform-specific data
+  const platformData = (hypervisorData as HypervisorOverhead[]).find((p) => p.id === platform);
+  if (!platformData) {
+    return null;
+  }
+
+  const platformName = platformData.name;
+  steps.push(`Platform: ${platformName}`);
 
   // Validation: Check for empty VM configs
   if (input.vmConfigs.length === 0) {
@@ -135,8 +164,8 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
     return null;
   }
 
-  // Validation: Check ESX hosts minimum
-  if (input.esxHosts < 1) {
+  // Validation: Check hypervisor hosts minimum
+  if (hypervisorHosts < 1) {
     return null;
   }
 
@@ -185,15 +214,15 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
   const totalVmStorageGb = usedDiskGb + snapshotGb + swapGb + configLogGb;
   steps.push(`Total VM storage: ${totalVmStorageGb.toFixed(2)} GB`);
 
-  // Step 7: Calculate ESX overhead
-  const esxStorageGb = input.esxHosts * input.esxStorageGbPerHost;
+  // Step 7: Calculate hypervisor overhead
+  const hypervisorOverheadGb = hypervisorHosts * hypervisorStorageGbPerHost;
   steps.push(
-    `ESX overhead (${input.esxStorageGbPerHost} GB × ${input.esxHosts} hosts): ${esxStorageGb.toFixed(2)} GB`
+    `${platformName} overhead (${hypervisorStorageGbPerHost} GB × ${hypervisorHosts} hosts): ${hypervisorOverheadGb.toFixed(2)} GB`
   );
 
   // Step 8: Calculate subtotal before growth
-  const subtotal = totalVmStorageGb + esxStorageGb;
-  steps.push(`Subtotal (VM + ESX): ${subtotal.toFixed(2)} GB`);
+  const subtotal = totalVmStorageGb + hypervisorOverheadGb;
+  steps.push(`Subtotal (VM + ${platformName}): ${subtotal.toFixed(2)} GB`);
 
   // Step 9: Calculate growth allocation
   const growthAllocationGb = subtotal * (input.growthPercent / 100);
@@ -210,7 +239,7 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
     snapshot: (snapshotGb / totalRequiredGb) * 100,
     swap: (swapGb / totalRequiredGb) * 100,
     configLog: (configLogGb / totalRequiredGb) * 100,
-    esxOverhead: (esxStorageGb / totalRequiredGb) * 100,
+    esxOverhead: (hypervisorOverheadGb / totalRequiredGb) * 100,
     growth: (growthAllocationGb / totalRequiredGb) * 100,
   };
 
@@ -222,7 +251,7 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
     swapGb,
     configLogGb,
     totalVmStorageGb,
-    esxStorageGb,
+    esxStorageGb: hypervisorOverheadGb, // Renamed internally but kept field name for backward compatibility
     growthAllocationGb,
     totalRequiredGb,
     totalVmCount,

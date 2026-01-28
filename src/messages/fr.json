@@ -70,6 +70,7 @@
       "description": "Outils de virtualisation, Kubernetes et centres de donnees",
       "subcategories": {
         "vmware": "VMware",
+        "hyperv": "Hyper-V",
         "kubernetes": "Kubernetes",
         "cost": "Analyse des Couts"
       }
@@ -79,19 +80,7 @@
       "description": "Calculs structurels, propriétés des matériaux et analyse des poutres",
       "subcategories": {
         "structural": "Structurel",
-        "materials": "Matériaux",
-        "hydraulics": "Hydraulique",
-        "conversion": "Conversion"
-      }
-    },
-    "chemistry": {
-      "name": "Chimie",
-      "description": "Calculs chimiques et outils moléculaires",
-      "subcategories": {
-        "general": "Général",
-        "solutions": "Solutions",
-        "reactions": "Réactions",
-        "reference": "Référence"
+        "materials": "Matériaux"
       }
     },
     "math": {
@@ -173,7 +162,11 @@
     "fuel": "Carburant et efficacite",
     "tires": "Pneus et roues",
     "maintenance": "Entretien",
-    "financing": "Financement"
+    "financing": "Financement",
+    "vmware": "VMware",
+    "hyperv": "Hyper-V",
+    "kubernetes": "Kubernetes",
+    "cost": "Analyse des Coûts"
   },
   "converters": {
     "bmi": {
@@ -901,36 +894,6 @@
       "description": "Calculer la contrainte, la déformation et le module de Young avec base de données de matériaux",
       "metaDescription": "Calculateur gratuit de contrainte-déformation. Calculez la contrainte, la déformation, le module de Young et le facteur de sécurité. Inclut une base de données de 30+ matériaux (acier, aluminium, bois, béton)."
     },
-    "column-buckling": {
-      "name": "Calculateur de flambement de colonne",
-      "description": "Calculez la charge critique d'Euler, la charge admissible AISC et le rapport d'élancement",
-      "metaDescription": "Calculateur gratuit de flambement de colonne. Charge critique d'Euler, contrainte admissible AISC, rapport d'élancement et longueur effective avec base de données de matériaux et sections."
-    },
-    "pipe-flow": {
-      "name": "Calculateur d'écoulement en conduite",
-      "description": "Calculez la perte de charge, le nombre de Reynolds et le facteur de friction",
-      "metaDescription": "Calculateur gratuit d'écoulement en conduite. Perte de charge Darcy-Weisbach, nombre de Reynolds, facteur de friction Colebrook-White avec base de données de matériaux et fluides."
-    },
-    "engineering-unit-converter": {
-      "name": "Convertisseur d'unités d'ingénierie",
-      "description": "Convertissez entre les unités d'ingénierie : force, pression, contrainte, couple et plus",
-      "metaDescription": "Convertisseur gratuit d'unités d'ingénierie avec précision NIST. Force, pression, contrainte, couple, densité, longueur, surface, moment d'inertie et module de section."
-    },
-    "molecular-weight": {
-      "name": "Calculateur de masse moléculaire",
-      "description": "Calculez la masse molaire et la composition à partir de la formule chimique",
-      "metaDescription": "Calculateur gratuit de masse moléculaire. Calculez la masse molaire, la composition élémentaire et le pourcentage massique à partir de formules chimiques (H2O, Ca(OH)2, CuSO4·5H2O). Inclut 118 éléments IUPAC 2024."
-    },
-    "molarity": {
-      "name": "Calculateur de molarité",
-      "description": "Calculez la concentration de solution à partir de masse, moles et volume",
-      "metaDescription": "Calculateur gratuit de molarité. Calculez la concentration de solution (M, mM, µM, nM) à partir masse/volume ou moles/volume avec calculs détaillés."
-    },
-    "dilution": {
-      "name": "Calculateur de dilution",
-      "description": "Calculez les paramètres de dilution avec la formule M₁V₁ = M₂V₂",
-      "metaDescription": "Calculateur gratuit de dilution. Calculez le volume initial, le volume final ou la molarité finale avec M₁V₁ = M₂V₂, support de dilutions en série et avertissements de sécurité."
-    },
     "vm-storage-calculator": {
       "name": "Calculateur de Stockage VM",
       "description": "Calculer les besoins en capacité de stockage d'un cluster vSphere ESX",
@@ -955,6 +918,16 @@
       "name": "Calculateur de coût de virtualisation",
       "description": "Calculer le coût total de possession pour l'infrastructure de virtualisation",
       "metaDescription": "Calculateur TCO de virtualisation gratuit. Calculez le coût total de possession incluant CAPEX et OPEX pour l'infrastructure de virtualisation."
+    },
+    "hyperv-consolidation": {
+      "name": "Calculateur de consolidation Hyper-V",
+      "description": "Calculer les besoins en hôtes Hyper-V avec HA et licences Windows",
+      "metaDescription": "Calculateur de consolidation Hyper-V gratuit. Calculez les hôtes requis avec HA N+1/N+2, empilement de stockage et coûts de licences Windows Server."
+    },
+    "windows-licensing": {
+      "name": "Calculateur de licences Windows Server",
+      "description": "Comparer les coûts de licence Datacenter vs Standard",
+      "metaDescription": "Calculateur de licences Windows Server gratuit. Comparez les éditions Datacenter et Standard avec analyse de seuil de rentabilité et minimum de 16 cœurs."
     },
     "slope-calculator": {
       "name": "Pente",
@@ -1515,6 +1488,11 @@
       }
     },
     "vmStorage": {
+      "platform": "Plateforme",
+      "platformVmware": "VMware vSphere",
+      "platformHyperv": "Microsoft Hyper-V",
+      "platformProxmox": "Proxmox VE",
+      "platformXcpng": "XCP-ng",
       "vmProfiles": "Profils VM",
       "addProfile": "Ajouter un Profil VM",
       "removeProfile": "Supprimer",
@@ -1600,6 +1578,11 @@
     "serverVirtualizationCalculator": {
       "title": "Calculateur de virtualisation serveur",
       "description": "Calculer les besoins en hôtes ESX pour les charges de travail VM",
+      "platform": "Plateforme",
+      "platformVmware": "VMware vSphere",
+      "platformHyperv": "Microsoft Hyper-V",
+      "platformProxmox": "Proxmox VE",
+      "platformXcpng": "XCP-ng",
       "vmCount": "Nombre de VM",
       "vcpuPerVm": "vCPU par VM",
       "ramPerVmGb": "RAM par VM (GB)",
@@ -1650,6 +1633,7 @@
       "networkCost": "Coût Réseau",
       "software": "Coûts Logiciels (Annuels)",
       "vmwareLicense": "Licence VMware",
+      "hypervisorLicense": "Licence Hyperviseur",
       "osLicense": "Licence OS",
       "backupSoftware": "Logiciel de Sauvegarde",
       "operational": "Coûts Opérationnels",
@@ -1676,7 +1660,93 @@
       "powerCost": "Électricité",
       "datacenterCost": "Datacenter",
       "laborCost": "Main-d'Œuvre",
-      "pueHelp": "Valeurs typiques: 1,3 (efficace) à 2,0 (ancien). Mesure la puissance totale vs charge IT."
+      "pueHelp": "Valeurs typiques: 1,3 (efficace) à 2,0 (ancien). Mesure la puissance totale vs charge IT.",
+      "platform": "Plateforme",
+      "platformVmware": "VMware vSphere",
+      "platformHyperv": "Microsoft Hyper-V",
+      "platformProxmox": "Proxmox VE",
+      "platformXcpng": "XCP-ng"
+    },
+    "hypervConsolidation": {
+      "title": "Calculateur de Consolidation Hyper-V",
+      "description": "Calculer les besoins en hôtes Hyper-V avec HA et licences Windows",
+      "vmWorkload": "Charge de Travail VM",
+      "vmCount": "Nombre de VMs",
+      "avgVcpusPerVm": "vCPUs Moyens par VM",
+      "avgRamPerVmGb": "RAM Moyenne par VM (GB)",
+      "avgStoragePerVmGb": "Stockage Moyen par VM (GB)",
+      "hostConfiguration": "Configuration Hôte",
+      "socketsPerHost": "Sockets par Hôte",
+      "coresPerCpu": "Cœurs par CPU",
+      "ramPerHostGb": "RAM par Hôte (GB)",
+      "storagePerHostGb": "Stockage par Hôte (GB)",
+      "storageAndHa": "Stockage & Haute Disponibilité",
+      "haMode": "Mode Haute Disponibilité",
+      "haModeNPlus1": "N+1 (1 panne d'hôte)",
+      "haModeNPlus2": "N+2 (2 pannes d'hôtes)",
+      "haModeNone": "Aucun",
+      "diskType": "Type de Disque",
+      "diskTypeFixed": "Fixe (1,0×)",
+      "diskTypeDynamic": "Thin Dynamique (1,5×)",
+      "enableReplica": "Activer Hyper-V Replica",
+      "enableSnapshots": "Activer les Instantanés",
+      "results": "Résultats de Consolidation",
+      "hostsNeededCompute": "Hôtes Requis (Calcul)",
+      "hostsNeededStorage": "Hôtes Requis (Stockage)",
+      "hostsNeededWithHa": "Hôtes Requis (avec HA)",
+      "totalPhysicalCores": "Cœurs Physiques Totaux",
+      "effectiveVcpuRatio": "Ratio Effectif vCPU:Cœur",
+      "totalStorageRequired": "Stockage Total Requis",
+      "storageBreakdown": "Répartition du Stockage",
+      "rawVmStorage": "Stockage VM Brut",
+      "thinProvisioning": "Surcoût Provisionnement Thin",
+      "snapshotAllocation": "Allocation Instantanés",
+      "replicaStorage": "Stockage Réplica (2×)",
+      "totalAfterStacking": "Total Après Empilement",
+      "windowsLicensing": "Licences Windows Server",
+      "datacenterEdition": "Édition Datacenter",
+      "standardEdition": "Édition Standard",
+      "licensesRequired": "Licences Requises",
+      "corePacksPerLicense": "Packs Cœurs par Licence",
+      "totalCost": "Coût Total",
+      "recommended": "Recommandé",
+      "breakEvenVms": "Seuil de rentabilité à {count} VMs par hôte",
+      "calculationSteps": "Étapes de Calcul"
+    },
+    "windowsLicensing": {
+      "title": "Calculateur de Licences Windows Server",
+      "description": "Comparer les coûts de licence Datacenter vs Standard",
+      "hostConfiguration": "Configuration Hôte",
+      "hostCount": "Nombre d'Hôtes",
+      "socketsPerHost": "Sockets par Hôte",
+      "coresPerCpu": "Cœurs par CPU",
+      "vmCount": "Nombre de VMs",
+      "calculationMode": "Mode de Calcul",
+      "mode": "Mode de Calcul",
+      "modeCompare": "Comparer les Deux Éditions",
+      "modeDatacenter": "Datacenter Uniquement",
+      "modeStandard": "Standard Uniquement",
+      "licensingComparison": "Comparaison des Licences",
+      "totalPhysicalCores": "Cœurs Physiques Totaux",
+      "totalLicensedCores": "Cœurs Licenciés Totaux (min 16)",
+      "windowsDatacenter": "Windows Server Datacenter",
+      "windowsStandard": "Windows Server Standard",
+      "licenses": "licences",
+      "corePacks": "packs cœurs",
+      "vmsUnlimited": "VMs (illimité)",
+      "vms": "VMs",
+      "vmsPerLicense": "VMs par licence",
+      "datacenterCost": "Coût Édition Datacenter",
+      "standardCost": "Coût Édition Standard",
+      "savings": "Économies",
+      "savingsWithDatacenter": "Économies avec Datacenter",
+      "breakEvenAnalysis": "Analyse de Rentabilité",
+      "breakEvenDesc": "Datacenter devient rentable à {count} VMs ou plus par hôte",
+      "minCoreEnforced": "Minimum de 16 Cœurs Appliqué",
+      "minCoreEnforcedDesc": "Les licences Windows Server imposent un minimum de 16 cœurs par serveur physique, même si moins de cœurs sont installés.",
+      "calculationDetails": "Détails de Calcul",
+      "pricingDisclaimer": "Prix basés sur les tarifs Microsoft 2026 et peuvent être obsolètes. Vérifiez les prix fournisseur pour plus de précision.",
+      "checkVendorPricing": "Vérifier les prix de licence en volume Microsoft"
     },
     "results": {
       "perMonth": "par mois",
@@ -3964,105 +4034,6 @@
         "floorsPlaster": "Planchers avec plafonds en plâtre",
         "roofs": "Toitures",
         "special": "Cas spéciaux"
-      },
-      "calculationSteps": "Étapes de calcul",
-      "columnBuckling": {
-        "section": "Section de colonne",
-        "beamSection": "Section de poutre",
-        "customSection": "Section personnalisée",
-        "crossSectionalArea": "Section transversale",
-        "momentOfInertia": "Moment d'inertie",
-        "bucklingAxis": "Axe de flambement",
-        "strongAxisX": "Axe fort (X)",
-        "weakAxisY": "Axe faible (Y)",
-        "columnLength": "Longueur de colonne",
-        "endCondition": "Condition d'extrémité",
-        "pinnedPinned": "Articulé-Articulé",
-        "fixedPinned": "Encastré-Articulé",
-        "fixedFixed": "Encastré-Encastré",
-        "fixedFree": "Encastré-Libre",
-        "eulerCriticalLoad": "Charge critique d'Euler",
-        "aiscAllowableLoad": "Charge admissible AISC",
-        "slendernessRatio": "Rapport d'élancement (KL/r)",
-        "effectiveLength": "Longueur effective (KL)",
-        "kFactor": "Facteur K",
-        "bucklingMode": "Mode de flambement",
-        "elastic": "Élastique",
-        "inelastic": "Inélastique",
-        "elasticBuckling": "La colonne est dans la zone de flambement élastique. Le rapport d'élancement dépasse la valeur critique — envisagez de réduire la longueur effective ou d'augmenter les propriétés de la section."
-      },
-      "pipeFlow": {
-        "pipeMaterial": "Matériau du tuyau",
-        "customPipe": "Tuyau personnalisé",
-        "roughness": "Rugosité de surface",
-        "fluid": "Fluide",
-        "customFluid": "Fluide personnalisé",
-        "density": "Densité",
-        "viscosity": "Viscosité dynamique",
-        "innerDiameter": "Diamètre intérieur",
-        "pipeLength": "Longueur du tuyau",
-        "flowVelocity": "Vitesse d'écoulement",
-        "pressureDrop": "Perte de charge",
-        "headLoss": "Perte de hauteur",
-        "reynoldsNumber": "Nombre de Reynolds",
-        "flowRegime": "Régime d'écoulement",
-        "frictionFactor": "Facteur de friction de Darcy",
-        "flowRate": "Débit",
-        "laminar": "Laminaire",
-        "transitional": "Transitionnel",
-        "turbulent": "Turbulent"
-      },
-      "unitConverter": {
-        "category": "Catégorie d'unités",
-        "value": "Valeur",
-        "from": "De",
-        "to": "Vers",
-        "swap": "Inverser les unités",
-        "conversionFactor": "Facteur de conversion",
-        "allConversions": "Toutes les conversions"
-      }
-    },
-    "chemistry": {
-      "mode": "Mode de calcul",
-      "commonCompounds": "Composés courants",
-      "selectCompound": "Sélectionner un composé",
-      "customFormula": "Formule personnalisée",
-      "formulaExamples": "Exemples",
-      "invalidFormula": "Formule chimique invalide. Veuillez vérifier votre saisie.",
-      "elementBreakdown": "Décomposition élémentaire",
-      "totalAtoms": "Nombre total d'atomes",
-      "concentrationUnits": "Unités de concentration",
-      "dilutionFormula": "Formule de dilution (Molarité initiale × Volume initial = Molarité finale × Volume final)",
-      "dilutionFactor": "Facteur de dilution",
-      "solventToAdd": "Solvant à ajouter",
-      "calculationSteps": "Étapes de calcul",
-      "labels": {
-        "formula": "Formule chimique",
-        "molarMass": "Masse molaire",
-        "mass": "Masse",
-        "moles": "Moles",
-        "molecularWeight": "Poids moléculaire",
-        "volume": "Volume",
-        "volumeUnit": "Unité de volume",
-        "molarity": "Molarité",
-        "initialMolarity": "Molarité initiale (M₁)",
-        "finalMolarity": "Molarité finale (M₂)",
-        "initialVolume": "Volume initial (V₁)",
-        "finalVolume": "Volume final (V₂)"
-      },
-      "modes": {
-        "massVolume": "À partir de masse et volume",
-        "molesVolume": "À partir de moles et volume",
-        "findV1": "Trouver volume initial (V₁)",
-        "findV2": "Trouver volume final (V₂)",
-        "findM2": "Trouver molarité finale (M₂)"
-      },
-      "modeDescriptions": {
-        "massVolume": "Calculer la molarité à partir de la masse de soluté, du poids moléculaire et du volume",
-        "molesVolume": "Calculer la molarité à partir des moles de soluté et du volume",
-        "findV1": "Calculer le volume de solution mère nécessaire",
-        "findV2": "Calculer le volume final après dilution",
-        "findM2": "Calculer la concentration finale après dilution"
       }
     },
     "errors": {

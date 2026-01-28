@@ -184,6 +184,7 @@ export const categories: Category[] = [
     icon: Server,
     subcategories: [
       { id: "vmware", name: "VMware", description: "vSphere and ESX calculators" },
+      { id: "hyperv", name: "Hyper-V", description: "Microsoft Hyper-V and Windows Server" },
       { id: "kubernetes", name: "Kubernetes", description: "K8s capacity planning" },
       { id: "cost", name: "Cost Analysis", description: "TCO and licensing calculators" },
     ],

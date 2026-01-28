@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import type { HypervisorPlatform } from "@/lib/converters/infrastructure/types";
 import {
   calculateVmStorage,
   type VmConfig,
@@ -14,6 +15,7 @@ import { getUrlParams, parseBooleanParam, parseNumberParam } from "@/lib/utils/u
  */
 export interface VmStorageState {
   // Inputs
+  platform: HypervisorPlatform;
   vmConfigs: VmConfig[];
   includeSwapFiles: boolean;
   configLogGbPerVm: number;
@@ -28,6 +30,7 @@ export interface VmStorageState {
   error: string | null;
 
   // Actions
+  setPlatform: (value: HypervisorPlatform) => void;
   setVmConfigs: (configs: VmConfig[]) => void;
   addVmConfig: () => void;
   removeVmConfig: (index: number) => void;
@@ -47,6 +50,7 @@ export interface VmStorageState {
  * Initial state for VM storage calculator
  */
 const initialState = {
+  platform: "vmware" as HypervisorPlatform,
   vmConfigs: [
     { diskGb: 100, ramGb: 8, count: 10 },
     { diskGb: 200, ramGb: 16, count: 5 },
@@ -76,6 +80,7 @@ export const useVmStorageStore = create<VmStorageState>()(
     debounceMs: 300,
     selectState: (state) => ({
       // Sync only primitive fields to URL (vmConfigs array excluded)
+      platform: state.platform,
       includeSwapFiles: state.includeSwapFiles,
       configLogGbPerVm: state.configLogGbPerVm,
       snapshotPercent: state.snapshotPercent,
@@ -86,6 +91,7 @@ export const useVmStorageStore = create<VmStorageState>()(
     }),
   })((set, get) => {
     // Load initial values from URL params if present
+    let loadedPlatform = initialState.platform;
     let loadedIncludeSwapFiles = initialState.includeSwapFiles;
     let loadedConfigLogGbPerVm = initialState.configLogGbPerVm;
     let loadedSnapshotPercent = initialState.snapshotPercent;
@@ -97,6 +103,10 @@ export const useVmStorageStore = create<VmStorageState>()(
     if (typeof window !== "undefined") {
       const urlParams = getUrlParams();
       if (urlParams.size > 0) {
+        const platformParam = urlParams.get("platform");
+        if (platformParam && ["vmware", "hyperv", "proxmox", "xcp-ng"].includes(platformParam)) {
+          loadedPlatform = platformParam as HypervisorPlatform;
+        }
         loadedIncludeSwapFiles = parseBooleanParam(
           urlParams.get("includeSwapFiles") ?? null,
           initialState.includeSwapFiles
@@ -134,6 +144,7 @@ export const useVmStorageStore = create<VmStorageState>()(
 
     return {
       // Initialize with URL params if present
+      platform: loadedPlatform,
       vmConfigs: initialState.vmConfigs,
       includeSwapFiles: loadedIncludeSwapFiles,
       configLogGbPerVm: loadedConfigLogGbPerVm,
@@ -144,6 +155,11 @@ export const useVmStorageStore = create<VmStorageState>()(
       growthPercent: loadedGrowthPercent,
       result: null,
       error: null,
+
+      setPlatform: (value: HypervisorPlatform) => {
+        set({ platform: value, error: null });
+        autoCalculate();
+      },
 
       setVmConfigs: (configs: VmConfig[]) => {
         set({ vmConfigs: configs, error: null });
@@ -215,6 +231,7 @@ export const useVmStorageStore = create<VmStorageState>()(
 
       calculate: () => {
         const {
+          platform,
           vmConfigs,
           includeSwapFiles,
           configLogGbPerVm,
@@ -227,12 +244,13 @@ export const useVmStorageStore = create<VmStorageState>()(
 
         try {
           const result = calculateVmStorage({
+            platform,
             vmConfigs,
             includeSwapFiles,
             configLogGbPerVm,
             snapshotPercent,
-            esxHosts,
-            esxStorageGbPerHost,
+            hypervisorHosts: esxHosts,
+            hypervisorStorageGbPerHost: esxStorageGbPerHost,
             thinProvisioningPercent,
             growthPercent,
           });

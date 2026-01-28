@@ -1,4 +1,4 @@
-import { Beaker, Droplet, FlaskRound, type LucideIcon } from "lucide-react";
+import { Beaker, Droplet, FlaskConical, FlaskRound, type LucideIcon, Table2 } from "lucide-react";
 
 export interface ConverterMeta {
   id: string;
@@ -36,6 +36,33 @@ export const chemistryConverters: Record<string, ConverterMeta> = {
     subcategory: "solutions",
     keywords: ["dilution", "concentration", "solution", "chemistry", "serial", "dilute"],
     icon: Droplet,
+    featured: false,
+  },
+  stoichiometry: {
+    id: "stoichiometry",
+    slug: "stoichiometry",
+    category: "chemistry",
+    subcategory: "reactions",
+    keywords: ["stoichiometry", "limiting", "reactant", "yield", "reaction", "chemistry", "moles"],
+    icon: FlaskConical,
+    featured: false,
+  },
+  "ph-calculator": {
+    id: "ph-calculator",
+    slug: "ph-calculator",
+    category: "chemistry",
+    subcategory: "solutions",
+    keywords: ["ph", "poh", "acid", "base", "buffer", "henderson", "hasselbalch", "chemistry"],
+    icon: Beaker,
+    featured: false,
+  },
+  "periodic-table": {
+    id: "periodic-table",
+    slug: "periodic-table",
+    category: "chemistry",
+    subcategory: "reference",
+    keywords: ["periodic", "table", "elements", "chemistry", "atomic", "number", "reference"],
+    icon: Table2,
     featured: false,
   },
 };

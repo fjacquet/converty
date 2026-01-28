@@ -7,12 +7,20 @@ import { CsvExportButton, InputField, PdfExportButton, ResultGrid } from "@/comp
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import {
   calculateServerVirtualization,
   type ServerVirtualizationInput,
   type ServerVirtualizationResult,
 } from "@/lib/converters/infrastructure/server-virtualization";
+import type { HypervisorPlatform } from "@/lib/converters/infrastructure/types";
 import type { CsvRow } from "@/lib/utils/csv-export";
 import type { PdfSection } from "@/lib/utils/pdf-export";
 import { createCalculatorStore } from "@/stores/calculator-store";
@@ -23,6 +31,7 @@ const useServerVirtualizationStore = createCalculatorStore<
 >({
   name: "server-virtualization",
   initialValues: {
+    platform: "vmware" as HypervisorPlatform,
     vmCount: 100,
     vCpuPerVm: 4,
     ramPerVmGb: 16,
@@ -181,6 +190,23 @@ export function ServerVirtualizationCalculator() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="platform">{t("platform")}</Label>
+              <Select
+                value={values.platform}
+                onValueChange={(value) => setValue("platform", value as HypervisorPlatform)}
+              >
+                <SelectTrigger id="platform">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="vmware">{t("platformVmware")}</SelectItem>
+                  <SelectItem value="hyperv">{t("platformHyperv")}</SelectItem>
+                  <SelectItem value="proxmox">{t("platformProxmox")}</SelectItem>
+                  <SelectItem value="xcp-ng">{t("platformXcpng")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <InputField
               id="hostCores"
               label={t("hostCores")}

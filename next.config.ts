@@ -13,6 +13,8 @@ const isProd = process.env.NODE_ENV === "production";
 const nextConfig: NextConfig = {
   // Only use static export in production to avoid dev server issues
   ...(isProd && { output: "export" }),
+  // Force trailing slashes for GitHub Pages compatibility
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },

@@ -1,17 +1,23 @@
 /**
- * Server Virtualization Calculator for VMware ESX Clusters
+ * Server Virtualization Calculator for Multi-Platform Virtualization
  *
- * Calculates the number of ESX hosts needed based on VM workload requirements.
+ * Calculates the number of hosts needed based on VM workload requirements.
  * Implements multi-dimensional bin packing (CPU and memory constraints) with
- * N+1 high availability option.
+ * N+1/N+2 high availability options.
  *
- * Based on VMware best practices for ESX host sizing.
+ * Supports: VMware vSphere, Hyper-V, Proxmox VE, XCP-ng
+ * Based on vendor best practices for hypervisor host sizing.
  */
+
+import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
+import type { HypervisorPlatform } from "./types";
 
 /**
  * Input parameters for server virtualization calculation
  */
 export interface ServerVirtualizationInput {
+  /** Hypervisor platform (default: "vmware" for backward compatibility) */
+  platform?: HypervisorPlatform;
   /** Total number of VMs to host */
   vmCount: number;
   /** vCPU per VM */
@@ -65,18 +71,20 @@ export interface ServerVirtualizationResult {
 }
 
 /**
- * Calculate VMware ESX cluster host capacity requirements
+ * Calculate multi-platform virtualization host capacity requirements
  *
  * Determines the number of hosts needed based on VM workload and resource
- * constraints. Selects the higher of CPU or memory requirements as the
- * limiting factor. Optionally adds N+1 host for high availability.
+ * constraints. Accounts for platform-specific hypervisor overhead. Selects
+ * the higher of CPU or memory requirements as the limiting factor.
+ * Optionally adds N+1 host for high availability.
  *
  * @param input - Server virtualization calculation parameters
  * @returns Detailed capacity breakdown or null if invalid input
  *
  * @example
- * // Calculate hosts for 100 VMs with N+1 HA
+ * // Calculate hosts for 100 VMs with N+1 HA (VMware)
  * const result = calculateServerVirtualization({
+ *   platform: "vmware", // Optional, defaults to "vmware"
  *   vmCount: 100,
  *   vCpuPerVm: 4,
  *   ramPerVmGb: 16,
@@ -92,6 +100,26 @@ export function calculateServerVirtualization(
   input: ServerVirtualizationInput
 ): ServerVirtualizationResult | null {
   const steps: string[] = [];
+
+  // Platform selection: default to VMware for backward compatibility
+  const platform = input.platform || "vmware";
+
+  // Get platform-specific data
+  const platformData = (hypervisorData as HypervisorOverhead[]).find((p) => p.id === platform);
+  if (!platformData) {
+    return null;
+  }
+
+  const platformName = platformData.name;
+  const cpuOverheadPercent = platformData.cpuOverhead.percent;
+  const memoryReservedGb = platformData.memoryOverhead.hypervisorReserved / 1024; // Convert MB to GB
+  const perVmMemoryOverheadMb = platformData.memoryOverhead.perVmOverheadMB;
+
+  steps.push(`Platform: ${platformName}`);
+  steps.push(`CPU overhead: ${cpuOverheadPercent}% (reserved for hypervisor)`);
+  steps.push(
+    `Memory reserved: ${memoryReservedGb.toFixed(1)} GB (hypervisor) + ${perVmMemoryOverheadMb} MB/VM`
+  );
 
   // Validation: Positive VM configuration
   if (input.vmCount <= 0 || input.vCpuPerVm <= 0 || input.ramPerVmGb <= 0) {
@@ -129,16 +157,29 @@ export function calculateServerVirtualization(
     `Total RAM required: ${input.vmCount} VMs × ${input.ramPerVmGb} GB = ${totalRamRequiredGb} GB`
   );
 
-  // Step 2: Calculate effective capacity per host (accounting for utilization targets)
+  // Step 2: Calculate effective capacity per host (accounting for hypervisor overhead and utilization targets)
+
+  // Account for hypervisor CPU overhead (reserved percentage)
+  const availableCoresPerHost = input.hostCores * (1 - cpuOverheadPercent / 100);
   const effectiveCpuPerHost =
-    input.hostCores * input.vCpuToCoreRatio * (input.targetCpuUtilization / 100);
-  const effectiveRamPerHostGb = input.hostRamGb * (input.targetRamUtilization / 100);
+    availableCoresPerHost * input.vCpuToCoreRatio * (input.targetCpuUtilization / 100);
+
+  // Account for hypervisor memory overhead (reserved base + per-VM overhead)
+  const baseAvailableRamGb = input.hostRamGb - memoryReservedGb;
+  const totalVmMemoryOverheadGb = (input.vmCount * perVmMemoryOverheadMb) / 1024;
+  const effectiveRamPerHostGb = baseAvailableRamGb * (input.targetRamUtilization / 100);
 
   steps.push(
-    `Effective CPU per host: ${input.hostCores} cores × ${input.vCpuToCoreRatio}:1 ratio × ${input.targetCpuUtilization}% = ${effectiveCpuPerHost.toFixed(1)} vCPU`
+    `Available CPU per host: ${input.hostCores} cores × (100% - ${cpuOverheadPercent}%) = ${availableCoresPerHost.toFixed(1)} cores`
   );
   steps.push(
-    `Effective RAM per host: ${input.hostRamGb} GB × ${input.targetRamUtilization}% = ${effectiveRamPerHostGb.toFixed(1)} GB`
+    `Effective CPU per host: ${availableCoresPerHost.toFixed(1)} cores × ${input.vCpuToCoreRatio}:1 ratio × ${input.targetCpuUtilization}% = ${effectiveCpuPerHost.toFixed(1)} vCPU`
+  );
+  steps.push(
+    `Available RAM per host: ${input.hostRamGb} GB - ${memoryReservedGb.toFixed(1)} GB (hypervisor) = ${baseAvailableRamGb.toFixed(1)} GB`
+  );
+  steps.push(
+    `Effective RAM per host: ${baseAvailableRamGb.toFixed(1)} GB × ${input.targetRamUtilization}% = ${effectiveRamPerHostGb.toFixed(1)} GB`
   );
 
   // Step 3: Calculate hosts needed by each constraint

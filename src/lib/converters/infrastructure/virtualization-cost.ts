@@ -1,14 +1,18 @@
 /**
- * Virtualization Cost Calculator
+ * Virtualization Cost Calculator - Multi-Platform TCO Analysis
  *
  * Calculates Total Cost of Ownership (TCO) for virtualization infrastructure
  * including hardware (CAPEX) and operational expenses (OPEX).
+ *
+ * Supports: VMware vSphere, Hyper-V, Proxmox VE, XCP-ng
  *
  * TCO Formula:
  * - CAPEX: Hardware costs (servers, storage, network)
  * - OPEX: Annual operating costs (power, software, datacenter, labor)
  * - TCO: CAPEX + (OPEX × term years)
  */
+
+import type { HypervisorPlatform } from "./types";
 
 /**
  * Default Power Usage Effectiveness (typical data center)
@@ -24,6 +28,10 @@ const HOURS_PER_YEAR = 8760;
  * Input parameters for virtualization cost calculation
  */
 export interface VirtualizationCostInput {
+  /** Hypervisor platform (default: "vmware" for backward compatibility) */
+  platform?: HypervisorPlatform;
+  /** Enable comparison mode (calculates TCO for all 4 platforms) */
+  comparisonMode?: boolean;
   // Hardware costs (CAPEX)
   /** Total cost of servers ($) */
   serverCost: number;
@@ -33,12 +41,15 @@ export interface VirtualizationCostInput {
   networkCost: number;
 
   // Software costs (annual OPEX)
-  /** Annual VMware licensing cost ($) */
-  vmwareLicenseCost: number;
+  /** Annual hypervisor licensing cost ($) - VMware/Hyper-V/XCP-ng Pro (Proxmox optional) */
+  hypervisorLicenseCost: number;
   /** Annual OS licensing cost ($) */
   osLicenseCost: number;
   /** Annual backup software cost ($) */
   backupSoftwareCost: number;
+
+  /** @deprecated Use hypervisorLicenseCost instead. Kept for backward compatibility. */
+  vmwareLicenseCost?: number;
 
   // Operational costs
   /** Electricity cost ($/kWh) */
@@ -129,12 +140,13 @@ export interface VirtualizationCostResult {
  * @returns Detailed cost breakdown or null if invalid input
  *
  * @example
- * // Calculate TCO for 100 VMs over 3 years
+ * // Calculate TCO for 100 VMs over 3 years (VMware)
  * const result = calculateVirtualizationCost({
+ *   platform: "vmware", // Optional, defaults to "vmware"
  *   serverCost: 100000,
  *   storageCost: 50000,
  *   networkCost: 20000,
- *   vmwareLicenseCost: 35000,
+ *   hypervisorLicenseCost: 35000,
  *   osLicenseCost: 10000,
  *   backupSoftwareCost: 5000,
  *   powerCostPerKwh: 0.12,
@@ -152,12 +164,20 @@ export function calculateVirtualizationCost(
 ): VirtualizationCostResult | null {
   const steps: string[] = [];
 
+  // Platform selection: default to VMware for backward compatibility
+  const platform = input.platform || "vmware";
+
+  // Backward compatibility: use deprecated vmwareLicenseCost if new field not provided
+  const hypervisorLicenseCost = input.hypervisorLicenseCost ?? input.vmwareLicenseCost ?? 0;
+
+  steps.push(`Platform: ${platform.toUpperCase()}`);
+
   // Validation: All costs must be non-negative
   if (
     input.serverCost < 0 ||
     input.storageCost < 0 ||
     input.networkCost < 0 ||
-    input.vmwareLicenseCost < 0 ||
+    hypervisorLicenseCost < 0 ||
     input.osLicenseCost < 0 ||
     input.backupSoftwareCost < 0 ||
     input.powerCostPerKwh < 0 ||
@@ -206,11 +226,10 @@ export function calculateVirtualizationCost(
   );
 
   // Step 4: Calculate annual software cost
-  const annualSoftwareCost =
-    input.vmwareLicenseCost + input.osLicenseCost + input.backupSoftwareCost;
+  const annualSoftwareCost = hypervisorLicenseCost + input.osLicenseCost + input.backupSoftwareCost;
 
   steps.push(
-    `Annual software cost: $${input.vmwareLicenseCost.toLocaleString()} (VMware) + $${input.osLicenseCost.toLocaleString()} (OS) + $${input.backupSoftwareCost.toLocaleString()} (backup) = $${annualSoftwareCost.toLocaleString()}`
+    `Annual software cost: $${hypervisorLicenseCost.toLocaleString()} (${platform.toUpperCase()}) + $${input.osLicenseCost.toLocaleString()} (OS) + $${input.backupSoftwareCost.toLocaleString()} (backup) = $${annualSoftwareCost.toLocaleString()}`
   );
 
   // Step 5: Calculate total annual OPEX

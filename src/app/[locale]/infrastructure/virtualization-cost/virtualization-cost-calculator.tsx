@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { HypervisorPlatform } from "@/lib/converters/infrastructure/types";
 import {
   calculateVirtualizationCost,
   type VirtualizationCostInput,
@@ -28,10 +29,11 @@ const useVirtualizationCostStore = createCalculatorStore<
 >({
   name: "virtualization-cost",
   initialValues: {
+    platform: "vmware" as HypervisorPlatform,
     serverCost: 100000,
     storageCost: 50000,
     networkCost: 20000,
-    vmwareLicenseCost: 50000,
+    hypervisorLicenseCost: 50000,
     osLicenseCost: 10000,
     backupSoftwareCost: 5000,
     powerCostPerKwh: 0.15,
@@ -91,8 +93,8 @@ export default function VirtualizationCostCalculator() {
         title: t("software"),
         items: [
           {
-            label: t("vmwareLicense"),
-            value: format.number(values.vmwareLicenseCost, {
+            label: t("hypervisorLicense"),
+            value: format.number(values.hypervisorLicenseCost, {
               style: "currency",
               currency: "USD",
               maximumFractionDigits: 0,
@@ -210,7 +212,7 @@ export default function VirtualizationCostCalculator() {
       { Field: t("serverCost"), Value: values.serverCost, Unit: "USD" },
       { Field: t("storageCost"), Value: values.storageCost, Unit: "USD" },
       { Field: t("networkCost"), Value: values.networkCost, Unit: "USD" },
-      { Field: t("vmwareLicense"), Value: values.vmwareLicenseCost, Unit: "USD/year" },
+      { Field: t("hypervisorLicense"), Value: values.hypervisorLicenseCost, Unit: "USD/year" },
       { Field: t("osLicense"), Value: values.osLicenseCost, Unit: "USD/year" },
       { Field: t("backupSoftware"), Value: values.backupSoftwareCost, Unit: "USD/year" },
       { Field: t("powerCostPerKwh"), Value: values.powerCostPerKwh, Unit: "USD/kWh" },
@@ -293,12 +295,29 @@ export default function VirtualizationCostCalculator() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="platform">{t("platform")}</Label>
+              <Select
+                value={values.platform}
+                onValueChange={(value) => setValue("platform", value as HypervisorPlatform)}
+              >
+                <SelectTrigger id="platform">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="vmware">{t("platformVmware")}</SelectItem>
+                  <SelectItem value="hyperv">{t("platformHyperv")}</SelectItem>
+                  <SelectItem value="proxmox">{t("platformProxmox")}</SelectItem>
+                  <SelectItem value="xcp-ng">{t("platformXcpng")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <InputField
-              id="vmwareLicenseCost"
-              label={t("vmwareLicense")}
+              id="hypervisorLicenseCost"
+              label={t("hypervisorLicense")}
               type="number"
-              value={values.vmwareLicenseCost.toString()}
-              onChange={(value) => setValue("vmwareLicenseCost", Number(value))}
+              value={values.hypervisorLicenseCost.toString()}
+              onChange={(value) => setValue("hypervisorLicenseCost", Number(value))}
               min={0}
               step={1000}
             />
