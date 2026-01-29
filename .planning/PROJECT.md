@@ -110,28 +110,24 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Current Status
 
-**v5.0 Calculator Expansion:** 🔄 IN PLANNING (2026-01-27)
+**v5.0 Calculator Expansion:** ✅ SHIPPED (2026-01-29)
 
-**Planning:** Three new calculator domains (Engineering, Chemistry, Hyper-V/Multi-Platform)
+**Delivered:** 18 new/extended calculators across 3 professional domains.
 
-**Target:** 172 → 190+ calculators (+18 calculators)
+**Total Calculators:** 190 (172 + 18 new/extended)
 
-**Scope:**
+**Domains:**
 
 - 6 Engineering & CAD calculators (structural, materials, hydraulics)
 - 6 Chemistry & Science calculators (stoichiometry, molarity, pH, periodic table)
 - 6 Hyper-V & Multi-Platform calculators (3 extended, 3 new)
 
-**Bundle Impact:** ~90-110 KB (+18-22%)
+**Milestone Stats:**
 
-**Timeline:** 6 weeks (26 days + 5 buffer) across 6 phases (31-36)
-
-**Research Complete:**
-
-- Engineering/Chemistry research (4 files)
-- Hyper-V/Virtualization research (4 files)
-- Requirements documented in `.planning/v5-REQUIREMENTS.md`
-- Roadmap created in `.planning/ROADMAP.md`
+- 6/6 phases completed (31-36)
+- 18/18 requirements satisfied (100%)
+- 126 files modified
+- +33,317 lines added, -19,485 lines removed
 
 ---
 
@@ -215,51 +211,47 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ User experiences fast load times (infrastructure calculators lazy-loaded) — v4.0 (Phase 21 code splitting)
 - ✓ User can export infrastructure calculator results as PDF/CSV — v4.0 (PDF/CSV export components)
 
-### Active
-
-<!-- v5.0 Calculator Expansion (in planning: 2026-01-27) -->
+<!-- v5.0 Calculator Expansion (shipped 2026-01-29) -->
 
 **Engineering & CAD Calculators:**
 
-- User can calculate beam deflection for structural analysis (simply supported, cantilever, fixed-fixed beams) — v5.0
-- User can calculate moment of inertia for standard and composite sections — v5.0
-- User can calculate stress, strain, and Young's modulus with material database — v5.0
-- User can calculate column buckling load with code compliance (AISC, Eurocode) — v5.0
-- User can calculate pipe flow pressure drop using Darcy-Weisbach equation — v5.0
-- User can convert engineering units with NIST precision (force, pressure, length, area, inertia) — v5.0
+- ✓ User can calculate beam deflection for structural analysis (simply supported, cantilever, fixed-fixed beams) — v5.0
+- ✓ User can calculate moment of inertia for standard and composite sections — v5.0
+- ✓ User can calculate stress, strain, and Young's modulus with material database — v5.0
+- ✓ User can calculate column buckling load with code compliance (AISC) — v5.0
+- ✓ User can calculate pipe flow pressure drop using Darcy-Weisbach equation — v5.0
+- ✓ User can convert engineering units with NIST precision (force, pressure, length, area, inertia) — v5.0
 
 **Chemistry & Science Calculators:**
 
-- User can calculate molecular weight from chemical formulas (H₂O, Ca(OH)₂, Fe₂(SO₄)₃) — v5.0
-- User can calculate molarity and solution preparation instructions — v5.0
-- User can calculate dilution volumes using M₁V₁=M₂V₂ formula — v5.0
-- User can calculate stoichiometry with limiting reactant and theoretical yield — v5.0
-- User can calculate pH, pOH, and buffer solutions (Henderson-Hasselbalch) — v5.0
-- User can browse interactive periodic table with IUPAC 2024 atomic weights — v5.0
+- ✓ User can calculate molecular weight from chemical formulas (H₂O, Ca(OH)₂, Fe₂(SO₄)₃) — v5.0
+- ✓ User can calculate molarity and solution preparation instructions — v5.0
+- ✓ User can calculate dilution volumes using M₁V₁=M₂V₂ formula — v5.0
+- ✓ User can calculate stoichiometry with limiting reactant and theoretical yield — v5.0
+- ✓ User can calculate pH, pOH, and buffer solutions (Henderson-Hasselbalch) — v5.0
+- ✓ User can browse interactive periodic table with IUPAC 2024 atomic weights — v5.0
 
 **Hyper-V & Multi-Platform Virtualization:**
 
-- User can calculate VM storage across platforms (VMware, Hyper-V, Proxmox, XCP-ng) — v5.0 (extend existing)
-- User can calculate server virtualization with platform-specific overhead — v5.0 (extend existing)
-- User can compare virtualization costs across multiple platforms with TCO analysis — v5.0 (extend existing)
-- User can calculate Hyper-V consolidation with HA and Windows licensing — v5.0
-- User can calculate Windows Server Datacenter vs Standard break-even — v5.0
-- User can compare hypervisors side-by-side (sizing, features, costs, TCO) — v5.0
+- ✓ User can calculate VM storage across platforms (VMware, Hyper-V, Proxmox, XCP-ng) — v5.0 (extended existing)
+- ✓ User can calculate server virtualization with platform-specific overhead — v5.0 (extended existing)
+- ✓ User can compare virtualization costs across multiple platforms with TCO analysis — v5.0 (extended existing)
+- ✓ User can calculate Hyper-V consolidation with HA and Windows licensing — v5.0
+- ✓ User can calculate Windows Server Datacenter vs Standard break-even — v5.0
+- ✓ User can compare hypervisors side-by-side (sizing, features, costs, TCO) — v5.0
 
 **Reference Data:**
 
-- User sees IUPAC 2024 atomic weights for accurate chemistry calculations — v5.0
-- User selects materials from database (ASTM steel, aluminum, wood, concrete) — v5.0
-- User selects standard beam sections from AISC library — v5.0
-- User sees licensing costs with date stamps and staleness warnings — v5.0
+- ✓ User sees IUPAC 2024 atomic weights for accurate chemistry calculations — v5.0
+- ✓ User selects materials from database (ASTM steel, aluminum, wood, concrete) — v5.0
+- ✓ User selects standard beam sections from AISC library — v5.0
+- ✓ User sees licensing costs with date stamps and staleness warnings — v5.0
 
-**Bundle Impact:**
+### Active
 
-- User experiences <110 KB bundle increase (+18-22% from v4.0) — v5.0
-- User benefits from tree-shaken dependencies (mathjs 20-30KB, convert 3-5KB) — v5.0
-- User experiences lazy-loaded calculator categories (engineering, chemistry) — v5.0
+(No active requirements — next milestone not yet planned. Run `/gsd:new-milestone` to begin v6.0.)
 
-### Out of Scope for v3.0
+### Out of Scope
 
 - Server-side rendering — static export constraint maintained
 - User accounts/authentication — localStorage sufficient for v3.0
@@ -403,4 +395,4 @@ Security: 0 CodeQL vulnerabilities, Map-based URL parameters
 
 ---
 
-_Last updated: 2026-01-27 after v5.0 planning started (requirements & roadmap complete)_
+_Last updated: 2026-01-29 after v5.0 milestone completion_

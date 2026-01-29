@@ -1,5 +1,33 @@
 # Project Milestones: Converty
 
+## v5.0 Calculator Expansion (Shipped: 2026-01-29)
+
+**Delivered:** 18 new/extended calculators across 3 professional domains: Engineering, Chemistry, and Multi-Platform Virtualization.
+
+**Phases completed:** 31-36 (6 phases)
+
+**Key accomplishments:**
+
+- Added Engineering category with 6 calculators (beam deflection, moment of inertia, stress-strain, column buckling, pipe flow, unit converter), 31 ASTM materials database, 50 AISC beam sections, SVG visualizations
+- Added Chemistry category with 6 calculators (molecular weight, molarity, dilution, stoichiometry, pH, periodic table), custom recursive descent formula parser (zero npm dependencies), IUPAC 2024 atomic weights (118 elements)
+- Extended 3 existing infrastructure calculators with 4-platform support (VMware, Hyper-V, Proxmox, XCP-ng), backward compatible
+- Added Hyper-V consolidation calculator with HA modes and Windows Server licensing (Datacenter vs Standard break-even at ~13 VMs/host)
+- Built hypervisor comparison TCO tool with 5-year cost analysis, feature matrix, and recommendation engine
+- Completed production readiness: full i18n (4 locales, 476+ keys), zero build warnings, 6 documentation files, CHANGELOG v5.0.0
+
+**Stats:**
+
+- 126 files created/modified
+- 33,317 lines added, 19,485 lines removed
+- 6 commits across 2 days
+- 6 phases, 18/18 requirements satisfied (100%)
+
+**Git range:** `feat(31)` → `chore(v5.0-production-readiness)`
+
+**What's next:** v6.0 planning — user experience enhancements, additional domains, advanced features
+
+---
+
 ## v4.0 Security & Infrastructure (Shipped: 2026-01-25)
 
 **Delivered:** Enterprise-grade security hardening and 5 new infrastructure calculators for DevOps/IT professionals.
@@ -113,4 +141,4 @@
 
 ---
 
-_Last updated: 2026-01-25 after v4.0 milestone completion_
+_Last updated: 2026-01-29 after v5.0 milestone completion_

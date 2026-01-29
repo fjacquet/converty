@@ -2,23 +2,23 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-25)
+See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** Planning v5.0
+**Current focus:** v5.0 shipped — ready for v6.0 planning
 
 ## Current Position
 
-Milestone: v4.0 Security & Infrastructure (COMPLETE ✅)
-Phase: All 6 phases complete (25-30)
-Status: v4.0 shipped — Ready to plan next milestone
-Last activity: 2026-01-25 — v4.0 milestone completion
+Milestone: v5.0 Calculator Expansion (COMPLETE ✅)
+Phase: All 6 phases complete (31-36)
+Status: v5.0 shipped — Ready to plan next milestone
+Last activity: 2026-01-29 — v5.0 milestone completion
 
-Progress: ████████████████████ 100% (v4.0 — 6 of 6 phases complete)
+Progress: ████████████████████ 100% (v5.0 — 6 of 6 phases complete)
 
 **Next Steps:**
 
-1. Start v5.0 planning — `/gsd:new-milestone`
+1. Start v6.0 planning — `/gsd:new-milestone`
 2. Define requirements for next iteration
 3. Research and plan new features
 
@@ -84,6 +84,19 @@ Progress: ████████████████████ 100% (v4.
 | 30-virtualization-cost-and-export         | 3/3   | ~18 min  | ~6 min   |
 
 **Total v4.0:** 6 phases, 17 plans, ~75 minutes (~4.4 min/plan), 58 commits, 106 files, +15,840/-224 lines
+
+**v5.0 Milestone (complete):**
+
+| Phase                                    | Plans | Total   | Avg/Plan |
+| ---------------------------------------- | ----- | ------- | -------- |
+| 31-engineering-structural-calculators     | 4/4   | 1 wave  | —        |
+| 32-engineering-materials-hydraulics       | 3/3   | 1 wave  | —        |
+| 33-chemistry-core-calculators            | 4/4   | 1 wave  | —        |
+| 34-chemistry-advanced-calculators        | 3/3   | 1 wave  | —        |
+| 35-hyperv-multiplatform-calculators      | 5/5   | 1 wave  | —        |
+| 36-cross-platform-comparison             | 4/4   | 1 wave  | —        |
+
+**Total v5.0:** 6 phases, 6 commits, 126 files, +33,317/-19,485 lines
 
 ## Accumulated Context
 
@@ -244,6 +257,8 @@ Progress: ████████████████████ 100% (v4.
 
 ### Milestone Evolution
 
+- **v5.0 Calculator Expansion** (2026-01-29): 18 new/extended calculators across 3 professional domains. 6 phases, 6 commits, 126 files modified. All 18 requirements satisfied (100% coverage). Added Engineering category (6 calculators, ASTM materials, AISC beam sections, SVG visualizations). Added Chemistry category (6 calculators, custom formula parser, IUPAC 2024 atomic weights). Extended infrastructure calculators with multi-platform support (VMware, Hyper-V, Proxmox, XCP-ng). Added hypervisor comparison TCO tool. Full i18n (4 locales, 476+ keys).
+
 - **v4.0 Security & Infrastructure** (2026-01-25): Enterprise-grade security hardening and 5 new infrastructure calculators. 6 phases, 17 plans, 58 commits, 106 files modified. All 11 requirements satisfied (100% coverage). Eliminated all CodeQL vulnerabilities with Map-based URL parameters. Added VM Storage, Kubernetes Capacity, Server Virtualization, VMware Licensing, and Virtualization Cost calculators. Created Infrastructure category with 3 subcategories. PDF/CSV export for all infrastructure tools. Completed in 13 hours (same day).
 
 - **v3.0 Calculator Expansion & Performance** (2026-01-25): 16 new calculators and export functionality. 6 phases, 23 plans, 90+ commits, 337 files modified. All 24 requirements satisfied (100% coverage). Added Crypto/Blockchain, Real Estate, Cooking/Nutrition, and Automotive categories. Implemented code splitting for performance. PDF/CSV export with zero dependencies.
@@ -258,8 +273,8 @@ Progress: ████████████████████ 100% (v4.
 
 ## Session Continuity
 
-Last session: 2026-01-25T23:30:00Z
-Stopped at: v4.0 milestone completion
+Last session: 2026-01-29T12:00:00Z
+Stopped at: v5.0 milestone completion
 Resume file: None
 
 **Milestones Completed:**
@@ -268,11 +283,12 @@ Resume file: None
 2. ✅ v2.0 Network Tools & User Experience shipped (2026-01-22)
 3. ✅ v3.0 Calculator Expansion & Performance shipped (2026-01-25)
 4. ✅ v4.0 Security & Infrastructure shipped (2026-01-25)
-   - ✅ Phase 25 Complete (2/2 plans) - Security Hardening
-   - ✅ Phase 26 Complete (3/3 plans) - Infrastructure Category Foundation
-   - ✅ Phase 27 Complete (3/3 plans) - VM Storage Calculator
-   - ✅ Phase 28 Complete (3/3 plans) - K8s Capacity Calculator
-   - ✅ Phase 29 Complete (3/3 plans) - VMware Server & Licensing
-   - ✅ Phase 30 Complete (3/3 plans) - Virtualization Cost & Export
+5. ✅ v5.0 Calculator Expansion shipped (2026-01-29)
+   - ✅ Phase 31 Complete (4/4 plans) - Engineering Structural Calculators
+   - ✅ Phase 32 Complete (3/3 plans) - Engineering Materials & Hydraulics
+   - ✅ Phase 33 Complete (4/4 plans) - Chemistry Core Calculators
+   - ✅ Phase 34 Complete (3/3 plans) - Chemistry Advanced Calculators
+   - ✅ Phase 35 Complete (5/5 plans) - Hyper-V & Multi-Platform
+   - ✅ Phase 36 Complete (4/4 plans) - Cross-Platform Comparison
 
-**Next:** Start v5.0 planning with `/gsd:new-milestone`
+**Next:** Start v6.0 planning with `/gsd:new-milestone`
