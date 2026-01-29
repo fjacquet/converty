@@ -80,7 +80,9 @@
       "description": "Calculs structurels, propriétés des matériaux et analyse des poutres",
       "subcategories": {
         "structural": "Structurel",
-        "materials": "Matériaux"
+        "materials": "Matériaux",
+        "hydraulics": "Hydraulique",
+        "conversion": "Conversion"
       }
     },
     "math": {
@@ -119,6 +121,16 @@
     "automotive": {
       "name": "Automobile",
       "description": "Calculateurs pour carburant, pneus, entretien et financement de vehicules"
+    },
+    "chemistry": {
+      "name": "Chimie",
+      "description": "Calculs chimiques et outils moléculaires",
+      "subcategories": {
+        "general": "Général",
+        "solutions": "Solutions",
+        "reactions": "Réactions",
+        "reference": "Référence"
+      }
     }
   },
   "subcategories": {
@@ -1126,6 +1138,51 @@
       "name": "Calculateur d'intervalles d'entretien",
       "description": "Suivez les plannings d'entretien du vehicule et calculez les prochaines echeances avec rappels MFK suisses",
       "metaDescription": "Calculateur gratuit d'entretien vehicule - suivez les vidanges, filtres, freins et inspections MFK suisses. Intervalles en km."
+    },
+    "column-buckling": {
+      "name": "Calculateur de flambage de colonne",
+      "description": "Calculez la charge critique d'Euler, la charge admissible AISC et le rapport d'élancement des colonnes",
+      "metaDescription": "Calculateur de flambage de colonne gratuit. Calculez la charge critique d'Euler, la contrainte admissible AISC, le rapport d'élancement et la longueur efficace avec bases de données de matériaux et sections."
+    },
+    "pipe-flow": {
+      "name": "Calculateur d'écoulement en conduite",
+      "description": "Calculez la perte de charge, le nombre de Reynolds et le facteur de friction pour un écoulement en conduite",
+      "metaDescription": "Calculateur d'écoulement en conduite gratuit. Calculez la perte de charge Darcy-Weisbach, le nombre de Reynolds, le facteur de friction Colebrook-White et la perte de hauteur avec bases de données de matériaux et fluides."
+    },
+    "engineering-unit-converter": {
+      "name": "Convertisseur d'unités d'ingénierie",
+      "description": "Convertissez entre unités d'ingénierie : force, pression, contrainte, couple et plus",
+      "metaDescription": "Convertisseur d'unités d'ingénierie gratuit avec précision NIST. Convertissez force, pression, contrainte, couple, densité, longueur, aire, moment d'inertie et module de section."
+    },
+    "molecular-weight": {
+      "name": "Calculateur de masse molaire",
+      "description": "Calculez la masse molaire et la composition à partir de la formule chimique",
+      "metaDescription": "Calculateur de masse molaire gratuit. Calculez la masse molaire, la composition élémentaire et le pourcentage massique à partir de formules chimiques (H2O, Ca(OH)2, CuSO4·5H2O). Inclut 118 éléments IUPAC 2024."
+    },
+    "molarity": {
+      "name": "Calculateur de molarité",
+      "description": "Calculez la concentration d'une solution à partir de la masse, des moles et du volume",
+      "metaDescription": "Calculateur de molarité gratuit. Calculez la concentration (M, mM, µM, nM) à partir de masse/volume ou moles/volume avec calculs détaillés étape par étape."
+    },
+    "dilution": {
+      "name": "Calculateur de dilution",
+      "description": "Calculez les paramètres de dilution avec la formule M₁V₁ = M₂V₂",
+      "metaDescription": "Calculateur de dilution gratuit. Calculez le volume initial, le volume final ou la molarité finale avec M₁V₁ = M₂V₂, dilutions en série et avertissements de sécurité."
+    },
+    "stoichiometry": {
+      "name": "Calculateur de stœchiométrie",
+      "description": "Calculez le réactif limitant et le rendement théorique à partir d'équations chimiques",
+      "metaDescription": "Calculateur de stœchiométrie gratuit. Calculez le réactif limitant, le rendement théorique et les masses des produits à partir d'équations chimiques équilibrées. Affiche les rapports molaires et les calculs détaillés."
+    },
+    "ph-calculator": {
+      "name": "Calculateur de pH",
+      "description": "Calculez le pH, le pOH et les concentrations ioniques pour acides, bases et tampons",
+      "metaDescription": "Calculateur de pH gratuit. Calculez pH/pOH à partir de la concentration, acides/bases forts/faibles et solutions tampons avec l'équation de Henderson-Hasselbalch. Inclut la visualisation de l'échelle pH."
+    },
+    "periodic-table": {
+      "name": "Tableau périodique",
+      "description": "Tableau périodique interactif avec propriétés des éléments et recherche",
+      "metaDescription": "Tableau périodique interactif avec 118 éléments. Recherchez par nom, symbole ou numéro atomique. Consultez la masse atomique, la configuration électronique et les propriétés chimiques (données IUPAC 2024)."
     }
   },
   "calculator": {
@@ -1764,7 +1821,12 @@
       "totalCost": "Coût Total",
       "recommended": "Recommandé",
       "breakEvenVms": "Seuil de rentabilité à {count} VMs par hôte",
-      "calculationSteps": "Étapes de Calcul"
+      "calculationSteps": "Étapes de Calcul",
+      "avgRamPerVm": "RAM moyenne par VM",
+      "avgStoragePerVm": "Stockage moyen par VM",
+      "cpusPerHost": "CPU par hôte",
+      "ramPerHost": "RAM par hôte",
+      "storagePerHost": "Stockage par hôte"
     },
     "windowsLicensing": {
       "title": "Calculateur de Licences Windows Server",
@@ -4087,6 +4149,62 @@
         "floorsPlaster": "Planchers avec plafonds en plâtre",
         "roofs": "Toitures",
         "special": "Cas spéciaux"
+      },
+      "calculationSteps": "Étapes de calcul",
+      "columnBuckling": {
+        "section": "Section de colonne",
+        "beamSection": "Section de poutre",
+        "customSection": "Section personnalisée",
+        "crossSectionalArea": "Aire de la section transversale",
+        "momentOfInertia": "Moment d'inertie",
+        "bucklingAxis": "Axe de flambage",
+        "strongAxisX": "Axe fort (X)",
+        "weakAxisY": "Axe faible (Y)",
+        "columnLength": "Longueur de la colonne",
+        "endCondition": "Condition d'appui",
+        "pinnedPinned": "Articulé-Articulé",
+        "fixedPinned": "Encastré-Articulé",
+        "fixedFixed": "Encastré-Encastré",
+        "fixedFree": "Encastré-Libre",
+        "eulerCriticalLoad": "Charge critique d'Euler",
+        "aiscAllowableLoad": "Charge admissible AISC",
+        "slendernessRatio": "Rapport d'élancement (KL/r)",
+        "effectiveLength": "Longueur efficace (KL)",
+        "kFactor": "Facteur K",
+        "bucklingMode": "Mode de flambage",
+        "elastic": "Élastique",
+        "inelastic": "Inélastique",
+        "elasticBuckling": "La colonne est dans la plage de flambage élastique. Le rapport d'élancement dépasse la valeur critique — envisagez de réduire la longueur efficace ou d'augmenter les propriétés de la section."
+      },
+      "pipeFlow": {
+        "pipeMaterial": "Matériau de la conduite",
+        "customPipe": "Conduite personnalisée",
+        "roughness": "Rugosité de surface",
+        "fluid": "Fluide",
+        "customFluid": "Fluide personnalisé",
+        "density": "Masse volumique",
+        "viscosity": "Viscosité dynamique",
+        "innerDiameter": "Diamètre intérieur",
+        "pipeLength": "Longueur de la conduite",
+        "flowVelocity": "Vitesse d'écoulement",
+        "pressureDrop": "Perte de charge",
+        "headLoss": "Perte de hauteur",
+        "reynoldsNumber": "Nombre de Reynolds",
+        "flowRegime": "Régime d'écoulement",
+        "frictionFactor": "Facteur de friction de Darcy",
+        "flowRate": "Débit",
+        "laminar": "Laminaire",
+        "transitional": "Transitoire",
+        "turbulent": "Turbulent"
+      },
+      "unitConverter": {
+        "category": "Catégorie d'unités",
+        "value": "Valeur",
+        "from": "De",
+        "to": "Vers",
+        "swap": "Inverser les unités",
+        "conversionFactor": "Facteur de conversion",
+        "allConversions": "Toutes les conversions"
       }
     },
     "errors": {
@@ -4587,6 +4705,138 @@
           "battery": "Batterie",
           "wiper_blades": "Essuie-glaces"
         }
+      }
+    },
+    "chemistry": {
+      "mode": "Mode de calcul",
+      "commonCompounds": "Composés courants",
+      "selectCompound": "Sélectionner un composé",
+      "customFormula": "Formule personnalisée",
+      "formulaExamples": "Exemples",
+      "invalidFormula": "Formule chimique invalide. Veuillez vérifier votre saisie.",
+      "elementBreakdown": "Composition élémentaire",
+      "totalAtoms": "Nombre total d'atomes",
+      "concentrationUnits": "Unités de concentration",
+      "dilutionFormula": "Formule de dilution (Molarité initiale × Volume initial = Molarité finale × Volume final)",
+      "dilutionFactor": "Facteur de dilution",
+      "solventToAdd": "Solvant à ajouter",
+      "calculationSteps": "Étapes de calcul",
+      "chemicalEquation": "Équation chimique",
+      "equationHelp": "Entrez une équation équilibrée. Formats de flèche acceptés",
+      "reactantMasses": "Masses des réactifs",
+      "addReactant": "Ajouter un réactif",
+      "remove": "Supprimer",
+      "calculate": "Calculer",
+      "limitingReactant": "Réactif limitant",
+      "limiting": "Limitant",
+      "reactantsUsed": "Réactifs utilisés",
+      "massGiven": "Masse donnée",
+      "molesAvailable": "Moles disponibles",
+      "molesRequired": "Moles requises (basées sur le réactif limitant)",
+      "theoreticalYield": "Rendement théorique",
+      "phScale": "Échelle de pH",
+      "compound": "Composé",
+      "selectAcid": "Sélectionner un acide",
+      "customPka": "pKa personnalisé",
+      "solutionType": {
+        "stronglyAcidic": "Fortement acide",
+        "acidic": "Acide",
+        "weaklyAcidic": "Faiblement acide",
+        "neutral": "Neutre",
+        "weaklyBasic": "Faiblement basique",
+        "basic": "Basique",
+        "stronglyBasic": "Fortement basique"
+      },
+      "search": "Recherche et filtres",
+      "searchPlaceholder": "Rechercher par nom, symbole ou numéro atomique...",
+      "searchHelp": "Rechercher par nom d'élément (Hydrogène), symbole (H) ou numéro atomique (1)",
+      "allCategories": "Toutes les catégories",
+      "allPeriods": "Toutes les périodes",
+      "allMetalTypes": "Tous les types de métaux",
+      "periodValue": "Période {period}",
+      "showingElements": "{count} éléments affichés",
+      "clearFilters": "Effacer les filtres",
+      "periodicTable": "Tableau périodique",
+      "statistics": "Statistiques",
+      "totalElements": "Nombre total d'éléments",
+      "categoryLegend": "Légende des catégories",
+      "scrollHint": "Faites défiler horizontalement pour voir le tableau périodique complet",
+      "categories": {
+        "alkali-metal": "Métal alcalin",
+        "alkaline-earth-metal": "Métal alcalino-terreux",
+        "transition-metal": "Métal de transition",
+        "post-transition-metal": "Métal pauvre",
+        "metalloid": "Métalloïde",
+        "nonmetal": "Non-métal",
+        "halogen": "Halogène",
+        "noble-gas": "Gaz noble",
+        "lanthanide": "Lanthanide",
+        "actinide": "Actinide"
+      },
+      "metalTypes": {
+        "metal": "Métal",
+        "nonmetal": "Non-métal",
+        "metalloid": "Métalloïde"
+      },
+      "labels": {
+        "formula": "Formule chimique",
+        "equation": "Équation chimique",
+        "molarMass": "Masse molaire",
+        "mass": "Masse",
+        "moles": "Moles",
+        "molecularWeight": "Masse moléculaire",
+        "volume": "Volume",
+        "volumeUnit": "Unité de volume",
+        "molarity": "Molarité",
+        "initialMolarity": "Molarité initiale (M₁)",
+        "finalMolarity": "Molarité finale (M₂)",
+        "initialVolume": "Volume initial (V₁)",
+        "finalVolume": "Volume final (V₂)",
+        "concentration": "Concentration",
+        "ph": "pH",
+        "poh": "pOH",
+        "pka": "pKa",
+        "hConcentration": "Concentration [H⁺]",
+        "ohConcentration": "Concentration [OH⁻]",
+        "acidConcentration": "Concentration de l'acide",
+        "baseConcentration": "Concentration de la base conjuguée",
+        "searchElement": "Rechercher des éléments",
+        "category": "Catégorie",
+        "period": "Période",
+        "group": "Groupe",
+        "metalType": "Type de métal",
+        "atomicNumber": "Numéro atomique",
+        "atomicMass": "Masse atomique",
+        "electronConfiguration": "Configuration électronique",
+        "oxidationStates": "États d'oxydation",
+        "electronegativity": "Électronégativité",
+        "density": "Masse volumique",
+        "meltingPoint": "Point de fusion",
+        "boilingPoint": "Point d'ébullition"
+      },
+      "phModes": {
+        "fromPh": "Depuis le pH",
+        "fromPoh": "Depuis le pOH",
+        "fromH": "Depuis [H⁺]",
+        "fromOh": "Depuis [OH⁻]",
+        "strongAcid": "Acide fort",
+        "strongBase": "Base forte",
+        "weakAcid": "Acide faible",
+        "buffer": "Solution tampon"
+      },
+      "modes": {
+        "massVolume": "Depuis masse et volume",
+        "molesVolume": "Depuis moles et volume",
+        "findV1": "Trouver le volume initial (V₁)",
+        "findV2": "Trouver le volume final (V₂)",
+        "findM2": "Trouver la molarité finale (M₂)"
+      },
+      "modeDescriptions": {
+        "massVolume": "Calculer la molarité à partir de la masse du soluté, de la masse moléculaire et du volume",
+        "molesVolume": "Calculer la molarité à partir des moles de soluté et du volume",
+        "findV1": "Calculer le volume de solution mère nécessaire",
+        "findV2": "Calculer le volume final après dilution",
+        "findM2": "Calculer la concentration finale après dilution"
       }
     }
   },

@@ -117,6 +117,7 @@ A solid, maintainable foundation with zero technical debt in state management an
 **Target:** 172 → 190+ calculators (+18 calculators)
 
 **Scope:**
+
 - 6 Engineering & CAD calculators (structural, materials, hydraulics)
 - 6 Chemistry & Science calculators (stoichiometry, molarity, pH, periodic table)
 - 6 Hyper-V & Multi-Platform calculators (3 extended, 3 new)
@@ -126,6 +127,7 @@ A solid, maintainable foundation with zero technical debt in state management an
 **Timeline:** 6 weeks (26 days + 5 buffer) across 6 phases (31-36)
 
 **Research Complete:**
+
 - Engineering/Chemistry research (4 files)
 - Hyper-V/Virtualization research (4 files)
 - Requirements documented in `.planning/v5-REQUIREMENTS.md`

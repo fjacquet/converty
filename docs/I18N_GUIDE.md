@@ -171,6 +171,39 @@ This generates pages for all 4 locales at build time.
 
 ---
 
+## Domain-Specific Translation Rules
+
+### Never Translate
+
+These tokens must remain identical across all locales:
+
+| Category | Examples | Why |
+|----------|----------|-----|
+| Chemical formulas | `H₂O`, `NaCl`, `Ca(OH)₂`, `CuSO₄·5H₂O` | IUPAC international notation |
+| SI unit symbols | `m`, `kg`, `Pa`, `mol/L`, `MPa`, `N` | International System of Units |
+| Mathematical symbols | `σ`, `δ`, `π`, `ε`, `λ` | Universal notation |
+| Element symbols | `H`, `O`, `Na`, `Fe`, `Cu` | Periodic table symbols |
+| Variable placeholders | `{count}`, `{period}` | next-intl interpolation |
+
+### Always Translate
+
+| Category | EN | FR | DE | IT |
+|----------|----|----|----|----|
+| Element names | Hydrogen | Hydrogène | Wasserstoff | Idrogeno |
+| Material names | Structural Steel | Acier de construction | Baustahl | Acciaio strutturale |
+| Unit full names | pounds per square inch | livres par pouce carré | Pfund pro Quadratzoll | libbre per pollice quadrato |
+| Engineering terms | Column Buckling | Flambage de colonne | Stützenknickung | Instabilità della colonna |
+| Solution types | Strongly Acidic | Fortement acide | Stark sauer | Fortemente acido |
+
+### Translation Quality Checks
+
+- **Chemical precision**: "Molar Mass" ≠ "Molecular Weight" — use the correct term per locale convention
+- **Engineering terminology**: Use standards-body terminology (e.g., Eurocode terms for DE/FR/IT)
+- **Unit descriptions**: Keep `(GB)`, `(MHz)`, `(M₁)` notation — these are not translatable
+- **Subscript/superscript**: Keep `H⁺`, `OH⁻`, `M₁V₁ = M₂V₂` in all locales
+
+---
+
 ## Checklist
 
 - [ ] English translations added first
@@ -179,3 +212,7 @@ This generates pages for all 4 locales at build time.
 - [ ] No "Calculator" in names
 - [ ] `generateStaticParams()` exported
 - [ ] `setRequestLocale()` called in pages
+- [ ] Chemical formulas NOT translated
+- [ ] SI unit symbols NOT translated
+- [ ] Element names ARE translated
+- [ ] `{variable}` placeholders preserved

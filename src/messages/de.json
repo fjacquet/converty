@@ -80,7 +80,9 @@
       "description": "Strukturberechnungen, Materialeigenschaften und Trägeranalyse",
       "subcategories": {
         "structural": "Strukturell",
-        "materials": "Materialien"
+        "materials": "Materialien",
+        "hydraulics": "Hydraulik",
+        "conversion": "Umrechnung"
       }
     },
     "math": {
@@ -119,6 +121,16 @@
     "automotive": {
       "name": "Automobil",
       "description": "Fahrzeugrechner fur Kraftstoff, Reifen, Wartung und Finanzierung"
+    },
+    "chemistry": {
+      "name": "Chemie",
+      "description": "Chemische Berechnungen und molekulare Werkzeuge",
+      "subcategories": {
+        "general": "Allgemein",
+        "solutions": "Lösungen",
+        "reactions": "Reaktionen",
+        "reference": "Referenz"
+      }
     }
   },
   "subcategories": {
@@ -1126,6 +1138,51 @@
       "name": "Wartungsintervall-Rechner",
       "description": "Verfolgen Sie Fahrzeug-Wartungsplane und berechnen Sie nachste Falligkeiten mit Schweizer MFK-Erinnerungen",
       "metaDescription": "Kostenloser Fahrzeug-Wartungsrechner - verfolgen Sie Olwechsel, Filter, Bremsen und Schweizer MFK-Inspektionen. Km-basierte Intervalle."
+    },
+    "column-buckling": {
+      "name": "Knickrechner für Stützen",
+      "description": "Berechnen Sie die Euler-Knicklast, die zulässige AISC-Last und das Schlankheitsverhältnis von Stützen",
+      "metaDescription": "Kostenloser Knickrechner für Stützen. Berechnen Sie Euler-Knicklast, zulässige AISC-Spannung, Schlankheitsverhältnis und effektive Länge mit Material- und Querschnittsdatenbanken."
+    },
+    "pipe-flow": {
+      "name": "Rohrströmungsrechner",
+      "description": "Berechnen Sie Druckverlust, Reynoldszahl und Reibungsbeiwert für Rohrströmungen",
+      "metaDescription": "Kostenloser Rohrströmungsrechner. Berechnen Sie Darcy-Weisbach-Druckverlust, Reynoldszahl, Colebrook-White-Reibungsbeiwert und Verlusthöhe mit Rohrmaterial- und Fluiddatenbanken."
+    },
+    "engineering-unit-converter": {
+      "name": "Technischer Einheitenumrechner",
+      "description": "Umrechnung zwischen technischen Einheiten: Kraft, Druck, Spannung, Drehmoment und mehr",
+      "metaDescription": "Kostenloser technischer Einheitenumrechner mit NIST-Präzision. Umrechnung von Kraft, Druck, Spannung, Drehmoment, Dichte, Länge, Fläche, Flächenträgheitsmoment und Widerstandsmoment."
+    },
+    "molecular-weight": {
+      "name": "Molmassenrechner",
+      "description": "Berechnen Sie Molmasse und Zusammensetzung aus der chemischen Formel",
+      "metaDescription": "Kostenloser Molmassenrechner. Berechnen Sie Molmasse, Elementzusammensetzung und Massenanteil aus chemischen Formeln (H2O, Ca(OH)2, CuSO4·5H2O). Enthält 118 Elemente gemäß IUPAC 2024."
+    },
+    "molarity": {
+      "name": "Molaritätsrechner",
+      "description": "Berechnen Sie die Lösungskonzentration aus Masse, Stoffmenge und Volumen",
+      "metaDescription": "Kostenloser Molaritätsrechner. Berechnen Sie die Konzentration (M, mM, µM, nM) aus Masse/Volumen oder Stoffmenge/Volumen mit schrittweisen Berechnungen."
+    },
+    "dilution": {
+      "name": "Verdünnungsrechner",
+      "description": "Berechnen Sie Verdünnungsparameter mit der Formel M₁V₁ = M₂V₂",
+      "metaDescription": "Kostenloser Verdünnungsrechner. Berechnen Sie Ausgangsvolumen, Endvolumen oder Endmolarität mit M₁V₁ = M₂V₂, Serienverdünnung und Sicherheitshinweisen."
+    },
+    "stoichiometry": {
+      "name": "Stöchiometrierechner",
+      "description": "Berechnen Sie den begrenzenden Reaktanden und die theoretische Ausbeute aus chemischen Gleichungen",
+      "metaDescription": "Kostenloser Stöchiometrierechner. Berechnen Sie begrenzenden Reaktanden, theoretische Ausbeute und Produktmassen aus ausgeglichenen chemischen Gleichungen. Zeigt Molverhältnisse und schrittweise Berechnungen."
+    },
+    "ph-calculator": {
+      "name": "pH-Rechner",
+      "description": "Berechnen Sie pH, pOH und Ionenkonzentrationen für Säuren, Basen und Puffer",
+      "metaDescription": "Kostenloser pH-Rechner. Berechnen Sie pH/pOH aus Konzentration, starke/schwache Säuren/Basen und Pufferlösungen mit Henderson-Hasselbalch-Gleichung. Enthält pH-Skala-Visualisierung."
+    },
+    "periodic-table": {
+      "name": "Periodensystem",
+      "description": "Interaktives Periodensystem mit Elementeigenschaften und Suche",
+      "metaDescription": "Interaktives Periodensystem mit 118 Elementen. Suche nach Name, Symbol oder Ordnungszahl. Atommasse, Elektronenkonfiguration und chemische Eigenschaften (IUPAC 2024-Daten)."
     }
   },
   "calculator": {
@@ -1764,7 +1821,12 @@
       "totalCost": "Gesamtkosten",
       "recommended": "Empfohlen",
       "breakEvenVms": "Break-Even bei {count} VMs pro Host",
-      "calculationSteps": "Berechnungsschritte"
+      "calculationSteps": "Berechnungsschritte",
+      "avgRamPerVm": "Durchschnittlicher RAM pro VM",
+      "avgStoragePerVm": "Durchschnittlicher Speicher pro VM",
+      "cpusPerHost": "CPUs pro Host",
+      "ramPerHost": "RAM pro Host",
+      "storagePerHost": "Speicher pro Host"
     },
     "windowsLicensing": {
       "title": "Windows Server Lizenzrechner",
@@ -4087,6 +4149,62 @@
         "floorsPlaster": "Decken mit Putz",
         "roofs": "Dächer",
         "special": "Sonderfälle"
+      },
+      "calculationSteps": "Berechnungsschritte",
+      "columnBuckling": {
+        "section": "Stützenquerschnitt",
+        "beamSection": "Trägerquerschnitt",
+        "customSection": "Benutzerdefinierter Querschnitt",
+        "crossSectionalArea": "Querschnittsfläche",
+        "momentOfInertia": "Flächenträgheitsmoment",
+        "bucklingAxis": "Knickachse",
+        "strongAxisX": "Starke Achse (X)",
+        "weakAxisY": "Schwache Achse (Y)",
+        "columnLength": "Stützenlänge",
+        "endCondition": "Lagerbedingung",
+        "pinnedPinned": "Gelenkig-Gelenkig",
+        "fixedPinned": "Eingespannt-Gelenkig",
+        "fixedFixed": "Eingespannt-Eingespannt",
+        "fixedFree": "Eingespannt-Frei",
+        "eulerCriticalLoad": "Euler-Knicklast",
+        "aiscAllowableLoad": "Zulässige AISC-Last",
+        "slendernessRatio": "Schlankheitsverhältnis (KL/r)",
+        "effectiveLength": "Effektive Länge (KL)",
+        "kFactor": "K-Faktor",
+        "bucklingMode": "Knickmodus",
+        "elastic": "Elastisch",
+        "inelastic": "Inelastisch",
+        "elasticBuckling": "Die Stütze befindet sich im elastischen Knickbereich. Das Schlankheitsverhältnis überschreitet den kritischen Wert — erwägen Sie eine Verringerung der effektiven Länge oder eine Erhöhung der Querschnittseigenschaften."
+      },
+      "pipeFlow": {
+        "pipeMaterial": "Rohrmaterial",
+        "customPipe": "Benutzerdefiniertes Rohr",
+        "roughness": "Oberflächenrauheit",
+        "fluid": "Fluid",
+        "customFluid": "Benutzerdefiniertes Fluid",
+        "density": "Dichte",
+        "viscosity": "Dynamische Viskosität",
+        "innerDiameter": "Innendurchmesser",
+        "pipeLength": "Rohrlänge",
+        "flowVelocity": "Strömungsgeschwindigkeit",
+        "pressureDrop": "Druckverlust",
+        "headLoss": "Verlusthöhe",
+        "reynoldsNumber": "Reynoldszahl",
+        "flowRegime": "Strömungsregime",
+        "frictionFactor": "Darcy-Reibungsbeiwert",
+        "flowRate": "Durchfluss",
+        "laminar": "Laminar",
+        "transitional": "Übergangsbereich",
+        "turbulent": "Turbulent"
+      },
+      "unitConverter": {
+        "category": "Einheitenkategorie",
+        "value": "Wert",
+        "from": "Von",
+        "to": "Nach",
+        "swap": "Einheiten tauschen",
+        "conversionFactor": "Umrechnungsfaktor",
+        "allConversions": "Alle Umrechnungen"
       }
     },
     "errors": {
@@ -4587,6 +4705,138 @@
           "battery": "Batterie",
           "wiper_blades": "Scheibenwischer"
         }
+      }
+    },
+    "chemistry": {
+      "mode": "Berechnungsmodus",
+      "commonCompounds": "Häufige Verbindungen",
+      "selectCompound": "Verbindung auswählen",
+      "customFormula": "Benutzerdefinierte Formel",
+      "formulaExamples": "Beispiele",
+      "invalidFormula": "Ungültige chemische Formel. Bitte überprüfen Sie Ihre Eingabe.",
+      "elementBreakdown": "Elementare Zusammensetzung",
+      "totalAtoms": "Gesamtzahl der Atome",
+      "concentrationUnits": "Konzentrationseinheiten",
+      "dilutionFormula": "Verdünnungsformel (Anfangsmolarität × Anfangsvolumen = Endmolarität × Endvolumen)",
+      "dilutionFactor": "Verdünnungsfaktor",
+      "solventToAdd": "Hinzuzufügendes Lösungsmittel",
+      "calculationSteps": "Berechnungsschritte",
+      "chemicalEquation": "Chemische Gleichung",
+      "equationHelp": "Geben Sie eine ausgeglichene Gleichung ein. Akzeptierte Pfeilformate",
+      "reactantMasses": "Reaktandenmassen",
+      "addReactant": "Reaktand hinzufügen",
+      "remove": "Entfernen",
+      "calculate": "Berechnen",
+      "limitingReactant": "Begrenzender Reaktand",
+      "limiting": "Begrenzend",
+      "reactantsUsed": "Verwendete Reaktanden",
+      "massGiven": "Gegebene Masse",
+      "molesAvailable": "Verfügbare Stoffmenge",
+      "molesRequired": "Benötigte Stoffmenge (basierend auf dem begrenzenden Reaktanden)",
+      "theoreticalYield": "Theoretische Ausbeute",
+      "phScale": "pH-Skala",
+      "compound": "Verbindung",
+      "selectAcid": "Säure auswählen",
+      "customPka": "Benutzerdefinierter pKa",
+      "solutionType": {
+        "stronglyAcidic": "Stark sauer",
+        "acidic": "Sauer",
+        "weaklyAcidic": "Schwach sauer",
+        "neutral": "Neutral",
+        "weaklyBasic": "Schwach basisch",
+        "basic": "Basisch",
+        "stronglyBasic": "Stark basisch"
+      },
+      "search": "Suche und Filter",
+      "searchPlaceholder": "Suche nach Name, Symbol oder Ordnungszahl...",
+      "searchHelp": "Suche nach Elementname (Wasserstoff), Symbol (H) oder Ordnungszahl (1)",
+      "allCategories": "Alle Kategorien",
+      "allPeriods": "Alle Perioden",
+      "allMetalTypes": "Alle Metalltypen",
+      "periodValue": "Periode {period}",
+      "showingElements": "{count} Elemente angezeigt",
+      "clearFilters": "Filter zurücksetzen",
+      "periodicTable": "Periodensystem",
+      "statistics": "Statistiken",
+      "totalElements": "Gesamtzahl der Elemente",
+      "categoryLegend": "Kategorielegende",
+      "scrollHint": "Horizontal scrollen, um das vollständige Periodensystem anzuzeigen",
+      "categories": {
+        "alkali-metal": "Alkalimetall",
+        "alkaline-earth-metal": "Erdalkalimetall",
+        "transition-metal": "Übergangsmetall",
+        "post-transition-metal": "Nachübergangsmetall",
+        "metalloid": "Halbmetall",
+        "nonmetal": "Nichtmetall",
+        "halogen": "Halogen",
+        "noble-gas": "Edelgas",
+        "lanthanide": "Lanthanoid",
+        "actinide": "Actinoid"
+      },
+      "metalTypes": {
+        "metal": "Metall",
+        "nonmetal": "Nichtmetall",
+        "metalloid": "Halbmetall"
+      },
+      "labels": {
+        "formula": "Chemische Formel",
+        "equation": "Chemische Gleichung",
+        "molarMass": "Molmasse",
+        "mass": "Masse",
+        "moles": "Stoffmenge",
+        "molecularWeight": "Molekulargewicht",
+        "volume": "Volumen",
+        "volumeUnit": "Volumeneinheit",
+        "molarity": "Molarität",
+        "initialMolarity": "Anfangsmolarität (M₁)",
+        "finalMolarity": "Endmolarität (M₂)",
+        "initialVolume": "Anfangsvolumen (V₁)",
+        "finalVolume": "Endvolumen (V₂)",
+        "concentration": "Konzentration",
+        "ph": "pH",
+        "poh": "pOH",
+        "pka": "pKa",
+        "hConcentration": "[H⁺]-Konzentration",
+        "ohConcentration": "[OH⁻]-Konzentration",
+        "acidConcentration": "Säurekonzentration",
+        "baseConcentration": "Konzentration der konjugierten Base",
+        "searchElement": "Elemente suchen",
+        "category": "Kategorie",
+        "period": "Periode",
+        "group": "Gruppe",
+        "metalType": "Metalltyp",
+        "atomicNumber": "Ordnungszahl",
+        "atomicMass": "Atommasse",
+        "electronConfiguration": "Elektronenkonfiguration",
+        "oxidationStates": "Oxidationsstufen",
+        "electronegativity": "Elektronegativität",
+        "density": "Dichte",
+        "meltingPoint": "Schmelzpunkt",
+        "boilingPoint": "Siedepunkt"
+      },
+      "phModes": {
+        "fromPh": "Aus pH",
+        "fromPoh": "Aus pOH",
+        "fromH": "Aus [H⁺]",
+        "fromOh": "Aus [OH⁻]",
+        "strongAcid": "Starke Säure",
+        "strongBase": "Starke Base",
+        "weakAcid": "Schwache Säure",
+        "buffer": "Pufferlösung"
+      },
+      "modes": {
+        "massVolume": "Aus Masse und Volumen",
+        "molesVolume": "Aus Stoffmenge und Volumen",
+        "findV1": "Anfangsvolumen (V₁) berechnen",
+        "findV2": "Endvolumen (V₂) berechnen",
+        "findM2": "Endmolarität (M₂) berechnen"
+      },
+      "modeDescriptions": {
+        "massVolume": "Molarität aus Masse des gelösten Stoffs, Molekulargewicht und Volumen berechnen",
+        "molesVolume": "Molarität aus Stoffmenge des gelösten Stoffs und Volumen berechnen",
+        "findV1": "Das benötigte Volumen der Stammlösung berechnen",
+        "findV2": "Das Endvolumen nach Verdünnung berechnen",
+        "findM2": "Die Endkonzentration nach Verdünnung berechnen"
       }
     }
   },

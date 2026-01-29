@@ -112,6 +112,46 @@ import { cn } from "@/lib/utils";
 
 ---
 
+## Precision & Significant Figures
+
+Engineering and chemistry calculators require careful numeric handling:
+
+```typescript
+// Use sufficient decimal places for intermediate calculations
+const eulerLoad = (Math.PI ** 2 * E * I) / effectiveLength ** 2;
+
+// Round final display values appropriately
+const displayed = parseFloat(eulerLoad.toPrecision(6));
+```
+
+**Rules:**
+
+| Domain | Precision | Example |
+|--------|-----------|---------|
+| Engineering stress/load | 6 significant figures | `245.166 MPa` |
+| Molar mass | 4 decimal places | `18.0153 g/mol` |
+| pH values | 2 decimal places | `4.74` |
+| Conversion factors | NIST reference values | `1 psi = 6894.757293168 Pa` |
+| Reynolds number | Integer | `23500` |
+
+**Constants:** Use named constants, not magic numbers:
+
+```typescript
+// Good
+const Kw = 1e-14;  // Water autoionization constant at 25°C
+const R = 8.314;   // Universal gas constant (J/(mol·K))
+
+// Bad
+const result = concentration * 1e-14;
+```
+
+**Avoid floating-point traps:**
+- Compare with tolerance: `Math.abs(a - b) < 1e-10` instead of `a === b`
+- Use `Number.isFinite()` to guard against `Infinity` and `NaN`
+- Return `null` for invalid inputs rather than throwing
+
+---
+
 ## Pre-commit Checks
 
 Run before every commit:

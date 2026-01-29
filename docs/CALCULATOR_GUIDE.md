@@ -286,6 +286,66 @@ For complex calculators, see existing examples:
 | Charts (recharts) | `src/app/[locale]/finance/compound-interest/` |
 | Multiple result sections | `src/app/[locale]/network/subnet-calculator/` |
 | Select dropdowns | `src/app/[locale]/photo/nd-filter/` |
+| Material/section databases | `src/app/[locale]/engineering/column-buckling/` |
+| Formula parsing | `src/app/[locale]/chemistry/molecular-weight/` |
+| Multi-mode calculators | `src/app/[locale]/chemistry/ph-calculator/` |
+| Chemical equation parser | `src/app/[locale]/chemistry/stoichiometry/` |
+| Interactive data tables | `src/app/[locale]/chemistry/periodic-table/` |
+| Pipe/fluid databases | `src/app/[locale]/engineering/pipe-flow/` |
+| Unit conversion matrix | `src/app/[locale]/engineering/engineering-unit-converter/` |
+
+---
+
+## Domain-Specific Patterns
+
+### Engineering Calculators
+
+Engineering calculators use material and section databases stored in `src/data/engineering/`:
+
+```typescript
+// Load materials from JSON database
+import materials from "@/data/engineering/materials.json";
+import beamSections from "@/data/engineering/beam-sections.json";
+
+// Typed interfaces for database entries
+export interface ColumnBucklingInput {
+  materialId: string;      // References materials.json
+  sectionId: string;       // References beam-sections.json
+  axis: "strong" | "weak";
+  endCondition: "pinned-pinned" | "fixed-pinned" | "fixed-fixed" | "fixed-free";
+  length: number;
+  // Custom overrides when "custom" is selected
+  customYoungsModulus?: number;
+  customYieldStrength?: number;
+  customArea?: number;
+  customMomentOfInertia?: number;
+}
+```
+
+Key patterns:
+- **Material/section lookup functions**: `getMaterialById()`, `getSectionById()` — always provide fallback for `"custom"` IDs
+- **Calculation steps**: Return a `steps` array describing intermediate values for educational display
+- **End conditions**: Use a constant map (e.g., `END_CONDITION_K`) for lookup tables
+- **Unit handling**: Engineering unit converter uses `UNIT_CATEGORIES` with `conversionFactor` per unit
+
+### Chemistry Calculators
+
+Chemistry calculators parse formulas and equations in `src/lib/converters/chemistry/`:
+
+```typescript
+// Parse chemical formulas like "Ca(OH)2", "CuSO4·5H2O"
+import { parseChemicalFormula } from "@/lib/converters/chemistry/formula-parser";
+
+const result = parseChemicalFormula("H2O");
+// → { success: true, composition: { H: 2, O: 1 } }
+```
+
+Key patterns:
+- **Formula parser**: Recursive descent parser handles parentheses, hydrates (·), and nested groups
+- **Equation parser**: Splits balanced equations on arrow symbols (→, ->, =)
+- **Periodic table data**: `src/data/chemistry/periodic-table.json` — 118 elements with IUPAC 2024 data
+- **pH modes**: Multi-mode calculator pattern — different input sets for strong/weak acids/bases/buffers
+- **Common compound presets**: `src/data/chemistry/common-compounds.json` — preset formulas users can select
 
 ---
 

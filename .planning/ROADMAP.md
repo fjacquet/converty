@@ -35,6 +35,7 @@ v5.0 adds three new calculator domains to Converty:
 - Validate calculation formulas against textbook examples
 
 Plans:
+
 - [ ] 31-01-PLAN.md -- Engineering category foundation + reference data (materials, beam sections, translations)
 - [ ] 31-02-PLAN.md -- Stress-Strain Calculator (simplest, establishes engineering UI pattern)
 - [ ] 31-03-PLAN.md -- Moment of Inertia Calculator (SVG cross-section visualization)
@@ -43,6 +44,7 @@ Plans:
 ### Deliverables
 
 **Calculators:**
+
 1. Beam Deflection Calculator
    - Simply supported, cantilever, fixed-fixed beams
    - Point loads and uniform distributed loads
@@ -64,6 +66,7 @@ Plans:
    - Unit conversion (MPa, GPa, psi, ksi)
 
 **Infrastructure:**
+
 - `src/data/engineering/materials.json` (30+ materials)
 - `src/data/engineering/beam-sections.json` (50+ sections)
 - `src/lib/converters/engineering/` calculation functions
@@ -72,11 +75,13 @@ Plans:
 - Beam diagram component (SVG)
 
 **Reference Data:**
+
 - Material properties: ASTM A36, A572, A992 steel; Aluminum 6061-T6, 7075-T6; Wood grades; Concrete C20-C40
 - Beam sections: W-shapes, C-channels, angles, rectangular/circular hollow sections
 - Data source: AISC Steel Construction Manual 15th Edition
 
 **Testing:**
+
 - Unit tests for all calculation functions
 - Formula verification against Beer & Johnston examples
 - Edge cases: zero loads, extreme values, negative inputs
@@ -118,6 +123,7 @@ Plans:
 ### Deliverables
 
 **Calculators:**
+
 1. Column Buckling Calculator
    - Euler's formula: Pcr = (π²EI)/(KL)²
    - Effective length factors (K) for various end conditions
@@ -142,6 +148,7 @@ Plans:
    - NIST-sourced conversion factors (12-digit precision)
 
 **Infrastructure:**
+
 - `src/data/engineering/pipe-materials.json` (roughness values)
 - `src/data/engineering/fluids.json` (density, viscosity)
 - `src/lib/converters/engineering/iterative-solvers.ts` (Colebrook-White)
@@ -149,6 +156,7 @@ Plans:
 - Integration with `convert` library
 
 **Testing:**
+
 - Reynolds number edge cases (laminar, transitional, turbulent)
 - Friction factor convergence (iterative solver)
 - Unit conversion bidirectional: A→B→A = A
@@ -190,6 +198,7 @@ Plans:
 ### Deliverables
 
 **Calculators:**
+
 1. Molecular Weight Calculator
    - Chemical formula parsing: H2O, Ca(OH)2, Fe2(SO4)3, Mg3(PO4)2·8H2O
    - IUPAC 2024 atomic weights
@@ -209,6 +218,7 @@ Plans:
    - Serial dilution support (multi-step)
 
 **Infrastructure:**
+
 - `src/data/chemistry/periodic-table.json` (IUPAC 2024, 118 elements)
 - `src/lib/converters/chemistry/formula-parser.ts` (handle nested parentheses)
 - `src/lib/converters/chemistry/molarity.ts`
@@ -216,11 +226,13 @@ Plans:
 - Integration with `molecular-formula` library (or custom parser)
 
 **Reference Data:**
+
 - IUPAC 2024 atomic weights (Gd: 157.252, Lu: 174.9668, Zr: 91.2236)
 - Element names in 4 locales (en, fr, de, it)
 - Common compounds database (H2O, NaCl, H2SO4, etc.)
 
 **Testing:**
+
 - Formula parser edge cases: nested parentheses, hydrates, brackets
 - Invalid formulas: unbalanced parentheses, unknown elements
 - Molar mass verification against IUPAC tables
@@ -262,6 +274,7 @@ Plans:
 ### Deliverables
 
 **Calculators:**
+
 1. Stoichiometry Calculator
    - Balanced equation input
    - Limiting reagent identification
@@ -285,6 +298,7 @@ Plans:
    - Translated element names (en, fr, de, it)
 
 **Infrastructure:**
+
 - `src/lib/converters/chemistry/stoichiometry.ts`
 - `src/lib/converters/chemistry/ph-calculator.ts`
 - `src/data/chemistry/pka-values.json` (common acids/bases)
@@ -292,6 +306,7 @@ Plans:
 - `src/components/chemistry/element-card.tsx` (detail display)
 
 **Testing:**
+
 - Stoichiometry with known reactions (combustion of methane: CH4 + 2O2 → CO2 + 2H2O)
 - Limiting reagent edge cases (both reactants in excess, exact stoichiometric ratio)
 - pH calculations verified with textbook examples
@@ -333,6 +348,7 @@ Plans:
 ### Deliverables
 
 **Extended Calculators:**
+
 1. VM Storage Calculator (extend v4.0)
    - Add platform selector: VMware, Hyper-V, Proxmox, XCP-ng
    - Platform-specific disk formats (VMDK, VHDX, qcow2, VDI)
@@ -355,19 +371,20 @@ Plans:
 
 **New Calculators:**
 4. Hyper-V Consolidation Calculator
-   - Input: # VMs, vCPU/VM, RAM/VM, storage/VM
-   - HA level (N+1, N+2, none)
-   - Hyper-V Replica toggle
-   - Host specs
-   - Output: Host count, Windows licensing cost, capacity breakdown
 
-5. Windows Server Licensing Calculator
+- Input: # VMs, vCPU/VM, RAM/VM, storage/VM
+- HA level (N+1, N+2, none)
+- Hyper-V Replica toggle
+- Host specs
+- Output: Host count, Windows licensing cost, capacity breakdown
+
+1. Windows Server Licensing Calculator
    - Core-based licensing (16 core minimum per server, 8 per processor)
    - Datacenter vs Standard comparison
    - Break-even analysis (Datacenter cheaper at 13+ VMs)
    - 2-core license pack calculation
 
-6. Hypervisor Comparison Calculator
+2. Hypervisor Comparison Calculator
    - Input workload once, see sizing for all platforms
    - Feature comparison matrix
    - Cost breakdown (hardware, licensing, support, training, migration)
@@ -375,6 +392,7 @@ Plans:
    - PDF export for management
 
 **Infrastructure:**
+
 - `src/data/infrastructure/hypervisor-overhead.json` (platform-specific overhead)
 - `src/data/infrastructure/licensing-costs.json` (with date stamps)
 - `src/data/infrastructure/hypervisor-features.json` (feature matrix)
@@ -384,6 +402,7 @@ Plans:
 - `src/components/infrastructure/cost-breakdown-chart.tsx` (recharts)
 
 **Testing:**
+
 - Windows licensing edge cases (8-core server needs 16 licenses, 2-socket × 6-core needs 16)
 - HA calculations (N+1, N+2 formulas correct)
 - TCO comparison verified with vendor calculators
@@ -426,6 +445,7 @@ Plans:
 ### Deliverables
 
 **Testing:**
+
 - [ ] Unit tests: 90%+ coverage for new calculators
 - [ ] Integration tests: URL state sync, PDF export, CSV export
 - [ ] Formula verification: All calculations match published references
@@ -435,6 +455,7 @@ Plans:
 - [ ] i18n testing: All 4 locales (en, fr, de, it)
 
 **Documentation:**
+
 - [ ] CHANGELOG.md updated with v5.0 features
 - [ ] CALCULATOR_GUIDE.md updated with new categories
 - [ ] ADR created: Reference data management strategy
@@ -444,6 +465,7 @@ Plans:
 - [ ] Pitfall documentation added to codebase
 
 **Performance Optimization:**
+
 - [ ] Bundle size verified: <110 KB increase (target: 90-110 KB)
 - [ ] Tree-shaking verified: mathjs <30 KB, convert <5 KB
 - [ ] Lazy loading verified: Categories load on-demand
@@ -451,6 +473,7 @@ Plans:
 - [ ] Calculation speed verified: <100ms all calculators
 
 **i18n Completion:**
+
 - [ ] All calculator names translated
 - [ ] All input/output labels translated
 - [ ] Element names translated (chemistry)
@@ -459,6 +482,7 @@ Plans:
 - [ ] Number formatting tested (locale-specific decimal separators)
 
 **Quality Assurance:**
+
 - [ ] Domain expert review: Engineering calculations (structural engineer)
 - [ ] Domain expert review: Chemistry calculations (chemist)
 - [ ] Domain expert review: Licensing logic (IT infrastructure professional)
@@ -493,18 +517,21 @@ Plans:
 Before marking v5.0 as complete:
 
 **Functionality:**
+
 - [ ] All 18 calculators deployed and functional
 - [ ] All formulas verified against published references
 - [ ] All reference data sourced from standards (IUPAC, ASTM, AISC, NIST)
 - [ ] All edge cases tested and handled gracefully
 
 **Performance:**
+
 - [ ] Bundle size increase: <110 KB (target: 90-110 KB)
 - [ ] Load time: <2s First Contentful Paint
 - [ ] Calculation speed: <100ms all calculators
 - [ ] Mobile performance: Smooth on iPhone SE
 
 **Quality:**
+
 - [ ] Unit test coverage: >90% for new calculators
 - [ ] Domain expert reviews: Engineering, Chemistry, Infrastructure
 - [ ] Zero TypeScript errors (strict mode)
@@ -512,6 +539,7 @@ Before marking v5.0 as complete:
 - [ ] Zero security vulnerabilities (npm audit --production)
 
 **User Experience:**
+
 - [ ] Mobile-responsive: Verified on 5+ devices
 - [ ] Input validation prevents errors
 - [ ] Formula documentation present
@@ -519,12 +547,14 @@ Before marking v5.0 as complete:
 - [ ] URL state shareable and reproducible
 
 **Internationalization:**
+
 - [ ] 100% translation coverage (en, fr, de, it)
 - [ ] Number formatting locale-aware
 - [ ] Formula notation consistent across locales
 - [ ] Element names/unit names translated correctly
 
 **Documentation:**
+
 - [ ] CHANGELOG.md updated
 - [ ] Calculator guides updated
 - [ ] ADRs created (3 ADRs minimum)
@@ -532,6 +562,7 @@ Before marking v5.0 as complete:
 - [ ] README updated with new calculator count
 
 **Data Quality:**
+
 - [ ] All pricing data dated (with source URLs)
 - [ ] All reference data versioned
 - [ ] Quarterly review process established
@@ -542,24 +573,28 @@ Before marking v5.0 as complete:
 ## Post-Launch Activities
 
 **Week 1 (Stabilization):**
+
 - Monitor error reports and calculation accuracy issues
 - Respond to user feedback on new calculators
 - Fix critical bugs if discovered
 - Track usage metrics (adoption, engagement)
 
 **Week 2-4 (Optimization):**
+
 - Analyze performance metrics
 - Optimize slow calculators if needed
 - Improve mobile UX based on feedback
 - Enhance documentation based on user questions
 
 **Month 2-3 (Growth):**
+
 - Social media promotion of new categories
 - Reach out to engineering/chemistry communities
 - Gather feature requests for v6.0
 - Iterate based on usage data
 
 **Quarterly (Ongoing):**
+
 - Review pricing data (licensing costs)
 - Review reference data (IUPAC updates, ASTM standards)
 - Review overhead factors (hypervisor versions)
@@ -570,24 +605,28 @@ Before marking v5.0 as complete:
 ## Success Metrics
 
 **Adoption (Month 3):**
+
 - Engineering calculators: 500+ monthly users
 - Chemistry calculators: 300+ monthly users
 - Hyper-V calculators: 400+ monthly users
 - Total v5.0 users: 1,200+ monthly
 
 **Engagement:**
+
 - Average time on page: 3-5 minutes
 - PDF export rate: 20%+ of calculations
 - URL sharing rate: 15%+ of calculations
 - Return user rate: 30%+
 
 **Quality:**
+
 - Calculation error reports: <5 per month
 - Data accuracy issues: <2 per quarter
 - Formula disputes: <1 per quarter
 - User satisfaction: >4.5/5 (if surveys implemented)
 
 **Technical:**
+
 - Bundle size increase: 90-110 KB (18-22%)
 - Load time maintained: <2s First Contentful Paint
 - Zero critical bugs post-launch
@@ -600,6 +639,7 @@ Before marking v5.0 as complete:
 If critical issues discovered post-launch:
 
 **Severity 1 (Critical - Calculator produces wrong results):**
+
 - Immediate: Disable calculator via feature flag
 - Investigate: Identify formula error or data issue
 - Fix: Correct calculation, verify with domain expert
@@ -607,6 +647,7 @@ If critical issues discovered post-launch:
 - Verify: Test extensively before re-enabling
 
 **Severity 2 (High - Calculator crashes or performance issue):**
+
 - Immediate: Add warning banner if UX affected
 - Investigate: Profile performance, identify bottleneck
 - Fix: Optimize or rollback problematic feature
@@ -614,11 +655,13 @@ If critical issues discovered post-launch:
 - Verify: Performance testing before deployment
 
 **Severity 3 (Medium - UI issues, translations):**
+
 - Log: Track issue for next release
 - Fix: Include in next minor version (v5.0.1)
 - Deploy: Within 1 week
 
 **Full Rollback (Entire v5.0):**
+
 - If multiple critical issues, rollback to v4.0.x
 - Disable new categories (engineering, chemistry, hyper-v) via feature flags
 - Keep existing v4.0 calculators functional
@@ -629,23 +672,27 @@ If critical issues discovered post-launch:
 ## Resource Requirements
 
 **Development:**
+
 - 1 full-stack developer (primary)
 - 1 frontend developer (UI/UX, mobile)
 - Access to domain experts (engineering, chemistry, infrastructure) for review
 
 **Review & QA:**
+
 - 1 structural engineer (5 hours, beam/column calculators)
 - 1 chemist (5 hours, molecular weight/stoichiometry calculators)
 - 1 IT infrastructure professional (5 hours, Hyper-V/licensing calculators)
 - 1 QA tester (10 hours, mobile/cross-browser testing)
 
 **Data & Research:**
+
 - IUPAC atomic weights (free, public domain)
 - AISC Steel Manual (existing reference, verify license)
 - NIST unit conversion factors (free, public domain)
 - Hypervisor pricing research (ongoing, public data)
 
 **Total Estimated Effort:**
+
 - Development: 26 days (156 hours)
 - Review: 15 hours
 - QA: 10 hours
@@ -656,12 +703,14 @@ If critical issues discovered post-launch:
 ## Dependencies & Blockers
 
 **External Dependencies:**
+
 - IUPAC 2024 atomic weights (publicly available)
 - NIST unit conversion standards (publicly available)
 - AISC Steel Manual access (verify licensing for data extraction)
 - Vendor pricing data (VMware, Microsoft, Proxmox) - public info
 
 **Internal Dependencies:**
+
 - Zustand store pattern (v1.0) - existing
 - URL state middleware (v1.0) - existing
 - PDF export component (v3.0) - existing
@@ -669,12 +718,14 @@ If critical issues discovered post-launch:
 - i18n infrastructure (v1.0) - existing
 
 **Potential Blockers:**
+
 - Domain expert availability for review (schedule in advance)
 - AISC Steel Manual licensing for data extraction (research alternatives if needed)
 - mathjs bundle size exceeds target (fallback: custom implementation)
 - Formula parsing complexity underestimated (allocate buffer time)
 
 **Mitigation:**
+
 - Domain expert reviews scheduled during Phase 36
 - Alternative material property sources researched (MatWeb, Total Materia)
 - Bundle size monitored continuously, tree-shaking verified
@@ -687,6 +738,7 @@ If critical issues discovered post-launch:
 **Total Duration:** 6 weeks (26 days + 5 days buffer = 31 days)
 
 **Phase Breakdown:**
+
 - Phase 31: Engineering Structural (5 days)
 - Phase 32: Engineering Materials/Hydraulics (4 days)
 - Phase 33: Chemistry Core (4 days)
@@ -695,6 +747,7 @@ If critical issues discovered post-launch:
 - Phase 36: Verification & Polish (4 days)
 
 **Deliverables:**
+
 - 18 new calculators (6 Engineering, 6 Chemistry, 6 Hyper-V/Virtualization)
 - 2 new categories (Engineering, Chemistry)
 - 3 extended calculators (VM Storage, Server Virtualization, Virtualization Cost)
@@ -704,12 +757,14 @@ If critical issues discovered post-launch:
 - Updated documentation (CHANGELOG, guides, README)
 
 **Outcomes:**
+
 - Calculator count: 172 → 190 (+10.5%)
 - Category count: 16 → 18
 - Bundle size: +90-110 KB (+18-22%)
 - Professional domains: 3 (Engineering, Chemistry, IT Infrastructure)
 
 **Risk Level:** MEDIUM
+
 - Formula accuracy (testing + domain expert review)
 - Data quality (IUPAC/NIST/AISC sources, versioning)
 - Licensing complexity (extensive testing, edge cases)

@@ -61,8 +61,11 @@ npm run type-check   # TypeScript check
 | Guide | Content |
 |-------|---------|
 | [Calculator Guide](docs/CALCULATOR_GUIDE.md) | Step-by-step for adding calculators |
-| [Code Style](docs/CODE_STYLE.md) | TypeScript, naming, linting |
+| [Code Style](docs/CODE_STYLE.md) | TypeScript, naming, linting, precision |
 | [I18N Guide](docs/I18N_GUIDE.md) | Internationalization patterns |
+| [Engineering Patterns](docs/ENGINEERING_PATTERNS.md) | Material databases, structural formulas, NIST precision |
+| [Chemistry Patterns](docs/CHEMISTRY_PATTERNS.md) | Formula parsing, periodic table, IUPAC standards |
+| [Reference Data Guide](docs/REFERENCE_DATA_GUIDE.md) | Data sourcing, versioning, quality checks |
 | [Architecture](.planning/codebase/ARCHITECTURE.md) | System design |
 | [grepai Reference](docs/GREPAI.md) | Semantic code search tool |
 | [Serena Reference](docs/SERENA.md) | Semantic code editing toolkit |

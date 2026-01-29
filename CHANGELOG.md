@@ -13,6 +13,152 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [5.0.0] - 2026-01-29
+
+### Added
+
+**Phase 31: Engineering Structural Calculators (2026-01-27)**
+
+- Stress-Strain Calculator (`src/app/[locale]/engineering/stress-strain/`)
+  - Calculate stress, strain, and Young's modulus with material database
+  - 15 predefined materials (structural steel, aluminum, titanium, etc.)
+  - Custom material input support
+  - Safety factor analysis with pass/fail indicator
+- Moment of Inertia Calculator (`src/app/[locale]/engineering/moment-of-inertia/`)
+  - 8 cross-section shapes (rectangle, circle, I-beam, channel, angle, etc.)
+  - Standard beam section database (AISC W, S, C, L shapes)
+  - Parallel axis theorem support
+  - SVG cross-section preview with centroid and axes
+- Beam Deflection Calculator (`src/app/[locale]/engineering/beam-deflection/`)
+  - Simply supported, cantilever, and fixed-fixed beam types
+  - Point load and uniformly distributed load configurations
+  - Deflection criteria table (L/180, L/240, L/360, L/600)
+  - SVG beam diagram with load visualization
+- Engineering category with structural subcategory
+- NIST-precision material property database (`src/data/engineering/materials.json`)
+- AISC beam section database (`src/data/engineering/beam-sections.json`)
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 32: Engineering Materials & Hydraulics (2026-01-27)**
+
+- Column Buckling Calculator (`src/app/[locale]/engineering/column-buckling/`)
+  - Euler critical load calculation (Pcr = π²EI/(KL)²)
+  - 4 end conditions: pinned-pinned, fixed-pinned, fixed-fixed, fixed-free
+  - AISC elastic/inelastic transition analysis
+  - Slenderness ratio evaluation with beam section database
+- Pipe Flow Calculator (`src/app/[locale]/engineering/pipe-flow/`)
+  - Darcy-Weisbach pressure drop calculation
+  - Colebrook-White iterative friction factor solver (Swamee-Jain initial guess)
+  - Reynolds number and flow regime classification (laminar/transitional/turbulent)
+  - Pipe material database with roughness values
+  - Fluid database with density and viscosity at reference temperatures
+- Engineering Unit Converter (`src/app/[locale]/engineering/unit-converter/`)
+  - 10 categories: force, pressure, length, area, moment of inertia, section modulus, mass, density, stress, torque
+  - NIST-sourced 12-digit precision conversion factors
+  - Bidirectional conversion with swap functionality
+- Engineering hydraulics and conversion subcategories
+- Pipe materials database (`src/data/engineering/pipe-materials.json`)
+- Fluids database (`src/data/engineering/fluids.json`)
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 33: Chemistry Core (2026-01-28)**
+
+- New Chemistry category with 4 subcategories (general, solutions, reactions, reference)
+- Molecular Weight Calculator (`src/app/[locale]/chemistry/molecular-weight/`)
+  - Custom recursive descent formula parser (H2O, Ca(OH)2, Fe2(SO4)3, CuSO4·5H2O)
+  - Element composition breakdown with mass percentages
+  - Common compounds quick-select library
+  - IUPAC 2024 atomic weights for all 118 elements
+- Molarity Calculator (`src/app/[locale]/chemistry/molarity/`)
+  - M = n/V = m/(Mw×V) with multi-unit output (M, mM, µM, nM)
+  - Two input modes: mass & volume, moles & volume
+  - Step-by-step calculation display
+- Dilution Calculator (`src/app/[locale]/chemistry/dilution/`)
+  - M₁V₁ = M₂V₂ formula with 3 solve modes (find V₁, V₂, or M₂)
+  - Dilution factor calculation
+  - Acid safety warnings for concentrated solutions
+- Periodic table data (`src/data/chemistry/periodic-table.json`) — 118 elements, IUPAC 2024
+- Common compounds data (`src/data/chemistry/common-compounds.json`)
+- Chemistry converter registry (`src/lib/registry/chemistry-converters.ts`)
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 34: Chemistry Advanced (2026-01-28)**
+
+- Stoichiometry Calculator (`src/app/[locale]/chemistry/stoichiometry/`)
+  - Balanced equation parser (supports →, ->, =, ⟶ arrow formats)
+  - Limiting reactant identification
+  - Theoretical yield calculation with mole ratios
+  - Multi-reactant support with add/remove interface
+- pH Calculator (`src/app/[locale]/chemistry/ph-calculator/`)
+  - 8 calculation modes: from pH, pOH, [H⁺], [OH⁻], strong/weak acid/base, buffer
+  - Henderson-Hasselbalch equation for buffer solutions
+  - pH scale visualization with color gradient (0-14)
+  - Solution type classification (strongly acidic → strongly basic)
+- Interactive Periodic Table (`src/app/[locale]/chemistry/periodic-table/`)
+  - 18-column CSS grid layout with all 118 elements
+  - Search by name, symbol, or atomic number
+  - Filter by category (10 types), period, and metal type
+  - Element detail display with 12 properties
+  - Mobile-responsive with horizontal scroll
+- Acids/bases reference data (`src/data/chemistry/acids-bases.json`)
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 35: Hyper-V & Multi-Platform Virtualization (2026-01-28)**
+
+- Hyper-V Consolidation Calculator (`src/app/[locale]/infrastructure/hyperv-consolidation/`)
+  - VM workload to host count sizing with HA (N+1/N+2)
+  - Hyper-V Replica storage calculation (2× multiplier)
+  - Storage stacking: thin(1.5×) × snapshot(1.15×) × replication(2×) = 3.45×
+  - Windows Server core licensing with 16-core minimum enforcement
+  - Datacenter vs Standard edition comparison with break-even analysis
+- Windows Server Licensing Calculator (`src/app/[locale]/infrastructure/windows-licensing/`)
+  - Core license calculation with all Microsoft minimums
+  - 2-core pack counting
+  - Datacenter (unlimited VMs) vs Standard (2 VMs/license) comparison
+  - Break-even at ~13 VMs/host crossover point
+- Extended existing calculators with multi-platform support (backward compatible):
+  - VM Storage: platform-specific disk formats and overhead (VMware/Hyper-V/Proxmox/XCP-ng)
+  - Server Virtualization: platform-specific CPU/memory overhead factors
+  - Virtualization Cost: multi-platform comparison mode
+- Hypervisor overhead data (`src/data/infrastructure/hypervisor-overhead.json`)
+- Licensing costs data (`src/data/infrastructure/licensing-costs.json`)
+- Translations for all 4 locales (en, fr, de, it)
+
+**Phase 36: Cross-Platform Hypervisor Comparison (2026-01-28)**
+
+- Hypervisor Comparison Calculator (`src/app/[locale]/infrastructure/hypervisor-comparison/`)
+  - Side-by-side TCO analysis for VMware vSphere, Hyper-V, Proxmox VE, XCP-ng
+  - 5-year cost analysis with 4 categories: licensing, hardware, power, labor
+  - Platform-specific storage multipliers and overhead factors
+  - Recommendation engine based on workload size and cost
+  - Comprehensive feature matrix (HA, migration, storage, automation, scalability, licensing)
+  - Licensing cost staleness warnings (>180 days) with vendor links
+- Feature matrix data (`src/data/infrastructure/hypervisor-features.json`)
+- CSV/PDF export for comparison results
+- Translations for all 4 locales (en, fr, de, it)
+
+### Security
+
+- **FIXED:** Next.js DoS vulnerabilities (CVE in Image Optimizer, PPR memory consumption, RSC deserialization)
+  - Upgraded Next.js 16.1.4 → 16.1.6 via `npm audit fix`
+  - 0 vulnerabilities remaining
+
+### Changed
+
+- Calculator count increased to 190 total (172 + 18 new/extended)
+- Engineering category expanded with 3 subcategories (structural, hydraulics, conversion)
+- Infrastructure category expanded with Hyper-V and multi-platform subcategories
+- Existing VMware calculators extended with multi-platform selector (default: VMware for backward compatibility)
+- Translation coverage: all 4 locales (en, fr, de, it) fully synchronized at 4,072 keys each
+
+### Fixed
+
+- Phase 31-36: All TypeScript strict mode compliance (0 type errors)
+- Phase 35: Variable shadowing in hypervisor comparison cost calculations
+- Phase 36: Missing UI Alert component replaced with styled Card
+- Translation completeness: resolved 476 missing key-locale combinations across FR/DE/IT
+- Removed 73 orphaned translation keys from Italian locale
+
 ## [4.0.0] - 2026-01-25
 
 ### Added
