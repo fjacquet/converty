@@ -14,7 +14,7 @@
  */
 
 import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
-import type { HypervisorPlatform } from "./types";
+import type { HypervisorOverhead, HypervisorPlatform } from "./types";
 
 /**
  * VM configuration profile
@@ -132,7 +132,9 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
     input.hypervisorStorageGbPerHost ?? input.esxStorageGbPerHost ?? 8;
 
   // Get platform-specific data
-  const platformData = (hypervisorData as HypervisorOverhead[]).find((p) => p.id === platform);
+  const platformData = (hypervisorData as unknown as HypervisorOverhead[]).find(
+    (p) => p.id === platform
+  );
   if (!platformData) {
     return null;
   }

@@ -10,7 +10,7 @@
  */
 
 import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
-import type { HypervisorPlatform } from "./types";
+import type { HypervisorOverhead, HypervisorPlatform } from "./types";
 
 /**
  * Input parameters for server virtualization calculation
@@ -105,7 +105,9 @@ export function calculateServerVirtualization(
   const platform = input.platform || "vmware";
 
   // Get platform-specific data
-  const platformData = (hypervisorData as HypervisorOverhead[]).find((p) => p.id === platform);
+  const platformData = (hypervisorData as unknown as HypervisorOverhead[]).find(
+    (p) => p.id === platform
+  );
   if (!platformData) {
     return null;
   }
