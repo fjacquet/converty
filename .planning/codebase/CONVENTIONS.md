@@ -1,6 +1,40 @@
 # Coding Conventions
 
-**Analysis Date:** 2026-01-17
+**Analysis Date:** 2026-01-29 (updated from 2026-01-17 after v5.0)
+
+## Design Principles
+
+**DRY (Don't Repeat Yourself):**
+
+- Extract shared logic into utility modules (`src/lib/utils/`)
+- Reuse converter components (`InputField`, `ResultGrid`, `ConverterLayout`) across all calculators
+- Shared unit definitions (e.g., `BANDWIDTH_UNITS`, `FILE_SIZE_UNITS`) reused across related calculators
+- `createCalculatorStore` factory eliminates boilerplate for every calculator
+- Consolidated `getUrlParams()` utility for URL extraction (v1.0 Phase 8)
+
+**YAGNI (You Aren't Gonna Need It):**
+
+- Only implement features explicitly required by the current milestone
+- No speculative abstractions — three similar lines are better than a premature helper
+- No feature flags or backwards-compatibility shims; change the code directly
+- Don't add error handling for scenarios that can't happen in practice
+- Don't design for hypothetical future requirements
+
+**KISS (Keep It Simple, Stupid):**
+
+- Pure functions for all calculations — no classes, no OOP hierarchies
+- Return `null` for invalid inputs instead of complex error objects (unless specific messages needed)
+- Zustand over Redux/Context for state management — minimal boilerplate
+- Static export over SSR — no server complexity
+- Native Blob API for CSV export — no external library needed
+- Spread operators for immutability — no Immer middleware
+
+**Practical Application:**
+
+- Prefer simple solutions that work over elegant solutions that might work
+- If a calculation is < 50 lines, keep it in one function — don't split prematurely
+- If a component is self-contained, keep it in one file — don't create abstractions for one use
+- When in doubt, write less code
 
 ## Naming Patterns
 
@@ -9,6 +43,7 @@
 - kebab-case for all files: `mortgage-calculator.tsx`, `bmi.ts`, `use-converter.ts`
 - Calculator components: `[name]-calculator.tsx` (e.g., `mortgage-calculator.tsx`)
 - Pure calculation logic: `[name].ts` (e.g., `mortgage.ts`, `bmi.ts`)
+- Reference data: `[name]-data.ts` (e.g., `materials-data.ts`, `periodic-table.ts`)
 - Hooks: `use-[name].ts` (e.g., `use-debounce.ts`, `use-converter.ts`)
 - Component files match component name in kebab-case
 
@@ -16,6 +51,7 @@
 
 - camelCase for all functions: `calculateMortgage`, `convertWeightToKg`, `getBMICategory`
 - Calculate functions: `calculate[Name]` (e.g., `calculateBMI`, `calculateMortgage`)
+- Parse functions: `parse[Name]` (e.g., `parseChemicalFormula`, `parseTireSize`)
 - Getter functions: `get[Name]` (e.g., `getConverterById`, `getBMICategoryInfo`)
 - Handler functions: `handle[Action]Change` (e.g., `handleDownPaymentChange`)
 - Boolean functions: `is[Condition]` or verb (e.g., `isValid`, `hasErrors`)
@@ -30,6 +66,7 @@
 
 - UPPER_SNAKE_CASE for true constants: `COLORS`, `CONSTANTS`, `BMI_CATEGORIES`, `RESOLUTIONS`
 - Arrays of configuration data: UPPER_SNAKE_CASE (e.g., `COMMON_BITRATES`)
+- Reference data: UPPER_SNAKE_CASE (e.g., `ASTM_MATERIALS`, `PERIODIC_TABLE`, `MINER_PRESETS`)
 - Color theme references use hsl CSS variables: `hsl(var(--primary))`
 
 **Types/Interfaces:**
@@ -38,7 +75,7 @@
 - Input interfaces: `[Name]Input` (e.g., `MortgageInput`, `BMIInput`)
 - Result interfaces: `[Name]Result` (e.g., `MortgageResult`, `BMIResult`)
 - Props interfaces: `[ComponentName]Props` (e.g., `InputFieldProps`, `ButtonProps`)
-- Union types: descriptive names (e.g., `WeightUnit`, `HeightUnit`, `BMICategory`)
+- Union types: descriptive names (e.g., `WeightUnit`, `HeightUnit`, `BMICategory`, `CalculatorMode`)
 
 **Components:**
 
@@ -66,6 +103,7 @@
 - Biome config: `biome.json`
 - Run: `npm run lint` (ESLint), `npm run lint:biome` (Biome), `npm run check` (Biome comprehensive)
 - Auto-fix: `npm run lint:fix`, `npm run check:fix`
+- Pre-commit: Husky v9 + lint-staged runs Biome on staged files
 
 **Key ESLint Rules:**
 
@@ -87,6 +125,7 @@
 - `useBlockStatements`: off (allows single-line arrow functions)
 - `noNonNullAssertion`: off (allowed when needed)
 - Organize imports automatically: enabled
+- Security rules: enabled
 
 ## Import Organization
 
@@ -121,9 +160,10 @@ import { createCalculatorStore } from "@/stores/calculator-store";
 **Patterns:**
 
 - Return `null` for invalid inputs (preferred in calculation functions)
-- Rarely throw errors (only for truly exceptional cases)
+- Rarely throw errors (only for truly exceptional cases or parsing failures)
 - Validate inputs early, return null immediately for invalid cases
 - No try-catch unless calling external APIs or browser APIs
+- `safeParsePositive` / `safeParseNonNegative` preserve last valid value during typing
 
 **Example (calculation function):**
 
@@ -165,6 +205,7 @@ try {
 - Complex calculations: explain algorithm or formula
 - Business logic: clarify non-obvious requirements
 - Workarounds: explain why workaround is needed
+- Reference data: cite standards (ASTM, IUPAC, RFC)
 - Type definitions: JSDoc for public APIs (optional)
 
 **When NOT to Comment:**
@@ -183,6 +224,10 @@ const monthlyPrincipalInterest =
   (loanAmount * (monthlyRate * (1 + monthlyRate) ** numberOfPayments)) /
   ((1 + monthlyRate) ** numberOfPayments - 1);
 
+// Good: cites standard
+// ASTM A36 structural steel - yield strength per ASTM A36/A36M-19
+const yieldStrength = 250; // MPa
+
 // Good: explains constant value
 const PHI = (1 + Math.sqrt(5)) / 2; // Golden ratio
 
@@ -197,23 +242,6 @@ const loanAmount = homePrice - downPayment;
 - Used for complex utility functions
 - Optional for most component props (TypeScript interfaces are self-documenting)
 - Include `@param`, `@returns`, `@example` when helpful
-
-**Example:**
-
-```typescript
-/**
- * Calculator store state interface
- * @template T - Input values type
- * @template R - Result type
- */
-export interface CalculatorState<T extends object, R> {
-  /** Current input values */
-  values: T;
-  /** Calculated result (null if invalid inputs) */
-  result: R | null;
-  // ...
-}
-```
 
 ## Function Design
 
@@ -230,21 +258,6 @@ export interface CalculatorState<T extends object, R> {
 - Prefer object parameters over positional for >2 params
 - Make optional params explicit with `?`
 
-**Example:**
-
-```typescript
-// Good: interface for related params
-export function calculateMortgage(input: MortgageInput): MortgageResult | null;
-
-// Bad: many positional params
-export function calculateMortgage(
-  homePrice: number,
-  downPayment: number,
-  loanTerm: number
-  // ... 8 more params
-): MortgageResult | null;
-```
-
 **Return Values:**
 
 - Return `null` for error states in calculations
@@ -260,29 +273,11 @@ export function calculateMortgage(
 - Default export for React components in pages: `export default function Page(...)`
 - Export types alongside implementations
 
-**Example:**
-
-```typescript
-// Converter file (lib/converters/health/bmi.ts)
-export interface BMIInput { ... }
-export interface BMIResult { ... }
-export function calculateBMI(input: BMIInput): BMIResult | null { ... }
-```
-
 **Barrel Files:**
 
 - Used extensively: `index.ts` re-exports from directory
 - Simplifies imports: `import { Button, Card } from "@/components/ui"`
 - Pattern: `export * from "./module-name"`
-
-**Example (components/ui/index.ts):**
-
-```typescript
-export * from "./button";
-export * from "./card";
-export * from "./input";
-// ...
-```
 
 ## TypeScript
 
@@ -301,6 +296,7 @@ export * from "./input";
 - Explicit return types on exported functions preferred
 - Interface over type alias for object shapes (style preference)
 - Use union types for enums: `type Mode = "add" | "subtract"`
+- Use `BigInt()` constructor (not literal `24n` syntax) for large number support
 
 **Generic Usage:**
 
@@ -331,19 +327,19 @@ export * from "./input";
 
 ## State Management
 
-**Zustand (Preferred):**
+**Zustand (Standard):**
 
-- New calculators use `createCalculatorStore` factory
-- URL sync built-in via middleware
+- All new calculators use `createCalculatorStore` factory
+- URL sync built-in via middleware (replaceState, debounced 150ms)
 - Type-safe with generics: `createCalculatorStore<Input, Result>`
 - Example: `src/stores/calculator-store.ts`
 
-**useConverter Hook (Legacy):**
+**useConverter Hook (Deprecated):**
 
-- Older pattern, being phased out
-- Still used in many calculators
+- Legacy pattern from v1.0
+- Still used in some older calculators
 - Provides similar API to Zustand stores
-- Example: `src/hooks/use-converter.ts`
+- New calculators must not use this pattern
 
 **Pattern (Zustand):**
 
@@ -367,12 +363,42 @@ const { values, setValue, result } = useMyStore();
 - kebab-case to match registry IDs: `"compound-interest"` not `"compoundInterest"`
 - Namespace-qualified: `t("calculator.labels.amount")`
 - Translation files: `src/messages/{locale}.json`
+- All 4 locales must have identical key structures
 
 **Usage:**
 
 - Server: `const t = await getTranslations("namespace")`
 - Client: `const t = useTranslations("namespace")`
 - Formatting: `const format = useFormatter()` then `format.number(value, options)`
+- Converters return translation keys (e.g., `stageKey`), UI translates with `useTranslations()`
+
+## Domain-Specific Conventions
+
+**Engineering Calculators:**
+
+- Material data sourced from standards bodies (ASTM, AISC, ASCE)
+- Use typed material databases with full property sets
+- SVG diagram generation for structural visualizations
+- SI units primary, imperial secondary
+
+**Chemistry Calculators:**
+
+- IUPAC 2024 atomic weights for all elements
+- Custom formula parser for chemical notation (e.g., `Ca(OH)2`, `Fe2O3`)
+- Support parenthetical groups and hydrates
+- Molar mass precision to 4 decimal places
+
+**Infrastructure Calculators:**
+
+- Multi-platform support (VMware, Hyper-V, Proxmox, XCP-ng)
+- Vendor-specific overhead ratios and licensing models
+- TCO calculations with configurable cost factors
+
+**Network Calculators:**
+
+- IPv4 and IPv6 dual-stack support
+- BigInt for host counts exceeding Number.MAX_SAFE_INTEGER
+- RFC compliance (RFC 3021 for /31 subnets, etc.)
 
 ## Accessibility
 
@@ -384,52 +410,6 @@ const { values, setValue, result } = useMyStore();
 - Keyboard navigation supported by Radix components
 - Semantic HTML: `<button>` not `<div onClick>`
 
-## AI Assistant Tools
-
-**Serena (Code Editing):**
-
-- **Preferred method** for all code editing operations
-- Provides semantic, symbol-level code manipulation
-- Use symbolic tools for precise modifications:
-  - `find_symbol`: locate classes, methods, functions by name path
-  - `replace_symbol_body`: replace entire symbol definitions
-  - `insert_before_symbol` / `insert_after_symbol`: add code around symbols
-  - `rename_symbol`: rename with automatic reference updates
-  - `replace_content`: regex-based replacements for targeted edits
-- Benefits:
-  - Type-aware editing (understands code structure)
-  - Automatic reference tracking
-  - No need to read entire files for small changes
-  - Reliable, no need to verify results
-- Avoids common pitfalls of text-based editing (indentation, syntax errors)
-
-**Web Search (Internet Research):**
-
-- Use WebSearch tool for:
-  - Current events and up-to-date information
-  - Documentation for libraries not in Context7
-  - Best practices and community solutions
-  - Troubleshooting errors and issues
-- Use WebFetch tool for:
-  - Fetching specific documentation pages
-  - Reading GitHub issues/discussions
-  - Accessing API documentation
-- Always include sources in responses
-
-**Context7 (Library Documentation):**
-
-- **Preferred method** for researching library features and APIs
-- Provides up-to-date, curated documentation for popular libraries
-- Workflow:
-  1. Use `resolve-library-id` to find the correct library ID
-  2. Use `get-library-docs` with the library ID and optional topic
-- Example use cases:
-  - Learning new Next.js features
-  - Understanding Zustand API changes
-  - Researching Radix UI component props
-  - Exploring TypeScript utility types
-- More reliable than web search for library-specific questions
-
 ---
 
-_Convention analysis: 2026-01-17_
+_Convention analysis: 2026-01-29 (v5.0)_

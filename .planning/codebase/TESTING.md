@@ -1,6 +1,6 @@
 # Testing Patterns
 
-**Analysis Date:** 2026-01-17
+**Analysis Date:** 2026-01-29 (updated from 2026-01-17 after v5.0)
 
 ## Test Framework
 
@@ -9,6 +9,7 @@
 - None currently configured
 - No test files found in `src/`
 - No test framework dependencies in `package.json`
+- Vitest recommended for future implementation
 
 **Run Commands:**
 
@@ -18,25 +19,9 @@
 npm run type-check     # TypeScript type checking
 npm run lint           # ESLint
 npm run lint:biome     # Biome linting
+npm run check          # Biome comprehensive check
 npm run quality        # All quality checks (lint + biome + type-check)
 ```
-
-## Test File Organization
-
-**Location:**
-
-- No test files currently exist
-
-**Expected Pattern (if tests were added):**
-
-- Co-located: `src/lib/converters/health/bmi.test.ts` next to `bmi.ts`
-- Or separate: `__tests__/lib/converters/health/bmi.test.ts`
-- Or test directory: `tests/lib/converters/health/bmi.test.ts`
-
-**Naming:**
-
-- `*.test.ts` or `*.spec.ts` for TypeScript files
-- `*.test.tsx` or `*.spec.tsx` for component tests
 
 ## Current Quality Assurance
 
@@ -45,12 +30,35 @@ npm run quality        # All quality checks (lint + biome + type-check)
 - TypeScript compiler with strict mode
 - Run: `npx tsc --noEmit`
 - Configured in `tsconfig.json`
+- Strict mode: enabled (no implicit any, strict null checks, etc.)
 
 **Linting:**
 
 - ESLint v9 with TypeScript support
-- Biome v2.3.11 for additional checks
+- Biome v2.3.11 for additional checks and formatting
+- Security rules enabled in Biome
 - Run: `npm run lint` or `npm run check`
+
+**Pre-commit Hooks:**
+
+- Husky v9 + lint-staged
+- Runs Biome on staged files before every commit
+- Keeps pre-commit under 3 seconds
+
+**CI Security Scanning:**
+
+- CodeQL analysis (JavaScript/TypeScript) on every push
+- Trivy container and filesystem scanning
+- npm audit at moderate level
+- Biome security linting
+- Dependency review on PRs
+
+**Build Verification:**
+
+- Static export must succeed (`npm run build`)
+- Build-time data fetching with fallback values
+- Search index generation validates registry metadata
+- Service worker generation validates static assets
 
 **Manual Testing:**
 
@@ -64,6 +72,7 @@ npm run quality        # All quality checks (lint + biome + type-check)
 **Validation:**
 
 - Input validation in calculator functions (return `null` for invalid)
+- `safeParsePositive` / `safeParseNonNegative` preserve valid values during typing
 - TypeScript ensures type safety at compile time
 - Biome checks code quality and patterns
 
@@ -77,11 +86,13 @@ npm run quality        # All quality checks (lint + biome + type-check)
 
 - Type checking catches many bugs
 - Linting prevents common mistakes
-- Build process (`npm run build`) must succeed
+- Pre-commit hooks enforce code quality
+- Build process must succeed
+- Security scanning catches vulnerabilities
 
-## What Would Be Tested (Recommendations)
+## What Should Be Tested (Recommendations)
 
-**Unit Tests (Calculation Functions):**
+**Unit Tests (Calculation Functions) — Priority: Critical:**
 
 ```typescript
 // src/lib/converters/health/bmi.test.ts
@@ -95,7 +106,6 @@ describe("calculateBMI", () => {
       height: 175,
       heightUnit: "cm",
     });
-
     expect(result?.bmi).toBeCloseTo(22.9, 1);
     expect(result?.category).toBe("normal");
   });
@@ -107,18 +117,42 @@ describe("calculateBMI", () => {
       height: 175,
       heightUnit: "cm",
     });
-
     expect(result).toBeNull();
   });
 });
 ```
 
-**Integration Tests (Stores):**
+**Domain-Specific Tests — Priority: High:**
+
+```typescript
+// Chemistry: formula parser edge cases
+describe("parseChemicalFormula", () => {
+  it("parses parenthetical groups", () => {
+    const result = parseChemicalFormula("Ca(OH)2");
+    expect(result).toEqual({ Ca: 1, O: 2, H: 2 });
+  });
+});
+
+// Engineering: structural calculations with known reference values
+describe("calculateBeamDeflection", () => {
+  it("matches AISC reference values", () => {
+    // Test against published steel beam tables
+  });
+});
+
+// Network: IPv4/IPv6 edge cases
+describe("calculateSubnet", () => {
+  it("handles /31 point-to-point links per RFC 3021", () => {
+    const result = calculateSubnet("192.168.1.0/31");
+    expect(result?.usableHosts).toBe(2);
+  });
+});
+```
+
+**Store Tests — Priority: High:**
 
 ```typescript
 // src/stores/calculator-store.test.ts
-import { createCalculatorStore } from "./calculator-store";
-
 describe("createCalculatorStore", () => {
   it("updates values and calculates result", () => {
     const useStore = createCalculatorStore({
@@ -126,48 +160,10 @@ describe("createCalculatorStore", () => {
       initialValues: { a: 0, b: 0 },
       calculate: (vals) => ({ sum: vals.a + vals.b }),
     });
-
-    const { setValue, result } = useStore.getState();
+    const { setValue } = useStore.getState();
     setValue("a", 5);
     setValue("b", 3);
-
-    expect(result?.sum).toBe(8);
-  });
-});
-```
-
-**Component Tests:**
-
-```typescript
-// src/components/converter/input-field.test.tsx
-import { render, screen, fireEvent } from "@testing-library/react";
-import { InputField } from "./input-field";
-
-describe("InputField", () => {
-  it("renders label and input", () => {
-    render(
-      <InputField
-        id="test"
-        label="Test Input"
-        value="100"
-        onChange={() => {}}
-      />
-    );
-
-    expect(screen.getByLabelText("Test Input")).toBeInTheDocument();
-  });
-
-  it("calls onChange when value changes", () => {
-    const onChange = jest.fn();
-    render(
-      <InputField id="test" label="Test" value="100" onChange={onChange} />
-    );
-
-    fireEvent.change(screen.getByLabelText("Test"), {
-      target: { value: "200" },
-    });
-
-    expect(onChange).toHaveBeenCalledWith("200");
+    expect(useStore.getState().result?.sum).toBe(8);
   });
 });
 ```
@@ -176,18 +172,16 @@ describe("InputField", () => {
 
 **For Unit Tests:**
 
-- Vitest (fast, Vite-based, modern)
-- Jest (established, widely used)
+- Vitest (fast, Vite-based, modern, recommended)
 
 **For Component Tests:**
 
-- React Testing Library (recommended for React 19)
-- Vitest + @testing-library/react
+- React Testing Library + Vitest
+- @testing-library/react for React 19
 
 **For E2E Tests:**
 
 - Playwright (recommended for Next.js)
-- Cypress (alternative)
 
 **Setup Example (Vitest):**
 
@@ -220,122 +214,76 @@ export default defineConfig({
 
 **Requirements:** None enforced
 
-**View Coverage:**
+**Target Areas for Coverage (by priority):**
 
-```bash
-# Would be (if Vitest configured):
-npx vitest run --coverage
-```
-
-**Target Areas for Coverage:**
-
-- Calculation functions in `src/lib/converters/` (high value)
-- Store logic in `src/stores/`
-- Utilities in `src/lib/utils/`
-- Component rendering (lower priority due to type safety)
-
-## Test Types
-
-**Unit Tests (Recommended Priority):**
-
-- Calculation functions (highest ROI)
-- Pure functions in converters
-- Utility functions
-- Store factories
-
-**Integration Tests:**
-
-- Zustand stores with calculation functions
-- URL state sync middleware
-- Component + store integration
-
-**E2E Tests (Future):**
-
-- Full calculator flows
-- URL parameter persistence
-- Multi-language support
-- PDF export functionality
-
-## Common Patterns (If Tests Existed)
-
-**Async Testing:**
-
-```typescript
-it("handles async operations", async () => {
-  const result = await someAsyncFunction();
-  expect(result).toBeDefined();
-});
-```
-
-**Error Testing:**
-
-```typescript
-it("returns null for division by zero", () => {
-  const result = calculate({ divisor: 0 });
-  expect(result).toBeNull();
-});
-```
-
-**Snapshot Testing (Component Structure):**
-
-```typescript
-it("matches snapshot", () => {
-  const { container } = render(<Component />);
-  expect(container.firstChild).toMatchSnapshot();
-});
-```
+1. Calculation functions in `src/lib/converters/` (highest value — 167+ calculators)
+2. Chemical formula parser (`src/lib/converters/chemistry/formula-parser.ts`)
+3. Network calculations with BigInt edge cases
+4. Store logic in `src/stores/`
+5. Utilities in `src/lib/utils/`
+6. Component rendering (lower priority due to type safety)
 
 ## Quality Gates (Current)
 
+**Pre-commit:**
+
+1. Husky runs lint-staged
+2. lint-staged runs Biome on staged files
+
 **Build-time:**
 
-1. TypeScript compilation must succeed
-2. Biome linting must pass (or have no errors)
+1. TypeScript compilation must succeed (strict mode)
+2. Biome linting must pass
 3. ESLint checks must pass
-4. Static export generation must succeed
+4. Build-time data fetch (with fallback)
+5. Search index generation
+6. Static export generation must succeed
+7. Service worker generation
 
-**Pre-commit (Recommended):**
+**CI/CD:**
 
-- Run `npm run quality` before commits
-- Format with `npm run format`
-- Type check with `npm run type-check`
+1. TypeScript type-check
+2. ESLint
+3. Biome check
+4. Static export build
+5. CodeQL security analysis
+6. Trivy vulnerability scan
+7. npm audit
+8. Dependency review (PRs)
 
-**CI/CD (If configured):**
+## Test Coverage Gaps
 
-```yaml
-# Example GitHub Actions workflow
-- name: Quality Check
-  run: |
-    npm run type-check
-    npm run lint
-    npm run lint:biome
-    npm run build
-```
+**All Calculation Logic:**
 
-## Test Coverage Gaps (Current State)
+- What's not tested: Every calculator in `src/lib/converters/**/*.ts` (167+ calculators)
+- Risk: Mathematical errors, edge case bugs, regression during refactoring
+- Priority: Critical
 
-**Untested Areas:**
+**State Management:**
 
-- All calculation functions in `src/lib/converters/` (no automated tests)
-- Zustand store logic
-- Component rendering and interactions
-- URL state synchronization
-- Translation key coverage
-- Error handling paths
+- What's not tested: `createCalculatorStore` factory, URL sync middleware
+- Risk: State corruption, URL sync failures
+- Priority: High
 
-**Risk:**
+**Translation Completeness:**
 
-- High complexity functions (mortgage amortization, statistical calculations) have no automated verification
-- Regressions must be caught manually
-- Refactoring carries higher risk without test safety net
+- What's not tested: All locale files have same keys, no missing translations
+- Risk: Runtime MISSING_MESSAGE errors
+- Priority: Medium
+- Note: @lingual/i18n-check installed but not fully integrated
 
-**Priority:**
+**Component Integration:**
 
-1. Add tests for calculation functions (highest value)
-2. Add store tests for state management
-3. Add component tests for critical UI components
-4. Add E2E tests for user workflows
+- What's not tested: Calculator components render correctly
+- Risk: UI bugs, broken layouts
+- Priority: High
+
+**Build-Time Scripts:**
+
+- What's not tested: Data fetching scripts, search index generation
+- Risk: Build failures from API changes
+- Priority: Medium
 
 ---
 
-_Testing analysis: 2026-01-17_
+_Testing analysis: 2026-01-29 (v5.0)_

@@ -1,6 +1,6 @@
 # Technology Stack
 
-**Analysis Date:** 2026-01-17
+**Analysis Date:** 2026-01-29 (updated from 2026-01-17 after v5.0)
 
 ## Languages
 
@@ -14,6 +14,7 @@
 **Secondary:**
 
 - JavaScript (ESM) - Configuration files only (eslint.config.mjs, postcss.config.mjs)
+- JavaScript - Build scripts (`scripts/generate-sw.js`, `scripts/package-local.js`)
 
 ## Runtime
 
@@ -24,7 +25,7 @@
 **Package Manager:**
 
 - npm (latest)
-- Lockfile: Not committed to repository (npm ci used in CI/CD)
+- Lockfile: `package-lock.json` committed
 
 ## Frameworks
 
@@ -36,6 +37,7 @@
   - Locale routing via `[locale]` segments
   - next-intl plugin for i18n
   - GitHub Pages deployment target (base path: `/converty`)
+  - Dynamic imports for code splitting (all 167+ calculator pages)
 
 - React 19.2.3 - UI framework
   - react-dom 19.2.3
@@ -51,8 +53,11 @@
 **UI Components:**
 
 - Radix UI - Accessible UI primitives
+  - @radix-ui/react-checkbox 1.3.3
+  - @radix-ui/react-dialog 1.1.15
   - @radix-ui/react-label 2.1.8
   - @radix-ui/react-popover 1.1.15
+  - @radix-ui/react-progress 1.1.8
   - @radix-ui/react-radio-group 1.3.8
   - @radix-ui/react-select 2.2.6
   - @radix-ui/react-slot 1.2.4
@@ -76,6 +81,12 @@
 
 - next-themes 0.4.6 - Dark/light mode toggle
 
+**Search:**
+
+- Fuse.js 7.1.0 - Client-side fuzzy search (~5KB gzipped)
+  - Pre-built search indexes per locale (generated at build time)
+  - Command palette via cmdk 1.1.1
+
 **Visualization:**
 
 - Recharts 3.6.0 - React chart library for data visualization
@@ -83,6 +94,20 @@
 **Document Generation:**
 
 - jsPDF 4.0.0 - Client-side PDF generation
+
+**Network:**
+
+- ipaddr.js 2.3.0 - IPv4/IPv6 address manipulation (55M+ weekly downloads)
+
+**Cryptography:**
+
+- crypto-js 4.2.0 - MD5 hashing (WebCrypto used for SHA algorithms)
+- wallet-address-validator 0.2.4 - Cryptocurrency address validation (30+ currencies)
+
+**PWA:**
+
+- workbox-window 7.4.0 - Service worker registration (runtime)
+- workbox-build 7.4.0 - Service worker generation (build-time, dev dependency)
 
 **Icons:**
 
@@ -94,9 +119,25 @@
 - PostCSS 8.5.6 - CSS processing
 - Autoprefixer 10.4.23 - CSS vendor prefixing
 
+**Code Quality:**
+
+- @biomejs/biome 2.3.11 - Linting and formatting
+- ESLint 9.39.2 - Additional linting
+  - eslint-config-next 16.1.1
+  - eslint-plugin-react 7.37.5
+  - eslint-plugin-react-hooks 7.0.1
+  - typescript-eslint 8.53.0
+- Husky 9.1.7 - Git hooks
+- lint-staged 16.2.7 - Pre-commit staged file linting
+- @lingual/i18n-check 0.8.19 - Translation validation
+
+**Bundle Analysis:**
+
+- @next/bundle-analyzer 16.1.3 - Bundle size analysis (enabled via ANALYZE=true)
+
 **Testing:**
 
-- None - No test framework configured
+- None - No test framework configured (Vitest recommended for future)
 
 ## Key Dependencies
 
@@ -104,7 +145,7 @@
 
 - next 16.1.1 - Framework core
 - react 19.2.3 - UI library
-- zustand 5.0.10 - State management (replacing legacy useConverter hook)
+- zustand 5.0.10 - State management
 - next-intl 4.7.0 - Internationalization
 
 **Infrastructure:**
@@ -114,13 +155,21 @@
 - tailwind-merge 3.4.0 - Tailwind class merging
 - cmdk 1.1.1 - Command menu component
 
+**Domain-Specific:**
+
+- ipaddr.js 2.3.0 - Network calculators
+- crypto-js 4.2.0 - Crypto calculators (MD5)
+- wallet-address-validator 0.2.4 - Crypto address validation
+- fuse.js 7.1.0 - Global search
+- jspdf 4.0.0 - PDF export
+
 ## Configuration
 
 **Environment:**
 
-- No environment variables in use
-- Pure client-side application
-- Static export with no runtime configuration
+- `ANALYZE=true` - Enable bundle analyzer (optional)
+- `NEXT_TELEMETRY_DISABLED=1` - Disable telemetry in Docker builds
+- No other environment variables required
 
 **Build:**
 
@@ -129,13 +178,14 @@
   - basePath: `/converty` (GitHub Pages)
   - unoptimized images
   - next-intl plugin
+- Build pipeline: `prebuild` (fetch data + generate indexes) -> `next build` -> `generate-sw.js`
 
 **TypeScript:**
 
 - `tsconfig.json` - TypeScript configuration
   - Strict mode: enabled
-  - Path aliases: `@/*` → `./src/*`
-  - incremental compilation
+  - Path aliases: `@/*` -> `./src/*`
+  - Incremental compilation
 
 **Linting:**
 
@@ -151,12 +201,15 @@
   - React Hooks plugin
   - Next.js plugin
 
+**Pre-commit:**
+
+- `.husky/pre-commit` - Runs lint-staged
+- `lint-staged` config in `package.json` - Runs Biome on staged files
+
 **Styling:**
 
-- `tailwind.config.ts` - Tailwind configuration
-  - Content: `src/**/*.{js,ts,jsx,tsx,mdx}`
+- Tailwind CSS 4 (configured via `@tailwindcss/postcss` plugin)
 - `postcss.config.mjs` - PostCSS configuration
-  - Plugin: `@tailwindcss/postcss`
 
 ## Platform Requirements
 
@@ -182,4 +235,4 @@
 
 ---
 
-_Stack analysis: 2026-01-17_
+_Stack analysis: 2026-01-29 (v5.0)_
