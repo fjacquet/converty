@@ -32,6 +32,9 @@ export interface HypervisorComparisonInput {
   laborHourlyRate: number; // USD
   hardwareCostPerHost: number; // USD
   hardwareLifespanYears: number;
+
+  // Windows Server edition (affects Hyper-V licensing)
+  windowsEdition: "standard" | "datacenter";
 }
 
 export interface PlatformSizing {
@@ -361,7 +364,13 @@ function calculatePlatformSizing(
   const storageUtilization = (totalStorageNeeded / usableStorage) * 100;
 
   // Cost calculation (5-year TCO)
-  const costs = calculatePlatformCosts(input, platformId, totalHostsRequired, hostCores);
+  const costs = calculatePlatformCosts(
+    input,
+    platformId,
+    totalHostsRequired,
+    hostCores,
+    effectiveHosts
+  );
 
   return {
     platform: platformId,
@@ -398,7 +407,8 @@ function calculatePlatformCosts(
   input: HypervisorComparisonInput,
   platformId: string,
   totalHosts: number,
-  coresPerHost: number
+  coresPerHost: number,
+  effectiveHosts: number
 ): PlatformSizing["costs"] {
   const yearsToCalculate = 5;
 
@@ -413,12 +423,22 @@ function calculatePlatformCosts(
     licensingTotal = vcfCostPerCore * totalCores * yearsToCalculate;
     licensingDetails = `VCF: ${totalCores} cores × $${vcfCostPerCore}/core × ${yearsToCalculate} years`;
   } else if (platformId === "hyperv") {
-    // Windows Server Datacenter
-    const datacenterCostPerPack = licensingData.windowsServer.datacenter.pricePerCorePack;
     const licensedCoresPerHost = Math.max(coresPerHost, 16);
     const packsPerHost = licensedCoresPerHost / 2;
-    licensingTotal = datacenterCostPerPack * packsPerHost * totalHosts;
-    licensingDetails = `Datacenter: ${totalHosts} hosts × ${packsPerHost} packs × $${datacenterCostPerPack}`;
+
+    if (input.windowsEdition === "datacenter") {
+      // Datacenter: one license per host, unlimited VMs
+      const costPerPack = licensingData.windowsServer.datacenter.pricePerCorePack;
+      licensingTotal = costPerPack * packsPerHost * totalHosts;
+      licensingDetails = `Datacenter: ${totalHosts} hosts × ${packsPerHost} packs × $${costPerPack}`;
+    } else {
+      // Standard: each license covers 2 VMs, need to stack licenses
+      const costPerPack = licensingData.windowsServer.standard.pricePerCorePack;
+      const vmsPerHost = Math.ceil(input.vmCount / effectiveHosts);
+      const licensesPerHost = Math.ceil(vmsPerHost / 2);
+      licensingTotal = costPerPack * packsPerHost * licensesPerHost * totalHosts;
+      licensingDetails = `Standard: ${totalHosts} hosts × ${packsPerHost} packs × ${licensesPerHost} licenses × $${costPerPack}`;
+    }
   } else if (platformId === "proxmox") {
     // Proxmox subscription (optional): ~$110/CPU/year for Premium
     const proxmoxCostPerCpu = 110;

@@ -48,6 +48,7 @@ const useHypervisorComparisonStore = createCalculatorStore<
     laborHourlyRate: 75,
     hardwareCostPerHost: 15000,
     hardwareLifespanYears: 5,
+    windowsEdition: "datacenter",
   },
   calculate: calculateHypervisorComparison,
 });
@@ -349,6 +350,25 @@ export function HypervisorComparisonCalculator() {
               step={1}
               unit="years"
             />
+
+            <div className="space-y-2">
+              <Label htmlFor="windowsEdition">{t("windowsEdition")}</Label>
+              <Select
+                value={values.windowsEdition}
+                onValueChange={(value) =>
+                  setValue("windowsEdition", value as "standard" | "datacenter")
+                }
+              >
+                <SelectTrigger id="windowsEdition">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="datacenter">{t("windowsEditions.datacenter")}</SelectItem>
+                  <SelectItem value="standard">{t("windowsEditions.standard")}</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">{t("windowsEditionHint")}</p>
+            </div>
           </CardContent>
         </Card>
       </div>

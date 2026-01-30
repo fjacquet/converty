@@ -1032,6 +1032,12 @@
       "hardware": "Hardware",
       "power": "Energia",
       "labor": "Personale",
+      "windowsEdition": "Edizione Windows Server",
+      "windowsEditions": {
+        "standard": "Standard (2 VM per licenza)",
+        "datacenter": "Datacenter (VM illimitate)"
+      },
+      "windowsEditionHint": "Standard è più conveniente per <13 VM/host, Datacenter oltre.",
       "featureComparison": "Confronto funzionalità"
     },
     "k8s-capacity-calculator": {

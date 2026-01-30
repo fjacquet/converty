@@ -992,6 +992,12 @@
       "hardware": "Matériel",
       "power": "Électricité",
       "labor": "Personnel",
+      "windowsEdition": "Édition Windows Server",
+      "windowsEditions": {
+        "standard": "Standard (2 VM par licence)",
+        "datacenter": "Datacenter (VM illimitées)"
+      },
+      "windowsEditionHint": "Standard est moins cher pour <13 VM/hôte, Datacenter au-delà.",
       "featureComparison": "Comparaison des fonctionnalités"
     },
     "slope-calculator": {

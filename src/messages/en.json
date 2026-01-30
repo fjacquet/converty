@@ -1037,6 +1037,12 @@
       "hardware": "Hardware",
       "power": "Power",
       "labor": "Labor",
+      "windowsEdition": "Windows Server Edition",
+      "windowsEditions": {
+        "standard": "Standard (2 VMs per license)",
+        "datacenter": "Datacenter (unlimited VMs)"
+      },
+      "windowsEditionHint": "Standard is cheaper for <13 VMs/host, Datacenter for more.",
       "featureComparison": "Feature Comparison"
     },
     "slope-calculator": {
