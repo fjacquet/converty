@@ -78,7 +78,7 @@ export default function UnitConverterCalculator() {
                     : "border-border bg-card text-card-foreground hover:bg-muted"
                 }`}
               >
-                {cat.name}
+                {t(`unitConverter.categories.${cat.id}`)}
               </button>
             ))}
           </div>

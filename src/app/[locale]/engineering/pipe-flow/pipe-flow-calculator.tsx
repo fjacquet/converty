@@ -112,10 +112,10 @@ export default function PipeFlowCalculator() {
                 <SelectItem value="custom">{t("pipeFlow.customPipe")}</SelectItem>
                 {Object.entries(groupedPipes).map(([category, mats]) => (
                   <SelectGroup key={category}>
-                    <SelectLabel>{category}</SelectLabel>
+                    <SelectLabel>{t(`pipeFlow.materialCategories.${category}`)}</SelectLabel>
                     {mats.map((mat) => (
                       <SelectItem key={mat.id} value={mat.id}>
-                        {mat.name}
+                        {t(`pipeFlow.materials.${mat.id}`)}
                       </SelectItem>
                     ))}
                   </SelectGroup>
@@ -154,10 +154,10 @@ export default function PipeFlowCalculator() {
                 <SelectItem value="custom">{t("pipeFlow.customFluid")}</SelectItem>
                 {Object.entries(groupedFluids).map(([category, categoryFluids]) => (
                   <SelectGroup key={category}>
-                    <SelectLabel>{category}</SelectLabel>
+                    <SelectLabel>{t(`pipeFlow.fluidCategories.${category}`)}</SelectLabel>
                     {categoryFluids.map((fluid) => (
                       <SelectItem key={fluid.id} value={fluid.id}>
-                        {fluid.name}
+                        {t(`pipeFlow.fluids.${fluid.id}`)}
                       </SelectItem>
                     ))}
                   </SelectGroup>

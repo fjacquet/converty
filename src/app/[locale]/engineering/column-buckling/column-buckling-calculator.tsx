@@ -115,10 +115,10 @@ export default function ColumnBucklingCalculator() {
                 <SelectItem value="custom">{t("customMaterial")}</SelectItem>
                 {Object.entries(groupedMaterials).map(([category, categoryMaterials]) => (
                   <SelectGroup key={category}>
-                    <SelectLabel>{category}</SelectLabel>
+                    <SelectLabel>{t(`columnBuckling.materialCategories.${category}`)}</SelectLabel>
                     {categoryMaterials.map((material) => (
                       <SelectItem key={material.id} value={material.id}>
-                        {material.name}
+                        {t(`columnBuckling.materials.${material.id}`)}
                       </SelectItem>
                     ))}
                   </SelectGroup>
