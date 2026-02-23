@@ -8,7 +8,7 @@
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 37 | 1/2 | In Progress|  | 38 | CPU Comparison Calculator | Not started |
+| 37 | 2/2 | Complete   | 2026-02-23 | 38 | CPU Comparison Calculator | Not started |
 | 39 | Server Refresh Calculator | Not started |
 
 ---
@@ -18,7 +18,7 @@
 **Goal:** A curated, authoritative CPU data file is in place and the category/registry scaffolding is wired so both downstream calculators can be built without touching infrastructure again.
 **Depends on:** v5.0 infrastructure patterns (established calculator factory, registry, i18n patterns)
 **Requirements:** CPUDB-01, CPUDB-02, CPUDB-03, CPUDB-04
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 **Success Criteria:**
 1. User visiting the infrastructure category sees CPU-related calculators listed (registry entry exists and renders)

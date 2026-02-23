@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 37 of 39 (CPU Database Foundation)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-02-23 — 37-01 CPU Database Foundation types and data complete
+Plan: 2 of 2 in current phase (phase complete)
+Status: Phase 37 complete — ready for Phase 38
+Last activity: 2026-02-23 — 37-02 CPU registry entries and i18n translations complete
 
 Progress: [█░░░░░░░░░] 12% (v6.0)
 
@@ -99,6 +99,7 @@ Progress: [█░░░░░░░░░] 12% (v6.0)
 | 37-cpu-database-foundation   | 1/2   | ~2 min | ~2 min   |
 | 38-cpu-comparison-calculator | 0/3   | —     | —        |
 | 39-server-refresh-calculator | 0/3   | —     | —        |
+| Phase 37 P02 | 8 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,8 @@ Recent decisions affecting current work:
 - 37-01: CpuGeneration union type with "current" and "previous" to simplify server refresh comparisons
 - 37-01: ARM/Ampere entries use vendor "arm" (not "ampere") to keep vendor enum minimal
 - 37-01: 17 CPU entries across Intel Xeon, AMD EPYC, and ARM/Ampere families
+- [Phase 37]: Used Cpu icon from lucide-react for cpu-comparison-calculator, Server icon for server-refresh-calculator
+- [Phase 37]: CPU subcategory appended after cost in infrastructure subcategories; both registry entries under subcategory: cpu
 
 ### Pending Todos
 
