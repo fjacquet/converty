@@ -142,3 +142,13 @@
 ---
 
 _Last updated: 2026-01-29 after v5.0 milestone completion_
+
+## v6.0 CPU Performance & Server Refresh (Shipped: 2026-02-23)
+
+**Phases completed:** 39 phases, 93 plans, 47 tasks
+
+**Key accomplishments:**
+- (none recorded)
+
+---
+

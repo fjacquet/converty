@@ -4,17 +4,17 @@
 
 See: .planning/PROJECT.md (updated 2026-02-23)
 
-**Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** v6.0 — COMPLETE (Phase 39 done)
+**Core value:** A professional calculator platform with 169 tools — clean TypeScript, full i18n (4 locales), PWA-capable, static deployment.
+**Current focus:** Planning v7.0 — run `/gsd:new-milestone` to start
 
 ## Current Position
 
-Phase: 39 of 39 (Server Refresh Calculator) — COMPLETE
-Plan: 3 of 3 in current phase (Complete)
-Status: Phase 39 Plan 03 complete — Build verification passed: 45 i18n keys parity confirmed, zero TypeScript errors, zero MISSING_MESSAGE warnings, 4 static HTML pages built
-Last activity: 2026-02-23 — 39-03 build verification, v6.0 milestone fully shipped
+Phase: v6.0 archived — planning next milestone
+Plan: —
+Status: v6.0 milestone shipped and archived. 169 calculators live. 6 milestones complete (v1.0–v6.0).
+Last activity: 2026-02-23 — v6.0 CPU Performance & Server Refresh milestone archived, git tag v6.0 created
 
-Progress: [██████████] 100% (v6.0 COMPLETE)
+Progress: [██████████] v6.0 COMPLETE — ready for v7.0
 
 ## Performance Metrics
 

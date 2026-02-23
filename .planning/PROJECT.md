@@ -1,10 +1,10 @@
-# Converty Infrastructure Upgrade
+# Converty
 
 ## What This Is
 
-A comprehensive infrastructure improvement phase for Converty, a calculator platform with 200+ tools. This phase eliminates technical debt in state management, establishes strict type safety, upgrades critical dependencies, adds PWA support, and creates complete documentation for contributors.
+A professional calculator platform with 169 tools across 15 categories — math, finance, health, network, infrastructure, engineering, chemistry, crypto, automotive, cooking, and more. Deployed as a static PWA to GitHub Pages with full internationalization (en, fr, de, it), offline support, and shareable URLs. The infrastructure category includes specialized datacenter tools: virtualization sizing, Kubernetes capacity, hypervisor comparison, CPU performance benchmarking, and server fleet refresh planning.
 
-**Status:** ✅ v1.0 Infrastructure Upgrade shipped 2026-01-18
+**Status:** ✅ v6.0 CPU Performance & Server Refresh shipped 2026-02-23
 
 ## Core Value
 
@@ -247,34 +247,22 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ User selects standard beam sections from AISC library — v5.0
 - ✓ User sees licensing costs with date stamps and staleness warnings — v5.0
 
-## Current Milestone: v6.0 CPU Performance & Server Refresh
+<!-- v6.0 CPU Performance & Server Refresh (shipped 2026-02-23) -->
 
-**Goal:** Add a datacenter CPU comparison and server refresh sizing tool powered by a curated SPECint2017 database.
+**CPU Performance:**
 
-**Target features:**
-- Curated CPU database (Intel Xeon, AMD EPYC, ARM/Ampere — current and previous gen)
-- Side-by-side CPU comparison (SPECint scores, perf/core, perf/watt, sizing ratios)
-- Server refresh calculator (old fleet → new fleet with headroom, chassis, power budget)
+- ✓ System includes curated CPU database: 17 entries (Intel Xeon Scalable, AMD EPYC, ARM/Ampere — current + previous gen) with SPECint2017 scores — v6.0
+- ✓ User can compare 2–4 CPUs side-by-side: SPECint2017 base/peak, perf/core, perf/watt, sizing ratio — v6.0
+- ✓ User can filter CPU comparison by vendor (Intel/AMD/ARM) and generation (current/previous) — v6.0
+- ✓ User can model full server fleet refresh: old fleet → new fleet with headroom buffer, chassis constraints, power budget, and delta summary — v6.0
+
+## Current Milestone
+
+Planning next milestone. Run `/gsd:new-milestone` to start.
 
 ### Active
 
-- [ ] CPUDB-01: System includes current-gen Intel Xeon Scalable CPUs with SPECint2017 base/peak, cores, TDP, socket type
-- [ ] CPUDB-02: System includes current-gen AMD EPYC CPUs with SPECint2017 base/peak, cores, TDP, socket type
-- [ ] CPUDB-03: System includes previous-gen CPUs (Cascade Lake, Ice Lake, Milan, Rome, Broadwell-EP) for server refresh baseline
-- [ ] CPUDB-04: System includes ARM/Ampere CPUs with SPECint scores
-- [ ] CPUCMP-01: User can select 2–4 CPUs for side-by-side comparison
-- [ ] CPUCMP-02: User can see raw SPECint2017 base and peak scores for each CPU
-- [ ] CPUCMP-03: User can see performance-per-core (SPECint / core count)
-- [ ] CPUCMP-04: User can see performance-per-watt and absolute TDP
-- [ ] CPUCMP-05: User can see relative sizing ratio between any two CPUs
-- [ ] CPUCMP-06: User can filter CPU list by vendor and generation
-- [ ] REFRESH-01: User can specify old server fleet (CPU, sockets/server, server count)
-- [ ] REFRESH-02: User can select target new CPU for the refresh
-- [ ] REFRESH-03: User can see how many new servers are needed to match current performance
-- [ ] REFRESH-04: User can apply a headroom buffer (%) to size for future growth
-- [ ] REFRESH-05: User can apply a socket/chassis constraint (1U/2U, single/dual socket)
-- [ ] REFRESH-06: User can enter power budget (watts/rack) and see how many new servers fit
-- [ ] REFRESH-07: User can see fleet summary: old vs new (server count, core, TDP delta)
+*(none — planning next milestone)*
 
 ### Out of Scope
 
@@ -291,15 +279,15 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Context
 
-### Current State (as of v4.0 - 2026-01-25)
+### Current State (as of v6.0 - 2026-02-23)
 
-**Shipped v4.0 Security & Infrastructure:**
+**Shipped v6.0 CPU Performance & Server Refresh:**
 
-Codebase: ~84,125 LOC TypeScript (+15,840 lines from v4.0)
+Codebase: ~91,000 LOC TypeScript (+6,977 lines from v6.0)
 Tech stack: Next.js 16, React 19, TypeScript 5, Zustand 5, Biome 2.3, Fuse.js
 Deployment: GitHub Pages (static export)
-Calculators: 172 registered (5 new infrastructure calculators)
-Security: 0 CodeQL vulnerabilities, Map-based URL parameters
+Calculators: 169 registered (2 new CPU calculators in v6.0)
+Build: Static HTML for 169 calculators × 4 locales — clean TypeScript, zero MISSING_MESSAGE
 
 **State Management:**
 
@@ -367,11 +355,14 @@ Security: 0 CodeQL vulnerabilities, Map-based URL parameters
 
 ### Known Issues / Tech Debt
 
+**From v6.0 completion:**
+
+- `cpu-database.json` `dataAsOf` is 2024-12-01 (~449 days old vs 90-day staleDays threshold) — staleness banner always active; data refresh recommended in next milestone
+- SUMMARY.md `requirements-completed` frontmatter field not populated in v6.0 plans — documentation-only gap, all requirements verified by VERIFICATION.md
+- 9 human browser-testing items deferred (phases 38/39): staleness banner, filter reset behavior, max-4 checkbox cap, URL sync, chassis disable, power budget card, delta color semantics
+
 **From v1.0 completion:**
 
-- Phase 8 human verification items pending (low priority):
-  - Pre-commit hook performance timing (infrastructure verified, target <5s)
-  - Quality gate enforcement with broken code (infrastructure verified)
 - Next.js 16 removed `next lint` command (architectural change discovered)
   - Future opportunity: Consider ESLint removal, Biome-only migration
   - Current: Keep dual-linter setup for React hooks rules
@@ -420,4 +411,14 @@ Security: 0 CodeQL vulnerabilities, Map-based URL parameters
 
 ---
 
-_Last updated: 2026-02-23 after v6.0 milestone started_
+| CPU data sourced from SPEC.org submissions as curated build-time JSON | Static export constraint (no live scraping), predictable build | ✓ Good — 17 entries, staleness warning pattern reused from v4.0 licensing |
+| CpuGeneration union type: "current" \| "previous" only | Simplifies server refresh comparisons, avoids vendor-specific generation names | ✓ Good — clean filtering, no edge cases |
+| ARM/Ampere vendor key = "arm" (not "ampere") | Keeps CpuVendor enum minimal, Ampere is ARM architecture | ✓ Good — consistent with industry grouping |
+| getServerRefreshCpus() distinct from getFilteredCpus() | Avoids naming conflicts in infrastructure barrel, cleaner API | ✓ Good — no barrel export collisions |
+| ServerRefreshInput uses all-string fields | Matches createCalculatorStore URL sync pattern (all inputs URL-serializable) | ✓ Good — consistent with all other calculators |
+| chassisConstraint enum: none/1u-single/2u-dual | Covers all datacenter rack unit combinations; applied in pure calc, not just UI | ✓ Good — math enforced server-side (no bypass) |
+| Power budget returns null pair when powerBudgetW = 0 | Prevents division-by-zero; UI guards with !== null | ✓ Good — safe fallback, consistent null pattern |
+
+---
+
+_Last updated: 2026-02-23 after v6.0 milestone shipped_

@@ -1,76 +1,101 @@
-# Roadmap: Converty v6.0 — CPU Performance & Server Refresh
+# Roadmap: Converty
 
-**Current milestone:** v6.0
-**Status:** In progress
-**Phases:** 37-39
+## Milestones
 
-## Overview
+- ✅ **v1.0 Infrastructure Upgrade** — Phases 1–8 (shipped 2026-01-18)
+- ✅ **v2.0 Network Tools & User Experience** — Phases 9–16 (shipped 2026-01-22)
+- ✅ **v3.0 Calculator Expansion & Performance** — Phases 17–24 (shipped 2026-01-25)
+- ✅ **v4.0 Security & Infrastructure** — Phases 25–30 (shipped 2026-01-25)
+- ✅ **v5.0 Calculator Expansion** — Phases 31–36 (shipped 2026-01-29)
+- ✅ **v6.0 CPU Performance & Server Refresh** — Phases 37–39 (shipped 2026-02-23)
 
-| Phase | Name | Status |
-|-------|------|--------|
-| 37 | 2/2 | Complete    | 2026-02-23 | 38 | 3/3 | Complete    | 2026-02-23 | 39 | Server Refresh Calculator | Not started |
+## Phases
+
+<details>
+<summary>✅ v1.0 Infrastructure Upgrade (Phases 1–8) — SHIPPED 2026-01-18</summary>
+
+See `.planning/milestones/v1.0-ROADMAP.md` for full details.
+
+- [x] Phase 1: Type Safety Foundation — completed 2026-01-17
+- [x] Phase 2: URL Sync Infrastructure — completed 2026-01-17
+- [x] Phase 3: State Migration — completed 2026-01-17
+- [x] Phase 4: Progressive Web App — completed 2026-01-18
+- [x] Phase 5: Documentation — completed 2026-01-18
+- [x] Phase 6: Dependency Upgrade — completed 2026-01-18
+- [x] Phase 7: Code Quality Validation — completed 2026-01-18
+- [x] Phase 8: Developer Experience — completed 2026-01-18
+
+</details>
+
+<details>
+<summary>✅ v2.0 Network Tools & User Experience (Phases 9–16) — SHIPPED 2026-01-22</summary>
+
+See `.planning/milestones/v2.0-ROADMAP.md` for full details.
+
+- [x] Phase 9: Visual Subnet Foundation — completed 2026-01-22
+- [x] Phase 10: Visual Subnet Visualization — completed 2026-01-22
+- [x] Phase 11: Visual Subnet Advanced — completed 2026-01-22
+- [x] Phase 12: IP/CIDR Calculators — completed 2026-01-22
+- [x] Phase 13: Network Speed/Latency — completed 2026-01-22
+- [x] Phase 14: Global Search — completed 2026-01-22
+- [x] Phase 15: Translation Audit — completed 2026-01-22
+- [x] Phase 16: Translation Implementation — completed 2026-01-22
+
+</details>
+
+<details>
+<summary>✅ v3.0 Calculator Expansion & Performance (Phases 17–24) — SHIPPED 2026-01-25</summary>
+
+See `.planning/milestones/v3.0-ROADMAP.md` for full details.
+
+- [x] Phase 17: Crypto/Blockchain Foundation — completed 2026-01-25
+- [x] Phase 18: Real Estate Foundation — completed 2026-01-25
+- [x] Phase 19: Cooking/Nutrition Foundation — completed 2026-01-25
+- [x] Phase 20: Automotive Calculators — completed 2026-01-25
+- [x] Phase 21: Code Splitting & Lazy Loading — completed 2026-01-25
+- [x] Phase 24: Export Functionality — completed 2026-01-25
+
+</details>
+
+<details>
+<summary>✅ v4.0 Security & Infrastructure (Phases 25–30) — SHIPPED 2026-01-25</summary>
+
+See `.planning/milestones/v4.0-ROADMAP.md` for full details.
+
+- [x] Phase 25: Security Hardening — completed 2026-01-25
+- [x] Phase 26: Infrastructure Category Foundation — completed 2026-01-25
+- [x] Phase 27: VM Storage Calculator — completed 2026-01-25
+- [x] Phase 28: K8s Capacity Calculator — completed 2026-01-25
+- [x] Phase 29: VMware Server Licensing — completed 2026-01-25
+- [x] Phase 30: Virtualization Cost & Export — completed 2026-01-25
+
+</details>
+
+<details>
+<summary>✅ v5.0 Calculator Expansion (Phases 31–36) — SHIPPED 2026-01-29</summary>
+
+See `.planning/milestones/v5.0-ROADMAP.md` for full details.
+
+- [x] Phase 31: Engineering Structural Calculators — completed 2026-01-29
+- [x] Phase 32: Engineering Materials & Hydraulics — completed 2026-01-29
+- [x] Phase 33: Chemistry Core Calculators — completed 2026-01-29
+- [x] Phase 34: Chemistry Advanced Calculators — completed 2026-01-29
+- [x] Phase 35: Hyper-V Multiplatform Calculators — completed 2026-01-29
+- [x] Phase 36: Hypervisor Comparison — completed 2026-01-29
+
+</details>
+
+<details>
+<summary>✅ v6.0 CPU Performance & Server Refresh (Phases 37–39) — SHIPPED 2026-02-23</summary>
+
+See `.planning/milestones/v6.0-ROADMAP.md` for full details.
+
+- [x] Phase 37: CPU Database Foundation (2/2 plans) — completed 2026-02-23
+- [x] Phase 38: CPU Comparison Calculator (3/3 plans) — completed 2026-02-23
+- [x] Phase 39: Server Refresh Calculator (3/3 plans) — completed 2026-02-23
+
+</details>
 
 ---
 
-### Phase 37: CPU Database Foundation
-
-**Goal:** A curated, authoritative CPU data file is in place and the category/registry scaffolding is wired so both downstream calculators can be built without touching infrastructure again.
-**Depends on:** v5.0 infrastructure patterns (established calculator factory, registry, i18n patterns)
-**Requirements:** CPUDB-01, CPUDB-02, CPUDB-03, CPUDB-04
-**Plans:** 2/2 plans complete
-
-**Success Criteria:**
-1. User visiting the infrastructure category sees CPU-related calculators listed (registry entry exists and renders)
-2. The JSON data file contains at least one current Intel Xeon Scalable, one AMD EPYC Genoa/Turin, one legacy-gen CPU (Cascade Lake/Ice Lake/Milan/Rome), and one ARM/Ampere entry — each with SPECint2017 base/peak, cores, TDP, socket type, vendor, and generation fields
-3. Translation keys for the CPU category scaffold exist in all 4 locales (en, fr, de, it) with no MISSING_MESSAGE errors at build time
-4. The data file passes TypeScript strict type checking with a defined CpuEntry interface (no any types)
-
-Plans:
-- [ ] 37-01-PLAN.md — CPU data file + TypeScript types (CpuEntry interface, curated JSON with all 4 families)
-- [ ] 37-02-PLAN.md — Registry entries + category scaffolding + i18n translations (en/fr/de/it)
-
----
-
-### Phase 38: CPU Comparison Calculator
-
-**Goal:** Users can select 2 to 4 CPUs from the curated database, see side-by-side SPECint2017 scores, performance-per-core, performance-per-watt, and the sizing ratio between any two — with the ability to filter by vendor and generation.
-**Depends on:** Phase 37 (CPU data file and registry)
-**Requirements:** CPUCMP-01, CPUCMP-02, CPUCMP-03, CPUCMP-04, CPUCMP-05, CPUCMP-06
-**Plans:** 3/3 plans complete
-
-**Success Criteria:**
-1. User can open the CPU filter panel, select "AMD" and "Current Gen", and the CPU dropdown narrows to matching CPUs only
-2. User can select 2 CPUs and immediately see both SPECint2017 base and peak scores displayed side by side
-3. User can see performance-per-core (SPECint / core count) and performance-per-watt (SPECint / TDP) calculated and displayed for each selected CPU
-4. User can see a sizing ratio that states "N units of CPU A are needed to match CPU B" derived from their SPECint scores
-5. User can select up to 4 CPUs and all comparison columns render without layout breakage
-
-Plans:
-- [ ] 38-01-PLAN.md — Converter logic: pure functions for perf/core, perf/watt, sizing ratio, vendor/generation filtering
-- [ ] 38-02-PLAN.md — CPU Comparison Calculator component + page: multi-select, filter panel, results table, URL state sync
-- [ ] 38-03-PLAN.md — i18n completion (all 4 locales) + type-check + build verification
-
----
-
-### Phase 39: Server Refresh Calculator
-
-**Goal:** Users can model an entire server fleet refresh — entering their existing fleet configuration, choosing a target CPU, and immediately seeing how many new servers are needed to match performance, with headroom buffer, chassis/socket constraints, power budget analysis, and a delta summary.
-**Depends on:** Phase 37 (CPU data file), Phase 38 (comparison patterns)
-**Requirements:** REFRESH-01, REFRESH-02, REFRESH-03, REFRESH-04, REFRESH-05, REFRESH-06, REFRESH-07
-**Plans:** 3/3 plans complete
-
-**Success Criteria:**
-1. User can enter an old fleet (CPU model, sockets per server, server count) and select a target new CPU, then see the minimum new server count needed to match or exceed the old fleet's total SPECint throughput
-2. User can set a headroom buffer (e.g., 25%) and see the new server count increase to cover projected growth
-3. User can apply a chassis constraint (1U single-socket, 2U dual-socket) and see the result update to reflect the socket limit per chassis
-4. User can enter a watts-per-rack power budget and see how many new servers fit within that power envelope alongside how many racks are needed
-5. User can see a summary table comparing old fleet vs new fleet: total servers, total cores, total TDP (watts), and the delta for each
-
-Plans:
-- [ ] 39-01-PLAN.md — Converter logic (fleet throughput, headroom, chassis constraints, power budget)
-- [ ] 39-02-PLAN.md — Refresh UI component (fleet input, target selector, constraint controls, summary table)
-- [ ] 39-03-PLAN.md — i18n completion + URL state sync + build verification
-
----
-
-*Last updated: 2026-02-23 — Phase 39 planned (3 plans, Wave 1-2-3 sequential)*
+*Next milestone: run `/gsd:new-milestone` to start planning*
