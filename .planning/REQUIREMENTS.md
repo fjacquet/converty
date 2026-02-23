@@ -23,13 +23,13 @@
 
 ### Server Refresh
 
-- [ ] **REFRESH-01**: User can specify old server fleet configuration (CPU model, socket count per server, server count)
-- [ ] **REFRESH-02**: User can select a target new CPU model for the refresh
-- [ ] **REFRESH-03**: User can see how many new servers are needed to match the current fleet's total performance
-- [ ] **REFRESH-04**: User can apply a headroom/growth buffer (%) to size for future capacity
-- [ ] **REFRESH-05**: User can apply a chassis/socket constraint (1U/2U, single/dual socket) that limits the target configuration
-- [ ] **REFRESH-06**: User can enter a power budget (watts per rack) and see how many new servers fit within that constraint
-- [ ] **REFRESH-07**: User can see a fleet summary comparing old vs new: server count delta, total core delta, total TDP delta
+- [x] **REFRESH-01**: User can specify old server fleet configuration (CPU model, socket count per server, server count)
+- [x] **REFRESH-02**: User can select a target new CPU model for the refresh
+- [x] **REFRESH-03**: User can see how many new servers are needed to match the current fleet's total performance
+- [x] **REFRESH-04**: User can apply a headroom/growth buffer (%) to size for future capacity
+- [x] **REFRESH-05**: User can apply a chassis/socket constraint (1U/2U, single/dual socket) that limits the target configuration
+- [x] **REFRESH-06**: User can enter a power budget (watts per rack) and see how many new servers fit within that constraint
+- [x] **REFRESH-07**: User can see a fleet summary comparing old vs new: server count delta, total core delta, total TDP delta
 
 ## Future Requirements
 
@@ -67,13 +67,13 @@
 | CPUCMP-04 | Phase 38 | Complete |
 | CPUCMP-05 | Phase 38 | Complete |
 | CPUCMP-06 | Phase 38 | Complete |
-| REFRESH-01 | Phase 39 | Pending |
-| REFRESH-02 | Phase 39 | Pending |
-| REFRESH-03 | Phase 39 | Pending |
-| REFRESH-04 | Phase 39 | Pending |
-| REFRESH-05 | Phase 39 | Pending |
-| REFRESH-06 | Phase 39 | Pending |
-| REFRESH-07 | Phase 39 | Pending |
+| REFRESH-01 | Phase 39 | Complete |
+| REFRESH-02 | Phase 39 | Complete |
+| REFRESH-03 | Phase 39 | Complete |
+| REFRESH-04 | Phase 39 | Complete |
+| REFRESH-05 | Phase 39 | Complete |
+| REFRESH-06 | Phase 39 | Complete |
+| REFRESH-07 | Phase 39 | Complete |
 
 **Coverage:**
 - v6.0 requirements: 15 total

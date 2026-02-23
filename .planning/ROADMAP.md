@@ -57,7 +57,7 @@ Plans:
 **Goal:** Users can model an entire server fleet refresh — entering their existing fleet configuration, choosing a target CPU, and immediately seeing how many new servers are needed to match performance, with headroom buffer, chassis/socket constraints, power budget analysis, and a delta summary.
 **Depends on:** Phase 37 (CPU data file), Phase 38 (comparison patterns)
 **Requirements:** REFRESH-01, REFRESH-02, REFRESH-03, REFRESH-04, REFRESH-05, REFRESH-06, REFRESH-07
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 **Success Criteria:**
 1. User can enter an old fleet (CPU model, sockets per server, server count) and select a target new CPU, then see the minimum new server count needed to match or exceed the old fleet's total SPECint throughput

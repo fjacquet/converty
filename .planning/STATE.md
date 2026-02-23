@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-23)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** v6.0 — Phase 38: CPU Comparison Calculator
+**Current focus:** v6.0 — Phase 39: Server Refresh Calculator
 
 ## Current Position
 
-Phase: 38 of 39 (CPU Comparison Calculator)
-Plan: 3 of 3 in current phase (COMPLETE)
-Status: Phase 38 complete — CPU Comparison Calculator verified build-clean across all 4 locales
-Last activity: 2026-02-23 — 38-03 i18n verification and build confirmed, zero TypeScript errors, zero MISSING_MESSAGE
+Phase: 39 of 39 (Server Refresh Calculator)
+Plan: 1 of 3 in current phase (In Progress)
+Status: Phase 39 Plan 01 complete — Server Refresh Calculator pure calculation module created, zero TypeScript errors
+Last activity: 2026-02-23 — 39-01 server-refresh.ts and index.ts re-export, zero TypeScript errors
 
 Progress: [█░░░░░░░░░] 12% (v6.0)
 
@@ -98,11 +98,12 @@ Progress: [█░░░░░░░░░] 12% (v6.0)
 | ---------------------------- | ----- | ----- | -------- |
 | 37-cpu-database-foundation   | 1/2   | ~2 min | ~2 min   |
 | 38-cpu-comparison-calculator | 3/3   | ~8.3 min | ~2.8 min |
-| 39-server-refresh-calculator | 0/3   | —     | —        |
+| 39-server-refresh-calculator | 1/3   | ~2 min | ~2 min  |
 | Phase 37 P02 | 8 | 2 tasks | 6 files |
 | Phase 38-cpu-comparison-calculator P01 | 1.3 | 2 tasks | 2 files |
 | Phase 38-cpu-comparison-calculator P02 | 5 | 2 tasks | 6 files |
 | Phase 38-cpu-comparison-calculator P03 | 2 | 2 tasks | 2 files |
+| Phase 39-server-refresh-calculator P01 | 2 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -123,6 +124,9 @@ Recent decisions affecting current work:
 - [Phase 38-02]: Used dynamic import with CalculatorSkeleton matching hyperv-consolidation pattern; vendor/generation changes reset cpuIds to avoid stale selections
 - [Phase 38-03]: i18n translations were fully complete from 38-02; Task 1 was verified rather than re-implemented
 - [Phase 38-03]: Component uses vendorFilter/generationFilter/staleDataWarning/specOrgLink keys — actual 38-02 implementation takes precedence over plan spec variant names
+- [Phase 39-01]: Used getServerRefreshCpus() (not re-exporting getFilteredCpus) to avoid naming conflicts and serve a single unfiltered CPU list for server refresh calculator
+- [Phase 39-01]: serversPerRack and racksNeeded are null (not 0) when powerBudgetW <= 0 for clean UI conditional rendering
+- [Phase 39-01]: Chassis constraint applied as switch block at calculation time; effectiveSockets is the resolved value used for all fleet math
 
 ### Pending Todos
 
@@ -135,7 +139,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: Completed 38-03-PLAN.md — CPU Comparison Calculator i18n verified, build clean, phase 38 complete
+Stopped at: Completed 39-01-PLAN.md — Server Refresh Calculator pure calculation module, zero TypeScript errors
 Resume file: None
 
 **Milestones Completed:**
