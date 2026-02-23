@@ -40,10 +40,8 @@ const useStressStrainStore = createCalculatorStore<StressStrainInput, StressStra
 
 export default function StressStrainCalculator() {
   const t = useTranslations("calculator.engineering");
-  const tLabels = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tModes = useTranslations("calculator.engineering.modes");
-  const tResults = useTranslations("calculator.results");
 
   const { values, setValue, result } = useStressStrainStore();
 

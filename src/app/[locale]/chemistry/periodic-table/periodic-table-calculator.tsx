@@ -18,22 +18,15 @@ import {
   filterElements,
   getStatistics,
   type PeriodicTableFilter,
-  searchElements,
 } from "@/lib/converters/chemistry/periodic-table-lookup";
 import { PeriodicTableGrid } from "./PeriodicTableGrid";
 
 export default function PeriodicTableCalculator() {
   const t = useTranslations("calculator.chemistry");
-  const tLabels = useTranslations("calculator.labels");
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<PeriodicTableFilter>({});
   const [selectedElement, setSelectedElement] = useState<Element | null>(null);
-
-  // Get filtered results
-  const searchResults = searchQuery
-    ? searchElements(searchQuery).map((r) => r.element)
-    : (periodicTableData as Element[]);
 
   const filteredElements = filterElements({
     ...filter,

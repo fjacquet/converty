@@ -28,14 +28,12 @@ const usePhStore = createCalculatorStore<PhInput, PhResult | null>({
 
 export default function PhCalculatorCalculator() {
   const t = useTranslations("calculator.chemistry");
-  const tLabels = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tModes = useTranslations("calculator.chemistry.phModes");
 
   const { values, setValue, result } = usePhStore();
 
   const acids = acidsBasesData.filter((c) => c.type === "acid");
-  const bases = acidsBasesData.filter((c) => c.type === "base");
 
   return (
     <div className="space-y-6">

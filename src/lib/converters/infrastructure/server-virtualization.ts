@@ -168,7 +168,6 @@ export function calculateServerVirtualization(
 
   // Account for hypervisor memory overhead (reserved base + per-VM overhead)
   const baseAvailableRamGb = input.hostRamGb - memoryReservedGb;
-  const totalVmMemoryOverheadGb = (input.vmCount * perVmMemoryOverheadMb) / 1024;
   const effectiveRamPerHostGb = baseAvailableRamGb * (input.targetRamUtilization / 100);
 
   steps.push(

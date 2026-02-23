@@ -39,7 +39,6 @@ const useWindowsLicensingStore = createCalculatorStore<
 
 export function WindowsLicensingCalculator() {
   const t = useTranslations("calculator.windowsLicensing");
-  const tCommon = useTranslations("common");
   const format = useFormatter();
   const { values, setValue, result } = useWindowsLicensingStore();
 

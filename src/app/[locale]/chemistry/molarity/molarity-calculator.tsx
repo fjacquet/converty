@@ -34,10 +34,8 @@ const useMolarityStore = createCalculatorStore<MolarityInput, MolarityResult | n
 
 export default function MolarityCalculator() {
   const t = useTranslations("calculator.chemistry");
-  const tLabels = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tModes = useTranslations("calculator.chemistry.modes");
-  const tResults = useTranslations("calculator.results");
 
   const { values, setValue, result } = useMolarityStore();
 

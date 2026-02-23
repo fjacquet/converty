@@ -32,9 +32,7 @@ const useMolecularWeightStore = createCalculatorStore<
 
 export default function MolecularWeightCalculator() {
   const t = useTranslations("calculator.chemistry");
-  const tLabels = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
-  const tResults = useTranslations("calculator.results");
 
   const { values, setValue, result } = useMolecularWeightStore();
 

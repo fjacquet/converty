@@ -61,7 +61,6 @@ export function calculateCompoundInterest(
   const r = interestRate / 100;
   const ratePerPeriod = r / n;
   const periodsPerYear = n;
-  const _totalPeriods = n * years;
 
   // Calculate effective annual rate
   const effectiveAnnualRate = (1 + r / n) ** n - 1;

@@ -54,7 +54,7 @@ export function parseChemicalEquation(equationStr: string): EquationParseResult 
 
   // Normalize arrow formats
   const normalized = equationStr
-    .replace(/-->/g, "→")
+    .replace(/--!?>/g, "→")
     .replace(/->/g, "→")
     .replace(/⟶/g, "→")
     .replace(/=/g, "→")

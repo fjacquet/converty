@@ -59,7 +59,6 @@ export default function MomentOfInertiaCalculator() {
   const tLabels = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tShapes = useTranslations("calculator.engineering.shapes");
-  const tResults = useTranslations("calculator.results");
 
   const { values, setValue, result } = useStore();
   const [inputMode, setInputMode] = useState<"custom" | "standard">("custom");

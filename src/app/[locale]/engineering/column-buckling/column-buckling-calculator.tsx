@@ -46,9 +46,7 @@ const useColumnBucklingStore = createCalculatorStore<
 
 export default function ColumnBucklingCalculator() {
   const t = useTranslations("calculator.engineering");
-  const tLabels = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
-  const tResults = useTranslations("calculator.results");
 
   const { values, setValue, result } = useColumnBucklingStore();
 

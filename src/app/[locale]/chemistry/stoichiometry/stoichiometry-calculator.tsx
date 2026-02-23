@@ -13,7 +13,6 @@ import {
 
 export default function StoichiometryCalculator() {
   const t = useTranslations("calculator.chemistry");
-  const tLabels = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
 
   const [equation, setEquation] = useState("2H2 + O2 → 2H2O");

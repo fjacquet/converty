@@ -135,8 +135,7 @@ export function calculateStoichiometry(input: StoichiometryInput): Stoichiometry
   steps.push("Step 3: Determine limiting reactant");
 
   // Find limiting reactant
-  // For each reactant, calculate how many moles of the first reactant would be needed
-  const firstReactant = parsedEq.reactants[0];
+  // For each reactant, calculate the mole ratio relative to its stoichiometric coefficient
   let minRatio = Infinity;
   let limitingIndex = 0;
 

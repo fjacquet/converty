@@ -49,7 +49,6 @@ const useHypervConsolidationStore = createCalculatorStore<
 
 export function HypervConsolidationCalculator() {
   const t = useTranslations("calculator.hypervConsolidation");
-  const tCommon = useTranslations("common");
   const format = useFormatter();
   const { values, setValue, result } = useHypervConsolidationStore();
 

@@ -138,9 +138,6 @@ export function calculateStressStrain(input: StressStrainInput): StressStrainRes
     }
   } else if (mode === "strain") {
     // Calculate strain: ε = ΔL / L
-    if (originalLength === 0) {
-      return null;
-    }
     strain = changeInLength / originalLength;
 
     steps.push(`Step 1: Calculate strain`);
@@ -172,9 +169,6 @@ export function calculateStressStrain(input: StressStrainInput): StressStrainRes
     steps.push(`σ = F / A = ${forceN} N / ${area} mm² = ${stress.toFixed(2)} MPa`);
 
     // Calculate strain
-    if (originalLength === 0) {
-      return null;
-    }
     strain = changeInLength / originalLength;
 
     steps.push(`Step 2: Calculate strain`);

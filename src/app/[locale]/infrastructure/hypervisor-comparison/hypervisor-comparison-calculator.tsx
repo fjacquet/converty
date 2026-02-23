@@ -55,7 +55,6 @@ const useHypervisorComparisonStore = createCalculatorStore<
 
 export function HypervisorComparisonCalculator() {
   const t = useTranslations("converters.hypervisor-comparison");
-  const tCommon = useTranslations("common");
   const format = useFormatter();
   const { values, setValue, result } = useHypervisorComparisonStore();
 

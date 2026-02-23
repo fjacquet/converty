@@ -1,7 +1,7 @@
 "use client";
 
 import { Cpu, HardDrive, Server, Settings } from "lucide-react";
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { CsvExportButton, InputField, PdfExportButton, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
@@ -48,7 +48,6 @@ const useServerVirtualizationStore = createCalculatorStore<
 export function ServerVirtualizationCalculator() {
   const t = useTranslations("calculator.serverVirtualizationCalculator");
   const tCommon = useTranslations("common");
-  const format = useFormatter();
   const { values, setValue, result } = useServerVirtualizationStore();
 
   // PDF export sections

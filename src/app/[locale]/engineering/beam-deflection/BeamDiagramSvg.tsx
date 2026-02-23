@@ -28,7 +28,6 @@ export function BeamDiagramSvg({
   const beamThickness = 8;
   const supportSize = 20;
   const chartHeight = 120;
-  const chartSpacing = 20;
 
   // Scale factor for beam length (leave space for dimensions)
   const beamWidth = width - margin.left - margin.right - 40;
