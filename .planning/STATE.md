@@ -2,17 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-29)
+See: .planning/PROJECT.md (updated 2026-02-23)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** v6.0 — CPU Performance & Server Refresh
+**Current focus:** v6.0 — Phase 37: CPU Database Foundation
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-02-23 — Milestone v6.0 started
+Phase: 37 of 39 (CPU Database Foundation)
+Plan: 0 of 2 in current phase
+Status: Ready to plan
+Last activity: 2026-02-23 — v6.0 roadmap created (Phases 37-39)
+
+Progress: [░░░░░░░░░░] 0% (v6.0)
 
 ## Performance Metrics
 
@@ -53,7 +55,7 @@ Last activity: 2026-02-23 — Milestone v6.0 started
 | 15-translation-audit            | 2/2   | 5 min  | 2.5 min  |
 | 16-translation-implementation   | 6/6   | 18 min | 3 min    |
 
-**v3.0 Milestone (in progress):**
+**v3.0 Milestone (complete):**
 
 | Phase                           | Plans | Total  | Avg/Plan |
 | ------------------------------- | ----- | ------ | -------- |
@@ -90,183 +92,36 @@ Last activity: 2026-02-23 — Milestone v6.0 started
 
 **Total v5.0:** 6 phases, 6 commits, 126 files, +33,317/-19,485 lines
 
+**v6.0 Milestone (in progress):**
+
+| Phase                        | Plans | Total | Avg/Plan |
+| ---------------------------- | ----- | ----- | -------- |
+| 37-cpu-database-foundation   | 0/2   | —     | —        |
+| 38-cpu-comparison-calculator | 0/3   | —     | —        |
+| 39-server-refresh-calculator | 0/3   | —     | —        |
+
 ## Accumulated Context
 
 ### Decisions
 
-| Decision                                                       | Phase | Rationale                                                                                         |
-| -------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------- |
-| Use Number.isNaN() instead of global isNaN()                   | 01-01 | Strict check without type coercion prevents false positives                                       |
-| Boolean parsing accepts only "true" and "1"                    | 01-01 | Explicit is better than implicit - avoid ambiguity                                                |
-| Empty string triggers fallback (same as null)                  | 01-01 | Empty string in URL typically means "not provided"                                                |
-| Enabled noExplicitAny at error level (not warning)             | 01-02 | Strict enforcement makes type safety violations blocking                                          |
-| Document strict mode flags inline in tsconfig.json             | 01-02 | Helps future developers understand configuration without external docs                            |
-| Use 'unknown' as generic default type for better type safety   | 01-03 | Requires explicit type narrowing, prevents accidental unsafe operations                           |
-| Centralize URL parsing through helper functions                | 01-03 | Consistency across codebase, single source of truth for parsing logic                             |
-| Defer global debounce timer fix to Phase 2                     | 01-03 | Global timer is a known issue (STATE-04) but fixing now would expand scope                        |
-| Use closure pattern over WeakMap for timer isolation           | 02-01 | Simpler mental model, more explicit, easier to debug                                              |
-| Use replaceState instead of pushState for URL sync             | 02-01 | Avoids flooding browser history with every keystroke                                              |
-| Add selectState option to middleware                           | 02-01 | Enables syncing nested state (e.g., only values from CalculatorState)                             |
-| Verify functional approach before deleting legacy hooks        | 03-01 | Ensure STATE-05 requirements met (pure functions, immutability)                                   |
-| Manual immutable patterns used instead of Immer middleware     | 03-01 | Spread operators provide equivalent immutability with less overhead                               |
-| Use Next.js App Router manifest.ts over static manifest.json   | 04-01 | Type safety via MetadataRoute.Manifest, aligns with Next.js 16 best practices                     |
-| Automate icon generation instead of manual creation            | 04-01 | Ensures correct dimensions, proper maskable safe zones, reproducibility                           |
-| Create placeholder gradient icon design                        | 04-01 | Functional PWA immediately, replaceable with branded assets later                                 |
-| Add force-static export declaration to manifest                | 04-01 | Required for Next.js static export mode (output: "export")                                        |
-| Use Workbox CDN via importScripts instead of bundling          | 04-02 | Standard Workbox v7 pattern, avoids bundling issues, easier updates                               |
-| NetworkFirst strategy for HTML/documents                       | 04-02 | Fresh content when online, 7-day cache fallback for offline                                       |
-| CacheFirst strategy for static assets                          | 04-02 | Next.js content-hashed assets are immutable, aggressive caching optimal                           |
-| StaleWhileRevalidate for fonts                                 | 04-02 | Instant rendering with background updates, balanced freshness                                     |
-| Manual service worker instead of generated (for now)           | 04-02 | Runtime caching only, build integration with precaching deferred to Plan 03                       |
-| Production-only SW registration                                | 04-03 | Service worker caching breaks hot reload in development                                           |
-| Separate client component for SW registration                  | 04-03 | Clean server/client boundary for browser APIs                                                     |
-| generateSW instead of injectManifest                           | 04-03 | Simpler approach for static exports, creates complete SW file                                     |
-| Post-build script integration for SW generation                | 04-03 | Workbox needs static files to exist before generating precache manifest                           |
-| Platform detection for install prompt                          | 04-03 | iOS needs manual instructions, Android/Desktop support programmatic prompt                        |
-| Root scope (/) for service worker                              | 04-03 | Covers all locale routes (/en/, /fr/, /de/, /it/)                                                 |
-| Combined PWA UI in SWRegistration component                    | 04-03 | Groups related PWA concerns (registration, offline, install) together                             |
-| Use Keep a Changelog 1.1.0 format for project history          | 05-01 | Standardized, human-readable, supports Semantic Versioning                                        |
-| Backfill v1.0.0 from git log and STATE.md summaries            | 05-01 | Git history provides factual data, STATE.md provides context                                      |
-| Date v1.0.0 as 2026-01-17                                      | 05-01 | Marks completion of infrastructure upgrade milestone (Phases 1-4)                                 |
-| Use specific changelog entries with file paths                 | 05-01 | Helps developers understand what changed and where to look                                        |
-| Document Zustand as standard (not useState)                    | 05-03 | Aligns with Phase 3 migration, guides new contributors to current best practice                   |
-| Use Biome commands (check/check:fix) in contributor guide      | 05-03 | Project uses Biome for linting, not ESLint - documentation should match reality                   |
-| jsPDF v4.0.0 is latest version (no upgrade needed)             | 06-01 | Version progression v1→v2→v3→v4 (v4 is NEWER than v2), released Jan 2025                          |
-| ADR 0004 superseded due to incorrect version information       | 06-01 | Original ADR incorrectly claimed v4.0.0 was outdated, corrected with research                     |
-| Phase 6 scope is verification (not upgrade)                    | 06-01 | jsPDF already current, focus on verifying implementation works correctly                          |
-| PDF export uses correct v4.0.0 API patterns                    | 06-01 | Named import, built-in types, standard methods, no deprecated API calls                           |
-| Allow explicit any in url-sync.ts via Biome override           | 07-01 | Zustand setState requires type erasure in middleware, configuration cleaner than per-line ignores |
-| Use Node.js protocol imports (node:fs, node:path)              | 07-01 | Biome style rule for explicit protocol, aligns with modern Node.js best practices                 |
-| Document code review as observations, not blockers             | 07-01 | Quality is continuous improvement, not binary pass/fail - guide future work                       |
-| Container vulnerability in Dockerfile is false positive        | 07-02 | Static site (output: "export"), no Docker usage in production, npm audit clean                    |
-| URL params consolidation is enhancement, not blocker           | 07-02 | 6-line duplication vs ~3,000 eliminated, low priority DRY improvement                             |
-| Pre-commit hooks are valid Phase 8 enhancement                 | 07-02 | Developer experience improvement (Husky + lint-staged), not Phase 7 requirement                   |
-| Document Trivy false positives with expiration dates           | 08-01 | .trivyignore explicitly documents false positives with 6-month expiration for re-evaluation       |
-| Consolidate getUrlParams() into shared utility module          | 08-01 | DRY principle - eliminates 12-line duplication, single source of truth for URL extraction         |
-| Use Husky v9 modern API (core.hooksPath) over deprecated v4-v8 | 08-02 | Husky v9 uses core.hooksPath and husky init instead of deprecated install command                 |
-| Run Biome only on staged files for fast pre-commit feedback    | 08-02 | Checking only staged files keeps pre-commit under 3 seconds, prevents bottleneck                  |
-| Configure automatic hook setup via prepare script              | 08-02 | New team members get hooks automatically on npm install, ensures consistent quality               |
-| Phase numbering continues across milestones                    | v1.0  | Clear history, no confusion with phase resets - v2.0 starts at Phase 9                            |
-| Use ipaddr.js for IP address manipulation                      | 09-01 | Battle-tested (55M+ weekly downloads), lightweight (1.9K), handles IPv4/IPv6 edge cases           |
-| Network as separate category from data                         | 09-01 | Network tools have distinct audience, allows future growth with dedicated subcategories           |
-| Feature subnet calculator on homepage                          | 09-01 | First network calculator, showcases new category, high-value tool for IT professionals            |
-| BigInt for host count calculations                             | 09-02 | IPv6 subnets can exceed Number.MAX_SAFE_INTEGER (2^53), requires BigInt for accuracy              |
-| Null for IPv6 broadcast and subnet mask                        | 09-02 | IPv6 has no broadcast (uses multicast) and no subnet mask notation (CIDR only)                    |
-| RFC 3021 compliance for /31 subnets                            | 09-02 | /31 point-to-point links have 2 usable addresses with no network/broadcast reservation            |
-| IPv6 no network/broadcast reservation                          | 09-02 | IPv6 doesn't reserve addresses except /128 single host, differs from IPv4 standard formula        |
-| Throw errors from parsing functions                            | 09-02 | Pure functions can throw, caller (Zustand store) catches and sets error state                     |
-| Use calculator.network namespace for network-specific labels   | 09-03 | Network-specific labels belong in category namespace, not generic calculator.labels               |
-| Auto-calculate on input change (no manual button)              | 09-03 | Immediate feedback improves UX, triggered on CIDR completion or both fields filled                |
-| Display N/A for IPv6 broadcast/subnet mask                     | 09-03 | IPv6 has no broadcast (uses multicast) and no subnet mask notation (CIDR only)                    |
-| BigInt formatting with locale fallback                         | 09-03 | Use locale formatter for safe integers, toString() for large IPv6 subnets with warning            |
-| Use inline SVG for network diagram                             | 10-01 | Maximum control over styling and responsiveness without external dependencies                     |
-| Proportional CIDR visualization                                | 10-01 | Network/host portions displayed proportionally based on prefix length for visual clarity          |
-| Color-coded binary bits (blue=network, green=host)             | 10-01 | Consistent color scheme across visualizations for immediate understanding                          |
-| Accept array index as key for stable bit positions             | 10-01 | Bit positions are stable and semantically meaningful, never reordered                             |
-| Strip CIDR notation before IP parsing in visualizations        | 10-02 | Binary representation may receive network address with CIDR notation, must extract clean IP       |
-| Use concise "cidr" key for table labels                        | 10-02 | Component labels need brevity, "CIDR" is universal abbreviation understood internationally        |
-| Use BigInt() constructor instead of literal syntax             | 11-01 | BigInt literals (24n) not available in project's TypeScript target, use BigInt(24) for compatibility |
-| Auto-sort networks in aggregateNetworks()                      | 11-01 | Networks can be provided in any order, function sorts numerically for user convenience           |
-| Return success/error object for supernetting                   | 11-01 | aggregateNetworks() returns {success, error} instead of throwing, enables graceful error handling |
-| Use CalculatorMode union type for mode switching               | 11-02 | Clean type safety with "basic" \| "subnetting" \| "supernetting", enables conditional UI rendering |
-| DivisionCount limited to powers of 2                           | 11-02 | Union type enforces valid divisions at compile time, matches algorithm requirements                |
-| Parse multiple network inputs with flexible delimiters         | 11-02 | Split by newlines, commas, or semicolons for user-friendly multi-network input                     |
-| Use mode tabs for interface switching                          | 11-03 | Clean separation of basic subnet info vs advanced operations (subnetting/supernetting)             |
-| Reuse BreakdownTable for comparison display                    | 11-03 | Consistent network information formatting across all modes, no duplication of table logic          |
-| Support flexible network input delimiters                      | 11-03 | User-friendly multi-network entry for supernetting, accepts newlines/commas/semicolons             |
-| Use ipaddr.js range() for public/private classification        | 12-01 | Built-in range detection maps cleanly to public/private/special categories without manual RFC ranges |
-| Return null for IPv6 ipClass (no class system)                 | 12-01 | IPv6 has no classful addressing, null maintains type safety and allows "N/A" display              |
-| Display status as string in ResultGrid, colored details separate| 12-01 | ResultGrid accepts only string/number, separation enables clean grid data + visual enhancements    |
-| Reuse calculateSubnet() for CIDR range calculations            | 12-02 | DRY principle, existing function handles IPv4/IPv6 edge cases, reduces code by ~100 lines         |
-| Use ipaddr.js match() for IP-in-range checking                 | 12-02 | Built-in method is well-tested and handles IPv4/IPv6 correctly without manual bit manipulation    |
-| Auto-trigger IP check when both inputs present                 | 12-02 | Better UX than manual button, provides immediate feedback following auto-calculation pattern       |
-| Visual indicators with color-coded cards for range membership  | 12-02 | Green check/red X more intuitive than text for binary in/out result                               |
-| Reuse BANDWIDTH_UNITS and FILE_SIZE_UNITS from data converters | 13-02 | DRY principle - units already defined, no duplication needed for throughput calculator             |
-| Default to MB and seconds for throughput calculator             | 13-02 | Most common units for file transfers, provides sensible starting point                             |
-| Show comparison to closest reference speed with ratio          | 13-02 | Provides context for throughput results, helps users understand if speed is good/bad/expected      |
-| Use nanoseconds as base unit for latency conversions            | 13-01 | Maximum precision across full range, prevents floating-point errors in microsecond/nanosecond      |
-| Default latency unit to milliseconds (ms)                       | 13-01 | Most common for network ping measurements, aligns with user expectations                           |
-| Include educational context in latency converter                | 13-01 | Categories and use cases help users understand latency implications beyond raw numbers             |
-| Smart value formatting based on magnitude                       | 13-01 | Scientific notation for extremes, locale formatting for large, fixed decimals for medium           |
-| Fuse.js for client-side fuzzy search                            | 14-01 | ~5KB gzipped, excellent fuzzy matching, 18M+ weekly downloads, works with static export            |
-| Pre-built search indexes per locale                             | 14-01 | Build-time JSON generation, lazy-load on first search, reduces runtime computation                 |
-| cmdk for Command palette UI                                     | 14-02 | Already installed in project, industry-standard pattern (Linear, Raycast, Vercel)                  |
-| Cmd+K keyboard shortcut for search                              | 14-02 | Standard UX pattern for search, familiar to developers and power users                             |
-| Verify existing i18n before making changes                       | 15-01 | Audit revealed prior sessions completed most externalization, minimal changes needed               |
-| Return translation keys from converters (not display strings)    | 15-02 | Consistent pattern: converters return keys like `stageKey`, UI translates with useTranslations()   |
-| Use crypto-js for MD5, WebCrypto for SHA algorithms              | 17-01 | MD5 not available in WebCrypto, crypto-js provides compatibility for legacy algorithm              |
-| Card with destructive border for warnings without Alert          | 17-01 | Alert component not available in project, Card with styling provides equivalent warning UX         |
-| Auto-calculate hash on text/algorithm change                     | 17-01 | Better UX than manual button, async calculation handled with loading states                        |
-| Use wallet-address-validator library for crypto addresses        | 17-02 | 2KB gzipped, supports 30+ currencies including BTC/ETH/LTC, battle-tested validation logic         |
-| Detect private key patterns with security warnings               | 17-02 | Prevent accidental exposure - WIF (5/K/L prefix) and hex (64 chars) pattern detection              |
-| Provide format descriptions for educational value                | 17-02 | Help users understand address types (P2PKH Legacy vs P2WPKH Native SegWit vs P2TR Taproot)         |
-| Security notices use blue Card styling (non-destructive)         | 17-02 | Distinguish informational security context from critical warnings (destructive red border)          |
-| Build-time crypto price fetch instead of runtime                 | 17-03 | Static export prevents runtime APIs, build-time fetch with fallback ensures always-working calculator |
-| Use CoinGecko free API for cryptocurrency prices                 | 17-03 | Reliable, no API key needed, supports all required crypto/fiat pairs (BTC/ETH/LTC/XRP/DOGE/ADA)     |
-| Show staleness warning when price data older than 24 hours       | 17-03 | Transparency about price reliability, encourages site rebuild for fresh data                         |
-| Build-time mining data fetch with fallback                       | 17-04 | Static export prevents runtime APIs, build-time fetch ensures always-working calculator             |
-| GH/s to TH/s conversion for network hash rate                    | 17-04 | Blockchain.info API returns GH/s, not H/s - correct conversion is divide by 1000                    |
-| Miner presets for quick configuration                            | 17-04 | Common ASIC miners (Antminer S19 series, Whatsminer M30S++) simplify user experience                |
-| Optional hardware cost for ROI calculation                       | 17-04 | Not all users care about ROI - make it optional, calculate only when provided                       |
-| Swiss electricity cost as default (0.27 CHF/kWh)                 | 17-04 | Swiss/European context for v3.0, aligns with project focus                                          |
-| Metric units primary (ml, g) with imperial support              | 19-01 | European/Swiss context, metric is standard - imperial available for convenience                     |
-| US standard cup (240ml) not UK cup (284ml)                       | 19-01 | US recipes more common internationally, clear standard for conversions                              |
-| Density table required for volume/weight conversions             | 19-01 | Different ingredients have different densities (1 cup flour ≠ 1 cup water in weight)                |
-| Fractional display for imperial units                            | 19-01 | Cooking recipes typically use fractions (1/4 cup) not decimals (0.25 cup) for better UX            |
-| CHF/EUR/USD currency support only (Swiss/European context)       | 19-02 | Aligns with v3.0 focus on Swiss and European users, additional currencies can be added later       |
-| Non-linear scaling for salt at 67-75% rate                       | 19-03 | Taste perception doesn't scale linearly; doubling recipe doesn't need double salt                  |
-| Spices and extracts scale at 75% rate                            | 19-03 | Volatile compounds concentrate; over-scaling produces overwhelming flavor                          |
-| Leavening agents scale at 87.5% rate                             | 19-03 | Chemical reaction efficiency changes; over-leavening causes collapse                               |
-| Liquids scale down at 70%, normally up                           | 19-03 | Evaporation rate doesn't change with quantity; large batches need less proportional liquid         |
-| Unit compatibility checking enforced for food cost               | 19-02 | Prevents invalid calculations (price per kg with amount in ml), provides clear error messages      |
-| Ingredients array not synced to URL (too complex)                | 19-02 | Multiple ingredients with nested fields create unwieldy URLs, only basic fields synced             |
-| Use PMT formula for loan calculations                            | 20-04 | Standard financial formula ensures accurate monthly payment calculations                           |
-| Money factor for lease calculations                              | 20-04 | Industry standard for lease payments (money factor = APR / 2400)                                   |
-| Swiss VAT (7.7%) as default                                      | 20-04 | Swiss/European context aligns with project focus                                                   |
-| Amortization schedule generation                                 | 20-04 | Provides transparency for loan payments breakdown                                                  |
-| European metric notation as primary tire size format              | 20-02 | 205/55R16 is worldwide standard tire notation, most familiar to users                             |
-| ETRTO standards for load index and speed ratings                  | 20-02 | European Tyre and Rim Technical Organisation is official tire specification source                |
-| ±3% diameter tolerance threshold for tire compatibility           | 20-02 | Industry standard - >3% warns speedometer impact, >5% warns ABS/traction control issues           |
-| Speedometer error based on diameter difference                    | 20-02 | Larger diameter = higher actual speed; formula: speedometerError% = diameterDifference%           |
-| Bundle analyzer enabled via ANALYZE=true environment variable     | 21-01 | On-demand analysis prevents analyzer from running in every build, cleaner workflow                |
-| Baseline metrics with sample routes for comparison                | 21-01 | 210 chunks (6.4MB JS), sample pages ~184KB - comparison points for measuring code splitting      |
-| Configurable skeleton props for loading states                    | 21-01 | CalculatorSkeleton accepts inputCount and showResults for flexible Suspense fallbacks             |
-| Dynamic imports for all 167 calculator pages                      | 21-02 | Enables on-demand bundle loading, reduces initial page weight for better performance              |
-| No ssr: false flag for dynamic imports                            | 21-02 | Calculators render on server for SEO, dynamic imports work with static export via hydration       |
-| CalculatorSkeleton in both dynamic loading and Suspense fallback   | 21-02 | Consistent loading UX whether chunk is being fetched or component is suspending                   |
-| Auto-fix pre-existing linting issues during verification          | 21-04 | Improves code quality opportunistically during gap closure verification                           |
-| Document but not fix array index key warnings                     | 21-04 | Pre-existing warnings beyond gap closure scope, deferred for future cleanup                       |
-| Use Serena/grepai for phase execution instead of subagents        | 24    | Direct tool usage more efficient than spawning executors - faster feedback, lower context burn   |
-| Zero dependencies for CSV export (native Blob API)                | 24-01 | Browser APIs sufficient, no external library needed for simple CSV generation                     |
-| CSV injection prevention (escape =+\-@ prefixes)                  | 24-01 | Security best practice - prevents formula injection in Excel/Sheets when opening CSVs            |
-| UTF-8 BOM for CSV Excel compatibility                             | 24-01 | Excel requires BOM to detect UTF-8 encoding correctly for international characters               |
-| Timestamped export filenames (YYYY-MM-DD_HH-MM-SS)                | 24-02 | ISO 8601 adapted for filesystems - sortable, unambiguous, avoids filename collisions             |
-| FileText icon for PDF vs Download for CSV                         | 24-02 | Semantic distinction - PDF is document (FileText), CSV is data download (Download)               |
-| Age Calculator as export reference implementation                 | 24-03 | First calculator with both exports - pattern for future integrations                             |
-| Replace entire translation section for consistency                | 26-03 | Full section replacement prevents translation drift and ensures complete key structure alignment  |
-| German k8sCapacity requires exact 51-key structure match          | 26-03 | All locales must have identical key structure for proper i18n mapping and MISSING_MESSAGE prevention |
-| Preserve previous valid value on invalid input                     | 28-03 | safeParsePositive/safeParseNonNegative prevent transient errors during typing by keeping last valid value |
+Recent decisions affecting current work:
+- See PROJECT.md Key Decisions table for full log (250+ entries from v1.0-v5.0)
+- v6.0 start: CPU data sourced from public SPEC.org submissions, curated as build-time JSON (static export constraint)
+- v6.0 start: Both calculators land in Infrastructure category under new "CPU" subcategory
+- v6.0 start: Staleness warning pattern (90-day threshold, dataAsOf field) following v4.0 licensing calculator precedent
 
-### Milestone Evolution
+### Pending Todos
 
-- **v5.0 Calculator Expansion** (2026-01-29): 18 new/extended calculators across 3 professional domains. 6 phases, 6 commits, 126 files modified. All 18 requirements satisfied (100% coverage). Added Engineering category (6 calculators, ASTM materials, AISC beam sections, SVG visualizations). Added Chemistry category (6 calculators, custom formula parser, IUPAC 2024 atomic weights). Extended infrastructure calculators with multi-platform support (VMware, Hyper-V, Proxmox, XCP-ng). Added hypervisor comparison TCO tool. Full i18n (4 locales, 476+ keys).
+None yet.
 
-- **v4.0 Security & Infrastructure** (2026-01-25): Enterprise-grade security hardening and 5 new infrastructure calculators. 6 phases, 17 plans, 58 commits, 106 files modified. All 11 requirements satisfied (100% coverage). Eliminated all CodeQL vulnerabilities with Map-based URL parameters. Added VM Storage, Kubernetes Capacity, Server Virtualization, VMware Licensing, and Virtualization Cost calculators. Created Infrastructure category with 3 subcategories. PDF/CSV export for all infrastructure tools. Completed in 13 hours (same day).
+### Blockers/Concerns
 
-- **v3.0 Calculator Expansion & Performance** (2026-01-25): 16 new calculators and export functionality. 6 phases, 23 plans, 90+ commits, 337 files modified. All 24 requirements satisfied (100% coverage). Added Crypto/Blockchain, Real Estate, Cooking/Nutrition, and Automotive categories. Implemented code splitting for performance. PDF/CSV export with zero dependencies.
-
-- **v2.0 Network Tools & User Experience** (2026-01-22): Comprehensive network calculator suite with global search and 100% translation coverage. 8 phases, 22 plans, 55 commits, 217 files modified. All 29 requirements satisfied (100% coverage). Network category with visual subnet calculator, IP address calculator, CIDR range calculator, and network speed/latency tools. Global search with Cmd+K shortcut. All 156 registered calculators internationalized for en/fr/de/it.
-
-- **v1.0 Infrastructure Upgrade** (2026-01-18): Comprehensive infrastructure upgrade with strict TypeScript, Zustand state management, PWA support, and complete documentation. 8 phases, 19 plans, 103 commits, 131 files modified. All 32 requirements satisfied (100% coverage).
-
-### Phase 8 Enhancements Deferred to v2.0
-
-- ⬜ Consider Biome-only migration if Next.js supports removing ESLint (architectural decision)
+None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-29T12:00:00Z
-Stopped at: v5.0 milestone completion
+Last session: 2026-02-23
+Stopped at: v6.0 roadmap created — Phase 37 ready to plan
 Resume file: None
 
 **Milestones Completed:**
@@ -276,11 +131,10 @@ Resume file: None
 3. ✅ v3.0 Calculator Expansion & Performance shipped (2026-01-25)
 4. ✅ v4.0 Security & Infrastructure shipped (2026-01-25)
 5. ✅ v5.0 Calculator Expansion shipped (2026-01-29)
-   - ✅ Phase 31 Complete (4/4 plans) - Engineering Structural Calculators
-   - ✅ Phase 32 Complete (3/3 plans) - Engineering Materials & Hydraulics
-   - ✅ Phase 33 Complete (4/4 plans) - Chemistry Core Calculators
-   - ✅ Phase 34 Complete (3/3 plans) - Chemistry Advanced Calculators
-   - ✅ Phase 35 Complete (5/5 plans) - Hyper-V & Multi-Platform
-   - ✅ Phase 36 Complete (4/4 plans) - Cross-Platform Comparison
 
-**Next:** Start v6.0 planning with `/gsd:new-milestone`
+**v6.0 CPU Performance & Server Refresh (in progress):**
+- Phase 37 (CPU Database Foundation) — Ready to plan
+- Phase 38 (CPU Comparison Calculator) — Pending Phase 37
+- Phase 39 (Server Refresh Calculator) — Pending Phase 37
+
+**Next:** `/gsd:plan-phase 37`
