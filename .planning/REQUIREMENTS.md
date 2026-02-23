@@ -1,0 +1,85 @@
+# Requirements: Converty v6.0 — CPU Performance & Server Refresh
+
+**Defined:** 2026-02-23
+**Core Value:** A solid, maintainable foundation enabling confident future development.
+
+## v6.0 Requirements
+
+### CPU Database
+
+- [ ] **CPUDB-01**: System includes current-gen Intel Xeon Scalable CPUs (Sapphire Rapids, Emerald Rapids) with SPECint2017 base/peak scores, core count, TDP, and socket type
+- [ ] **CPUDB-02**: System includes current-gen AMD EPYC CPUs (Genoa, Bergamo, Turin) with SPECint2017 base/peak scores, core count, TDP, and socket type
+- [ ] **CPUDB-03**: System includes previous-gen CPUs (Cascade Lake, Ice Lake, Broadwell-EP, Milan, Rome) with SPECint scores for server refresh baseline comparisons
+- [ ] **CPUDB-04**: System includes ARM/Ampere CPUs (Altra, Altra Max) with SPECint scores, core count, and TDP
+
+### CPU Comparison
+
+- [ ] **CPUCMP-01**: User can select 2–4 CPUs from the curated database for side-by-side comparison
+- [ ] **CPUCMP-02**: User can see raw SPECint2017 base and peak scores for each selected CPU
+- [ ] **CPUCMP-03**: User can see performance-per-core metric (SPECint / core count) for each CPU
+- [ ] **CPUCMP-04**: User can see TDP and performance-per-watt (SPECint / TDP) for each CPU
+- [ ] **CPUCMP-05**: User can see relative sizing ratio between any two CPUs (how many of CPU A are needed to match CPU B's performance)
+- [ ] **CPUCMP-06**: User can filter the CPU list by vendor (Intel, AMD, ARM) and generation
+
+### Server Refresh
+
+- [ ] **REFRESH-01**: User can specify old server fleet configuration (CPU model, socket count per server, server count)
+- [ ] **REFRESH-02**: User can select a target new CPU model for the refresh
+- [ ] **REFRESH-03**: User can see how many new servers are needed to match the current fleet's total performance
+- [ ] **REFRESH-04**: User can apply a headroom/growth buffer (%) to size for future capacity
+- [ ] **REFRESH-05**: User can apply a chassis/socket constraint (1U/2U, single/dual socket) that limits the target configuration
+- [ ] **REFRESH-06**: User can enter a power budget (watts per rack) and see how many new servers fit within that constraint
+- [ ] **REFRESH-07**: User can see a fleet summary comparing old vs new: server count delta, total core delta, total TDP delta
+
+## Future Requirements
+
+### CPU Database Extensions
+
+- **CPUDB-05**: System includes cloud instance CPU equivalents (AWS Graviton, Azure Cobalt) for cloud vs on-prem comparison
+- **CPUDB-06**: Data includes memory bandwidth and NUMA topology for memory-sensitive workloads
+
+### Advanced Comparison
+
+- **CPUCMP-07**: User can compare cloud vCPU costs vs on-prem server TCO
+- **CPUCMP-08**: User can input a custom workload profile (CPU-bound vs memory-bound) and get a weighted score
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Real-time SPEC data scraping | Static export — no server-side scraping; build-time data or curated database only |
+| Full SPECrate / SPECspeed multi-metric | Scope complexity; SPECint2017 sufficient for sizing use case |
+| GPU comparison | Different benchmark ecosystem (FLOPS/compute), separate future milestone |
+| SPEC submission ingestion (user uploads) | File parsing complexity, out of v6.0 scope |
+| Cloud instance recommendation engine | Requires live pricing APIs, deferred to future |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| CPUDB-01 | Phase 37 | Pending |
+| CPUDB-02 | Phase 37 | Pending |
+| CPUDB-03 | Phase 37 | Pending |
+| CPUDB-04 | Phase 37 | Pending |
+| CPUCMP-01 | Phase 38 | Pending |
+| CPUCMP-02 | Phase 38 | Pending |
+| CPUCMP-03 | Phase 38 | Pending |
+| CPUCMP-04 | Phase 38 | Pending |
+| CPUCMP-05 | Phase 38 | Pending |
+| CPUCMP-06 | Phase 38 | Pending |
+| REFRESH-01 | Phase 39 | Pending |
+| REFRESH-02 | Phase 39 | Pending |
+| REFRESH-03 | Phase 39 | Pending |
+| REFRESH-04 | Phase 39 | Pending |
+| REFRESH-05 | Phase 39 | Pending |
+| REFRESH-06 | Phase 39 | Pending |
+| REFRESH-07 | Phase 39 | Pending |
+
+**Coverage:**
+- v6.0 requirements: 15 total
+- Mapped to phases: 15
+- Unmapped: 0 ✓
+
+---
+*Requirements defined: 2026-02-23*
+*Last updated: 2026-02-23 after initial definition*
