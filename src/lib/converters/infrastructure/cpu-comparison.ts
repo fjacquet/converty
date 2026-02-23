@@ -104,7 +104,7 @@ export function calculateCpuComparison(input: CpuComparisonInput): CpuComparison
   // Build comparison rows
   const rows: CpuComparisonRow[] = selectedCpus.map((cpu, i) => {
     const perfPerCore = Math.round((cpu.specint2017Peak / cpu.cores) * 100) / 100;
-    const perfPerWatt = Math.round((cpu.specint2017Peak / cpu.tdpW) * 100) / 100;
+    const perfPerWatt = cpu.tdpW > 0 ? Math.round((cpu.specint2017Peak / cpu.tdpW) * 100) / 100 : 0;
     const sizingRatioVsFirst =
       i === 0
         ? 1.0

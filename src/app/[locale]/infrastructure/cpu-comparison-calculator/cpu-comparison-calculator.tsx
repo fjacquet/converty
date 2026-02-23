@@ -216,7 +216,7 @@ export function CpuComparisonCalculator() {
                       <td className="border p-2 font-medium bg-muted/10">{t("family")}</td>
                       {result.rows.map((row) => (
                         <td key={row.id} className="border p-2">
-                          {row.family}
+                          {row.family === "Unknown" ? "—" : row.family}
                         </td>
                       ))}
                     </tr>
@@ -240,7 +240,7 @@ export function CpuComparisonCalculator() {
                       <td className="border p-2 font-medium bg-muted/10">{t("tdpW")}</td>
                       {result.rows.map((row) => (
                         <td key={row.id} className="border p-2">
-                          {row.tdpW} W
+                          {row.tdpW > 0 ? `${row.tdpW} W` : "N/A"}
                         </td>
                       ))}
                     </tr>
@@ -248,7 +248,7 @@ export function CpuComparisonCalculator() {
                       <td className="border p-2 font-medium bg-muted/10">{t("socketType")}</td>
                       {result.rows.map((row) => (
                         <td key={row.id} className="border p-2">
-                          {row.socketType}
+                          {row.socketType === "Unknown" ? "—" : row.socketType}
                         </td>
                       ))}
                     </tr>
@@ -280,7 +280,7 @@ export function CpuComparisonCalculator() {
                       <td className="border p-2 font-medium bg-muted/10">{t("perfPerWatt")}</td>
                       {result.rows.map((row) => (
                         <td key={row.id} className="border p-2">
-                          {row.perfPerWatt}
+                          {row.perfPerWatt > 0 ? row.perfPerWatt : "N/A"}
                         </td>
                       ))}
                     </tr>
