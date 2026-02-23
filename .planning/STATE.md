@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 37 of 39 (CPU Database Foundation)
-Plan: 0 of 2 in current phase
-Status: Ready to plan
-Last activity: 2026-02-23 — v6.0 roadmap created (Phases 37-39)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-02-23 — 37-01 CPU Database Foundation types and data complete
 
-Progress: [░░░░░░░░░░] 0% (v6.0)
+Progress: [█░░░░░░░░░] 12% (v6.0)
 
 ## Performance Metrics
 
@@ -96,7 +96,7 @@ Progress: [░░░░░░░░░░] 0% (v6.0)
 
 | Phase                        | Plans | Total | Avg/Plan |
 | ---------------------------- | ----- | ----- | -------- |
-| 37-cpu-database-foundation   | 0/2   | —     | —        |
+| 37-cpu-database-foundation   | 1/2   | ~2 min | ~2 min   |
 | 38-cpu-comparison-calculator | 0/3   | —     | —        |
 | 39-server-refresh-calculator | 0/3   | —     | —        |
 
@@ -109,6 +109,9 @@ Recent decisions affecting current work:
 - v6.0 start: CPU data sourced from public SPEC.org submissions, curated as build-time JSON (static export constraint)
 - v6.0 start: Both calculators land in Infrastructure category under new "CPU" subcategory
 - v6.0 start: Staleness warning pattern (90-day threshold, dataAsOf field) following v4.0 licensing calculator precedent
+- 37-01: CpuGeneration union type with "current" and "previous" to simplify server refresh comparisons
+- 37-01: ARM/Ampere entries use vendor "arm" (not "ampere") to keep vendor enum minimal
+- 37-01: 17 CPU entries across Intel Xeon, AMD EPYC, and ARM/Ampere families
 
 ### Pending Todos
 
@@ -121,7 +124,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: v6.0 roadmap created — Phase 37 ready to plan
+Stopped at: Completed 37-01-PLAN.md — CPU type definitions and reference data created
 Resume file: None
 
 **Milestones Completed:**

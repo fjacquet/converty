@@ -7,10 +7,10 @@
 
 ### CPU Database
 
-- [ ] **CPUDB-01**: System includes current-gen Intel Xeon Scalable CPUs (Sapphire Rapids, Emerald Rapids) with SPECint2017 base/peak scores, core count, TDP, and socket type
-- [ ] **CPUDB-02**: System includes current-gen AMD EPYC CPUs (Genoa, Bergamo, Turin) with SPECint2017 base/peak scores, core count, TDP, and socket type
-- [ ] **CPUDB-03**: System includes previous-gen CPUs (Cascade Lake, Ice Lake, Broadwell-EP, Milan, Rome) with SPECint scores for server refresh baseline comparisons
-- [ ] **CPUDB-04**: System includes ARM/Ampere CPUs (Altra, Altra Max) with SPECint scores, core count, and TDP
+- [x] **CPUDB-01**: System includes current-gen Intel Xeon Scalable CPUs (Sapphire Rapids, Emerald Rapids) with SPECint2017 base/peak scores, core count, TDP, and socket type
+- [x] **CPUDB-02**: System includes current-gen AMD EPYC CPUs (Genoa, Bergamo, Turin) with SPECint2017 base/peak scores, core count, TDP, and socket type
+- [x] **CPUDB-03**: System includes previous-gen CPUs (Cascade Lake, Ice Lake, Broadwell-EP, Milan, Rome) with SPECint scores for server refresh baseline comparisons
+- [x] **CPUDB-04**: System includes ARM/Ampere CPUs (Altra, Altra Max) with SPECint scores, core count, and TDP
 
 ### CPU Comparison
 
@@ -57,10 +57,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CPUDB-01 | Phase 37 | Pending |
-| CPUDB-02 | Phase 37 | Pending |
-| CPUDB-03 | Phase 37 | Pending |
-| CPUDB-04 | Phase 37 | Pending |
+| CPUDB-01 | Phase 37 | Complete |
+| CPUDB-02 | Phase 37 | Complete |
+| CPUDB-03 | Phase 37 | Complete |
+| CPUDB-04 | Phase 37 | Complete |
 | CPUCMP-01 | Phase 38 | Pending |
 | CPUCMP-02 | Phase 38 | Pending |
 | CPUCMP-03 | Phase 38 | Pending |
