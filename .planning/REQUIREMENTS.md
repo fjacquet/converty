@@ -18,8 +18,8 @@
 - [x] **CPUCMP-02**: User can see raw SPECint2017 base and peak scores for each selected CPU
 - [x] **CPUCMP-03**: User can see performance-per-core metric (SPECint / core count) for each CPU
 - [x] **CPUCMP-04**: User can see TDP and performance-per-watt (SPECint / TDP) for each CPU
-- [ ] **CPUCMP-05**: User can see relative sizing ratio between any two CPUs (how many of CPU A are needed to match CPU B's performance)
-- [ ] **CPUCMP-06**: User can filter the CPU list by vendor (Intel, AMD, ARM) and generation
+- [x] **CPUCMP-05**: User can see relative sizing ratio between any two CPUs (how many of CPU A are needed to match CPU B's performance)
+- [x] **CPUCMP-06**: User can filter the CPU list by vendor (Intel, AMD, ARM) and generation
 
 ### Server Refresh
 
@@ -65,8 +65,8 @@
 | CPUCMP-02 | Phase 38 | Complete |
 | CPUCMP-03 | Phase 38 | Complete |
 | CPUCMP-04 | Phase 38 | Complete |
-| CPUCMP-05 | Phase 38 | Pending |
-| CPUCMP-06 | Phase 38 | Pending |
+| CPUCMP-05 | Phase 38 | Complete |
+| CPUCMP-06 | Phase 38 | Complete |
 | REFRESH-01 | Phase 39 | Pending |
 | REFRESH-02 | Phase 39 | Pending |
 | REFRESH-03 | Phase 39 | Pending |
