@@ -2,6 +2,7 @@
  * Infrastructure & Virtualization Converters
  */
 
+export * from "./cpu-comparison";
 export * from "./hyperv-consolidation";
 export * from "./hypervisor-comparison";
 export * from "./k8s-capacity";
