@@ -247,9 +247,34 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ User selects standard beam sections from AISC library — v5.0
 - ✓ User sees licensing costs with date stamps and staleness warnings — v5.0
 
+## Current Milestone: v6.0 CPU Performance & Server Refresh
+
+**Goal:** Add a datacenter CPU comparison and server refresh sizing tool powered by a curated SPECint2017 database.
+
+**Target features:**
+- Curated CPU database (Intel Xeon, AMD EPYC, ARM/Ampere — current and previous gen)
+- Side-by-side CPU comparison (SPECint scores, perf/core, perf/watt, sizing ratios)
+- Server refresh calculator (old fleet → new fleet with headroom, chassis, power budget)
+
 ### Active
 
-(No active requirements — next milestone not yet planned. Run `/gsd:new-milestone` to begin v6.0.)
+- [ ] CPUDB-01: System includes current-gen Intel Xeon Scalable CPUs with SPECint2017 base/peak, cores, TDP, socket type
+- [ ] CPUDB-02: System includes current-gen AMD EPYC CPUs with SPECint2017 base/peak, cores, TDP, socket type
+- [ ] CPUDB-03: System includes previous-gen CPUs (Cascade Lake, Ice Lake, Milan, Rome, Broadwell-EP) for server refresh baseline
+- [ ] CPUDB-04: System includes ARM/Ampere CPUs with SPECint scores
+- [ ] CPUCMP-01: User can select 2–4 CPUs for side-by-side comparison
+- [ ] CPUCMP-02: User can see raw SPECint2017 base and peak scores for each CPU
+- [ ] CPUCMP-03: User can see performance-per-core (SPECint / core count)
+- [ ] CPUCMP-04: User can see performance-per-watt and absolute TDP
+- [ ] CPUCMP-05: User can see relative sizing ratio between any two CPUs
+- [ ] CPUCMP-06: User can filter CPU list by vendor and generation
+- [ ] REFRESH-01: User can specify old server fleet (CPU, sockets/server, server count)
+- [ ] REFRESH-02: User can select target new CPU for the refresh
+- [ ] REFRESH-03: User can see how many new servers are needed to match current performance
+- [ ] REFRESH-04: User can apply a headroom buffer (%) to size for future growth
+- [ ] REFRESH-05: User can apply a socket/chassis constraint (1U/2U, single/dual socket)
+- [ ] REFRESH-06: User can enter power budget (watts/rack) and see how many new servers fit
+- [ ] REFRESH-07: User can see fleet summary: old vs new (server count, core, TDP delta)
 
 ### Out of Scope
 
@@ -395,4 +420,4 @@ Security: 0 CodeQL vulnerabilities, Map-based URL parameters
 
 ---
 
-_Last updated: 2026-01-29 after v5.0 milestone completion_
+_Last updated: 2026-02-23 after v6.0 milestone started_

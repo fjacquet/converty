@@ -5,22 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
-**Current focus:** v5.0 shipped — ready for v6.0 planning
+**Current focus:** v6.0 — CPU Performance & Server Refresh
 
 ## Current Position
 
-Milestone: v5.0 Calculator Expansion (COMPLETE ✅)
-Phase: All 6 phases complete (31-36)
-Status: v5.0 shipped — Ready to plan next milestone
-Last activity: 2026-01-29 — v5.0 milestone completion
-
-Progress: ████████████████████ 100% (v5.0 — 6 of 6 phases complete)
-
-**Next Steps:**
-
-1. Start v6.0 planning — `/gsd:new-milestone`
-2. Define requirements for next iteration
-3. Research and plan new features
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-23 — Milestone v6.0 started
 
 ## Performance Metrics
 
