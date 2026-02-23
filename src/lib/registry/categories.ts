@@ -187,6 +187,11 @@ export const categories: Category[] = [
       { id: "hyperv", name: "Hyper-V", description: "Microsoft Hyper-V and Windows Server" },
       { id: "kubernetes", name: "Kubernetes", description: "K8s capacity planning" },
       { id: "cost", name: "Cost Analysis", description: "TCO and licensing calculators" },
+      {
+        id: "cpu",
+        name: "CPU Performance",
+        description: "CPU benchmarks and server refresh planning",
+      },
     ],
   },
   {
