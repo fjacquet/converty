@@ -196,7 +196,40 @@
     "cpu-comparison-calculator": {
       "name": "CPU-Vergleich",
       "description": "Bis zu 4 CPUs nach SPECint2017-Score, Leistung pro Kern und pro Watt vergleichen",
-      "metaDescription": "Kostenloser CPU-Vergleichsrechner. Intel Xeon, AMD EPYC und Ampere Altra nach SPECint2017-Benchmark, Leistung pro Kern und pro Watt vergleichen."
+      "metaDescription": "Kostenloser CPU-Vergleichsrechner. Intel Xeon, AMD EPYC und Ampere Altra nach SPECint2017-Benchmark, Leistung pro Kern und pro Watt vergleichen.",
+      "filterPanel": "Filter",
+      "vendorFilter": "Hersteller",
+      "generationFilter": "Generation",
+      "vendors": {
+        "all": "Alle Hersteller",
+        "intel": "Intel",
+        "amd": "AMD",
+        "arm": "ARM / Ampere"
+      },
+      "generations": {
+        "all": "Alle Generationen",
+        "current": "Aktuell",
+        "previous": "Vorherige"
+      },
+      "selectCpus": "CPUs auswählen",
+      "selectCpusHint": "Wählen Sie 2 bis 4 CPUs zum Vergleich",
+      "selectedCount": "{count} ausgewählt",
+      "emptyState": "Wählen Sie mindestens 2 CPUs aus, um den Vergleich zu sehen",
+      "staleDataWarning": "Daten könnten veraltet sein",
+      "specOrgLink": "Neueste Ergebnisse auf SPEC.org anzeigen",
+      "baseline": "1,0x (Referenz)",
+      "cpuName": "CPU-Name",
+      "vendor": "Hersteller",
+      "family": "Familie",
+      "generation": "Generation",
+      "cores": "Kerne",
+      "tdpW": "TDP",
+      "socketType": "Sockel",
+      "specint2017Base": "SPECint2017 Base",
+      "specint2017Peak": "SPECint2017 Peak",
+      "perfPerCore": "Leistung / Kern",
+      "perfPerWatt": "Leistung / Watt",
+      "sizingRatio": "Skalierungsverhältnis"
     },
     "server-refresh-calculator": {
       "name": "Server-Refresh",
