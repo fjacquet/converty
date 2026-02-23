@@ -137,7 +137,7 @@ async function main(): Promise<void> {
 
   const outputPath = join(process.cwd(), "src", "lib", "data", "mining-data.json");
 
-  writeFileSync(outputPath, JSON.stringify(miningData, null, 2), "utf-8");
+  writeFileSync(outputPath, `${JSON.stringify(miningData, null, 2)}\n`, "utf-8");
 
   console.log(`✓ Saved mining data to ${outputPath}`);
   console.log(`  Source: ${miningData.source}`);

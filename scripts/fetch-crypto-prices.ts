@@ -137,7 +137,7 @@ async function main(): Promise<void> {
 
   const outputPath = join(process.cwd(), "src", "lib", "data", "crypto-prices.json");
 
-  writeFileSync(outputPath, JSON.stringify(priceData, null, 2), "utf-8");
+  writeFileSync(outputPath, `${JSON.stringify(priceData, null, 2)}\n`, "utf-8");
 
   console.log(`✓ Saved crypto prices to ${outputPath}`);
   console.log(`  Source: ${priceData.source}`);
