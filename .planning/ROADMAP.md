@@ -8,8 +8,7 @@
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 37 | 2/2 | Complete    | 2026-02-23 | 38 | CPU Comparison Calculator | Not started |
-| 39 | Server Refresh Calculator | Not started |
+| 37 | 2/2 | Complete    | 2026-02-23 | 38 | 1/3 | In Progress|  | 39 | Server Refresh Calculator | Not started |
 
 ---
 
@@ -37,7 +36,7 @@ Plans:
 **Goal:** Users can select 2 to 4 CPUs from the curated database, see side-by-side SPECint2017 scores, performance-per-core, performance-per-watt, and the sizing ratio between any two — with the ability to filter by vendor and generation.
 **Depends on:** Phase 37 (CPU data file and registry)
 **Requirements:** CPUCMP-01, CPUCMP-02, CPUCMP-03, CPUCMP-04, CPUCMP-05, CPUCMP-06
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 **Success Criteria:**
 1. User can open the CPU filter panel, select "AMD" and "Current Gen", and the CPU dropdown narrows to matching CPUs only
