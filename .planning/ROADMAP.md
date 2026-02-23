@@ -57,6 +57,7 @@ Plans:
 **Goal:** Users can model an entire server fleet refresh — entering their existing fleet configuration, choosing a target CPU, and immediately seeing how many new servers are needed to match performance, with headroom buffer, chassis/socket constraints, power budget analysis, and a delta summary.
 **Depends on:** Phase 37 (CPU data file), Phase 38 (comparison patterns)
 **Requirements:** REFRESH-01, REFRESH-02, REFRESH-03, REFRESH-04, REFRESH-05, REFRESH-06, REFRESH-07
+**Plans:** 3 plans
 
 **Success Criteria:**
 1. User can enter an old fleet (CPU model, sockets per server, server count) and select a target new CPU, then see the minimum new server count needed to match or exceed the old fleet's total SPECint throughput
@@ -65,11 +66,11 @@ Plans:
 4. User can enter a watts-per-rack power budget and see how many new servers fit within that power envelope alongside how many racks are needed
 5. User can see a summary table comparing old fleet vs new fleet: total servers, total cores, total TDP (watts), and the delta for each
 
-**Plans:**
-- [ ] 39-01: Converter logic (fleet throughput, headroom, chassis constraints, power budget)
-- [ ] 39-02: Refresh UI component (fleet input, target selector, constraint controls, summary table)
-- [ ] 39-03: i18n completion + URL state sync + build verification
+Plans:
+- [ ] 39-01-PLAN.md — Converter logic (fleet throughput, headroom, chassis constraints, power budget)
+- [ ] 39-02-PLAN.md — Refresh UI component (fleet input, target selector, constraint controls, summary table)
+- [ ] 39-03-PLAN.md — i18n completion + URL state sync + build verification
 
 ---
 
-*Last updated: 2026-02-23 — Phase 38 planned (3 plans, Wave 1-2-3 sequential)*
+*Last updated: 2026-02-23 — Phase 39 planned (3 plans, Wave 1-2-3 sequential)*
