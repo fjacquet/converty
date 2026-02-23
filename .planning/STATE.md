@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 38 of 39 (CPU Comparison Calculator)
-Plan: 1 of 3 in current phase
-Status: Phase 38 plan 01 complete — CPU comparison pure calculation module ready
-Last activity: 2026-02-23 — 38-01 CPU comparison calculation functions and interfaces created
+Plan: 2 of 3 in current phase
+Status: Phase 38 plan 02 complete — CPU Comparison Calculator component and page created
+Last activity: 2026-02-23 — 38-02 CPU comparison React component, page, and i18n translations completed
 
 Progress: [█░░░░░░░░░] 12% (v6.0)
 
@@ -101,6 +101,7 @@ Progress: [█░░░░░░░░░] 12% (v6.0)
 | 39-server-refresh-calculator | 0/3   | —     | —        |
 | Phase 37 P02 | 8 | 2 tasks | 6 files |
 | Phase 38-cpu-comparison-calculator P01 | 1.3 | 2 tasks | 2 files |
+| Phase 38-cpu-comparison-calculator P02 | 5 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -118,6 +119,7 @@ Recent decisions affecting current work:
 - [Phase 37]: CPU subcategory appended after cost in infrastructure subcategories; both registry entries under subcategory: cpu
 - [Phase 38-01]: sizingRatioVsFirst: cpu[0].peak/cpuN.peak means N units of cpuN needed to match cpu[0] performance
 - [Phase 38-01]: calculateCpuComparison returns null (not throw) for <2 valid CPU IDs, consistent with project pattern
+- [Phase 38-02]: Used dynamic import with CalculatorSkeleton matching hyperv-consolidation pattern; vendor/generation changes reset cpuIds to avoid stale selections
 
 ### Pending Todos
 
@@ -130,7 +132,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: Completed 38-01-PLAN.md — CPU comparison pure calculation module created
+Stopped at: Completed 38-02-PLAN.md — CPU Comparison Calculator component and page created
 Resume file: None
 
 **Milestones Completed:**
