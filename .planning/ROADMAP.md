@@ -37,6 +37,7 @@ Plans:
 **Goal:** Users can select 2 to 4 CPUs from the curated database, see side-by-side SPECint2017 scores, performance-per-core, performance-per-watt, and the sizing ratio between any two — with the ability to filter by vendor and generation.
 **Depends on:** Phase 37 (CPU data file and registry)
 **Requirements:** CPUCMP-01, CPUCMP-02, CPUCMP-03, CPUCMP-04, CPUCMP-05, CPUCMP-06
+**Plans:** 3 plans
 
 **Success Criteria:**
 1. User can open the CPU filter panel, select "AMD" and "Current Gen", and the CPU dropdown narrows to matching CPUs only
@@ -45,10 +46,10 @@ Plans:
 4. User can see a sizing ratio that states "N units of CPU A are needed to match CPU B" derived from their SPECint scores
 5. User can select up to 4 CPUs and all comparison columns render without layout breakage
 
-**Plans:**
-- [ ] 38-01: Converter logic (comparison calculations: perf/core, perf/watt, sizing ratio)
-- [ ] 38-02: Comparison UI component (multi-select, filter panel, results table)
-- [ ] 38-03: i18n completion + URL state sync + build verification
+Plans:
+- [ ] 38-01-PLAN.md — Converter logic: pure functions for perf/core, perf/watt, sizing ratio, vendor/generation filtering
+- [ ] 38-02-PLAN.md — CPU Comparison Calculator component + page: multi-select, filter panel, results table, URL state sync
+- [ ] 38-03-PLAN.md — i18n completion (all 4 locales) + type-check + build verification
 
 ---
 
@@ -72,4 +73,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-02-23 — Phase 37 planned (2 plans, Wave 1 parallel)*
+*Last updated: 2026-02-23 — Phase 38 planned (3 plans, Wave 1-2-3 sequential)*
