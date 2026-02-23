@@ -46,6 +46,7 @@ const bad = parseChemicalFormula("XyZ");
 ```
 
 **Key functions:**
+
 - `parseElement()` — Reads uppercase + optional lowercase letters
 - `parseNumber()` — Reads trailing digit sequence (default 1)
 - `parseFormulaRecursive()` — Handles `(` `)` groups with multipliers
@@ -68,6 +69,7 @@ Fe2O3 + 3CO -> 2Fe + 3CO2
 Accepted arrow formats: `→`, `->`, `=`, `⟶`
 
 The parser extracts:
+
 - Reactants and products as separate arrays
 - Stoichiometric coefficients
 - Individual formulas for molecular weight lookup

@@ -55,6 +55,7 @@ export function getColumnMaterialById(id: string) {
 ```
 
 **Rules:**
+
 - Always provide a `"custom"` option — let users enter their own values
 - Store property values in SI units (Pa, m, kg/m³)
 - Include source attribution in comments
@@ -158,6 +159,7 @@ Pipe flow uses iterative solving (Colebrook-White equation):
 ```
 
 **Flow regime classification:**
+
 - `Re < 2300` → Laminar (use `f = 64/Re`)
 - `2300 ≤ Re ≤ 4000` → Transitional (interpolate or warn)
 - `Re > 4000` → Turbulent (use Colebrook-White)

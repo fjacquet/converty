@@ -1,6 +1,10 @@
-# Converty - Claude Configuration
+# CLAUDE.md
 
-Project context for Claude (AI assistant).
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+---
+
+# Converty - Configuration
 
 ## Project Overview
 
@@ -10,9 +14,34 @@ Converty is a collection of **167+ calculators** built with Next.js 16, React 19
 
 ```bash
 npm run dev          # Start at http://localhost:3000
-npm run build        # Build static export
+npm run build        # Build static export (runs prebuild → next build → service worker)
 npm run check:fix    # Fix lint issues
 npm run type-check   # TypeScript check
+```
+
+## Build Process
+
+The build has multiple stages:
+
+```bash
+npm run build
+  ↓
+  1. prebuild (fetch-crypto-prices, fetch-mining-data, generate-search-index)
+  2. next build (static site generation)
+  3. generate-sw.js (Workbox service worker for PWA)
+```
+
+**Build Constraints:**
+
+- Static export only (`output: "export"`)
+- Base path `/converty` for GitHub Pages
+- Images unoptimized (required for static export)
+- Build-time data: crypto prices, mining data, search indexes (4 locales)
+
+**Bundle Analysis:**
+
+```bash
+ANALYZE=true npm run build
 ```
 
 ## Key Directories
@@ -21,10 +50,11 @@ npm run type-check   # TypeScript check
 |------|---------|
 | `src/app/[locale]/` | Next.js pages with locale routing |
 | `src/components/converter/` | Reusable calculator components |
-| `src/lib/converters/` | Pure calculation functions |
-| `src/lib/registry/` | Calculator metadata |
-| `src/stores/` | Zustand state management |
+| `src/lib/converters/` | Pure calculation functions (framework-agnostic) |
+| `src/lib/registry/` | Calculator metadata and categories |
+| `src/stores/` | Zustand state management with URL sync |
 | `src/messages/` | Translation files (en, fr, de, it) |
+| `scripts/` | Build scripts (data fetching, search indexing, packaging) |
 
 ## Adding a Calculator
 
@@ -56,330 +86,121 @@ npm run type-check   # TypeScript check
 | Music | `music` | 1 |
 | Color | `color` | 1 |
 
-## Detailed Guides
+## Documentation
 
 | Guide | Content |
 |-------|---------|
+| [User Guide](docs/USER_GUIDE.md) | **End-user documentation** - How to use calculators, share links, PWA |
 | [Calculator Guide](docs/CALCULATOR_GUIDE.md) | Step-by-step for adding calculators |
 | [Code Style](docs/CODE_STYLE.md) | TypeScript, naming, linting, precision |
 | [I18N Guide](docs/I18N_GUIDE.md) | Internationalization patterns |
 | [Engineering Patterns](docs/ENGINEERING_PATTERNS.md) | Material databases, structural formulas, NIST precision |
 | [Chemistry Patterns](docs/CHEMISTRY_PATTERNS.md) | Formula parsing, periodic table, IUPAC standards |
 | [Reference Data Guide](docs/REFERENCE_DATA_GUIDE.md) | Data sourcing, versioning, quality checks |
-| [Architecture](.planning/codebase/ARCHITECTURE.md) | System design |
-| [grepai Reference](docs/GREPAI.md) | Semantic code search tool |
-| [Serena Reference](docs/SERENA.md) | Semantic code editing toolkit |
+| [Architecture](.planning/codebase/ARCHITECTURE.md) | System design and data flow |
+| [grepai Reference](docs/GREPAI.md) | **Semantic code search tool** |
+| [Serena Reference](docs/SERENA.md) | **Semantic code editing toolkit** |
 
-## Important Notes
+## Important Constraints
 
-1. **Static Export** - No server-side features (`output: "export"`)
-2. **URL State** - Calculators sync state to URL for shareability
-3. **Zustand** - All calculators use `createCalculatorStore` factory
-4. **i18n** - All user-facing text uses `useTranslations()`
-5. **No `any` types** - Strict TypeScript enforced
+1. **Static Export** - No SSR, API routes, server actions, or middleware
+2. **URL State** - All calculators sync state to URL for shareability
+3. **Zustand Pattern** - Use `createCalculatorStore` factory for all calculators
+4. **i18n** - All user-facing text must use `useTranslations()`
+5. **Strict TypeScript** - No `any` types allowed
 
-## Linting
+## Architecture: State Management
+
+All calculators use Zustand with URL sync middleware:
+
+```typescript
+const useStore = createCalculatorStore<Input, Result>({
+  name: "calculator-name",
+  initialValues: { /* ... */ },
+  calculate: (values) => calculateFunction(values),
+  validate: (values) => ({ /* errors */ }),
+  syncUrl: true,  // Default: sync state to URL
+  debounceMs: 150 // URL update debounce
+});
+```
+
+**Critical Details:**
+
+- Each store gets isolated debounce timer (closure-based)
+- URL params parsed on initial load
+- State changes update URL via `history.replaceState` (not `pushState`)
+- Only `values` synced to URL (not `result` or `errors`)
+
+## Linting & Formatting
 
 ```bash
-npm run check:fix  # Fix issues
+npm run check:fix  # Auto-fix Biome issues
 npm run format     # Format code
 ```
 
 Common issues: unused imports, missing return types, `let` instead of `const`
 
-## Tool Selection Guide: grepai vs Serena vs Standard Tools
+## Git Hooks
 
-**Quick Decision Matrix:**
+**Husky + lint-staged:**
 
-| Task | Use | Why |
-|------|-----|-----|
-| "Where is authentication handled?" | **grepai** | Semantic understanding of intent |
-| "Find the `calculateROI` function" | **Serena** `find_symbol` | Precise symbol lookup |
-| "Find all uses of `useTranslations`" | **Serena** `find_referencing_symbols` | Impact analysis |
-| "Replace entire function body" | **Serena** `replace_symbol_body` | Symbol-level precision |
-| "Change variable name everywhere" | **Serena** `rename_symbol` | LSP-aware refactoring |
-| "Fix typo in one line" | **Edit** tool | Simple text change |
-| "Find files named `*-calculator.tsx`" | **Glob** | File path patterns |
-| "Find exact string `import React`" | **Grep** | Exact text matching |
-| "Understand codebase structure" | **grepai** | Exploratory discovery |
+- Pre-commit hook runs `biome check --write` on staged files
+- Auto-fixes formatting and linting issues
+- Commits fail if unfixable errors exist
 
-### Use grepai When:
+## CI/CD (GitHub Actions)
 
-✅ **Exploring unfamiliar code**
-- "How is state management done here?"
-- "Where are API calls made?"
-- "Find error handling patterns"
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `static.yml` | Push to `main` | Build and deploy to GitHub Pages |
+| `security.yml` | Push, PR, schedule | Security audits (npm audit, CodeQL) |
+| `release.yml` | Tag (`v*`) | Create release with offline package ZIP |
 
-✅ **Intent-based discovery**
-- "Where is user authentication validated?"
-- "How does the app handle payments?"
-- "Find database query logic"
+## Testing
 
-✅ **Broad conceptual searches**
-- "Show me all calculator implementations"
-- "Find i18n translation usage"
-- "Locate form validation code"
+**⚠️ No test framework currently configured.**
 
-### Use Serena When:
+Validation via TypeScript type checking and Biome linting only.
 
-✅ **Working with known symbols**
-- Finding specific classes/functions by name
-- Getting file structure overview
-- Finding all references to a symbol
+## Tool Selection (Quick Reference)
 
-✅ **Refactoring code**
-- Renaming symbols across codebase
-- Replacing entire function/method bodies
-- Adding new methods to classes
+| Task | Tool | Why |
+|------|------|-----|
+| Explore unfamiliar code | **grepai** | Semantic search |
+| Find specific symbol | **Serena** `find_symbol` | Precise lookup |
+| Find all symbol uses | **Serena** `find_referencing_symbols` | Impact analysis |
+| Rename symbol everywhere | **Serena** `rename_symbol` | LSP-aware |
+| Replace function body | **Serena** `replace_symbol_body` | Symbol-level |
+| Fix typo (1-2 lines) | **Edit** | Simple text |
+| Find files by pattern | **Glob** | File paths |
+| Find exact text | **Grep** | Exact match |
 
-✅ **Impact analysis**
-- "What will break if I change this function?"
-- "Where is this class used?"
-- "Find all callers of this method"
+**Full guides:** [docs/GREPAI.md](docs/GREPAI.md) | [docs/SERENA.md](docs/SERENA.md)
 
-✅ **Precise code insertion**
-- Adding methods to classes
-- Inserting imports at file start
-- Adding code after specific symbols
+## Project Skills
 
-### Use Standard Tools When:
+Auto-discovered from `.claude/skills/`. Invoke with `/skill-name`.
 
-✅ **Grep** - Exact text matching
-- Finding specific import statements
-- Locating exact variable names
-- Searching for specific strings
-
-✅ **Glob** - File path patterns
-- Finding all `*.test.ts` files
-- Locating files in specific directories
-- Matching file naming patterns
-
-✅ **Read** - Reading specific files
-- You already know the file path
-- Reading configuration files
-- Viewing documentation
-
-✅ **Edit** - Small text changes
-- Fixing typos
-- Changing single lines
-- Simple find/replace within known context
-
-### Complete Workflow Example
-
-**Task: Add error handling to all percentage calculators**
-
-```typescript
-// 1. DISCOVER with grepai
-grepai_search("percentage calculation logic")
-// → Finds: src/lib/converters/math/percentage.ts
-
-// 2. UNDERSTAND with Serena
-get_symbols_overview(relative_path="src/lib/converters/math/percentage.ts")
-// → Shows: calculatePercentage, calculatePercentageIncrease, etc.
-
-// 3. ANALYZE IMPACT with Serena
-find_referencing_symbols(
-    relative_path="src/lib/converters/math/percentage.ts",
-    name_path="calculatePercentage"
-)
-// → Shows: 12 references across 5 files
-
-// 4. MODIFY with Serena
-replace_symbol_body(
-    name_path="calculatePercentage",
-    new_body=`export function calculatePercentage(value: number, total: number): number {
-  if (total === 0) {
-    throw new Error('Total cannot be zero');
-  }
-  if (!isFinite(value) || !isFinite(total)) {
-    throw new Error('Values must be finite numbers');
-  }
-  return (value / total) * 100;
-}`
-)
-```
-
-### Decision Flowchart
-
-```
-Start
-  ↓
-Do you know the exact file/symbol name?
-  ├─ NO → Use grepai for semantic search
-  └─ YES → Continue
-       ↓
-  Are you modifying entire functions/classes?
-       ├─ YES → Use Serena symbol operations
-       └─ NO → Continue
-            ↓
-       Is it a small text change (1-3 lines)?
-            ├─ YES → Use Edit tool
-            └─ NO → Use Serena for complex changes
-```
-
-## grepai - Semantic Code Search
-
-**grepai** searches your codebase using natural language queries and vector embeddings. It understands code meaning, not just exact text.
-
-**When to use:** Exploring unfamiliar code, intent-based searches, call graph analysis
-**Full documentation:** [docs/GREPAI.md](docs/GREPAI.md)
-
-### Quick Reference
-
-```bash
-# Semantic search
-grepai search "calculator state management" --json --compact
-
-# Find callers (before modifying)
-grepai trace callers "createCalculatorStore" --json
-
-# Find callees (understand dependencies)
-grepai trace callees "processPayment" --json
-
-# Complete call graph
-grepai trace graph "useTranslations" --depth 2 --json
-```
-
-### MCP Tools Available
-
-- `mcp__grepai__grepai_search` - Semantic code search
-- `mcp__grepai__grepai_trace_callers` - Find who calls a symbol
-- `mcp__grepai__grepai_trace_callees` - Find what symbol calls
-- `mcp__grepai__grepai_trace_graph` - Build call graph
-- `mcp__grepai__grepai_index_status` - Check index health
-
-### Best Practices
-
-✅ Use English queries for best results
-✅ Describe intent: "handles user login" not "func Login"
-✅ Always use `--json --compact` for AI agents
-✅ Check callers before refactoring functions
-
-❌ Don't use for exact text matching (use Grep)
-❌ Don't use vague queries ("code" vs "authentication middleware")
-
-## Serena - Semantic Code Editing
-
-**Serena** provides LSP-powered symbol-level operations for precise code manipulation.
-
-**When to use:** Finding symbols, refactoring, renaming, impact analysis
-**Full documentation:** [docs/SERENA.md](docs/SERENA.md)
-
-### Quick Reference
-
-```python
-# Find symbol
-find_symbol(name_path="calculatePercentage", include_body=True)
-
-# Check references BEFORE modifying
-find_referencing_symbols(
-    relative_path="src/lib/converters/math/percentage.ts",
-    name_path="calculatePercentage"
-)
-
-# Replace entire function body
-replace_symbol_body(
-    name_path="calculatePercentage",
-    new_body="..."
-)
-
-# Rename across codebase (LSP-aware)
-rename_symbol(
-    name_path="calculatePercentage",
-    new_name="computePercentage"
-)
-
-# Get file structure
-get_symbols_overview(relative_path="src/stores/calculator-store.ts")
-```
-
-### Key MCP Tools
-
-**Symbol Discovery:**
-- `find_symbol` - Find by name path
-- `get_symbols_overview` - Get file structure
-- `find_referencing_symbols` - Find all references
-
-**Symbol Editing:**
-- `replace_symbol_body` - Replace entire function/method
-- `rename_symbol` - Rename across codebase
-- `insert_after_symbol` / `insert_before_symbol` - Add code
-
-**File Operations:**
-- `read_file` - Read with line ranges
-- `search_for_pattern` - Regex search
-- `replace_content` - Regex/literal replace
-
-**Memory System:**
-- `write_memory` - Persist project context
-- `read_memory` - Retrieve context
-- `list_memories` - List all memories
-
-### Symbol Name Paths
-
-- Simple: `"calculate"` - Matches any symbol
-- Relative: `"MyClass/myMethod"` - Matches suffix
-- Absolute: `"/MyClass/myMethod"` - Exact match
-- Overloaded: `"MyClass/myMethod[0]"` - Specific overload
-
-### Best Practices
-
-✅ **Always** check references before modifying
-✅ Use symbol operations for whole functions/classes
-✅ Get overview before deep diving
-✅ Use LSP for renames (guaranteed correctness)
-✅ Document patterns in memory system
-
-❌ Don't modify without checking references
-❌ Don't use for small edits (use Edit tool)
-❌ Don't use for exploratory searches (use grepai)
-❌ Don't guess name paths (use substring matching)
+| Skill | Purpose |
+|-------|---------|
+| `/new-calculator` | Scaffold all files for a new calculator (3 created + 5 modified) |
+| `/validate-calculator` | Check a calculator has all required pieces wired correctly |
+| `/add-translations` | Add translation keys across all 4 locale files |
+| `/check-i18n` | Audit i18n completeness, find missing/orphaned keys |
 
 ## Common Workflows
 
-### Refactoring a Function
+**Adding a Calculator (use `/new-calculator` skill):**
 
-```typescript
-// 1. Find it
-grepai_search("percentage calculation")
+1. `/new-calculator` - scaffolds converter, component, page, registry, translations
+2. Implement calculation logic in the converter file
+3. Customize component UI for the specific calculator
+4. Run `/validate-calculator {name}` to verify completeness
+5. Run `/check-i18n` to ensure translations are complete
 
-// 2. Get structure
-get_symbols_overview(relative_path="src/lib/converters/math/percentage.ts")
+**Refactoring a Function:**
 
-// 3. Check impact
-find_referencing_symbols(name_path="calculatePercentage")
-
-// 4. Modify safely
-replace_symbol_body(...)
-```
-
-### Adding a Calculator
-
-```typescript
-// 1. Find similar calculators
-grepai_search("ROI calculator implementation")
-
-// 2. Create new converter
-create_text_file(relative_path="src/lib/converters/finance/new-calc.ts", ...)
-
-// 3. Find registry structure
-get_symbols_overview(relative_path="src/lib/registry/converters.ts")
-
-// 4. Add registration (use Edit for array modification)
-```
-
-### Understanding Unfamiliar Code
-
-```typescript
-// 1. Semantic exploration
-grepai_search("how are translations loaded")
-
-// 2. Get file overview
-get_symbols_overview(relative_path="path/from/results")
-
-// 3. Find specific symbols
-find_symbol(name_path="useTranslations", include_body=True)
-
-// 4. Trace usage
-find_referencing_symbols(...)
-```
+1. Find it: `grepai_search("percentage calculation")`
+2. Get structure: `get_symbols_overview(relative_path="...")`
+3. Check impact: `find_referencing_symbols(name_path="...")`
+4. Modify: `replace_symbol_body(...)`

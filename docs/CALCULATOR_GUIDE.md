@@ -323,6 +323,7 @@ export interface ColumnBucklingInput {
 ```
 
 Key patterns:
+
 - **Material/section lookup functions**: `getMaterialById()`, `getSectionById()` — always provide fallback for `"custom"` IDs
 - **Calculation steps**: Return a `steps` array describing intermediate values for educational display
 - **End conditions**: Use a constant map (e.g., `END_CONDITION_K`) for lookup tables
@@ -341,6 +342,7 @@ const result = parseChemicalFormula("H2O");
 ```
 
 Key patterns:
+
 - **Formula parser**: Recursive descent parser handles parentheses, hydrates (·), and nested groups
 - **Equation parser**: Splits balanced equations on arrow symbols (→, ->, =)
 - **Periodic table data**: `src/data/chemistry/periodic-table.json` — 118 elements with IUPAC 2024 data

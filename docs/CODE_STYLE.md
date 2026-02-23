@@ -146,6 +146,7 @@ const result = concentration * 1e-14;
 ```
 
 **Avoid floating-point traps:**
+
 - Compare with tolerance: `Math.abs(a - b) < 1e-10` instead of `a === b`
 - Use `Number.isFinite()` to guard against `Infinity` and `NaN`
 - Return `null` for invalid inputs rather than throwing

@@ -40,6 +40,25 @@ Download the latest release for offline use:
 
 Requires Python 3.x (pre-installed on Mac/Linux) or Node.js 18+.
 
+## Documentation
+
+### For Users
+
+**[📖 User Guide](docs/USER_GUIDE.md)** - Complete guide to using Converty's calculators:
+- How to find and use calculators
+- Share calculations via URL
+- Install as offline PWA
+- Multi-language support
+- Keyboard shortcuts and tips
+
+### For Developers
+
+- **[Adding Calculators](docs/CALCULATOR_GUIDE.md)** - Step-by-step guide for developers
+- **[Code Style](docs/CODE_STYLE.md)** - TypeScript, naming, linting conventions
+- **[I18N Guide](docs/I18N_GUIDE.md)** - Internationalization patterns
+- **[Engineering Patterns](docs/ENGINEERING_PATTERNS.md)** - Material databases, formulas
+- **[Chemistry Patterns](docs/CHEMISTRY_PATTERNS.md)** - Chemical formula parsing
+
 ## Categories
 
 | Category          | Calculators | Description                                                       |
