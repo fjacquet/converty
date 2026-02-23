@@ -8,7 +8,7 @@
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 37 | 2/2 | Complete   | 2026-02-23 | 38 | CPU Comparison Calculator | Not started |
+| 37 | 2/2 | Complete    | 2026-02-23 | 38 | CPU Comparison Calculator | Not started |
 | 39 | Server Refresh Calculator | Not started |
 
 ---
