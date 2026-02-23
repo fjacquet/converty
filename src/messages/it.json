@@ -72,7 +72,8 @@
         "vmware": "VMware",
         "hyperv": "Hyper-V",
         "kubernetes": "Kubernetes",
-        "cost": "Analisi dei Costi"
+        "cost": "Analisi dei Costi",
+        "cpu": "Prestazioni CPU"
       }
     },
     "engineering": {
@@ -178,7 +179,8 @@
     "vmware": "VMware",
     "hyperv": "Hyper-V",
     "kubernetes": "Kubernetes",
-    "cost": "Analisi dei Costi"
+    "cost": "Analisi dei Costi",
+    "cpu": "Prestazioni CPU"
   },
   "converters": {
     "bmi": {
@@ -190,6 +192,16 @@
       "name": "Corpulenza",
       "description": "Calcola il tuo Indice di Corpulenza (Indice Ponderale)",
       "metaDescription": "Calcola il tuo Indice Ponderale per una valutazione piu accurata della composizione corporea"
+    },
+    "cpu-comparison-calculator": {
+      "name": "Confronto CPU",
+      "description": "Confronta fino a 4 CPU per punteggio SPECint2017, performance per core e per watt",
+      "metaDescription": "Calcolatore di confronto CPU gratuito. Confronta Intel Xeon, AMD EPYC e Ampere Altra per punteggio SPECint2017, performance per core e per watt."
+    },
+    "server-refresh-calculator": {
+      "name": "Rinnovo Server",
+      "description": "Pianifica il rinnovo di un parco server: calcola quanti nuovi server corrispondono alle prestazioni attuali",
+      "metaDescription": "Calcolatore di rinnovo server gratuito. Modella la migrazione di un parco server — conteggio minimo di nuovi server, margine di crescita, vincoli chassis e budget energetico."
     },
     "age": {
       "name": "Età",

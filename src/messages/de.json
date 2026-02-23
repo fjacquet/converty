@@ -72,7 +72,8 @@
         "vmware": "VMware",
         "hyperv": "Hyper-V",
         "kubernetes": "Kubernetes",
-        "cost": "Kostenanalyse"
+        "cost": "Kostenanalyse",
+        "cpu": "CPU-Leistung"
       }
     },
     "engineering": {
@@ -178,7 +179,8 @@
     "vmware": "VMware",
     "hyperv": "Hyper-V",
     "kubernetes": "Kubernetes",
-    "cost": "Kostenanalyse"
+    "cost": "Kostenanalyse",
+    "cpu": "CPU-Leistung"
   },
   "converters": {
     "bmi": {
@@ -190,6 +192,16 @@
       "name": "Korpulenz",
       "description": "Berechnen Sie Ihren Korpulenz-Index (Ponderal-Index)",
       "metaDescription": "Berechnen Sie Ihren Ponderal-Index fuer eine genauere Koerperzusammensetzungsbewertung"
+    },
+    "cpu-comparison-calculator": {
+      "name": "CPU-Vergleich",
+      "description": "Bis zu 4 CPUs nach SPECint2017-Score, Leistung pro Kern und pro Watt vergleichen",
+      "metaDescription": "Kostenloser CPU-Vergleichsrechner. Intel Xeon, AMD EPYC und Ampere Altra nach SPECint2017-Benchmark, Leistung pro Kern und pro Watt vergleichen."
+    },
+    "server-refresh-calculator": {
+      "name": "Server-Refresh",
+      "description": "Server-Fleet-Erneuerung planen: Berechnen Sie, wie viele neue Server die aktuelle Fleet-Leistung erreichen",
+      "metaDescription": "Kostenloser Server-Refresh-Rechner. Server-Fleet-Migration modellieren — minimale neue Serveranzahl, Wachstumspuffer, Chassis-Einschränkungen und Strombudget."
     },
     "age": {
       "name": "Alters",
