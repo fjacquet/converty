@@ -100,6 +100,7 @@ Progress: [█░░░░░░░░░] Phase 41: 1/10 plans complete
 | 38-cpu-comparison-calculator | 3/3   | ~8.3 min | ~2.8 min |
 | 39-server-refresh-calculator | 3/3   | ~9.5 min | ~3.2 min  |
 | Phase 40-vitest-foundation P02 | 2 | 2 tasks | 3 files |
+| Phase 41 P04 | 20 | 2 tasks | 27 files |
 
 ## Accumulated Context
 
@@ -139,6 +140,8 @@ Recent decisions affecting current work:
 - [Phase 41-01]: Global 75% threshold replaces 5 per-file blocks — intentionally deferred enforcement until Wave 4 (plan 41-10) via npm run test:coverage
 - [Phase 41-01]: cpu-types.ts excluded from coverage — interfaces/unions only, not caught by **/types.ts glob due to filename
 - [Phase 41-01]: CI uses npm run test:run not npm test — interactive watch mode would hang pipeline indefinitely
+- [Phase 41]: pregnancy-due-date: 2024-01-01 + 280 days = 2024-10-06 (not 10-07) — JS Date arithmetic confirmed
+- [Phase 41]: period-calculator/pregnancy-due-date: tests verify structural properties only — source uses new Date() for today-relative fields
 
 ### Decisions (Phase 40-01)
 
