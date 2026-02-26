@@ -117,6 +117,7 @@ Progress: [██████████] Phase 42: 5/5 plans complete
 | Phase 42-error-boundaries-toasts P05 | 1 | 1 tasks | 1 files |
 | Phase 43-zod-input-validation P01 | 2 | 3 tasks | 3 files |
 | Phase 43-zod-input-validation P02 | 24 | 2 tasks | 28 files |
+| Phase 43 P03 | 6 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -190,6 +191,8 @@ Recent decisions affecting current work:
 - [Phase 43-zod-input-validation]: ZodType imported as type-only (import type) for Biome strict compliance; z imported as value in url-params.ts
 - [Phase 43-zod-input-validation]: String-based Zod schemas (z.string().refine()) used — z.coerce.number() outputs number type incompatible with string FormValues
 - [Phase 43-zod-input-validation]: Corpulence calculator uses useState directly — schema created but store wiring skipped (no createCalculatorStore to attach to)
+- [Phase 43]: z.number() used for finance schemas — finance FormValues are number types unlike health string-based FormValues
+- [Phase 43]: Only 4 of 23 finance calculators wired with schema: compound-interest, loan, mortgage, retirement (only ones using createCalculatorStore)
 
 ### Decisions (Phase 40-01)
 
