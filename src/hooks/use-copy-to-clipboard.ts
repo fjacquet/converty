@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { toast } from "sonner";
 
 interface UseCopyToClipboardResult {
   copied: boolean;
@@ -16,8 +17,10 @@ export function useCopyToClipboard(timeout = 2000): UseCopyToClipboardResult {
         await navigator.clipboard.writeText(text);
         setCopied(true);
         setTimeout(() => setCopied(false), timeout);
+        toast.success("Copied to clipboard");
       } catch (error) {
         console.error("Failed to copy to clipboard:", error);
+        toast.error("Failed to copy to clipboard");
       }
     },
     [timeout]
