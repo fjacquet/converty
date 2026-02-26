@@ -1,5 +1,5 @@
+import { compressToEncodedURIComponent } from "lz-string";
 import type { StateCreator } from "zustand";
-import { getUrlParams } from "@/lib/utils/url-params";
 
 /**
  * Configuration options for URL sync middleware
@@ -48,15 +48,6 @@ export function createUrlSyncMiddleware<T extends object>(options: UrlSyncOption
   // Return the middleware function (standard Zustand middleware signature)
   return (config: StateCreator<T, [], []>): StateCreator<T, [], []> => {
     return (set, get, api) => {
-      // Load initial state from URL parameters
-      if (enabled && typeof window !== "undefined") {
-        const urlParams = getUrlParams();
-        if (Object.keys(urlParams).length > 0) {
-          // URL params will be merged in the store creator
-          // This middleware just enables the mechanism
-        }
-      }
-
       // Wrap setState to add debounced URL sync
       const originalSet = api.setState;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- biome-ignore lint/suspicious/noExplicitAny: Zustand setState has complex generic signature
@@ -88,7 +79,8 @@ export function createUrlSyncMiddleware<T extends object>(options: UrlSyncOption
 }
 
 /**
- * Sync state object to URL parameters
+ * Sync state object to URL parameters using LZ-String compression.
+ * Writes the entire filtered state as a single ?z=<compressed> param (R4.2, R4.4).
  * @internal
  */
 function syncStateToUrl(state: object, options: { include?: string[]; exclude?: string[] }) {
@@ -96,24 +88,25 @@ function syncStateToUrl(state: object, options: { include?: string[]; exclude?: 
 
   const { include, exclude } = options;
   const url = new URL(window.location.href);
-  const searchParams = new URLSearchParams();
 
+  // Build filtered state (same include/exclude logic as before)
+  const filtered: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(state)) {
-    // Skip if not in include list (when include is specified)
     if (include && !include.includes(key)) continue;
-    // Skip if in exclude list
     if (exclude?.includes(key)) continue;
-    // Skip functions (methods like setValue, reset, etc.)
     if (typeof value === "function") continue;
-    // Skip undefined, null, and empty string values
     if (value === undefined || value === null || value === "") continue;
-
-    searchParams.set(key, String(value));
+    filtered[key] = value;
   }
 
-  const newSearch = searchParams.toString();
-  const newUrl = newSearch ? `${url.pathname}?${newSearch}` : url.pathname;
+  // If nothing to sync, clear URL
+  if (Object.keys(filtered).length === 0) {
+    window.history.replaceState({}, "", url.pathname);
+    return;
+  }
 
-  // Use replaceState (NOT pushState) to avoid flooding browser history
-  window.history.replaceState({}, "", newUrl);
+  // Compress entire state as JSON → single ?z= param (R4.2, R4.4)
+  const json = JSON.stringify(filtered);
+  const compressed = compressToEncodedURIComponent(json);
+  window.history.replaceState({}, "", `${url.pathname}?z=${compressed}`);
 }
