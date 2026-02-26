@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { Toaster } from "sonner";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { LocaleHtmlLang } from "@/components/layout/locale-html-lang";
@@ -77,6 +78,7 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
+        <Toaster richColors position="bottom-right" />
       </ThemeProvider>
     </NextIntlClientProvider>
   );
