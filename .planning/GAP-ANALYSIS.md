@@ -17,16 +17,7 @@ The migration is classified as **high-impact, high-value** — particularly the 
 
 ### 1. Build Framework
 
-| Aspect | Converty (Current) | Raidy (Target) | Delta |
-|--------|-------------------|----------------|-------|
-| Framework | Next.js 16.1.1 (App Router) | Vite 7.x (pure SPA) | ❌ Major |
-| Routing | File-based, `[locale]` segments | React Router / SPA routing | ❌ Major |
-| SSG | 169 calculators × 4 locales = 676 static HTML | Single `index.html` | ❌ Major |
-| Build speed | Slow (Next.js static export) | Fast (Vite HMR, Rollup bundling) | ⚠️ Notable |
-| Dev server | `next dev` | `vite` (near-instant HMR) | ⚠️ Notable |
-| Complexity | High (prebuild scripts, service worker post-build) | Low | ⚠️ Notable |
-
-**Risk:** Switching from Next.js to Vite requires rewriting the entire routing layer, the i18n page architecture, and the static generation pipeline. This is the largest single change. **Recommend: last phase of migration, or keep Next.js and adopt Vite benefits gradually.**
+Next.js stays. The 4-locale SSG (676 static pages), GitHub Pages deployment, and next-intl App Router integration all require Next.js. Vite is not adopted.
 
 ---
 
@@ -159,8 +150,6 @@ The migration is classified as **high-impact, high-value** — particularly the 
 | ✅ **LZ-String URL compression** | Medium | Medium | Medium | Phase 43 |
 | ✅ **Discriminated union results** | Medium | High | Medium | Phase 44 |
 | ⚠️ **i18n namespace restructure** | Medium | High | Medium | Phase 45 |
-| ❌ **Next.js → Vite migration** | Low-Medium | Very High | Very High | Deferred / ADR-011 |
-| ❌ **next-intl → i18next** | Low | Very High | Very High | Deferred |
 | ❌ **Web Workers** | Low | Medium | Low | Future |
 
 ---
@@ -217,19 +206,13 @@ The migration is classified as **high-impact, high-value** — particularly the 
 - Keep next-intl (no library change)
 - Update `useTranslations()` call namespaces
 
-**Wave 7 — Framework Evaluation (ADR-011):**
-
-- Write ADR-011 formally evaluating Next.js vs Vite trade-offs
-- Decision: stay on Next.js (PWA, SSG, i18n locale routing, GitHub Pages all favor Next.js)
-- OR proceed with Vite migration (only if a custom SPA router can replace locale routing)
-
 ---
 
 ## Conclusion
 
-The **most impactful migrations are the ones that don't require changing the framework**: Vitest, Zod, react-error-boundary, Sonner, DOMPurify, and LZ-String. These collectively close ~80% of the architectural gap with Raidy at 20% of the risk.
+The most impactful migrations are the ones that don't require changing the framework: Vitest, Zod, react-error-boundary, Sonner, DOMPurify, and LZ-String. These collectively close the architectural gap with Raidy at low risk.
 
-The framework switch (Next.js → Vite) should be an **ADR decision, not an assumption**. Given the static export requirement, 4-locale SSG, and GitHub Pages deployment, Next.js provides structural advantages that Vite alone cannot replicate without a significant custom build pipeline.
+Next.js stays. The static export requirement, 4-locale SSG, and GitHub Pages deployment all favor keeping the current framework.
 
 ---
 

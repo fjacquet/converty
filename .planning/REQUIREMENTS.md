@@ -127,7 +127,6 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 - [ ] **R7.2** ADR-012: i18n structure with next-intl namespacing
 - [ ] **R7.3** ADR-013: URL compression with LZ-String (rationale for search params vs hash)
 - [ ] **R7.4** ADR-014: Zod validation layer architecture
-- [ ] **R7.5** ADR-015: Framework evaluation — Next.js vs Vite (final decision documented)
 
 ---
 
@@ -135,8 +134,7 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 
 | Feature | Reason |
 |---------|--------|
-| Next.js → Vite migration | Extremely invasive; separate ADR required; Next.js advantages (SSG, i18n routing) outweigh Vite benefits for this use case |
-| next-intl → i18next | Only valuable with Vite migration; adds complexity without Next.js App Router integration |
+| next-intl → i18next | Deep Next.js App Router integration; switching adds complexity with no benefit |
 | Web Workers for calculations | Only 1-2 calculators would benefit; defer to optimization milestone |
 | Storybook / visual testing | Out of scope for this milestone |
 | E2E testing (Playwright) | Added after unit test foundation is solid |

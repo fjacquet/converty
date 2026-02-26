@@ -4708,7 +4708,9 @@
       "bbSteps": "Calculation Steps",
       "bbInputTitle": "ISL Link Parameters",
       "bbResultsTitle": "BB Credit Requirements",
-      "bbCommandsTitle": "Configuration Commands"
+      "bbCommandsTitle": "Configuration Commands",
+      "bbCopy": "Copy",
+      "bbCopied": "Copied!"
     },
     "subnet": {
       "diagram": {
