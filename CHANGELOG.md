@@ -13,9 +13,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-## [7.0.0] - In Progress (2026-02-26)
+## [7.0.0] - 2026-02-26
 
 ### Added
+
+**[Phase 47] ADRs & CI Hardening (2026-02-26)**
+
+- ADR-011: Vitest test strategy (node environment, v8 coverage, 75% global threshold)
+- ADR-013: LZ-String URL compression (search params vs hash rationale)
+- ADR-014: Zod validation layer architecture (string-based schemas, opt-in per store)
+- ADR-015: Discriminated union result types (adapter pattern, no breaking changes)
+- CI `static.yml` hardened: type-check gate added alongside existing test gate
+- `npm run test:run` script documented as the CI-safe alias (non-interactive)
+
+**[Phase 46] i18n Namespace Restructure (2026-02-26)**
+
+- All 4 locale JSON files (en, fr, de, it) restructured from 8 inconsistent top-level keys to stable 4-key schema: `common`, `nav`, `converter`, `calculator`
+- Migration script committed for audit trail
+- All ~210 source files updated: `converters` → `converter`, `categories` → `nav`
+- Build produces zero `MISSING_MESSAGE` warnings after migration
+- ADR-012 documents the i18n namespace rationale
+
+**[Phase 45] Discriminated Union Result Types (2026-02-26)**
+
+- `CalculationResult<T>` type: `{ ok: true; value: T } | { ok: false; error: string; code: string }`
+- Adapter pattern: `result: R | null` kept in `CalculatorState` for component backward compat; `CalculationResult<R>` unwrapped inside `setValue`/`setValues`
+- `calculationError: string | undefined` added to `CalculatorState` — undefined on success, populated on `ok: false`
+- All 91 store-based calculator components updated to render `calculationError` beneath inputs
+- All 196 test files updated to use `.ok` discriminant assertions
+
+**[Phase 44] LZ-String URL Compression (2026-02-26)**
+
+- `lz-string@1.5.0` added for URL state compression
+- URL sync middleware writes compressed state as `?z=` param (search params, not hash — GitHub Pages compatible)
+- Backward-compatible dual-path read: `?z=` (compressed) or legacy per-key params
+- Prototype pollution prevention: only keys matching `initialValues` accepted from parsed JSON
+- Null-safety guard before JSON.parse on decompressed string
+- Round-trip lossless compression verified (compress → decompress = original state)
 
 **[Phase 40] Vitest Foundation (2026-02-26)**
 
