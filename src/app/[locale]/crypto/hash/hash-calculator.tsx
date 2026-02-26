@@ -3,6 +3,7 @@
 import { AlertTriangle, Copy, Hash, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -28,9 +29,15 @@ export function HashCalculator() {
 
   const handleCopy = async () => {
     if (result?.hash) {
-      await navigator.clipboard.writeText(result.hash);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      try {
+        await navigator.clipboard.writeText(result.hash);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        toast.success("Copied to clipboard");
+      } catch (error) {
+        console.error("Failed to copy to clipboard:", error);
+        toast.error("Failed to copy to clipboard");
+      }
     }
   };
 

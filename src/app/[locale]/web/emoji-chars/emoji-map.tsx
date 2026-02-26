@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 import {
   EMOJI_CATEGORIES,
   EMOJI_DATA,
@@ -23,9 +24,17 @@ export function EmojiMap() {
       : getEmojiByCategory(category);
 
   const copyToClipboard = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(id);
-    setTimeout(() => setCopied(null), 1500);
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(id);
+        setTimeout(() => setCopied(null), 1500);
+        toast.success("Copied to clipboard");
+      })
+      .catch((error) => {
+        console.error("Failed to copy to clipboard:", error);
+        toast.error("Failed to copy to clipboard");
+      });
   };
 
   return (

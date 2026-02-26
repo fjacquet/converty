@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 import {
   decodeHTML,
   type EncodingMode,
@@ -77,7 +78,17 @@ export function HTMLEncoderTool() {
         <div className="flex items-center justify-between">
           <label className="text-sm font-medium">{tSections("output")}</label>
           <button
-            onClick={() => navigator.clipboard.writeText(result)}
+            onClick={() => {
+              navigator.clipboard
+                .writeText(result)
+                .then(() => {
+                  toast.success("Copied to clipboard");
+                })
+                .catch((error) => {
+                  console.error("Failed to copy to clipboard:", error);
+                  toast.error("Failed to copy to clipboard");
+                });
+            }}
             className="text-xs px-2 py-1 rounded border hover:bg-muted/50"
           >
             {tCommon("copy")}
