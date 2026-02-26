@@ -43,7 +43,7 @@ export default function StressStrainCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tModes = useTranslations("calculator.engineering.modes");
 
-  const { values, setValue, result } = useStressStrainStore();
+  const { values, setValue, result, calculationError } = useStressStrainStore();
 
   const materials = getMaterials();
 
@@ -327,6 +327,8 @@ export default function StressStrainCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

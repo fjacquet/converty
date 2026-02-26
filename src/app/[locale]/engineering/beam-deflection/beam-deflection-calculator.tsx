@@ -44,7 +44,7 @@ export default function BeamDeflectionCalculator() {
   const t = useTranslations("calculator.engineering");
   const tSections = useTranslations("calculator.sections");
 
-  const { values, setValue, result } = useBeamDeflectionStore();
+  const { values, setValue, result, calculationError } = useBeamDeflectionStore();
 
   const materials = getMaterials();
   const beamSections = getBeamSections();
@@ -495,6 +495,8 @@ export default function BeamDeflectionCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

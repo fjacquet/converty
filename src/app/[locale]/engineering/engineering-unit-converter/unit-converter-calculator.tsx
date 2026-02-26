@@ -35,7 +35,7 @@ export default function UnitConverterCalculator() {
   const t = useTranslations("calculator.engineering");
   const tSections = useTranslations("calculator.sections");
 
-  const { values, setValue, result } = useUnitConverterStore();
+  const { values, setValue, result, calculationError } = useUnitConverterStore();
 
   const categories = getUnitCategories();
   const currentCategory = getUnitCategoryById(values.categoryId);
@@ -214,6 +214,8 @@ export default function UnitConverterCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

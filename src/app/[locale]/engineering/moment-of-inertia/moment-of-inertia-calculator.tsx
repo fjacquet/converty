@@ -60,7 +60,7 @@ export default function MomentOfInertiaCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tShapes = useTranslations("calculator.engineering.shapes");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, calculationError } = useStore();
   const [inputMode, setInputMode] = useState<"custom" | "standard">("custom");
   const [showParallelAxis, setShowParallelAxis] = useState(false);
   const [showCentroid, setShowCentroid] = useState(true);
@@ -612,6 +612,8 @@ export default function MomentOfInertiaCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

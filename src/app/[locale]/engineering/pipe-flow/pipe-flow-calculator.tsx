@@ -41,7 +41,7 @@ export default function PipeFlowCalculator() {
   const t = useTranslations("calculator.engineering");
   const tSections = useTranslations("calculator.sections");
 
-  const { values, setValue, result } = usePipeFlowStore();
+  const { values, setValue, result, calculationError } = usePipeFlowStore();
 
   const pipeMaterials = getPipeMaterials();
   const fluids = getFluids();
@@ -350,6 +350,8 @@ export default function PipeFlowCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

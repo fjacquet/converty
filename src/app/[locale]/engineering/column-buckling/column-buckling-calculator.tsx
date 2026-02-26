@@ -45,7 +45,7 @@ export default function ColumnBucklingCalculator() {
   const t = useTranslations("calculator.engineering");
   const tSections = useTranslations("calculator.sections");
 
-  const { values, setValue, result } = useColumnBucklingStore();
+  const { values, setValue, result, calculationError } = useColumnBucklingStore();
 
   const materials = getColumnMaterials();
   const sections = getColumnBeamSections();
@@ -365,6 +365,8 @@ export default function ColumnBucklingCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
