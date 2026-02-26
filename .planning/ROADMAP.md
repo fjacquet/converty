@@ -8,7 +8,7 @@
 - ✅ **v4.0 Security & Infrastructure** — Phases 25–30 (shipped 2026-01-25)
 - ✅ **v5.0 Calculator Expansion** — Phases 31–36 (shipped 2026-01-29)
 - ✅ **v6.0 CPU Performance & Server Refresh** — Phases 37–39 (shipped 2026-02-23)
-- ✅ **v7.0 Framework Migration** — Phases 40–48 (shipped 2026-02-26)
+- 🚧 **v7.0 Framework Migration** — Phases 40–48 (in progress)
 
 ## Phases
 
@@ -97,10 +97,9 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
 
 </details>
 
-<details>
-<summary>✅ v7.0 Framework Migration (Phases 40–48) — SHIPPED 2026-02-26</summary>
+---
 
-See `.planning/milestones/v7.0-MILESTONE-AUDIT.md` for full details.
+## 🚧 v7.0 Framework Migration (Phases 40–48) — IN PROGRESS
 
 **Branch:** `maincd`
 **Goal:** Adopt Raidy's proven building blocks — Vitest testing, Zod validation, react-error-boundary, Sonner toasts, DOMPurify, LZ-String URL compression, discriminated union result types, and i18n namespace restructure. All without replacing Next.js.
@@ -145,14 +144,13 @@ See `.planning/milestones/v7.0-MILESTONE-AUDIT.md` for full details.
   - [x] 46-01-PLAN.md — Migration script + restructure all 4 locale JSON files atomically (Wave 1)
   - [x] 46-02-PLAN.md — Update all source code namespace strings (converters→converter, categories→nav) (Wave 2)
   - [x] 46-03-PLAN.md — Full verification (build, i18n audit, zero MISSING_MESSAGE) + ADR-012 (Wave 3)
-- [x] Phase 47: ADRs & CI Hardening — ADRs 011–015, CI test gate, updated docs (completed 2026-02-26)
-- [x] Phase 48: Branch Integration & Release v7.0 — regression verified, tag v7.0, GitHub Release published (completed 2026-02-26)
-  - [x] 48-01-PLAN.md — Final regression check + CHANGELOG.md completion (Wave 1)
-  - [x] 48-02-PLAN.md — Annotated git tag v7.0 + GitHub Release (Wave 2)
-  - [x] 48-03-PLAN.md — ROADMAP.md + STATE.md + v7.0-MILESTONE-AUDIT.md (Wave 3)
+- [ ] Phase 47: ADRs & CI Hardening — **2 plans** — ADRs 013–015, CI gate verification, developer docs update (R7.1, R7.2, R7.3)
+  - [ ] 47-01-PLAN.md — Write ADR-013 (error boundaries/toasts), ADR-014 (Zod validation), ADR-015 (LZ-String compression) (Wave 1)
+  - [ ] 47-02-PLAN.md — Update CODE_STYLE.md + ENGINEERING_PATTERNS.md with v7.0 patterns; verify CI gate (Wave 1, parallel)
+- [ ] Phase 48: Branch Integration & Release v7.0 — merge, regression, tag, GitHub Release
 
-</details>
+See `.planning/REQUIREMENTS.md` and `.planning/GAP-ANALYSIS.md` for full details.
 
 ---
 
-_Next action: `/gsd:new-milestone` — plan the v8.0 milestone_
+_Next action: `/gsd:execute-phase 47` — ADRs & CI Hardening_
