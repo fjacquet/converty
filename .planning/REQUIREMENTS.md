@@ -77,12 +77,12 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 
 ### Requirements
 
-- [ ] **R4.1** `lz-string` installed
-- [ ] **R4.2** URL sync middleware updated to compress state before writing to URL search params
-- [ ] **R4.3** URL sync middleware decompresses on initial load (backward-compatible: plain params still parseable)
-- [ ] **R4.4** Compression uses search params (not hash) to maintain GitHub Pages compatibility
-- [ ] **R4.5** Existing shared URLs (without compression) continue to work (migration path)
-- [ ] **R4.6** Tests verify compress → decompress round-trip is lossless
+- [x] **R4.1** `lz-string` installed
+- [x] **R4.2** URL sync middleware updated to compress state before writing to URL search params
+- [x] **R4.3** URL sync middleware decompresses on initial load (backward-compatible: plain params still parseable)
+- [x] **R4.4** Compression uses search params (not hash) to maintain GitHub Pages compatibility
+- [x] **R4.5** Existing shared URLs (without compression) continue to work (migration path)
+- [x] **R4.6** Tests verify compress → decompress round-trip is lossless
 
 ---
 

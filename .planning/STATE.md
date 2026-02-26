@@ -120,6 +120,7 @@ Progress: [██████████] Phase 42: 5/5 plans complete
 | Phase 43 P03 | 6 | 2 tasks | 5 files |
 | Phase 43-zod-input-validation P43-04 | 45 | 2 tasks | 31 files |
 | Phase 43-zod-input-validation P05 | 12 | 2 tasks | 24 files |
+| Phase 44-lz-string-url-compression P01 | 3 | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -198,6 +199,9 @@ Recent decisions affecting current work:
 - [Phase 43-zod-input-validation]: Math schemas: z.string().refine() pattern used (not z.coerce.number()) to match string-typed FormValues; 8 useState-based calculators have schemas but not wired to stores
 - [Phase 43-zod-input-validation]: Photo/video/automotive/cooking/network/crypto/web/physics/music/color use useState or custom stores — schemas created for reference only; only datetime (9) and data (2) calculators use createCalculatorStore and received full schema wiring
 - [Phase 43-zod-input-validation]: DurationConverterFormSchema unit field uses z.enum() not z.string() to match DurationUnit TypeScript type — critical for type compatibility
+- [Phase 44-lz-string-url-compression]: lz-string@1.5.0 chosen for URL compression — ships own typings, no @types needed; compressToEncodedURIComponent produces URL-safe output; null-safety guard before JSON.parse required
+- [Phase 44-lz-string-url-compression]: Object.keys(urlParams) Map bug removed from url-sync.ts — Object.keys on URLSearchParams Map always returns [], block was dead code
+- [Phase 44-lz-string-url-compression]: Backward compat dual-path read in calculator-store.ts: ?z= (new compressed) | urlParams.size > 0 (legacy per-key); prototype pollution prevention: only initialValues keys accepted from parsed JSON
 
 ### Decisions (Phase 40-01)
 
