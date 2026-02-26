@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 41 — Full Converter Test Coverage (in progress)
-Plan: 08 complete (8/10)
-Status: v7.0 Phase 41 in progress. Plan 08 done: 16 network/crypto/realestate test files, 317 new tests, 2120 total tests passing.
-Last activity: 2026-02-26 — Phase 41-08 complete: network/crypto/realestate test coverage
+Plan: 09 complete (9/10)
+Status: v7.0 Phase 41 in progress. Plan 09 done: 23 chemistry/engineering/infrastructure test files, 326 new tests, 2464 total tests passing.
+Last activity: 2026-02-26 — Phase 41-09 complete: chemistry/engineering/infrastructure test coverage
 
-Progress: [████████░░] Phase 41: 8/10 plans complete
+Progress: [█████████░] Phase 41: 9/10 plans complete
 
 ## Performance Metrics
 
@@ -104,6 +104,7 @@ Progress: [████████░░] Phase 41: 8/10 plans complete
 | Phase 41 P05 | 9 | 2 tasks | 22 files |
 | Phase 41 P03 | 9 | 2 tasks | 13 files |
 | Phase 41 P02 | 13 | 2 tasks | 26 files |
+| Phase 41 P09 | 23 | 2 tasks | 23 files |
 | Phase 41 P08 | 8 | 2 tasks | 16 files |
 | Phase 41 P07 | 45 | 2 tasks | 26 files |
 
@@ -151,6 +152,10 @@ Recent decisions affecting current work:
 - [Phase 41]: [Phase 41-05]: toBeCloseTo(value, 0) for large dollar amounts, 2 decimals for percentages/small values
 - [Phase 41]: [Phase 41-05]: Comparative tests (higher contribution → higher balance) used throughout for directional verification
 - [Phase 41]: 41-02: Explicit vitest imports required (from 'vitest') for TypeScript compatibility — globals:true only works at runtime, tsc type-check requires explicit imports
+- [Phase 41-09]: hypervisor-comparison throws (not returns null) for invalid inputs — tests use toThrow() not null assertions
+- [Phase 41-09]: xcp-ng platform ID is hyphenated ('xcp-ng') in hypervisor-overhead.json, not 'xcpng'
+- [Phase 41-09]: VmStorageResult field is totalRequiredGb (not totalStorageRequiredGb)
+- [Phase 41-09]: parseChemicalFormula ParseResult union type uses result.success discriminant for type narrowing
 - [Phase 41]: supernetting uses graceful error returns not throws — tests use success:false not toThrow
 - [Phase 41]: wallet-address-validator only validates P2PKH/P2WPKH for BTC and ETH — P2SH/P2TR/LTC assertions removed
 - [Phase 41]: mining-profitability uses ratio invariants not absolute dollar amounts (imports build-time JSON prices)
@@ -177,7 +182,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 41-08-PLAN.md — 16 network/crypto/realestate test files (317 new tests), 2120 total tests passing
+Stopped at: Completed 41-09-PLAN.md — 23 chemistry/engineering/infrastructure test files (326 new tests), 2464 total tests passing
 Resume file: None
 
 **Milestones Completed:**

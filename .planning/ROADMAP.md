@@ -117,7 +117,7 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [ ] 41-06-PLAN.md — Photo + Video + Data + Physics + Music + Color tests (Wave 3, parallel)
   - [ ] 41-07-PLAN.md — Web + Datetime + Automotive + Cooking tests (Wave 3, parallel)
   - [ ] 41-08-PLAN.md — Network (remaining) + Crypto + Realestate tests (Wave 3, parallel)
-  - [ ] 41-09-PLAN.md — Chemistry + Engineering + Infrastructure tests (Wave 3, parallel)
+  - [x] 41-09-PLAN.md — Chemistry + Engineering + Infrastructure tests (Wave 3, parallel)
   - [ ] 41-10-PLAN.md — Global coverage verification + gap fixes (Wave 4)
 - [ ] Phase 42: Error Boundaries & Toasts — react-error-boundary, Sonner, DOMPurify
 - [ ] Phase 43: Zod Input Validation — schemas for all calculator inputs, Zod URL parsing
