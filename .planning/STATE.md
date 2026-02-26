@@ -130,6 +130,7 @@ Progress: [█░░░░░░░░░░░░░░░░░░░] Phase 4
 | Phase 47-adrs-ci-hardening P02 | 2 | 2 tasks | 2 files |
 | Phase 48-branch-integration-release P01 | 2 | 1 tasks | 1 files |
 | Phase 47-adrs-ci-hardening P01 | 150 | 3 tasks | 3 files |
+| Phase 48-branch-integration-release P02 | 3 | 2 tasks | 0 files |
 
 ## Accumulated Context
 
@@ -232,6 +233,7 @@ Recent decisions affecting current work:
 - [Phase 47-adrs-ci-hardening]: ADR-013 documents react-error-boundary, isomorphic-dompurify, opt-in onCalculationError for Phase 42
 - [Phase 47-adrs-ci-hardening]: ADR-014 documents Zod runtime validation: schema? param in createCalculatorStore, string vs number strategy, coverage gaps for Phase 43
 - [Phase 47-adrs-ci-hardening]: ADR-015 documents lz-string ?z= compression, dual-path read, null-safety, prototype pollution prevention for Phase 44
+- [Phase 48-branch-integration-release]: git push origin v7.0 (specific tag) not git push --tags; gh release create --latest for current release visibility; no artifacts attached (site deploys via static.yml)
 
 ### Decisions (Phase 40-01)
 
