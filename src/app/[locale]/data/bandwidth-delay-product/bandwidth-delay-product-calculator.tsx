@@ -7,6 +7,7 @@ import {
   type BandwidthDelayProductResult,
   calculateBandwidthDelayProduct,
 } from "@/lib/converters/network/bandwidth-delay-product";
+import { BandwidthDelayProductFormSchema } from "@/lib/schemas/data";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -30,11 +31,12 @@ const useStore = createCalculatorStore<FormValues, BandwidthDelayProductResult>(
     };
     return calculateBandwidthDelayProduct(input);
   },
+  schema: BandwidthDelayProductFormSchema,
 });
 
 export function BandwidthDelayProductCalculator() {
   const t = useTranslations("calculator.network");
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -47,6 +49,7 @@ export function BandwidthDelayProductCalculator() {
           min={0.1}
           step="1"
           placeholder="100"
+          error={errors.bandwidth}
         />
         <InputField
           id="rtt"
@@ -56,6 +59,7 @@ export function BandwidthDelayProductCalculator() {
           min={0.1}
           step="0.1"
           placeholder="80"
+          error={errors.rtt}
         />
         <InputField
           id="windowSize"
@@ -65,6 +69,7 @@ export function BandwidthDelayProductCalculator() {
           min={1}
           step="1"
           placeholder="64"
+          error={errors.windowSize}
         />
       </div>
 

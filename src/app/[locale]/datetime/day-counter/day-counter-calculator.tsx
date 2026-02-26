@@ -10,6 +10,7 @@ import {
   type DayCounterInput,
   type DayCounterResult,
 } from "@/lib/converters/datetime/day-counter";
+import { DayCounterFormSchema } from "@/lib/schemas/datetime";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useDayCounterStore = createCalculatorStore<DayCounterInput, DayCounterResult>({
@@ -20,6 +21,7 @@ const useDayCounterStore = createCalculatorStore<DayCounterInput, DayCounterResu
     includeEndDate: true,
   },
   calculate: calculateDayCounter,
+  schema: DayCounterFormSchema,
 });
 
 export function DayCounterCalculator() {

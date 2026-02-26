@@ -8,6 +8,7 @@ import {
   type DayOfWeekInput,
   type DayOfWeekResult,
 } from "@/lib/converters/datetime/day-of-week";
+import { DayOfWeekFormSchema } from "@/lib/schemas/datetime";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useDayOfWeekStore = createCalculatorStore<DayOfWeekInput, DayOfWeekResult>({
@@ -16,6 +17,7 @@ const useDayOfWeekStore = createCalculatorStore<DayOfWeekInput, DayOfWeekResult>
     date: "",
   },
   calculate: calculateDayOfWeek,
+  schema: DayOfWeekFormSchema,
 });
 
 export function DayOfWeekCalculator() {

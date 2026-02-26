@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { calculateHours, type HoursInput, type HoursResult } from "@/lib/converters/datetime/hours";
+import { HoursFormSchema } from "@/lib/schemas/datetime";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useHoursStore = createCalculatorStore<HoursInput, HoursResult>({
@@ -15,6 +16,7 @@ const useHoursStore = createCalculatorStore<HoursInput, HoursResult>({
     endDate: "",
   },
   calculate: calculateHours,
+  schema: HoursFormSchema,
 });
 
 export function HoursCalculator() {

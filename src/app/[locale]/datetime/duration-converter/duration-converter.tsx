@@ -10,6 +10,7 @@ import {
   type DurationConverterResult,
   type DurationUnit,
 } from "@/lib/converters/datetime/duration-converter";
+import { DurationConverterFormSchema } from "@/lib/schemas/datetime";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const UNIT_OPTIONS = DURATION_UNITS.map((u) => ({
@@ -24,13 +25,14 @@ const useDurationStore = createCalculatorStore<DurationConverterInput, DurationC
     unit: "hours",
   },
   calculate: convertDuration,
+  schema: DurationConverterFormSchema,
 });
 
 export function DurationConverter() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result } = useDurationStore();
+  const { values, setValue, result, errors } = useDurationStore();
 
   const formatHumanReadable = (): string => {
     if (!result?.timeComponents || result.timeComponents.length === 0) {
@@ -69,6 +71,7 @@ export function DurationConverter() {
             selectedUnit={values.unit}
             onUnitChange={(u) => setValue("unit", u as DurationUnit)}
             step="any"
+            error={errors.value}
           />
         </CardContent>
       </Card>

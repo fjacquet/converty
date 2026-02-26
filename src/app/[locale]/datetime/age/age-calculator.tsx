@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { CsvExportButton, InputField, PdfExportButton, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type AgeInput, type AgeResult, calculateAge } from "@/lib/converters/datetime/age";
+import { AgeFormSchema } from "@/lib/schemas/datetime";
 import type { CsvRow } from "@/lib/utils/csv-export";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
@@ -12,6 +13,7 @@ const useAgeStore = createCalculatorStore<AgeInput, AgeResult>({
   name: "age-calculator",
   initialValues: { birthDate: "" },
   calculate: calculateAge,
+  schema: AgeFormSchema,
 });
 
 export function AgeCalculator() {

@@ -60,7 +60,7 @@ export const DayOfWeekFormSchema = z.object({
 // Uses createCalculatorStore — schema wired to store
 export const DurationConverterFormSchema = z.object({
   value: posNumStr("Value"),
-  unit: z.string().min(1, "Unit is required"),
+  unit: z.enum(["seconds", "minutes", "hours", "days", "weeks", "months", "years"]),
 });
 
 // ─── Hours Calculator ─────────────────────────────────────────────────────────

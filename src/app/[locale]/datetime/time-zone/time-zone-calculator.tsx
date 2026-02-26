@@ -23,6 +23,7 @@ import {
   type TimeZoneResult,
   type TimezoneGroup,
 } from "@/lib/converters/datetime/time-zone";
+import { TimeZoneFormSchema } from "@/lib/schemas/datetime";
 import { cn } from "@/lib/utils";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
@@ -34,6 +35,7 @@ const useTimeZoneStore = createCalculatorStore<TimeZoneInput, TimeZoneResult>({
     toTimezone: "Europe/London",
   },
   calculate: calculateTimeZone,
+  schema: TimeZoneFormSchema,
 });
 
 interface TimezoneComboboxProps {

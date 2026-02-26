@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { calculateDate, type DateInput, type DateResult } from "@/lib/converters/datetime/date";
+import { DateFormSchema } from "@/lib/schemas/datetime";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useDateStore = createCalculatorStore<DateInput, DateResult>({
@@ -25,6 +26,7 @@ const useDateStore = createCalculatorStore<DateInput, DateResult>({
     days: "0",
   },
   calculate: calculateDate,
+  schema: DateFormSchema,
 });
 
 export function DateCalculator() {
@@ -32,7 +34,7 @@ export function DateCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tResults = useTranslations("calculator.results");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result } = useDateStore();
+  const { values, setValue, result, errors } = useDateStore();
 
   return (
     <div className="space-y-6">
@@ -82,6 +84,7 @@ export function DateCalculator() {
               value={values.years}
               onChange={(value) => setValue("years", value)}
               min={0}
+              error={errors.years}
             />
             <InputField
               id="months"
@@ -90,6 +93,7 @@ export function DateCalculator() {
               value={values.months}
               onChange={(value) => setValue("months", value)}
               min={0}
+              error={errors.months}
             />
             <InputField
               id="weeks"
@@ -98,6 +102,7 @@ export function DateCalculator() {
               value={values.weeks}
               onChange={(value) => setValue("weeks", value)}
               min={0}
+              error={errors.weeks}
             />
             <InputField
               id="days"
@@ -106,6 +111,7 @@ export function DateCalculator() {
               value={values.days}
               onChange={(value) => setValue("days", value)}
               min={0}
+              error={errors.days}
             />
           </div>
         </CardContent>

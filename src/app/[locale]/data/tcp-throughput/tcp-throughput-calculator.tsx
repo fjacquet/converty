@@ -7,6 +7,7 @@ import {
   type TcpThroughputInput,
   type TcpThroughputResult,
 } from "@/lib/converters/network/tcp-throughput";
+import { TcpThroughputFormSchema } from "@/lib/schemas/data";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -33,11 +34,12 @@ const useStore = createCalculatorStore<FormValues, TcpThroughputResult>({
     };
     return calculateTcpThroughput(input);
   },
+  schema: TcpThroughputFormSchema,
 });
 
 export function TcpThroughputCalculator() {
   const t = useTranslations("calculator.network");
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -50,6 +52,7 @@ export function TcpThroughputCalculator() {
           min={1}
           step="1"
           placeholder="1460"
+          error={errors.mss}
         />
         <InputField
           id="rtt"
@@ -59,6 +62,7 @@ export function TcpThroughputCalculator() {
           min={0.1}
           step="0.1"
           placeholder="80"
+          error={errors.rtt}
         />
         <InputField
           id="lossRate"
@@ -68,6 +72,7 @@ export function TcpThroughputCalculator() {
           min={0}
           step="0.0001"
           placeholder="0.0001"
+          error={errors.lossRate}
         />
         <InputField
           id="cFactor"
@@ -78,6 +83,7 @@ export function TcpThroughputCalculator() {
           max={2}
           step="0.01"
           placeholder="1"
+          error={errors.cFactor}
         />
       </div>
 

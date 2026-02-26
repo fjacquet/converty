@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { calculateTime, type TimeInput, type TimeResult } from "@/lib/converters/datetime/time";
+import { TimeFormSchema } from "@/lib/schemas/datetime";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useTimeStore = createCalculatorStore<TimeInput, TimeResult>({
@@ -24,12 +25,13 @@ const useTimeStore = createCalculatorStore<TimeInput, TimeResult>({
     seconds: "0",
   },
   calculate: calculateTime,
+  schema: TimeFormSchema,
 });
 
 export function TimeCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
-  const { values, setValue, result } = useTimeStore();
+  const { values, setValue, result, errors } = useTimeStore();
 
   return (
     <div className="space-y-6">
@@ -79,6 +81,7 @@ export function TimeCalculator() {
               value={values.hours}
               onChange={(value) => setValue("hours", value)}
               min={0}
+              error={errors.hours}
             />
             <InputField
               id="minutes"
@@ -87,6 +90,7 @@ export function TimeCalculator() {
               value={values.minutes}
               onChange={(value) => setValue("minutes", value)}
               min={0}
+              error={errors.minutes}
             />
             <InputField
               id="seconds"
@@ -95,6 +99,7 @@ export function TimeCalculator() {
               value={values.seconds}
               onChange={(value) => setValue("seconds", value)}
               min={0}
+              error={errors.seconds}
             />
           </div>
         </CardContent>

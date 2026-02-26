@@ -8,6 +8,7 @@ import {
   type TimeDurationInput,
   type TimeDurationResult,
 } from "@/lib/converters/datetime/time-duration";
+import { TimeDurationFormSchema } from "@/lib/schemas/datetime";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useTimeDurationStore = createCalculatorStore<TimeDurationInput, TimeDurationResult>({
@@ -19,6 +20,7 @@ const useTimeDurationStore = createCalculatorStore<TimeDurationInput, TimeDurati
     endTime: "",
   },
   calculate: calculateTimeDuration,
+  schema: TimeDurationFormSchema,
 });
 
 export function TimeDurationCalculator() {
