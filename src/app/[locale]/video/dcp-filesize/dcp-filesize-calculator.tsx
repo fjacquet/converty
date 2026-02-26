@@ -15,12 +15,13 @@ export function DCPFilesizeCalculator() {
   const [resolution, setResolution] = useState<"2k" | "4k">("2k");
   const [audioChannels, setAudioChannels] = useState("6");
 
-  const result = calculateDCPFilesize(
+  const calcResult = calculateDCPFilesize(
     parseFloat(duration) || 0,
     resolution,
     24,
     parseInt(audioChannels) || 6
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

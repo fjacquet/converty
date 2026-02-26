@@ -19,24 +19,26 @@ export function DiffractionCalculator() {
     DIFFRACTION_SENSOR_PRESETS.find((s) => s.name === sensorPreset) ||
     DIFFRACTION_SENSOR_PRESETS[0];
 
-  const result = calculateDiffraction({
+  const calcResult = calculateDiffraction({
     aperture: parseFloat(aperture) || 0,
     sensorWidth: sensor.width,
     sensorHeight: sensor.height,
     megapixels: sensor.megapixels,
     wavelength: parseFloat(wavelength) || 550,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   // Calculate diffraction for all common apertures to show chart
   const apertureData = COMMON_APERTURES.map((ap) => {
-    const data = calculateDiffraction({
+    const dataResult = calculateDiffraction({
       aperture: ap,
       sensorWidth: sensor.width,
       sensorHeight: sensor.height,
       megapixels: sensor.megapixels,
       wavelength: parseFloat(wavelength) || 550,
     });
-    return { aperture: ap, ...data };
+    const data = dataResult.ok ? dataResult.value : null;
+    return { aperture: ap, data };
   });
 
   return (
@@ -155,23 +157,23 @@ export function DiffractionCalculator() {
               </tr>
             </thead>
             <tbody>
-              {apertureData.map((data) => {
-                if (!data) return null;
-                const ratio = data.airyDiskDiameter! / data.pixelPitch!;
-                const isSelected = data.aperture === parseFloat(aperture);
+              {apertureData.map((item) => {
+                if (!item.data) return null;
+                const ratio = item.data.airyDiskDiameter / item.data.pixelPitch;
+                const isSelected = item.aperture === parseFloat(aperture);
 
                 return (
                   <tr
-                    key={data.aperture}
+                    key={item.aperture}
                     className={`border-b border-muted ${
                       isSelected ? "bg-primary/10" : ""
-                    } ${data.isDiffractionLimited ? "text-red-600 dark:text-red-400" : ""}`}
+                    } ${item.data.isDiffractionLimited ? "text-red-600 dark:text-red-400" : ""}`}
                   >
-                    <td className="py-2 px-2 font-medium">f/{data.aperture}</td>
-                    <td className="py-2 px-2">{data.airyDiskDiameter?.toFixed(2)} µm</td>
+                    <td className="py-2 px-2 font-medium">f/{item.aperture}</td>
+                    <td className="py-2 px-2">{item.data.airyDiskDiameter.toFixed(2)} µm</td>
                     <td className="py-2 px-2">{(ratio * 100).toFixed(0)}%</td>
                     <td className="py-2 px-2">
-                      {data.isDiffractionLimited ? (
+                      {item.data.isDiffractionLimited ? (
                         <span className="px-2 py-1 rounded-full text-xs bg-red-500/20">
                           {t("limited")}
                         </span>
@@ -193,18 +195,18 @@ export function DiffractionCalculator() {
       <div className="space-y-4">
         <p className="text-sm font-medium">{t("visual-comparison")}</p>
         <div className="space-y-2">
-          {apertureData.slice(0, 8).map((data) => {
-            if (!data) return null;
-            const ratio = Math.min(data.airyDiskDiameter! / data.pixelPitch!, 2);
+          {apertureData.slice(0, 8).map((item) => {
+            if (!item.data) return null;
+            const ratio = Math.min(item.data.airyDiskDiameter / item.data.pixelPitch, 2);
             const widthPercent = (ratio / 2) * 100;
 
             return (
-              <div key={data.aperture} className="flex items-center gap-2">
-                <span className="w-12 text-sm font-medium">f/{data.aperture}</span>
+              <div key={item.aperture} className="flex items-center gap-2">
+                <span className="w-12 text-sm font-medium">f/{item.aperture}</span>
                 <div className="flex-1 h-6 bg-muted rounded overflow-hidden relative">
                   <div
                     className={`h-full transition-all ${
-                      data.isDiffractionLimited ? "bg-red-500/50" : "bg-green-500/50"
+                      item.data.isDiffractionLimited ? "bg-red-500/50" : "bg-green-500/50"
                     }`}
                     style={{ width: `${widthPercent}%` }}
                   />
@@ -215,7 +217,7 @@ export function DiffractionCalculator() {
                   />
                 </div>
                 <span className="w-16 text-xs text-muted-foreground">
-                  {data.airyDiskDiameter?.toFixed(1)}µm
+                  {item.data.airyDiskDiameter.toFixed(1)}µm
                 </span>
               </div>
             );

@@ -23,13 +23,14 @@ export function MacroDoFCalculator() {
 
   const sensor = MACRO_SENSOR_COC.find((s) => s.name === sensorPreset) || MACRO_SENSOR_COC[0];
 
-  const result = calculateMacroDoFWithFocalLength(
+  const calcResult = calculateMacroDoFWithFocalLength(
     parseFloat(aperture) || 0,
     parseFloat(magnification) || 0,
     sensor.coc,
     parseFloat(focalLength) || 0,
     parseFloat(pupilRatio) || 1
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   const focusStackShots = calculateFocusStackShots(
     parseFloat(totalDepthNeeded) || 0,

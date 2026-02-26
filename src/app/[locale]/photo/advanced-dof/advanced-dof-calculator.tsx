@@ -32,7 +32,7 @@ export function AdvancedDoFCalculator() {
   const [viewingDistance, setViewingDistance] = useState("450");
   const [visualAcuity, setVisualAcuity] = useState("30");
 
-  const result = calculateAdvancedDoF({
+  const calcResult = calculateAdvancedDoF({
     aperture: parseFloat(aperture) || 0,
     focalLength: parseFloat(focalLength) || 0,
     subjectDistance: parseFloat(subjectDistance) || 0,
@@ -42,6 +42,7 @@ export function AdvancedDoFCalculator() {
     viewingDistance: parseFloat(viewingDistance) || 0,
     visualAcuity: parseFloat(visualAcuity) || 0,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

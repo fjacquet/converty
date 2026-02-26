@@ -18,12 +18,13 @@ export function ImageFilesizeCalculator() {
   const [format, setFormat] = useState<ImageFormat>("jpeg");
   const [quality, setQuality] = useState<"low" | "typical" | "high">("typical");
 
-  const result = calculateImageFilesize(
+  const calcResult = calculateImageFilesize(
     parseInt(width) || 0,
     parseInt(height) || 0,
     format,
     quality
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">
@@ -111,12 +112,13 @@ export function ImageFilesizeCalculator() {
               </thead>
               <tbody>
                 {IMAGE_FORMATS.map((f) => {
-                  const est = calculateImageFilesize(
+                  const estResult = calculateImageFilesize(
                     parseInt(width) || 0,
                     parseInt(height) || 0,
                     f.id,
                     quality
                   );
+                  const estFormatted = estResult.ok ? estResult.value.formatted : "";
                   return (
                     <tr
                       key={f.id}
@@ -124,7 +126,7 @@ export function ImageFilesizeCalculator() {
                     >
                       <td className="py-2 font-medium">{f.name}</td>
                       <td className="py-2 text-muted-foreground">{f.description}</td>
-                      <td className="py-2 text-right font-mono">{est?.formatted}</td>
+                      <td className="py-2 text-right font-mono">{estFormatted}</td>
                     </tr>
                   );
                 })}

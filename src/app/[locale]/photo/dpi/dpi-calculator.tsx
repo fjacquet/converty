@@ -11,11 +11,12 @@ export function DPICalculator() {
   const [printHeight, setPrintHeight] = useState("10");
   const [dpi, setDpi] = useState("300");
 
-  const result = calculateDPI(
+  const calcResult = calculateDPI(
     parseFloat(printWidth) || 0,
     parseFloat(printHeight) || 0,
     parseInt(dpi) || 0
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   const getQualityColor = (quality: string) => {
     switch (quality) {

@@ -125,17 +125,16 @@ export const useMiningCalculatorStore = create<MiningCalculatorState>()(
     const hardwareCostNum = loadedHardwareCost ? parseFloat(loadedHardwareCost) : undefined;
 
     if (hashRateNum > 0 && powerWattsNum > 0 && electricityCostNum >= 0) {
-      try {
-        initialResult = calculateMiningProfitability({
-          hashRate: hashRateNum,
-          hashRateUnit: loadedHashRateUnit,
-          powerWatts: powerWattsNum,
-          electricityCost: electricityCostNum,
-          currency: loadedCurrency,
-          hardwareCost: hardwareCostNum,
-        });
-      } catch {
-        // Ignore errors on initial load
+      const initCalcResult = calculateMiningProfitability({
+        hashRate: hashRateNum,
+        hashRateUnit: loadedHashRateUnit,
+        powerWatts: powerWattsNum,
+        electricityCost: electricityCostNum,
+        currency: loadedCurrency,
+        hardwareCost: hardwareCostNum,
+      });
+      if (initCalcResult.ok) {
+        initialResult = initCalcResult.value;
       }
     }
 
@@ -222,21 +221,18 @@ export const useMiningCalculatorStore = create<MiningCalculatorState>()(
           return;
         }
 
-        try {
-          const result = calculateMiningProfitability({
-            hashRate: hashRateNum,
-            hashRateUnit,
-            powerWatts: powerWattsNum,
-            electricityCost: electricityCostNum,
-            currency,
-            hardwareCost: hardwareCostNum,
-          });
-          set({ result, error: null });
-        } catch (err) {
-          set({
-            result: null,
-            error: err instanceof Error ? err.message : "Calculation failed",
-          });
+        const calcResult = calculateMiningProfitability({
+          hashRate: hashRateNum,
+          hashRateUnit,
+          powerWatts: powerWattsNum,
+          electricityCost: electricityCostNum,
+          currency,
+          hardwareCost: hardwareCostNum,
+        });
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

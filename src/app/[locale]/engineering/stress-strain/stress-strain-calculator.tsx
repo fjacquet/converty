@@ -23,7 +23,7 @@ import {
 } from "@/lib/converters/engineering/stress-strain";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
-const useStressStrainStore = createCalculatorStore<StressStrainInput, StressStrainResult | null>({
+const useStressStrainStore = createCalculatorStore<StressStrainInput, StressStrainResult>({
   name: "stress-strain",
   initialValues: {
     mode: "stress",
@@ -35,12 +35,7 @@ const useStressStrainStore = createCalculatorStore<StressStrainInput, StressStra
     customYoungsModulus: 200,
     customYieldStrength: 250,
   },
-  calculate: (input) => {
-    const r = calculateStressStrain(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateStressStrain(input),
 });
 
 export default function StressStrainCalculator() {

@@ -17,7 +17,8 @@ export function AudioFilesizeCalculator() {
   const [quality, setQuality] = useState<"low" | "typical" | "high">("typical");
   const [channels, setChannels] = useState<1 | 2>(2);
 
-  const result = calculateAudioFilesize(parseInt(duration) || 0, format, quality, channels);
+  const calcResult = calculateAudioFilesize(parseInt(duration) || 0, format, quality, channels);
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">
@@ -104,12 +105,13 @@ export function AudioFilesizeCalculator() {
               </thead>
               <tbody>
                 {AUDIO_FORMATS.map((f) => {
-                  const est = calculateAudioFilesize(
+                  const estResult = calculateAudioFilesize(
                     parseInt(duration) || 0,
                     f.id,
                     quality,
                     channels
                   );
+                  const estFormatted = estResult.ok ? estResult.value.formatted : "";
                   return (
                     <tr
                       key={f.id}
@@ -117,7 +119,7 @@ export function AudioFilesizeCalculator() {
                     >
                       <td className="py-2 font-medium">{f.name}</td>
                       <td className="py-2 text-muted-foreground">{f.description}</td>
-                      <td className="py-2 text-right font-mono">{est?.formatted}</td>
+                      <td className="py-2 text-right font-mono">{estFormatted}</td>
                     </tr>
                   );
                 })}

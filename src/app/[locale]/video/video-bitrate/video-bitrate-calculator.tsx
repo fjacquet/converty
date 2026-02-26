@@ -20,7 +20,7 @@ export function VideoBitrateCalculator() {
   const [codec, setCodec] = useState<"h264" | "h265" | "prores" | "raw">("h264");
   const [quality, setQuality] = useState<"low" | "medium" | "high" | "lossless">("medium");
 
-  const result = calculateVideoBitrate(
+  const calcResult = calculateVideoBitrate(
     parseInt(width) || 0,
     parseInt(height) || 0,
     parseInt(fps) || 0,
@@ -28,6 +28,7 @@ export function VideoBitrateCalculator() {
     codec,
     quality
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

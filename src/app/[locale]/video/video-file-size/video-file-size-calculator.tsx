@@ -26,11 +26,12 @@ export function VideoFileSizeCalculator() {
     parseInt(seconds) || 0
   );
 
-  const result = calculateVideoFileSize({
+  const calcResult = calculateVideoFileSize({
     duration,
     bitrateMbps: parseFloat(bitrate) || 0,
     audioBitrateKbps: parseInt(audioBitrate) || 192,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const presets = BITRATE_PRESETS[resolution as keyof typeof BITRATE_PRESETS];
 

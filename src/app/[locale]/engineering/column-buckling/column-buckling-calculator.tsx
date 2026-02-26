@@ -25,10 +25,7 @@ import {
 } from "@/lib/converters/engineering/column-buckling";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
-const useColumnBucklingStore = createCalculatorStore<
-  ColumnBucklingInput,
-  ColumnBucklingResult | null
->({
+const useColumnBucklingStore = createCalculatorStore<ColumnBucklingInput, ColumnBucklingResult>({
   name: "column-buckling",
   initialValues: {
     materialId: "steel-a36",
@@ -41,12 +38,7 @@ const useColumnBucklingStore = createCalculatorStore<
     customYoungsModulus: 200,
     customYieldStrength: 250,
   },
-  calculate: (input) => {
-    const r = calculateColumnBuckling(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateColumnBuckling(input),
 });
 
 export default function ColumnBucklingCalculator() {

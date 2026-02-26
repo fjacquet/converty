@@ -15,11 +15,12 @@ export function CompositionCalculator() {
   const [distance, setDistance] = useState("3");
   const [cropFactor, setCropFactor] = useState("1");
 
-  const result = calculateComposition(
+  const calcResult = calculateComposition(
     parseFloat(focalLength) || 0,
     parseFloat(distance) || 0,
     parseFloat(cropFactor) || 1
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

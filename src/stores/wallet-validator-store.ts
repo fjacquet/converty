@@ -96,14 +96,11 @@ export const useWalletValidatorStore = create<WalletValidatorState>()(
           return;
         }
 
-        try {
-          const result = validateWalletAddress(address, walletType);
-          set({ result, error: null });
-        } catch (err) {
-          set({
-            result: null,
-            error: err instanceof Error ? err.message : "Validation failed",
-          });
+        const calcResult = validateWalletAddress(address, walletType);
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

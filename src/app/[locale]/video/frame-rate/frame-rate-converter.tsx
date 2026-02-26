@@ -13,10 +13,11 @@ export function FrameRateConverter() {
   const [sourceFps, setSourceFps] = useState("24");
   const [targetFps, setTargetFps] = useState("30");
 
-  const result = calculateFrameRateConversion(
+  const calcResult = calculateFrameRateConversion(
     parseFloat(sourceFps) || 0,
     parseFloat(targetFps) || 0
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

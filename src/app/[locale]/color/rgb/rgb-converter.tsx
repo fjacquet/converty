@@ -34,9 +34,11 @@ export function RgbConverter() {
       case "rgb":
         conversion = convertFromRgb(rgb.r, rgb.g, rgb.b);
         break;
-      case "hex":
-        conversion = convertFromHex(hex);
+      case "hex": {
+        const hexResult = convertFromHex(hex);
+        conversion = hexResult.ok ? hexResult.value : null;
         break;
+      }
       case "hsl": {
         const rgbFromHsl = hslToRgb(hsl.h, hsl.s, hsl.l);
         conversion = convertFromRgb(rgbFromHsl.r, rgbFromHsl.g, rgbFromHsl.b);

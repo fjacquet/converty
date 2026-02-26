@@ -13,7 +13,8 @@ export function AspectRatioConverter() {
 
   const w = parseInt(width) || 0;
   const h = parseInt(height) || 0;
-  const result = calculateAspectRatio(w, h);
+  const calcResult = calculateAspectRatio(w, h);
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

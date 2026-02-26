@@ -22,12 +22,13 @@ export function DownloadCalculator() {
   const [bandwidth, setBandwidth] = useState("100");
   const [bandwidthUnit, setBandwidthUnit] = useState("mbps");
 
-  const result = calculateDownloadTime(
+  const calcResult = calculateDownloadTime(
     parseFloat(fileSize) || 0,
     fileSizeUnit,
     parseFloat(bandwidth) || 0,
     bandwidthUnit
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

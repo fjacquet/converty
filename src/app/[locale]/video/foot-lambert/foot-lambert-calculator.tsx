@@ -13,12 +13,13 @@ export function FootLambertCalculator() {
   const [screenWidth, setScreenWidth] = useState("40");
   const [screenHeight, setScreenHeight] = useState("17");
 
-  const result = calculateFootLambert(
+  const calcResult = calculateFootLambert(
     parseFloat(value) || 0,
     unit,
     unit === "lumens" ? parseFloat(screenWidth) : undefined,
     unit === "lumens" ? parseFloat(screenHeight) : undefined
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

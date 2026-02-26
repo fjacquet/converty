@@ -16,11 +16,12 @@ export function ScreenSizeCalculator() {
   const [aspectW, setAspectW] = useState("16");
   const [aspectH, setAspectH] = useState("9");
 
-  const result = calculateScreenSize(
+  const calcResult = calculateScreenSize(
     parseFloat(diagonal) || 0,
     parseInt(aspectW) || 16,
     parseInt(aspectH) || 9
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">
@@ -121,7 +122,8 @@ export function ScreenSizeCalculator() {
               </thead>
               <tbody>
                 {COMMON_DIAGONALS.map((d) => {
-                  const r = calculateScreenSize(d.size, parseInt(aspectW), parseInt(aspectH));
+                  const rResult = calculateScreenSize(d.size, parseInt(aspectW), parseInt(aspectH));
+                  const r = rResult.ok ? rResult.value : null;
                   return (
                     <tr
                       key={d.size}

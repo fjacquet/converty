@@ -15,7 +15,8 @@ export function MegapixelCalculator() {
   const [width, setWidth] = useState("6000");
   const [height, setHeight] = useState("4000");
 
-  const result = calculateMegapixels(parseInt(width) || 0, parseInt(height) || 0);
+  const calcResult = calculateMegapixels(parseInt(width) || 0, parseInt(height) || 0);
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

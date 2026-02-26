@@ -20,23 +20,16 @@ import {
 } from "@/lib/converters/engineering/unit-converter";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
-const useUnitConverterStore = createCalculatorStore<UnitConverterInput, UnitConverterResult | null>(
-  {
-    name: "engineering-unit-converter",
-    initialValues: {
-      categoryId: "pressure",
-      fromUnit: "MPa",
-      toUnit: "psi",
-      value: 1,
-    },
-    calculate: (input) => {
-      const r = calculateUnitConversion(input);
-      return r
-        ? { ok: true as const, value: r }
-        : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-    },
-  }
-);
+const useUnitConverterStore = createCalculatorStore<UnitConverterInput, UnitConverterResult>({
+  name: "engineering-unit-converter",
+  initialValues: {
+    categoryId: "pressure",
+    fromUnit: "MPa",
+    toUnit: "psi",
+    value: 1,
+  },
+  calculate: (input) => calculateUnitConversion(input),
+});
 
 export default function UnitConverterCalculator() {
   const t = useTranslations("calculator.engineering");

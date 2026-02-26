@@ -97,8 +97,12 @@ export const useHashCalculatorStore = create<HashCalculatorState>()(
         set({ isCalculating: true, error: null });
 
         try {
-          const result = await calculateHash(text, algorithm);
-          set({ result, isCalculating: false });
+          const calcResult = await calculateHash(text, algorithm);
+          if (calcResult.ok) {
+            set({ result: calcResult.value, isCalculating: false });
+          } else {
+            set({ result: null, isCalculating: false, error: calcResult.error });
+          }
         } catch (err) {
           set({
             result: null,

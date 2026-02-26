@@ -13,12 +13,13 @@ export function DepthOfFieldCalculator() {
   const [distance, setDistance] = useState("3");
   const [cropFactor, setCropFactor] = useState("1");
 
-  const result = calculateDepthOfField(
+  const calcResult = calculateDepthOfField(
     parseFloat(aperture) || 0,
     parseFloat(focalLength) || 0,
     parseFloat(distance) || 0,
     parseFloat(cropFactor) || 1
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatDistance = (d: number) => (d === Infinity ? "∞" : `${d.toFixed(2)} m`);
 

@@ -26,7 +26,7 @@ import {
 import { createCalculatorStore } from "@/stores/calculator-store";
 import { CrossSectionSvg } from "./CrossSectionSvg";
 
-const useStore = createCalculatorStore<MomentOfInertiaInput, MomentOfInertiaResult | null>({
+const useStore = createCalculatorStore<MomentOfInertiaInput, MomentOfInertiaResult>({
   name: "moment-of-inertia",
   initialValues: {
     shape: "rectangle",
@@ -51,12 +51,7 @@ const useStore = createCalculatorStore<MomentOfInertiaInput, MomentOfInertiaResu
     offsetY: 0,
     beamSectionId: "custom",
   },
-  calculate: (input) => {
-    const r = calculateMomentOfInertia(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateMomentOfInertia(input),
 });
 
 export default function MomentOfInertiaCalculator() {

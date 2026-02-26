@@ -22,7 +22,7 @@ import {
 } from "@/lib/converters/engineering/pipe-flow";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
-const usePipeFlowStore = createCalculatorStore<PipeFlowInput, PipeFlowResult | null>({
+const usePipeFlowStore = createCalculatorStore<PipeFlowInput, PipeFlowResult>({
   name: "pipe-flow",
   initialValues: {
     diameter: 100,
@@ -34,12 +34,7 @@ const usePipeFlowStore = createCalculatorStore<PipeFlowInput, PipeFlowResult | n
     customDensity: 998.2,
     customViscosity: 0.001002,
   },
-  calculate: (input) => {
-    const r = calculatePipeFlow(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculatePipeFlow(input),
 });
 
 export default function PipeFlowCalculator() {

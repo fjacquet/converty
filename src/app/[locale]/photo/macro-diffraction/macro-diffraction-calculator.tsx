@@ -20,13 +20,14 @@ export function MacroDiffractionCalculator() {
     DIFFRACTION_SENSOR_PRESETS.find((s) => s.name === sensorPreset) ||
     DIFFRACTION_SENSOR_PRESETS[0];
 
-  const result = calculateMacroDiffraction({
+  const calcResult = calculateMacroDiffraction({
     aperture: parseFloat(aperture) || 0,
     magnification: parseFloat(magnification) || 0,
     sensorWidth: sensor.width,
     sensorHeight: sensor.height,
     megapixels: sensor.megapixels,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   // Generate effective aperture table for reference
   const effectiveTable = generateEffectiveApertureTable(

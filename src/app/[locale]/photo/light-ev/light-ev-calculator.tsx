@@ -16,11 +16,12 @@ export function LightEVCalculator() {
   const [shutterSpeed, setShutterSpeed] = useState((1 / 125).toString());
   const [iso, setIso] = useState("100");
 
-  const result = calculateEV(
+  const calcResult = calculateEV(
     parseFloat(aperture) || 0,
     parseFloat(shutterSpeed) || 0,
     parseInt(iso) || 0
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

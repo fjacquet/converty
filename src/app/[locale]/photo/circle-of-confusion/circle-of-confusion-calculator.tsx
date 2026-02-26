@@ -17,12 +17,13 @@ export function CircleOfConfusionCalculator() {
   const [viewingDistance, setViewingDistance] = useState("450");
   const [visualAcuity, setVisualAcuity] = useState("30");
 
-  const result = calculateCoC({
+  const calcResult = calculateCoC({
     sensorWidth: parseFloat(sensorWidth) || 0,
     printWidth: parseFloat(printWidth) || 0,
     viewingDistance: parseFloat(viewingDistance) || 0,
     visualAcuity: parseFloat(visualAcuity) || 0,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   // Find selected sensor name
   const selectedSensor = SENSOR_COC.find((s) => Math.abs(s.width - parseFloat(sensorWidth)) < 0.5);

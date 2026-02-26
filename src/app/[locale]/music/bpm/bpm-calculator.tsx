@@ -11,7 +11,8 @@ export function BPMCalculator() {
   const [bpm, setBpm] = useState("120");
 
   const numBpm = parseFloat(bpm) || 0;
-  const result = calculateBPM(numBpm);
+  const calcResult = calculateBPM(numBpm);
+  const result = calcResult.ok ? calcResult.value : null;
   const tempoMarkingKey = numBpm > 0 ? getTempoMarking(numBpm) : "";
 
   return (

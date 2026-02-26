@@ -167,14 +167,11 @@ export const useSwissMortgageStore = create<MortgageSwissState>()(
           includeAmortization: state.includeAmortization,
         };
 
-        try {
-          const result = calculateSwissMortgage(input);
-          set({ result, error: null });
-        } catch (err) {
-          set({
-            result: null,
-            error: err instanceof Error ? err.message : "Calculation failed",
-          });
+        const calcResult = calculateSwissMortgage(input);
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

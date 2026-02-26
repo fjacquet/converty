@@ -17,11 +17,12 @@ export function PortraitDistanceCalculator() {
   const [portraitType, setPortraitType] = useState<PortraitType>("head-shoulders");
   const [cropFactor, setCropFactor] = useState("1");
 
-  const result = calculatePortraitDistance(
+  const calcResult = calculatePortraitDistance(
     parseFloat(focalLength) || 0,
     portraitType,
     parseFloat(cropFactor) || 1
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   const getCompressionColor = (effect: string) => {
     if (effect === "Distorted") return "text-red-600 dark:text-red-400";
@@ -122,22 +123,23 @@ export function PortraitDistanceCalculator() {
               </thead>
               <tbody>
                 {PORTRAIT_FOCAL_LENGTHS.map((fl) => {
-                  const r = calculatePortraitDistance(
+                  const rResult = calculatePortraitDistance(
                     fl,
                     portraitType,
                     parseFloat(cropFactor) || 1
                   );
+                  const rValue = rResult.ok ? rResult.value : null;
                   return (
                     <tr
                       key={fl}
                       className={`border-b border-muted ${fl === parseFloat(focalLength) ? "bg-primary/10" : ""}`}
                     >
                       <td className="py-2 font-mono">{fl}mm</td>
-                      <td className="py-2 text-right font-mono">{r?.recommendedDistance} m</td>
+                      <td className="py-2 text-right font-mono">{rValue?.recommendedDistance} m</td>
                       <td
-                        className={`py-2 pl-4 ${getCompressionColor(r?.compressionEffect || "")}`}
+                        className={`py-2 pl-4 ${getCompressionColor(rValue?.compressionEffect || "")}`}
                       >
-                        {r?.compressionEffect}
+                        {rValue?.compressionEffect}
                       </td>
                     </tr>
                   );

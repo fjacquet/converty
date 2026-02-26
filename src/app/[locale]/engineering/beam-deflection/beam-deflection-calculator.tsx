@@ -24,10 +24,7 @@ import { getMaterials } from "@/lib/converters/engineering/stress-strain";
 import { createCalculatorStore } from "@/stores/calculator-store";
 import { BeamDiagramSvg } from "./BeamDiagramSvg";
 
-const useBeamDeflectionStore = createCalculatorStore<
-  BeamDeflectionInput,
-  BeamDeflectionResult | null
->({
+const useBeamDeflectionStore = createCalculatorStore<BeamDeflectionInput, BeamDeflectionResult>({
   name: "beam-deflection",
   initialValues: {
     beamType: "simply-supported",
@@ -40,12 +37,7 @@ const useBeamDeflectionStore = createCalculatorStore<
     materialId: "custom",
     beamSectionId: "custom",
   },
-  calculate: (input) => {
-    const r = calculateBeamDeflection(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateBeamDeflection(input),
 });
 
 export default function BeamDeflectionCalculator() {

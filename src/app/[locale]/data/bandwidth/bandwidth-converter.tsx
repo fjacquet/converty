@@ -12,7 +12,8 @@ export function BandwidthConverter() {
   const [unit, setUnit] = useState("mbps");
 
   const numValue = parseFloat(value) || 0;
-  const result = convertBandwidth(numValue, unit);
+  const calcResult = convertBandwidth(numValue, unit);
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">

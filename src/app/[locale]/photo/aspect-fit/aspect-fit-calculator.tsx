@@ -12,12 +12,13 @@ export function AspectFitCalculator() {
   const [screenWidth, setScreenWidth] = useState("2560");
   const [screenHeight, setScreenHeight] = useState("1440");
 
-  const result = calculateAspectFit(
+  const calcResult = calculateAspectFit(
     parseInt(imageWidth) || 0,
     parseInt(imageHeight) || 0,
     parseInt(screenWidth) || 0,
     parseInt(screenHeight) || 0
   );
+  const result = calcResult.ok ? calcResult.value : null;
 
   return (
     <div className="space-y-6">
