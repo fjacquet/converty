@@ -108,7 +108,17 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [x] 40-02-PLAN.md — Tests: BB Credit, Subnet, BMI converters (Wave 2, parallel)
   - [x] 40-03-PLAN.md — Tests: Compound Interest, Molecular Weight converters (Wave 2, parallel)
   - [x] 40-04-PLAN.md — Coverage gate: verify ≥75% on all 5 files, fix gaps, TypeScript + Biome clean (Wave 3)
-- [ ] Phase 41: Full Converter Test Coverage — unit tests for all 169 converters, 75% threshold in CI
+- [ ] Phase 41: Full Converter Test Coverage — **10 plans** — unit tests for all converters, global 75% threshold, CI gate
+  - [ ] 41-01-PLAN.md — vitest.config.ts global threshold + cpu-types.ts exclude + static.yml CI gate (Wave 1)
+  - [ ] 41-02-PLAN.md — Math tests: 26 trivial/simple converters (Wave 2, parallel)
+  - [ ] 41-03-PLAN.md — Math tests: 13 medium/complex converters (Wave 2, parallel)
+  - [ ] 41-04-PLAN.md — Health tests: 27 remaining converters (Wave 2, parallel)
+  - [ ] 41-05-PLAN.md — Finance tests: 22 remaining converters (Wave 2, parallel)
+  - [ ] 41-06-PLAN.md — Photo + Video + Data + Physics + Music + Color tests (Wave 3, parallel)
+  - [ ] 41-07-PLAN.md — Web + Datetime + Automotive + Cooking tests (Wave 3, parallel)
+  - [ ] 41-08-PLAN.md — Network (remaining) + Crypto + Realestate tests (Wave 3, parallel)
+  - [ ] 41-09-PLAN.md — Chemistry + Engineering + Infrastructure tests (Wave 3, parallel)
+  - [ ] 41-10-PLAN.md — Global coverage verification + gap fixes (Wave 4)
 - [ ] Phase 42: Error Boundaries & Toasts — react-error-boundary, Sonner, DOMPurify
 - [ ] Phase 43: Zod Input Validation — schemas for all calculator inputs, Zod URL parsing
 - [ ] Phase 44: LZ-String URL Compression — compress state in URL, backward compat
@@ -121,4 +131,4 @@ See `.planning/REQUIREMENTS.md` and `.planning/GAP-ANALYSIS.md` for full details
 
 ---
 
-*Next action: `/gsd:execute-phase 40` to start Vitest Foundation*
+*Next action: `/gsd:execute-phase 41` to start Full Converter Test Coverage*
