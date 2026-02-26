@@ -123,10 +123,10 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 
 ### Requirements
 
-- [ ] **R7.1** ADR-011: Vitest test strategy (replaces "Under Review" status of ADR-010)
+- [x] **R7.1** ADR-011: Vitest test strategy (replaces "Under Review" status of ADR-010)
 - [x] **R7.2** ADR-012: i18n structure with next-intl namespacing
 - [x] **R7.3** ADR-013: URL compression with LZ-String (rationale for search params vs hash)
-- [ ] **R7.4** ADR-014: Zod validation layer architecture
+- [x] **R7.4** ADR-014: Zod validation layer architecture
 
 ---
 
