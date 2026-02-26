@@ -8,6 +8,7 @@ import {
   type LongDivisionInput,
   type LongDivisionResult,
 } from "@/lib/converters/math/long-division";
+import { LongDivisionFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -18,6 +19,7 @@ interface FormValues {
 
 const useLongDivisionStore = createCalculatorStore<FormValues, LongDivisionResult | null>({
   name: "long-division-calculator",
+  schema: LongDivisionFormSchema,
   initialValues: {
     dividend: "12345",
     divisor: "7",
@@ -38,7 +40,7 @@ export function LongDivisionCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useLongDivisionStore();
+  const { values, setValue, result, errors } = useLongDivisionStore();
 
   return (
     <div className="space-y-6">
@@ -53,6 +55,7 @@ export function LongDivisionCalculator() {
             value={values.dividend}
             onChange={(v) => setValue("dividend", v)}
             type="number"
+            error={errors.dividend}
           />
 
           <InputField
@@ -61,6 +64,7 @@ export function LongDivisionCalculator() {
             value={values.divisor}
             onChange={(v) => setValue("divisor", v)}
             type="number"
+            error={errors.divisor}
           />
 
           <InputField
@@ -71,6 +75,7 @@ export function LongDivisionCalculator() {
             type="number"
             min={1}
             max={50}
+            error={errors.decimalPlaces}
           />
         </CardContent>
       </Card>

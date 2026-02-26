@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { type AreaInput, type AreaResult, calculateArea } from "@/lib/converters/math/area";
+import { AreaFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -40,6 +41,7 @@ interface FormValues {
 
 const useAreaStore = createCalculatorStore<FormValues, AreaResult | null>({
   name: "area-calculator",
+  schema: AreaFormSchema,
   initialValues: {
     shape: "rectangle",
     length: "10",
@@ -78,7 +80,7 @@ const useAreaStore = createCalculatorStore<FormValues, AreaResult | null>({
 export function AreaCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useAreaStore();
+  const { values, setValue, result, errors } = useAreaStore();
 
   const areaResult = result;
 
@@ -95,6 +97,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="10"
+              error={errors.length}
             />
             <InputField
               id="width"
@@ -104,6 +107,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.width}
             />
           </>
         );
@@ -117,6 +121,7 @@ export function AreaCalculator() {
             step="any"
             min={0.0001}
             placeholder="5"
+            error={errors.length}
           />
         );
       case "triangle":
@@ -131,6 +136,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="6"
+              error={errors.base}
             />
             <InputField
               id="height"
@@ -140,6 +146,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.height}
             />
           </>
         );
@@ -153,6 +160,7 @@ export function AreaCalculator() {
             step="any"
             min={0.0001}
             placeholder="5"
+            error={errors.radius}
           />
         );
       case "trapezoid":
@@ -166,6 +174,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="8"
+              error={errors.base1}
             />
             <InputField
               id="base2"
@@ -175,6 +184,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.base2}
             />
             <InputField
               id="height"
@@ -184,6 +194,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.height}
             />
           </>
         );
@@ -198,6 +209,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.radiusA}
             />
             <InputField
               id="radiusB"
@@ -207,6 +219,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="3"
+              error={errors.radiusB}
             />
           </>
         );
@@ -221,6 +234,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.radius}
             />
             <InputField
               id="angle"
@@ -231,6 +245,7 @@ export function AreaCalculator() {
               min={0.0001}
               max={360}
               placeholder="90"
+              error={errors.angle}
             />
           </>
         );
@@ -245,6 +260,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="6"
+              error={errors.diagonal1}
             />
             <InputField
               id="diagonal2"
@@ -254,6 +270,7 @@ export function AreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="8"
+              error={errors.diagonal2}
             />
           </>
         );

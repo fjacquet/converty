@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { calculateVolume, type VolumeInput, type VolumeResult } from "@/lib/converters/math/volume";
+import { VolumeFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -26,6 +27,7 @@ interface FormValues {
 
 const useVolumeStore = createCalculatorStore<FormValues, VolumeResult | null>({
   name: "volume-calculator",
+  schema: VolumeFormSchema,
   initialValues: {
     shape: "cube",
     length: "5",
@@ -54,7 +56,7 @@ const useVolumeStore = createCalculatorStore<FormValues, VolumeResult | null>({
 export function VolumeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useVolumeStore();
+  const { values, setValue, result, errors } = useVolumeStore();
 
   const volumeResult = result;
 
@@ -70,6 +72,7 @@ export function VolumeCalculator() {
             step="any"
             min={0.0001}
             placeholder="5"
+            error={errors.length}
           />
         );
       case "rectangular":
@@ -83,6 +86,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.length}
             />
             <InputField
               id="width"
@@ -92,6 +96,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.width}
             />
             <InputField
               id="height"
@@ -101,6 +106,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="3"
+              error={errors.height}
             />
           </>
         );
@@ -114,6 +120,7 @@ export function VolumeCalculator() {
             step="any"
             min={0.0001}
             placeholder="5"
+            error={errors.radius}
           />
         );
       case "cylinder":
@@ -128,6 +135,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.radius}
             />
             <InputField
               id="height"
@@ -137,6 +145,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="10"
+              error={errors.height}
             />
           </>
         );
@@ -152,6 +161,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="25"
+              error={errors.baseArea}
             />
             <InputField
               id="height"
@@ -161,6 +171,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="10"
+              error={errors.height}
             />
           </>
         );
@@ -175,6 +186,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="10"
+              error={errors.majorRadius}
             />
             <InputField
               id="minorRadius"
@@ -184,6 +196,7 @@ export function VolumeCalculator() {
               step="any"
               min={0.0001}
               placeholder="3"
+              error={errors.minorRadius}
             />
           </>
         );

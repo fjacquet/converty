@@ -15,6 +15,7 @@ import {
   type PermutationCombinationInput,
   type PermutationCombinationResult,
 } from "@/lib/converters/math/permutation-combination";
+import { PermutationCombinationFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type PCMode = "permutation" | "combination" | "permutationRepetition" | "combinationRepetition";
@@ -30,6 +31,7 @@ const usePermutationCombinationStore = createCalculatorStore<
   PermutationCombinationResult | null
 >({
   name: "permutation-combination-calculator",
+  schema: PermutationCombinationFormSchema,
   initialValues: {
     mode: "permutation",
     n: "10",
@@ -49,7 +51,7 @@ export function PermutationCombinationCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = usePermutationCombinationStore();
+  const { values, setValue, result, errors } = usePermutationCombinationStore();
 
   const pcResult = result;
 
@@ -83,6 +85,7 @@ export function PermutationCombinationCalculator() {
           min={0}
           step="1"
           placeholder="10"
+          error={errors.n}
         />
         <InputField
           id="r"
@@ -92,6 +95,7 @@ export function PermutationCombinationCalculator() {
           min={0}
           step="1"
           placeholder="3"
+          error={errors.r}
         />
       </div>
 

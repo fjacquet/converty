@@ -15,6 +15,7 @@ import {
   type ZScoreInput,
   type ZScoreResult,
 } from "@/lib/converters/math/z-score";
+import { ZScoreFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type ZScoreMode = "calculate" | "fromZScore" | "probability";
@@ -29,6 +30,7 @@ interface FormValues {
 
 const useZScoreStore = createCalculatorStore<FormValues, ZScoreResult | null>({
   name: "z-score-calculator",
+  schema: ZScoreFormSchema,
   initialValues: {
     mode: "calculate",
     value: "85",
@@ -51,7 +53,7 @@ const useZScoreStore = createCalculatorStore<FormValues, ZScoreResult | null>({
 export function ZScoreCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useZScoreStore();
+  const { values, setValue, result, errors } = useZScoreStore();
 
   const zResult = result;
 
@@ -80,6 +82,7 @@ export function ZScoreCalculator() {
             onChange={(v) => setValue("value", v)}
             step="any"
             placeholder="85"
+            error={errors.value}
           />
         )}
 
@@ -91,6 +94,7 @@ export function ZScoreCalculator() {
             onChange={(v) => setValue("zScore", v)}
             step="any"
             placeholder="-1"
+            error={errors.zScore}
           />
         )}
 
@@ -104,6 +108,7 @@ export function ZScoreCalculator() {
             min={0}
             max={100}
             placeholder="50"
+            error={errors.value}
           />
         )}
 
@@ -114,6 +119,7 @@ export function ZScoreCalculator() {
           onChange={(v) => setValue("mean", v)}
           step="any"
           placeholder="100"
+          error={errors.mean}
         />
 
         <InputField
@@ -124,6 +130,7 @@ export function ZScoreCalculator() {
           step="any"
           min={0.001}
           placeholder="15"
+          error={errors.standardDeviation}
         />
       </div>
 

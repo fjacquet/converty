@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { calculateRatio, type RatioInput, type RatioResult } from "@/lib/converters/math/ratio";
+import { RatioFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -25,6 +26,7 @@ interface FormValues {
 
 const useRatioStore = createCalculatorStore<FormValues, RatioResult | null>({
   name: "ratio-calculator",
+  schema: RatioFormSchema,
   initialValues: {
     mode: "simplify",
     a: "12",
@@ -51,7 +53,7 @@ const useRatioStore = createCalculatorStore<FormValues, RatioResult | null>({
 export function RatioCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useRatioStore();
+  const { values, setValue, result, errors } = useRatioStore();
 
   const ratioResult = result;
 
@@ -65,6 +67,7 @@ export function RatioCalculator() {
           onChange={(v) => setValue("a", v)}
           step="any"
           placeholder="12"
+          error={errors.a}
         />
         <InputField
           id="b"
@@ -73,6 +76,7 @@ export function RatioCalculator() {
           onChange={(v) => setValue("b", v)}
           step="any"
           placeholder="18"
+          error={errors.b}
         />
       </>
     );
@@ -91,6 +95,7 @@ export function RatioCalculator() {
               onChange={(v) => setValue("scaleFactor", v)}
               step="any"
               placeholder="2"
+              error={errors.scaleFactor}
             />
           </>
         );
@@ -105,6 +110,7 @@ export function RatioCalculator() {
               onChange={(v) => setValue("c", v)}
               step="any"
               placeholder="3"
+              error={errors.c}
             />
             <InputField
               id="d"
@@ -113,6 +119,7 @@ export function RatioCalculator() {
               onChange={(v) => setValue("d", v)}
               step="any"
               placeholder="Leave empty to find"
+              error={errors.d}
             />
           </>
         );
@@ -127,6 +134,7 @@ export function RatioCalculator() {
               onChange={(v) => setValue("c", v)}
               step="any"
               placeholder="4"
+              error={errors.c}
             />
             <InputField
               id="d"
@@ -135,6 +143,7 @@ export function RatioCalculator() {
               onChange={(v) => setValue("d", v)}
               step="any"
               placeholder="6"
+              error={errors.d}
             />
           </>
         );

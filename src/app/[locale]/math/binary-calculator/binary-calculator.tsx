@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { type BinaryInput, type BinaryResult, calculateBinary } from "@/lib/converters/math/binary";
+import { BinaryFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -24,6 +25,7 @@ interface FormValues {
 
 const useBinaryStore = createCalculatorStore<FormValues, BinaryResult | null>({
   name: "binary-calculator",
+  schema: BinaryFormSchema,
   initialValues: {
     mode: "decimalToBinary",
     decimal: "42",
@@ -46,7 +48,7 @@ const useBinaryStore = createCalculatorStore<FormValues, BinaryResult | null>({
 export function BinaryCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useBinaryStore();
+  const { values, setValue, result, errors } = useBinaryStore();
 
   const binaryResult = result;
 
@@ -61,6 +63,7 @@ export function BinaryCalculator() {
             onChange={(v) => setValue("decimal", v)}
             step="1"
             placeholder="42"
+            error={errors.decimal}
           />
         );
       case "binaryToDecimal":

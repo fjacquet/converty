@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { calculateRoot, type RootInput, type RootResult } from "@/lib/converters/math/root";
+import { RootFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -12,6 +13,7 @@ interface FormValues {
 
 const useRootStore = createCalculatorStore<FormValues, RootResult | null>({
   name: "root-calculator",
+  schema: RootFormSchema,
   initialValues: {
     radicand: "81",
     index: "2",
@@ -28,7 +30,7 @@ const useRootStore = createCalculatorStore<FormValues, RootResult | null>({
 export function RootCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useRootStore();
+  const { values, setValue, result, errors } = useRootStore();
 
   const rootResult = result;
 
@@ -49,6 +51,7 @@ export function RootCalculator() {
           onChange={(v) => setValue("radicand", v)}
           step="any"
           placeholder="81"
+          error={errors.radicand}
         />
         <InputField
           id="index"
@@ -58,6 +61,7 @@ export function RootCalculator() {
           step="1"
           min={1}
           placeholder="2"
+          error={errors.index}
         />
       </div>
 

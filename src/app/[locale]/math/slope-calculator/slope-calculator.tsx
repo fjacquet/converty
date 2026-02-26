@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { calculateSlope, type SlopeInput, type SlopeResult } from "@/lib/converters/math/slope";
+import { SlopeFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -25,6 +26,7 @@ interface FormValues {
 
 const useSlopeStore = createCalculatorStore<FormValues, SlopeResult | null>({
   name: "slope-calculator",
+  schema: SlopeFormSchema,
   initialValues: {
     mode: "twoPoints",
     x1: "1",
@@ -51,7 +53,7 @@ const useSlopeStore = createCalculatorStore<FormValues, SlopeResult | null>({
 export function SlopeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useSlopeStore();
+  const { values, setValue, result, errors } = useSlopeStore();
 
   const slopeResult = result;
 
@@ -67,6 +69,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("x1", v)}
               step="any"
               placeholder="1"
+              error={errors.x1}
             />
             <InputField
               id="y1"
@@ -75,6 +78,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("y1", v)}
               step="any"
               placeholder="2"
+              error={errors.y1}
             />
             <InputField
               id="x2"
@@ -83,6 +87,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("x2", v)}
               step="any"
               placeholder="4"
+              error={errors.x2}
             />
             <InputField
               id="y2"
@@ -91,6 +96,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("y2", v)}
               step="any"
               placeholder="8"
+              error={errors.y2}
             />
           </>
         );
@@ -104,6 +110,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("slope", v)}
               step="any"
               placeholder="2"
+              error={errors.slope}
             />
             <InputField
               id="yIntercept"
@@ -112,6 +119,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("yIntercept", v)}
               step="any"
               placeholder="3"
+              error={errors.yIntercept}
             />
           </>
         );
@@ -125,6 +133,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("x1", v)}
               step="any"
               placeholder="2"
+              error={errors.x1}
             />
             <InputField
               id="y1"
@@ -133,6 +142,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("y1", v)}
               step="any"
               placeholder="3"
+              error={errors.y1}
             />
             <InputField
               id="slope"
@@ -141,6 +151,7 @@ export function SlopeCalculator() {
               onChange={(v) => setValue("slope", v)}
               step="any"
               placeholder="2"
+              error={errors.slope}
             />
           </>
         );

@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { calculateHex, type HexInput, type HexResult } from "@/lib/converters/math/hex";
+import { HexFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -27,6 +28,7 @@ interface FormValues {
 
 const useHexStore = createCalculatorStore<FormValues, HexResult | null>({
   name: "hex-calculator",
+  schema: HexFormSchema,
   initialValues: {
     mode: "decimalToHex",
     decimal: "255",
@@ -53,7 +55,7 @@ const useHexStore = createCalculatorStore<FormValues, HexResult | null>({
 export function HexCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useHexStore();
+  const { values, setValue, result, errors } = useHexStore();
 
   const hexResult = result;
 
@@ -68,6 +70,7 @@ export function HexCalculator() {
             onChange={(v) => setValue("decimal", v)}
             step="1"
             placeholder="255"
+            error={errors.decimal}
           />
         );
       case "hexToDecimal":
@@ -152,6 +155,7 @@ export function HexCalculator() {
               min={0}
               max={255}
               placeholder="255"
+              error={errors.r}
             />
             <InputField
               id="g"
@@ -162,6 +166,7 @@ export function HexCalculator() {
               min={0}
               max={255}
               placeholder="128"
+              error={errors.g}
             />
             <InputField
               id="b"
@@ -172,6 +177,7 @@ export function HexCalculator() {
               min={0}
               max={255}
               placeholder="64"
+              error={errors.b}
             />
           </>
         );

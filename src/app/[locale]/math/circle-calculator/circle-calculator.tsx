@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { type CircleInput, type CircleResult, calculateCircle } from "@/lib/converters/math/circle";
+import { CircleFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -20,6 +21,7 @@ interface FormValues {
 
 const useCircleStore = createCalculatorStore<FormValues, CircleResult | null>({
   name: "circle-calculator",
+  schema: CircleFormSchema,
   initialValues: {
     mode: "radius",
     value: "5",
@@ -36,7 +38,7 @@ const useCircleStore = createCalculatorStore<FormValues, CircleResult | null>({
 export function CircleCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useCircleStore();
+  const { values, setValue, result, errors } = useCircleStore();
 
   const circleResult = result;
 
@@ -84,6 +86,7 @@ export function CircleCalculator() {
           step="any"
           min={0.0001}
           placeholder="5"
+          error={errors.value}
         />
       </div>
 

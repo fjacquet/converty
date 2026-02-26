@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { InputField, OutputDisplay, ResultGrid } from "@/components/converter";
 import { Badge } from "@/components/ui/badge";
 import { calculateFactor, type FactorInput, type FactorResult } from "@/lib/converters/math/factor";
+import { FactorFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -12,6 +13,7 @@ interface FormValues {
 
 const useFactorStore = createCalculatorStore<FormValues, FactorResult | null>({
   name: "factor-calculator",
+  schema: FactorFormSchema,
   initialValues: {
     number: "36",
   },
@@ -27,7 +29,7 @@ const useFactorStore = createCalculatorStore<FormValues, FactorResult | null>({
 export function FactorCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useFactorStore();
+  const { values, setValue, result, errors } = useFactorStore();
 
   const factorResult = result;
 
@@ -41,6 +43,7 @@ export function FactorCalculator() {
         min={1}
         step="1"
         placeholder="36"
+        error={errors.number}
       />
 
       {factorResult && (

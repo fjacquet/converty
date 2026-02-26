@@ -7,6 +7,7 @@ import {
   type PercentErrorInput,
   type PercentErrorResult,
 } from "@/lib/converters/math/percent-error";
+import { PercentErrorFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -16,6 +17,7 @@ interface FormValues {
 
 const usePercentErrorStore = createCalculatorStore<FormValues, PercentErrorResult | null>({
   name: "percent-error-calculator",
+  schema: PercentErrorFormSchema,
   initialValues: {
     experimental: "10.5",
     theoretical: "10",
@@ -32,7 +34,7 @@ const usePercentErrorStore = createCalculatorStore<FormValues, PercentErrorResul
 export function PercentErrorCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = usePercentErrorStore();
+  const { values, setValue, result, errors } = usePercentErrorStore();
 
   const errorResult = result;
 
@@ -46,6 +48,7 @@ export function PercentErrorCalculator() {
           onChange={(v) => setValue("experimental", v)}
           step="any"
           placeholder="10.5"
+          error={errors.experimental}
         />
 
         <InputField
@@ -55,6 +58,7 @@ export function PercentErrorCalculator() {
           onChange={(v) => setValue("theoretical", v)}
           step="any"
           placeholder="10"
+          error={errors.theoretical}
         />
       </div>
 

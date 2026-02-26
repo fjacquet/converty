@@ -15,6 +15,7 @@ import {
   type PercentageInput,
   type PercentageResult,
 } from "@/lib/converters/math/percentage";
+import { PercentageFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -25,6 +26,7 @@ interface FormValues {
 
 const usePercentageStore = createCalculatorStore<FormValues, PercentageResult | null>({
   name: "percentage-calculator",
+  schema: PercentageFormSchema,
   initialValues: {
     mode: "percentOf",
     value1: "25",
@@ -45,7 +47,7 @@ export function PercentageCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = usePercentageStore();
+  const { values, setValue, result, errors } = usePercentageStore();
 
   const percentResult = result;
 
@@ -94,6 +96,7 @@ export function PercentageCalculator() {
           onChange={(v) => setValue("value1", v)}
           step="any"
           placeholder="25"
+          error={errors.value1}
         />
 
         <InputField
@@ -103,6 +106,7 @@ export function PercentageCalculator() {
           onChange={(v) => setValue("value2", v)}
           step="any"
           placeholder="200"
+          error={errors.value2}
         />
       </div>
 

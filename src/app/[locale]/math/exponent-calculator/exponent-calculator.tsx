@@ -7,6 +7,7 @@ import {
   type ExponentInput,
   type ExponentResult,
 } from "@/lib/converters/math/exponent";
+import { ExponentFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -16,6 +17,7 @@ interface FormValues {
 
 const useExponentStore = createCalculatorStore<FormValues, ExponentResult | null>({
   name: "exponent-calculator",
+  schema: ExponentFormSchema,
   initialValues: {
     base: "2",
     exponent: "10",
@@ -32,7 +34,7 @@ const useExponentStore = createCalculatorStore<FormValues, ExponentResult | null
 export function ExponentCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useExponentStore();
+  const { values, setValue, result, errors } = useExponentStore();
 
   const expResult = result;
 
@@ -46,6 +48,7 @@ export function ExponentCalculator() {
           onChange={(v) => setValue("base", v)}
           step="any"
           placeholder="2"
+          error={errors.base}
         />
         <InputField
           id="exponent"
@@ -54,6 +57,7 @@ export function ExponentCalculator() {
           onChange={(v) => setValue("exponent", v)}
           step="any"
           placeholder="10"
+          error={errors.exponent}
         />
       </div>
 

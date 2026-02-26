@@ -17,6 +17,7 @@ import {
   type PValueInput,
   type PValueResult,
 } from "@/lib/converters/math/p-value";
+import { PValueFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type PValueMode = "fromZScore" | "fromTScore" | "fromChiSquare" | "fromFScore";
@@ -31,6 +32,7 @@ interface FormValues {
 
 const usePValueStore = createCalculatorStore<FormValues, PValueResult | null>({
   name: "p-value-calculator",
+  schema: PValueFormSchema,
   initialValues: {
     mode: "fromZScore",
     testStatistic: "1.96",
@@ -53,7 +55,7 @@ const usePValueStore = createCalculatorStore<FormValues, PValueResult | null>({
 export function PValueCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = usePValueStore();
+  const { values, setValue, result, errors } = usePValueStore();
 
   const pResult = result;
 
@@ -82,6 +84,7 @@ export function PValueCalculator() {
           onChange={(v) => setValue("testStatistic", v)}
           step="any"
           placeholder="1.96"
+          error={errors.testStatistic}
         />
       </div>
 
@@ -97,6 +100,7 @@ export function PValueCalculator() {
             min={1}
             step="1"
             placeholder="20"
+            error={errors.degreesOfFreedom}
           />
           {values.mode === "fromFScore" && (
             <InputField
@@ -107,6 +111,7 @@ export function PValueCalculator() {
               min={1}
               step="1"
               placeholder="20"
+              error={errors.degreesOfFreedom2}
             />
           )}
         </div>

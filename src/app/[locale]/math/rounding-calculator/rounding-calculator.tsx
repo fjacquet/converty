@@ -15,6 +15,7 @@ import {
   type RoundingInput,
   type RoundingResult,
 } from "@/lib/converters/math/rounding";
+import { RoundingFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -26,6 +27,7 @@ interface FormValues {
 
 const useRoundingStore = createCalculatorStore<FormValues, RoundingResult | null>({
   name: "rounding-calculator",
+  schema: RoundingFormSchema,
   initialValues: {
     mode: "round",
     number: "3.14159265",
@@ -47,7 +49,7 @@ export function RoundingCalculator() {
   const t = useTranslations("calculator.labels");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useRoundingStore();
+  const { values, setValue, result, errors } = useRoundingStore();
 
   const roundingResult = result;
 
@@ -81,6 +83,7 @@ export function RoundingCalculator() {
           onChange={(v) => setValue("number", v)}
           step="any"
           placeholder="3.14159265"
+          error={errors.number}
         />
 
         {values.mode !== "toSignificant" ? (
@@ -93,6 +96,7 @@ export function RoundingCalculator() {
             min={0}
             max={15}
             placeholder="2"
+            error={errors.decimalPlaces}
           />
         ) : (
           <InputField
@@ -104,6 +108,7 @@ export function RoundingCalculator() {
             min={1}
             max={15}
             placeholder="3"
+            error={errors.significantFigures}
           />
         )}
       </div>

@@ -15,6 +15,7 @@ import {
   type ScientificNotationInput,
   type ScientificNotationResult,
 } from "@/lib/converters/math/scientific-notation";
+import { ScientificNotationFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type NotationMode = "toScientific" | "fromScientific";
@@ -31,6 +32,7 @@ const useScientificNotationStore = createCalculatorStore<
   ScientificNotationResult | null
 >({
   name: "scientific-notation-calculator",
+  schema: ScientificNotationFormSchema,
   initialValues: {
     mode: "toScientific",
     number: "123456789",
@@ -51,7 +53,7 @@ const useScientificNotationStore = createCalculatorStore<
 export function ScientificNotationCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useScientificNotationStore();
+  const { values, setValue, result, errors } = useScientificNotationStore();
 
   const notationResult = result;
 
@@ -78,6 +80,7 @@ export function ScientificNotationCalculator() {
           onChange={(v) => setValue("number", v)}
           step="any"
           placeholder="123456789"
+          error={errors.number}
         />
       )}
 
@@ -90,6 +93,7 @@ export function ScientificNotationCalculator() {
             onChange={(v) => setValue("mantissa", v)}
             step="any"
             placeholder="1.23"
+            error={errors.mantissa}
           />
           <InputField
             id="exponent"
@@ -98,6 +102,7 @@ export function ScientificNotationCalculator() {
             onChange={(v) => setValue("exponent", v)}
             step="1"
             placeholder="8"
+            error={errors.exponent}
           />
         </div>
       )}

@@ -8,6 +8,7 @@ import {
   type PrimeFactorizationInput,
   type PrimeFactorizationResult,
 } from "@/lib/converters/math/prime-factorization";
+import { PrimeFactorizationFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -19,6 +20,7 @@ const usePrimeFactorizationStore = createCalculatorStore<
   PrimeFactorizationResult | null
 >({
   name: "prime-factorization-calculator",
+  schema: PrimeFactorizationFormSchema,
   initialValues: {
     number: "84",
   },
@@ -33,7 +35,7 @@ const usePrimeFactorizationStore = createCalculatorStore<
 export function PrimeFactorizationCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = usePrimeFactorizationStore();
+  const { values, setValue, result, errors } = usePrimeFactorizationStore();
 
   const primeResult = result;
 
@@ -47,6 +49,7 @@ export function PrimeFactorizationCalculator() {
         min={1}
         step="1"
         placeholder="84"
+        error={errors.number}
       />
 
       {primeResult && (

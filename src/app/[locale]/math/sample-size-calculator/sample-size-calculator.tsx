@@ -15,6 +15,7 @@ import {
   type SampleSizeInput,
   type SampleSizeResult,
 } from "@/lib/converters/math/sample-size";
+import { SampleSizeFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type SampleSizeMode = "proportion" | "mean";
@@ -30,6 +31,7 @@ interface FormValues {
 
 const useSampleSizeStore = createCalculatorStore<FormValues, SampleSizeResult | null>({
   name: "sample-size-calculator",
+  schema: SampleSizeFormSchema,
   initialValues: {
     mode: "proportion",
     confidenceLevel: "95",
@@ -54,7 +56,7 @@ const useSampleSizeStore = createCalculatorStore<FormValues, SampleSizeResult | 
 export function SampleSizeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useSampleSizeStore();
+  const { values, setValue, result, errors } = useSampleSizeStore();
 
   const sizeResult = result;
 
@@ -102,6 +104,7 @@ export function SampleSizeCalculator() {
           min={0.1}
           max={50}
           placeholder="5"
+          error={errors.marginOfError}
         />
 
         {values.mode === "proportion" && (
@@ -114,6 +117,7 @@ export function SampleSizeCalculator() {
             min={1}
             max={99}
             placeholder="50"
+            error={errors.populationProportion}
           />
         )}
 
@@ -126,6 +130,7 @@ export function SampleSizeCalculator() {
             step="any"
             min={0.001}
             placeholder="10"
+            error={errors.standardDeviation}
           />
         )}
 
@@ -137,6 +142,7 @@ export function SampleSizeCalculator() {
           step="1"
           min={1}
           placeholder={tMath("leaveBlankForInfinite")}
+          error={errors.populationSize}
         />
       </div>
 

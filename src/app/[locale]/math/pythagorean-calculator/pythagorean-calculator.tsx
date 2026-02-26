@@ -15,6 +15,7 @@ import {
   type PythagoreanInput,
   type PythagoreanResult,
 } from "@/lib/converters/math/pythagorean";
+import { PythagoreanFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -26,6 +27,7 @@ interface FormValues {
 
 const usePythagoreanStore = createCalculatorStore<FormValues, PythagoreanResult | null>({
   name: "pythagorean-calculator",
+  schema: PythagoreanFormSchema,
   initialValues: {
     mode: "findHypotenuse",
     sideA: "3",
@@ -46,7 +48,7 @@ const usePythagoreanStore = createCalculatorStore<FormValues, PythagoreanResult 
 export function PythagoreanCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = usePythagoreanStore();
+  const { values, setValue, result, errors } = usePythagoreanStore();
 
   const pythagoreanResult = result;
 
@@ -78,6 +80,7 @@ export function PythagoreanCalculator() {
             step="any"
             min={0.0001}
             placeholder="3"
+            error={errors.sideA}
           />
 
           {values.mode === "findHypotenuse" ? (
@@ -89,6 +92,7 @@ export function PythagoreanCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.sideB}
             />
           ) : (
             <InputField
@@ -99,6 +103,7 @@ export function PythagoreanCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.hypotenuse}
             />
           )}
         </div>

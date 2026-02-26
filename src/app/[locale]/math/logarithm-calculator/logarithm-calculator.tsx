@@ -7,6 +7,7 @@ import {
   type LogarithmInput,
   type LogarithmResult,
 } from "@/lib/converters/math/logarithm";
+import { LogarithmFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -16,6 +17,7 @@ interface FormValues {
 
 const useLogarithmStore = createCalculatorStore<FormValues, LogarithmResult | null>({
   name: "logarithm-calculator",
+  schema: LogarithmFormSchema,
   initialValues: {
     value: "100",
     base: "10",
@@ -32,7 +34,7 @@ const useLogarithmStore = createCalculatorStore<FormValues, LogarithmResult | nu
 export function LogarithmCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useLogarithmStore();
+  const { values, setValue, result, errors } = useLogarithmStore();
 
   const logResult = result;
 
@@ -47,6 +49,7 @@ export function LogarithmCalculator() {
           step="any"
           min={0.0001}
           placeholder="100"
+          error={errors.value}
         />
         <InputField
           id="base"
@@ -56,6 +59,7 @@ export function LogarithmCalculator() {
           step="any"
           min={0.0001}
           placeholder="10"
+          error={errors.base}
         />
       </div>
 

@@ -15,6 +15,7 @@ import {
   type HalfLifeInput,
   type HalfLifeResult,
 } from "@/lib/converters/math/half-life";
+import { HalfLifeFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type HalfLifeMode = "decay" | "remaining" | "findHalfLife" | "carbon14";
@@ -30,6 +31,7 @@ interface FormValues {
 
 const useHalfLifeStore = createCalculatorStore<FormValues, HalfLifeResult | null>({
   name: "half-life-calculator",
+  schema: HalfLifeFormSchema,
   initialValues: {
     mode: "decay",
     initialAmount: "100",
@@ -54,7 +56,7 @@ const useHalfLifeStore = createCalculatorStore<FormValues, HalfLifeResult | null
 export function HalfLifeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useHalfLifeStore();
+  const { values, setValue, result, errors } = useHalfLifeStore();
 
   const halfLifeResult = result;
 
@@ -87,6 +89,7 @@ export function HalfLifeCalculator() {
             step="any"
             min={0}
             placeholder="100"
+            error={errors.initialAmount}
           />
         )}
 
@@ -99,6 +102,7 @@ export function HalfLifeCalculator() {
             step="any"
             min={0}
             placeholder="25"
+            error={errors.remainingAmount}
           />
         )}
 
@@ -111,6 +115,7 @@ export function HalfLifeCalculator() {
             step="any"
             min={0}
             placeholder="5730"
+            error={errors.halfLife}
           />
         )}
 
@@ -123,6 +128,7 @@ export function HalfLifeCalculator() {
             step="any"
             min={0}
             placeholder="11460"
+            error={errors.time}
           />
         )}
 
@@ -136,6 +142,7 @@ export function HalfLifeCalculator() {
             min={0.1}
             max={100}
             placeholder="50"
+            error={errors.percentRemaining}
           />
         )}
       </div>

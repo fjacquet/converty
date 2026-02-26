@@ -15,6 +15,7 @@ import {
   type ConfidenceIntervalResult,
   calculateConfidenceInterval,
 } from "@/lib/converters/math/confidence-interval";
+import { ConfidenceIntervalFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type CIMode = "mean" | "proportion";
@@ -33,6 +34,7 @@ const useConfidenceIntervalStore = createCalculatorStore<
   ConfidenceIntervalResult | null
 >({
   name: "confidence-interval-calculator",
+  schema: ConfidenceIntervalFormSchema,
   initialValues: {
     mode: "mean",
     sampleMean: "50",
@@ -57,7 +59,7 @@ const useConfidenceIntervalStore = createCalculatorStore<
 export function ConfidenceIntervalCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useConfidenceIntervalStore();
+  const { values, setValue, result, errors } = useConfidenceIntervalStore();
 
   const ciResult = result;
 
@@ -104,6 +106,7 @@ export function ConfidenceIntervalCalculator() {
             onChange={(v) => setValue("sampleMean", v)}
             step="any"
             placeholder="50"
+            error={errors.sampleMean}
           />
           <InputField
             id="sampleSize"
@@ -113,6 +116,7 @@ export function ConfidenceIntervalCalculator() {
             min={1}
             step="1"
             placeholder="100"
+            error={errors.sampleSize}
           />
           <InputField
             id="standardDeviation"
@@ -122,6 +126,7 @@ export function ConfidenceIntervalCalculator() {
             step="any"
             min={0.001}
             placeholder="10"
+            error={errors.standardDeviation}
           />
         </div>
       )}
@@ -136,6 +141,7 @@ export function ConfidenceIntervalCalculator() {
             min={0}
             step="1"
             placeholder="60"
+            error={errors.successes}
           />
           <InputField
             id="sampleSize"
@@ -145,6 +151,7 @@ export function ConfidenceIntervalCalculator() {
             min={1}
             step="1"
             placeholder="100"
+            error={errors.sampleSize}
           />
         </div>
       )}

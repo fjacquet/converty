@@ -15,6 +15,7 @@ import {
   type FractionInput,
   type FractionResult,
 } from "@/lib/converters/math/fraction";
+import { FractionFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -28,6 +29,7 @@ interface FormValues {
 
 const useFractionStore = createCalculatorStore<FormValues, FractionResult | null>({
   name: "fraction-calculator",
+  schema: FractionFormSchema,
   initialValues: {
     mode: "simplify",
     numerator1: "6",
@@ -52,7 +54,7 @@ const useFractionStore = createCalculatorStore<FormValues, FractionResult | null
 export function FractionCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useFractionStore();
+  const { values, setValue, result, errors } = useFractionStore();
 
   const fractionResult = result;
   const showSecondFraction = ["add", "subtract", "multiply", "divide"].includes(values.mode);
@@ -91,6 +93,7 @@ export function FractionCalculator() {
               onChange={(v) => setValue("numerator1", v)}
               step="1"
               placeholder="6"
+              error={errors.numerator1}
             />
 
             <InputField
@@ -101,6 +104,7 @@ export function FractionCalculator() {
               step="1"
               min={1}
               placeholder="8"
+              error={errors.denominator1}
             />
           </>
         )}
@@ -114,6 +118,7 @@ export function FractionCalculator() {
               onChange={(v) => setValue("numerator2", v)}
               step="1"
               placeholder="1"
+              error={errors.numerator2}
             />
 
             <InputField
@@ -124,6 +129,7 @@ export function FractionCalculator() {
               step="1"
               min={1}
               placeholder="4"
+              error={errors.denominator2}
             />
           </>
         )}
@@ -137,6 +143,7 @@ export function FractionCalculator() {
             step="any"
             placeholder="0.75"
             className="sm:col-span-2"
+            error={errors.decimal}
           />
         )}
       </div>

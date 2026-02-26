@@ -15,6 +15,7 @@ import {
   type DistanceInput,
   type DistanceResult,
 } from "@/lib/converters/math/distance";
+import { DistanceFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 type DistanceMode = "twoPoints2D" | "twoPoints3D" | "pointToLine" | "manhattan" | "haversine";
@@ -38,6 +39,7 @@ interface FormValues {
 
 const useDistanceStore = createCalculatorStore<FormValues, DistanceResult | null>({
   name: "distance-calculator",
+  schema: DistanceFormSchema,
   initialValues: {
     mode: "twoPoints2D",
     x1: "0",
@@ -79,7 +81,7 @@ export function DistanceCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useDistanceStore();
+  const { values, setValue, result, errors } = useDistanceStore();
 
   const distResult = result;
 
@@ -109,6 +111,7 @@ export function DistanceCalculator() {
             value={values.x1}
             onChange={(v) => setValue("x1", v)}
             step="any"
+            error={errors.x1}
           />
           <InputField
             id="y1"
@@ -116,6 +119,7 @@ export function DistanceCalculator() {
             value={values.y1}
             onChange={(v) => setValue("y1", v)}
             step="any"
+            error={errors.y1}
           />
           <InputField
             id="x2"
@@ -123,6 +127,7 @@ export function DistanceCalculator() {
             value={values.x2}
             onChange={(v) => setValue("x2", v)}
             step="any"
+            error={errors.x2}
           />
           <InputField
             id="y2"
@@ -130,6 +135,7 @@ export function DistanceCalculator() {
             value={values.y2}
             onChange={(v) => setValue("y2", v)}
             step="any"
+            error={errors.y2}
           />
         </div>
       )}

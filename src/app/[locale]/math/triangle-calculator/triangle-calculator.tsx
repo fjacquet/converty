@@ -15,6 +15,7 @@ import {
   type TriangleInput,
   type TriangleResult,
 } from "@/lib/converters/math/triangle";
+import { TriangleFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -29,6 +30,7 @@ interface FormValues {
 
 const useTriangleStore = createCalculatorStore<FormValues, TriangleResult | null>({
   name: "triangle-calculator",
+  schema: TriangleFormSchema,
   initialValues: {
     mode: "sides",
     sideA: "3",
@@ -55,7 +57,7 @@ const useTriangleStore = createCalculatorStore<FormValues, TriangleResult | null
 export function TriangleCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useTriangleStore();
+  const { values, setValue, result, errors } = useTriangleStore();
 
   const triangleResult = result;
 
@@ -92,6 +94,7 @@ export function TriangleCalculator() {
               step="any"
               min={0.0001}
               placeholder="3"
+              error={errors.sideA}
             />
           )}
 
@@ -104,6 +107,7 @@ export function TriangleCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.sideB}
             />
           )}
 
@@ -116,6 +120,7 @@ export function TriangleCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.sideC}
             />
           )}
 
@@ -129,6 +134,7 @@ export function TriangleCalculator() {
               min={0.0001}
               max={179.9999}
               placeholder="60"
+              error={errors.angleA}
             />
           )}
 
@@ -142,6 +148,7 @@ export function TriangleCalculator() {
               min={0.0001}
               max={179.9999}
               placeholder="60"
+              error={errors.angleB}
             />
           )}
 
@@ -155,6 +162,7 @@ export function TriangleCalculator() {
               min={0.0001}
               max={179.9999}
               placeholder="60"
+              error={errors.angleC}
             />
           )}
         </div>

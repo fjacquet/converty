@@ -15,6 +15,7 @@ import {
   type SurfaceAreaInput,
   type SurfaceAreaResult,
 } from "@/lib/converters/math/surface-area";
+import { SurfaceAreaFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -42,6 +43,7 @@ interface FormValues {
 
 const useSurfaceAreaStore = createCalculatorStore<FormValues, SurfaceAreaResult | null>({
   name: "surface-area-calculator",
+  schema: SurfaceAreaFormSchema,
   initialValues: {
     shape: "cube",
     side: "5",
@@ -78,7 +80,7 @@ const useSurfaceAreaStore = createCalculatorStore<FormValues, SurfaceAreaResult 
 export function SurfaceAreaCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useSurfaceAreaStore();
+  const { values, setValue, result, errors } = useSurfaceAreaStore();
 
   const surfaceAreaResult = result;
 
@@ -94,6 +96,7 @@ export function SurfaceAreaCalculator() {
             step="any"
             min={0.0001}
             placeholder="5"
+            error={errors.side}
           />
         );
       case "rectangularPrism":
@@ -107,6 +110,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="6"
+              error={errors.length}
             />
             <InputField
               id="width"
@@ -116,6 +120,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.width}
             />
             <InputField
               id="height"
@@ -125,6 +130,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="3"
+              error={errors.height}
             />
           </>
         );
@@ -139,6 +145,7 @@ export function SurfaceAreaCalculator() {
             step="any"
             min={0.0001}
             placeholder="5"
+            error={errors.radius}
           />
         );
       case "cylinder":
@@ -152,6 +159,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.radius}
             />
             <InputField
               id="height"
@@ -161,6 +169,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="10"
+              error={errors.height}
             />
           </>
         );
@@ -175,6 +184,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.radius}
             />
             <InputField
               id="slantHeight"
@@ -184,6 +194,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="8"
+              error={errors.slantHeight}
             />
           </>
         );
@@ -198,6 +209,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="6"
+              error={errors.baseLength}
             />
             <InputField
               id="baseWidth"
@@ -207,6 +219,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.baseWidth}
             />
             <InputField
               id="slantHeight"
@@ -216,6 +229,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="8"
+              error={errors.slantHeight}
             />
           </>
         );
@@ -230,6 +244,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="5"
+              error={errors.triangleBase}
             />
             <InputField
               id="triangleHeight"
@@ -239,6 +254,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="4"
+              error={errors.triangleHeight}
             />
             <InputField
               id="prismLength"
@@ -248,6 +264,7 @@ export function SurfaceAreaCalculator() {
               step="any"
               min={0.0001}
               placeholder="10"
+              error={errors.prismLength}
             />
           </>
         );

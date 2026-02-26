@@ -7,6 +7,7 @@ import {
   type QuadraticInput,
   type QuadraticResult,
 } from "@/lib/converters/math/quadratic";
+import { QuadraticFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -17,6 +18,7 @@ interface FormValues {
 
 const useQuadraticStore = createCalculatorStore<FormValues, QuadraticResult | null>({
   name: "quadratic-calculator",
+  schema: QuadraticFormSchema,
   initialValues: {
     a: "1",
     b: "-5",
@@ -35,7 +37,7 @@ const useQuadraticStore = createCalculatorStore<FormValues, QuadraticResult | nu
 export function QuadraticCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useQuadraticStore();
+  const { values, setValue, result, errors } = useQuadraticStore();
 
   const quadResult = result;
 
@@ -49,6 +51,7 @@ export function QuadraticCalculator() {
           onChange={(v) => setValue("a", v)}
           step="any"
           placeholder="1"
+          error={errors.a}
         />
         <InputField
           id="b"
@@ -57,6 +60,7 @@ export function QuadraticCalculator() {
           onChange={(v) => setValue("b", v)}
           step="any"
           placeholder="-5"
+          error={errors.b}
         />
         <InputField
           id="c"
@@ -65,6 +69,7 @@ export function QuadraticCalculator() {
           onChange={(v) => setValue("c", v)}
           step="any"
           placeholder="6"
+          error={errors.c}
         />
       </div>
 

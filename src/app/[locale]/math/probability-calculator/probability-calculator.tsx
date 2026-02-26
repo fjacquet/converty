@@ -15,6 +15,7 @@ import {
   type ProbabilityInput,
   type ProbabilityResult,
 } from "@/lib/converters/math/probability";
+import { ProbabilityFormSchema } from "@/lib/schemas/math";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -38,6 +39,7 @@ interface FormValues {
 
 const useProbabilityStore = createCalculatorStore<FormValues, ProbabilityResult | null>({
   name: "probability-calculator",
+  schema: ProbabilityFormSchema,
   initialValues: {
     mode: "single",
     probabilityA: "0.5",
@@ -66,7 +68,7 @@ const useProbabilityStore = createCalculatorStore<FormValues, ProbabilityResult 
 export function ProbabilityCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result } = useProbabilityStore();
+  const { values, setValue, result, errors } = useProbabilityStore();
 
   const probabilityResult = result;
 
@@ -83,6 +85,7 @@ export function ProbabilityCalculator() {
             min={0}
             max={1}
             placeholder="0.5"
+            error={errors.probabilityA}
           />
         );
       case "and":
@@ -97,6 +100,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.5"
+              error={errors.probabilityA}
             />
             <InputField
               id="probabilityB"
@@ -107,6 +111,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.3"
+              error={errors.probabilityB}
             />
           </>
         );
@@ -122,6 +127,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.5"
+              error={errors.probabilityA}
             />
             <InputField
               id="probabilityB"
@@ -132,6 +138,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.3"
+              error={errors.probabilityB}
             />
             <InputField
               id="probabilityAandB"
@@ -142,6 +149,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.15"
+              error={errors.probabilityAandB}
             />
           </>
         );
@@ -157,6 +165,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.15"
+              error={errors.probabilityAandB}
             />
             <InputField
               id="probabilityB"
@@ -167,6 +176,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.3"
+              error={errors.probabilityB}
             />
           </>
         );
@@ -181,6 +191,7 @@ export function ProbabilityCalculator() {
             min={0}
             max={1}
             placeholder="0.5"
+            error={errors.probabilityA}
           />
         );
       case "binomial":
@@ -194,6 +205,7 @@ export function ProbabilityCalculator() {
               step="1"
               min={1}
               placeholder="10"
+              error={errors.trials}
             />
             <InputField
               id="successes"
@@ -203,6 +215,7 @@ export function ProbabilityCalculator() {
               step="1"
               min={0}
               placeholder="3"
+              error={errors.successes}
             />
             <InputField
               id="probabilityA"
@@ -213,6 +226,7 @@ export function ProbabilityCalculator() {
               min={0}
               max={1}
               placeholder="0.5"
+              error={errors.probabilityA}
             />
           </>
         );
@@ -228,6 +242,7 @@ export function ProbabilityCalculator() {
               step="1"
               min={0}
               placeholder="10"
+              error={errors.n}
             />
             <InputField
               id="r"
@@ -237,6 +252,7 @@ export function ProbabilityCalculator() {
               step="1"
               min={0}
               placeholder="3"
+              error={errors.r}
             />
           </>
         );
