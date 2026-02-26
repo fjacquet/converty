@@ -4,6 +4,7 @@
  */
 
 import acidsBasesData from "@/data/chemistry/acids-bases.json";
+import type { CalculationResult } from "@/types";
 
 /**
  * Input for pH calculation
@@ -72,7 +73,7 @@ const Kw = 1e-14; // Water ion product constant at 25°C
  * @param input - pH input
  * @returns pH result or null if invalid
  */
-export function calculatePh(input: PhInput): PhResult | null {
+export function calculatePh(input: PhInput): CalculationResult<PhResult> {
   const { mode } = input;
 
   let ph: number;
@@ -86,7 +87,9 @@ export function calculatePh(input: PhInput): PhResult | null {
   try {
     switch (mode) {
       case "from-h-concentration":
-        if (!input.hConcentration || input.hConcentration <= 0) return null;
+        if (!input.hConcentration || input.hConcentration <= 0) {
+          return { ok: false, error: "H+ concentration must be positive", code: "INVALID_INPUT" };
+        }
         hConcentration = input.hConcentration;
         ph = -Math.log10(hConcentration);
         poh = 14 - ph;
@@ -100,7 +103,9 @@ export function calculatePh(input: PhInput): PhResult | null {
         break;
 
       case "from-oh-concentration":
-        if (!input.ohConcentration || input.ohConcentration <= 0) return null;
+        if (!input.ohConcentration || input.ohConcentration <= 0) {
+          return { ok: false, error: "OH- concentration must be positive", code: "INVALID_INPUT" };
+        }
         ohConcentration = input.ohConcentration;
         poh = -Math.log10(ohConcentration);
         ph = 14 - poh;
@@ -114,7 +119,9 @@ export function calculatePh(input: PhInput): PhResult | null {
         break;
 
       case "from-ph":
-        if (input.ph === undefined || input.ph < 0 || input.ph > 14) return null;
+        if (input.ph === undefined || input.ph < 0 || input.ph > 14) {
+          return { ok: false, error: "pH must be between 0 and 14", code: "INVALID_INPUT" };
+        }
         ph = input.ph;
         poh = 14 - ph;
         hConcentration = 10 ** -ph;
@@ -127,7 +134,9 @@ export function calculatePh(input: PhInput): PhResult | null {
         break;
 
       case "from-poh":
-        if (input.poh === undefined || input.poh < 0 || input.poh > 14) return null;
+        if (input.poh === undefined || input.poh < 0 || input.poh > 14) {
+          return { ok: false, error: "pOH must be between 0 and 14", code: "INVALID_INPUT" };
+        }
         poh = input.poh;
         ph = 14 - poh;
         hConcentration = 10 ** -ph;
@@ -140,7 +149,9 @@ export function calculatePh(input: PhInput): PhResult | null {
         break;
 
       case "strong-acid":
-        if (!input.concentration || input.concentration <= 0) return null;
+        if (!input.concentration || input.concentration <= 0) {
+          return { ok: false, error: "Concentration must be positive", code: "INVALID_INPUT" };
+        }
         // For strong acids, [H+] = concentration
         hConcentration = input.concentration;
         ph = -Math.log10(hConcentration);
@@ -155,7 +166,9 @@ export function calculatePh(input: PhInput): PhResult | null {
         break;
 
       case "strong-base":
-        if (!input.concentration || input.concentration <= 0) return null;
+        if (!input.concentration || input.concentration <= 0) {
+          return { ok: false, error: "Concentration must be positive", code: "INVALID_INPUT" };
+        }
         // For strong bases, [OH-] = concentration
         ohConcentration = input.concentration;
         poh = -Math.log10(ohConcentration);
@@ -170,20 +183,32 @@ export function calculatePh(input: PhInput): PhResult | null {
         break;
 
       case "weak-acid": {
-        if (!input.concentration || input.concentration <= 0) return null;
-        if (!input.pka && !input.compound) return null;
+        if (!input.concentration || input.concentration <= 0) {
+          return { ok: false, error: "Concentration must be positive", code: "INVALID_INPUT" };
+        }
+        if (!input.pka && !input.compound) {
+          return {
+            ok: false,
+            error: "pKa or compound selection is required for weak acid",
+            code: "INVALID_INPUT",
+          };
+        }
 
         // Get pKa from compound or input
         if (input.compound) {
           const compound = acidsBasesData.find((c) => c.id === input.compound);
-          if (!compound || compound.type !== "acid") return null;
+          if (!compound || compound.type !== "acid") {
+            return { ok: false, error: "Invalid acid compound selected", code: "INVALID_INPUT" };
+          }
           pka = compound.pka;
           compoundName = compound.name;
         } else {
           pka = input.pka!;
         }
 
-        if (pka === undefined) return null;
+        if (pka === undefined) {
+          return { ok: false, error: "pKa value is required", code: "INVALID_INPUT" };
+        }
 
         const ka = 10 ** -pka;
         // [H+] = sqrt(Ka × C)
@@ -202,15 +227,31 @@ export function calculatePh(input: PhInput): PhResult | null {
       }
 
       case "weak-base":
-        if (!input.concentration || input.concentration <= 0) return null;
-        if (!input.pka && !input.compound) return null;
+        if (!input.concentration || input.concentration <= 0) {
+          return { ok: false, error: "Concentration must be positive", code: "INVALID_INPUT" };
+        }
+        if (!input.pka && !input.compound) {
+          return {
+            ok: false,
+            error: "pKa or compound selection is required for weak base",
+            code: "INVALID_INPUT",
+          };
+        }
 
         // Get pKb from compound or calculate from pKa
         if (input.compound) {
           const compound = acidsBasesData.find((c) => c.id === input.compound);
-          if (!compound || compound.type !== "base") return null;
+          if (!compound || compound.type !== "base") {
+            return { ok: false, error: "Invalid base compound selected", code: "INVALID_INPUT" };
+          }
           const pkb = compound.pkb;
-          if (pkb === undefined) return null;
+          if (pkb === undefined) {
+            return {
+              ok: false,
+              error: "pKb value is missing for selected compound",
+              code: "INVALID_INPUT",
+            };
+          }
           compoundName = compound.name;
 
           const kb = 10 ** -pkb;
@@ -228,25 +269,49 @@ export function calculatePh(input: PhInput): PhResult | null {
           steps.push(`pOH = -log₁₀[OH⁻] = ${poh.toFixed(2)}`);
           steps.push(`pH = 14 - pOH = ${ph.toFixed(2)}`);
         } else {
-          return null;
+          return {
+            ok: false,
+            error: "Compound selection is required for weak-base mode",
+            code: "INVALID_INPUT",
+          };
         }
         break;
 
       case "buffer": {
-        if (!input.acidConcentration || !input.baseConcentration) return null;
-        if (!input.pka && !input.compound) return null;
+        if (!input.acidConcentration || !input.baseConcentration) {
+          return {
+            ok: false,
+            error: "Acid and base concentrations are required for buffer mode",
+            code: "INVALID_INPUT",
+          };
+        }
+        if (!input.pka && !input.compound) {
+          return {
+            ok: false,
+            error: "pKa or compound selection is required for buffer",
+            code: "INVALID_INPUT",
+          };
+        }
 
         // Henderson-Hasselbalch: pH = pKa + log([A-]/[HA])
         if (input.compound) {
           const compound = acidsBasesData.find((c) => c.id === input.compound);
-          if (!compound || compound.type !== "acid") return null;
+          if (!compound || compound.type !== "acid") {
+            return {
+              ok: false,
+              error: "Invalid acid compound selected for buffer",
+              code: "INVALID_INPUT",
+            };
+          }
           pka = compound.pka;
           compoundName = compound.name;
         } else {
           pka = input.pka!;
         }
 
-        if (pka === undefined) return null;
+        if (pka === undefined) {
+          return { ok: false, error: "pKa value is required for buffer", code: "INVALID_INPUT" };
+        }
 
         const ratio = input.baseConcentration / input.acidConcentration;
         ph = pka + Math.log10(ratio);
@@ -265,7 +330,7 @@ export function calculatePh(input: PhInput): PhResult | null {
       }
 
       default:
-        return null;
+        return { ok: false, error: "Invalid calculation mode", code: "INVALID_INPUT" };
     }
 
     // Determine solution type
@@ -290,17 +355,24 @@ export function calculatePh(input: PhInput): PhResult | null {
     }
 
     return {
-      ph,
-      poh,
-      hConcentration,
-      ohConcentration,
-      solutionType,
-      color,
-      pka,
-      compoundName,
-      steps,
+      ok: true,
+      value: {
+        ph,
+        poh,
+        hConcentration,
+        ohConcentration,
+        solutionType,
+        color,
+        pka,
+        compoundName,
+        steps,
+      },
     };
   } catch (error) {
-    return null;
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Calculation error",
+      code: "CALCULATION_ERROR",
+    };
   }
 }

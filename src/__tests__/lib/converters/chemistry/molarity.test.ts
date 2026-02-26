@@ -2,41 +2,41 @@ import { describe, expect, it } from "vitest";
 import { calculateMolarity } from "@/lib/converters/chemistry/molarity";
 
 describe("calculateMolarity", () => {
-  describe("null returns for invalid inputs", () => {
-    it("returns null for volume = 0", () => {
+  describe("error results for invalid inputs", () => {
+    it("returns ok:false for volume = 0", () => {
       expect(
         calculateMolarity({
           mode: "moles-volume",
           moles: 1,
           volume: 0,
           volumeUnit: "L",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for negative volume", () => {
+    it("returns ok:false for negative volume", () => {
       expect(
         calculateMolarity({
           mode: "moles-volume",
           moles: 1,
           volume: -1,
           volumeUnit: "L",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for moles-volume mode with zero moles", () => {
+    it("returns ok:false for moles-volume mode with zero moles", () => {
       expect(
         calculateMolarity({
           mode: "moles-volume",
           moles: 0,
           volume: 1,
           volumeUnit: "L",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for mass-volume mode with zero mass", () => {
+    it("returns ok:false for mass-volume mode with zero mass", () => {
       expect(
         calculateMolarity({
           mode: "mass-volume",
@@ -44,11 +44,11 @@ describe("calculateMolarity", () => {
           molecularWeight: 18,
           volume: 1,
           volumeUnit: "L",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for mass-volume mode with zero molecular weight", () => {
+    it("returns ok:false for mass-volume mode with zero molecular weight", () => {
       expect(
         calculateMolarity({
           mode: "mass-volume",
@@ -56,8 +56,8 @@ describe("calculateMolarity", () => {
           molecularWeight: 0,
           volume: 1,
           volumeUnit: "L",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -69,8 +69,10 @@ describe("calculateMolarity", () => {
         volume: 0.5,
         volumeUnit: "L",
       });
-      expect(result).not.toBeNull();
-      expect(result!.molarity).toBeCloseTo(1.0, 4);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.molarity).toBeCloseTo(1.0, 4);
+      }
     });
 
     it("2 mol in 4 L → 0.5 M", () => {
@@ -80,8 +82,10 @@ describe("calculateMolarity", () => {
         volume: 4,
         volumeUnit: "L",
       });
-      expect(result).not.toBeNull();
-      expect(result!.molarity).toBeCloseTo(0.5, 4);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.molarity).toBeCloseTo(0.5, 4);
+      }
     });
 
     it("1 mol in 500 mL → 2.0 M", () => {
@@ -91,8 +95,10 @@ describe("calculateMolarity", () => {
         volume: 500,
         volumeUnit: "mL",
       });
-      expect(result).not.toBeNull();
-      expect(result!.molarity).toBeCloseTo(2.0, 4);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.molarity).toBeCloseTo(2.0, 4);
+      }
     });
   });
 
@@ -105,8 +111,10 @@ describe("calculateMolarity", () => {
         volume: 1,
         volumeUnit: "L",
       });
-      expect(result).not.toBeNull();
-      expect(result!.molarity).toBeCloseTo(0.308, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.molarity).toBeCloseTo(0.308, 2);
+      }
     });
   });
 
@@ -118,9 +126,12 @@ describe("calculateMolarity", () => {
         volume: 1,
         volumeUnit: "L",
       });
-      expect(result!.molarity).toBeDefined();
-      expect(result!.moles).toBeDefined();
-      expect(result!.volumeL).toBeDefined();
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.molarity).toBeDefined();
+        expect(result.value.moles).toBeDefined();
+        expect(result.value.volumeL).toBeDefined();
+      }
     });
 
     it("returns concentration in multiple units", () => {
@@ -130,8 +141,11 @@ describe("calculateMolarity", () => {
         volume: 1,
         volumeUnit: "L",
       });
-      expect(result!.concentrationUnits.M).toBeCloseTo(1.0, 4);
-      expect(result!.concentrationUnits.mM).toBeCloseTo(1000, 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.concentrationUnits.M).toBeCloseTo(1.0, 4);
+        expect(result.value.concentrationUnits.mM).toBeCloseTo(1000, 1);
+      }
     });
   });
 });

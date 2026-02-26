@@ -17,18 +17,13 @@ import { calculatePh, type PhInput, type PhResult } from "@/lib/converters/chemi
 import { createCalculatorStore } from "@/stores/calculator-store";
 import { PhScaleSvg } from "./PhScaleSvg";
 
-const usePhStore = createCalculatorStore<PhInput, PhResult | null>({
+const usePhStore = createCalculatorStore<PhInput, PhResult>({
   name: "ph-calculator",
   initialValues: {
     mode: "from-ph",
     ph: 7,
   },
-  calculate: (input) => {
-    const r = calculatePh(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: calculatePh,
 });
 
 export default function PhCalculatorCalculator() {

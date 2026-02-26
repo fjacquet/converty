@@ -20,7 +20,7 @@ import {
 } from "@/lib/converters/chemistry/dilution";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
-const useDilutionStore = createCalculatorStore<DilutionInput, DilutionResult | null>({
+const useDilutionStore = createCalculatorStore<DilutionInput, DilutionResult>({
   name: "dilution",
   initialValues: {
     mode: "find-V1",
@@ -31,12 +31,7 @@ const useDilutionStore = createCalculatorStore<DilutionInput, DilutionResult | n
     finalVolume: 500,
     finalVolumeUnit: "mL",
   },
-  calculate: (input) => {
-    const r = calculateDilution(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: calculateDilution,
 });
 
 export default function DilutionCalculator() {

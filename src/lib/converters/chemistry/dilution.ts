@@ -9,6 +9,8 @@
  * - V₂ = final volume (L)
  */
 
+import type { CalculationResult } from "@/types";
+
 /**
  * Input for dilution calculation
  */
@@ -59,7 +61,7 @@ export interface DilutionResult {
  * @param input - Dilution input
  * @returns Dilution result or null if inputs are invalid
  */
-export function calculateDilution(input: DilutionInput): DilutionResult | null {
+export function calculateDilution(input: DilutionInput): CalculationResult<DilutionResult> {
   const {
     mode,
     initialMolarity,
@@ -70,7 +72,9 @@ export function calculateDilution(input: DilutionInput): DilutionResult | null {
     finalVolumeUnit,
   } = input;
 
-  if (initialMolarity <= 0) return null;
+  if (initialMolarity <= 0) {
+    return { ok: false, error: "Initial molarity must be positive", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   steps.push(`Initial molarity (M₁): ${initialMolarity} M`);
@@ -111,7 +115,11 @@ export function calculateDilution(input: DilutionInput): DilutionResult | null {
       finalVolume <= 0 ||
       !finalVolumeUnit
     ) {
-      return null;
+      return {
+        ok: false,
+        error: "Final molarity and volume are required for find-V1 mode",
+        code: "INVALID_INPUT",
+      };
     }
 
     finalMolarityValue = finalMolarity;
@@ -133,7 +141,11 @@ export function calculateDilution(input: DilutionInput): DilutionResult | null {
       !finalMolarity ||
       finalMolarity <= 0
     ) {
-      return null;
+      return {
+        ok: false,
+        error: "Initial volume and final molarity are required for find-V2 mode",
+        code: "INVALID_INPUT",
+      };
     }
 
     initialVolumeL = convertToLiters(initialVolume, initialVolumeUnit);
@@ -156,7 +168,11 @@ export function calculateDilution(input: DilutionInput): DilutionResult | null {
       finalVolume <= 0 ||
       !finalVolumeUnit
     ) {
-      return null;
+      return {
+        ok: false,
+        error: "Initial and final volumes are required for find-M2 mode",
+        code: "INVALID_INPUT",
+      };
     }
 
     initialVolumeL = convertToLiters(initialVolume, initialVolumeUnit);
@@ -193,14 +209,17 @@ export function calculateDilution(input: DilutionInput): DilutionResult | null {
   const formattedSolvent = formatVolume(solventVolumeL, solventUnit);
 
   return {
-    initialMolarity,
-    finalMolarity: finalMolarityValue,
-    initialVolumeL,
-    finalVolumeL,
-    dilutionFactor,
-    solventVolumeL,
-    formattedSolvent,
-    safetyWarning,
-    steps,
+    ok: true,
+    value: {
+      initialMolarity,
+      finalMolarity: finalMolarityValue,
+      initialVolumeL,
+      finalVolumeL,
+      dilutionFactor,
+      solventVolumeL,
+      formattedSolvent,
+      safetyWarning,
+      steps,
+    },
   };
 }

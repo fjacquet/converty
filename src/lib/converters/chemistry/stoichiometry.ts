@@ -4,6 +4,7 @@
  */
 
 import periodicTableData from "@/data/chemistry/periodic-table.json";
+import type { CalculationResult } from "@/types";
 import { parseChemicalEquation } from "./equation-parser";
 import { parseChemicalFormula } from "./formula-parser";
 import type { Element } from "./types";
@@ -64,11 +65,13 @@ export interface StoichiometryResult {
  * @param input - Stoichiometry input
  * @returns Stoichiometry result or null if invalid
  */
-export function calculateStoichiometry(input: StoichiometryInput): StoichiometryResult | null {
+export function calculateStoichiometry(
+  input: StoichiometryInput
+): CalculationResult<StoichiometryResult> {
   const { equation, reactantMasses } = input;
 
   if (!equation || Object.keys(reactantMasses).length === 0) {
-    return null;
+    return { ok: false, error: "Equation and reactant masses are required", code: "INVALID_INPUT" };
   }
 
   const steps: string[] = [];
@@ -76,11 +79,11 @@ export function calculateStoichiometry(input: StoichiometryInput): Stoichiometry
 
   // Parse equation
   const parseResult = parseChemicalEquation(equation);
-  if (!parseResult.success || !parseResult.equation) {
-    return null;
+  if (!parseResult.ok) {
+    return { ok: false, error: parseResult.error, code: "INVALID_INPUT" };
   }
 
-  const parsedEq = parseResult.equation;
+  const parsedEq = parseResult.value;
   steps.push("");
   steps.push("Step 1: Calculate molar masses");
 
@@ -98,7 +101,11 @@ export function calculateStoichiometry(input: StoichiometryInput): Stoichiometry
     if (!molarMasses.has(compound.formula)) {
       const molarMass = calculateMolarMass(compound.formula, elementMap);
       if (molarMass === null) {
-        return null; // Invalid formula
+        return {
+          ok: false,
+          error: `Invalid formula or unknown element in ${compound.formula}`,
+          code: "INVALID_INPUT",
+        };
       }
       molarMasses.set(compound.formula, molarMass);
       steps.push(`${compound.formula}: ${molarMass.toFixed(3)} g/mol`);
@@ -191,11 +198,14 @@ export function calculateStoichiometry(input: StoichiometryInput): Stoichiometry
   }
 
   return {
-    equation,
-    reactants: reactantInfo,
-    limitingReactant,
-    products: productInfo,
-    steps,
+    ok: true,
+    value: {
+      equation,
+      reactants: reactantInfo,
+      limitingReactant,
+      products: productInfo,
+      steps,
+    },
   };
 }
 
@@ -204,12 +214,12 @@ export function calculateStoichiometry(input: StoichiometryInput): Stoichiometry
  */
 function calculateMolarMass(formula: string, elementMap: Map<string, Element>): number | null {
   const parseResult = parseChemicalFormula(formula);
-  if (!parseResult.success) {
+  if (!parseResult.ok) {
     return null;
   }
 
   let molarMass = 0;
-  for (const [symbol, count] of Object.entries(parseResult.composition)) {
+  for (const [symbol, count] of Object.entries(parseResult.value.composition)) {
     const element = elementMap.get(symbol);
     if (!element) {
       return null;

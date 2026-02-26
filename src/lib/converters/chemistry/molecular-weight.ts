@@ -1,4 +1,5 @@
 import periodicTableData from "@/data/chemistry/periodic-table.json";
+import type { CalculationResult } from "@/types";
 import { parseChemicalFormula } from "./formula-parser";
 import type { Element } from "./types";
 
@@ -54,11 +55,11 @@ export interface MolecularWeightResult {
  */
 export function calculateMolecularWeight(
   input: MolecularWeightInput
-): MolecularWeightResult | null {
+): CalculationResult<MolecularWeightResult> {
   const { formula } = input;
 
   if (!formula || formula.trim().length === 0) {
-    return null;
+    return { ok: false, error: "Formula is required", code: "INVALID_INPUT" };
   }
 
   const steps: string[] = [];
@@ -66,11 +67,11 @@ export function calculateMolecularWeight(
 
   // Parse formula
   const parseResult = parseChemicalFormula(formula);
-  if (!parseResult.success) {
-    return null;
+  if (!parseResult.ok) {
+    return { ok: false, error: parseResult.error, code: "INVALID_INPUT" };
   }
 
-  const composition = parseResult.composition;
+  const composition = parseResult.value.composition;
   steps.push(
     `Parsed composition: ${Object.entries(composition)
       .map(([symbol, count]) => `${symbol}: ${count}`)
@@ -92,7 +93,7 @@ export function calculateMolecularWeight(
   for (const [symbol, count] of Object.entries(composition)) {
     const element = elementMap.get(symbol);
     if (!element) {
-      return null; // Unknown element
+      return { ok: false, error: `Unknown element: ${symbol}`, code: "INVALID_INPUT" };
     }
 
     const totalMass = element.atomicMass * count;
@@ -132,11 +133,14 @@ export function calculateMolecularWeight(
   }
 
   return {
-    formula,
-    molarMass,
-    formatted: molarMass.toFixed(3),
-    elements,
-    totalAtoms,
-    steps,
+    ok: true,
+    value: {
+      formula,
+      molarMass,
+      formatted: molarMass.toFixed(3),
+      elements,
+      totalAtoms,
+      steps,
+    },
   };
 }

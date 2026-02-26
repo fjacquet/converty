@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { calculateDilution } from "@/lib/converters/chemistry/dilution";
 
 describe("calculateDilution", () => {
-  describe("null returns for invalid inputs", () => {
-    it("returns null for initialMolarity <= 0", () => {
+  describe("error results for invalid inputs", () => {
+    it("returns ok:false for initialMolarity <= 0", () => {
       expect(
         calculateDilution({
           mode: "find-M2",
@@ -12,11 +12,11 @@ describe("calculateDilution", () => {
           initialVolumeUnit: "mL",
           finalVolume: 100,
           finalVolumeUnit: "mL",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for find-V2 when finalMolarity <= 0", () => {
+    it("returns ok:false for find-V2 when finalMolarity <= 0", () => {
       expect(
         calculateDilution({
           mode: "find-V2",
@@ -24,29 +24,29 @@ describe("calculateDilution", () => {
           initialVolume: 10,
           initialVolumeUnit: "mL",
           finalMolarity: 0,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for find-M2 when finalVolume missing", () => {
+    it("returns ok:false for find-M2 when finalVolume missing", () => {
       expect(
         calculateDilution({
           mode: "find-M2",
           initialMolarity: 1,
           initialVolume: 10,
           initialVolumeUnit: "mL",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for find-V1 when finalVolume missing", () => {
+    it("returns ok:false for find-V1 when finalVolume missing", () => {
       expect(
         calculateDilution({
           mode: "find-V1",
           initialMolarity: 1,
           finalMolarity: 0.1,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -60,8 +60,10 @@ describe("calculateDilution", () => {
         finalVolume: 100,
         finalVolumeUnit: "mL",
       });
-      expect(result).not.toBeNull();
-      expect(result!.finalMolarity).toBeCloseTo(0.1, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.finalMolarity).toBeCloseTo(0.1, 2);
+      }
     });
 
     it("dilution factor is 10", () => {
@@ -73,7 +75,10 @@ describe("calculateDilution", () => {
         finalVolume: 100,
         finalVolumeUnit: "mL",
       });
-      expect(result!.dilutionFactor).toBeCloseTo(10, 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.dilutionFactor).toBeCloseTo(10, 1);
+      }
     });
   });
 
@@ -86,8 +91,10 @@ describe("calculateDilution", () => {
         finalVolume: 1,
         finalVolumeUnit: "L",
       });
-      expect(result).not.toBeNull();
-      expect(result!.initialVolumeL).toBeCloseTo(0.25, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.initialVolumeL).toBeCloseTo(0.25, 2);
+      }
     });
   });
 
@@ -100,8 +107,10 @@ describe("calculateDilution", () => {
         initialVolumeUnit: "mL",
         finalMolarity: 0.1,
       });
-      expect(result).not.toBeNull();
-      expect(result!.finalVolumeL).toBeCloseTo(0.5, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.finalVolumeL).toBeCloseTo(0.5, 2);
+      }
     });
   });
 
@@ -115,8 +124,11 @@ describe("calculateDilution", () => {
         finalVolume: 100,
         finalVolumeUnit: "mL",
       });
-      expect(result!.steps).toBeInstanceOf(Array);
-      expect(result!.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.steps).toBeInstanceOf(Array);
+        expect(result.value.steps.length).toBeGreaterThan(0);
+      }
     });
   });
 });

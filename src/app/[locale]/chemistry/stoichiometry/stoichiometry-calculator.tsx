@@ -21,6 +21,7 @@ export default function StoichiometryCalculator() {
     O2: "32",
   });
   const [result, setResult] = useState<StoichiometryResult | null>(null);
+  const [calcError, setCalcError] = useState<string | null>(null);
 
   const handleCalculate = () => {
     const masses: Record<string, number> = {};
@@ -37,7 +38,13 @@ export default function StoichiometryCalculator() {
     };
 
     const calcResult = calculateStoichiometry(input);
-    setResult(calcResult);
+    if (calcResult.ok) {
+      setResult(calcResult.value);
+      setCalcError(null);
+    } else {
+      setResult(null);
+      setCalcError(calcResult.error);
+    }
   };
 
   const addReactant = () => {
@@ -119,6 +126,9 @@ export default function StoichiometryCalculator() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Error Display */}
+      {calcError && <p className="mt-2 text-sm text-destructive">{calcError}</p>}
 
       {/* Results */}
       {result && (

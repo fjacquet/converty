@@ -1,11 +1,18 @@
+import type { CalculationResult } from "@/types";
 import type { ElementComposition } from "./types";
 
 /**
- * Parse result - either success with composition or error
+ * Parse result payload
  */
-export type ParseResult =
-  | { success: true; composition: ElementComposition }
-  | { success: false; error: string };
+export interface FormulaParsePayload {
+  composition: ElementComposition;
+}
+
+/**
+ * Parse result - either success with composition or error
+ * @deprecated Use CalculationResult<FormulaParsePayload> instead
+ */
+export type ParseResult = CalculationResult<FormulaParsePayload>;
 
 /**
  * Parse a chemical formula into element composition
@@ -22,7 +29,7 @@ export type ParseResult =
  */
 export function parseChemicalFormula(formula: string): ParseResult {
   if (!formula || formula.trim().length === 0) {
-    return { success: false, error: "Empty formula" };
+    return { ok: false, error: "Empty formula", code: "INVALID_INPUT" };
   }
 
   // Remove spaces
@@ -46,7 +53,7 @@ export function parseChemicalFormula(formula: string): ParseResult {
 
       const result = parseFormulaRecursive(formulaPart, 0);
       if (!result.success) {
-        return result;
+        return { ok: false, error: result.error, code: "INVALID_INPUT" };
       }
 
       // Merge with overall composition
@@ -55,11 +62,15 @@ export function parseChemicalFormula(formula: string): ParseResult {
       }
     }
 
-    return { success: true, composition };
+    return { ok: true, value: { composition } };
   }
 
   // Parse single formula (no hydrate)
-  return parseFormulaRecursive(cleanFormula, 0);
+  const result = parseFormulaRecursive(cleanFormula, 0);
+  if (!result.success) {
+    return { ok: false, error: result.error, code: "INVALID_INPUT" };
+  }
+  return { ok: true, value: { composition: result.composition } };
 }
 
 /**

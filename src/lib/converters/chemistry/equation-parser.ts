@@ -8,6 +8,8 @@
  * - 2NaOH + H2SO4 → Na2SO4 + 2H2O
  */
 
+import type { CalculationResult } from "@/types";
+
 /**
  * A compound in a chemical equation with its coefficient
  */
@@ -33,11 +35,7 @@ export interface ParsedEquation {
 /**
  * Result of equation parsing
  */
-export interface EquationParseResult {
-  success: boolean;
-  equation?: ParsedEquation;
-  error?: string;
-}
+export type EquationParseResult = CalculationResult<ParsedEquation>;
 
 /**
  * Parse a chemical equation string into structured format
@@ -49,7 +47,7 @@ export interface EquationParseResult {
  */
 export function parseChemicalEquation(equationStr: string): EquationParseResult {
   if (!equationStr || equationStr.trim().length === 0) {
-    return { success: false, error: "Empty equation" };
+    return { ok: false, error: "Empty equation", code: "INVALID_INPUT" };
   }
 
   // Normalize arrow formats
@@ -63,7 +61,11 @@ export function parseChemicalEquation(equationStr: string): EquationParseResult 
   // Split by arrow
   const arrowMatch = normalized.match(/(.+?)→(.+)/);
   if (!arrowMatch) {
-    return { success: false, error: "No arrow found in equation (use →, ->, or =)" };
+    return {
+      ok: false,
+      error: "No arrow found in equation (use →, ->, or =)",
+      code: "INVALID_INPUT",
+    };
   }
 
   const [, leftSide, rightSide] = arrowMatch;
@@ -73,15 +75,15 @@ export function parseChemicalEquation(equationStr: string): EquationParseResult 
     const products = parseSide(rightSide);
 
     if (reactants.length === 0) {
-      return { success: false, error: "No reactants found" };
+      return { ok: false, error: "No reactants found", code: "INVALID_INPUT" };
     }
     if (products.length === 0) {
-      return { success: false, error: "No products found" };
+      return { ok: false, error: "No products found", code: "INVALID_INPUT" };
     }
 
     return {
-      success: true,
-      equation: {
+      ok: true,
+      value: {
         reactants,
         products,
         original: equationStr,
@@ -89,8 +91,9 @@ export function parseChemicalEquation(equationStr: string): EquationParseResult 
     };
   } catch (error) {
     return {
-      success: false,
+      ok: false,
       error: error instanceof Error ? error.message : "Failed to parse equation",
+      code: "INVALID_INPUT",
     };
   }
 }

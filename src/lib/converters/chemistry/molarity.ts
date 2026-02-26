@@ -10,6 +10,8 @@
  * - Mw = molecular weight (g/mol)
  */
 
+import type { CalculationResult } from "@/types";
+
 /**
  * Input for molarity calculation
  */
@@ -57,10 +59,12 @@ export interface MolarityResult {
  * @param input - Molarity input
  * @returns Molarity result or null if inputs are invalid
  */
-export function calculateMolarity(input: MolarityInput): MolarityResult | null {
+export function calculateMolarity(input: MolarityInput): CalculationResult<MolarityResult> {
   const { mode, mass, moles, molecularWeight, volume, volumeUnit } = input;
 
-  if (volume <= 0) return null;
+  if (volume <= 0) {
+    return { ok: false, error: "Volume must be positive", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
 
@@ -85,7 +89,11 @@ export function calculateMolarity(input: MolarityInput): MolarityResult | null {
 
   if (mode === "mass-volume") {
     if (!mass || mass <= 0 || !molecularWeight || molecularWeight <= 0) {
-      return null;
+      return {
+        ok: false,
+        error: "Mass and molecular weight must be positive for mass-volume mode",
+        code: "INVALID_INPUT",
+      };
     }
 
     steps.push(`Mass: ${mass} g`);
@@ -97,7 +105,11 @@ export function calculateMolarity(input: MolarityInput): MolarityResult | null {
   } else {
     // moles-volume mode
     if (!moles || moles <= 0) {
-      return null;
+      return {
+        ok: false,
+        error: "Moles must be positive for moles-volume mode",
+        code: "INVALID_INPUT",
+      };
     }
 
     molesValue = moles;
@@ -126,11 +138,14 @@ export function calculateMolarity(input: MolarityInput): MolarityResult | null {
   steps.push(`${concentrationUnits.nM.toFixed(3)} nM (nmol/L)`);
 
   return {
-    molarity,
-    formatted: molarity.toFixed(6),
-    moles: molesValue,
-    volumeL,
-    concentrationUnits,
-    steps,
+    ok: true,
+    value: {
+      molarity,
+      formatted: molarity.toFixed(6),
+      moles: molesValue,
+      volumeL,
+      concentrationUnits,
+      steps,
+    },
   };
 }

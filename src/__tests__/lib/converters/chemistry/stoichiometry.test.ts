@@ -2,32 +2,32 @@ import { describe, expect, it } from "vitest";
 import { calculateStoichiometry } from "@/lib/converters/chemistry/stoichiometry";
 
 describe("calculateStoichiometry", () => {
-  describe("null returns for invalid inputs", () => {
-    it("returns null for empty equation string", () => {
+  describe("error results for invalid inputs", () => {
+    it("returns ok:false for empty equation string", () => {
       expect(
         calculateStoichiometry({
           equation: "",
           reactantMasses: { H2: 2 },
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for empty reactantMasses", () => {
+    it("returns ok:false for empty reactantMasses", () => {
       expect(
         calculateStoichiometry({
           equation: "2H2 + O2 -> 2H2O",
           reactantMasses: {},
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for invalid equation format", () => {
+    it("returns ok:false for invalid equation format", () => {
       expect(
         calculateStoichiometry({
           equation: "not an equation",
           reactantMasses: { H2: 2 },
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -40,8 +40,10 @@ describe("calculateStoichiometry", () => {
         equation: "2H2 + O2 -> 2H2O",
         reactantMasses: { H2: 4, O2: 32 },
       });
-      expect(result).not.toBeNull();
-      expect(result!.limitingReactant).toBe("H2");
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.limitingReactant).toBe("H2");
+      }
     });
 
     it("result has reactants and products arrays", () => {
@@ -49,8 +51,11 @@ describe("calculateStoichiometry", () => {
         equation: "2H2 + O2 -> 2H2O",
         reactantMasses: { H2: 4, O2: 32 },
       });
-      expect(result!.reactants).toBeInstanceOf(Array);
-      expect(result!.products).toBeInstanceOf(Array);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.reactants).toBeInstanceOf(Array);
+        expect(result.value.products).toBeInstanceOf(Array);
+      }
     });
 
     it("product H2O has positive massProduced", () => {
@@ -58,9 +63,12 @@ describe("calculateStoichiometry", () => {
         equation: "2H2 + O2 -> 2H2O",
         reactantMasses: { H2: 4, O2: 32 },
       });
-      const water = result!.products.find((p) => p.formula === "H2O");
-      expect(water).toBeDefined();
-      expect(water!.massProduced).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        const water = result.value.products.find((p) => p.formula === "H2O");
+        expect(water).toBeDefined();
+        expect(water!.massProduced).toBeGreaterThan(0);
+      }
     });
   });
 
@@ -73,8 +81,10 @@ describe("calculateStoichiometry", () => {
         equation: "Fe + S -> FeS",
         reactantMasses: { Fe: 56, S: 10 },
       });
-      expect(result).not.toBeNull();
-      expect(result!.limitingReactant).toBe("S");
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.limitingReactant).toBe("S");
+      }
     });
   });
 
@@ -84,9 +94,12 @@ describe("calculateStoichiometry", () => {
         equation: "2H2 + O2 -> 2H2O",
         reactantMasses: { H2: 4, O2: 32 },
       });
-      expect(result!.equation).toBeTruthy();
-      expect(result!.steps).toBeInstanceOf(Array);
-      expect(result!.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.equation).toBeTruthy();
+        expect(result.value.steps).toBeInstanceOf(Array);
+        expect(result.value.steps.length).toBeGreaterThan(0);
+      }
     });
 
     it("each reactant has isLimiting flag", () => {
@@ -94,8 +107,11 @@ describe("calculateStoichiometry", () => {
         equation: "2H2 + O2 -> 2H2O",
         reactantMasses: { H2: 4, O2: 32 },
       });
-      const limitingCount = result!.reactants.filter((r) => r.isLimiting).length;
-      expect(limitingCount).toBe(1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        const limitingCount = result.value.reactants.filter((r) => r.isLimiting).length;
+        expect(limitingCount).toBe(1);
+      }
     });
   });
 });

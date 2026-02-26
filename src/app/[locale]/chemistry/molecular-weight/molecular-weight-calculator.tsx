@@ -19,20 +19,12 @@ import {
 } from "@/lib/converters/chemistry/molecular-weight";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
-const useMolecularWeightStore = createCalculatorStore<
-  MolecularWeightInput,
-  MolecularWeightResult | null
->({
+const useMolecularWeightStore = createCalculatorStore<MolecularWeightInput, MolecularWeightResult>({
   name: "molecular-weight",
   initialValues: {
     formula: "H2O",
   },
-  calculate: (input) => {
-    const r = calculateMolecularWeight(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: calculateMolecularWeight,
 });
 
 export default function MolecularWeightCalculator() {
