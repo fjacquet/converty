@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 41 — Full Converter Test Coverage (in progress)
-Plan: 01 complete (1/10)
-Status: v7.0 Phase 41 in progress. Plan 01 done: global 75% coverage threshold, cpu-types.ts excluded, Test CI gate in static.yml.
-Last activity: 2026-02-26 — Phase 41-01 complete: global coverage threshold, CI test gate
+Plan: 05 complete (5/10)
+Status: v7.0 Phase 41 in progress. Plan 05 done: 22 finance test files, 212 finance tests, 943 total tests passing.
+Last activity: 2026-02-26 — Phase 41-05 complete: full finance category test coverage
 
-Progress: [█░░░░░░░░░] Phase 41: 1/10 plans complete
+Progress: [█████░░░░░] Phase 41: 5/10 plans complete
 
 ## Performance Metrics
 
@@ -101,6 +101,8 @@ Progress: [█░░░░░░░░░] Phase 41: 1/10 plans complete
 | 39-server-refresh-calculator | 3/3   | ~9.5 min | ~3.2 min  |
 | Phase 40-vitest-foundation P02 | 2 | 2 tasks | 3 files |
 | Phase 41 P04 | 20 | 2 tasks | 27 files |
+| Phase 41 P05 | 9 | 2 tasks | 22 files |
+| Phase 41 P03 | 9 | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -142,6 +144,9 @@ Recent decisions affecting current work:
 - [Phase 41-01]: CI uses npm run test:run not npm test — interactive watch mode would hang pipeline indefinitely
 - [Phase 41]: pregnancy-due-date: 2024-01-01 + 280 days = 2024-10-06 (not 10-07) — JS Date arithmetic confirmed
 - [Phase 41]: period-calculator/pregnancy-due-date: tests verify structural properties only — source uses new Date() for today-relative fields
+- [Phase 41-03]: sample-size marginOfError parameter is a decimal fraction (0.05=5%); test initially used absolute value (5) causing null return — fixed to use fractional form
+- [Phase 41]: [Phase 41-05]: toBeCloseTo(value, 0) for large dollar amounts, 2 decimals for percentages/small values
+- [Phase 41]: [Phase 41-05]: Comparative tests (higher contribution → higher balance) used throughout for directional verification
 
 ### Decisions (Phase 40-01)
 
@@ -162,7 +167,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 41-01-PLAN.md — global 75% coverage threshold, cpu-types.ts excluded, Test CI gate in static.yml
+Stopped at: Completed 41-05-PLAN.md — 22 finance test files, 212 finance tests, 943 total tests passing
 Resume file: None
 
 **Milestones Completed:**
