@@ -1,9 +1,9 @@
 # ADR-010: No Automated Test Framework (Current State)
 
-**Status:** Accepted — Under Review
+**Status:** Superseded by [ADR-011](ADR-011-vitest-test-strategy.md)
 **Date:** 2024-01-01
 **Supersedes:** Nothing
-**Will be superseded by:** ADR-011 (planned)
+**Superseded by:** ADR-011 (2026-02-26)
 
 ---
 

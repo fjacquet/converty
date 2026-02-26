@@ -201,7 +201,7 @@ Molecular weight, molarity, dilution, stoichiometry, pH/buffer, periodic table.
 
 VM storage, server virtualization, Kubernetes capacity, vSphere ESX sizing, VMware licensing, TCO, Hyper-V consolidation, Windows Server licensing, hypervisor comparison.
 
-### 5.3 In-Progress: v7.0 Framework & Quality Migration
+### 5.3 Shipped: v7.0 Framework & Quality Migration
 
 | ID | Requirement | Status |
 |----|-------------|--------|
@@ -214,31 +214,31 @@ VM storage, server virtualization, Kubernetes capacity, vSphere ESX sizing, VMwa
 | FQ-07 | `schema?` param in `createCalculatorStore` for opt-in Zod validation | ✅ Shipped Phase 43 |
 | FQ-08 | Zod URL param helpers for type-safe URL state parsing | ✅ Shipped Phase 43 |
 | FQ-09 | Field-level validation errors wired into 71 store-based calculator components | ✅ Shipped Phase 43 |
-| FQ-10 | Phases 44–48 (pending) | 🔄 Planned |
+| FQ-10 | LZ-String URL compression, CalculationResult<T>, i18n restructure, ADRs 011–015 | ✅ Shipped Phases 44–48 |
 
-**Test coverage achieved (Phase 41):** 2281 tests, 196 test files, 19 categories, 86% line coverage, 91% branch coverage.
+**Test coverage achieved (Phase 41):** 2288+ tests, 197 test files, 19 categories, ≥75% line/branch/function/statement coverage.
 
-### 5.4 Pending: v6.0 CPU Performance & Server Refresh
+### 5.4 Shipped: v6.0 CPU Performance & Server Refresh
 
 | ID | Requirement | Status |
 |----|-------------|--------|
-| CPUDB-01 | Intel Xeon Scalable CPUs with SPECint2017 scores | 🔄 Planned |
-| CPUDB-02 | AMD EPYC CPUs with SPECint2017 scores | 🔄 Planned |
-| CPUDB-03 | Previous-gen CPUs for server refresh baseline | 🔄 Planned |
-| CPUDB-04 | ARM/Ampere CPUs with SPECint scores | 🔄 Planned |
-| CPUCMP-01 | Side-by-side comparison of 2–4 CPUs | 🔄 Planned |
-| CPUCMP-02 | Raw SPECint2017 base and peak scores | 🔄 Planned |
-| CPUCMP-03 | Performance-per-core metric | 🔄 Planned |
-| CPUCMP-04 | Performance-per-watt and absolute TDP | 🔄 Planned |
-| CPUCMP-05 | Relative sizing ratio between any two CPUs | 🔄 Planned |
-| CPUCMP-06 | Filter CPU list by vendor and generation | 🔄 Planned |
-| REFRESH-01 | Specify old server fleet (CPU, sockets, count) | 🔄 Planned |
-| REFRESH-02 | Select target new CPU | 🔄 Planned |
-| REFRESH-03 | Calculate new server count to match performance | 🔄 Planned |
-| REFRESH-04 | Apply headroom buffer (%) for growth | 🔄 Planned |
-| REFRESH-05 | Socket/chassis constraints (1U/2U, single/dual socket) | 🔄 Planned |
-| REFRESH-06 | Power budget (W/rack) constraint | 🔄 Planned |
-| REFRESH-07 | Fleet summary: old vs new (count, cores, TDP delta) | 🔄 Planned |
+| CPUDB-01 | Intel Xeon Scalable CPUs with SPECint2017 scores | ✅ Shipped Phase 37 |
+| CPUDB-02 | AMD EPYC CPUs with SPECint2017 scores | ✅ Shipped Phase 37 |
+| CPUDB-03 | Previous-gen CPUs for server refresh baseline | ✅ Shipped Phase 37 |
+| CPUDB-04 | ARM/Ampere CPUs with SPECint scores | ✅ Shipped Phase 37 |
+| CPUCMP-01 | Side-by-side comparison of 2–4 CPUs | ✅ Shipped Phase 38 |
+| CPUCMP-02 | Raw SPECint2017 base and peak scores | ✅ Shipped Phase 38 |
+| CPUCMP-03 | Performance-per-core metric | ✅ Shipped Phase 38 |
+| CPUCMP-04 | Performance-per-watt and absolute TDP | ✅ Shipped Phase 38 |
+| CPUCMP-05 | Relative sizing ratio between any two CPUs | ✅ Shipped Phase 38 |
+| CPUCMP-06 | Filter CPU list by vendor and generation | ✅ Shipped Phase 38 |
+| REFRESH-01 | Specify old server fleet (CPU, sockets, count) | ✅ Shipped Phase 39 |
+| REFRESH-02 | Select target new CPU | ✅ Shipped Phase 39 |
+| REFRESH-03 | Calculate new server count to match performance | ✅ Shipped Phase 39 |
+| REFRESH-04 | Apply headroom buffer (%) for growth | ✅ Shipped Phase 39 |
+| REFRESH-05 | Socket/chassis constraints (1U/2U, single/dual socket) | ✅ Shipped Phase 39 |
+| REFRESH-06 | Power budget (W/rack) constraint | ✅ Shipped Phase 39 |
+| REFRESH-07 | Fleet summary: old vs new (count, cores, TDP delta) | ✅ Shipped Phase 39 |
 
 ---
 
