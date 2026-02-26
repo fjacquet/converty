@@ -1,5 +1,5 @@
 {
-  "dataAsOf": "2026-02-23",
+  "dataAsOf": "2026-02-26",
   "staleDays": 90,
   "staleWarning": "SPECint2017 data may be outdated. Verify current scores at spec.org before procurement decisions.",
   "source": "https://www.spec.org/cpu2017/results/rint2017.html",
