@@ -1,3 +1,4 @@
+import { CalculatorErrorBoundary } from "@/components/error-boundary/calculator-error-boundary";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Category } from "@/lib/registry/categories";
 import { Breadcrumbs } from "./breadcrumbs";
@@ -29,7 +30,9 @@ export function ConverterLayout({
       </div>
 
       <Card className="mb-8">
-        <CardContent className="pt-6">{children}</CardContent>
+        <CardContent className="pt-6">
+          <CalculatorErrorBoundary>{children}</CalculatorErrorBoundary>
+        </CardContent>
       </Card>
 
       {infoContent && (
