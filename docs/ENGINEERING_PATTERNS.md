@@ -169,7 +169,10 @@ Pipe flow uses iterative solving (Colebrook-White equation):
 ## Validation Rules
 
 1. **Physical constraints**: Reject negative lengths, zero areas, negative moduli
-2. **Return `null`** for invalid inputs — never throw from calculation functions
+2. **Return `CalculationResult<T>`** for all calculator functions — never throw, never return bare `null`
+   - Success: `return { ok: true, value: result };`
+   - Failure: `return { ok: false, error: "Effective length must be positive", code: "INVALID_INPUT" };`
+   - Import: `import type { CalculationResult } from "@/types/calculation-result";`
 3. **Check for division by zero**: Effective length, cross-sectional area, diameter
 4. **Warn on extreme values**: Slenderness ratio > 200 triggers a warning message
 5. **Use `Number.isFinite()`** to guard against `Infinity` and `NaN`
@@ -178,7 +181,7 @@ Pipe flow uses iterative solving (Colebrook-White equation):
 
 ## Adding a New Engineering Calculator
 
-1. Create `src/lib/converters/engineering/{name}.ts` with typed input/result interfaces
+1. Create `src/lib/converters/engineering/{name}.ts` with typed input/result interfaces; return `CalculationResult<YourResult>` (not `T | null`)
 2. Add material/section data to `src/data/engineering/` if needed
 3. Export lookup functions (`getMaterials()`, `getMaterialById()`)
 4. Include `steps` array in result for calculation display
