@@ -8,6 +8,7 @@
 - ✅ **v4.0 Security & Infrastructure** — Phases 25–30 (shipped 2026-01-25)
 - ✅ **v5.0 Calculator Expansion** — Phases 31–36 (shipped 2026-01-29)
 - ✅ **v6.0 CPU Performance & Server Refresh** — Phases 37–39 (shipped 2026-02-23)
+- ✅ **v7.0 Framework Migration** — Phases 40–48 (shipped 2026-02-26)
 
 ## Phases
 
@@ -96,11 +97,12 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
 
 </details>
 
----
+<details>
+<summary>✅ v7.0 Framework Migration (Phases 40–48) — SHIPPED 2026-02-26</summary>
 
-## 🚧 v7.0 Framework Migration (Phases 40–48) — IN PROGRESS
+See `.planning/milestones/v7.0-MILESTONE-AUDIT.md` for full details.
 
-**Branch:** `feature/framework-migration`
+**Branch:** `maincd`
 **Goal:** Adopt Raidy's proven building blocks — Vitest testing, Zod validation, react-error-boundary, Sonner toasts, DOMPurify, LZ-String URL compression, discriminated union result types, and i18n namespace restructure. All without replacing Next.js.
 
 - [x] Phase 40: Vitest Foundation — **4 plans** — install Vitest, configure for Next.js, test 5 priority converters (COMPLETE)
@@ -120,19 +122,19 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [x] 41-09-PLAN.md — Chemistry + Engineering + Infrastructure tests (Wave 3, parallel)
   - [x] 41-10-PLAN.md — Global coverage verification + gap fixes (Wave 4)
 - [x] Phase 42: Error Boundaries & Toasts — **5 plans** — react-error-boundary, Sonner, DOMPurify (R2.1–R2.6) (completed 2026-02-26)
-  - [ ] 42-01-PLAN.md — Install packages + mount Toaster in layout + i18n toast keys (Wave 1)
-  - [ ] 42-02-PLAN.md — CalculatorErrorBoundary + CalculatorErrorFallback + sanitize.ts utility (Wave 1, parallel)
-  - [ ] 42-03-PLAN.md — Toast feedback for all 7 clipboard copy sites (Wave 2, parallel)
-  - [ ] 42-04-PLAN.md — Toast feedback for CSV/PDF export + wire ErrorBoundary into ConverterLayout (Wave 2, parallel)
-  - [ ] 42-05-PLAN.md — Opt-in onCalculationError callback in createCalculatorStore (Wave 2, parallel)
+  - [x] 42-01-PLAN.md — Install packages + mount Toaster in layout + i18n toast keys (Wave 1)
+  - [x] 42-02-PLAN.md — CalculatorErrorBoundary + CalculatorErrorFallback + sanitize.ts utility (Wave 1, parallel)
+  - [x] 42-03-PLAN.md — Toast feedback for all 7 clipboard copy sites (Wave 2, parallel)
+  - [x] 42-04-PLAN.md — Toast feedback for CSV/PDF export + wire ErrorBoundary into ConverterLayout (Wave 2, parallel)
+  - [x] 42-05-PLAN.md — Opt-in onCalculationError callback in createCalculatorStore (Wave 2, parallel)
 - [x] Phase 43: Zod Input Validation — **5 plans** — zod@^4 installed, schemas for all 169 calculator inputs, Zod URL parsing, field-level error display (R3.1–R3.6) (completed 2026-02-26)
-  - [ ] 43-01-PLAN.md — Install zod + update createCalculatorStore schema? param + Zod URL helpers (Wave 1)
-  - [ ] 43-02-PLAN.md — Health schemas + wire errors into 28 health components (Wave 2, parallel)
-  - [ ] 43-03-PLAN.md — Finance schemas + wire errors into ~24 finance components (Wave 2, parallel)
-  - [ ] 43-04-PLAN.md — Math schemas + wire errors into ~38 math components (Wave 2, parallel)
-  - [ ] 43-05-PLAN.md — Remaining 12 categories schemas + errors + barrel index (Wave 3)
+  - [x] 43-01-PLAN.md — Install zod + update createCalculatorStore schema? param + Zod URL helpers (Wave 1)
+  - [x] 43-02-PLAN.md — Health schemas + wire errors into 28 health components (Wave 2, parallel)
+  - [x] 43-03-PLAN.md — Finance schemas + wire errors into ~24 finance components (Wave 2, parallel)
+  - [x] 43-04-PLAN.md — Math schemas + wire errors into ~38 math components (Wave 2, parallel)
+  - [x] 43-05-PLAN.md — Remaining 12 categories schemas + errors + barrel index (Wave 3)
 - [x] Phase 44: LZ-String URL Compression — **1 plan** — lz-string installed, ?z= compressed URL write/read paths, backward compat, round-trip tests (R4.1–R4.6) (completed 2026-02-26)
-  - [ ] 44-01-PLAN.md — Install lz-string + update url-sync.ts write path + update calculator-store.ts read path + fix Map bug + round-trip tests (Wave 1)
+  - [x] 44-01-PLAN.md — Install lz-string + update url-sync.ts write path + update calculator-store.ts read path + fix Map bug + round-trip tests (Wave 1)
 - [x] Phase 45: Discriminated Union Result Types — **5 plans** — CalculationResult<T> type, store factory adapter, all 91 components updated (R5.1–R5.5) (completed 2026-02-26)
   - [x] 45-01-PLAN.md — CalculationResult<T> type definition + createCalculatorStore adapter pattern + calculationError state (Wave 1)
   - [x] 45-02-PLAN.md — Health + math converters to CalculationResult + update their tests (Wave 2, parallel)
@@ -143,11 +145,14 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [x] 46-01-PLAN.md — Migration script + restructure all 4 locale JSON files atomically (Wave 1)
   - [x] 46-02-PLAN.md — Update all source code namespace strings (converters→converter, categories→nav) (Wave 2)
   - [x] 46-03-PLAN.md — Full verification (build, i18n audit, zero MISSING_MESSAGE) + ADR-012 (Wave 3)
-- [ ] Phase 47: ADRs & CI Hardening — ADRs 011–015, CI test gate, updated docs
-- [ ] Phase 48: Branch Integration & Release v7.0 — merge, regression, tag, GitHub Release
+- [x] Phase 47: ADRs & CI Hardening — ADRs 011–015, CI test gate, updated docs (completed 2026-02-26)
+- [x] Phase 48: Branch Integration & Release v7.0 — regression verified, tag v7.0, GitHub Release published (completed 2026-02-26)
+  - [x] 48-01-PLAN.md — Final regression check + CHANGELOG.md completion (Wave 1)
+  - [x] 48-02-PLAN.md — Annotated git tag v7.0 + GitHub Release (Wave 2)
+  - [x] 48-03-PLAN.md — ROADMAP.md + STATE.md + v7.0-MILESTONE-AUDIT.md (Wave 3)
 
-See `.planning/REQUIREMENTS.md` and `.planning/GAP-ANALYSIS.md` for full details.
+</details>
 
 ---
 
-_Next action: `/gsd:plan-phase 47` — ADRs & CI Hardening_
+_Next action: `/gsd:new-milestone` — plan the v8.0 milestone_
