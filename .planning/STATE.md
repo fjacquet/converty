@@ -103,6 +103,7 @@ Progress: [█████░░░░░] Phase 41: 5/10 plans complete
 | Phase 41 P04 | 20 | 2 tasks | 27 files |
 | Phase 41 P05 | 9 | 2 tasks | 22 files |
 | Phase 41 P03 | 9 | 2 tasks | 13 files |
+| Phase 41 P02 | 13 | 2 tasks | 26 files |
 
 ## Accumulated Context
 
@@ -147,6 +148,7 @@ Recent decisions affecting current work:
 - [Phase 41-03]: sample-size marginOfError parameter is a decimal fraction (0.05=5%); test initially used absolute value (5) causing null return — fixed to use fractional form
 - [Phase 41]: [Phase 41-05]: toBeCloseTo(value, 0) for large dollar amounts, 2 decimals for percentages/small values
 - [Phase 41]: [Phase 41-05]: Comparative tests (higher contribution → higher balance) used throughout for directional verification
+- [Phase 41]: 41-02: Explicit vitest imports required (from 'vitest') for TypeScript compatibility — globals:true only works at runtime, tsc type-check requires explicit imports
 
 ### Decisions (Phase 40-01)
 
