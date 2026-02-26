@@ -56,7 +56,7 @@ const useHalfLifeStore = createCalculatorStore<FormValues, HalfLifeResult | null
 export function HalfLifeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useHalfLifeStore();
+  const { values, setValue, result, errors, calculationError } = useHalfLifeStore();
 
   const halfLifeResult = result;
 
@@ -189,6 +189,8 @@ export function HalfLifeCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

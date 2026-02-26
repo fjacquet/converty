@@ -35,7 +35,7 @@ const usePrimeFactorizationStore = createCalculatorStore<
 export function PrimeFactorizationCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = usePrimeFactorizationStore();
+  const { values, setValue, result, errors, calculationError } = usePrimeFactorizationStore();
 
   const primeResult = result;
 
@@ -89,6 +89,8 @@ export function PrimeFactorizationCalculator() {
           />
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

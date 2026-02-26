@@ -34,7 +34,7 @@ const useExponentStore = createCalculatorStore<FormValues, ExponentResult | null
 export function ExponentCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useExponentStore();
+  const { values, setValue, result, errors, calculationError } = useExponentStore();
 
   const expResult = result;
 
@@ -100,6 +100,8 @@ export function ExponentCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

@@ -34,7 +34,7 @@ const useLogarithmStore = createCalculatorStore<FormValues, LogarithmResult | nu
 export function LogarithmCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useLogarithmStore();
+  const { values, setValue, result, errors, calculationError } = useLogarithmStore();
 
   const logResult = result;
 
@@ -98,6 +98,8 @@ export function LogarithmCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

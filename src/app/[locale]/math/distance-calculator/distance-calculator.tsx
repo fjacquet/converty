@@ -81,7 +81,7 @@ export function DistanceCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useDistanceStore();
+  const { values, setValue, result, errors, calculationError } = useDistanceStore();
 
   const distResult = result;
 
@@ -295,6 +295,8 @@ export function DistanceCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

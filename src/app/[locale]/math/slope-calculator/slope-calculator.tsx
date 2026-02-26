@@ -53,7 +53,7 @@ const useSlopeStore = createCalculatorStore<FormValues, SlopeResult | null>({
 export function SlopeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useSlopeStore();
+  const { values, setValue, result, errors, calculationError } = useSlopeStore();
 
   const slopeResult = result;
 
@@ -268,6 +268,8 @@ export function SlopeCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

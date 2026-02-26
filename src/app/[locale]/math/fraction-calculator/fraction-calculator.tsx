@@ -54,7 +54,7 @@ const useFractionStore = createCalculatorStore<FormValues, FractionResult | null
 export function FractionCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useFractionStore();
+  const { values, setValue, result, errors, calculationError } = useFractionStore();
 
   const fractionResult = result;
   const showSecondFraction = ["add", "subtract", "multiply", "divide"].includes(values.mode);
@@ -190,6 +190,8 @@ export function FractionCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

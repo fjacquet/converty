@@ -68,7 +68,7 @@ const useProbabilityStore = createCalculatorStore<FormValues, ProbabilityResult 
 export function ProbabilityCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useProbabilityStore();
+  const { values, setValue, result, errors, calculationError } = useProbabilityStore();
 
   const probabilityResult = result;
 
@@ -330,6 +330,8 @@ export function ProbabilityCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

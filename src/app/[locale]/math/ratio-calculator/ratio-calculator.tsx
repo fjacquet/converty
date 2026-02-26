@@ -53,7 +53,7 @@ const useRatioStore = createCalculatorStore<FormValues, RatioResult | null>({
 export function RatioCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useRatioStore();
+  const { values, setValue, result, errors, calculationError } = useRatioStore();
 
   const ratioResult = result;
 
@@ -249,6 +249,8 @@ export function RatioCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

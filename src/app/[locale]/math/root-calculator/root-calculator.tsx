@@ -30,7 +30,7 @@ const useRootStore = createCalculatorStore<FormValues, RootResult | null>({
 export function RootCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useRootStore();
+  const { values, setValue, result, errors, calculationError } = useRootStore();
 
   const rootResult = result;
 
@@ -118,6 +118,8 @@ export function RootCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

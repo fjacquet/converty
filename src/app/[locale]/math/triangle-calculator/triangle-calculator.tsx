@@ -57,7 +57,7 @@ const useTriangleStore = createCalculatorStore<FormValues, TriangleResult | null
 export function TriangleCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useTriangleStore();
+  const { values, setValue, result, errors, calculationError } = useTriangleStore();
 
   const triangleResult = result;
 
@@ -206,6 +206,8 @@ export function TriangleCalculator() {
           />
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

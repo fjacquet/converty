@@ -55,7 +55,7 @@ const usePValueStore = createCalculatorStore<FormValues, PValueResult | null>({
 export function PValueCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = usePValueStore();
+  const { values, setValue, result, errors, calculationError } = usePValueStore();
 
   const pResult = result;
 
@@ -160,6 +160,8 @@ export function PValueCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

@@ -48,7 +48,7 @@ const usePythagoreanStore = createCalculatorStore<FormValues, PythagoreanResult 
 export function PythagoreanCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = usePythagoreanStore();
+  const { values, setValue, result, errors, calculationError } = usePythagoreanStore();
 
   const pythagoreanResult = result;
 
@@ -177,6 +177,8 @@ export function PythagoreanCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

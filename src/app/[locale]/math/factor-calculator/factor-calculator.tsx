@@ -29,7 +29,7 @@ const useFactorStore = createCalculatorStore<FormValues, FactorResult | null>({
 export function FactorCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useFactorStore();
+  const { values, setValue, result, errors, calculationError } = useFactorStore();
 
   const factorResult = result;
 
@@ -83,6 +83,8 @@ export function FactorCalculator() {
           />
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

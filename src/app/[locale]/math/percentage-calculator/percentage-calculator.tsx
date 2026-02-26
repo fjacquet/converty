@@ -47,7 +47,7 @@ export function PercentageCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = usePercentageStore();
+  const { values, setValue, result, errors, calculationError } = usePercentageStore();
 
   const percentResult = result;
 
@@ -126,6 +126,8 @@ export function PercentageCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

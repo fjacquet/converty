@@ -40,7 +40,7 @@ export function LongDivisionCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useLongDivisionStore();
+  const { values, setValue, result, errors, calculationError } = useLongDivisionStore();
 
   return (
     <div className="space-y-6">
@@ -164,6 +164,8 @@ export function LongDivisionCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

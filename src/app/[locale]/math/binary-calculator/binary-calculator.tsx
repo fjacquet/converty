@@ -48,7 +48,7 @@ const useBinaryStore = createCalculatorStore<FormValues, BinaryResult | null>({
 export function BinaryCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useBinaryStore();
+  const { values, setValue, result, errors, calculationError } = useBinaryStore();
 
   const binaryResult = result;
 
@@ -201,6 +201,8 @@ export function BinaryCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

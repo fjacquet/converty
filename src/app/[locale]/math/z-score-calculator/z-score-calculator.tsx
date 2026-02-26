@@ -53,7 +53,7 @@ const useZScoreStore = createCalculatorStore<FormValues, ZScoreResult | null>({
 export function ZScoreCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useZScoreStore();
+  const { values, setValue, result, errors, calculationError } = useZScoreStore();
 
   const zResult = result;
 
@@ -174,6 +174,8 @@ export function ZScoreCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

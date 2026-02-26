@@ -56,7 +56,7 @@ const useSampleSizeStore = createCalculatorStore<FormValues, SampleSizeResult | 
 export function SampleSizeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useSampleSizeStore();
+  const { values, setValue, result, errors, calculationError } = useSampleSizeStore();
 
   const sizeResult = result;
 
@@ -176,6 +176,8 @@ export function SampleSizeCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

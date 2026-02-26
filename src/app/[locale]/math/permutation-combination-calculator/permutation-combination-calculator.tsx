@@ -51,7 +51,7 @@ export function PermutationCombinationCalculator() {
   const tResults = useTranslations("calculator.results");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = usePermutationCombinationStore();
+  const { values, setValue, result, errors, calculationError } = usePermutationCombinationStore();
 
   const pcResult = result;
 
@@ -143,6 +143,8 @@ export function PermutationCombinationCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

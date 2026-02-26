@@ -34,7 +34,7 @@ const usePercentErrorStore = createCalculatorStore<FormValues, PercentErrorResul
 export function PercentErrorCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = usePercentErrorStore();
+  const { values, setValue, result, errors, calculationError } = usePercentErrorStore();
 
   const errorResult = result;
 
@@ -85,6 +85,8 @@ export function PercentErrorCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

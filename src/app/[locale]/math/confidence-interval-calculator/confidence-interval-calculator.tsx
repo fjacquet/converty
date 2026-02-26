@@ -59,7 +59,7 @@ const useConfidenceIntervalStore = createCalculatorStore<
 export function ConfidenceIntervalCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useConfidenceIntervalStore();
+  const { values, setValue, result, errors, calculationError } = useConfidenceIntervalStore();
 
   const ciResult = result;
 
@@ -187,6 +187,8 @@ export function ConfidenceIntervalCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

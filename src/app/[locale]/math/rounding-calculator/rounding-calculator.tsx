@@ -49,7 +49,7 @@ export function RoundingCalculator() {
   const t = useTranslations("calculator.labels");
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useRoundingStore();
+  const { values, setValue, result, errors, calculationError } = useRoundingStore();
 
   const roundingResult = result;
 
@@ -148,6 +148,8 @@ export function RoundingCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

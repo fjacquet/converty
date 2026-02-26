@@ -56,7 +56,7 @@ const useVolumeStore = createCalculatorStore<FormValues, VolumeResult | null>({
 export function VolumeCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useVolumeStore();
+  const { values, setValue, result, errors, calculationError } = useVolumeStore();
 
   const volumeResult = result;
 
@@ -267,6 +267,8 @@ export function VolumeCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

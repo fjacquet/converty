@@ -53,7 +53,7 @@ const useScientificNotationStore = createCalculatorStore<
 export function ScientificNotationCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useScientificNotationStore();
+  const { values, setValue, result, errors, calculationError } = useScientificNotationStore();
 
   const notationResult = result;
 
@@ -138,6 +138,8 @@ export function ScientificNotationCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

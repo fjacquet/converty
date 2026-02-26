@@ -55,7 +55,7 @@ const useHexStore = createCalculatorStore<FormValues, HexResult | null>({
 export function HexCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useHexStore();
+  const { values, setValue, result, errors, calculationError } = useHexStore();
 
   const hexResult = result;
 
@@ -280,6 +280,8 @@ export function HexCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

@@ -38,7 +38,7 @@ const useCircleStore = createCalculatorStore<FormValues, CircleResult | null>({
 export function CircleCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useCircleStore();
+  const { values, setValue, result, errors, calculationError } = useCircleStore();
 
   const circleResult = result;
 
@@ -149,6 +149,8 @@ export function CircleCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

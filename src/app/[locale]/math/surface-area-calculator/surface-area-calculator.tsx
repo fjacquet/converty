@@ -80,7 +80,7 @@ const useSurfaceAreaStore = createCalculatorStore<FormValues, SurfaceAreaResult 
 export function SurfaceAreaCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useSurfaceAreaStore();
+  const { values, setValue, result, errors, calculationError } = useSurfaceAreaStore();
 
   const surfaceAreaResult = result;
 
@@ -342,6 +342,8 @@ export function SurfaceAreaCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

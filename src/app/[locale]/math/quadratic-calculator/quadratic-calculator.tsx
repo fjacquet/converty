@@ -37,7 +37,7 @@ const useQuadraticStore = createCalculatorStore<FormValues, QuadraticResult | nu
 export function QuadraticCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useQuadraticStore();
+  const { values, setValue, result, errors, calculationError } = useQuadraticStore();
 
   const quadResult = result;
 
@@ -137,6 +137,8 @@ export function QuadraticCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

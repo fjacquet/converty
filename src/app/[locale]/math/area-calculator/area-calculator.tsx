@@ -80,7 +80,7 @@ const useAreaStore = createCalculatorStore<FormValues, AreaResult | null>({
 export function AreaCalculator() {
   const tMath = useTranslations("calculator.math");
 
-  const { values, setValue, result, errors } = useAreaStore();
+  const { values, setValue, result, errors, calculationError } = useAreaStore();
 
   const areaResult = result;
 
@@ -344,6 +344,8 @@ export function AreaCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
