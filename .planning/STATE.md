@@ -127,6 +127,7 @@ Progress: [████░░░░░░░░░░░░░░░░] Phase 4
 | Phase 45-discriminated-union-result-types P04 | 2288 | 6 tasks (3 deviations) | 80 files |
 | Phase 45-discriminated-union-result-types P05 | 2288 | 8 commits | 91 files |
 | Phase 46-i18n-namespace-restructure P01 | - | 2 tasks | 5 files |
+| Phase 47-adrs-ci-hardening P02 | 2 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -222,6 +223,8 @@ Recent decisions affecting current work:
 - [Phase 45-05]: Two-change pattern: add calculationError to store destructure + add error display JSX before final closing div
 - [Phase 45-05]: Grid-layout infrastructure components need space-y-4 wrapper to accommodate calculationError sibling element
 - [Phase 45-05]: vm-storage-calculator and k8s-capacity-calculator use custom store patterns with own error field — correctly skipped
+- [Phase 47-adrs-ci-hardening]: Inserted Zod Input Validation and CalculationResult<T> sections in CODE_STYLE.md after Precision section
+- [Phase 47-adrs-ci-hardening]: CI gate (npm run test:run) confirmed present in static.yml from Phase 41 — no changes needed
 
 ### Decisions (Phase 40-01)
 
