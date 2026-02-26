@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 40 — Vitest Foundation (not yet started)
-Plan: —
-Status: v7.0 Framework Migration milestone planning COMPLETE. Branch `feature/framework-migration` to be created. 6 milestones complete (v1.0–v6.0), v7.0 ready to execute.
-Last activity: 2026-02-26 — v7.0 milestone planned: GAP-ANALYSIS.md, REQUIREMENTS.md, ROADMAP.md phases 40-48 defined
+Phase: 40 — Vitest Foundation (in progress)
+Plan: 01 complete (1/4)
+Status: v7.0 executing. Phase 40-01 complete: Vitest 4.x installed and configured. Plans 40-02 through 40-04 remaining.
+Last activity: 2026-02-26 — Phase 40-01 complete: vitest.config.ts, src/test-setup.ts, npm test scripts installed
 
-Progress: [░░░░░░░░░░] v7.0 PLANNING COMPLETE — start Phase 40
+Progress: [█░░░░░░░░░] Phase 40: 1/4 plans complete
 
 ## Performance Metrics
 
@@ -127,9 +127,17 @@ Recent decisions affecting current work:
 - [Phase 39-02]: CalculatorSkeleton inputCount=8 matching 8 fields in the store initialValues
 - [Phase 39-03]: No code changes needed — 39-02 delivered complete implementation; plan 03 was pure verification confirming 45 keys in all 4 locales, zero TypeScript errors, zero MISSING_MESSAGE warnings
 
+### Decisions (Phase 40-01)
+
+- `environment: 'node'` (not jsdom) for converter tests — ~200ms faster per file
+- `globals: true` — describe/it/expect available without imports in every test file
+- `tsconfigPaths()` before `react()` in plugins array — order matters for alias resolution
+- `coverage.include: ['src/lib/converters/**/*.ts']` — scoped to pure functions, excludes React layer
+- 75% thresholds for lines/functions/branches/statements — pragmatic starting point
+
 ### Pending Todos
 
-- Create `feature/framework-migration` branch before starting Phase 40
+- Create `feature/framework-migration` branch before starting Phase 40 (deferred — proceeding on maincd)
 
 ### Blockers/Concerns
 
@@ -138,7 +146,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: v7.0 milestone planning complete — GAP-ANALYSIS.md, REQUIREMENTS.md, ROADMAP.md phases 40-48 created
+Stopped at: Phase 40-01 complete — vitest.config.ts, src/test-setup.ts, npm test scripts installed
 Resume file: None
 
 **Milestones Completed:**
