@@ -82,11 +82,10 @@ export function calculateCompoundInterest(
       }
 
       // Apply compound interest based on frequency
-      // For simplicity, we'll compound at month end proportionally
+      // Use fractional exponentiation so non-monthly frequencies (annual, daily, etc.)
+      // accumulate the correct pro-rated interest each month
       const periodsThisMonth = periodsPerYear / 12;
-      for (let p = 0; p < periodsThisMonth; p++) {
-        balance *= 1 + ratePerPeriod;
-      }
+      balance *= (1 + ratePerPeriod) ** periodsThisMonth;
 
       if (contributionTiming === "end") {
         balance += monthlyContribution;
