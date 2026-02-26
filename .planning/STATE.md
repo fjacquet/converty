@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 42 — Error Boundaries & Toasts (in progress)
-Plan: 42-01 complete (1/5)
-Status: v7.0 Phase 42 IN PROGRESS. 42-01 done: packages installed (sonner, react-error-boundary, isomorphic-dompurify), Toaster mounted, 7 toast i18n keys in all 4 locales.
-Last activity: 2026-02-26 — Phase 42-01 complete: infrastructure for error boundaries and toasts
+Plan: 42-02 complete (2/5)
+Status: v7.0 Phase 42 IN PROGRESS. 42-02 done: CalculatorErrorBoundary, CalculatorErrorFallback, sanitizeHtml utility created.
+Last activity: 2026-02-26 — Phase 42-02 complete: error boundary components and DOMPurify sanitization utility
 
-Progress: [██░░░░░░░░] Phase 42: 1/5 plans complete
+Progress: [████░░░░░░] Phase 42: 2/5 plans complete
 
 ## Performance Metrics
 
@@ -111,6 +111,7 @@ Progress: [██░░░░░░░░] Phase 42: 1/5 plans complete
 | Phase 41-full-converter-test-coverage P10 | 2700 | 2 tasks | 22 files |
 | Phase 41-full-converter-test-coverage P10 | 2700 | 2 tasks | 22 files |
 | Phase 42-error-boundaries-toasts P01 | 2 | 2 tasks | 6 files |
+| Phase 42-error-boundaries-toasts P02 | 2 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -171,6 +172,8 @@ Recent decisions affecting current work:
 - [Phase 41-full-converter-test-coverage]: Targeted branch tests filled 2.5% gap to reach 90.99% branch coverage; fixed 13 test files missing vitest imports
 - [Phase 42]: Toaster placed inside ThemeProvider after flex container div — no 'use client' needed on layout.tsx
 - [Phase 42]: Toast i18n keys stored under common.toast namespace, 7 keys covering copy/CSV/PDF/calculation scenarios
+- [Phase 42-error-boundaries-toasts]: Both error boundary files require 'use client' — ErrorBoundary uses React state internally
+- [Phase 42-error-boundaries-toasts]: sanitize.ts uses isomorphic-dompurify not plain dompurify — prevents 'window is not defined' during static generation
 
 ### Decisions (Phase 40-01)
 
