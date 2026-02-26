@@ -153,6 +153,111 @@ const result = concentration * 1e-14;
 
 ---
 
+## Zod Input Validation
+
+All calculator inputs must have a Zod schema defined in `src/lib/schemas/`.
+
+**String-typed FormValues (health, math, datetime, data):**
+
+```typescript
+import { z } from "zod";
+
+export const BmiFormSchema = z.object({
+  weight: z.string().refine(
+    (v) => !Number.isNaN(Number(v)) && Number(v) > 0,
+    { message: "Weight must be a positive number" }
+  ),
+  height: z.string().refine(
+    (v) => !Number.isNaN(Number(v)) && Number(v) > 0,
+    { message: "Height must be a positive number" }
+  ),
+});
+```
+
+Use `z.string().refine()` — NOT `z.coerce.number()` — because FormValues fields are `string` type. Using `z.coerce.number()` produces a `number` type incompatible with the string-typed store.
+
+**Number-typed FormValues (finance):**
+
+```typescript
+export const LoanFormSchema = z.object({
+  principal: z.number().positive({ message: "Principal must be positive" }),
+  annualRate: z.number().min(0).max(100),
+  termYears: z.number().int().positive(),
+});
+```
+
+**Wiring to createCalculatorStore:**
+
+```typescript
+import type { ZodType } from "zod";
+
+const useStore = createCalculatorStore<Input, Result>({
+  name: "bmi",
+  initialValues: { weight: "", height: "" },
+  calculate: calculateBmi,
+  schema: BmiFormSchema,  // Optional — takes precedence over validate:
+});
+```
+
+`ZodType` must be imported as `import type` (Biome strict compliance). The `z` value import goes in the schema file.
+
+**Field-level errors in components:**
+
+```typescript
+const { errors } = useStore();
+// errors is Record<keyof FormValues, string | undefined>
+
+<InputField
+  error={errors.weight}
+  // ...
+/>
+```
+
+---
+
+## CalculationResult\<T\> Return Type
+
+All converter functions return `CalculationResult<T>` — a discriminated union defined in `src/types/calculation-result.ts`:
+
+```typescript
+// { ok: true; value: T } | { ok: false; error: string; code: string }
+import type { CalculationResult } from "@/types/calculation-result";
+
+// Success
+return { ok: true, value: result };
+
+// Failure (invalid input, division by zero, out-of-range)
+return { ok: false, error: "Weight must be positive", code: "INVALID_INPUT" };
+```
+
+**Do NOT return `null` from converter functions.** Return `{ ok: false, error: "...", code: "..." }` instead.
+
+**In store actions (handled automatically by createCalculatorStore):**
+The adapter pattern unwraps `CalculationResult<T>` inside `setValue`/`setValues`:
+- `ok: true` → sets `result` to `value`, clears `calculationError`
+- `ok: false` → sets `result` to `null`, sets `calculationError` to `error` string
+
+**In components, display errors:**
+
+```typescript
+const { result, calculationError } = useStore();
+
+{calculationError && (
+  <div className="text-sm text-destructive mt-2">{calculationError}</div>
+)}
+```
+
+**Common error codes:**
+
+| Code | Meaning |
+|------|---------|
+| `INVALID_INPUT` | Out-of-range or non-numeric input |
+| `INSUFFICIENT_DATA` | Too few inputs to compute |
+| `DIVISION_BY_ZERO` | Would cause ÷0 |
+| `UNSUPPORTED` | Input combination not supported |
+
+---
+
 ## Pre-commit Checks
 
 Run before every commit:
