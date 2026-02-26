@@ -43,9 +43,21 @@
       "pdfExportSuccess": "PDF erfolgreich exportiert",
       "pdfExportError": "PDF-Export fehlgeschlagen",
       "calculationError": "Berechnung nicht möglich — bitte Eingaben prüfen"
+    },
+    "validation": {
+      "required": "Dieses Feld ist erforderlich",
+      "invalidNumber": "Bitte geben Sie eine gueltige Zahl ein",
+      "positiveNumber": "Bitte geben Sie eine positive Zahl ein",
+      "invalidDate": "Bitte geben Sie ein gueltiges Datum ein",
+      "endDateAfterStart": "Das Enddatum muss nach dem Startdatum liegen",
+      "invalidUrl": "Bitte geben Sie eine gueltige URL ein"
+    },
+    "metadata": {
+      "titleSuffix": "Converty",
+      "defaultDescription": "Kostenlose Online-Rechner und Konverter fuer den taeglichen Bedarf"
     }
   },
-  "categories": {
+  "nav": {
     "color": {
       "name": "Farbe",
       "description": "Farbkonvertierung und Paletten"
@@ -141,57 +153,57 @@
         "reactions": "Reaktionen",
         "reference": "Referenz"
       }
+    },
+    "subcategories": {
+      "date-time": "Datum und Zeit",
+      "hashing": "Hashing",
+      "wallet": "Wallet",
+      "exchange": "Umtausch",
+      "mining": "Mining",
+      "loans": "Kredite und Hypotheken",
+      "interest": "Zinsen und effektiver Jahreszins",
+      "payments": "Zahlungen und Schulden",
+      "investments": "Ruhestand und Investitionen",
+      "taxes": "Einkommen und Steuern",
+      "business": "Unternehmen",
+      "everyday": "Alltag",
+      "conversion": "Umrechnung",
+      "body": "Koerperzusammensetzung",
+      "nutrition": "Ernaehrung",
+      "fitness": "Fitness",
+      "pregnancy": "Schwangerschaft und Fruchtbarkeit",
+      "medical": "Medizinisch",
+      "basic": "Grundlegende Mathematik",
+      "algebra": "Algebra",
+      "geometry": "Geometrie",
+      "statistics": "Statistik",
+      "numbers": "Zahlensysteme",
+      "advanced": "Fortgeschritten",
+      "valuation": "Immobilienbewertung",
+      "investment": "Investitionsanalyse",
+      "storage": "Speicher und Dateien",
+      "network": "Netzwerk",
+      "subnet": "Subnetting",
+      "ip": "IP-Adresse",
+      "dof": "Schaerfentiefe",
+      "exposure": "Belichtung und Licht",
+      "resolution": "Aufloesung und Format",
+      "composition": "Komposition und Bildausschnitt",
+      "astro": "Astrofotografie",
+      "optics": "Optik",
+      "uncategorized": "Allgemein",
+      "fuel": "Kraftstoff und Effizienz",
+      "tires": "Reifen und Rader",
+      "maintenance": "Wartung",
+      "financing": "Finanzierung",
+      "vmware": "VMware",
+      "hyperv": "Hyper-V",
+      "kubernetes": "Kubernetes",
+      "cost": "Kostenanalyse",
+      "cpu": "CPU-Leistung"
     }
   },
-  "subcategories": {
-    "date-time": "Datum und Zeit",
-    "hashing": "Hashing",
-    "wallet": "Wallet",
-    "exchange": "Umtausch",
-    "mining": "Mining",
-    "loans": "Kredite und Hypotheken",
-    "interest": "Zinsen und effektiver Jahreszins",
-    "payments": "Zahlungen und Schulden",
-    "investments": "Ruhestand und Investitionen",
-    "taxes": "Einkommen und Steuern",
-    "business": "Unternehmen",
-    "everyday": "Alltag",
-    "conversion": "Umrechnung",
-    "body": "Koerperzusammensetzung",
-    "nutrition": "Ernaehrung",
-    "fitness": "Fitness",
-    "pregnancy": "Schwangerschaft und Fruchtbarkeit",
-    "medical": "Medizinisch",
-    "basic": "Grundlegende Mathematik",
-    "algebra": "Algebra",
-    "geometry": "Geometrie",
-    "statistics": "Statistik",
-    "numbers": "Zahlensysteme",
-    "advanced": "Fortgeschritten",
-    "valuation": "Immobilienbewertung",
-    "investment": "Investitionsanalyse",
-    "storage": "Speicher und Dateien",
-    "network": "Netzwerk",
-    "subnet": "Subnetting",
-    "ip": "IP-Adresse",
-    "dof": "Schaerfentiefe",
-    "exposure": "Belichtung und Licht",
-    "resolution": "Aufloesung und Format",
-    "composition": "Komposition und Bildausschnitt",
-    "astro": "Astrofotografie",
-    "optics": "Optik",
-    "uncategorized": "Allgemein",
-    "fuel": "Kraftstoff und Effizienz",
-    "tires": "Reifen und Rader",
-    "maintenance": "Wartung",
-    "financing": "Finanzierung",
-    "vmware": "VMware",
-    "hyperv": "Hyper-V",
-    "kubernetes": "Kubernetes",
-    "cost": "Kostenanalyse",
-    "cpu": "CPU-Leistung"
-  },
-  "converters": {
+  "converter": {
     "bmi": {
       "name": "BMI",
       "description": "Berechnen Sie Ihren Body-Mass-Index und Ihre Gesundheitskategorie",
@@ -5092,23 +5104,5 @@
         "findM2": "Die Endkonzentration nach Verdünnung berechnen"
       }
     }
-  },
-  "realestate": {
-    "property-valuation": {
-      "title": "Immobilienbewertungsrechner",
-      "description": "Schätzen Sie Schweizer Immobilienwerte mit der hedonischen Methode"
-    }
-  },
-  "validation": {
-    "required": "Dieses Feld ist erforderlich",
-    "invalidNumber": "Bitte geben Sie eine gueltige Zahl ein",
-    "positiveNumber": "Bitte geben Sie eine positive Zahl ein",
-    "invalidDate": "Bitte geben Sie ein gueltiges Datum ein",
-    "endDateAfterStart": "Das Enddatum muss nach dem Startdatum liegen",
-    "invalidUrl": "Bitte geben Sie eine gueltige URL ein"
-  },
-  "metadata": {
-    "titleSuffix": "Converty",
-    "defaultDescription": "Kostenlose Online-Rechner und Konverter fuer den taeglichen Bedarf"
   }
 }

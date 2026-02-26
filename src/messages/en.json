@@ -43,9 +43,21 @@
       "pdfExportSuccess": "PDF exported successfully",
       "pdfExportError": "PDF export failed",
       "calculationError": "Could not calculate — check your inputs"
+    },
+    "validation": {
+      "required": "This field is required",
+      "invalidNumber": "Please enter a valid number",
+      "positiveNumber": "Please enter a positive number",
+      "invalidDate": "Please enter a valid date",
+      "endDateAfterStart": "End date must be after start date",
+      "invalidUrl": "Please enter a valid URL"
+    },
+    "metadata": {
+      "titleSuffix": "Converty",
+      "defaultDescription": "Free online calculators and converters for everyday needs"
     }
   },
-  "categories": {
+  "nav": {
     "color": {
       "name": "Color",
       "description": "Color conversion and palettes"
@@ -141,57 +153,57 @@
     "automotive": {
       "name": "Automotive",
       "description": "Vehicle calculators for fuel, tires, maintenance, and financing"
+    },
+    "subcategories": {
+      "date-time": "Date & Time",
+      "hashing": "Hashing",
+      "wallet": "Wallet",
+      "exchange": "Exchange",
+      "mining": "Mining",
+      "loans": "Loans & Mortgages",
+      "interest": "Interest & APR",
+      "payments": "Payments & Debt",
+      "investments": "Retirement & Investments",
+      "taxes": "Income & Taxes",
+      "business": "Business",
+      "everyday": "Everyday",
+      "conversion": "Conversion",
+      "body": "Body Composition",
+      "nutrition": "Nutrition",
+      "fitness": "Fitness",
+      "pregnancy": "Pregnancy & Fertility",
+      "medical": "Medical",
+      "basic": "Basic Math",
+      "algebra": "Algebra",
+      "geometry": "Geometry",
+      "statistics": "Statistics",
+      "numbers": "Number Systems",
+      "advanced": "Advanced",
+      "valuation": "Property Valuation",
+      "investment": "Investment Analysis",
+      "storage": "Storage & Files",
+      "network": "Network",
+      "subnet": "Subnetting",
+      "ip": "IP Address",
+      "dof": "Depth of Field",
+      "exposure": "Exposure & Light",
+      "resolution": "Resolution & Format",
+      "composition": "Composition & Framing",
+      "astro": "Astrophotography",
+      "optics": "Optics",
+      "uncategorized": "General",
+      "fuel": "Fuel & Efficiency",
+      "tires": "Tires & Wheels",
+      "maintenance": "Maintenance",
+      "financing": "Financing",
+      "vmware": "VMware",
+      "hyperv": "Hyper-V",
+      "kubernetes": "Kubernetes",
+      "cost": "Cost Analysis",
+      "cpu": "CPU Performance"
     }
   },
-  "subcategories": {
-    "date-time": "Date & Time",
-    "hashing": "Hashing",
-    "wallet": "Wallet",
-    "exchange": "Exchange",
-    "mining": "Mining",
-    "loans": "Loans & Mortgages",
-    "interest": "Interest & APR",
-    "payments": "Payments & Debt",
-    "investments": "Retirement & Investments",
-    "taxes": "Income & Taxes",
-    "business": "Business",
-    "everyday": "Everyday",
-    "conversion": "Conversion",
-    "body": "Body Composition",
-    "nutrition": "Nutrition",
-    "fitness": "Fitness",
-    "pregnancy": "Pregnancy & Fertility",
-    "medical": "Medical",
-    "basic": "Basic Math",
-    "algebra": "Algebra",
-    "geometry": "Geometry",
-    "statistics": "Statistics",
-    "numbers": "Number Systems",
-    "advanced": "Advanced",
-    "valuation": "Property Valuation",
-    "investment": "Investment Analysis",
-    "storage": "Storage & Files",
-    "network": "Network",
-    "subnet": "Subnetting",
-    "ip": "IP Address",
-    "dof": "Depth of Field",
-    "exposure": "Exposure & Light",
-    "resolution": "Resolution & Format",
-    "composition": "Composition & Framing",
-    "astro": "Astrophotography",
-    "optics": "Optics",
-    "uncategorized": "General",
-    "fuel": "Fuel & Efficiency",
-    "tires": "Tires & Wheels",
-    "maintenance": "Maintenance",
-    "financing": "Financing",
-    "vmware": "VMware",
-    "hyperv": "Hyper-V",
-    "kubernetes": "Kubernetes",
-    "cost": "Cost Analysis",
-    "cpu": "CPU Performance"
-  },
-  "converters": {
+  "converter": {
     "bmi": {
       "name": "BMI",
       "description": "Calculate your Body Mass Index and health category",
@@ -5091,23 +5103,5 @@
         }
       }
     }
-  },
-  "realestate": {
-    "property-valuation": {
-      "title": "Property Valuation Calculator",
-      "description": "Estimate Swiss property values using the hedonic method"
-    }
-  },
-  "validation": {
-    "required": "This field is required",
-    "invalidNumber": "Please enter a valid number",
-    "positiveNumber": "Please enter a positive number",
-    "invalidDate": "Please enter a valid date",
-    "endDateAfterStart": "End date must be after start date",
-    "invalidUrl": "Please enter a valid URL"
-  },
-  "metadata": {
-    "titleSuffix": "Converty",
-    "defaultDescription": "Free online calculators and converters for everyday needs"
   }
 }

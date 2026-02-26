@@ -43,9 +43,21 @@
       "pdfExportSuccess": "Export PDF réussi",
       "pdfExportError": "Échec de l'export PDF",
       "calculationError": "Calcul impossible — vérifiez vos données"
+    },
+    "validation": {
+      "required": "Ce champ est obligatoire",
+      "invalidNumber": "Veuillez entrer un nombre valide",
+      "positiveNumber": "Veuillez entrer un nombre positif",
+      "invalidDate": "Veuillez entrer une date valide",
+      "endDateAfterStart": "La date de fin doit etre apres la date de debut",
+      "invalidUrl": "Veuillez entrer une URL valide"
+    },
+    "metadata": {
+      "titleSuffix": "Converty",
+      "defaultDescription": "Calculatrices et convertisseurs en ligne gratuits pour vos besoins quotidiens"
     }
   },
-  "categories": {
+  "nav": {
     "color": {
       "name": "Couleur",
       "description": "Conversion de couleurs et palettes"
@@ -141,57 +153,57 @@
         "reactions": "Réactions",
         "reference": "Référence"
       }
+    },
+    "subcategories": {
+      "date-time": "Date et Heure",
+      "hashing": "Hachage",
+      "wallet": "Portefeuille",
+      "exchange": "Echange",
+      "mining": "Minage",
+      "loans": "Prets et Hypotheques",
+      "interest": "Interets et TAEG",
+      "payments": "Paiements et Dettes",
+      "investments": "Retraite et Investissements",
+      "taxes": "Revenus et Impots",
+      "business": "Entreprise",
+      "everyday": "Quotidien",
+      "conversion": "Conversion",
+      "body": "Composition Corporelle",
+      "nutrition": "Nutrition",
+      "fitness": "Condition Physique",
+      "pregnancy": "Grossesse et Fertilite",
+      "medical": "Medical",
+      "basic": "Mathematiques de Base",
+      "algebra": "Algebre",
+      "geometry": "Geometrie",
+      "statistics": "Statistiques",
+      "numbers": "Systemes Numeriques",
+      "advanced": "Avance",
+      "valuation": "Evaluation immobiliere",
+      "investment": "Analyse d'investissement",
+      "storage": "Stockage et Fichiers",
+      "network": "Reseau",
+      "subnet": "Sous-réseautage",
+      "ip": "Adresse IP",
+      "dof": "Profondeur de Champ",
+      "exposure": "Exposition et Lumiere",
+      "resolution": "Resolution et Format",
+      "composition": "Composition et Cadrage",
+      "astro": "Astrophotographie",
+      "optics": "Optique",
+      "uncategorized": "General",
+      "fuel": "Carburant et efficacite",
+      "tires": "Pneus et roues",
+      "maintenance": "Entretien",
+      "financing": "Financement",
+      "vmware": "VMware",
+      "hyperv": "Hyper-V",
+      "kubernetes": "Kubernetes",
+      "cost": "Analyse des Coûts",
+      "cpu": "Performance CPU"
     }
   },
-  "subcategories": {
-    "date-time": "Date et Heure",
-    "hashing": "Hachage",
-    "wallet": "Portefeuille",
-    "exchange": "Echange",
-    "mining": "Minage",
-    "loans": "Prets et Hypotheques",
-    "interest": "Interets et TAEG",
-    "payments": "Paiements et Dettes",
-    "investments": "Retraite et Investissements",
-    "taxes": "Revenus et Impots",
-    "business": "Entreprise",
-    "everyday": "Quotidien",
-    "conversion": "Conversion",
-    "body": "Composition Corporelle",
-    "nutrition": "Nutrition",
-    "fitness": "Condition Physique",
-    "pregnancy": "Grossesse et Fertilite",
-    "medical": "Medical",
-    "basic": "Mathematiques de Base",
-    "algebra": "Algebre",
-    "geometry": "Geometrie",
-    "statistics": "Statistiques",
-    "numbers": "Systemes Numeriques",
-    "advanced": "Avance",
-    "valuation": "Evaluation immobiliere",
-    "investment": "Analyse d'investissement",
-    "storage": "Stockage et Fichiers",
-    "network": "Reseau",
-    "subnet": "Sous-réseautage",
-    "ip": "Adresse IP",
-    "dof": "Profondeur de Champ",
-    "exposure": "Exposition et Lumiere",
-    "resolution": "Resolution et Format",
-    "composition": "Composition et Cadrage",
-    "astro": "Astrophotographie",
-    "optics": "Optique",
-    "uncategorized": "General",
-    "fuel": "Carburant et efficacite",
-    "tires": "Pneus et roues",
-    "maintenance": "Entretien",
-    "financing": "Financement",
-    "vmware": "VMware",
-    "hyperv": "Hyper-V",
-    "kubernetes": "Kubernetes",
-    "cost": "Analyse des Coûts",
-    "cpu": "Performance CPU"
-  },
-  "converters": {
+  "converter": {
     "bmi": {
       "name": "IMC",
       "description": "Calculez votre indice de masse corporelle et votre categorie de sante",
@@ -5092,23 +5104,5 @@
         "findM2": "Calculer la concentration finale après dilution"
       }
     }
-  },
-  "realestate": {
-    "property-valuation": {
-      "title": "Calculatrice d'Évaluation Immobilière",
-      "description": "Estimez les valeurs immobilières suisses en utilisant la méthode hédonique"
-    }
-  },
-  "validation": {
-    "required": "Ce champ est obligatoire",
-    "invalidNumber": "Veuillez entrer un nombre valide",
-    "positiveNumber": "Veuillez entrer un nombre positif",
-    "invalidDate": "Veuillez entrer une date valide",
-    "endDateAfterStart": "La date de fin doit etre apres la date de debut",
-    "invalidUrl": "Veuillez entrer une URL valide"
-  },
-  "metadata": {
-    "titleSuffix": "Converty",
-    "defaultDescription": "Calculatrices et convertisseurs en ligne gratuits pour vos besoins quotidiens"
   }
 }

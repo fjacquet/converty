@@ -43,9 +43,21 @@
       "pdfExportSuccess": "PDF esportato con successo",
       "pdfExportError": "Esportazione PDF non riuscita",
       "calculationError": "Calcolo impossibile — controllare i dati inseriti"
+    },
+    "validation": {
+      "required": "Questo campo e obbligatorio",
+      "invalidNumber": "Inserisci un numero valido",
+      "positiveNumber": "Inserisci un numero positivo",
+      "invalidDate": "Inserisci una data valida",
+      "endDateAfterStart": "La data di fine deve essere successiva alla data di inizio",
+      "invalidUrl": "Inserisci un URL valido"
+    },
+    "metadata": {
+      "titleSuffix": "Converty",
+      "defaultDescription": "Calcolatrici e convertitori online gratuiti per le esigenze quotidiane"
     }
   },
-  "categories": {
+  "nav": {
     "color": {
       "name": "Colore",
       "description": "Conversione colori e palette"
@@ -141,57 +153,57 @@
     "automotive": {
       "name": "Automobilistico",
       "description": "Calcolatori per carburante, pneumatici, manutenzione e finanziamento veicoli"
+    },
+    "subcategories": {
+      "date-time": "Data e Ora",
+      "hashing": "Hashing",
+      "wallet": "Portafoglio",
+      "exchange": "Cambio",
+      "mining": "Mining",
+      "loans": "Prestiti e Mutui",
+      "interest": "Interessi e TAEG",
+      "payments": "Pagamenti e Debiti",
+      "investments": "Pensione e Investimenti",
+      "taxes": "Reddito e Tasse",
+      "business": "Attivita",
+      "everyday": "Quotidiano",
+      "conversion": "Conversione",
+      "body": "Composizione Corporea",
+      "nutrition": "Nutrizione",
+      "fitness": "Fitness",
+      "pregnancy": "Gravidanza e Fertilita",
+      "medical": "Medico",
+      "basic": "Matematica di Base",
+      "algebra": "Algebra",
+      "geometry": "Geometria",
+      "statistics": "Statistica",
+      "numbers": "Sistemi Numerici",
+      "advanced": "Avanzato",
+      "valuation": "Valutazione immobiliare",
+      "investment": "Analisi degli investimenti",
+      "storage": "Archiviazione e File",
+      "network": "Rete",
+      "subnet": "Subnetting",
+      "ip": "Indirizzo IP",
+      "dof": "Profondita di Campo",
+      "exposure": "Esposizione e Luce",
+      "resolution": "Risoluzione e Formato",
+      "composition": "Composizione e Inquadratura",
+      "astro": "Astrofotografia",
+      "optics": "Ottica",
+      "uncategorized": "Generale",
+      "fuel": "Carburante ed efficienza",
+      "tires": "Pneumatici e ruote",
+      "maintenance": "Manutenzione",
+      "financing": "Finanziamento",
+      "vmware": "VMware",
+      "hyperv": "Hyper-V",
+      "kubernetes": "Kubernetes",
+      "cost": "Analisi dei Costi",
+      "cpu": "Prestazioni CPU"
     }
   },
-  "subcategories": {
-    "date-time": "Data e Ora",
-    "hashing": "Hashing",
-    "wallet": "Portafoglio",
-    "exchange": "Cambio",
-    "mining": "Mining",
-    "loans": "Prestiti e Mutui",
-    "interest": "Interessi e TAEG",
-    "payments": "Pagamenti e Debiti",
-    "investments": "Pensione e Investimenti",
-    "taxes": "Reddito e Tasse",
-    "business": "Attivita",
-    "everyday": "Quotidiano",
-    "conversion": "Conversione",
-    "body": "Composizione Corporea",
-    "nutrition": "Nutrizione",
-    "fitness": "Fitness",
-    "pregnancy": "Gravidanza e Fertilita",
-    "medical": "Medico",
-    "basic": "Matematica di Base",
-    "algebra": "Algebra",
-    "geometry": "Geometria",
-    "statistics": "Statistica",
-    "numbers": "Sistemi Numerici",
-    "advanced": "Avanzato",
-    "valuation": "Valutazione immobiliare",
-    "investment": "Analisi degli investimenti",
-    "storage": "Archiviazione e File",
-    "network": "Rete",
-    "subnet": "Subnetting",
-    "ip": "Indirizzo IP",
-    "dof": "Profondita di Campo",
-    "exposure": "Esposizione e Luce",
-    "resolution": "Risoluzione e Formato",
-    "composition": "Composizione e Inquadratura",
-    "astro": "Astrofotografia",
-    "optics": "Ottica",
-    "uncategorized": "Generale",
-    "fuel": "Carburante ed efficienza",
-    "tires": "Pneumatici e ruote",
-    "maintenance": "Manutenzione",
-    "financing": "Finanziamento",
-    "vmware": "VMware",
-    "hyperv": "Hyper-V",
-    "kubernetes": "Kubernetes",
-    "cost": "Analisi dei Costi",
-    "cpu": "Prestazioni CPU"
-  },
-  "converters": {
+  "converter": {
     "bmi": {
       "name": "BMI",
       "description": "Calcola il tuo Indice di Massa Corporea e la categoria di salute",
@@ -5091,23 +5103,5 @@
         }
       }
     }
-  },
-  "realestate": {
-    "property-valuation": {
-      "title": "Calcolatore di Valutazione Immobiliare",
-      "description": "Stima i valori degli immobili svizzeri utilizzando il metodo edonico"
-    }
-  },
-  "validation": {
-    "required": "Questo campo e obbligatorio",
-    "invalidNumber": "Inserisci un numero valido",
-    "positiveNumber": "Inserisci un numero positivo",
-    "invalidDate": "Inserisci una data valida",
-    "endDateAfterStart": "La data di fine deve essere successiva alla data di inizio",
-    "invalidUrl": "Inserisci un URL valido"
-  },
-  "metadata": {
-    "titleSuffix": "Converty",
-    "defaultDescription": "Calcolatrici e convertitori online gratuiti per le esigenze quotidiane"
   }
 }
