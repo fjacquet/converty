@@ -119,6 +119,7 @@ Progress: [██████████] Phase 42: 5/5 plans complete
 | Phase 43-zod-input-validation P02 | 24 | 2 tasks | 28 files |
 | Phase 43 P03 | 6 | 2 tasks | 5 files |
 | Phase 43-zod-input-validation P43-04 | 45 | 2 tasks | 31 files |
+| Phase 43-zod-input-validation P05 | 12 | 2 tasks | 24 files |
 
 ## Accumulated Context
 
@@ -195,6 +196,8 @@ Recent decisions affecting current work:
 - [Phase 43]: z.number() used for finance schemas — finance FormValues are number types unlike health string-based FormValues
 - [Phase 43]: Only 4 of 23 finance calculators wired with schema: compound-interest, loan, mortgage, retirement (only ones using createCalculatorStore)
 - [Phase 43-zod-input-validation]: Math schemas: z.string().refine() pattern used (not z.coerce.number()) to match string-typed FormValues; 8 useState-based calculators have schemas but not wired to stores
+- [Phase 43-zod-input-validation]: Photo/video/automotive/cooking/network/crypto/web/physics/music/color use useState or custom stores — schemas created for reference only; only datetime (9) and data (2) calculators use createCalculatorStore and received full schema wiring
+- [Phase 43-zod-input-validation]: DurationConverterFormSchema unit field uses z.enum() not z.string() to match DurationUnit TypeScript type — critical for type compatibility
 
 ### Decisions (Phase 40-01)
 

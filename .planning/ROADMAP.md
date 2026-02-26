@@ -125,7 +125,7 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [ ] 42-03-PLAN.md — Toast feedback for all 7 clipboard copy sites (Wave 2, parallel)
   - [ ] 42-04-PLAN.md — Toast feedback for CSV/PDF export + wire ErrorBoundary into ConverterLayout (Wave 2, parallel)
   - [ ] 42-05-PLAN.md — Opt-in onCalculationError callback in createCalculatorStore (Wave 2, parallel)
-- [ ] Phase 43: Zod Input Validation — **5 plans** — zod@^4 installed, schemas for all 169 calculator inputs, Zod URL parsing, field-level error display (R3.1–R3.6)
+- [x] Phase 43: Zod Input Validation — **5 plans** — zod@^4 installed, schemas for all 169 calculator inputs, Zod URL parsing, field-level error display (R3.1–R3.6) (completed 2026-02-26)
   - [ ] 43-01-PLAN.md — Install zod + update createCalculatorStore schema? param + Zod URL helpers (Wave 1)
   - [ ] 43-02-PLAN.md — Health schemas + wire errors into 28 health components (Wave 2, parallel)
   - [ ] 43-03-PLAN.md — Finance schemas + wire errors into ~24 finance components (Wave 2, parallel)
