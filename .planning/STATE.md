@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 42 — Error Boundaries & Toasts (complete)
-Plan: 42-05 complete (5/5)
-Status: v7.0 Phase 42 COMPLETE. 42-05 done: opt-in onCalculationError callback added to createCalculatorStore, toast.error fires in setValue/setValues when result is null, all 169 existing stores unaffected.
-Last activity: 2026-02-26 — Phase 42-05 complete: onCalculationError opt-in in createCalculatorStore satisfies R2.5
+Phase: 45 — Discriminated Union Result Types (in progress)
+Plan: 45-01 complete (1/?)
+Status: Phase 45 in progress. 45-01 done: CalculationResult<T> discriminated union type created, createCalculatorStore updated with adapter pattern — calculationError field added to state, calculate signature updated to CalculationResult<R>.
+Last activity: 2026-02-26 — Phase 45-01 complete: CalculationResult<T> type and store adapter pattern satisfies R5.1, R5.3
 
-Progress: [██████████] Phase 42: 5/5 plans complete
+Progress: [██████████] Phase 45: 1/1 plans complete
 
 ## Performance Metrics
 
@@ -121,6 +121,7 @@ Progress: [██████████] Phase 42: 5/5 plans complete
 | Phase 43-zod-input-validation P43-04 | 45 | 2 tasks | 31 files |
 | Phase 43-zod-input-validation P05 | 12 | 2 tasks | 24 files |
 | Phase 44-lz-string-url-compression P01 | 3 | 3 tasks | 5 files |
+| Phase 45-discriminated-union-result-types P01 | 2 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -202,6 +203,10 @@ Recent decisions affecting current work:
 - [Phase 44-lz-string-url-compression]: lz-string@1.5.0 chosen for URL compression — ships own typings, no @types needed; compressToEncodedURIComponent produces URL-safe output; null-safety guard before JSON.parse required
 - [Phase 44-lz-string-url-compression]: Object.keys(urlParams) Map bug removed from url-sync.ts — Object.keys on URLSearchParams Map always returns [], block was dead code
 - [Phase 44-lz-string-url-compression]: Backward compat dual-path read in calculator-store.ts: ?z= (new compressed) | urlParams.size > 0 (legacy per-key); prototype pollution prevention: only initialValues keys accepted from parsed JSON
+- [Phase 45-discriminated-union-result-types]: CalculationResult<T> uses discriminated union { ok: true; value: T } | { ok: false; error: string; code: string } — no enum needed for code field
+- [Phase 45-discriminated-union-result-types]: Adapter pattern (Strategy A): result: R | null kept in CalculatorState for component backward compat; CalculationResult<R> unwrapped inside setValue/setValues
+- [Phase 45-discriminated-union-result-types]: calculationError: string | undefined added to CalculatorState — undefined on success, set to error string on ok: false
+- [Phase 45-discriminated-union-result-types]: 91 type errors in converters/app stores after 45-01 are expected — they serve as automatic migration guide for plans 45-02 through 45-05
 
 ### Decisions (Phase 40-01)
 
@@ -222,7 +227,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 42-04-PLAN.md — toast feedback for CSV/PDF export buttons, CalculatorErrorBoundary applied to all 169 calculators via ConverterLayout
+Stopped at: Completed 45-01-PLAN.md — CalculationResult<T> discriminated union type, createCalculatorStore adapter pattern with calculationError state field
 Resume file: None
 
 **Milestones Completed:**
