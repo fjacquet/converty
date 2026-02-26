@@ -50,7 +50,7 @@ export function CaloriesBurnedCalculator() {
   const tResults = useTranslations("calculator.results");
   const tActivities = useTranslations("calculator.activities");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -134,6 +134,8 @@ export function CaloriesBurnedCalculator() {
           />
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

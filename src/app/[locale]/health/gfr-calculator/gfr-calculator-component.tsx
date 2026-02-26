@@ -56,7 +56,7 @@ export function GfrCalculatorComponent() {
   const tResults = useTranslations("calculator.results");
   const tHealth = useTranslations("calculator.health");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   const getStageColor = (stage: number) => {
     switch (stage) {
@@ -198,6 +198,8 @@ export function GfrCalculatorComponent() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

@@ -41,7 +41,7 @@ export function PeriodCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   const getPhaseColor = (phase: string) => {
     switch (phase) {
@@ -183,6 +183,8 @@ export function PeriodCalculatorComponent() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

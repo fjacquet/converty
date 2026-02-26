@@ -49,7 +49,7 @@ export function BmrCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -162,6 +162,8 @@ export function BmrCalculatorComponent() {
           />
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

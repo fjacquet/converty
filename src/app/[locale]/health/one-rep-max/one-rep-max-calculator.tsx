@@ -35,7 +35,7 @@ export function OneRepMaxCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -109,6 +109,8 @@ export function OneRepMaxCalculator() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

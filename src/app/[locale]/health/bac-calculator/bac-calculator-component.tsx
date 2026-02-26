@@ -50,7 +50,7 @@ export function BacCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -184,6 +184,8 @@ export function BacCalculatorComponent() {
           <p className="text-sm text-muted-foreground">{tResults("bacDisclaimer")}</p>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

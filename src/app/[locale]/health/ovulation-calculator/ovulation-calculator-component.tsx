@@ -38,7 +38,7 @@ export function OvulationCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   const getFertilityColor = (fertility: string) => {
     switch (fertility) {
@@ -157,6 +157,8 @@ export function OvulationCalculatorComponent() {
           </div>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

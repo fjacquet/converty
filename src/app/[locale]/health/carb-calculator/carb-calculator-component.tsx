@@ -47,7 +47,7 @@ export function CarbCalculatorComponent() {
   const tResults = useTranslations("calculator.results");
   const tCarbs = useTranslations("calculator.health.carbs");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -210,6 +210,8 @@ export function CarbCalculatorComponent() {
           </ul>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

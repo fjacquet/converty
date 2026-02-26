@@ -54,7 +54,7 @@ export function WaterIntakeCalculator() {
   const tResults = useTranslations("calculator.results");
   const tWater = useTranslations("calculator.health.water");
 
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -221,6 +221,8 @@ export function WaterIntakeCalculator() {
           </ul>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
