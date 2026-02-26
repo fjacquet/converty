@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { create, type StateCreator } from "zustand";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
 import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
@@ -42,6 +43,12 @@ export interface CreateCalculatorStoreOptions<T extends object, R> {
   syncUrl?: boolean;
   /** Debounce time for URL updates in ms (default: 150) */
   debounceMs?: number;
+  /**
+   * Optional callback invoked when calculate() returns null after a user action.
+   * Return a string message to show as a toast.error notification.
+   * NOT called on initial mount — only called from setValue/setValues.
+   */
+  onCalculationError?: (values: T) => string;
 }
 
 /**
@@ -67,6 +74,7 @@ export function createCalculatorStore<T extends object, R>({
   validate,
   syncUrl = true,
   debounceMs = 150,
+  onCalculationError,
 }: CreateCalculatorStoreOptions<T, R>) {
   const storeCreator: StateCreator<CalculatorState<T, R>> = (set, get) => {
     // Load initial values from URL if syncUrl is enabled
@@ -112,6 +120,11 @@ export function createCalculatorStore<T extends object, R>({
         // Calculate if no errors
         const result = Object.keys(errors).length === 0 ? calculate(newValues) : null;
 
+        // Fire toast only when user changes a value and calculation fails
+        if (result === null && onCalculationError) {
+          toast.error(onCalculationError(newValues));
+        }
+
         set({ values: newValues, errors, result });
       },
 
@@ -121,6 +134,11 @@ export function createCalculatorStore<T extends object, R>({
 
         // Calculate if no errors
         const result = Object.keys(errors).length === 0 ? calculate(values) : null;
+
+        // Fire toast only when user changes values and calculation fails
+        if (result === null && onCalculationError) {
+          toast.error(onCalculationError(values));
+        }
 
         set({ values, errors, result });
       },
