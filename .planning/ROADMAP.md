@@ -125,7 +125,12 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [ ] 42-03-PLAN.md — Toast feedback for all 7 clipboard copy sites (Wave 2, parallel)
   - [ ] 42-04-PLAN.md — Toast feedback for CSV/PDF export + wire ErrorBoundary into ConverterLayout (Wave 2, parallel)
   - [ ] 42-05-PLAN.md — Opt-in onCalculationError callback in createCalculatorStore (Wave 2, parallel)
-- [ ] Phase 43: Zod Input Validation — schemas for all calculator inputs, Zod URL parsing
+- [ ] Phase 43: Zod Input Validation — **5 plans** — zod@^4 installed, schemas for all 169 calculator inputs, Zod URL parsing, field-level error display (R3.1–R3.6)
+  - [ ] 43-01-PLAN.md — Install zod + update createCalculatorStore schema? param + Zod URL helpers (Wave 1)
+  - [ ] 43-02-PLAN.md — Health schemas + wire errors into 28 health components (Wave 2, parallel)
+  - [ ] 43-03-PLAN.md — Finance schemas + wire errors into ~24 finance components (Wave 2, parallel)
+  - [ ] 43-04-PLAN.md — Math schemas + wire errors into ~38 math components (Wave 2, parallel)
+  - [ ] 43-05-PLAN.md — Remaining 12 categories schemas + errors + barrel index (Wave 3)
 - [ ] Phase 44: LZ-String URL Compression — compress state in URL, backward compat
 - [ ] Phase 45: Discriminated Union Result Types — `CalculationResult<T>`, update all converters
 - [ ] Phase 46: i18n Namespace Restructure — nested translation objects, no library change
@@ -136,4 +141,4 @@ See `.planning/REQUIREMENTS.md` and `.planning/GAP-ANALYSIS.md` for full details
 
 ---
 
-*Next action: `/gsd:execute-phase 42` to start Error Boundaries & Toasts*
+*Next action: `/gsd:execute-phase 43` to start Zod Input Validation*
