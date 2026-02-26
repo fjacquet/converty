@@ -1,5 +1,6 @@
 "use client";
 
+import { decompressFromEncodedURIComponent } from "lz-string";
 import { toast } from "sonner";
 import type { ZodType } from "zod";
 import { create, type StateCreator } from "zustand";
@@ -101,7 +102,28 @@ export function createCalculatorStore<T extends object, R>({
     let mergedInitialValues = initialValues;
     if (syncUrl && typeof window !== "undefined") {
       const urlParams = getUrlParams();
-      if (urlParams.size > 0) {
+      const compressedParam = urlParams.get("z");
+
+      if (compressedParam) {
+        // R4.3: New compressed path — decompress and parse JSON
+        try {
+          const json = decompressFromEncodedURIComponent(compressedParam);
+          if (json !== null) {
+            // R4.6 guard: null means corrupted input — skip and use initialValues
+            const parsed = JSON.parse(json) as Record<string, unknown>;
+            mergedInitialValues = { ...initialValues };
+            for (const key of Object.keys(initialValues)) {
+              if (Object.hasOwn(parsed, key) && parsed[key] !== undefined) {
+                (mergedInitialValues as Record<string, unknown>)[key] = parsed[key];
+              }
+            }
+          }
+          // If json is null (corrupted): silently use initialValues (already set)
+        } catch {
+          // Corrupted URL param — fall back to initialValues
+        }
+      } else if (urlParams.size > 0) {
+        // R4.5: Legacy path — plain ?key=value params (existing code, unchanged)
         mergedInitialValues = { ...initialValues };
         for (const [key, value] of urlParams.entries()) {
           if (Object.hasOwn(mergedInitialValues, key)) {
