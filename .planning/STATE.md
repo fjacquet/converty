@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 46 — i18n Namespace Restructure (IN PROGRESS)
-Plan: 46-01 complete (1/?)
-Status: Phase 46 Plan 01 COMPLETE. 46-01 done: 4 locale JSON files restructured from 8 inconsistent top-level keys to stable 4-key schema (common, nav, converter, calculator); migration script committed for audit trail.
-Last activity: 2026-02-26 — Phase 46-01 complete: i18n namespace restructure applied to all 4 locale files
+Phase: 47 — ADRs and CI Hardening (IN PROGRESS)
+Plan: 47-01 complete (1/2)
+Status: Phase 47 Plan 01 COMPLETE. 47-01 done: Three ADRs written — ADR-013 (error boundaries/sonner toasts), ADR-014 (Zod runtime validation), ADR-015 (lz-string URL compression).
+Last activity: 2026-02-26 — Phase 47-01 complete: ADR-013, ADR-014, ADR-015 written covering Phase 42-44 architectural decisions
 
-Progress: [████░░░░░░░░░░░░░░░░] Phase 46: 1/? plans complete
+Progress: [█░░░░░░░░░░░░░░░░░░░] Phase 47: 1/2 plans complete
 
 ## Performance Metrics
 

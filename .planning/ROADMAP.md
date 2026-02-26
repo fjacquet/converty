@@ -144,7 +144,7 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [x] 46-01-PLAN.md — Migration script + restructure all 4 locale JSON files atomically (Wave 1)
   - [x] 46-02-PLAN.md — Update all source code namespace strings (converters→converter, categories→nav) (Wave 2)
   - [x] 46-03-PLAN.md — Full verification (build, i18n audit, zero MISSING_MESSAGE) + ADR-012 (Wave 3)
-- [ ] Phase 47: ADRs & CI Hardening — **2 plans** — ADRs 013–015, CI gate verification, developer docs update (R7.1, R7.2, R7.3)
+- [x] Phase 47: ADRs & CI Hardening — **2 plans** — ADRs 013–015, CI gate verification, developer docs update (R7.1, R7.2, R7.3) (completed 2026-02-26)
   - [ ] 47-01-PLAN.md — Write ADR-013 (error boundaries/toasts), ADR-014 (Zod validation), ADR-015 (LZ-String compression) (Wave 1)
   - [ ] 47-02-PLAN.md — Update CODE_STYLE.md + ENGINEERING_PATTERNS.md with v7.0 patterns; verify CI gate (Wave 1, parallel)
 - [ ] Phase 48: Branch Integration & Release v7.0 — merge, regression, tag, GitHub Release
