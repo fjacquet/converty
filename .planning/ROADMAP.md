@@ -98,4 +98,23 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
 
 ---
 
-*Next milestone: run `/gsd:new-milestone` to start planning*
+## 🚧 v7.0 Framework Migration (Phases 40–48) — IN PROGRESS
+
+**Branch:** `feature/framework-migration`
+**Goal:** Adopt Raidy's proven building blocks — Vitest testing, Zod validation, react-error-boundary, Sonner toasts, DOMPurify, LZ-String URL compression, discriminated union result types, and i18n namespace restructure. All without replacing Next.js.
+
+- [ ] Phase 40: Vitest Foundation — install Vitest, configure for Next.js, test 5 priority converters
+- [ ] Phase 41: Full Converter Test Coverage — unit tests for all 169 converters, 75% threshold in CI
+- [ ] Phase 42: Error Boundaries & Toasts — react-error-boundary, Sonner, DOMPurify
+- [ ] Phase 43: Zod Input Validation — schemas for all calculator inputs, Zod URL parsing
+- [ ] Phase 44: LZ-String URL Compression — compress state in URL, backward compat
+- [ ] Phase 45: Discriminated Union Result Types — `CalculationResult<T>`, update all converters
+- [ ] Phase 46: i18n Namespace Restructure — nested translation objects, no library change
+- [ ] Phase 47: ADRs & CI Hardening — ADRs 011–015, CI test gate, updated docs
+- [ ] Phase 48: Branch Integration & Release v7.0 — merge, regression, tag, GitHub Release
+
+See `.planning/REQUIREMENTS.md` and `.planning/GAP-ANALYSIS.md` for full details.
+
+---
+
+*Next action: `/gsd:plan-phase 40` to start Vitest Foundation*

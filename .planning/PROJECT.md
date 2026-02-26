@@ -258,11 +258,41 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Current Milestone
 
-Planning next milestone. Run `/gsd:new-milestone` to start.
+**v7.0 Framework Migration** — Phases 40–48 on `feature/framework-migration` branch
+
+Gap analysis against Raidy project (`.planning/GAP-ANALYSIS.md`) identified 6 high-value, low-risk architectural improvements. All are additive — no framework change required.
 
 ### Active
 
-*(none — planning next milestone)*
+**Wave 1 — Testing Foundation (Phase 40–41):**
+- Add Vitest to Next.js project — pure function converters are immediately testable
+- Write unit tests for all 169 converters, ≥75% coverage threshold enforced in CI
+
+**Wave 2 — Error Handling & UX (Phase 42):**
+- Add react-error-boundary wrapping calculator layout
+- Add Sonner toast notifications (copy, export, error feedback)
+- Add DOMPurify for input sanitization
+
+**Wave 3 — Validation (Phase 43):**
+- Add Zod schemas for all calculator input types
+- Replace custom `parseNumberParam` helpers with Zod `.safeParse()`
+
+**Wave 4 — URL Compression (Phase 44):**
+- Add LZ-String to reduce URL length by 60-80%
+- Keep search params (not hash) for GitHub Pages compatibility
+
+**Wave 5 — Type System (Phase 45):**
+- Adopt discriminated union `CalculationResult<T>` — typed errors instead of bare `null`
+- Update all 169 converters and their consumers
+
+**Wave 6 — i18n Structure (Phase 46):**
+- Restructure flat translation JSONs into nested namespace objects
+- Keep next-intl — no library change
+
+**Wave 7 — ADRs & Release (Phases 47–48):**
+- Document ADRs 011-015
+- Harden CI pipeline
+- Merge to maincd, tag v7.0.0
 
 ### Out of Scope
 

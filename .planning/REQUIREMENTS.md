@@ -1,0 +1,158 @@
+# Requirements — v7.0 Framework Migration
+
+**Milestone:** v7.0 Framework Migration
+**Branch:** `feature/framework-migration`
+**Status:** Planning
+**Last Updated:** 2026-02-26
+
+---
+
+## Context
+
+Gap analysis (`.planning/GAP-ANALYSIS.md`) identified 6 high-value, low-risk changes from the Raidy project's architecture that can be adopted without replacing the Next.js framework. The framework itself (Next.js vs Vite) will be evaluated separately in ADR-011.
+
+This milestone operates on a dedicated branch. All 169 calculators must continue working at end of each phase.
+
+---
+
+## R1 — Test Framework (Vitest)
+
+**Priority:** Critical
+**Rationale:** 169 pure functions in `src/lib/converters/` have zero test coverage. Calculation regressions are undetectable. This is the single highest-ROI change.
+
+### Requirements
+
+- [ ] **R1.1** Vitest configured and running in the Next.js project (no framework change needed)
+- [ ] **R1.2** `vitest.config.ts` with jsdom environment, `@testing-library/react`, path aliases matching Next.js
+- [ ] **R1.3** Coverage thresholds: 75% lines/functions/branches/statements on `src/lib/converters/**`
+- [ ] **R1.4** `npm test` and `npm run test:coverage` commands added to `package.json`
+- [ ] **R1.5** Unit tests for all priority-1 converters:
+  - BB Credit Calculator (physics formula, CLI generation)
+  - Subnet Calculator (IPv4/IPv6, BigInt arithmetic)
+  - BMI / BMR (health — widely used)
+  - Compound Interest (finance — precision-critical)
+  - Molar Mass Calculator (chemistry — formula parsing)
+- [ ] **R1.6** Unit tests for all remaining converters in `src/lib/converters/` (≥75% coverage)
+- [ ] **R1.7** CI pipeline (`static.yml`) includes `npm test` gate before build step
+- [ ] **R1.8** ADR-011 created documenting the test strategy decision
+
+---
+
+## R2 — Error Handling (react-error-boundary + Sonner)
+
+**Priority:** High
+**Rationale:** Calculator crashes currently show blank white screens. Error boundaries provide graceful fallback UI. Sonner replaces absent user feedback for copy/export/calculation errors.
+
+### Requirements
+
+- [ ] **R2.1** `react-error-boundary` installed and wrapping the calculator page layout
+- [ ] **R2.2** Error fallback component showing error message + "Reload Calculator" button
+- [ ] **R2.3** `sonner` installed with `<Toaster>` mounted in root layout
+- [ ] **R2.4** Toast notifications for: copy-to-clipboard success/fail, CSV/PDF export success/fail
+- [ ] **R2.5** Calculator calculation errors (when `result === null`) show user-facing toast with brief explanation
+- [ ] **R2.6** DOMPurify installed and applied to any HTML rendered from user input or external data
+
+---
+
+## R3 — Zod Input Validation
+
+**Priority:** High
+**Rationale:** All calculator inputs are validated only by TypeScript at compile time. Runtime validation is missing. URL parameter parsing uses custom helper functions that don't produce structured errors.
+
+### Requirements
+
+- [ ] **R3.1** `zod` installed
+- [ ] **R3.2** Zod schemas defined for each calculator's input type in `src/lib/schemas/`
+- [ ] **R3.3** `createCalculatorStore` factory updated to accept optional Zod schema for validation
+- [ ] **R3.4** URL parameter parsing helpers (`parseNumberParam`, `parseBooleanParam`, `parseStringParam`) replaced with Zod `.safeParse()` equivalents
+- [ ] **R3.5** Validation errors surface as field-level error messages in calculator forms
+- [ ] **R3.6** Out-of-range inputs produce user-visible errors (not silent null results)
+
+---
+
+## R4 — LZ-String URL Compression
+
+**Priority:** Medium
+**Rationale:** Complex calculators (subnet with 8+ params, CPU comparison with 4 CPU IDs + filters) produce very long URLs. LZ-String reduces URL length by 60-80% while preserving full shareability.
+
+### Requirements
+
+- [ ] **R4.1** `lz-string` installed
+- [ ] **R4.2** URL sync middleware updated to compress state before writing to URL search params
+- [ ] **R4.3** URL sync middleware decompresses on initial load (backward-compatible: plain params still parseable)
+- [ ] **R4.4** Compression uses search params (not hash) to maintain GitHub Pages compatibility
+- [ ] **R4.5** Existing shared URLs (without compression) continue to work (migration path)
+- [ ] **R4.6** Tests verify compress → decompress round-trip is lossless
+
+---
+
+## R5 — Discriminated Union Result Types
+
+**Priority:** Medium
+**Rationale:** All 169 converters currently return `T | null`. The `null` case carries no information about why a calculation failed. Discriminated unions enable typed error propagation.
+
+### Requirements
+
+- [ ] **R5.1** `CalculationResult<T>` type defined: `{ ok: true; value: T } | { ok: false; error: string; code: string }`
+- [ ] **R5.2** All converters in `src/lib/converters/` updated to return `CalculationResult<T>`
+- [ ] **R5.3** `createCalculatorStore` factory updated to handle the new result shape
+- [ ] **R5.4** Calculator components updated to render typed error messages from `result.error`
+- [ ] **R5.5** All tests updated to use `.ok` discriminant
+
+---
+
+## R6 — i18n Structure Improvement
+
+**Priority:** Medium
+**Rationale:** Each locale file is a single flat JSON growing toward 5000+ keys. Raidy uses namespaced files per domain. Within next-intl, we can adopt a nested object structure without changing the library.
+
+### Requirements
+
+- [ ] **R6.1** Translation files restructured with top-level namespace objects: `calculator`, `converter`, `common`, `nav`, `[category]` per calculator category
+- [ ] **R6.2** All `useTranslations("calculator.[category]")` calls updated to match new structure
+- [ ] **R6.3** `/check-i18n` audit passes with zero missing keys after restructure
+- [ ] **R6.4** Build produces zero `MISSING_MESSAGE` warnings
+- [ ] **R6.5** ADR-012 documents the i18n restructure rationale
+
+---
+
+## R7 — ADR Documentation
+
+**Priority:** Low
+**Rationale:** Framework evaluation and new architectural decisions need formal documentation.
+
+### Requirements
+
+- [ ] **R7.1** ADR-011: Vitest test strategy (replaces "Under Review" status of ADR-010)
+- [ ] **R7.2** ADR-012: i18n structure with next-intl namespacing
+- [ ] **R7.3** ADR-013: URL compression with LZ-String (rationale for search params vs hash)
+- [ ] **R7.4** ADR-014: Zod validation layer architecture
+- [ ] **R7.5** ADR-015: Framework evaluation — Next.js vs Vite (final decision documented)
+
+---
+
+## Out of Scope for v7.0
+
+| Feature | Reason |
+|---------|--------|
+| Next.js → Vite migration | Extremely invasive; separate ADR required; Next.js advantages (SSG, i18n routing) outweigh Vite benefits for this use case |
+| next-intl → i18next | Only valuable with Vite migration; adds complexity without Next.js App Router integration |
+| Web Workers for calculations | Only 1-2 calculators would benefit; defer to optimization milestone |
+| Storybook / visual testing | Out of scope for this milestone |
+| E2E testing (Playwright) | Added after unit test foundation is solid |
+| Adding new calculators | Separate feature milestone; no new features during framework work |
+
+---
+
+## Success Criteria
+
+At end of v7.0:
+
+1. `npm test` runs successfully with ≥75% coverage on all converters
+2. CI fails if tests fail or coverage drops below threshold
+3. Any calculator crash shows a graceful error boundary (not blank white screen)
+4. Copy/export actions show toast feedback
+5. Zod validates all calculator inputs at runtime
+6. Complex calculator URLs are ≤50% the length of current URLs
+7. All 169 calculators continue working in all 4 locales
+8. ADRs 011-015 document all decisions made
