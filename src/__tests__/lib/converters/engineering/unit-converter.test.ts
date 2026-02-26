@@ -5,38 +5,35 @@ import {
 } from "@/lib/converters/engineering/unit-converter";
 
 describe("calculateUnitConversion", () => {
-  describe("null returns for invalid inputs", () => {
-    it("returns null for unknown categoryId", () => {
-      expect(
-        calculateUnitConversion({
-          categoryId: "unknown-category",
-          fromUnit: "m",
-          toUnit: "ft",
-          value: 1,
-        })
-      ).toBeNull();
+  describe("error returns for invalid inputs", () => {
+    it("returns error for unknown categoryId", () => {
+      const result = calculateUnitConversion({
+        categoryId: "unknown-category",
+        fromUnit: "m",
+        toUnit: "ft",
+        value: 1,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for unknown fromUnit", () => {
-      expect(
-        calculateUnitConversion({
-          categoryId: "length",
-          fromUnit: "unknown",
-          toUnit: "ft",
-          value: 1,
-        })
-      ).toBeNull();
+    it("returns error for unknown fromUnit", () => {
+      const result = calculateUnitConversion({
+        categoryId: "length",
+        fromUnit: "unknown",
+        toUnit: "ft",
+        value: 1,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for unknown toUnit", () => {
-      expect(
-        calculateUnitConversion({
-          categoryId: "length",
-          fromUnit: "m",
-          toUnit: "unknown",
-          value: 1,
-        })
-      ).toBeNull();
+    it("returns error for unknown toUnit", () => {
+      const result = calculateUnitConversion({
+        categoryId: "length",
+        fromUnit: "m",
+        toUnit: "unknown",
+        value: 1,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -48,8 +45,9 @@ describe("calculateUnitConversion", () => {
         toUnit: "ft",
         value: 1,
       });
-      expect(result).not.toBeNull();
-      expect(result!.result).toBeCloseTo(3.28084, 4);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.result).toBeCloseTo(3.28084, 4);
     });
 
     it("1 foot = 0.3048 meters", () => {
@@ -59,8 +57,9 @@ describe("calculateUnitConversion", () => {
         toUnit: "m",
         value: 1,
       });
-      expect(result).not.toBeNull();
-      expect(result!.result).toBeCloseTo(0.3048, 4);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.result).toBeCloseTo(0.3048, 4);
     });
 
     it("same unit conversion returns 1:1", () => {
@@ -70,7 +69,9 @@ describe("calculateUnitConversion", () => {
         toUnit: "m",
         value: 5,
       });
-      expect(result!.result).toBeCloseTo(5, 4);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.result).toBeCloseTo(5, 4);
     });
   });
 
@@ -82,8 +83,9 @@ describe("calculateUnitConversion", () => {
         toUnit: "Pa",
         value: 1,
       });
-      expect(result).not.toBeNull();
-      expect(result!.result).toBeCloseTo(101325, 0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.result).toBeCloseTo(101325, 0);
     });
 
     it("1 MPa = 1,000,000 Pa", () => {
@@ -93,8 +95,9 @@ describe("calculateUnitConversion", () => {
         toUnit: "Pa",
         value: 1,
       });
-      expect(result).not.toBeNull();
-      expect(result!.result).toBeCloseTo(1e6, 0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.result).toBeCloseTo(1e6, 0);
     });
   });
 
@@ -109,8 +112,8 @@ describe("calculateUnitConversion", () => {
         toUnit: to,
         value: val,
       });
-      if (result) {
-        expect(result.result).toBeCloseTo(expected, prec);
+      if (result.ok) {
+        expect(result.value.result).toBeCloseTo(expected, prec);
       }
     });
   });
@@ -123,9 +126,11 @@ describe("calculateUnitConversion", () => {
         toUnit: "ft",
         value: 1,
       });
-      expect(result!.conversionFactor).toBeGreaterThan(0);
-      expect(result!.steps).toBeInstanceOf(Array);
-      expect(result!.allConversions).toBeInstanceOf(Array);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.conversionFactor).toBeGreaterThan(0);
+      expect(result.value.steps).toBeInstanceOf(Array);
+      expect(result.value.allConversions).toBeInstanceOf(Array);
     });
 
     it("allConversions includes all units in category", () => {
@@ -135,8 +140,10 @@ describe("calculateUnitConversion", () => {
         toUnit: "ft",
         value: 1,
       });
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
       const lengthCategory = UNIT_CATEGORIES.find((c) => c.id === "length");
-      expect(result!.allConversions.length).toBe(lengthCategory!.units.length);
+      expect(result.value.allConversions.length).toBe(lengthCategory!.units.length);
     });
   });
 });

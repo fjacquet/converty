@@ -15,34 +15,41 @@ const BASE_INPUT = {
 };
 
 describe("calculateColumnBuckling", () => {
-  describe("null returns for invalid inputs", () => {
-    it("returns null for length = 0", () => {
-      expect(calculateColumnBuckling({ ...BASE_INPUT, length: 0 })).toBeNull();
+  describe("error returns for invalid inputs", () => {
+    it("returns error for length = 0", () => {
+      const result = calculateColumnBuckling({ ...BASE_INPUT, length: 0 });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for customYoungsModulus = 0", () => {
-      expect(calculateColumnBuckling({ ...BASE_INPUT, customYoungsModulus: 0 })).toBeNull();
+    it("returns error for customYoungsModulus = 0", () => {
+      const result = calculateColumnBuckling({ ...BASE_INPUT, customYoungsModulus: 0 });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for customMomentOfInertia = 0", () => {
-      expect(calculateColumnBuckling({ ...BASE_INPUT, customMomentOfInertia: 0 })).toBeNull();
+    it("returns error for customMomentOfInertia = 0", () => {
+      const result = calculateColumnBuckling({ ...BASE_INPUT, customMomentOfInertia: 0 });
+      expect(result.ok).toBe(false);
     });
   });
 
   describe("Euler critical load: Pcr = π²EI/(KL)²", () => {
-    it("returns non-null result for valid inputs", () => {
+    it("returns ok result for valid inputs", () => {
       const result = calculateColumnBuckling(BASE_INPUT);
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
     });
 
     it("eulerLoad is positive", () => {
       const result = calculateColumnBuckling(BASE_INPUT);
-      expect(result!.eulerLoad).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.eulerLoad).toBeGreaterThan(0);
     });
 
     it("pinned-pinned has K=1.0", () => {
       const result = calculateColumnBuckling(BASE_INPUT);
-      expect(result!.kFactor).toBe(1.0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.kFactor).toBe(1.0);
     });
 
     it("fixed-fixed has K=0.5 (lower K = higher Pcr)", () => {
@@ -50,7 +57,9 @@ describe("calculateColumnBuckling", () => {
         ...BASE_INPUT,
         endCondition: "fixed-fixed",
       });
-      expect(result!.kFactor).toBe(0.5);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.kFactor).toBe(0.5);
     });
   });
 
@@ -58,7 +67,10 @@ describe("calculateColumnBuckling", () => {
     it("6m column buckles at lower load than 3m column", () => {
       const short = calculateColumnBuckling(BASE_INPUT);
       const long = calculateColumnBuckling({ ...BASE_INPUT, length: 6 });
-      expect(long!.eulerLoad).toBeLessThan(short!.eulerLoad);
+      expect(short.ok).toBe(true);
+      expect(long.ok).toBe(true);
+      if (!short.ok || !long.ok) return;
+      expect(long.value.eulerLoad).toBeLessThan(short.value.eulerLoad);
     });
   });
 
@@ -69,7 +81,10 @@ describe("calculateColumnBuckling", () => {
         ...BASE_INPUT,
         endCondition: "fixed-free",
       });
-      expect(fixedFree!.eulerLoad).toBeLessThan(pinnedPinned!.eulerLoad);
+      expect(pinnedPinned.ok).toBe(true);
+      expect(fixedFree.ok).toBe(true);
+      if (!pinnedPinned.ok || !fixedFree.ok) return;
+      expect(fixedFree.value.eulerLoad).toBeLessThan(pinnedPinned.value.eulerLoad);
     });
 
     it("fixed-fixed has highest Euler load (K=0.5)", () => {
@@ -78,23 +93,30 @@ describe("calculateColumnBuckling", () => {
         ...BASE_INPUT,
         endCondition: "fixed-fixed",
       });
-      expect(fixedFixed!.eulerLoad).toBeGreaterThan(pinnedPinned!.eulerLoad);
+      expect(pinnedPinned.ok).toBe(true);
+      expect(fixedFixed.ok).toBe(true);
+      if (!pinnedPinned.ok || !fixedFixed.ok) return;
+      expect(fixedFixed.value.eulerLoad).toBeGreaterThan(pinnedPinned.value.eulerLoad);
     });
   });
 
   describe("result structure", () => {
     it("has slendernessRatio, radiusOfGyration, bucklingMode", () => {
       const result = calculateColumnBuckling(BASE_INPUT);
-      expect(result!.slendernessRatio).toBeGreaterThan(0);
-      expect(result!.radiusOfGyration).toBeGreaterThan(0);
-      expect(["elastic", "inelastic"]).toContain(result!.bucklingMode);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.slendernessRatio).toBeGreaterThan(0);
+      expect(result.value.radiusOfGyration).toBeGreaterThan(0);
+      expect(["elastic", "inelastic"]).toContain(result.value.bucklingMode);
     });
 
     it("returns load in kN, lbf, kips", () => {
       const result = calculateColumnBuckling(BASE_INPUT);
-      expect(result!.loadUnits.kN).toBeGreaterThan(0);
-      expect(result!.loadUnits.lbf).toBeGreaterThan(0);
-      expect(result!.loadUnits.kips).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.loadUnits.kN).toBeGreaterThan(0);
+      expect(result.value.loadUnits.lbf).toBeGreaterThan(0);
+      expect(result.value.loadUnits.kips).toBeGreaterThan(0);
     });
   });
 });
