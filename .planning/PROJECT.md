@@ -4,7 +4,7 @@
 
 A professional calculator platform with 169 tools across 15 categories — math, finance, health, network, infrastructure, engineering, chemistry, crypto, automotive, cooking, and more. Deployed as a static PWA to GitHub Pages with full internationalization (en, fr, de, it), offline support, and shareable URLs. The infrastructure category includes specialized datacenter tools: virtualization sizing, Kubernetes capacity, hypervisor comparison, CPU performance benchmarking, and server fleet refresh planning.
 
-**Status:** ✅ v6.0 CPU Performance & Server Refresh shipped 2026-02-23
+**Status:** ✅ v7.0 Framework Migration shipped 2026-02-26
 
 ## Core Value
 
@@ -247,6 +247,52 @@ A solid, maintainable foundation with zero technical debt in state management an
 - ✓ User selects standard beam sections from AISC library — v5.0
 - ✓ User sees licensing costs with date stamps and staleness warnings — v5.0
 
+<!-- v7.0 Framework Migration (shipped 2026-02-26) -->
+
+**Testing Infrastructure:**
+
+- ✓ Vitest configured, 2288+ tests, 197 test files, ≥75% coverage on all converters — v7.0
+- ✓ CI pipeline includes `npm run test:run` gate before build step — v7.0
+- ✓ ADR-011 documenting Vitest test strategy — v7.0
+
+**Error Handling & UX:**
+
+- ✓ react-error-boundary wrapping calculator layout — graceful fallback replaces blank screens — v7.0
+- ✓ Sonner toast notifications for copy-to-clipboard, CSV/PDF export, calculation errors — v7.0
+- ✓ DOMPurify (isomorphic-dompurify) applied to all user-rendered HTML — v7.0
+
+**Zod Input Validation:**
+
+- ✓ Zod v4 installed; schemas for all 169 calculator input types in `src/lib/schemas/` — v7.0
+- ✓ `createCalculatorStore` accepts optional Zod schema parameter — v7.0
+- ✓ Zod `.safeParse()` replaces custom `parseNumberParam` URL helpers — v7.0
+- ✓ Field-level Zod error messages in 71 components — v7.0
+
+**LZ-String URL Compression:**
+
+- ✓ LZ-String URL compression: 60-80% reduction via `?z=` search param; backward compatible — v7.0
+
+**Discriminated Union Result Types:**
+
+- ✓ CalculationResult<T> type: `{ ok: true; value: T } | { ok: false; error: string; code: string }` — v7.0
+- ✓ All 169 converters return CalculationResult<T>; adapter pattern in createCalculatorStore — v7.0
+- ✓ 91 components display typed error messages from `result.error` — v7.0
+- ✓ All tests updated to use `.ok` discriminant — v7.0
+
+**i18n Namespace Restructure:**
+
+- ✓ Translation files restructured to stable 4-key schema: `common`, `nav`, `converter`, `calculator` — v7.0
+- ✓ ~210 source files updated to new namespace strings — v7.0
+- ✓ Zero MISSING_MESSAGE warnings; `/check-i18n` audit passes — v7.0
+- ✓ ADR-012 documenting i18n restructure rationale — v7.0
+
+**ADRs & Documentation:**
+
+- ✓ ADR-013: Error boundaries and Sonner toasts architecture — v7.0
+- ✓ ADR-014: Zod validation layer architecture — v7.0
+- ✓ ADR-015: LZ-String URL compression — v7.0
+- ✓ CODE_STYLE.md and ENGINEERING_PATTERNS.md updated with v7.0 patterns — v7.0
+
 <!-- v6.0 CPU Performance & Server Refresh (shipped 2026-02-23) -->
 
 **CPU Performance:**
@@ -258,41 +304,11 @@ A solid, maintainable foundation with zero technical debt in state management an
 
 ## Current Milestone
 
-**v7.0 Framework Migration** — Phases 40–48 on `feature/framework-migration` branch
-
-Gap analysis against Raidy project (`.planning/GAP-ANALYSIS.md`) identified 6 high-value, low-risk architectural improvements. All are additive — no framework change required.
+**v8.0** — Not yet planned. Run `/gsd:new-milestone` to start.
 
 ### Active
 
-**Wave 1 — Testing Foundation (Phase 40–41):**
-- Add Vitest to Next.js project — pure function converters are immediately testable
-- Write unit tests for all 169 converters, ≥75% coverage threshold enforced in CI
-
-**Wave 2 — Error Handling & UX (Phase 42):**
-- Add react-error-boundary wrapping calculator layout
-- Add Sonner toast notifications (copy, export, error feedback)
-- Add DOMPurify for input sanitization
-
-**Wave 3 — Validation (Phase 43):**
-- Add Zod schemas for all calculator input types
-- Replace custom `parseNumberParam` helpers with Zod `.safeParse()`
-
-**Wave 4 — URL Compression (Phase 44):**
-- Add LZ-String to reduce URL length by 60-80%
-- Keep search params (not hash) for GitHub Pages compatibility
-
-**Wave 5 — Type System (Phase 45):**
-- Adopt discriminated union `CalculationResult<T>` — typed errors instead of bare `null`
-- Update all 169 converters and their consumers
-
-**Wave 6 — i18n Structure (Phase 46):**
-- Restructure flat translation JSONs into nested namespace objects
-- Keep next-intl — no library change
-
-**Wave 7 — ADRs & Release (Phases 47–48):**
-- Document ADRs 011-015
-- Harden CI pipeline
-- Merge to maincd, tag v7.0.0
+- (No active requirements — start `/gsd:new-milestone` to define v8.0)
 
 ### Out of Scope
 
@@ -309,15 +325,16 @@ Gap analysis against Raidy project (`.planning/GAP-ANALYSIS.md`) identified 6 hi
 
 ## Context
 
-### Current State (as of v6.0 - 2026-02-23)
+### Current State (as of v7.0 - 2026-02-26)
 
-**Shipped v6.0 CPU Performance & Server Refresh:**
+**Shipped v7.0 Framework Migration:**
 
-Codebase: ~91,000 LOC TypeScript (+6,977 lines from v6.0)
-Tech stack: Next.js 16, React 19, TypeScript 5, Zustand 5, Biome 2.3, Fuse.js
+Codebase: ~91,000+ LOC TypeScript
+Tech stack: Next.js 16, React 19, TypeScript 5, Zustand 5, Biome 2.3, Fuse.js, Vitest, Zod v4, LZ-String, Sonner, react-error-boundary, isomorphic-dompurify
 Deployment: GitHub Pages (static export)
-Calculators: 169 registered (2 new CPU calculators in v6.0)
-Build: Static HTML for 169 calculators × 4 locales — clean TypeScript, zero MISSING_MESSAGE
+Calculators: 169 registered
+Tests: 2288+ passing, 197 test files, ≥75% coverage enforced in CI
+Build: 852 static pages generated — zero TypeScript errors, zero MISSING_MESSAGE
 
 **State Management:**
 
@@ -449,6 +466,13 @@ Build: Static HTML for 169 calculators × 4 locales — clean TypeScript, zero M
 | chassisConstraint enum: none/1u-single/2u-dual | Covers all datacenter rack unit combinations; applied in pure calc, not just UI | ✓ Good — math enforced server-side (no bypass) |
 | Power budget returns null pair when powerBudgetW = 0 | Prevents division-by-zero; UI guards with !== null | ✓ Good — safe fallback, consistent null pattern |
 
+| Vitest over Jest for converter testing | Node environment (not jsdom) — ~200ms faster per file; no React layer needed for pure functions | ✓ Good — 2288 tests, 197 files, CI gate |
+| Zod `z.string().refine()` over `z.coerce.number()` | Matches string-typed FormValues in URL-synced stores | ✓ Good — consistent with URL param handling |
+| LZ-String `?z=` search param (not hash) | GitHub Pages compatibility; hash routing conflicts with static export | ✓ Good — backward compatible, shareable |
+| CalculationResult<T> adapter pattern | Stores stay backward compatible; unwrap internally | ✓ Good — 91 components updated, zero breaking changes |
+| i18n 4-key schema: common/nav/converter/calculator | Non-overlapping namespaces; stable for all current content | ✓ Good — ~210 files updated, zero MISSING_MESSAGE |
+| Test coverage scope: `src/lib/converters/**` only | Excludes React layer (complex setup); pure functions fully testable in node env | ✓ Good — 75% threshold meaningful and achievable |
+
 ---
 
-_Last updated: 2026-02-23 after v6.0 milestone shipped_
+_Last updated: 2026-02-26 after v7.0 milestone shipped_

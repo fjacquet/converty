@@ -141,14 +141,43 @@
 
 ---
 
-_Last updated: 2026-01-29 after v5.0 milestone completion_
-
 ## v6.0 CPU Performance & Server Refresh (Shipped: 2026-02-23)
 
-**Phases completed:** 39 phases, 93 plans, 47 tasks
+**Delivered:** CPU performance benchmarking and server fleet refresh planning tools for datacenter infrastructure decisions.
+
+**Phases completed:** 37-39 (3 phases, 9 plans total)
 
 **Key accomplishments:**
-- (none recorded)
+
+- Curated CPU database with 17 entries: Intel Xeon Scalable, AMD EPYC, ARM/Ampere (current + previous gen) with SPECint2017 scores
+- Built CPU Comparison Calculator: side-by-side 2–4 CPU comparison with perf/core, perf/watt, sizing ratio, vendor/generation filters
+- Built Server Refresh Calculator: old fleet → new fleet modeling with headroom buffer, chassis constraints, power budget, and delta summary
+- SPECint2017 base/peak scores as primary performance metric; staleness banner pattern for build-time reference data
+
+**Stats:** 3 phases, 9 plans, 2 new infrastructure calculators, 169 total registered calculators
 
 ---
+
+## v7.0 Framework Migration (Shipped: 2026-02-26)
+
+**Delivered:** Complete framework hardening: Vitest testing (2288+ tests), Zod validation, error boundaries + toasts, LZ-String URL compression, discriminated union result types, and i18n namespace restructure.
+
+**Phases completed:** 40-48 (9 phases, 39 plans total)
+
+**Key accomplishments:**
+
+- Installed Vitest with 2288+ tests across 197 test files, ≥75% coverage enforced in CI — all 169 converter pure functions now tested
+- Added react-error-boundary + Sonner toasts: graceful error fallback UI replaces blank screens; copy/export/error feedback via toasts
+- Integrated Zod v4: runtime schemas for all 169 calculator inputs, field-level error messages, Zod-based URL parameter parsing
+- Deployed LZ-String URL compression: 60-80% URL length reduction via `?z=` search param (GitHub Pages + backward compatible)
+- Adopted CalculationResult<T> discriminated union: typed error propagation across all 91 components via adapter pattern
+- Restructured i18n namespace to stable 4-key schema (`common`, `nav`, `converter`, `calculator`) across ~210 source files
+- Created ADRs 011-015; updated CODE_STYLE.md and ENGINEERING_PATTERNS.md with v7.0 patterns
+- Zero TypeScript errors, zero MISSING_MESSAGE warnings, 852 static pages generated clean
+
+**Stats:** 9 phases, 39 plans, 2288+ tests, 197 test files, 5 ADRs created, 8 packages added
+
+---
+
+_Last updated: 2026-02-26 after v7.0 milestone completion_
 

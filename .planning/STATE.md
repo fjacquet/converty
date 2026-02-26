@@ -2,10 +2,10 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-23)
+See: .planning/PROJECT.md (updated 2026-02-26)
 
-**Core value:** A professional calculator platform with 169 tools — clean TypeScript, full i18n (4 locales), PWA-capable, static deployment.
-**Current focus:** Planning v7.0 — run `/gsd:new-milestone` to start
+**Core value:** A solid, maintainable foundation with zero technical debt in state management and type safety, enabling confident future development.
+**Current focus:** v7.0 SHIPPED — run `/gsd:new-milestone` to plan v8.0
 
 ## Current Position
 
