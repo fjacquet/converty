@@ -56,6 +56,31 @@ export const networkConverters: Record<string, ConverterMeta> = {
     featured: false,
   },
 
+  // BB Credit calculator (SAN / Fibre Channel ISL)
+  "bb-credit-calculator": {
+    id: "bb-credit-calculator",
+    slug: "bb-credit-calculator",
+    category: "network",
+    subcategory: "san",
+    keywords: [
+      "san",
+      "fibre channel",
+      "fc",
+      "bb credit",
+      "buffer",
+      "isl",
+      "brocade",
+      "mds",
+      "cisco",
+      "longdistance",
+      "storage",
+      "fos",
+      "nxos",
+    ],
+    icon: Network,
+    featured: false,
+  },
+
   // Latency converter
   "latency-converter": {
     id: "latency-converter",

@@ -1241,6 +1241,11 @@
       "description": "Calculate BDP and optimal TCP buffer size",
       "metaDescription": "Calculate bandwidth-delay product and required TCP window size for optimal network performance"
     },
+    "bb-credit-calculator": {
+      "name": "BB Credit Calculator",
+      "description": "Calculate Fibre Channel BB credits for ISL links based on speed and distance",
+      "metaDescription": "Free SAN BB credit calculator — compute buffer-to-buffer credits for Brocade FOS and Cisco MDS ISL links based on FC speed and cable distance"
+    },
     "latency-converter": {
       "name": "Latency Converter",
       "description": "Convert between ping time units (seconds, milliseconds, microseconds, nanoseconds)",
@@ -4685,7 +4690,25 @@
         "crossOcean": "Cross-ocean",
         "satellite": "Satellite or heavily congested network"
       },
-      "reset": "Reset"
+      "reset": "Reset",
+      "bbDistanceKm": "Distance (km)",
+      "bbSpeedGbps": "Fibre Channel Speed",
+      "bbPortId": "Port Identifier",
+      "bbPortIdHelp": "Used in generated commands (e.g. 1/1 or 3)",
+      "bbMinCredits": "Minimum BB Credits",
+      "bbRecommendedCredits": "Recommended BB Credits (+20%)",
+      "bbRtt": "Round-Trip Time",
+      "bbBytesInFlight": "Bytes In Flight",
+      "bbBrocadeTab": "Brocade FOS",
+      "bbMdsTab": "Cisco MDS",
+      "bbPortcfgex": "portcfgex (modern FOS)",
+      "bbPortcfgld": "portcfglongdistance (legacy FOS)",
+      "bbFcrxbbcredit": "fcrxbbcredit",
+      "bbBufSize": "buf-size",
+      "bbSteps": "Calculation Steps",
+      "bbInputTitle": "ISL Link Parameters",
+      "bbResultsTitle": "BB Credit Requirements",
+      "bbCommandsTitle": "Configuration Commands"
     },
     "subnet": {
       "diagram": {

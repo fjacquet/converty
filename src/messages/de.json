@@ -1196,6 +1196,11 @@
       "description": "Berechnen Sie BDP und optimale TCP-Puffergroesse",
       "metaDescription": "Berechnen Sie das Bandbreite-Verzoegerung-Produkt und TCP-Fenstergroesse"
     },
+    "bb-credit-calculator": {
+      "name": "BB-Credit-Rechner",
+      "description": "Fibre-Channel-BB-Credits für ISL-Links nach Geschwindigkeit und Distanz berechnen",
+      "metaDescription": "Kostenloser SAN-BB-Credit-Rechner — Buffer-to-Buffer-Credits für Brocade-FOS- und Cisco-MDS-ISL-Links anhand von FC-Geschwindigkeit und Kabeldistanz berechnen"
+    },
     "latency-converter": {
       "name": "Latenz-Konverter",
       "description": "Zwischen Ping-Zeiteinheiten umrechnen (Sekunden, Millisekunden, Mikrosekunden, Nanosekunden)",
@@ -4554,7 +4559,25 @@
         "crossOcean": "Ozeanübergreifend",
         "satellite": "Satellit oder stark überlastetes Netzwerk"
       },
-      "reset": "Zurücksetzen"
+      "reset": "Zurücksetzen",
+      "bbDistanceKm": "Distanz (km)",
+      "bbSpeedGbps": "Fibre-Channel-Geschwindigkeit",
+      "bbPortId": "Port-Bezeichner",
+      "bbPortIdHelp": "Wird in generierten Befehlen verwendet (z.B. 1/1 oder 3)",
+      "bbMinCredits": "Minimale BB-Credits",
+      "bbRecommendedCredits": "Empfohlene BB-Credits (+20%)",
+      "bbRtt": "Round-Trip-Zeit",
+      "bbBytesInFlight": "Bytes im Transit",
+      "bbBrocadeTab": "Brocade FOS",
+      "bbMdsTab": "Cisco MDS",
+      "bbPortcfgex": "portcfgex (modernes FOS)",
+      "bbPortcfgld": "portcfglongdistance (Legacy-FOS)",
+      "bbFcrxbbcredit": "fcrxbbcredit",
+      "bbBufSize": "buf-size",
+      "bbSteps": "Berechnungsschritte",
+      "bbInputTitle": "ISL-Link-Parameter",
+      "bbResultsTitle": "BB-Credit-Anforderungen",
+      "bbCommandsTitle": "Konfigurationsbefehle"
     },
     "subnet": {
       "diagram": {

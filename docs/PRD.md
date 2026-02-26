@@ -1,7 +1,7 @@
 # Product Requirements Document — Converty
 
 **Version:** 6.0
-**Last Updated:** 2026-02-23
+**Last Updated:** 2026-02-26
 **Status:** Living document — updated at each milestone
 
 ---
@@ -71,6 +71,12 @@ Converty embeds domain expertise into focused calculators. Each tool knows the f
 - Context: Freelance or studio
 - Pain: Each platform has its own tools; no single place for photo + video + color
 - Key calculators: Depth of Field, Exposure Triangle, Color Temperature, Video Bitrate
+
+**SAN / Storage Network Engineer**
+- Needs: Fibre Channel BB credit calculation for ISL links, ready-to-paste CLI commands
+- Context: Enterprise data center, Brocade FOS and/or Cisco MDS fabric
+- Pain: BB credit formula requires cable distance + FC speed; commands differ per vendor
+- Key calculators: BB Credit Calculator (Brocade FOS / Cisco MDS command generation)
 
 **Everyday User**
 - Needs: BMI, calorie intake, unit conversion, age, date difference, recipe scaling
@@ -163,9 +169,9 @@ Video bitrate, storage estimator, frame rate converter, render time estimator, c
 
 Age, date difference, timezone converter, workdays counter, Unix timestamp, countdown timer, calendar week.
 
-#### Network (5 calculators)
+#### Network (6 calculators)
 
-Subnet calculator (IPv4/IPv6), IP address analyzer, CIDR range calculator, network speed/latency.
+Subnet calculator (IPv4/IPv6), IP address analyzer, CIDR range calculator, network speed/latency, **BB Credit Calculator** (Fibre Channel ISL buffer credits with Brocade FOS and Cisco MDS CLI command generation).
 
 #### Crypto (4 calculators)
 
@@ -280,7 +286,7 @@ These constraints are permanent and derive from the GitHub Pages deployment mode
 4. **No user accounts** — No authentication, no server-side sessions
 5. **URL state** — All sharable state must live in URL search parameters
 
-See `.planning/decisions/` for the full ADR rationale behind each constraint.
+See `docs/adr/` for the full ADR rationale behind each constraint.
 
 ---
 
@@ -330,4 +336,5 @@ See `.planning/decisions/` for the full ADR rationale behind each constraint.
 ---
 
 *This document is maintained in the repository at `docs/PRD.md`.
-For implementation details see `docs/CALCULATOR_GUIDE.md` and `.planning/decisions/`.*
+For implementation details see `docs/CALCULATOR_GUIDE.md`.
+For architectural decision rationale see `docs/adr/`.*
