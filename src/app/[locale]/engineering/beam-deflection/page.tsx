@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.beam-deflection" });
+  const t = await getTranslations({ locale, namespace: "converter.beam-deflection" });
 
   return {
     title: t("name"),
@@ -45,8 +45,8 @@ export default async function BeamDeflectionPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.beam-deflection");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.beam-deflection");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("engineering")!;
 
   return (

@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.personal-loan" });
+  const t = await getTranslations({ locale, namespace: "converter.personal-loan" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -37,8 +37,8 @@ export default async function PersonalLoanPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.personal-loan" });
-  const tc = await getTranslations({ locale, namespace: "categories" });
+  const t = await getTranslations({ locale, namespace: "converter.personal-loan" });
+  const tc = await getTranslations({ locale, namespace: "nav" });
   const category = getCategoryBySlug("finance")!;
 
   return (

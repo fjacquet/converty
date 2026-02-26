@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.cidr-range" });
+  const t = await getTranslations({ locale, namespace: "converter.cidr-range" });
 
   return {
     title: t("name"),
@@ -57,8 +57,8 @@ export default async function CIDRRangePage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.cidr-range");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.cidr-range");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("network")!;
 
   return (

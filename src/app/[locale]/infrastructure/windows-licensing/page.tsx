@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.windows-licensing",
+    namespace: "converter.windows-licensing",
   });
 
   return {
@@ -51,8 +51,8 @@ export default async function WindowsLicensingCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.windows-licensing");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.windows-licensing");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

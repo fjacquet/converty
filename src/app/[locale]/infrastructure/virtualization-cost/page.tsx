@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.virtualization-cost",
+    namespace: "converter.virtualization-cost",
   });
 
   return {
@@ -51,8 +51,8 @@ export default async function VirtualizationCostPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.virtualization-cost");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.virtualization-cost");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

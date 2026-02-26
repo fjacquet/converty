@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.retirement" });
+  const t = await getTranslations({ locale, namespace: "converter.retirement" });
 
   return {
     title: t("name"),
@@ -44,8 +44,8 @@ export default async function RetirementPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.retirement");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.retirement");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("finance")!;
 
   return (

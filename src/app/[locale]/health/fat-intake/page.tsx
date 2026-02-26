@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.fat-intake" });
+  const t = await getTranslations({ locale, namespace: "converter.fat-intake" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function FatIntakePage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.fat-intake");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.fat-intake");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

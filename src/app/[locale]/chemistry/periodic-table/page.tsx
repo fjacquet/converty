@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.periodic-table" });
+  const t = await getTranslations({ locale, namespace: "converter.periodic-table" });
 
   return {
     title: t("name"),
@@ -45,8 +45,8 @@ export default async function PeriodicTablePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.periodic-table");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.periodic-table");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("chemistry")!;
 
   return (

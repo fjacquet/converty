@@ -19,7 +19,7 @@ interface ConverterCardProps {
 
 function ConverterCard({ converter, categorySlug }: ConverterCardProps) {
   const Icon = converter.icon;
-  const tConverters = useTranslations("converters");
+  const tConverters = useTranslations("converter");
 
   return (
     <Link href={`/${categorySlug}/${converter.slug}`} className="block group">
@@ -75,7 +75,7 @@ function SubcategorySection({
 export function SubcategoryNav({ categoryId, categorySlug }: SubcategoryNavProps) {
   const subcategories = getSubcategoriesByCategoryId(categoryId);
   const groupedConverters = getConvertersByCategoryGrouped(categoryId);
-  const tSub = useTranslations("subcategories");
+  const tSub = useTranslations("nav.subcategories");
 
   // If no subcategories defined, show all converters in a flat list
   if (subcategories.length === 0) {

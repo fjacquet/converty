@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.advanced-dof" });
+  const t = await getTranslations({ locale, namespace: "converter.advanced-dof" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function AdvancedDOFPage({ params }: { params: Promise<{ lo
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.advanced-dof");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.advanced-dof");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

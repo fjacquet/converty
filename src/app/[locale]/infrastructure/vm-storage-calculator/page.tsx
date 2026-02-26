@@ -22,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.vm-storage-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.vm-storage-calculator" });
 
   return {
     title: t("name"),
@@ -48,8 +48,8 @@ export default async function VmStorageCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.vm-storage-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.vm-storage-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

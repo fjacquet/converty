@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.vmware-licensing-calculator",
+    namespace: "converter.vmware-licensing-calculator",
   });
 
   return {
@@ -54,8 +54,8 @@ export default async function VmwareLicensingCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.vmware-licensing-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.vmware-licensing-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

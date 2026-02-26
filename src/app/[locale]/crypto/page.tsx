@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.crypto" });
+  const t = await getTranslations({ locale, namespace: "nav.crypto" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function CryptoPage({ params }: { params: Promise<{ locale:
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.crypto");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.crypto");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("crypto")!;
   const converters = getConvertersByCategory("crypto");

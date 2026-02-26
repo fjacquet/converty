@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.spot-stars" });
+  const t = await getTranslations({ locale, namespace: "converter.spot-stars" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function SpotStarsPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.spot-stars");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.spot-stars");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

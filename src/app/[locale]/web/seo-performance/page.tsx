@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.seo-performance" });
+  const t = await getTranslations({ locale, namespace: "converter.seo-performance" });
 
   return {
     title: t("name"),
@@ -38,8 +38,8 @@ export default async function SEOPerformancePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.seo-performance");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.seo-performance");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("web")!;
 
   return (

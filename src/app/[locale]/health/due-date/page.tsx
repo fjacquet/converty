@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.due-date" });
+  const t = await getTranslations({ locale, namespace: "converter.due-date" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function DueDatePage({ params }: { params: Promise<{ locale
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.due-date");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.due-date");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.foot-lambert" });
+  const t = await getTranslations({ locale, namespace: "converter.foot-lambert" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function FootLambertPage({ params }: { params: Promise<{ lo
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.foot-lambert");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.foot-lambert");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("video")!;
 
   return (

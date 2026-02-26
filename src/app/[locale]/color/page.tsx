@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.color" });
+  const t = await getTranslations({ locale, namespace: "nav.color" });
 
   return {
     title: t("name"),
@@ -31,8 +31,8 @@ export default async function ColorCategoryPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.color");
-  const tConverters = await getTranslations("converters");
+  const t = await getTranslations("nav.color");
+  const tConverters = await getTranslations("converter");
   const category = getCategoryBySlug("color");
   const converters = getConvertersByCategory("color");
 

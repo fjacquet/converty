@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.subnet-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.subnet-calculator" });
 
   return {
     title: t("name"),
@@ -60,8 +60,8 @@ export default async function SubnetCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.subnet-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.subnet-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("network")!;
 
   return (

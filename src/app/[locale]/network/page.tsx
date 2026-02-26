@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.network" });
+  const t = await getTranslations({ locale, namespace: "nav.network" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function NetworkPage({ params }: { params: Promise<{ locale
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.network");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.network");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("network")!;
   const converters = getConvertersByCategory("network");

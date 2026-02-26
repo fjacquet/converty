@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.hex-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.hex-calculator" });
 
   return {
     title: t("name"),
@@ -38,8 +38,8 @@ export default async function HexCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.hex-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.hex-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("math")!;
 
   return (

@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.pipe-flow" });
+  const t = await getTranslations({ locale, namespace: "converter.pipe-flow" });
 
   return {
     title: t("name"),
@@ -43,8 +43,8 @@ export default async function PipeFlowPage({ params }: { params: Promise<{ local
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.pipe-flow");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.pipe-flow");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("engineering")!;
 
   return (

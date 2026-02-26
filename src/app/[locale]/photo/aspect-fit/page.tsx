@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.aspect-fit" });
+  const t = await getTranslations({ locale, namespace: "converter.aspect-fit" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function AspectFitPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.aspect-fit");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.aspect-fit");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

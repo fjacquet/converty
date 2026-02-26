@@ -13,7 +13,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   setRequestLocale(locale);
 
   const t = await getTranslations("common");
-  const tc = await getTranslations("categories");
+  const tc = await getTranslations("nav");
 
   return (
     <div className="container py-10">

@@ -25,7 +25,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.server-virtualization-calculator",
+    namespace: "converter.server-virtualization-calculator",
   });
 
   return {
@@ -55,8 +55,8 @@ export default async function ServerVirtualizationCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.server-virtualization-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.server-virtualization-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.time-lapse" });
+  const t = await getTranslations({ locale, namespace: "converter.time-lapse" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function TimeLapsePage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.time-lapse");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.time-lapse");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

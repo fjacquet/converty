@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.realestate" });
+  const t = await getTranslations({ locale, namespace: "nav.realestate" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function RealEstatePage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.realestate");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.realestate");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("realestate")!;
   const converters = getConvertersByCategory("realestate");

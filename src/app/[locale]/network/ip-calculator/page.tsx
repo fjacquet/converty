@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.ip-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.ip-calculator" });
 
   return {
     title: t("name"),
@@ -57,8 +57,8 @@ export default async function IPCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.ip-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.ip-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("network")!;
 
   return (

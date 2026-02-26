@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.golden-hour" });
+  const t = await getTranslations({ locale, namespace: "converter.golden-hour" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function GoldenHourPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.golden-hour");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.golden-hour");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

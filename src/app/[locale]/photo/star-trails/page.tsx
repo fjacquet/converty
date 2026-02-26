@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.star-trails" });
+  const t = await getTranslations({ locale, namespace: "converter.star-trails" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function StarTrailsPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.star-trails");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.star-trails");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

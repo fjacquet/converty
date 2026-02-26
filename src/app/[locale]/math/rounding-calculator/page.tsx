@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.rounding-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.rounding-calculator" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function RoundingCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.rounding-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.rounding-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("math")!;
 
   return (

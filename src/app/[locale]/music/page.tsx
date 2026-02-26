@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.music" });
+  const t = await getTranslations({ locale, namespace: "nav.music" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function MusicPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.music");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.music");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("music")!;
   const converters = getConvertersByCategory("music");

@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.bandwidth-delay-product" });
+  const t = await getTranslations({ locale, namespace: "converter.bandwidth-delay-product" });
 
   return {
     title: t("name"),
@@ -44,8 +44,8 @@ export default async function BandwidthDelayProductPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.bandwidth-delay-product");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.bandwidth-delay-product");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("data")!;
 
   return (

@@ -25,7 +25,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.hyperv-consolidation",
+    namespace: "converter.hyperv-consolidation",
   });
 
   return {
@@ -54,8 +54,8 @@ export default async function HypervConsolidationCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.hyperv-consolidation");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.hyperv-consolidation");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

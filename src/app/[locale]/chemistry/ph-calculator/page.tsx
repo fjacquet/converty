@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.ph-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.ph-calculator" });
 
   return {
     title: t("name"),
@@ -47,8 +47,8 @@ export default async function PhCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.ph-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.ph-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("chemistry")!;
 
   return (

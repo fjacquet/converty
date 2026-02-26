@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.physics" });
+  const t = await getTranslations({ locale, namespace: "nav.physics" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function PhysicsPage({ params }: { params: Promise<{ locale
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.physics");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.physics");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("physics")!;
   const converters = getConvertersByCategory("physics");

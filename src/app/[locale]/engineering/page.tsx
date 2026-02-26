@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.engineering" });
+  const t = await getTranslations({ locale, namespace: "nav.engineering" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function EngineeringPage({ params }: { params: Promise<{ lo
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.engineering");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.engineering");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("engineering")!;
   const converters = getConvertersByCategory("engineering");

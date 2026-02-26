@@ -17,7 +17,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "realestate.property-valuation" });
+  const t = await getTranslations({
+    locale,
+    namespace: "calculator.realestate.property-valuation",
+  });
 
   return {
     title: t("title"),

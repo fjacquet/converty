@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.volume-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.volume-calculator" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function VolumeCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.volume-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.volume-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("math")!;
 
   return (

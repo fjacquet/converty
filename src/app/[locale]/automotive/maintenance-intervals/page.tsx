@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.maintenance-intervals" });
+  const t = await getTranslations({ locale, namespace: "converter.maintenance-intervals" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -41,8 +41,8 @@ export default async function MaintenanceIntervalsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.maintenance-intervals" });
-  const categoryT = await getTranslations({ locale, namespace: "categories.automotive" });
+  const t = await getTranslations({ locale, namespace: "converter.maintenance-intervals" });
+  const categoryT = await getTranslations({ locale, namespace: "nav.automotive" });
 
   const automotiveCategory = categories.find((c) => c.slug === "automotive");
   if (!automotiveCategory) {

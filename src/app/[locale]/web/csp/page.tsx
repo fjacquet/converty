@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.csp" });
+  const t = await getTranslations({ locale, namespace: "converter.csp" });
 
   return {
     title: t("name"),
@@ -34,8 +34,8 @@ export default async function CSPPage({ params }: { params: Promise<{ locale: st
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.csp");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.csp");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("web")!;
 
   return (

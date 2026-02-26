@@ -14,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.datetime" });
+  const t = await getTranslations({ locale, namespace: "nav.datetime" });
 
   return {
     title: t("name"),
@@ -26,7 +26,7 @@ export default async function DateTimePage({ params }: { params: Promise<{ local
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.datetime");
+  const t = await getTranslations("nav.datetime");
 
   const category = getCategoryBySlug("datetime");
   const Icon = category?.icon;

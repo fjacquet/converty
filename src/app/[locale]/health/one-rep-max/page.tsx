@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.one-rep-max" });
+  const t = await getTranslations({ locale, namespace: "converter.one-rep-max" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function OneRepMaxPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.one-rep-max");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.one-rep-max");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

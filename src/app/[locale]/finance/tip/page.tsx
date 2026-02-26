@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.tip" });
+  const t = await getTranslations({ locale, namespace: "converter.tip" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -30,8 +30,8 @@ export async function generateMetadata({
 export default async function TipPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.tip" });
-  const tc = await getTranslations({ locale, namespace: "categories" });
+  const t = await getTranslations({ locale, namespace: "converter.tip" });
+  const tc = await getTranslations({ locale, namespace: "nav" });
   const category = getCategoryBySlug("finance")!;
 
   return (

@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.html-chars" });
+  const t = await getTranslations({ locale, namespace: "converter.html-chars" });
 
   return {
     title: t("name"),
@@ -34,8 +34,8 @@ export default async function HTMLCharsPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.html-chars");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.html-chars");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("web")!;
 
   return (

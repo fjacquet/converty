@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.server-refresh-calculator",
+    namespace: "converter.server-refresh-calculator",
   });
 
   return {
@@ -52,8 +52,8 @@ export default async function ServerRefreshCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.server-refresh-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.server-refresh-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

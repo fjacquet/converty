@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.latency-converter" });
+  const t = await getTranslations({ locale, namespace: "converter.latency-converter" });
 
   return {
     title: t("name"),
@@ -40,8 +40,8 @@ export default async function LatencyConverterPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.latency-converter");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.latency-converter");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("network")!;
 
   return (

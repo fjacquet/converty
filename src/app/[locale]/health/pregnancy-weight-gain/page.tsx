@@ -25,7 +25,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.pregnancy-weight-gain" });
+  const t = await getTranslations({ locale, namespace: "converter.pregnancy-weight-gain" });
 
   return {
     title: t("name"),
@@ -42,8 +42,8 @@ export default async function PregnancyWeightGainPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.pregnancy-weight-gain");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.pregnancy-weight-gain");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

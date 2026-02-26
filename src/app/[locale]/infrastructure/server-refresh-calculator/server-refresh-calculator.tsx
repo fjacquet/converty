@@ -52,7 +52,7 @@ function formatDelta(value: number, reverseColor = false): { text: string; class
 }
 
 export function ServerRefreshCalculator() {
-  const t = useTranslations("converters.server-refresh-calculator");
+  const t = useTranslations("converter.server-refresh-calculator");
   const { values, setValue, result, calculationError } = useServerRefreshStore();
 
   const cpuList = useMemo(() => getServerRefreshCpus(), []);

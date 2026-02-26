@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.screen-size" });
+  const t = await getTranslations({ locale, namespace: "converter.screen-size" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function ScreenSizePage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.screen-size");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.screen-size");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("video")!;
 
   return (

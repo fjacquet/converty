@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.megapixel-aspects" });
+  const t = await getTranslations({ locale, namespace: "converter.megapixel-aspects" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function MegapixelAspectsPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.megapixel-aspects");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.megapixel-aspects");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

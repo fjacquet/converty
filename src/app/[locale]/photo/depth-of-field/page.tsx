@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.depth-of-field" });
+  const t = await getTranslations({ locale, namespace: "converter.depth-of-field" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function DepthOfFieldPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.depth-of-field");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.depth-of-field");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

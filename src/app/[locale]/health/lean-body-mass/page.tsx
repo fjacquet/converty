@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.lean-body-mass" });
+  const t = await getTranslations({ locale, namespace: "converter.lean-body-mass" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function LeanBodyMassPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.lean-body-mass");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.lean-body-mass");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

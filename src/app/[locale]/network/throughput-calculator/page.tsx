@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.throughput-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.throughput-calculator" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -48,8 +48,8 @@ export default async function ThroughputCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.throughput-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.throughput-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("network")!;
 
   return (

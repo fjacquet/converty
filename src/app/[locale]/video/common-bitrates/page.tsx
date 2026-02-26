@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.common-bitrates" });
+  const t = await getTranslations({ locale, namespace: "converter.common-bitrates" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function CommonBitratesPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.common-bitrates");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.common-bitrates");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("video")!;
 
   return (

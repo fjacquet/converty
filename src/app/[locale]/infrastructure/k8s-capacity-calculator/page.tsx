@@ -22,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.k8s-capacity-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.k8s-capacity-calculator" });
 
   return {
     title: t("name"),
@@ -49,8 +49,8 @@ export default async function K8sCapacityCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.k8s-capacity-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.k8s-capacity-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

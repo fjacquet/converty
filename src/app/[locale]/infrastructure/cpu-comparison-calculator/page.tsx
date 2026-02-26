@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.cpu-comparison-calculator",
+    namespace: "converter.cpu-comparison-calculator",
   });
 
   return {
@@ -52,8 +52,8 @@ export default async function CpuComparisonCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.cpu-comparison-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.cpu-comparison-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("infrastructure")!;
 
   return (

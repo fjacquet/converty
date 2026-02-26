@@ -17,7 +17,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.rental-yield" });
+  const t = await getTranslations({ locale, namespace: "converter.rental-yield" });
 
   return {
     title: t("name"),

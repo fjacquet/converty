@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.image-filesize" });
+  const t = await getTranslations({ locale, namespace: "converter.image-filesize" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function ImageFilesizePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.image-filesize");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.image-filesize");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

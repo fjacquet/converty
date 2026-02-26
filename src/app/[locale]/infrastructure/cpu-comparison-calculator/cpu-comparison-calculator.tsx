@@ -32,7 +32,7 @@ const useCpuComparisonStore = createCalculatorStore<CpuComparisonInput, CpuCompa
 });
 
 export function CpuComparisonCalculator() {
-  const t = useTranslations("converters.cpu-comparison-calculator");
+  const t = useTranslations("converter.cpu-comparison-calculator");
   const { values, setValue, result, calculationError } = useCpuComparisonStore();
 
   const filteredCpus = useMemo(

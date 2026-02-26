@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.data" });
+  const t = await getTranslations({ locale, namespace: "nav.data" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function DataPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.data");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.data");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("data")!;
   const converters = getConvertersByCategory("data");

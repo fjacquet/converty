@@ -17,8 +17,8 @@ const LOCALES = ["en", "fr", "de", "it"] as const;
 const FUSE_KEYS = ["name", "description", "keywords", "categoryName"];
 
 interface TranslationFile {
-  converters?: Record<string, { name?: string; description?: string }>;
-  categories?: Record<string, { name?: string }>;
+  converter?: Record<string, { name?: string; description?: string }>;
+  nav?: Record<string, { name?: string }>;
 }
 
 interface ConverterEntry {
@@ -91,8 +91,8 @@ function generateSearchDocuments(
   const documents: SearchDocument[] = [];
 
   for (const converter of converters) {
-    const converterTranslation = translations.converters?.[converter.id];
-    const categoryTranslation = translations.categories?.[converter.category];
+    const converterTranslation = translations.converter?.[converter.id];
+    const categoryTranslation = translations.nav?.[converter.category];
 
     // Skip if no translation found (shouldn't happen but be safe)
     if (!converterTranslation?.name) {

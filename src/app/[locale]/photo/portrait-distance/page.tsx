@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.portrait-distance" });
+  const t = await getTranslations({ locale, namespace: "converter.portrait-distance" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function PortraitDistancePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.portrait-distance");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.portrait-distance");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("photo")!;
 
   return (

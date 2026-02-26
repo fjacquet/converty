@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.annuity-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.annuity-calculator" });
 
   return {
     title: t("name"),
@@ -38,8 +38,8 @@ export default async function AnnuityCalculatorPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.annuity-calculator" });
-  const tc = await getTranslations({ locale, namespace: "categories" });
+  const t = await getTranslations({ locale, namespace: "converter.annuity-calculator" });
+  const tc = await getTranslations({ locale, namespace: "nav" });
   const category = getCategoryBySlug("finance")!;
 
   return (

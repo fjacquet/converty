@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.hours" });
+  const t = await getTranslations({ locale, namespace: "converter.hours" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function HoursPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.hours");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.hours");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("datetime")!;
 
   return (

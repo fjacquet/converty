@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.slope-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.slope-calculator" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function SlopeCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.slope-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.slope-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("math")!;
 
   return (

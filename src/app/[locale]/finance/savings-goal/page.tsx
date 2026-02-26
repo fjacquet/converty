@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.savings-goal" });
+  const t = await getTranslations({ locale, namespace: "converter.savings-goal" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -33,8 +33,8 @@ export async function generateMetadata({
 export default async function SavingsGoalPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.savings-goal" });
-  const tc = await getTranslations({ locale, namespace: "categories" });
+  const t = await getTranslations({ locale, namespace: "converter.savings-goal" });
+  const tc = await getTranslations({ locale, namespace: "nav" });
   const category = getCategoryBySlug("finance")!;
 
   return (

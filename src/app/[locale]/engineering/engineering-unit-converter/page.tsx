@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.engineering-unit-converter",
+    namespace: "converter.engineering-unit-converter",
   });
 
   return {
@@ -50,8 +50,8 @@ export default async function EngineeringUnitConverterPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.engineering-unit-converter");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.engineering-unit-converter");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("engineering")!;
 
   return (

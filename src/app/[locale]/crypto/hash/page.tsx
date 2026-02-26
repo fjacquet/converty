@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.hash-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.hash-calculator" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -38,8 +38,8 @@ export default async function HashCalculatorPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("converters.hash-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.hash-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("crypto")!;
 
   return (

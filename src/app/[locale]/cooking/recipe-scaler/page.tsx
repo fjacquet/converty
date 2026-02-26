@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.recipe-scaler" });
+  const t = await getTranslations({ locale, namespace: "converter.recipe-scaler" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -38,8 +38,8 @@ export default async function RecipeScalerPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.recipe-scaler" });
-  const tc = await getTranslations("categories");
+  const t = await getTranslations({ locale, namespace: "converter.recipe-scaler" });
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("cooking")!;
 
   return (

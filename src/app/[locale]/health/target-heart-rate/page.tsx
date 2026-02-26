@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.target-heart-rate" });
+  const t = await getTranslations({ locale, namespace: "converter.target-heart-rate" });
 
   return {
     title: t("name"),
@@ -47,8 +47,8 @@ export default async function TargetHeartRatePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.target-heart-rate");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.target-heart-rate");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

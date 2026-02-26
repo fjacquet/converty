@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.vehicle-financing" });
+  const t = await getTranslations({ locale, namespace: "converter.vehicle-financing" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -38,8 +38,8 @@ export default async function VehicleFinancingPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.vehicle-financing" });
-  const categoryT = await getTranslations({ locale, namespace: "categories.automotive" });
+  const t = await getTranslations({ locale, namespace: "converter.vehicle-financing" });
+  const categoryT = await getTranslations({ locale, namespace: "nav.automotive" });
   const category = getCategoryBySlug("automotive");
 
   if (!category) {

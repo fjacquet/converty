@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.nutrition-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.nutrition-calculator" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -38,8 +38,8 @@ export default async function NutritionCalculatorPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.nutrition-calculator" });
-  const categoryT = await getTranslations({ locale, namespace: "categories.cooking" });
+  const t = await getTranslations({ locale, namespace: "converter.nutrition-calculator" });
+  const categoryT = await getTranslations({ locale, namespace: "nav.cooking" });
   const category = getCategoryBySlug("cooking")!;
 
   return (

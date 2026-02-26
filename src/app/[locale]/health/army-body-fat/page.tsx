@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.army-body-fat" });
+  const t = await getTranslations({ locale, namespace: "converter.army-body-fat" });
 
   return {
     title: t("name"),
@@ -43,8 +43,8 @@ export default async function ArmyBodyFatPage({ params }: { params: Promise<{ lo
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.army-body-fat");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.army-body-fat");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

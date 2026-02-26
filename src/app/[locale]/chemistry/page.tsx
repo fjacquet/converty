@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.chemistry" });
+  const t = await getTranslations({ locale, namespace: "nav.chemistry" });
 
   return {
     title: t("name"),
@@ -39,8 +39,8 @@ export default async function ChemistryPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.chemistry");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.chemistry");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("chemistry")!;
   const converters = getConvertersByCategory("chemistry");

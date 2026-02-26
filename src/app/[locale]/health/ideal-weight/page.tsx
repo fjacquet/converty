@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.ideal-weight" });
+  const t = await getTranslations({ locale, namespace: "converter.ideal-weight" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function IdealWeightPage({ params }: { params: Promise<{ lo
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.ideal-weight");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.ideal-weight");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

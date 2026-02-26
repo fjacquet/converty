@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.math" });
+  const t = await getTranslations({ locale, namespace: "nav.math" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function MathPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.math");
-  const tConverters = await getTranslations("converters");
+  const t = await getTranslations("nav.math");
+  const tConverters = await getTranslations("converter");
 
   const category = getCategoryBySlug("math")!;
   const converters = getConvertersByCategory("math");

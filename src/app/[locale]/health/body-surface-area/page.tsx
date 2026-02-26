@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.body-surface-area" });
+  const t = await getTranslations({ locale, namespace: "converter.body-surface-area" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function BodySurfaceAreaPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.body-surface-area");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.body-surface-area");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("health")!;
 
   return (

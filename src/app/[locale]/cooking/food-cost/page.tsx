@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.food-cost" });
+  const t = await getTranslations({ locale, namespace: "converter.food-cost" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -34,8 +34,8 @@ export async function generateMetadata({
 export default async function FoodCostPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.food-cost" });
-  const categoryT = await getTranslations({ locale, namespace: "categories.cooking" });
+  const t = await getTranslations({ locale, namespace: "converter.food-cost" });
+  const categoryT = await getTranslations({ locale, namespace: "nav.cooking" });
   const category = getCategoryBySlug("cooking")!;
 
   return (

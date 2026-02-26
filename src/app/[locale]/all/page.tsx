@@ -29,8 +29,8 @@ export default async function AllToolsPage({ params }: { params: Promise<{ local
   setRequestLocale(locale);
 
   const t = await getTranslations("common");
-  const tc = await getTranslations("categories");
-  const tConverters = await getTranslations("converters");
+  const tc = await getTranslations("nav");
+  const tConverters = await getTranslations("converter");
 
   // Group converters by category
   const groupedConverters = categories

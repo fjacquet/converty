@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.p-value-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.p-value-calculator" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function PValueCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.p-value-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.p-value-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("math")!;
 
   return (

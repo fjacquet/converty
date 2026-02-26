@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.surface-area-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.surface-area-calculator" });
 
   return {
     title: t("name"),
@@ -41,8 +41,8 @@ export default async function SurfaceAreaCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.surface-area-calculator");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.surface-area-calculator");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("math")!;
 
   return (

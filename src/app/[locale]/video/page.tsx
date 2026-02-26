@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "categories.video" });
+  const t = await getTranslations({ locale, namespace: "nav.video" });
 
   return {
     title: t("name"),
@@ -28,8 +28,8 @@ export default async function VideoPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("categories.video");
-  const tc = await getTranslations("converters");
+  const t = await getTranslations("nav.video");
+  const tc = await getTranslations("converter");
 
   const category = getCategoryBySlug("video")!;
   const converters = getConvertersByCategory("video");

@@ -26,7 +26,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.tire-sizing" });
+  const t = await getTranslations({ locale, namespace: "converter.tire-sizing" });
   return {
     title: t("name"),
     description: t("metaDescription"),
@@ -36,7 +36,7 @@ export async function generateMetadata({
 export default async function TireSizingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "converters.tire-sizing" });
+  const t = await getTranslations({ locale, namespace: "converter.tire-sizing" });
   const category = getCategoryById("automotive");
 
   if (!category) {

@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.day-counter" });
+  const t = await getTranslations({ locale, namespace: "converter.day-counter" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function DayCounterPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.day-counter");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.day-counter");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("datetime")!;
 
   return (

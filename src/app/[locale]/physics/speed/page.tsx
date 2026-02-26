@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.speed" });
+  const t = await getTranslations({ locale, namespace: "converter.speed" });
 
   return {
     title: t("name"),
@@ -37,8 +37,8 @@ export default async function SpeedPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.speed");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.speed");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("physics")!;
 
   return (

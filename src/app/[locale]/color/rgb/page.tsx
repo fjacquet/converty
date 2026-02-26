@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: "converters.rgb",
+    namespace: "converter.rgb",
   });
 
   return {
@@ -41,8 +41,8 @@ export default async function RgbConverterPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.rgb");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.rgb");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("color")!;
 
   return (

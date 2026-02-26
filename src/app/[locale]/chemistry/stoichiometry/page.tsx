@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.stoichiometry" });
+  const t = await getTranslations({ locale, namespace: "converter.stoichiometry" });
 
   return {
     title: t("name"),
@@ -45,8 +45,8 @@ export default async function StoichiometryPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.stoichiometry");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.stoichiometry");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("chemistry")!;
 
   return (

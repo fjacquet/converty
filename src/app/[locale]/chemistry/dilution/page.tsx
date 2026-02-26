@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.dilution" });
+  const t = await getTranslations({ locale, namespace: "converter.dilution" });
 
   return {
     title: t("name"),
@@ -42,8 +42,8 @@ export default async function DilutionPage({ params }: { params: Promise<{ local
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("converters.dilution");
-  const tc = await getTranslations("categories");
+  const t = await getTranslations("converter.dilution");
+  const tc = await getTranslations("nav");
   const category = getCategoryBySlug("chemistry")!;
 
   return (
