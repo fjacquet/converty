@@ -133,13 +133,16 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [ ] 43-05-PLAN.md — Remaining 12 categories schemas + errors + barrel index (Wave 3)
 - [x] Phase 44: LZ-String URL Compression — **1 plan** — lz-string installed, ?z= compressed URL write/read paths, backward compat, round-trip tests (R4.1–R4.6) (completed 2026-02-26)
   - [ ] 44-01-PLAN.md — Install lz-string + update url-sync.ts write path + update calculator-store.ts read path + fix Map bug + round-trip tests (Wave 1)
-- [ ] Phase 45: Discriminated Union Result Types — **5 plans** — CalculationResult<T> type, store factory adapter, all 169 converters migrated, 196 tests updated (R5.1–R5.5)
-  - [ ] 45-01-PLAN.md — CalculationResult<T> type definition + createCalculatorStore adapter pattern + calculationError state (Wave 1)
-  - [ ] 45-02-PLAN.md — Health + math converters to CalculationResult + update their tests (Wave 2, parallel)
-  - [ ] 45-03-PLAN.md — Finance + datetime + automotive + cooking converters (recipe-scaler/food-cost throw→ok:false) + tests (Wave 2, parallel)
+- [x] Phase 45: Discriminated Union Result Types — **5 plans** — CalculationResult<T> type, store factory adapter, all 91 components updated (R5.1–R5.5) (completed 2026-02-26)
+  - [x] 45-01-PLAN.md — CalculationResult<T> type definition + createCalculatorStore adapter pattern + calculationError state (Wave 1)
+  - [x] 45-02-PLAN.md — Health + math converters to CalculationResult + update their tests (Wave 2, parallel)
+  - [x] 45-03-PLAN.md — Finance + datetime + automotive + cooking converters (recipe-scaler/food-cost throw→ok:false) + tests (Wave 2, parallel)
   - [x] 45-04-PLAN.md — Photo + video + data + physics + music + color + realestate + crypto converters + tests (Wave 2, parallel)
-  - [ ] 45-05-PLAN.md — Network + chemistry (success→ok rename) + engineering + infrastructure (throw→ok:false) + web + component calculationError display + final quality gate (Wave 3)
-- [ ] Phase 46: i18n Namespace Restructure — nested translation objects, no library change
+  - [x] 45-05-PLAN.md — Network + chemistry + engineering + infrastructure + web + component calculationError display + final quality gate (Wave 3)
+- [ ] Phase 46: i18n Namespace Restructure — **3 plans** — restructure locale JSON files, update namespace strings in ~210 source files, ADR-012 (R6.1–R6.5)
+  - [ ] 46-01-PLAN.md — Migration script + restructure all 4 locale JSON files atomically (Wave 1)
+  - [ ] 46-02-PLAN.md — Update all source code namespace strings (converters→converter, categories→nav) (Wave 2)
+  - [ ] 46-03-PLAN.md — Full verification (build, i18n audit, zero MISSING_MESSAGE) + ADR-012 (Wave 3)
 - [ ] Phase 47: ADRs & CI Hardening — ADRs 011–015, CI test gate, updated docs
 - [ ] Phase 48: Branch Integration & Release v7.0 — merge, regression, tag, GitHub Release
 
@@ -147,4 +150,4 @@ See `.planning/REQUIREMENTS.md` and `.planning/GAP-ANALYSIS.md` for full details
 
 ---
 
-*Next action: `/gsd:execute-phase 45` to start Discriminated Union Result Types*
+_Next action: `/gsd:execute-phase 46` to start i18n Namespace Restructure_
