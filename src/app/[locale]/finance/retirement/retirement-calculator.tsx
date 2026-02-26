@@ -42,7 +42,7 @@ const useRetirementStore = createCalculatorStore<RetirementInput, RetirementResu
 export function RetirementCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result, errors } = useRetirementStore();
+  const { values, setValue, result, errors, calculationError } = useRetirementStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -311,6 +311,8 @@ export function RetirementCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

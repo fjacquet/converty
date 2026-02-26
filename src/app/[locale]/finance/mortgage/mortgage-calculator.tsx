@@ -47,7 +47,7 @@ const COLORS = ["hsl(var(--primary))", "hsl(var(--destructive))", "hsl(var(--mut
 export function MortgageCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result, errors } = useMortgageStore();
+  const { values, setValue, result, errors, calculationError } = useMortgageStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -409,6 +409,8 @@ export function MortgageCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

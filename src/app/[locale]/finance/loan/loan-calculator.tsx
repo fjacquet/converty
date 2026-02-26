@@ -35,7 +35,7 @@ const useLoanStore = createCalculatorStore<LoanInput, LoanResult>({
 export function LoanCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result, errors } = useLoanStore();
+  const { values, setValue, result, errors, calculationError } = useLoanStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -237,6 +237,8 @@ export function LoanCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

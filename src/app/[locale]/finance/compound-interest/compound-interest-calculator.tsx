@@ -53,7 +53,7 @@ const useCompoundInterestStore = createCalculatorStore<
 export function CompoundInterestCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result, errors } = useCompoundInterestStore();
+  const { values, setValue, result, errors, calculationError } = useCompoundInterestStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -306,6 +306,8 @@ export function CompoundInterestCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
