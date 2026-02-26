@@ -13,6 +13,8 @@ JSON translation files for all 4 supported locales.
 
 ## Structure
 
+Four stable top-level namespaces (as of Phase 46 / ADR-012):
+
 ```json
 {
   "common": {
@@ -21,25 +23,37 @@ JSON translation files for all 4 supported locales.
     "backTo": "Back to {category}",
     "calculate": "Calculate",
     "clear": "Clear",
-    "copy": "Copy"
+    "copy": "Copy",
+    "validation": {
+      "required": "This field is required",
+      "invalidNumber": "Please enter a valid number"
+    },
+    "metadata": {
+      "title": "Converty — Free Online Calculators",
+      "description": "..."
+    }
   },
 
-  "categories": {
+  "nav": {
     "health": {
       "name": "Health",
       "description": "Health and fitness calculators"
     },
-    "finance": { ... },
-    "math": { ... }
+    "finance": { "name": "Finance", "description": "..." },
+    "math": { "name": "Math", "description": "..." },
+    "subcategories": {
+      "basic": "Basic",
+      "advanced": "Advanced"
+    }
   },
 
-  "converters": {
+  "converter": {
     "bmi": {
-      "name": "BMI Calculator",
+      "name": "BMI",
       "description": "Calculate your Body Mass Index",
       "metaDescription": "SEO-optimized description for search engines"
     },
-    "compound-interest": { ... }
+    "compound-interest": { "name": "...", "description": "..." }
   },
 
   "calculator": {
@@ -54,10 +68,6 @@ JSON translation files for all 4 supported locales.
       "total": "Total",
       "monthly": "Monthly"
     },
-    "sections": {
-      "input": "Input",
-      "output": "Results"
-    },
     "health": {
       "bmiCategory": "BMI Category",
       "underweight": "Underweight"
@@ -65,19 +75,19 @@ JSON translation files for all 4 supported locales.
     "finance": {
       "principal": "Principal",
       "interest": "Interest"
-    },
-    "math": {
-      "expression": "Expression",
-      "calculate": "Calculate"
     }
-  },
-
-  "errors": {
-    "required": "This field is required",
-    "invalidNumber": "Please enter a valid number"
   }
 }
 ```
+
+**Namespace semantics:**
+
+| Namespace | Purpose |
+|-----------|---------|
+| `common` | Shared UI text, validation messages, site metadata |
+| `nav` | Category names/descriptions for navigation; subcategory labels |
+| `converter` | Calculator tool metadata: name, description, SEO description |
+| `calculator` | Calculator-specific labels, results, domain content |
 
 ## Key Naming Conventions
 
@@ -100,7 +110,7 @@ JSON translation files for all 4 supported locales.
 
 ```json
 {
-  "converters": {
+  "converter": {
     "new-calculator": {
       "name": "New Calculator",
       "description": "Short description for listing",

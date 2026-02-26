@@ -45,7 +45,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "converters.my-calculator" });
+  const t = await getTranslations({ locale, namespace: "converter.my-calculator" });
 
   return {
     title: t("name"),
@@ -63,7 +63,7 @@ export default async function MyCalculatorPage({
   const { locale } = await params;
   setRequestLocale(locale);  // REQUIRED for static generation
 
-  const t = await getTranslations("converters.my-calculator");
+  const t = await getTranslations("converter.my-calculator");
   const tCommon = await getTranslations("common");
 
   return (
