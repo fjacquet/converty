@@ -10,10 +10,10 @@ describe("calculateSampleSize", () => {
         marginOfError: 0.05,
         populationProportion: 0.5,
       });
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
       // Standard result for 95%, 5% margin, p=0.5
-      expect(result?.sampleSize).toBeGreaterThanOrEqual(384);
-      expect(result?.sampleSize).toBeLessThanOrEqual(386);
+      expect((result as { ok: true; value: any }).value.sampleSize).toBeGreaterThanOrEqual(384);
+      expect((result as { ok: true; value: any }).value.sampleSize).toBeLessThanOrEqual(386);
     });
 
     it("confidence=99% gives larger sample than 95%", () => {
@@ -27,9 +27,11 @@ describe("calculateSampleSize", () => {
         confidenceLevel: 99,
         marginOfError: 0.05,
       });
-      expect(result95).not.toBeNull();
-      expect(result99).not.toBeNull();
-      expect(result99!.sampleSize).toBeGreaterThan(result95!.sampleSize);
+      expect(result95.ok).toBe(true);
+      expect(result99.ok).toBe(true);
+      expect((result99 as { ok: true; value: any }).value.sampleSize).toBeGreaterThan(
+        (result95 as { ok: true; value: any }).value.sampleSize
+      );
     });
 
     it("smaller margin of error requires larger sample", () => {
@@ -43,9 +45,11 @@ describe("calculateSampleSize", () => {
         confidenceLevel: 95,
         marginOfError: 0.03,
       });
-      expect(result5).not.toBeNull();
-      expect(result3).not.toBeNull();
-      expect(result3!.sampleSize).toBeGreaterThan(result5!.sampleSize);
+      expect(result5.ok).toBe(true);
+      expect(result3.ok).toBe(true);
+      expect((result3 as { ok: true; value: any }).value.sampleSize).toBeGreaterThan(
+        (result5 as { ok: true; value: any }).value.sampleSize
+      );
     });
 
     it("applies finite population correction when populationSize given", () => {
@@ -55,9 +59,9 @@ describe("calculateSampleSize", () => {
         marginOfError: 0.05,
         populationSize: 500,
       });
-      expect(result).not.toBeNull();
-      expect(result?.finiteCorrected).toBeDefined();
-      expect(result!.finiteCorrected!).toBeLessThan(385); // smaller due to finite correction
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.finiteCorrected).toBeDefined();
+      expect((result as { ok: true; value: any }).value.finiteCorrected!).toBeLessThan(385); // smaller due to finite correction
     });
   });
 
@@ -69,10 +73,10 @@ describe("calculateSampleSize", () => {
         marginOfError: 0.5,
         standardDeviation: 2,
       });
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
       // n = (1.96 * 2 / 0.5)^2 = (7.84)^2 ≈ 61.5 → 62
-      expect(result?.sampleSize).toBeGreaterThanOrEqual(61);
-      expect(result?.sampleSize).toBeLessThanOrEqual(63);
+      expect((result as { ok: true; value: any }).value.sampleSize).toBeGreaterThanOrEqual(61);
+      expect((result as { ok: true; value: any }).value.sampleSize).toBeLessThanOrEqual(63);
     });
 
     it("returns null when standardDeviation is 0", () => {
@@ -82,7 +86,7 @@ describe("calculateSampleSize", () => {
         marginOfError: 5,
         standardDeviation: 0,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null when standardDeviation is missing", () => {
@@ -91,7 +95,7 @@ describe("calculateSampleSize", () => {
         confidenceLevel: 95,
         marginOfError: 5,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -102,9 +106,9 @@ describe("calculateSampleSize", () => {
         sampleSize: 400,
         confidenceLevel: 95,
       });
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
       // For n=400, p=0.5: E = 1.96 * sqrt(0.5*0.5/400) = 1.96 * 0.025 ≈ 0.049
-      expect(result?.marginOfError).toBeCloseTo(0.049, 2);
+      expect((result as { ok: true; value: any }).value.marginOfError).toBeCloseTo(0.049, 2);
     });
 
     it("returns null for sampleSize <= 0", () => {
@@ -113,7 +117,7 @@ describe("calculateSampleSize", () => {
         sampleSize: 0,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null for missing sampleSize", () => {
@@ -121,7 +125,7 @@ describe("calculateSampleSize", () => {
         mode: "fromMarginOfError",
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -132,7 +136,7 @@ describe("calculateSampleSize", () => {
         marginOfError: 0,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null for marginOfError >= 1", () => {
@@ -141,7 +145,7 @@ describe("calculateSampleSize", () => {
         marginOfError: 1,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -152,15 +156,16 @@ describe("calculateSampleSize", () => {
         confidenceLevel: 95,
         marginOfError: 0.05,
       });
-      expect(result).not.toBeNull();
-      expect(result).toHaveProperty("sampleSize");
-      expect(result).toHaveProperty("marginOfError");
-      expect(result).toHaveProperty("confidenceLevel");
-      expect(result).toHaveProperty("zScore");
-      expect(result).toHaveProperty("formula");
-      expect(result).toHaveProperty("steps");
-      expect(result).toHaveProperty("interpretation");
-      expect(result?.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      const value = (result as { ok: true; value: any }).value;
+      expect(value).toHaveProperty("sampleSize");
+      expect(value).toHaveProperty("marginOfError");
+      expect(value).toHaveProperty("confidenceLevel");
+      expect(value).toHaveProperty("zScore");
+      expect(value).toHaveProperty("formula");
+      expect(value).toHaveProperty("steps");
+      expect(value).toHaveProperty("interpretation");
+      expect(value.steps.length).toBeGreaterThan(0);
     });
   });
 });

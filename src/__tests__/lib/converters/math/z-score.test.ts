@@ -4,14 +4,14 @@ import { calculateZScore } from "@/lib/converters/math/z-score";
 describe("calculateZScore", () => {
   it("returns null for σ = 0", () => {
     expect(
-      calculateZScore({ mode: "calculate", value: 75, mean: 70, standardDeviation: 0 })
-    ).toBeNull();
+      calculateZScore({ mode: "calculate", value: 75, mean: 70, standardDeviation: 0 }).ok
+    ).toBe(false);
   });
 
   it("returns null for negative σ", () => {
     expect(
-      calculateZScore({ mode: "calculate", value: 75, mean: 70, standardDeviation: -5 })
-    ).toBeNull();
+      calculateZScore({ mode: "calculate", value: 75, mean: 70, standardDeviation: -5 }).ok
+    ).toBe(false);
   });
 
   it("calculates z-score: (x=75, μ=70, σ=5) → z=1.0", () => {
@@ -21,8 +21,8 @@ describe("calculateZScore", () => {
       mean: 70,
       standardDeviation: 5,
     });
-    expect(result).not.toBeNull();
-    expect(result!.zScore).toBeCloseTo(1.0, 5);
+    expect(result.ok).toBe(true);
+    expect((result as { ok: true; value: any }).value.zScore).toBeCloseTo(1.0, 5);
   });
 
   it("calculates negative z-score: (x=60, μ=70, σ=5) → z=-2.0", () => {
@@ -32,8 +32,8 @@ describe("calculateZScore", () => {
       mean: 70,
       standardDeviation: 5,
     });
-    expect(result).not.toBeNull();
-    expect(result!.zScore).toBeCloseTo(-2.0, 5);
+    expect(result.ok).toBe(true);
+    expect((result as { ok: true; value: any }).value.zScore).toBeCloseTo(-2.0, 5);
   });
 
   it("calculates value from z-score in fromZScore mode", () => {
@@ -43,8 +43,8 @@ describe("calculateZScore", () => {
       mean: 70,
       standardDeviation: 5,
     });
-    expect(result).not.toBeNull();
-    expect(result!.value).toBeCloseTo(75, 5);
+    expect(result.ok).toBe(true);
+    expect((result as { ok: true; value: any }).value.value).toBeCloseTo(75, 5);
   });
 
   it("provides probability below and above", () => {
@@ -54,13 +54,13 @@ describe("calculateZScore", () => {
       mean: 70,
       standardDeviation: 5,
     });
-    expect(result).not.toBeNull();
+    expect(result.ok).toBe(true);
     // z=0 → 50% probability below and above
-    expect(result!.probabilityBelow).toBeCloseTo(0.5, 2);
-    expect(result!.probabilityAbove).toBeCloseTo(0.5, 2);
+    expect((result as { ok: true; value: any }).value.probabilityBelow).toBeCloseTo(0.5, 2);
+    expect((result as { ok: true; value: any }).value.probabilityAbove).toBeCloseTo(0.5, 2);
   });
 
   it("returns null for undefined value in calculate mode", () => {
-    expect(calculateZScore({ mode: "calculate", mean: 70, standardDeviation: 5 })).toBeNull();
+    expect(calculateZScore({ mode: "calculate", mean: 70, standardDeviation: 5 }).ok).toBe(false);
   });
 });

@@ -5,32 +5,32 @@ describe("calculateArmyBodyFat", () => {
   describe("null for invalid inputs", () => {
     it("returns null for height <= 0", () => {
       expect(
-        calculateArmyBodyFat({ gender: "male", age: 25, height: 0, neck: 38, waist: 80 })
-      ).toBeNull();
+        calculateArmyBodyFat({ gender: "male", age: 25, height: 0, neck: 38, waist: 80 }).ok
+      ).toBe(false);
     });
 
     it("returns null for neck <= 0", () => {
       expect(
-        calculateArmyBodyFat({ gender: "male", age: 25, height: 175, neck: 0, waist: 80 })
-      ).toBeNull();
+        calculateArmyBodyFat({ gender: "male", age: 25, height: 175, neck: 0, waist: 80 }).ok
+      ).toBe(false);
     });
 
     it("returns null for waist <= 0", () => {
       expect(
-        calculateArmyBodyFat({ gender: "male", age: 25, height: 175, neck: 38, waist: 0 })
-      ).toBeNull();
+        calculateArmyBodyFat({ gender: "male", age: 25, height: 175, neck: 38, waist: 0 }).ok
+      ).toBe(false);
     });
 
     it("returns null for age <= 0", () => {
       expect(
-        calculateArmyBodyFat({ gender: "male", age: 0, height: 175, neck: 38, waist: 80 })
-      ).toBeNull();
+        calculateArmyBodyFat({ gender: "male", age: 0, height: 175, neck: 38, waist: 80 }).ok
+      ).toBe(false);
     });
 
     it("returns null for female without hip", () => {
       expect(
-        calculateArmyBodyFat({ gender: "female", age: 25, height: 165, neck: 33, waist: 70 })
-      ).toBeNull();
+        calculateArmyBodyFat({ gender: "female", age: 25, height: 165, neck: 33, waist: 70 }).ok
+      ).toBe(false);
     });
   });
 
@@ -43,9 +43,9 @@ describe("calculateArmyBodyFat", () => {
         neck: 38,
         waist: 80,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bodyFatPercent).toBeGreaterThan(0);
-      expect(result!.bodyFatPercent).toBeLessThan(50);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeLessThan(50);
     });
 
     it("returns maxAllowedPercent 22 for male age 25 (21-27 range)", () => {
@@ -56,8 +56,8 @@ describe("calculateArmyBodyFat", () => {
         neck: 38,
         waist: 80,
       });
-      expect(result).not.toBeNull();
-      expect(result!.maxAllowedPercent).toBe(22);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.maxAllowedPercent).toBe(22);
     });
 
     it("passes standard for male with low body fat", () => {
@@ -68,8 +68,8 @@ describe("calculateArmyBodyFat", () => {
         neck: 40,
         waist: 78,
       });
-      expect(result).not.toBeNull();
-      expect(result!.armyCategory).toBeDefined();
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.armyCategory).toBeDefined();
     });
   });
 
@@ -83,9 +83,9 @@ describe("calculateArmyBodyFat", () => {
         waist: 70,
         hip: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bodyFatPercent).toBeGreaterThan(0);
-      expect(result!.bodyFatPercent).toBeLessThan(50);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeLessThan(50);
     });
 
     it("returns maxAllowedPercent 32 for female age 25 (21-27 range)", () => {
@@ -97,8 +97,8 @@ describe("calculateArmyBodyFat", () => {
         waist: 70,
         hip: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result!.maxAllowedPercent).toBe(32);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.maxAllowedPercent).toBe(32);
     });
   });
 
@@ -111,12 +111,12 @@ describe("calculateArmyBodyFat", () => {
         neck: 38,
         waist: 85,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bodyFatPercent).toBeDefined();
-      expect(result!.maxAllowedPercent).toBeDefined();
-      expect(result!.passesStandard).toBeDefined();
-      expect(result!.category).toBeDefined();
-      expect(result!.armyCategory).toMatch(/^(pass|tape|fail)$/);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeDefined();
+      expect((result as { ok: true; value: any }).value.maxAllowedPercent).toBeDefined();
+      expect((result as { ok: true; value: any }).value.passesStandard).toBeDefined();
+      expect((result as { ok: true; value: any }).value.category).toBeDefined();
+      expect((result as { ok: true; value: any }).value.armyCategory).toMatch(/^(pass|tape|fail)$/);
     });
   });
 });

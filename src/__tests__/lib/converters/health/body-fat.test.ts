@@ -12,8 +12,8 @@ describe("calculateBodyFat", () => {
           height: 175,
           neck: 38,
           waist: 80,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for height <= 0", () => {
@@ -25,8 +25,8 @@ describe("calculateBodyFat", () => {
           height: 0,
           neck: 38,
           waist: 80,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for neck <= 0", () => {
@@ -38,8 +38,8 @@ describe("calculateBodyFat", () => {
           height: 175,
           neck: 0,
           waist: 80,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for female without hip", () => {
@@ -51,8 +51,8 @@ describe("calculateBodyFat", () => {
           height: 165,
           neck: 33,
           waist: 70,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -66,9 +66,9 @@ describe("calculateBodyFat", () => {
         neck: 38,
         waist: 85,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bodyFatPercent).toBeGreaterThan(0);
-      expect(result!.bodyFatPercent).toBeLessThanOrEqual(60);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeLessThanOrEqual(60);
     });
 
     it("returns fat mass and lean mass that sum to weight", () => {
@@ -80,8 +80,11 @@ describe("calculateBodyFat", () => {
         neck: 38,
         waist: 85,
       });
-      expect(result).not.toBeNull();
-      expect(result!.fatMass + result!.leanMass).toBeCloseTo(80, 2);
+      expect(result.ok).toBe(true);
+      expect(
+        (result as { ok: true; value: any }).value.fatMass +
+          (result as { ok: true; value: any }).value.leanMass
+      ).toBeCloseTo(80, 2);
     });
 
     it("returns category for male", () => {
@@ -93,8 +96,10 @@ describe("calculateBodyFat", () => {
         neck: 38,
         waist: 80,
       });
-      expect(result).not.toBeNull();
-      expect(["essential", "athletes", "fitness", "average", "obese"]).toContain(result!.category);
+      expect(result.ok).toBe(true);
+      expect(["essential", "athletes", "fitness", "average", "obese"]).toContain(
+        (result as { ok: true; value: any }).value.category
+      );
     });
   });
 
@@ -109,9 +114,9 @@ describe("calculateBodyFat", () => {
         waist: 70,
         hip: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bodyFatPercent).toBeGreaterThan(0);
-      expect(result!.bodyFatPercent).toBeLessThanOrEqual(60);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.bodyFatPercent).toBeLessThanOrEqual(60);
     });
 
     it("idealBodyFatMin/Max differ for male vs female", () => {
@@ -132,9 +137,11 @@ describe("calculateBodyFat", () => {
         waist: 70,
         hip: 95,
       });
-      expect(maleResult).not.toBeNull();
-      expect(femaleResult).not.toBeNull();
-      expect(femaleResult!.idealBodyFatMin).toBeGreaterThan(maleResult!.idealBodyFatMin);
+      expect(maleResult.ok).toBe(true);
+      expect(femaleResult.ok).toBe(true);
+      expect((femaleResult as { ok: true; value: any }).value.idealBodyFatMin).toBeGreaterThan(
+        (maleResult as { ok: true; value: any }).value.idealBodyFatMin
+      );
     });
   });
 });

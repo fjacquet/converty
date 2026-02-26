@@ -12,8 +12,8 @@ describe("calculateTdee", () => {
           height: 175,
           activityLevel: "sedentary",
           goal: "maintain",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for weight <= 0", () => {
@@ -25,8 +25,8 @@ describe("calculateTdee", () => {
           height: 175,
           activityLevel: "sedentary",
           goal: "maintain",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for height <= 0", () => {
@@ -38,8 +38,8 @@ describe("calculateTdee", () => {
           height: 0,
           activityLevel: "sedentary",
           goal: "maintain",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -64,9 +64,12 @@ describe("calculateTdee", () => {
           | "veryActive",
         goal: "maintain",
       });
-      expect(result).not.toBeNull();
-      expect(result!.tdee).toBeCloseTo(result!.bmr * multiplier, 1);
-      expect(result!.activityMultiplier).toBe(multiplier);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.tdee).toBeCloseTo(
+        (result as { ok: true; value: any }).value.bmr * multiplier,
+        1
+      );
+      expect((result as { ok: true; value: any }).value.activityMultiplier).toBe(multiplier);
     });
   });
 
@@ -80,9 +83,12 @@ describe("calculateTdee", () => {
         activityLevel: "moderate",
         goal: "lose",
       });
-      expect(result).not.toBeNull();
-      expect(result!.targetCalories).toBeCloseTo(result!.tdee - 500, 0);
-      expect(result!.weeklyChange).toBe(-0.5);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.targetCalories).toBeCloseTo(
+        (result as { ok: true; value: any }).value.tdee - 500,
+        0
+      );
+      expect((result as { ok: true; value: any }).value.weeklyChange).toBe(-0.5);
     });
 
     it("gain goal: targetCalories = tdee + 500", () => {
@@ -94,9 +100,12 @@ describe("calculateTdee", () => {
         activityLevel: "moderate",
         goal: "gain",
       });
-      expect(result).not.toBeNull();
-      expect(result!.targetCalories).toBeCloseTo(result!.tdee + 500, 0);
-      expect(result!.weeklyChange).toBe(0.5);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.targetCalories).toBeCloseTo(
+        (result as { ok: true; value: any }).value.tdee + 500,
+        0
+      );
+      expect((result as { ok: true; value: any }).value.weeklyChange).toBe(0.5);
     });
 
     it("maintain goal: targetCalories = tdee", () => {
@@ -108,9 +117,12 @@ describe("calculateTdee", () => {
         activityLevel: "moderate",
         goal: "maintain",
       });
-      expect(result).not.toBeNull();
-      expect(result!.targetCalories).toBeCloseTo(result!.tdee, 0);
-      expect(result!.weeklyChange).toBe(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.targetCalories).toBeCloseTo(
+        (result as { ok: true; value: any }).value.tdee,
+        0
+      );
+      expect((result as { ok: true; value: any }).value.weeklyChange).toBe(0);
     });
   });
 
@@ -124,8 +136,8 @@ describe("calculateTdee", () => {
         activityLevel: "moderate",
         goal: "maintain",
       });
-      expect(result).not.toBeNull();
-      expect(result!.proteinGrams).toBe(140); // 70 × 2
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.proteinGrams).toBe(140); // 70 × 2
     });
 
     it("fat grams = 25% of targetCalories / 9", () => {
@@ -137,8 +149,11 @@ describe("calculateTdee", () => {
         activityLevel: "moderate",
         goal: "maintain",
       });
-      expect(result).not.toBeNull();
-      expect(result!.fatGrams).toBeCloseTo((result!.targetCalories * 0.25) / 9, 1);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.fatGrams).toBeCloseTo(
+        ((result as { ok: true; value: any }).value.targetCalories * 0.25) / 9,
+        1
+      );
     });
   });
 });

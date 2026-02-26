@@ -9,8 +9,8 @@ describe("calculateBigNumber", () => {
         numberA: "999999999999999999",
         numberB: "1",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("1000000000000000000");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("1000000000000000000");
     });
 
     it("adds two numbers with same sign (negative)", () => {
@@ -19,8 +19,8 @@ describe("calculateBigNumber", () => {
         numberA: "-5",
         numberB: "-3",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("-8");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("-8");
     });
 
     it("adds numbers with different signs (positive larger)", () => {
@@ -29,8 +29,8 @@ describe("calculateBigNumber", () => {
         numberA: "10",
         numberB: "-3",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("7");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("7");
     });
 
     it("adds numbers with different signs resulting in zero", () => {
@@ -39,13 +39,13 @@ describe("calculateBigNumber", () => {
         numberA: "5",
         numberB: "-5",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("0");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("0");
     });
 
     it("returns null when numberB missing for add", () => {
       const result = calculateBigNumber({ mode: "add", numberA: "5" });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -56,8 +56,8 @@ describe("calculateBigNumber", () => {
         numberA: "100",
         numberB: "37",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("63");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("63");
     });
 
     it("subtracts resulting in negative", () => {
@@ -66,13 +66,13 @@ describe("calculateBigNumber", () => {
         numberA: "3",
         numberB: "10",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("-7");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("-7");
     });
 
     it("returns null when numberB missing", () => {
       const result = calculateBigNumber({ mode: "subtract", numberA: "5" });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -83,8 +83,8 @@ describe("calculateBigNumber", () => {
         numberA: "123456789",
         numberB: "987654321",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("121932631112635269");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("121932631112635269");
     });
 
     it("multiplies by zero", () => {
@@ -93,8 +93,8 @@ describe("calculateBigNumber", () => {
         numberA: "999999999",
         numberB: "0",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("0");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("0");
     });
 
     it("handles negative × positive = negative", () => {
@@ -103,8 +103,8 @@ describe("calculateBigNumber", () => {
         numberA: "-7",
         numberB: "3",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("-21");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("-21");
     });
 
     it("handles negative × negative = positive", () => {
@@ -113,13 +113,13 @@ describe("calculateBigNumber", () => {
         numberA: "-4",
         numberB: "-5",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("20");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("20");
     });
 
     it("returns null when numberB missing", () => {
       const result = calculateBigNumber({ mode: "multiply", numberA: "5" });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -130,8 +130,8 @@ describe("calculateBigNumber", () => {
         numberA: "100",
         numberB: "4",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("25");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("25");
     });
 
     it("returns null for division by zero", () => {
@@ -140,7 +140,7 @@ describe("calculateBigNumber", () => {
         numberA: "100",
         numberB: "0",
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -151,8 +151,8 @@ describe("calculateBigNumber", () => {
         numberA: "2",
         numberB: "10",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("1024");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("1024");
     });
 
     it("returns 1 for any number to the power 0", () => {
@@ -161,8 +161,8 @@ describe("calculateBigNumber", () => {
         numberA: "999",
         numberB: "0",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("1");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("1");
     });
 
     it("returns null for negative exponent", () => {
@@ -171,26 +171,26 @@ describe("calculateBigNumber", () => {
         numberA: "2",
         numberB: "-1",
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
   describe("factorial mode", () => {
     it("calculates factorial of 10", () => {
       const result = calculateBigNumber({ mode: "factorial", numberA: "10" });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("3628800");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("3628800");
     });
 
     it("calculates factorial of 0", () => {
       const result = calculateBigNumber({ mode: "factorial", numberA: "0" });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("1");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("1");
     });
 
     it("returns null for negative input", () => {
       const result = calculateBigNumber({ mode: "factorial", numberA: "-1" });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -201,8 +201,8 @@ describe("calculateBigNumber", () => {
         numberA: "100",
         numberB: "99",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("1");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("1");
     });
 
     it("returns -1 when A < B", () => {
@@ -211,8 +211,8 @@ describe("calculateBigNumber", () => {
         numberA: "50",
         numberB: "100",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("-1");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("-1");
     });
 
     it("returns 0 when A = B", () => {
@@ -221,27 +221,27 @@ describe("calculateBigNumber", () => {
         numberA: "42",
         numberB: "42",
       });
-      expect(result).not.toBeNull();
-      expect(result?.result).toBe("0");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBe("0");
     });
   });
 
   describe("validation", () => {
     it("returns null for invalid numberA", () => {
       const result = calculateBigNumber({ mode: "add", numberA: "abc", numberB: "5" });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null for invalid numberB", () => {
       const result = calculateBigNumber({ mode: "add", numberA: "5", numberB: "xyz" });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("includes scientificNotation in result", () => {
       const result = calculateBigNumber({ mode: "factorial", numberA: "20" });
-      expect(result).not.toBeNull();
-      expect(result?.scientificNotation).toContain("×");
-      expect(result?.digitCount).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.scientificNotation).toContain("×");
+      expect((result as { ok: true; value: any }).value.digitCount).toBeGreaterThan(0);
     });
 
     it("includes steps in result", () => {
@@ -250,8 +250,8 @@ describe("calculateBigNumber", () => {
         numberA: "100",
         numberB: "200",
       });
-      expect(result).not.toBeNull();
-      expect(result?.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.steps.length).toBeGreaterThan(0);
     });
   });
 });

@@ -11,8 +11,8 @@ describe("calculatePregnancyWeightGain", () => {
           height: 165,
           weeksPregnant: 20,
           twins: false,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for height <= 0", () => {
@@ -23,8 +23,8 @@ describe("calculatePregnancyWeightGain", () => {
           height: 0,
           weeksPregnant: 20,
           twins: false,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for weeksPregnant > 42", () => {
@@ -35,8 +35,8 @@ describe("calculatePregnancyWeightGain", () => {
           height: 165,
           weeksPregnant: 43,
           twins: false,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -50,10 +50,10 @@ describe("calculatePregnancyWeightGain", () => {
         weeksPregnant: 20,
         twins: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bmiCategory).toBe("normal");
-      expect(result!.recommendedGainMin).toBeCloseTo(11.3, 1);
-      expect(result!.recommendedGainMax).toBeCloseTo(15.9, 1);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.bmiCategory).toBe("normal");
+      expect((result as { ok: true; value: any }).value.recommendedGainMin).toBeCloseTo(11.3, 1);
+      expect((result as { ok: true; value: any }).value.recommendedGainMax).toBeCloseTo(15.9, 1);
     });
   });
 
@@ -75,10 +75,12 @@ describe("calculatePregnancyWeightGain", () => {
         weeksPregnant: 20,
         twins: false,
       });
-      expect(underweight).not.toBeNull();
-      expect(normal).not.toBeNull();
-      expect(underweight!.bmiCategory).toBe("underweight");
-      expect(underweight!.recommendedGainMin).toBeGreaterThan(normal!.recommendedGainMin);
+      expect(underweight.ok).toBe(true);
+      expect(normal.ok).toBe(true);
+      expect((underweight as { ok: true; value: any }).value.bmiCategory).toBe("underweight");
+      expect((underweight as { ok: true; value: any }).value.recommendedGainMin).toBeGreaterThan(
+        (normal as { ok: true; value: any }).value.recommendedGainMin
+      );
     });
   });
 
@@ -99,10 +101,12 @@ describe("calculatePregnancyWeightGain", () => {
         weeksPregnant: 20,
         twins: false,
       });
-      expect(overweight).not.toBeNull();
-      expect(normal).not.toBeNull();
-      expect(overweight!.bmiCategory).toBe("overweight");
-      expect(overweight!.recommendedGainMax).toBeLessThan(normal!.recommendedGainMax);
+      expect(overweight.ok).toBe(true);
+      expect(normal.ok).toBe(true);
+      expect((overweight as { ok: true; value: any }).value.bmiCategory).toBe("overweight");
+      expect((overweight as { ok: true; value: any }).value.recommendedGainMax).toBeLessThan(
+        (normal as { ok: true; value: any }).value.recommendedGainMax
+      );
     });
   });
 
@@ -115,8 +119,8 @@ describe("calculatePregnancyWeightGain", () => {
         weeksPregnant: 20,
         twins: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.currentWeightGain).toBeCloseTo(7, 1);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.currentWeightGain).toBeCloseTo(7, 1);
     });
   });
 });

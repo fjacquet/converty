@@ -11,8 +11,8 @@ describe("calculateWaterIntake", () => {
           climate: "temperate",
           pregnant: false,
           breastfeeding: false,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -26,9 +26,9 @@ describe("calculateWaterIntake", () => {
         pregnant: false,
         breastfeeding: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.dailyIntakeMl).toBe(2310);
-      expect(result!.dailyIntakeLiters).toBeCloseTo(2.31, 2);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.dailyIntakeMl).toBe(2310);
+      expect((result as { ok: true; value: any }).value.dailyIntakeLiters).toBeCloseTo(2.31, 2);
     });
 
     it("90kg gives proportionally more water than 70kg", () => {
@@ -40,11 +40,13 @@ describe("calculateWaterIntake", () => {
       };
       const lighter = calculateWaterIntake({ weight: 70, ...base });
       const heavier = calculateWaterIntake({ weight: 90, ...base });
-      expect(lighter).not.toBeNull();
-      expect(heavier).not.toBeNull();
-      expect(heavier!.dailyIntakeMl).toBeGreaterThan(lighter!.dailyIntakeMl);
+      expect(lighter.ok).toBe(true);
+      expect(heavier.ok).toBe(true);
+      expect((heavier as { ok: true; value: any }).value.dailyIntakeMl).toBeGreaterThan(
+        (lighter as { ok: true; value: any }).value.dailyIntakeMl
+      );
       // Proportional: 90/70 × 2310 ≈ 2970
-      expect(heavier!.dailyIntakeMl).toBe(90 * 33);
+      expect((heavier as { ok: true; value: any }).value.dailyIntakeMl).toBe(90 * 33);
     });
   });
 
@@ -64,9 +66,12 @@ describe("calculateWaterIntake", () => {
         pregnant: false,
         breastfeeding: false,
       });
-      expect(sedentary).not.toBeNull();
-      expect(athlete).not.toBeNull();
-      expect(athlete!.dailyIntakeMl - sedentary!.dailyIntakeMl).toBe(1000);
+      expect(sedentary.ok).toBe(true);
+      expect(athlete.ok).toBe(true);
+      expect(
+        (athlete as { ok: true; value: any }).value.dailyIntakeMl -
+          (sedentary as { ok: true; value: any }).value.dailyIntakeMl
+      ).toBe(1000);
     });
   });
 
@@ -80,9 +85,12 @@ describe("calculateWaterIntake", () => {
       };
       const temperate = calculateWaterIntake({ ...base, climate: "temperate" });
       const hot = calculateWaterIntake({ ...base, climate: "hot" });
-      expect(temperate).not.toBeNull();
-      expect(hot).not.toBeNull();
-      expect(hot!.dailyIntakeMl - temperate!.dailyIntakeMl).toBe(500);
+      expect(temperate.ok).toBe(true);
+      expect(hot.ok).toBe(true);
+      expect(
+        (hot as { ok: true; value: any }).value.dailyIntakeMl -
+          (temperate as { ok: true; value: any }).value.dailyIntakeMl
+      ).toBe(500);
     });
   });
 
@@ -96,9 +104,12 @@ describe("calculateWaterIntake", () => {
       };
       const normal = calculateWaterIntake({ ...base, pregnant: false });
       const pregnant = calculateWaterIntake({ ...base, pregnant: true });
-      expect(normal).not.toBeNull();
-      expect(pregnant).not.toBeNull();
-      expect(pregnant!.dailyIntakeMl - normal!.dailyIntakeMl).toBe(300);
+      expect(normal.ok).toBe(true);
+      expect(pregnant.ok).toBe(true);
+      expect(
+        (pregnant as { ok: true; value: any }).value.dailyIntakeMl -
+          (normal as { ok: true; value: any }).value.dailyIntakeMl
+      ).toBe(300);
     });
   });
 
@@ -111,9 +122,9 @@ describe("calculateWaterIntake", () => {
         pregnant: false,
         breastfeeding: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.dailyIntakeOz).toBeGreaterThan(0);
-      expect(result!.dailyIntakeCups).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.dailyIntakeOz).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.dailyIntakeCups).toBeGreaterThan(0);
     });
 
     it("returns schedule with 8 time slots", () => {
@@ -124,8 +135,8 @@ describe("calculateWaterIntake", () => {
         pregnant: false,
         breastfeeding: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.schedule.length).toBe(8);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.schedule.length).toBe(8);
     });
 
     it("schedule cumulative at last slot equals dailyIntakeMl", () => {
@@ -136,9 +147,11 @@ describe("calculateWaterIntake", () => {
         pregnant: false,
         breastfeeding: false,
       });
-      expect(result).not.toBeNull();
-      const lastSlot = result!.schedule[result!.schedule.length - 1];
-      expect(lastSlot.cumulative).toBe(result!.dailyIntakeMl);
+      expect(result.ok).toBe(true);
+      const lastSlot = (result as { ok: true; value: any }).value.schedule[
+        (result as { ok: true; value: any }).value.schedule.length - 1
+      ];
+      expect(lastSlot.cumulative).toBe((result as { ok: true; value: any }).value.dailyIntakeMl);
     });
   });
 });

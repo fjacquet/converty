@@ -4,11 +4,11 @@ import { calculateBodySurfaceArea } from "@/lib/converters/health/body-surface-a
 describe("calculateBodySurfaceArea", () => {
   describe("null for invalid inputs", () => {
     it("returns null for height <= 0", () => {
-      expect(calculateBodySurfaceArea({ weight: 70, height: 0 })).toBeNull();
+      expect(calculateBodySurfaceArea({ weight: 70, height: 0 }).ok).toBe(false);
     });
 
     it("returns null for weight <= 0", () => {
-      expect(calculateBodySurfaceArea({ weight: 0, height: 175 })).toBeNull();
+      expect(calculateBodySurfaceArea({ weight: 0, height: 175 }).ok).toBe(false);
     });
   });
 
@@ -16,37 +16,37 @@ describe("calculateBodySurfaceArea", () => {
     it("calculates BSA for 70kg / 175cm using Mosteller formula", () => {
       // Mosteller: sqrt((175 * 70) / 3600) = sqrt(3.402...) ≈ 1.845
       const result = calculateBodySurfaceArea({ weight: 70, height: 175 });
-      expect(result).not.toBeNull();
-      expect(result!.mosteller).toBeCloseTo(1.845, 2);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.mosteller).toBeCloseTo(1.845, 2);
     });
   });
 
   describe("all formulas return positive values", () => {
     it("returns positive values for all formulas", () => {
       const result = calculateBodySurfaceArea({ weight: 70, height: 175 });
-      expect(result).not.toBeNull();
-      expect(result!.duBois).toBeGreaterThan(0);
-      expect(result!.mosteller).toBeGreaterThan(0);
-      expect(result!.haycock).toBeGreaterThan(0);
-      expect(result!.gehanGeorge).toBeGreaterThan(0);
-      expect(result!.boyd).toBeGreaterThan(0);
-      expect(result!.average).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.duBois).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.mosteller).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.haycock).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.gehanGeorge).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.boyd).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.average).toBeGreaterThan(0);
     });
 
     it("average is between min and max of all formulas", () => {
       const result = calculateBodySurfaceArea({ weight: 70, height: 175 });
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
       const vals = [
-        result!.duBois,
-        result!.mosteller,
-        result!.haycock,
-        result!.gehanGeorge,
-        result!.boyd,
+        (result as { ok: true; value: any }).value.duBois,
+        (result as { ok: true; value: any }).value.mosteller,
+        (result as { ok: true; value: any }).value.haycock,
+        (result as { ok: true; value: any }).value.gehanGeorge,
+        (result as { ok: true; value: any }).value.boyd,
       ];
       const min = Math.min(...vals);
       const max = Math.max(...vals);
-      expect(result!.average).toBeGreaterThanOrEqual(min);
-      expect(result!.average).toBeLessThanOrEqual(max);
+      expect((result as { ok: true; value: any }).value.average).toBeGreaterThanOrEqual(min);
+      expect((result as { ok: true; value: any }).value.average).toBeLessThanOrEqual(max);
     });
   });
 
@@ -54,9 +54,11 @@ describe("calculateBodySurfaceArea", () => {
     it("larger person has larger BSA", () => {
       const small = calculateBodySurfaceArea({ weight: 50, height: 155 });
       const large = calculateBodySurfaceArea({ weight: 100, height: 190 });
-      expect(small).not.toBeNull();
-      expect(large).not.toBeNull();
-      expect(large!.mosteller).toBeGreaterThan(small!.mosteller);
+      expect(small.ok).toBe(true);
+      expect(large.ok).toBe(true);
+      expect((large as { ok: true; value: any }).value.mosteller).toBeGreaterThan(
+        (small as { ok: true; value: any }).value.mosteller
+      );
     });
   });
 });

@@ -11,13 +11,13 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 10,
         confidenceLevel: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result?.pointEstimate).toBe(50);
-      expect(result?.lowerBound).toBeLessThan(50);
-      expect(result?.upperBound).toBeGreaterThan(50);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.pointEstimate).toBe(50);
+      expect((result as { ok: true; value: any }).value.lowerBound).toBeLessThan(50);
+      expect((result as { ok: true; value: any }).value.upperBound).toBeGreaterThan(50);
       // 95% CI: 50 ± 1.96 * (10/√100) = 50 ± 1.96
-      expect(result?.lowerBound).toBeCloseTo(48.04, 1);
-      expect(result?.upperBound).toBeCloseTo(51.96, 1);
+      expect((result as { ok: true; value: any }).value.lowerBound).toBeCloseTo(48.04, 1);
+      expect((result as { ok: true; value: any }).value.upperBound).toBeCloseTo(51.96, 1);
     });
 
     it("calculates 99% CI with larger margin of error", () => {
@@ -35,9 +35,11 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 10,
         confidenceLevel: 99,
       });
-      expect(result95).not.toBeNull();
-      expect(result99).not.toBeNull();
-      expect(result99!.marginOfError).toBeGreaterThan(result95!.marginOfError);
+      expect(result95.ok).toBe(true);
+      expect(result99.ok).toBe(true);
+      expect((result99 as { ok: true; value: any }).value.marginOfError).toBeGreaterThan(
+        (result95 as { ok: true; value: any }).value.marginOfError
+      );
     });
 
     it("lower < mean < upper", () => {
@@ -48,9 +50,9 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 15,
         confidenceLevel: 90,
       });
-      expect(result).not.toBeNull();
-      expect(result!.lowerBound).toBeLessThan(75);
-      expect(result!.upperBound).toBeGreaterThan(75);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.lowerBound).toBeLessThan(75);
+      expect((result as { ok: true; value: any }).value.upperBound).toBeGreaterThan(75);
     });
 
     it("uses t-distribution for small samples (n < 30)", () => {
@@ -61,9 +63,9 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 5,
         confidenceLevel: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result?.formula).toContain("t");
-      expect(result?.criticalValue).toBeGreaterThan(1.96); // t > z for same confidence level
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.formula).toContain("t");
+      expect((result as { ok: true; value: any }).value.criticalValue).toBeGreaterThan(1.96); // t > z for same confidence level
     });
 
     it("returns null for n=0", () => {
@@ -74,7 +76,7 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 10,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null for negative n", () => {
@@ -85,7 +87,7 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 10,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null when standardDeviation is 0", () => {
@@ -96,7 +98,7 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 0,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null when sampleMean is undefined", () => {
@@ -106,7 +108,7 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 10,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -118,10 +120,10 @@ describe("calculateConfidenceInterval", () => {
         sampleSize: 100,
         confidenceLevel: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result?.pointEstimate).toBeCloseTo(0.6, 4);
-      expect(result?.lowerBound).toBeLessThan(0.6);
-      expect(result?.upperBound).toBeGreaterThan(0.6);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.pointEstimate).toBeCloseTo(0.6, 4);
+      expect((result as { ok: true; value: any }).value.lowerBound).toBeLessThan(0.6);
+      expect((result as { ok: true; value: any }).value.upperBound).toBeGreaterThan(0.6);
     });
 
     it("returns null when successes > sampleSize", () => {
@@ -131,7 +133,7 @@ describe("calculateConfidenceInterval", () => {
         sampleSize: 100,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null when successes is negative", () => {
@@ -141,7 +143,7 @@ describe("calculateConfidenceInterval", () => {
         sampleSize: 100,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("includes proportion interpretation", () => {
@@ -151,8 +153,8 @@ describe("calculateConfidenceInterval", () => {
         sampleSize: 100,
         confidenceLevel: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result?.interpretation).toContain("proportion");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.interpretation).toContain("proportion");
     });
   });
 
@@ -168,8 +170,8 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation2: 12,
         confidenceLevel: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result?.pointEstimate).toBeCloseTo(10, 4);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.pointEstimate).toBeCloseTo(10, 4);
     });
 
     it("returns null when required fields are missing", () => {
@@ -180,7 +182,7 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 10,
         confidenceLevel: 95,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -193,16 +195,17 @@ describe("calculateConfidenceInterval", () => {
         standardDeviation: 10,
         confidenceLevel: 95,
       });
-      expect(result).not.toBeNull();
-      expect(result).toHaveProperty("lowerBound");
-      expect(result).toHaveProperty("upperBound");
-      expect(result).toHaveProperty("marginOfError");
-      expect(result).toHaveProperty("criticalValue");
-      expect(result).toHaveProperty("standardError");
-      expect(result).toHaveProperty("formula");
-      expect(result).toHaveProperty("steps");
-      expect(result).toHaveProperty("interpretation");
-      expect(result?.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      const value = (result as { ok: true; value: any }).value;
+      expect(value).toHaveProperty("lowerBound");
+      expect(value).toHaveProperty("upperBound");
+      expect(value).toHaveProperty("marginOfError");
+      expect(value).toHaveProperty("criticalValue");
+      expect(value).toHaveProperty("standardError");
+      expect(value).toHaveProperty("formula");
+      expect(value).toHaveProperty("steps");
+      expect(value).toHaveProperty("interpretation");
+      expect(value.steps.length).toBeGreaterThan(0);
     });
   });
 });

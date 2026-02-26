@@ -10,8 +10,8 @@ describe("calculateStandardDeviation", () => {
         numbers: testData,
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.standardDeviation).toBeCloseTo(2.0, 5);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.standardDeviation).toBeCloseTo(2.0, 5);
     });
 
     it("calculates population variance = 4.0", () => {
@@ -19,8 +19,8 @@ describe("calculateStandardDeviation", () => {
         numbers: testData,
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.variance).toBeCloseTo(4.0, 5);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.variance).toBeCloseTo(4.0, 5);
     });
 
     it("uses population formula σ", () => {
@@ -28,8 +28,8 @@ describe("calculateStandardDeviation", () => {
         numbers: testData,
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.formula).toContain("N");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.formula).toContain("N");
     });
   });
 
@@ -39,8 +39,8 @@ describe("calculateStandardDeviation", () => {
         numbers: testData,
         isPopulation: false,
       });
-      expect(result).not.toBeNull();
-      expect(result?.standardDeviation).toBeCloseTo(2.138, 2);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.standardDeviation).toBeCloseTo(2.138, 2);
     });
 
     it("sample variance uses n-1 denominator", () => {
@@ -48,10 +48,10 @@ describe("calculateStandardDeviation", () => {
         numbers: [2, 4, 4, 4, 5, 5, 7, 9],
         isPopulation: false,
       });
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
       // variance = (sum of squared deviations) / (n-1)
       // with n=8, sum of sq. dev = 32, variance = 32/7 ≈ 4.571
-      expect(result?.variance).toBeCloseTo(32 / 7, 4);
+      expect((result as { ok: true; value: any }).value.variance).toBeCloseTo(32 / 7, 4);
     });
 
     it("uses sample formula s", () => {
@@ -59,26 +59,26 @@ describe("calculateStandardDeviation", () => {
         numbers: testData,
         isPopulation: false,
       });
-      expect(result).not.toBeNull();
-      expect(result?.formula).toContain("n-1");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.formula).toContain("n-1");
     });
 
     it("returns null for empty array", () => {
       const result = calculateStandardDeviation({ numbers: [], isPopulation: false });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("returns null for sample with n<2", () => {
       const result = calculateStandardDeviation({ numbers: [5], isPopulation: false });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
   describe("population with n=1", () => {
     it("allows population std dev for single value (= 0)", () => {
       const result = calculateStandardDeviation({ numbers: [5], isPopulation: true });
-      expect(result).not.toBeNull();
-      expect(result?.standardDeviation).toBe(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.standardDeviation).toBe(0);
     });
   });
 
@@ -88,8 +88,8 @@ describe("calculateStandardDeviation", () => {
         numbers: [1, 2, 3, 4, 5],
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.mean).toBe(3);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.mean).toBe(3);
     });
 
     it("calculates count correctly", () => {
@@ -97,8 +97,8 @@ describe("calculateStandardDeviation", () => {
         numbers: [1, 2, 3],
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.count).toBe(3);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.count).toBe(3);
     });
 
     it("calculates sum correctly", () => {
@@ -106,8 +106,8 @@ describe("calculateStandardDeviation", () => {
         numbers: [1, 2, 3, 4],
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.sum).toBe(10);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sum).toBe(10);
     });
   });
 
@@ -117,11 +117,11 @@ describe("calculateStandardDeviation", () => {
         numbers: [1, 3],
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.deviations.length).toBe(2);
-      expect(result?.deviations[0].value).toBe(1);
-      expect(result?.deviations[0].deviation).toBe(-1);
-      expect(result?.deviations[0].squaredDeviation).toBe(1);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.deviations.length).toBe(2);
+      expect((result as { ok: true; value: any }).value.deviations[0].value).toBe(1);
+      expect((result as { ok: true; value: any }).value.deviations[0].deviation).toBe(-1);
+      expect((result as { ok: true; value: any }).value.deviations[0].squaredDeviation).toBe(1);
     });
   });
 
@@ -131,11 +131,11 @@ describe("calculateStandardDeviation", () => {
         numbers: [2, 4, 6],
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.zScores.length).toBe(3);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.zScores.length).toBe(3);
       // mean = 4, std ≈ 1.633
       // z for 2 = (2-4)/1.633 ≈ -1.22
-      const zFirst = result!.zScores[0].zScore;
+      const zFirst = (result as { ok: true; value: any }).value.zScores[0].zScore;
       expect(Math.abs(zFirst)).toBeGreaterThan(0);
     });
 
@@ -144,8 +144,11 @@ describe("calculateStandardDeviation", () => {
         numbers: [1, 2, 3, 4, 5],
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      const zSum = result!.zScores.reduce((a, z) => a + z.zScore, 0);
+      expect(result.ok).toBe(true);
+      const zSum = (result as { ok: true; value: any }).value.zScores.reduce(
+        (a: number, z: { zScore: number }) => a + z.zScore,
+        0
+      );
       expect(zSum).toBeCloseTo(0, 10);
     });
   });
@@ -156,8 +159,8 @@ describe("calculateStandardDeviation", () => {
         numbers: [10, 20, 30],
         isPopulation: true,
       });
-      expect(result).not.toBeNull();
-      expect(result?.coefficientOfVariation).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.coefficientOfVariation).toBeGreaterThan(0);
     });
   });
 });

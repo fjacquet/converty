@@ -11,8 +11,8 @@ describe("calculateBac", () => {
           drinks: 2,
           drinkType: "beer",
           hoursSinceDrinking: 0,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for negative drinks", () => {
@@ -23,8 +23,8 @@ describe("calculateBac", () => {
           drinks: -1,
           drinkType: "beer",
           hoursSinceDrinking: 0,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -37,10 +37,10 @@ describe("calculateBac", () => {
         drinkType: "beer",
         hoursSinceDrinking: 0,
       });
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
       // peakBac = (28 / (0.68 * 70000)) * 100 ≈ 0.0588%
-      expect(result!.peakBac).toBeCloseTo(0.0588, 2);
-      expect(result!.bac).toBeCloseTo(0.0588, 2);
+      expect((result as { ok: true; value: any }).value.peakBac).toBeCloseTo(0.0588, 2);
+      expect((result as { ok: true; value: any }).value.bac).toBeCloseTo(0.0588, 2);
     });
 
     it("calculates alcoholGrams correctly for 2 beers", () => {
@@ -51,8 +51,8 @@ describe("calculateBac", () => {
         drinkType: "beer",
         hoursSinceDrinking: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.alcoholGrams).toBe(28); // 2 drinks × 14g
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.alcoholGrams).toBe(28); // 2 drinks × 14g
     });
   });
 
@@ -66,9 +66,11 @@ describe("calculateBac", () => {
       };
       const maleResult = calculateBac({ gender: "male", ...baseInput });
       const femaleResult = calculateBac({ gender: "female", ...baseInput });
-      expect(maleResult).not.toBeNull();
-      expect(femaleResult).not.toBeNull();
-      expect(femaleResult!.bac).toBeGreaterThan(maleResult!.bac);
+      expect(maleResult.ok).toBe(true);
+      expect(femaleResult.ok).toBe(true);
+      expect((femaleResult as { ok: true; value: any }).value.bac).toBeGreaterThan(
+        (maleResult as { ok: true; value: any }).value.bac
+      );
     });
   });
 
@@ -82,9 +84,11 @@ describe("calculateBac", () => {
       };
       const immediate = calculateBac({ ...baseInput, hoursSinceDrinking: 0 });
       const later = calculateBac({ ...baseInput, hoursSinceDrinking: 2 });
-      expect(immediate).not.toBeNull();
-      expect(later).not.toBeNull();
-      expect(later!.bac).toBeLessThan(immediate!.bac);
+      expect(immediate.ok).toBe(true);
+      expect(later.ok).toBe(true);
+      expect((later as { ok: true; value: any }).value.bac).toBeLessThan(
+        (immediate as { ok: true; value: any }).value.bac
+      );
     });
 
     it("BAC reaches 0 when fully eliminated", () => {
@@ -95,8 +99,8 @@ describe("calculateBac", () => {
         drinkType: "beer",
         hoursSinceDrinking: 10,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bac).toBe(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.bac).toBe(0);
     });
   });
 
@@ -109,9 +113,9 @@ describe("calculateBac", () => {
         drinkType: "spirits",
         hoursSinceDrinking: 0,
       });
-      expect(result).not.toBeNull();
-      if (result!.bac >= 0.08) {
-        expect(result!.legalToDrive).toBe(false);
+      expect(result.ok).toBe(true);
+      if ((result as { ok: true; value: any }).value.bac >= 0.08) {
+        expect((result as { ok: true; value: any }).value.legalToDrive).toBe(false);
       }
     });
   });

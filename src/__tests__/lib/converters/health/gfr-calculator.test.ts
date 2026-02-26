@@ -11,8 +11,8 @@ describe("calculateGfr", () => {
           age: 60,
           gender: "female",
           race: "other",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for age <= 0", () => {
@@ -23,8 +23,8 @@ describe("calculateGfr", () => {
           age: 0,
           gender: "female",
           race: "other",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for age > 120", () => {
@@ -35,8 +35,8 @@ describe("calculateGfr", () => {
           age: 121,
           gender: "female",
           race: "other",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -49,9 +49,9 @@ describe("calculateGfr", () => {
         gender: "female",
         race: "other",
       });
-      expect(result).not.toBeNull();
-      expect(result!.egfrCkdEpi).toBeGreaterThan(60);
-      expect(result!.egfrCkdEpi).toBeLessThan(90);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.egfrCkdEpi).toBeGreaterThan(60);
+      expect((result as { ok: true; value: any }).value.egfrCkdEpi).toBeLessThan(90);
     });
   });
 
@@ -64,8 +64,8 @@ describe("calculateGfr", () => {
         gender: "male",
         race: "other",
       });
-      expect(result).not.toBeNull();
-      expect(result!.egfrCkdEpi).toBeGreaterThan(50);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.egfrCkdEpi).toBeGreaterThan(50);
     });
 
     it("male and female give different GFR for same inputs", () => {
@@ -77,9 +77,11 @@ describe("calculateGfr", () => {
       };
       const male = calculateGfr({ ...base, gender: "male" });
       const female = calculateGfr({ ...base, gender: "female" });
-      expect(male).not.toBeNull();
-      expect(female).not.toBeNull();
-      expect(male!.egfrCkdEpi).not.toBe(female!.egfrCkdEpi);
+      expect(male.ok).toBe(true);
+      expect(female.ok).toBe(true);
+      expect((male as { ok: true; value: any }).value.egfrCkdEpi).not.toBe(
+        (female as { ok: true; value: any }).value.egfrCkdEpi
+      );
     });
   });
 
@@ -99,9 +101,12 @@ describe("calculateGfr", () => {
         gender: "male",
         race: "other",
       });
-      expect(mgdl).not.toBeNull();
-      expect(umol).not.toBeNull();
-      expect(umol!.egfrCkdEpi).toBeCloseTo(mgdl!.egfrCkdEpi, 2);
+      expect(mgdl.ok).toBe(true);
+      expect(umol.ok).toBe(true);
+      expect((umol as { ok: true; value: any }).value.egfrCkdEpi).toBeCloseTo(
+        (mgdl as { ok: true; value: any }).value.egfrCkdEpi,
+        2
+      );
     });
   });
 
@@ -114,10 +119,10 @@ describe("calculateGfr", () => {
         gender: "female",
         race: "other",
       });
-      expect(result).not.toBeNull();
-      if (result!.egfrCkdEpi >= 90) {
-        expect(result!.stage).toBe(1);
-        expect(result!.stageKey).toBe("stage1");
+      expect(result.ok).toBe(true);
+      if ((result as { ok: true; value: any }).value.egfrCkdEpi >= 90) {
+        expect((result as { ok: true; value: any }).value.stage).toBe(1);
+        expect((result as { ok: true; value: any }).value.stageKey).toBe("stage1");
       }
     });
 
@@ -129,9 +134,9 @@ describe("calculateGfr", () => {
         gender: "male",
         race: "other",
       });
-      expect(result).not.toBeNull();
-      expect(result!.stage).toBe(5);
-      expect(result!.stageKey).toBe("stage5");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.stage).toBe(5);
+      expect((result as { ok: true; value: any }).value.stageKey).toBe("stage5");
     });
   });
 
@@ -145,9 +150,9 @@ describe("calculateGfr", () => {
         race: "other",
         weight: 80,
       });
-      expect(result).not.toBeNull();
-      expect(result!.egfrCockcroftGault).not.toBeNull();
-      expect(result!.egfrCockcroftGault!).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.egfrCockcroftGault).not.toBeNull();
+      expect((result as { ok: true; value: any }).value.egfrCockcroftGault!).toBeGreaterThan(0);
     });
   });
 });

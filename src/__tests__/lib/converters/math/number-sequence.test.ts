@@ -10,8 +10,8 @@ describe("calculateNumberSequence", () => {
         commonDifference: 2,
         numberOfTerms: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result?.sequence).toEqual([1, 3, 5, 7, 9]);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sequence).toEqual([1, 3, 5, 7, 9]);
     });
 
     it("calculates correct sum for arithmetic sequence", () => {
@@ -21,8 +21,8 @@ describe("calculateNumberSequence", () => {
         commonDifference: 1,
         numberOfTerms: 10,
       });
-      expect(result).not.toBeNull();
-      expect(result?.sum).toBe(55); // 1+2+...+10
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sum).toBe(55); // 1+2+...+10
     });
 
     it("finds nth term when requested", () => {
@@ -33,8 +33,8 @@ describe("calculateNumberSequence", () => {
         numberOfTerms: 5,
         findNthTerm: 6,
       });
-      expect(result).not.toBeNull();
-      expect(result?.nthTerm).toBe(17); // 2 + (6-1)*3 = 17
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.nthTerm).toBe(17); // 2 + (6-1)*3 = 17
     });
 
     it("returns null for n<=0", () => {
@@ -44,7 +44,7 @@ describe("calculateNumberSequence", () => {
         commonDifference: 1,
         numberOfTerms: 0,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -56,8 +56,8 @@ describe("calculateNumberSequence", () => {
         commonRatio: 3,
         numberOfTerms: 4,
       });
-      expect(result).not.toBeNull();
-      expect(result?.sequence).toEqual([2, 6, 18, 54]);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sequence).toEqual([2, 6, 18, 54]);
     });
 
     it("marks convergent when |r|<1", () => {
@@ -67,9 +67,9 @@ describe("calculateNumberSequence", () => {
         commonRatio: 0.5,
         numberOfTerms: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result?.isConvergent).toBe(true);
-      expect(result?.limit).toBeCloseTo(2, 5); // 1/(1-0.5) = 2
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.isConvergent).toBe(true);
+      expect((result as { ok: true; value: any }).value.limit).toBeCloseTo(2, 5); // 1/(1-0.5) = 2
     });
 
     it("marks divergent when |r|>=1", () => {
@@ -79,8 +79,8 @@ describe("calculateNumberSequence", () => {
         commonRatio: 2,
         numberOfTerms: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result?.isConvergent).toBe(false);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.isConvergent).toBe(false);
     });
 
     it("handles ratio=1 (constant sequence)", () => {
@@ -90,9 +90,9 @@ describe("calculateNumberSequence", () => {
         commonRatio: 1,
         numberOfTerms: 3,
       });
-      expect(result).not.toBeNull();
-      expect(result?.sequence).toEqual([5, 5, 5]);
-      expect(result?.sum).toBe(15);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sequence).toEqual([5, 5, 5]);
+      expect((result as { ok: true; value: any }).value.sum).toBe(15);
     });
   });
 
@@ -102,8 +102,10 @@ describe("calculateNumberSequence", () => {
         mode: "fibonacci",
         numberOfTerms: 8,
       });
-      expect(result).not.toBeNull();
-      expect(result?.sequence).toEqual([1, 1, 2, 3, 5, 8, 13, 21]);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sequence).toEqual([
+        1, 1, 2, 3, 5, 8, 13, 21,
+      ]);
     });
 
     it("finds nth fibonacci term", () => {
@@ -112,8 +114,8 @@ describe("calculateNumberSequence", () => {
         numberOfTerms: 10,
         findNthTerm: 7,
       });
-      expect(result).not.toBeNull();
-      expect(result?.nthTerm).toBe(13); // 7th fibonacci = 13
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.nthTerm).toBe(13); // 7th fibonacci = 13
     });
   });
 
@@ -123,8 +125,8 @@ describe("calculateNumberSequence", () => {
         mode: "custom",
         terms: [2, 4, 6, 8, 10],
       });
-      expect(result).not.toBeNull();
-      expect(result?.sequenceType).toContain("Arithmetic");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sequenceType).toContain("Arithmetic");
     });
 
     it("detects geometric pattern", () => {
@@ -132,8 +134,8 @@ describe("calculateNumberSequence", () => {
         mode: "custom",
         terms: [1, 3, 9, 27],
       });
-      expect(result).not.toBeNull();
-      expect(result?.sequenceType).toContain("Geometric");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sequenceType).toContain("Geometric");
     });
 
     it("detects fibonacci-like pattern", () => {
@@ -141,8 +143,8 @@ describe("calculateNumberSequence", () => {
         mode: "custom",
         terms: [1, 1, 2, 3, 5],
       });
-      expect(result).not.toBeNull();
-      expect(result?.sequenceType).toContain("Fibonacci");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.sequenceType).toContain("Fibonacci");
     });
 
     it("returns null for fewer than 3 terms", () => {
@@ -150,7 +152,7 @@ describe("calculateNumberSequence", () => {
         mode: "custom",
         terms: [1, 2],
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -160,8 +162,8 @@ describe("calculateNumberSequence", () => {
         mode: "findPattern",
         terms: [3, 6, 9, 12, 15],
       });
-      expect(result).not.toBeNull();
-      expect(result?.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.steps.length).toBeGreaterThan(0);
     });
 
     it("returns null for fewer than 3 terms", () => {
@@ -169,7 +171,7 @@ describe("calculateNumberSequence", () => {
         mode: "findPattern",
         terms: [1, 2],
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -179,7 +181,7 @@ describe("calculateNumberSequence", () => {
         mode: "arithmetic",
         numberOfTerms: 1001,
       });
-      expect(result).toBeNull();
+      expect(result.ok).toBe(false);
     });
 
     it("includes steps in result", () => {
@@ -189,8 +191,8 @@ describe("calculateNumberSequence", () => {
         commonDifference: 1,
         numberOfTerms: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result?.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.steps.length).toBeGreaterThan(0);
     });
   });
 });

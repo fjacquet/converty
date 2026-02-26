@@ -5,8 +5,8 @@ describe("calculateCarbs", () => {
   describe("null for invalid inputs", () => {
     it("returns null for calories <= 0", () => {
       expect(
-        calculateCarbs({ calories: 0, goal: "maintenance", activityLevel: "sedentary" })
-      ).toBeNull();
+        calculateCarbs({ calories: 0, goal: "maintenance", activityLevel: "sedentary" }).ok
+      ).toBe(false);
     });
   });
 
@@ -19,9 +19,9 @@ describe("calculateCarbs", () => {
         goal: "maintenance",
         activityLevel: "sedentary",
       });
-      expect(result).not.toBeNull();
-      expect(result!.dailyCarbGrams).toBeCloseTo(200, 0);
-      expect(result!.carbPercent).toBe(40);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.dailyCarbGrams).toBeCloseTo(200, 0);
+      expect((result as { ok: true; value: any }).value.carbPercent).toBe(40);
     });
   });
 
@@ -34,8 +34,8 @@ describe("calculateCarbs", () => {
         goal: "keto",
         activityLevel: "sedentary",
       });
-      expect(result).not.toBeNull();
-      expect(result!.dailyCarbGrams).toBeLessThan(30);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.dailyCarbGrams).toBeLessThan(30);
     });
   });
 
@@ -51,9 +51,11 @@ describe("calculateCarbs", () => {
         goal: "maintenance",
         activityLevel: "sedentary",
       });
-      expect(athlete).not.toBeNull();
-      expect(sedentary).not.toBeNull();
-      expect(athlete!.dailyCarbGrams).toBeGreaterThan(sedentary!.dailyCarbGrams);
+      expect(athlete.ok).toBe(true);
+      expect(sedentary.ok).toBe(true);
+      expect((athlete as { ok: true; value: any }).value.dailyCarbGrams).toBeGreaterThan(
+        (sedentary as { ok: true; value: any }).value.dailyCarbGrams
+      );
     });
   });
 
@@ -64,8 +66,11 @@ describe("calculateCarbs", () => {
         goal: "muscleGain",
         activityLevel: "moderate",
       });
-      expect(result).not.toBeNull();
-      expect(result!.dailyCarbCalories).toBeCloseTo(result!.dailyCarbGrams * 4, 1);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.dailyCarbCalories).toBeCloseTo(
+        (result as { ok: true; value: any }).value.dailyCarbGrams * 4,
+        1
+      );
     });
 
     it("returns food source keys", () => {
@@ -74,9 +79,13 @@ describe("calculateCarbs", () => {
         goal: "maintenance",
         activityLevel: "moderate",
       });
-      expect(result).not.toBeNull();
-      expect(result!.foodSourceKeys.complex.length).toBeGreaterThan(0);
-      expect(result!.foodSourceKeys.avoid.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect(
+        (result as { ok: true; value: any }).value.foodSourceKeys.complex.length
+      ).toBeGreaterThan(0);
+      expect(
+        (result as { ok: true; value: any }).value.foodSourceKeys.avoid.length
+      ).toBeGreaterThan(0);
     });
   });
 });

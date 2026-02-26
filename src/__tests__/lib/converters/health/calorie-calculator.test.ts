@@ -13,8 +13,8 @@ describe("calculateCalories", () => {
           activityLevel: "sedentary",
           targetWeight: 70,
           weeksToGoal: 12,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
     it("returns null for weeksToGoal <= 0", () => {
@@ -27,8 +27,8 @@ describe("calculateCalories", () => {
           activityLevel: "sedentary",
           targetWeight: 70,
           weeksToGoal: 0,
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -45,8 +45,8 @@ describe("calculateCalories", () => {
         targetWeight: 70,
         weeksToGoal: 12,
       });
-      expect(result).not.toBeNull();
-      expect(result!.maintenanceCalories).toBeCloseTo(1978.5, 0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.maintenanceCalories).toBeCloseTo(1978.5, 0);
     });
   });
 
@@ -62,9 +62,11 @@ describe("calculateCalories", () => {
       };
       const maintenance = calculateCalories({ ...base, targetWeight: 80 });
       const cutting = calculateCalories({ ...base, targetWeight: 70 });
-      expect(maintenance).not.toBeNull();
-      expect(cutting).not.toBeNull();
-      expect(cutting!.targetCalories).toBeLessThan(maintenance!.targetCalories);
+      expect(maintenance.ok).toBe(true);
+      expect(cutting.ok).toBe(true);
+      expect((cutting as { ok: true; value: any }).value.targetCalories).toBeLessThan(
+        (maintenance as { ok: true; value: any }).value.targetCalories
+      );
     });
   });
 
@@ -79,10 +81,10 @@ describe("calculateCalories", () => {
         targetWeight: 58,
         weeksToGoal: 8,
       });
-      expect(result).not.toBeNull();
-      expect(result!.proteinGrams).toBeGreaterThan(0);
-      expect(result!.carbsGrams).toBeGreaterThanOrEqual(0);
-      expect(result!.fatGrams).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.proteinGrams).toBeGreaterThan(0);
+      expect((result as { ok: true; value: any }).value.carbsGrams).toBeGreaterThanOrEqual(0);
+      expect((result as { ok: true; value: any }).value.fatGrams).toBeGreaterThan(0);
     });
 
     it("returns a projected date string", () => {
@@ -95,9 +97,9 @@ describe("calculateCalories", () => {
         targetWeight: 75,
         weeksToGoal: 10,
       });
-      expect(result).not.toBeNull();
-      expect(result!.projectedDate).toBeTruthy();
-      expect(typeof result!.projectedDate).toBe("string");
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.projectedDate).toBeTruthy();
+      expect(typeof (result as { ok: true; value: any }).value.projectedDate).toBe("string");
     });
   });
 });

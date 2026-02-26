@@ -8,32 +8,32 @@ describe("calculatePeriod", () => {
   describe("null for invalid inputs", () => {
     it("returns null for cycleLength < 21", () => {
       expect(
-        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 20, periodLength: 5 })
-      ).toBeNull();
+        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 20, periodLength: 5 }).ok
+      ).toBe(false);
     });
 
     it("returns null for cycleLength > 40", () => {
       expect(
-        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 41, periodLength: 5 })
-      ).toBeNull();
+        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 41, periodLength: 5 }).ok
+      ).toBe(false);
     });
 
     it("returns null for periodLength < 2", () => {
       expect(
-        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 28, periodLength: 1 })
-      ).toBeNull();
+        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 28, periodLength: 1 }).ok
+      ).toBe(false);
     });
 
     it("returns null for periodLength > 10", () => {
       expect(
-        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 28, periodLength: 11 })
-      ).toBeNull();
+        calculatePeriod({ lastPeriodDate: "2024-01-01", cycleLength: 28, periodLength: 11 }).ok
+      ).toBe(false);
     });
 
     it("returns null for invalid date string", () => {
       expect(
-        calculatePeriod({ lastPeriodDate: "not-a-date", cycleLength: 28, periodLength: 5 })
-      ).toBeNull();
+        calculatePeriod({ lastPeriodDate: "not-a-date", cycleLength: 28, periodLength: 5 }).ok
+      ).toBe(false);
     });
   });
 
@@ -44,8 +44,8 @@ describe("calculatePeriod", () => {
         cycleLength: 28,
         periodLength: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.upcomingPeriods.length).toBe(6);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.upcomingPeriods.length).toBe(6);
     });
 
     it("upcoming periods are sequential with correct cycle spacing", () => {
@@ -54,10 +54,14 @@ describe("calculatePeriod", () => {
         cycleLength: 28,
         periodLength: 5,
       });
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
       // Period 2 should be ~28 days after period 1
-      const p1Start = new Date(result!.upcomingPeriods[0].startDate);
-      const p2Start = new Date(result!.upcomingPeriods[1].startDate);
+      const p1Start = new Date(
+        (result as { ok: true; value: any }).value.upcomingPeriods[0].startDate
+      );
+      const p2Start = new Date(
+        (result as { ok: true; value: any }).value.upcomingPeriods[1].startDate
+      );
       const diff = Math.round((p2Start.getTime() - p1Start.getTime()) / (1000 * 60 * 60 * 24));
       expect(diff).toBe(28);
     });
@@ -70,8 +74,8 @@ describe("calculatePeriod", () => {
         cycleLength: 28,
         periodLength: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.cyclePhases.length).toBe(4);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.cyclePhases.length).toBe(4);
     });
 
     it("cycle phases include menstrual and luteal", () => {
@@ -80,10 +84,12 @@ describe("calculatePeriod", () => {
         cycleLength: 28,
         periodLength: 5,
       });
-      expect(result).not.toBeNull();
-      const phaseNames = result!.cyclePhases.map((p) => p.phase);
-      expect(phaseNames.some((n) => n.includes("menstrual"))).toBe(true);
-      expect(phaseNames.some((n) => n.includes("luteal"))).toBe(true);
+      expect(result.ok).toBe(true);
+      const phaseNames = (result as { ok: true; value: any }).value.cyclePhases.map(
+        (p: { phase: string }) => p.phase
+      );
+      expect(phaseNames.some((n: string) => n.includes("menstrual"))).toBe(true);
+      expect(phaseNames.some((n: string) => n.includes("luteal"))).toBe(true);
     });
   });
 
@@ -94,11 +100,19 @@ describe("calculatePeriod", () => {
         cycleLength: 28,
         periodLength: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.nextPeriodDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(result!.ovulationDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(result!.fertileWindowStart).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(result!.fertileWindowEnd).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.nextPeriodDate).toMatch(
+        /^\d{4}-\d{2}-\d{2}$/
+      );
+      expect((result as { ok: true; value: any }).value.ovulationDate).toMatch(
+        /^\d{4}-\d{2}-\d{2}$/
+      );
+      expect((result as { ok: true; value: any }).value.fertileWindowStart).toMatch(
+        /^\d{4}-\d{2}-\d{2}$/
+      );
+      expect((result as { ok: true; value: any }).value.fertileWindowEnd).toMatch(
+        /^\d{4}-\d{2}-\d{2}$/
+      );
     });
 
     it("daysUntilNextPeriod is a non-negative number", () => {
@@ -107,8 +121,10 @@ describe("calculatePeriod", () => {
         cycleLength: 28,
         periodLength: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.daysUntilNextPeriod).toBeGreaterThanOrEqual(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.daysUntilNextPeriod).toBeGreaterThanOrEqual(
+        0
+      );
     });
   });
 });

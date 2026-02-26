@@ -5,8 +5,8 @@ describe("calculateProtein", () => {
   describe("null for invalid inputs", () => {
     it("returns null for weight <= 0", () => {
       expect(
-        calculateProtein({ weight: 0, goal: "sedentary", activityLevel: "sedentary" })
-      ).toBeNull();
+        calculateProtein({ weight: 0, goal: "sedentary", activityLevel: "sedentary" }).ok
+      ).toBe(false);
     });
   });
 
@@ -19,9 +19,9 @@ describe("calculateProtein", () => {
         goal: "sedentary",
         activityLevel: "sedentary",
       });
-      expect(result).not.toBeNull();
-      expect(result!.dailyProteinMin).toBeCloseTo(50.4, 0);
-      expect(result!.dailyProteinMax).toBeCloseTo(63, 0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.dailyProteinMin).toBeCloseTo(50.4, 0);
+      expect((result as { ok: true; value: any }).value.dailyProteinMax).toBeCloseTo(63, 0);
     });
   });
 
@@ -37,9 +37,11 @@ describe("calculateProtein", () => {
         goal: "muscleGain",
         activityLevel: "active",
       });
-      expect(sedentary).not.toBeNull();
-      expect(muscle).not.toBeNull();
-      expect(muscle!.dailyProteinMin).toBeGreaterThan(sedentary!.dailyProteinMin);
+      expect(sedentary.ok).toBe(true);
+      expect(muscle.ok).toBe(true);
+      expect((muscle as { ok: true; value: any }).value.dailyProteinMin).toBeGreaterThan(
+        (sedentary as { ok: true; value: any }).value.dailyProteinMin
+      );
     });
   });
 
@@ -55,9 +57,11 @@ describe("calculateProtein", () => {
         goal: "maintenance",
         activityLevel: "veryActive",
       });
-      expect(sedentary).not.toBeNull();
-      expect(veryActive).not.toBeNull();
-      expect(veryActive!.dailyProteinMin).toBeGreaterThan(sedentary!.dailyProteinMin);
+      expect(sedentary.ok).toBe(true);
+      expect(veryActive.ok).toBe(true);
+      expect((veryActive as { ok: true; value: any }).value.dailyProteinMin).toBeGreaterThan(
+        (sedentary as { ok: true; value: any }).value.dailyProteinMin
+      );
     });
   });
 
@@ -68,9 +72,14 @@ describe("calculateProtein", () => {
         goal: "maintenance",
         activityLevel: "moderate",
       });
-      expect(result).not.toBeNull();
-      expect(result!.perMeal.meals3).toBeGreaterThan(result!.perMeal.meals6);
-      expect(result!.perMeal.meals3).toBeCloseTo(result!.dailyProteinOptimal / 3, 2);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.perMeal.meals3).toBeGreaterThan(
+        (result as { ok: true; value: any }).value.perMeal.meals6
+      );
+      expect((result as { ok: true; value: any }).value.perMeal.meals3).toBeCloseTo(
+        (result as { ok: true; value: any }).value.dailyProteinOptimal / 3,
+        2
+      );
     });
   });
 
@@ -81,9 +90,11 @@ describe("calculateProtein", () => {
         goal: "maintenance",
         activityLevel: "moderate",
       });
-      expect(result).not.toBeNull();
-      expect(result!.foodSources.length).toBeGreaterThan(0);
-      expect(result!.foodSources[0].servingsNeeded).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.foodSources.length).toBeGreaterThan(0);
+      expect(
+        (result as { ok: true; value: any }).value.foodSources[0].servingsNeeded
+      ).toBeGreaterThan(0);
     });
   });
 });
