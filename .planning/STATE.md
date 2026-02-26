@@ -115,6 +115,7 @@ Progress: [██████████] Phase 42: 5/5 plans complete
 | Phase 42-error-boundaries-toasts P03 | 3 | 2 tasks | 6 files |
 | Phase 42-error-boundaries-toasts P04 | 3 | 2 tasks | 3 files |
 | Phase 42-error-boundaries-toasts P05 | 1 | 1 tasks | 1 files |
+| Phase 43-zod-input-validation P01 | 2 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -183,6 +184,9 @@ Recent decisions affecting current work:
 - [Phase 42-error-boundaries-toasts]: 42-05: onCalculationError is opt-in (not default) to prevent toast spam across all 169 calculators that use null as normal incomplete-input state
 - [Phase 42-error-boundaries-toasts]: 42-05: toast.error NOT called from reset action or initial state — only from setValue/setValues (user-triggered changes)
 - [Phase 42-error-boundaries-toasts]: 42-05: Callback signature is (values: T) => string — typed, no any, caller decides message text
+- [Phase 43-zod-input-validation]: zod installed as runtime dep (not devDep) since schemas run client-side in stores
+- [Phase 43-zod-input-validation]: schema and validate both optional; explicit validate takes precedence over schema when both provided
+- [Phase 43-zod-input-validation]: ZodType imported as type-only (import type) for Biome strict compliance; z imported as value in url-params.ts
 
 ### Decisions (Phase 40-01)
 
