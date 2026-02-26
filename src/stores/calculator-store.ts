@@ -1,6 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
+import type { ZodType } from "zod";
 import { create, type StateCreator } from "zustand";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
 import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
@@ -39,6 +40,8 @@ export interface CreateCalculatorStoreOptions<T extends object, R> {
   calculate: (values: T) => R | null;
   /** Optional validation function */
   validate?: (values: T) => Partial<Record<keyof T, string>>;
+  /** Optional Zod schema for automatic validation. When provided, derives validate internally. */
+  schema?: ZodType<T>;
   /** Whether to sync state to URL (default: true) */
   syncUrl?: boolean;
   /** Debounce time for URL updates in ms (default: 150) */
@@ -72,10 +75,27 @@ export function createCalculatorStore<T extends object, R>({
   initialValues,
   calculate,
   validate,
+  schema,
   syncUrl = true,
   debounceMs = 150,
   onCalculationError,
 }: CreateCalculatorStoreOptions<T, R>) {
+  // Derive validate from schema if schema is provided; prefer explicit validate if both given
+  const effectiveValidate: ((values: T) => Partial<Record<keyof T, string>>) | undefined = schema
+    ? (values: T): Partial<Record<keyof T, string>> => {
+        const parseResult = schema.safeParse(values);
+        if (parseResult.success) return {};
+        const fieldErrors: Partial<Record<keyof T, string>> = {};
+        for (const issue of parseResult.error.issues) {
+          const key = issue.path[0] as keyof T;
+          if (key !== undefined && !fieldErrors[key]) {
+            fieldErrors[key] = issue.message;
+          }
+        }
+        return fieldErrors;
+      }
+    : validate;
+
   const storeCreator: StateCreator<CalculatorState<T, R>> = (set, get) => {
     // Load initial values from URL if syncUrl is enabled
     let mergedInitialValues = initialValues;
@@ -115,7 +135,7 @@ export function createCalculatorStore<T extends object, R>({
         const newValues = { ...currentState.values, [key]: value };
 
         // Validate
-        const errors = validate?.(newValues) ?? {};
+        const errors = effectiveValidate?.(newValues) ?? {};
 
         // Calculate if no errors
         const result = Object.keys(errors).length === 0 ? calculate(newValues) : null;
@@ -130,7 +150,7 @@ export function createCalculatorStore<T extends object, R>({
 
       setValues: (values: T) => {
         // Validate
-        const errors = validate?.(values) ?? {};
+        const errors = effectiveValidate?.(values) ?? {};
 
         // Calculate if no errors
         const result = Object.keys(errors).length === 0 ? calculate(values) : null;
