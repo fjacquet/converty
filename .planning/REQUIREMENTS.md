@@ -108,7 +108,7 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 
 ### Requirements
 
-- [ ] **R6.1** Translation files restructured with top-level namespace objects: `calculator`, `converter`, `common`, `nav`, `[category]` per calculator category
+- [x] **R6.1** Translation files restructured with top-level namespace objects: `calculator`, `converter`, `common`, `nav`, `[category]` per calculator category
 - [ ] **R6.2** All `useTranslations("calculator.[category]")` calls updated to match new structure
 - [ ] **R6.3** `/check-i18n` audit passes with zero missing keys after restructure
 - [ ] **R6.4** Build produces zero `MISSING_MESSAGE` warnings

@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 45 — Discriminated Union Result Types (COMPLETE)
-Plan: 45-05 complete (5/5)
-Status: Phase 45 COMPLETE. 45-05 done: calculationError display added to all 91 calculator component UIs across 8 categories; 2288 tests pass, 0 TypeScript errors, build succeeds.
-Last activity: 2026-02-26 — Phase 45-05 complete: All 91 calculator components updated with calculationError display
+Phase: 46 — i18n Namespace Restructure (IN PROGRESS)
+Plan: 46-01 complete (1/?)
+Status: Phase 46 Plan 01 COMPLETE. 46-01 done: 4 locale JSON files restructured from 8 inconsistent top-level keys to stable 4-key schema (common, nav, converter, calculator); migration script committed for audit trail.
+Last activity: 2026-02-26 — Phase 46-01 complete: i18n namespace restructure applied to all 4 locale files
 
-Progress: [████████████████████] Phase 45: 5/5 plans complete
+Progress: [████░░░░░░░░░░░░░░░░] Phase 46: 1/? plans complete
 
 ## Performance Metrics
 
@@ -126,6 +126,7 @@ Progress: [████████████████████] Phase 4
 | Phase 45-discriminated-union-result-types P03 | 45 | 3 tasks | 57 files |
 | Phase 45-discriminated-union-result-types P04 | 2288 | 6 tasks (3 deviations) | 80 files |
 | Phase 45-discriminated-union-result-types P05 | 2288 | 8 commits | 91 files |
+| Phase 46-i18n-namespace-restructure P01 | - | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -234,6 +235,13 @@ Recent decisions affecting current work:
 
 - Create `feature/framework-migration` branch before starting Phase 40 (deferred — proceeding on maincd)
 
+- [Phase 46-01]: converters (plural) renamed to converter (singular) as the canonical next-intl namespace for calculator metadata
+- [Phase 46-01]: nav namespace built by spreading all category label objects + nesting subcategories under nav.subcategories
+- [Phase 46-01]: validation and metadata moved under common namespace as common.validation and common.metadata
+- [Phase 46-01]: Orphaned top-level realestate key removed after verifying calculator.realestate.property-valuation is the canonical location
+- [Phase 46-01]: Pre-existing extra key calculator.engineering.labels.shape in fr/de left as-is (out of scope, predates migration)
+- [Phase 46-01]: Build expected to be broken until Plan 46-02 updates source code namespace strings — Plans 01 and 02 form a single atomic unit
+
 ### Blockers/Concerns
 
 None.
@@ -241,7 +249,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 45-05-PLAN.md — Phase 45 complete: All 91 calculator components updated with calculationError display; 2288 tests pass, 0 TypeScript errors, build succeeds
+Stopped at: Completed 46-01-PLAN.md — i18n namespace restructure: 4 locale files migrated from 8 inconsistent top-level keys to stable 4-key schema (common, nav, converter, calculator)
 Resume file: None
 
 **Milestones Completed:**
