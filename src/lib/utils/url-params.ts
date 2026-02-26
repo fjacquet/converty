@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 /**
  * Type-safe URL parameter parsing utilities
  *
@@ -137,4 +139,45 @@ export function getUrlParams(): Map<string, string> {
   });
 
   return params;
+}
+
+/**
+ * Parse a URL parameter as a number using Zod coercion with fallback.
+ * Handles edge cases (NaN, Infinity, empty string) via z.coerce.number().
+ *
+ * @param value - The URL parameter value (from URLSearchParams.get())
+ * @param fallback - The fallback value if parsing fails
+ * @returns Parsed number or fallback
+ */
+export function parseZodNumberParam(value: string | null, fallback: number): number {
+  if (value === null || value === "") return fallback;
+  const result = z.coerce.number().safeParse(value);
+  return result.success ? result.data : fallback;
+}
+
+/**
+ * Parse a URL parameter as a boolean using Zod coercion with fallback.
+ *
+ * @param value - The URL parameter value (from URLSearchParams.get())
+ * @param fallback - The fallback value if parsing fails
+ * @returns Parsed boolean or fallback
+ */
+export function parseZodBooleanParam(value: string | null, fallback: boolean): boolean {
+  if (value === null || value === "") return fallback;
+  const result = z.coerce.boolean().safeParse(value);
+  return result.success ? result.data : fallback;
+}
+
+/**
+ * Parse a URL parameter as a string using Zod with fallback.
+ * Trims empty strings to fallback.
+ *
+ * @param value - The URL parameter value (from URLSearchParams.get())
+ * @param fallback - The fallback value if value is null or empty
+ * @returns Parsed string or fallback
+ */
+export function parseZodStringParam(value: string | null, fallback: string): string {
+  if (value === null || value === "") return fallback;
+  const result = z.string().min(1).safeParse(value);
+  return result.success ? result.data : fallback;
 }
