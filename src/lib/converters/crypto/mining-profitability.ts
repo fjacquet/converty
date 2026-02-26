@@ -6,6 +6,7 @@
  */
 
 import miningData from "@/lib/data/mining-data.json";
+import type { CalculationResult } from "@/types";
 
 export type HashRateUnit = "H/s" | "KH/s" | "MH/s" | "GH/s" | "TH/s" | "PH/s";
 export type FiatCurrency = "CHF" | "EUR" | "USD";
@@ -113,9 +114,13 @@ export const ELECTRICITY_COSTS: Record<string, { chf: number; eur: number; usd: 
 /**
  * Calculate Bitcoin mining profitability
  */
-export function calculateMiningProfitability(input: MiningInput): MiningResult | null {
+export function calculateMiningProfitability(input: MiningInput): CalculationResult<MiningResult> {
   if (input.hashRate <= 0 || input.powerWatts <= 0 || input.electricityCost < 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Hash rate and power must be positive; electricity cost must be non-negative",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Convert hash rate to H/s
@@ -166,26 +171,29 @@ export function calculateMiningProfitability(input: MiningInput): MiningResult |
   }
 
   return {
-    revenuePerDay,
-    revenuePerMonth,
-    revenuePerYear,
-    electricityCostPerDay,
-    electricityCostPerMonth,
-    electricityCostPerYear,
-    profitPerDay,
-    profitPerMonth,
-    profitPerYear,
-    btcPerDay,
-    btcPerMonth,
-    btcPerYear,
-    roiDays,
-    roiMonths,
-    breakEvenDate,
-    isProfitable: profitPerDay > 0,
-    currency: input.currency,
-    btcPrice,
-    networkDifficulty: miningData.difficulty,
-    blockReward: miningData.blockReward,
+    ok: true,
+    value: {
+      revenuePerDay,
+      revenuePerMonth,
+      revenuePerYear,
+      electricityCostPerDay,
+      electricityCostPerMonth,
+      electricityCostPerYear,
+      profitPerDay,
+      profitPerMonth,
+      profitPerYear,
+      btcPerDay,
+      btcPerMonth,
+      btcPerYear,
+      roiDays,
+      roiMonths,
+      breakEvenDate,
+      isProfitable: profitPerDay > 0,
+      currency: input.currency,
+      btcPrice,
+      networkDifficulty: miningData.difficulty,
+      blockReward: miningData.blockReward,
+    },
   };
 }
 

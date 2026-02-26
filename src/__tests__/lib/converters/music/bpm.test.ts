@@ -7,40 +7,49 @@ import {
 } from "@/lib/converters/music/bpm";
 
 describe("calculateBPM", () => {
-  it("returns null for bpm <= 0", () => {
-    expect(calculateBPM(0)).toBeNull();
-    expect(calculateBPM(-10)).toBeNull();
+  it("returns error for bpm <= 0", () => {
+    expect(calculateBPM(0).ok).toBe(false);
+    expect(calculateBPM(-10).ok).toBe(false);
   });
 
-  it("returns null for bpm > 1000", () => {
-    expect(calculateBPM(1001)).toBeNull();
+  it("returns error for bpm > 1000", () => {
+    expect(calculateBPM(1001).ok).toBe(false);
   });
 
   it("calculates 120bpm: msPerBeat = 500", () => {
     const result = calculateBPM(120);
-    expect(result).not.toBeNull();
-    expect(result?.msPerBeat).toBeCloseTo(500, 1);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.msPerBeat).toBeCloseTo(500, 1);
   });
 
   it("calculates hz = bpm/60 for 120bpm → 2.0Hz", () => {
     const result = calculateBPM(120);
-    expect(result?.hz).toBeCloseTo(2.0, 2);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.hz).toBeCloseTo(2.0, 2);
   });
 
   it("barLength4_4 = 4 × msPerBeat for 120bpm", () => {
     const result = calculateBPM(120);
-    expect(result?.barLength4_4).toBeCloseTo(2000, 1);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.barLength4_4).toBeCloseTo(2000, 1);
   });
 
   it("quarter note duration = msPerBeat", () => {
     const result = calculateBPM(120);
-    const quarter = result?.noteValues.find((n) => n.symbol === "1/4");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const quarter = result.value.noteValues.find((n) => n.symbol === "1/4");
     expect(quarter?.durationMs).toBeCloseTo(500, 1);
   });
 
   it("includes 11 note values", () => {
     const result = calculateBPM(120);
-    expect(result?.noteValues).toHaveLength(11);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.noteValues).toHaveLength(11);
   });
 });
 

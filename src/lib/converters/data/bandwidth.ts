@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BandwidthUnit {
   id: string;
   name: string;
@@ -40,11 +42,26 @@ export interface BandwidthResult {
   };
 }
 
-export function convertBandwidth(value: number, fromUnit: string): BandwidthResult | null {
-  if (value <= 0) return null;
+export function convertBandwidth(
+  value: number,
+  fromUnit: string
+): CalculationResult<BandwidthResult> {
+  if (value <= 0) {
+    return {
+      ok: false,
+      error: "Value must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const sourceUnit = BANDWIDTH_UNITS.find((u) => u.id === fromUnit);
-  if (!sourceUnit) return null;
+  if (!sourceUnit) {
+    return {
+      ok: false,
+      error: `Unknown bandwidth unit: ${fromUnit}`,
+      code: "INVALID_INPUT",
+    };
+  }
 
   const bitsPerSecond = value * sourceUnit.bitsPerSecond;
   const bytesPerSecond = bitsPerSecond / 8;
@@ -72,19 +89,22 @@ export function convertBandwidth(value: number, fromUnit: string): BandwidthResu
   const TB = 1024 * 1024 * 1024 * 1024;
 
   return {
-    bitsPerSecond,
-    conversions,
-    perDay: {
-      GB: bytesPerDay / GB,
-      TB: bytesPerDay / TB,
-    },
-    perWeek: {
-      GB: bytesPerWeek / GB,
-      TB: bytesPerWeek / TB,
-    },
-    perMonth: {
-      GB: bytesPerMonth / GB,
-      TB: bytesPerMonth / TB,
+    ok: true,
+    value: {
+      bitsPerSecond,
+      conversions,
+      perDay: {
+        GB: bytesPerDay / GB,
+        TB: bytesPerDay / TB,
+      },
+      perWeek: {
+        GB: bytesPerWeek / GB,
+        TB: bytesPerWeek / TB,
+      },
+      perMonth: {
+        GB: bytesPerMonth / GB,
+        TB: bytesPerMonth / TB,
+      },
     },
   };
 }

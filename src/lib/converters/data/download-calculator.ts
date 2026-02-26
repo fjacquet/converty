@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface FileSizeUnit {
   id: string;
   bytes: number;
@@ -40,13 +42,25 @@ export function calculateDownloadTime(
   fileSizeUnit: string,
   bandwidth: number,
   bandwidthUnit: string
-): DownloadTimeResult | null {
-  if (fileSize <= 0 || bandwidth <= 0) return null;
+): CalculationResult<DownloadTimeResult> {
+  if (fileSize <= 0 || bandwidth <= 0) {
+    return {
+      ok: false,
+      error: "File size and bandwidth must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const sizeUnit = FILE_SIZE_UNITS.find((u) => u.id === fileSizeUnit);
   const speedUnit = SPEED_UNITS.find((u) => u.id === bandwidthUnit);
 
-  if (!sizeUnit || !speedUnit) return null;
+  if (!sizeUnit || !speedUnit) {
+    return {
+      ok: false,
+      error: "Invalid file size unit or bandwidth unit",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const totalBytes = fileSize * sizeUnit.bytes;
   const totalBits = totalBytes * 8;
@@ -66,12 +80,15 @@ export function calculateDownloadTime(
   formatted += `${seconds}s`;
 
   return {
-    totalSeconds,
-    formatted: formatted.trim(),
-    days,
-    hours,
-    minutes,
-    seconds,
+    ok: true,
+    value: {
+      totalSeconds,
+      formatted: formatted.trim(),
+      days,
+      hours,
+      minutes,
+      seconds,
+    },
   };
 }
 

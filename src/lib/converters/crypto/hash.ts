@@ -1,4 +1,5 @@
 import CryptoJS from "crypto-js";
+import type { CalculationResult } from "@/types";
 
 export type HashAlgorithm = "MD5" | "SHA-1" | "SHA-256" | "SHA-512";
 
@@ -39,15 +40,21 @@ function bufferToHex(buffer: ArrayBuffer): string {
 /**
  * Calculate hash using WebCrypto (SHA) or crypto-js (MD5)
  */
-export async function calculateHash(input: string, algorithm: HashAlgorithm): Promise<HashResult> {
+export async function calculateHash(
+  input: string,
+  algorithm: HashAlgorithm
+): Promise<CalculationResult<HashResult>> {
   if (!input) {
     return {
-      algorithm,
-      input: "",
-      hash: "",
-      inputLength: 0,
-      hashLength: 0,
-      isMD5: algorithm === "MD5",
+      ok: true,
+      value: {
+        algorithm,
+        input: "",
+        hash: "",
+        inputLength: 0,
+        hashLength: 0,
+        isMD5: algorithm === "MD5",
+      },
     };
   }
 
@@ -65,12 +72,15 @@ export async function calculateHash(input: string, algorithm: HashAlgorithm): Pr
   }
 
   return {
-    algorithm,
-    input,
-    hash,
-    inputLength: input.length,
-    hashLength: hash.length,
-    isMD5: algorithm === "MD5",
+    ok: true,
+    value: {
+      algorithm,
+      input,
+      hash,
+      inputLength: input.length,
+      hashLength: hash.length,
+      isMD5: algorithm === "MD5",
+    },
   };
 }
 

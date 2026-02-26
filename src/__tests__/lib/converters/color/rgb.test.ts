@@ -109,13 +109,14 @@ describe("convertFromRgb", () => {
 describe("convertFromHex", () => {
   it("converts valid hex to all formats", () => {
     const result = convertFromHex("#FF0000");
-    expect(result).not.toBeNull();
-    expect(result?.rgb).toEqual({ r: 255, g: 0, b: 0 });
-    expect(result?.hex).toBe("#FF0000");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.rgb).toEqual({ r: 255, g: 0, b: 0 });
+    expect(result.value.hex).toBe("#FF0000");
   });
 
-  it("returns null for invalid hex", () => {
-    expect(convertFromHex("invalid")).toBeNull();
-    expect(convertFromHex("#XYZ123")).toBeNull();
+  it("returns error for invalid hex", () => {
+    expect(convertFromHex("invalid").ok).toBe(false);
+    expect(convertFromHex("#XYZ123").ok).toBe(false);
   });
 });

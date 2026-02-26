@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface RGBColor {
   r: number;
   g: number;
@@ -156,8 +158,14 @@ export function convertFromRgb(r: number, g: number, b: number): ColorConversion
   };
 }
 
-export function convertFromHex(hex: string): ColorConversion | null {
+export function convertFromHex(hex: string): CalculationResult<ColorConversion> {
   const rgb = hexToRgb(hex);
-  if (!rgb) return null;
-  return convertFromRgb(rgb.r, rgb.g, rgb.b);
+  if (!rgb) {
+    return {
+      ok: false,
+      error: "Invalid hex color format",
+      code: "INVALID_INPUT",
+    };
+  }
+  return { ok: true, value: convertFromRgb(rgb.r, rgb.g, rgb.b) };
 }

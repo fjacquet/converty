@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BPMConversion {
   bpm: number;
   hz: number;
@@ -16,9 +18,13 @@ export interface NoteValue {
   durationMs: number;
 }
 
-export function calculateBPM(bpm: number): BPMConversion | null {
+export function calculateBPM(bpm: number): CalculationResult<BPMConversion> {
   if (bpm <= 0 || bpm > 1000) {
-    return null;
+    return {
+      ok: false,
+      error: "BPM must be between 1 and 1000",
+      code: "INVALID_INPUT",
+    };
   }
 
   const msPerBeat = 60000 / bpm;
@@ -40,17 +46,20 @@ export function calculateBPM(bpm: number): BPMConversion | null {
   ];
 
   return {
-    bpm,
-    hz: Math.round(hz * 1000) / 1000,
-    msPerBeat: Math.round(msPerBeat * 100) / 100,
-    secPerBeat: Math.round(secPerBeat * 1000) / 1000,
-    beatsPerSec: Math.round(hz * 1000) / 1000,
-    barLength4_4: Math.round(msPerBeat * 4 * 100) / 100,
-    barLength3_4: Math.round(msPerBeat * 3 * 100) / 100,
-    noteValues: noteValues.map((n) => ({
-      ...n,
-      durationMs: Math.round(n.durationMs * 100) / 100,
-    })),
+    ok: true,
+    value: {
+      bpm,
+      hz: Math.round(hz * 1000) / 1000,
+      msPerBeat: Math.round(msPerBeat * 100) / 100,
+      secPerBeat: Math.round(secPerBeat * 1000) / 1000,
+      beatsPerSec: Math.round(hz * 1000) / 1000,
+      barLength4_4: Math.round(msPerBeat * 4 * 100) / 100,
+      barLength3_4: Math.round(msPerBeat * 3 * 100) / 100,
+      noteValues: noteValues.map((n) => ({
+        ...n,
+        durationMs: Math.round(n.durationMs * 100) / 100,
+      })),
+    },
   };
 }
 

@@ -11,53 +11,49 @@ import {
 // Tests use RATIO INVARIANTS (proportional relationships) instead of absolute dollar amounts.
 
 describe("calculateMiningProfitability", () => {
-  describe("invalid inputs return null", () => {
-    it("returns null for hashRate of 0", () => {
-      expect(
-        calculateMiningProfitability({
-          hashRate: 0,
-          hashRateUnit: "TH/s",
-          powerWatts: 3250,
-          electricityCost: 0.1,
-          currency: "USD",
-        })
-      ).toBeNull();
+  describe("invalid inputs return error", () => {
+    it("returns error for hashRate of 0", () => {
+      const result = calculateMiningProfitability({
+        hashRate: 0,
+        hashRateUnit: "TH/s",
+        powerWatts: 3250,
+        electricityCost: 0.1,
+        currency: "USD",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for negative hashRate", () => {
-      expect(
-        calculateMiningProfitability({
-          hashRate: -100,
-          hashRateUnit: "TH/s",
-          powerWatts: 3250,
-          electricityCost: 0.1,
-          currency: "USD",
-        })
-      ).toBeNull();
+    it("returns error for negative hashRate", () => {
+      const result = calculateMiningProfitability({
+        hashRate: -100,
+        hashRateUnit: "TH/s",
+        powerWatts: 3250,
+        electricityCost: 0.1,
+        currency: "USD",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for powerWatts of 0", () => {
-      expect(
-        calculateMiningProfitability({
-          hashRate: 110,
-          hashRateUnit: "TH/s",
-          powerWatts: 0,
-          electricityCost: 0.1,
-          currency: "USD",
-        })
-      ).toBeNull();
+    it("returns error for powerWatts of 0", () => {
+      const result = calculateMiningProfitability({
+        hashRate: 110,
+        hashRateUnit: "TH/s",
+        powerWatts: 0,
+        electricityCost: 0.1,
+        currency: "USD",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for negative electricityCost", () => {
-      expect(
-        calculateMiningProfitability({
-          hashRate: 110,
-          hashRateUnit: "TH/s",
-          powerWatts: 3250,
-          electricityCost: -1,
-          currency: "USD",
-        })
-      ).toBeNull();
+    it("returns error for negative electricityCost", () => {
+      const result = calculateMiningProfitability({
+        hashRate: 110,
+        hashRateUnit: "TH/s",
+        powerWatts: 3250,
+        electricityCost: -1,
+        currency: "USD",
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -71,43 +67,64 @@ describe("calculateMiningProfitability", () => {
     };
 
     it("doubling hashRate doubles btcPerDay (invariant)", () => {
-      const base = calculateMiningProfitability(baseInput)!;
-      const doubled = calculateMiningProfitability({ ...baseInput, hashRate: 200 })!;
-      expect(doubled.btcPerDay).toBeCloseTo(base.btcPerDay * 2, 8);
+      const base = calculateMiningProfitability(baseInput);
+      const doubled = calculateMiningProfitability({ ...baseInput, hashRate: 200 });
+      expect(base.ok).toBe(true);
+      expect(doubled.ok).toBe(true);
+      if (!base.ok || !doubled.ok) return;
+      expect(doubled.value.btcPerDay).toBeCloseTo(base.value.btcPerDay * 2, 8);
     });
 
     it("doubling hashRate doubles revenuePerDay (invariant)", () => {
-      const base = calculateMiningProfitability(baseInput)!;
-      const doubled = calculateMiningProfitability({ ...baseInput, hashRate: 200 })!;
-      expect(doubled.revenuePerDay).toBeCloseTo(base.revenuePerDay * 2, 5);
+      const base = calculateMiningProfitability(baseInput);
+      const doubled = calculateMiningProfitability({ ...baseInput, hashRate: 200 });
+      expect(base.ok).toBe(true);
+      expect(doubled.ok).toBe(true);
+      if (!base.ok || !doubled.ok) return;
+      expect(doubled.value.revenuePerDay).toBeCloseTo(base.value.revenuePerDay * 2, 5);
     });
 
     it("doubling electricityCost doubles electricityCostPerDay (invariant)", () => {
-      const base = calculateMiningProfitability(baseInput)!;
-      const doubled = calculateMiningProfitability({ ...baseInput, electricityCost: 0.2 })!;
-      expect(doubled.electricityCostPerDay).toBeCloseTo(base.electricityCostPerDay * 2, 5);
+      const base = calculateMiningProfitability(baseInput);
+      const doubled = calculateMiningProfitability({ ...baseInput, electricityCost: 0.2 });
+      expect(base.ok).toBe(true);
+      expect(doubled.ok).toBe(true);
+      if (!base.ok || !doubled.ok) return;
+      expect(doubled.value.electricityCostPerDay).toBeCloseTo(
+        base.value.electricityCostPerDay * 2,
+        5
+      );
     });
 
     it("higher electricity cost reduces profit", () => {
-      const low = calculateMiningProfitability({ ...baseInput, electricityCost: 0.05 })!;
-      const high = calculateMiningProfitability({ ...baseInput, electricityCost: 0.3 })!;
-      expect(high.profitPerDay).toBeLessThan(low.profitPerDay);
+      const low = calculateMiningProfitability({ ...baseInput, electricityCost: 0.05 });
+      const high = calculateMiningProfitability({ ...baseInput, electricityCost: 0.3 });
+      expect(low.ok).toBe(true);
+      expect(high.ok).toBe(true);
+      if (!low.ok || !high.ok) return;
+      expect(high.value.profitPerDay).toBeLessThan(low.value.profitPerDay);
     });
 
     it("monthly revenue is 30x daily revenue", () => {
-      const result = calculateMiningProfitability(baseInput)!;
-      expect(result.revenuePerMonth).toBeCloseTo(result.revenuePerDay * 30, 8);
+      const result = calculateMiningProfitability(baseInput);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.revenuePerMonth).toBeCloseTo(result.value.revenuePerDay * 30, 8);
     });
 
     it("yearly revenue is 365x daily revenue", () => {
-      const result = calculateMiningProfitability(baseInput)!;
-      expect(result.revenuePerYear).toBeCloseTo(result.revenuePerDay * 365, 8);
+      const result = calculateMiningProfitability(baseInput);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.revenuePerYear).toBeCloseTo(result.value.revenuePerDay * 365, 8);
     });
 
     it("profitPerDay equals revenuePerDay minus electricityCostPerDay", () => {
-      const result = calculateMiningProfitability(baseInput)!;
-      expect(result.profitPerDay).toBeCloseTo(
-        result.revenuePerDay - result.electricityCostPerDay,
+      const result = calculateMiningProfitability(baseInput);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.profitPerDay).toBeCloseTo(
+        result.value.revenuePerDay - result.value.electricityCostPerDay,
         8
       );
     });
@@ -123,28 +140,38 @@ describe("calculateMiningProfitability", () => {
     };
 
     it("returns btcPrice as positive number", () => {
-      const result = calculateMiningProfitability(input)!;
-      expect(result.btcPrice).toBeGreaterThan(0);
+      const result = calculateMiningProfitability(input);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.btcPrice).toBeGreaterThan(0);
     });
 
     it("returns networkDifficulty as positive number", () => {
-      const result = calculateMiningProfitability(input)!;
-      expect(result.networkDifficulty).toBeGreaterThan(0);
+      const result = calculateMiningProfitability(input);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.networkDifficulty).toBeGreaterThan(0);
     });
 
     it("returns blockReward as positive number", () => {
-      const result = calculateMiningProfitability(input)!;
-      expect(result.blockReward).toBeGreaterThan(0);
+      const result = calculateMiningProfitability(input);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.blockReward).toBeGreaterThan(0);
     });
 
     it("returns isProfitable boolean", () => {
-      const result = calculateMiningProfitability(input)!;
-      expect(typeof result.isProfitable).toBe("boolean");
+      const result = calculateMiningProfitability(input);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(typeof result.value.isProfitable).toBe("boolean");
     });
 
     it("roiDays is null when no hardwareCost provided", () => {
-      const result = calculateMiningProfitability(input)!;
-      expect(result.roiDays).toBeNull();
+      const result = calculateMiningProfitability(input);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.roiDays).toBeNull();
     });
 
     it("roiDays is number when hardwareCost is positive and profitable", () => {
@@ -152,13 +179,15 @@ describe("calculateMiningProfitability", () => {
         ...input,
         hardwareCost: 3000,
         electricityCost: 0.01, // Very cheap electricity to ensure profitable
-      })!;
+      });
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
       // If profitable, roiDays should be set
-      if (result.isProfitable) {
-        expect(result.roiDays).not.toBeNull();
-        expect(result.roiDays).toBeGreaterThan(0);
+      if (result.value.isProfitable) {
+        expect(result.value.roiDays).not.toBeNull();
+        expect(result.value.roiDays).toBeGreaterThan(0);
       } else {
-        expect(result.roiDays).toBeNull();
+        expect(result.value.roiDays).toBeNull();
       }
     });
   });
@@ -171,15 +200,18 @@ describe("calculateMiningProfitability", () => {
         powerWatts: 3000,
         electricityCost: 0.1,
         currency: "USD",
-      })!;
+      });
       const ths = calculateMiningProfitability({
         hashRate: 100,
         hashRateUnit: "TH/s",
         powerWatts: 3000,
         electricityCost: 0.1,
         currency: "USD",
-      })!;
-      expect(ths.btcPerDay).toBeCloseTo(ghs.btcPerDay * 1000, 8);
+      });
+      expect(ghs.ok).toBe(true);
+      expect(ths.ok).toBe(true);
+      if (!ghs.ok || !ths.ok) return;
+      expect(ths.value.btcPerDay).toBeCloseTo(ghs.value.btcPerDay * 1000, 8);
     });
   });
 });

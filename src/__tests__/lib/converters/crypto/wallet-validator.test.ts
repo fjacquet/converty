@@ -9,51 +9,69 @@ describe("validateWalletAddress - Bitcoin (BTC)", () => {
   describe("valid BTC addresses", () => {
     it("validates P2PKH (legacy) address as valid", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2PKH, "BTC");
-      expect(result.isValid).toBe(true);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.isValid).toBe(true);
     });
 
     it("P2PKH address has correct format name", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2PKH, "BTC");
-      expect(result.addressFormat).toContain("P2PKH");
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.addressFormat).toContain("P2PKH");
     });
 
     it("validates P2WPKH (native SegWit) address as valid", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2WPKH, "BTC");
-      expect(result.isValid).toBe(true);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.isValid).toBe(true);
     });
 
     it("valid addresses have walletType BTC", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2PKH, "BTC");
-      expect(result.walletType).toBe("BTC");
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.walletType).toBe("BTC");
     });
 
     it("valid addresses have non-null addressFormat", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2PKH, "BTC");
-      expect(result.addressFormat).not.toBeNull();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.addressFormat).not.toBeNull();
     });
 
     it("valid addresses have non-null formatDescription", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2PKH, "BTC");
-      expect(result.formatDescription).not.toBeNull();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.formatDescription).not.toBeNull();
     });
   });
 
   describe("invalid BTC address", () => {
     it("rejects invalid BTC address", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.invalid, "BTC");
-      expect(result.isValid).toBe(false);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.isValid).toBe(false);
     });
 
     it("invalid address has null addressFormat", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.invalid, "BTC");
-      expect(result.addressFormat).toBeNull();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.addressFormat).toBeNull();
     });
   });
 
   describe("BTC testnet address", () => {
     it("detects testnet address as testnet network", () => {
       const result = validateWalletAddress(TEST_ADDRESSES.BTC.testnet, "BTC");
-      expect(result.networkType).toBe("testnet");
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.networkType).toBe("testnet");
     });
   });
 
@@ -62,8 +80,10 @@ describe("validateWalletAddress - Bitcoin (BTC)", () => {
       // WIF private key format starts with 5/K/L and is 51-52 chars
       const privateKey = "5KJvsngHeMpm884wtkJNzQGaCErckhHJBGFsvd3VyK5qMZXj3hS";
       const result = validateWalletAddress(privateKey, "BTC");
-      expect(result.warningMessage).not.toBeNull();
-      expect(result.isValid).toBe(false);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.warningMessage).not.toBeNull();
+      expect(result.value.isValid).toBe(false);
     });
   });
 });
@@ -71,52 +91,70 @@ describe("validateWalletAddress - Bitcoin (BTC)", () => {
 describe("validateWalletAddress - Ethereum (ETH)", () => {
   it("validates valid ETH address", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.ETH.valid, "ETH");
-    expect(result.isValid).toBe(true);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.isValid).toBe(true);
   });
 
   it("valid ETH address has ERC-20 format", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.ETH.valid, "ETH");
-    expect(result.addressFormat).toContain("ERC");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.addressFormat).toContain("ERC");
   });
 
   it("rejects invalid ETH address", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.ETH.invalid, "ETH");
-    expect(result.isValid).toBe(false);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.isValid).toBe(false);
   });
 
   it("lowercase ETH address also validates", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.ETH.lowercase, "ETH");
-    expect(result.isValid).toBe(true);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.isValid).toBe(true);
   });
 
   it("ETH address has null checksumValid for all-lowercase", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.ETH.lowercase, "ETH");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
     // all-lowercase = no checksum to validate → null
-    expect(result.checksumValid).toBeNull();
+    expect(result.value.checksumValid).toBeNull();
   });
 });
 
 describe("validateWalletAddress - Litecoin (LTC)", () => {
   it("rejects invalid LTC address", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.LTC.invalid, "LTC");
-    expect(result.isValid).toBe(false);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.isValid).toBe(false);
   });
 
   it("returns walletType LTC for LTC validation", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.LTC.invalid, "LTC");
-    expect(result.walletType).toBe("LTC");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.walletType).toBe("LTC");
   });
 });
 
 describe("result structure", () => {
   it("returns address field matching trimmed input", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2PKH, "BTC");
-    expect(result.address).toBe(TEST_ADDRESSES.BTC.valid.P2PKH);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.address).toBe(TEST_ADDRESSES.BTC.valid.P2PKH);
   });
 
   it("returns warningMessage null for normal addresses", () => {
     const result = validateWalletAddress(TEST_ADDRESSES.BTC.valid.P2PKH, "BTC");
-    expect(result.warningMessage).toBeNull();
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.warningMessage).toBeNull();
   });
 });
 

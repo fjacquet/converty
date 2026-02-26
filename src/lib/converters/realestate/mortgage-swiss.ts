@@ -1,5 +1,6 @@
 import type { SupportedCurrency } from "@/components/converter/currency-selector";
 import benchmarks from "@/lib/data/real-estate-benchmarks.json";
+import type { CalculationResult } from "@/types";
 
 export interface SwissMortgageInput {
   propertyPrice: number;
@@ -67,17 +68,27 @@ const SWISS_REGS = benchmarks.swissMarket.regulations;
 /**
  * Calculate Swiss mortgage with regulatory checks
  */
-export function calculateSwissMortgage(input: SwissMortgageInput): SwissMortgageResult | null {
+export function calculateSwissMortgage(
+  input: SwissMortgageInput
+): CalculationResult<SwissMortgageResult> {
   const { propertyPrice, downPayment, loanTerm, interestRate, currency, startDate } = input;
 
   // Validation
   if (propertyPrice <= 0 || loanTerm <= 0 || interestRate < 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Property price and loan term must be positive; interest rate must be non-negative",
+      code: "INVALID_INPUT",
+    };
   }
 
   const loanAmount = propertyPrice - downPayment;
   if (loanAmount <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Loan amount must be positive (down payment must be less than property price)",
+      code: "INVALID_INPUT",
+    };
   }
 
   const ltv = (loanAmount / propertyPrice) * 100;
@@ -180,23 +191,26 @@ export function calculateSwissMortgage(input: SwissMortgageInput): SwissMortgage
   const requiredGrossIncome = (monthlyHousingCost / 0.33) * 12;
 
   return {
-    loanAmount: Math.round(loanAmount * 100) / 100,
-    ltv: Math.round(ltv * 100) / 100,
-    currency,
-    monthlyPayment: Math.round(monthlyPayment * 100) / 100,
-    monthlyInterest: Math.round((amortizationSchedule[0]?.interest || 0) * 100) / 100,
-    monthlyPrincipal: Math.round((amortizationSchedule[0]?.principal || 0) * 100) / 100,
-    totalPayments: Math.round(monthlyPayment * numberOfPayments * 100) / 100,
-    totalInterest: Math.round(totalInterest * 100) / 100,
-    totalCost: Math.round((loanAmount + totalInterest) * 100) / 100,
-    payoffDate: payoffDate.toISOString().split("T")[0],
-    amortizationSchedule,
-    yearlyBreakdown,
-    meetsSwissRequirements,
-    warnings,
-    affordabilityCheck: {
-      monthlyHousingCost: Math.round(monthlyHousingCost * 100) / 100,
-      requiredGrossIncome: Math.round(requiredGrossIncome * 100) / 100,
+    ok: true,
+    value: {
+      loanAmount: Math.round(loanAmount * 100) / 100,
+      ltv: Math.round(ltv * 100) / 100,
+      currency,
+      monthlyPayment: Math.round(monthlyPayment * 100) / 100,
+      monthlyInterest: Math.round((amortizationSchedule[0]?.interest || 0) * 100) / 100,
+      monthlyPrincipal: Math.round((amortizationSchedule[0]?.principal || 0) * 100) / 100,
+      totalPayments: Math.round(monthlyPayment * numberOfPayments * 100) / 100,
+      totalInterest: Math.round(totalInterest * 100) / 100,
+      totalCost: Math.round((loanAmount + totalInterest) * 100) / 100,
+      payoffDate: payoffDate.toISOString().split("T")[0],
+      amortizationSchedule,
+      yearlyBreakdown,
+      meetsSwissRequirements,
+      warnings,
+      affordabilityCheck: {
+        monthlyHousingCost: Math.round(monthlyHousingCost * 100) / 100,
+        requiredGrossIncome: Math.round(requiredGrossIncome * 100) / 100,
+      },
     },
   };
 }

@@ -1,4 +1,5 @@
 import WAValidator from "wallet-address-validator";
+import type { CalculationResult } from "@/types";
 
 export type WalletType = "BTC" | "ETH" | "LTC";
 export type NetworkType = "mainnet" | "testnet";
@@ -213,21 +214,24 @@ function mightBePrivateKey(input: string): boolean {
 export function validateWalletAddress(
   address: string,
   walletType: WalletType
-): WalletValidationResult {
+): CalculationResult<WalletValidationResult> {
   const trimmedAddress = address.trim();
 
   // Check for private key pattern
   const privateKeyWarning = mightBePrivateKey(trimmedAddress);
   if (privateKeyWarning) {
     return {
-      address: trimmedAddress,
-      walletType,
-      isValid: false,
-      addressFormat: null,
-      formatDescription: null,
-      networkType: "mainnet",
-      checksumValid: null,
-      warningMessage: "This looks like a private key! Never share private keys publicly.",
+      ok: true,
+      value: {
+        address: trimmedAddress,
+        walletType,
+        isValid: false,
+        addressFormat: null,
+        formatDescription: null,
+        networkType: "mainnet",
+        checksumValid: null,
+        warningMessage: "This looks like a private key! Never share private keys publicly.",
+      },
     };
   }
 
@@ -274,14 +278,17 @@ export function validateWalletAddress(
     walletType === "ETH" && isValid ? validateEthereumChecksum(trimmedAddress) : null;
 
   return {
-    address: trimmedAddress,
-    walletType,
-    isValid,
-    addressFormat,
-    formatDescription,
-    networkType,
-    checksumValid,
-    warningMessage: null,
+    ok: true,
+    value: {
+      address: trimmedAddress,
+      walletType,
+      isValid,
+      addressFormat,
+      formatDescription,
+      networkType,
+      checksumValid,
+      warningMessage: null,
+    },
   };
 }
 
