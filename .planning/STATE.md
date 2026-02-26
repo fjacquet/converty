@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 45 — Discriminated Union Result Types (in progress)
-Plan: 45-04 complete (4/5)
-Status: Phase 45 in progress. 45-04 done: Photo (22), video (9), data (3), music (1), color (1), realestate, crypto + engineering (8) + infrastructure (10) converters migrated to CalculationResult<T>; 2288 tests pass, 0 TypeScript errors.
-Last activity: 2026-02-26 — Phase 45-04 complete: Photo/video/data/music/color/realestate/crypto + engineering/infrastructure migration
+Phase: 45 — Discriminated Union Result Types (COMPLETE)
+Plan: 45-05 complete (5/5)
+Status: Phase 45 COMPLETE. 45-05 done: calculationError display added to all 91 calculator component UIs across 8 categories; 2288 tests pass, 0 TypeScript errors, build succeeds.
+Last activity: 2026-02-26 — Phase 45-05 complete: All 91 calculator components updated with calculationError display
 
-Progress: [████████████████] Phase 45: 4/5 plans complete
+Progress: [████████████████████] Phase 45: 5/5 plans complete
 
 ## Performance Metrics
 
@@ -125,6 +125,7 @@ Progress: [████████████████] Phase 45: 4/5 plans
 | Phase 45-discriminated-union-result-types P02 | 2288 | 2 tasks | 135 files |
 | Phase 45-discriminated-union-result-types P03 | 45 | 3 tasks | 57 files |
 | Phase 45-discriminated-union-result-types P04 | 2288 | 6 tasks (3 deviations) | 80 files |
+| Phase 45-discriminated-union-result-types P05 | 2288 | 8 commits | 91 files |
 
 ## Accumulated Context
 
@@ -217,6 +218,9 @@ Recent decisions affecting current work:
 - [Phase 45-04]: Double-wrapping anti-pattern: engineering/infrastructure stores wrapping already-CalculationResult converters — fixed by simplifying to calculate: (input) => calculateFn(input) direct passthrough
 - [Phase 45-04]: Custom stores (k8s-capacity, vm-storage): if (result === null) check updated to if (calcResult.ok) check for CalculationResult discriminant pattern
 - [Phase 45-04]: Inline table-row converter calls need local variable unwrap: const rResult = fn(...); const r = rResult.ok ? rResult.value : null
+- [Phase 45-05]: Two-change pattern: add calculationError to store destructure + add error display JSX before final closing div
+- [Phase 45-05]: Grid-layout infrastructure components need space-y-4 wrapper to accommodate calculationError sibling element
+- [Phase 45-05]: vm-storage-calculator and k8s-capacity-calculator use custom store patterns with own error field — correctly skipped
 
 ### Decisions (Phase 40-01)
 
@@ -237,7 +241,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 45-04-PLAN.md — Photo/video/data/music/color/realestate/crypto + engineering/infrastructure converters migrated to CalculationResult<T>; 2288 tests pass, 0 TypeScript errors
+Stopped at: Completed 45-05-PLAN.md — Phase 45 complete: All 91 calculator components updated with calculationError display; 2288 tests pass, 0 TypeScript errors, build succeeds
 Resume file: None
 
 **Milestones Completed:**
