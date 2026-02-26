@@ -26,7 +26,7 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 - [x] **R1.2** `vitest.config.ts` with jsdom environment, `@testing-library/react`, path aliases matching Next.js
 - [ ] **R1.3** Coverage thresholds: 75% lines/functions/branches/statements on `src/lib/converters/**`
 - [x] **R1.4** `npm test` and `npm run test:coverage` commands added to `package.json`
-- [ ] **R1.5** Unit tests for all priority-1 converters:
+- [x] **R1.5** Unit tests for all priority-1 converters:
   - BB Credit Calculator (physics formula, CLI generation)
   - Subnet Calculator (IPv4/IPv6, BigInt arithmetic)
   - BMI / BMR (health — widely used)

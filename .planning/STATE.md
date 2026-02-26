@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 40 — Vitest Foundation (in progress)
-Plan: 01 complete (1/4)
-Status: v7.0 executing. Phase 40-01 complete: Vitest 4.x installed and configured. Plans 40-02 through 40-04 remaining.
-Last activity: 2026-02-26 — Phase 40-01 complete: vitest.config.ts, src/test-setup.ts, npm test scripts installed
+Plan: 02 complete (2/4)
+Status: v7.0 executing. Phase 40-02 complete: 37 unit tests for BB Credit, Subnet, and BMI converters. Plans 40-03 through 40-04 remaining.
+Last activity: 2026-02-26 — Phase 40-02 complete: 3 test files, 37 passing tests across network and health converters
 
-Progress: [█░░░░░░░░░] Phase 40: 1/4 plans complete
+Progress: [██░░░░░░░░] Phase 40: 2/4 plans complete
 
 ## Performance Metrics
 
@@ -99,6 +99,7 @@ Progress: [█░░░░░░░░░] Phase 40: 1/4 plans complete
 | 37-cpu-database-foundation   | 1/2   | ~2 min | ~2 min   |
 | 38-cpu-comparison-calculator | 3/3   | ~8.3 min | ~2.8 min |
 | 39-server-refresh-calculator | 3/3   | ~9.5 min | ~3.2 min  |
+| Phase 40-vitest-foundation P02 | 2 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -126,6 +127,9 @@ Recent decisions affecting current work:
 - [Phase 39-02]: IIFE pattern in JSX for delta table rows to scope delta/text/className variables without extracting to named functions
 - [Phase 39-02]: CalculatorSkeleton inputCount=8 matching 8 fields in the store initialValues
 - [Phase 39-03]: No code changes needed — 39-02 delivered complete implementation; plan 03 was pure verification confirming 45 keys in all 4 locales, zero TypeScript errors, zero MISSING_MESSAGE warnings
+- [Phase 40-02]: Subnet-calculator uses ipaddr.js which throws for invalid IPs — tests use toThrow() not null assertions
+- [Phase 40-02]: BigInt assertions use n-suffix literals (254n not 254) for all subnet host count assertions
+- [Phase 40-02]: BMI bmi field is pre-rounded in source — toBeCloseTo(22.9, 1) used instead of strict toBe for floating-point
 
 ### Decisions (Phase 40-01)
 
