@@ -1,5 +1,6 @@
 import { BANDWIDTH_UNITS } from "@/lib/converters/data/bandwidth";
 import { FILE_SIZE_UNITS } from "@/lib/converters/data/download-calculator";
+import type { CalculationResult } from "@/types";
 
 /**
  * Time unit for transfer duration
@@ -107,15 +108,26 @@ function formatNumber(num: number): string {
  * // Returns ~80 Mbps (10 MB/s)
  * ```
  */
-export function calculateThroughput(input: ThroughputInput): ThroughputResult | null {
+export function calculateThroughput(input: ThroughputInput): CalculationResult<ThroughputResult> {
   const { dataSize, dataSizeUnit, transferTime, transferTimeUnit } = input;
 
-  if (dataSize <= 0 || transferTime <= 0) return null;
+  if (dataSize <= 0 || transferTime <= 0) {
+    return {
+      ok: false,
+      error: "Data size and transfer time must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const sizeUnit = FILE_SIZE_UNITS.find((u) => u.id === dataSizeUnit);
   const timeUnit = TIME_UNITS.find((u) => u.id === transferTimeUnit);
 
-  if (!sizeUnit || !timeUnit) return null;
+  if (!sizeUnit) {
+    return { ok: false, error: `Unknown data size unit: ${dataSizeUnit}`, code: "INVALID_INPUT" };
+  }
+  if (!timeUnit) {
+    return { ok: false, error: `Unknown time unit: ${transferTimeUnit}`, code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
 
@@ -146,11 +158,14 @@ export function calculateThroughput(input: ThroughputInput): ThroughputResult | 
   const { key, ratio } = getSpeedComparison(bitsPerSecond);
 
   return {
-    bitsPerSecond,
-    bytesPerSecond,
-    conversions,
-    steps,
-    comparison: key,
-    comparisonRatio: ratio,
+    ok: true,
+    value: {
+      bitsPerSecond,
+      bytesPerSecond,
+      conversions,
+      steps,
+      comparison: key,
+      comparisonRatio: ratio,
+    },
   };
 }

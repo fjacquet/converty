@@ -2,60 +2,60 @@ import { describe, expect, it } from "vitest";
 import { calculateThroughput, TIME_UNITS } from "@/lib/converters/network/throughput-calculator";
 
 describe("calculateThroughput", () => {
-  describe("invalid inputs return null", () => {
-    it("returns null for dataSize of 0", () => {
+  describe("invalid inputs return error result", () => {
+    it("returns ok:false for dataSize of 0", () => {
       expect(
         calculateThroughput({
           dataSize: 0,
           dataSizeUnit: "MB",
           transferTime: 10,
           transferTimeUnit: "s",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for transferTime of 0", () => {
+    it("returns ok:false for transferTime of 0", () => {
       expect(
         calculateThroughput({
           dataSize: 100,
           dataSizeUnit: "MB",
           transferTime: 0,
           transferTimeUnit: "s",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for negative dataSize", () => {
+    it("returns ok:false for negative dataSize", () => {
       expect(
         calculateThroughput({
           dataSize: -1,
           dataSizeUnit: "MB",
           transferTime: 10,
           transferTimeUnit: "s",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for unknown dataSizeUnit", () => {
+    it("returns ok:false for unknown dataSizeUnit", () => {
       expect(
         calculateThroughput({
           dataSize: 100,
           dataSizeUnit: "XB",
           transferTime: 10,
           transferTimeUnit: "s",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
 
-    it("returns null for unknown transferTimeUnit", () => {
+    it("returns ok:false for unknown transferTimeUnit", () => {
       expect(
         calculateThroughput({
           dataSize: 100,
           dataSizeUnit: "MB",
           transferTime: 10,
           transferTimeUnit: "year",
-        })
-      ).toBeNull();
+        }).ok
+      ).toBe(false);
     });
   });
 
@@ -68,10 +68,12 @@ describe("calculateThroughput", () => {
         transferTime: 10,
         transferTimeUnit: "s",
       });
-      expect(result).not.toBeNull();
-      // 100 MB * 8 bits/byte / 10s = 83.9 Mbps
-      expect(result!.bitsPerSecond).toBeGreaterThan(0);
-      expect(result!.bytesPerSecond).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        // 100 MB * 8 bits/byte / 10s = 83.9 Mbps
+        expect(result.value.bitsPerSecond).toBeGreaterThan(0);
+        expect(result.value.bytesPerSecond).toBeGreaterThan(0);
+      }
     });
 
     it("larger file size with same time yields higher throughput", () => {
@@ -87,7 +89,11 @@ describe("calculateThroughput", () => {
         transferTime: 10,
         transferTimeUnit: "s",
       });
-      expect(large!.bitsPerSecond).toBeGreaterThan(small!.bitsPerSecond);
+      expect(small.ok).toBe(true);
+      expect(large.ok).toBe(true);
+      if (small.ok && large.ok) {
+        expect(large.value.bitsPerSecond).toBeGreaterThan(small.value.bitsPerSecond);
+      }
     });
 
     it("same file size with shorter time yields higher throughput", () => {
@@ -103,7 +109,11 @@ describe("calculateThroughput", () => {
         transferTime: 10,
         transferTimeUnit: "s",
       });
-      expect(fast!.bitsPerSecond).toBeGreaterThan(slow!.bitsPerSecond);
+      expect(slow.ok).toBe(true);
+      expect(fast.ok).toBe(true);
+      if (slow.ok && fast.ok) {
+        expect(fast.value.bitsPerSecond).toBeGreaterThan(slow.value.bitsPerSecond);
+      }
     });
 
     it("bitsPerSecond equals 8 * bytesPerSecond", () => {
@@ -113,7 +123,10 @@ describe("calculateThroughput", () => {
         transferTime: 60,
         transferTimeUnit: "s",
       });
-      expect(result!.bitsPerSecond).toBeCloseTo(result!.bytesPerSecond * 8, 5);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.bitsPerSecond).toBeCloseTo(result.value.bytesPerSecond * 8, 5);
+      }
     });
   });
 
@@ -125,7 +138,10 @@ describe("calculateThroughput", () => {
         transferTime: 1,
         transferTimeUnit: "min",
       });
-      expect(result!.conversions.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.conversions.length).toBeGreaterThan(0);
+      }
     });
 
     it("includes steps array", () => {
@@ -135,7 +151,10 @@ describe("calculateThroughput", () => {
         transferTime: 10,
         transferTimeUnit: "s",
       });
-      expect(result!.steps.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.steps.length).toBeGreaterThan(0);
+      }
     });
 
     it("includes comparison key string", () => {
@@ -145,8 +164,11 @@ describe("calculateThroughput", () => {
         transferTime: 10,
         transferTimeUnit: "s",
       });
-      expect(typeof result!.comparison).toBe("string");
-      expect(result!.comparison.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(typeof result.value.comparison).toBe("string");
+        expect(result.value.comparison.length).toBeGreaterThan(0);
+      }
     });
 
     it("includes comparisonRatio number", () => {
@@ -156,8 +178,11 @@ describe("calculateThroughput", () => {
         transferTime: 10,
         transferTimeUnit: "s",
       });
-      expect(typeof result!.comparisonRatio).toBe("number");
-      expect(result!.comparisonRatio).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(typeof result.value.comparisonRatio).toBe("number");
+        expect(result.value.comparisonRatio).toBeGreaterThan(0);
+      }
     });
   });
 

@@ -116,16 +116,16 @@ export const useThroughputCalculatorStore = create<ThroughputCalculatorState>()(
           return;
         }
 
-        try {
-          const result = calculateThroughput({
-            dataSize: sizeNum,
-            dataSizeUnit,
-            transferTime: timeNum,
-            transferTimeUnit,
-          });
-          set({ result, error: null });
-        } catch {
-          set({ result: null, error: "Invalid input" });
+        const calcResult = calculateThroughput({
+          dataSize: sizeNum,
+          dataSizeUnit,
+          transferTime: timeNum,
+          transferTimeUnit,
+        });
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

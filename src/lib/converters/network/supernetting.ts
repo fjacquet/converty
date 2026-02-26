@@ -6,24 +6,19 @@
  */
 
 import ipaddr from "ipaddr.js";
+import type { CalculationResult } from "@/types";
 import { calculateSubnet } from "./subnet-calculator";
 import type { SubnetResult } from "./types";
 
 /**
- * Result of supernet aggregation
+ * Payload of supernet aggregation
  */
-export interface SupernetResult {
+export interface SupernetPayload {
   /** Aggregated supernet containing all original networks */
-  supernet: SubnetResult | null;
+  supernet: SubnetResult;
 
   /** Original networks provided for aggregation */
   originalNetworks: SubnetResult[];
-
-  /** Whether aggregation succeeded */
-  success: boolean;
-
-  /** Error message if aggregation failed */
-  error?: string;
 }
 
 /**
@@ -38,41 +33,36 @@ export interface SupernetResult {
  * - All networks must be contiguous (no gaps)
  *
  * @param networks - Array of network addresses in CIDR notation (e.g., ["192.168.0.0/24", "192.168.1.0/24"])
- * @returns SupernetResult with success status, supernet, and error message if failed
+ * @returns CalculationResult with supernet payload or error
  *
  * @example
  * // Aggregate two /24 networks into /23
  * aggregateNetworks(["192.168.0.0/24", "192.168.1.0/24"])
  * // Returns:
- * // - success: true
- * // - supernet: 192.168.0.0/23
- * // - originalNetworks: [192.168.0.0/24, 192.168.1.0/24]
+ * // - ok: true, value: { supernet: 192.168.0.0/23, originalNetworks: [...] }
  *
  * @example
  * // Failed aggregation (non-contiguous)
  * aggregateNetworks(["192.168.0.0/24", "192.168.2.0/24"])
  * // Returns:
- * // - success: false
- * // - error: "Networks not contiguous: expected 192.168.1.0, got 192.168.2.0"
+ * // - ok: false, error: "Networks not contiguous: expected 192.168.1.0, got 192.168.2.0"
  */
-export function aggregateNetworks(networks: string[]): SupernetResult {
+export function aggregateNetworks(networks: string[]): CalculationResult<SupernetPayload> {
   // Validate minimum 2 networks
   if (networks.length < 2) {
     return {
-      supernet: null,
-      originalNetworks: [],
-      success: false,
+      ok: false,
       error: "Need at least 2 networks to aggregate",
+      code: "INVALID_INPUT",
     };
   }
 
   // Validate count is power of 2
   if (!isPowerOfTwo(networks.length)) {
     return {
-      supernet: null,
-      originalNetworks: [],
-      success: false,
+      ok: false,
       error: "Number of networks must be a power of 2",
+      code: "INVALID_INPUT",
     };
   }
 
@@ -83,10 +73,9 @@ export function aggregateNetworks(networks: string[]): SupernetResult {
     // Validate CIDR notation
     if (!network.includes("/")) {
       return {
-        supernet: null,
-        originalNetworks: [],
-        success: false,
+        ok: false,
         error: `Invalid CIDR notation: ${network}`,
+        code: "INVALID_INPUT",
       };
     }
 
@@ -100,10 +89,9 @@ export function aggregateNetworks(networks: string[]): SupernetResult {
       parsedNetworks.push({ address, cidr, ipVersion });
     } catch {
       return {
-        supernet: null,
-        originalNetworks: [],
-        success: false,
+        ok: false,
         error: `Invalid CIDR notation: ${network}`,
+        code: "INVALID_INPUT",
       };
     }
   }
@@ -112,10 +100,9 @@ export function aggregateNetworks(networks: string[]): SupernetResult {
   const firstVersion = parsedNetworks[0].ipVersion;
   if (!parsedNetworks.every((n) => n.ipVersion === firstVersion)) {
     return {
-      supernet: null,
-      originalNetworks: [],
-      success: false,
+      ok: false,
       error: "All networks must be same IP version",
+      code: "INVALID_INPUT",
     };
   }
 
@@ -123,10 +110,9 @@ export function aggregateNetworks(networks: string[]): SupernetResult {
   const firstCidr = parsedNetworks[0].cidr;
   if (!parsedNetworks.every((n) => n.cidr === firstCidr)) {
     return {
-      supernet: null,
-      originalNetworks: [],
-      success: false,
+      ok: false,
       error: "All networks must have same CIDR prefix",
+      code: "INVALID_INPUT",
     };
   }
 
@@ -148,10 +134,9 @@ export function aggregateNetworks(networks: string[]): SupernetResult {
 
   if (firstAddress !== expectedFirstAddress) {
     return {
-      supernet: null,
-      originalNetworks: [],
-      success: false,
+      ok: false,
       error: `First network must be on /${newCidr} boundary (expected ${expectedFirstAddress}, got ${firstAddress})`,
+      code: "INVALID_INPUT",
     };
   }
 
@@ -172,10 +157,9 @@ export function aggregateNetworks(networks: string[]): SupernetResult {
 
       if (current.address !== expectedAddress) {
         return {
-          supernet: null,
-          originalNetworks,
-          success: false,
+          ok: false,
           error: `Networks not contiguous: expected ${expectedAddress}, got ${current.address}`,
+          code: "INVALID_INPUT",
         };
       }
     }
@@ -185,9 +169,11 @@ export function aggregateNetworks(networks: string[]): SupernetResult {
   const supernet = calculateSubnet(firstAddress, newCidr);
 
   return {
-    supernet,
-    originalNetworks,
-    success: true,
+    ok: true,
+    value: {
+      supernet,
+      originalNetworks,
+    },
   };
 }
 

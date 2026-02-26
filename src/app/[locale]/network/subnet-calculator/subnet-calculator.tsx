@@ -231,7 +231,7 @@ export function SubnetCalculator() {
                 onAggregate={performAggregation}
                 error={error}
               />
-              {supernetResult?.success && supernetResult.supernet && (
+              {supernetResult?.supernet && (
                 <ComparisonPanel
                   mode="supernetting"
                   before={supernetResult.originalNetworks}

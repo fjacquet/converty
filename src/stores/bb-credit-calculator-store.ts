@@ -51,15 +51,15 @@ export const useBBCreditCalculatorStore = create<BBCreditCalculatorState>()(
         return;
       }
 
-      try {
-        const result = calculateBBCredits({
-          distanceKm: distance,
-          speedGbps: speed as FCSpeed,
-          portId: portId.trim() || "1/1",
-        });
-        set({ result, error: null });
-      } catch {
-        set({ result: null, error: "Calculation error" });
+      const calcResult = calculateBBCredits({
+        distanceKm: distance,
+        speedGbps: speed as FCSpeed,
+        portId: portId.trim() || "1/1",
+      });
+      if (calcResult.ok) {
+        set({ result: calcResult.value, error: null });
+      } else {
+        set({ result: null, error: calcResult.error });
       }
     };
 
@@ -68,11 +68,12 @@ export const useBBCreditCalculatorStore = create<BBCreditCalculatorState>()(
       const distance = Number.parseFloat(initialDistanceKm);
       const speed = Number.parseInt(initialSpeedGbps, 10);
       if (!Number.isNaN(distance) && distance > 0 && !Number.isNaN(speed) && speed > 0) {
-        return calculateBBCredits({
+        const calcResult = calculateBBCredits({
           distanceKm: distance,
           speedGbps: speed as FCSpeed,
           portId: initialPortId.trim() || "1/1",
         });
+        return calcResult.ok ? calcResult.value : null;
       }
       return null;
     })();

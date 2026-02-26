@@ -114,7 +114,7 @@ export type { IPClassification } from "./ip-classifier";
 export type { LatencyConversion, LatencyResult, LatencyUnit } from "./latency-converter";
 // Re-export subnetting types for convenience
 export type { SubnetDivision } from "./subnetting";
-export type { SupernetResult } from "./supernetting";
+export type { SupernetPayload } from "./supernetting";
 // Re-export throughput calculator types
 export type {
   ThroughputConversion,

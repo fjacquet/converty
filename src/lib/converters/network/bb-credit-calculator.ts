@@ -12,6 +12,8 @@
  *                   = ceil(distance_km × speed_Gbps × 1250 / 2148)
  */
 
+import type { CalculationResult } from "@/types";
+
 /** Standard FC frame payload + overhead = 2148 bytes */
 const FC_FRAME_SIZE_BYTES = 2148;
 
@@ -69,10 +71,12 @@ export interface BBCreditResult {
  * // result.recommendedCredits ≈ 57
  * ```
  */
-export function calculateBBCredits(input: BBCreditInput): BBCreditResult | null {
+export function calculateBBCredits(input: BBCreditInput): CalculationResult<BBCreditResult> {
   const { distanceKm, speedGbps, portId } = input;
 
-  if (distanceKm <= 0 || speedGbps <= 0) return null;
+  if (distanceKm <= 0 || speedGbps <= 0) {
+    return { ok: false, error: "Distance and speed must be positive", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
 
@@ -122,14 +126,17 @@ export function calculateBBCredits(input: BBCreditInput): BBCreditResult | null 
   const mdsBufSize = [`interface fc${portStr}`, `  switchport buf-size ${creditValue}`].join("\n");
 
   return {
-    minCredits,
-    recommendedCredits,
-    rttMicroseconds,
-    bytesInFlight,
-    brocadePortcfgex,
-    brocadePortcfgld,
-    mdsFcrxbbcredit,
-    mdsBufSize,
-    steps,
+    ok: true,
+    value: {
+      minCredits,
+      recommendedCredits,
+      rttMicroseconds,
+      bytesInFlight,
+      brocadePortcfgex,
+      brocadePortcfgld,
+      mdsFcrxbbcredit,
+      mdsBufSize,
+      steps,
+    },
   };
 }

@@ -12,6 +12,8 @@
  * - Smart value formatting based on magnitude
  */
 
+import type { CalculationResult } from "@/types";
+
 /**
  * Latency time unit definition
  */
@@ -168,13 +170,17 @@ function formatLatencyValue(value: number): string {
  * //   typicalUseCase: "satellite"
  * // }
  */
-export function convertLatency(value: number, fromUnit: string): LatencyResult | null {
+export function convertLatency(value: number, fromUnit: string): CalculationResult<LatencyResult> {
   // Validate positive value
-  if (value <= 0) return null;
+  if (value <= 0) {
+    return { ok: false, error: "Value must be positive", code: "INVALID_INPUT" };
+  }
 
   // Find source unit
   const sourceUnit = LATENCY_UNITS.find((u) => u.id === fromUnit);
-  if (!sourceUnit) return null;
+  if (!sourceUnit) {
+    return { ok: false, error: `Unknown unit: ${fromUnit}`, code: "INVALID_INPUT" };
+  }
 
   // Convert to base unit (nanoseconds)
   const nanoseconds = value * sourceUnit.nanoseconds;
@@ -190,9 +196,12 @@ export function convertLatency(value: number, fromUnit: string): LatencyResult |
   });
 
   return {
-    nanoseconds,
-    conversions,
-    category: categorizeLatency(nanoseconds),
-    typicalUseCase: getTypicalUseCase(nanoseconds),
+    ok: true,
+    value: {
+      nanoseconds,
+      conversions,
+      category: categorizeLatency(nanoseconds),
+      typicalUseCase: getTypicalUseCase(nanoseconds),
+    },
   };
 }

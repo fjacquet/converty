@@ -10,7 +10,7 @@ import type {
   DivisionCount,
   SubnetDivision,
   SubnetResult,
-  SupernetResult,
+  SupernetPayload,
 } from "@/lib/converters/network/types";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
 import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
@@ -36,7 +36,7 @@ export interface SubnetCalculatorState {
 
   // Supernetting state
   networksInput: string; // Textarea input for multiple networks
-  supernetResult: SupernetResult | null;
+  supernetResult: SupernetPayload | null;
 
   // Actions
   setIPInput: (value: string) => void;
@@ -249,8 +249,8 @@ export const useSubnetCalculatorStore = create<SubnetCalculatorState>()(
 
         const result = aggregateNetworks(networks);
 
-        if (result.success) {
-          set({ supernetResult: result, error: null });
+        if (result.ok) {
+          set({ supernetResult: result.value, error: null });
         } else {
           set({
             supernetResult: null,

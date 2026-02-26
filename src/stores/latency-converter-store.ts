@@ -85,11 +85,11 @@ export const useLatencyConverterStore = create<LatencyConverterState>()(
           return;
         }
 
-        try {
-          const result = convertLatency(numValue, unit);
-          set({ result, error: null });
-        } catch {
-          set({ result: null, error: "Invalid input" });
+        const calcResult = convertLatency(numValue, unit);
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 
