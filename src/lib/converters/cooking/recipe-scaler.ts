@@ -1,5 +1,6 @@
 // src/lib/converters/cooking/recipe-scaler.ts
 
+import type { CalculationResult } from "@/types";
 import { formatAsFraction, type IngredientType } from "./types";
 
 export interface RecipeIngredient {
@@ -119,13 +120,13 @@ function formatAmount(amount: number): string {
 /**
  * Main recipe scaling function
  */
-export function scaleRecipe(input: RecipeScaleInput): RecipeScaleResult {
+export function scaleRecipe(input: RecipeScaleInput): CalculationResult<RecipeScaleResult> {
   const { recipeName, originalServings, desiredServings, ingredients } = input;
   const steps: string[] = [];
   const notes: Set<string> = new Set();
 
   if (originalServings <= 0 || desiredServings <= 0) {
-    throw new Error("Servings must be greater than zero");
+    return { ok: false, error: "Servings must be greater than zero", code: "INVALID_INPUT" };
   }
 
   const baseFactor = desiredServings / originalServings;
@@ -135,13 +136,16 @@ export function scaleRecipe(input: RecipeScaleInput): RecipeScaleResult {
 
   if (ingredients.length === 0) {
     return {
-      recipeName,
-      originalServings,
-      desiredServings,
-      baseFactor,
-      scaledIngredients: [],
-      notes: [],
-      steps: ["No ingredients to scale"],
+      ok: true,
+      value: {
+        recipeName,
+        originalServings,
+        desiredServings,
+        baseFactor,
+        scaledIngredients: [],
+        notes: [],
+        steps: ["No ingredients to scale"],
+      },
     };
   }
 
@@ -196,13 +200,16 @@ export function scaleRecipe(input: RecipeScaleInput): RecipeScaleResult {
   });
 
   return {
-    recipeName,
-    originalServings,
-    desiredServings,
-    baseFactor,
-    scaledIngredients,
-    notes: Array.from(notes),
-    steps,
+    ok: true,
+    value: {
+      recipeName,
+      originalServings,
+      desiredServings,
+      baseFactor,
+      scaledIngredients,
+      notes: Array.from(notes),
+      steps,
+    },
   };
 }
 

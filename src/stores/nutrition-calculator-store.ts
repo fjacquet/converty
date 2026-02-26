@@ -81,14 +81,11 @@ export const useNutritionCalculatorStore = create<NutritionCalculatorState>()(
         return;
       }
 
-      try {
-        const result = calculateNutrition({ selectedFoods });
-        set({ result, error: null });
-      } catch (err) {
-        set({
-          result: null,
-          error: err instanceof Error ? err.message : "Calculation failed",
-        });
+      const calcResult = calculateNutrition({ selectedFoods });
+      if (calcResult.ok) {
+        set({ result: calcResult.value, error: null });
+      } else {
+        set({ result: null, error: calcResult.error });
       }
     },
 

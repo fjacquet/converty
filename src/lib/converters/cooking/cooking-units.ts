@@ -1,6 +1,7 @@
 // src/lib/converters/cooking/cooking-units.ts
 
 import { getIngredientDensity, INGREDIENT_DENSITIES } from "@/lib/data/cooking-densities";
+import type { CalculationResult } from "@/types";
 import {
   type CookingUnit,
   formatAsFraction,
@@ -78,22 +79,13 @@ function convertFromGrams(grams: number, unit: WeightUnit): number {
 /**
  * Main conversion function with density-aware volume/weight support
  */
-export function convertCookingUnit(input: CookingUnitInput): CookingUnitResult {
+export function convertCookingUnit(input: CookingUnitInput): CalculationResult<CookingUnitResult> {
   const { amount, fromUnit, toUnit, ingredientId } = input;
   const steps: string[] = [];
 
   // Handle zero/negative amounts
   if (amount <= 0) {
-    return {
-      originalAmount: amount,
-      originalUnit: fromUnit,
-      convertedAmount: 0,
-      convertedAmountFractional: "0",
-      convertedUnit: toUnit,
-      formula: `${amount} ${UNIT_LABELS[fromUnit]} = 0 ${UNIT_LABELS[toUnit]}`,
-      requiresIngredient: false,
-      steps: ["Amount must be greater than zero"],
-    };
+    return { ok: false, error: "Amount must be greater than zero", code: "INVALID_INPUT" };
   }
 
   const fromIsVolume = isVolumeUnit(fromUnit);
@@ -133,30 +125,19 @@ export function convertCookingUnit(input: CookingUnitInput): CookingUnitResult {
 
     if (!ingredientId) {
       return {
-        originalAmount: amount,
-        originalUnit: fromUnit,
-        convertedAmount: 0,
-        convertedAmountFractional: "0",
-        convertedUnit: toUnit,
-        formula: "Select an ingredient for volume/weight conversion",
-        requiresIngredient: true,
-        steps: [
+        ok: false,
+        error:
           "Volume to weight conversion requires selecting an ingredient due to different densities",
-        ],
+        code: "INVALID_INPUT",
       };
     }
 
     const ingredient = getIngredientDensity(ingredientId);
     if (!ingredient) {
       return {
-        originalAmount: amount,
-        originalUnit: fromUnit,
-        convertedAmount: 0,
-        convertedAmountFractional: "0",
-        convertedUnit: toUnit,
-        formula: "Unknown ingredient",
-        requiresIngredient: true,
-        steps: [`Ingredient "${ingredientId}" not found in density table`],
+        ok: false,
+        error: `Ingredient "${ingredientId}" not found in density table`,
+        code: "INVALID_INPUT",
       };
     }
 
@@ -199,15 +180,18 @@ export function convertCookingUnit(input: CookingUnitInput): CookingUnitResult {
   }
 
   return {
-    originalAmount: amount,
-    originalUnit: fromUnit,
-    convertedAmount,
-    convertedAmountFractional: formatAsFraction(convertedAmount),
-    convertedUnit: toUnit,
-    formula,
-    requiresIngredient,
-    ingredientName,
-    steps,
+    ok: true,
+    value: {
+      originalAmount: amount,
+      originalUnit: fromUnit,
+      convertedAmount,
+      convertedAmountFractional: formatAsFraction(convertedAmount),
+      convertedUnit: toUnit,
+      formula,
+      requiresIngredient,
+      ingredientName,
+      steps,
+    },
   };
 }
 

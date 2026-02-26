@@ -128,24 +128,16 @@ export const useCookingUnitsStore = create<CookingUnitsState>()(
       calculate: () => {
         const { amount, fromUnit, toUnit, ingredientId } = get();
 
-        if (amount <= 0) {
-          set({ result: null, error: "Amount must be greater than zero" });
-          return;
-        }
-
-        try {
-          const result = convertCookingUnit({
-            amount,
-            fromUnit,
-            toUnit,
-            ingredientId: ingredientId || undefined,
-          });
-          set({ result, error: null });
-        } catch (err) {
-          set({
-            result: null,
-            error: err instanceof Error ? err.message : "Conversion failed",
-          });
+        const calcResult = convertCookingUnit({
+          amount,
+          fromUnit,
+          toUnit,
+          ingredientId: ingredientId || undefined,
+        });
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

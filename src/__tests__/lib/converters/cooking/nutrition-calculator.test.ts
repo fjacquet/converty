@@ -73,8 +73,11 @@ describe("searchFoods", () => {
 describe("calculateNutrition", () => {
   it("returns empty nutrition for no selected foods", () => {
     const result = calculateNutrition({ selectedFoods: [] });
-    expect(result.totalNutrition.calories).toBe(0);
-    expect(result.breakdown).toHaveLength(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalNutrition.calories).toBe(0);
+      expect(result.value.breakdown).toHaveLength(0);
+    }
   });
 
   it("calculates nutrition from database food", () => {
@@ -86,17 +89,23 @@ describe("calculateNutrition", () => {
       selectedFoods: [{ id: "sel1", foodId: food.id, servings: 1 }],
     });
 
-    expect(result.breakdown).toHaveLength(1);
-    expect(result.breakdown[0].foodName).toBe(food.name);
-    expect(result.totalNutrition.calories).toBeCloseTo(food.nutrition.calories, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.breakdown).toHaveLength(1);
+      expect(result.value.breakdown[0].foodName).toBe(food.name);
+      expect(result.value.totalNutrition.calories).toBeCloseTo(food.nutrition.calories, 1);
+    }
   });
 
   it("skips unknown food id gracefully", () => {
     const result = calculateNutrition({
       selectedFoods: [{ id: "sel1", foodId: "nonexistent_xyz", servings: 1 }],
     });
-    expect(result.breakdown).toHaveLength(0);
-    expect(result.totalNutrition.calories).toBe(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.breakdown).toHaveLength(0);
+      expect(result.value.totalNutrition.calories).toBe(0);
+    }
   });
 
   it("macro calorie breakdown: protein*4 + carbs*4 + fat*9 = total macro calories", () => {
@@ -109,10 +118,13 @@ describe("calculateNutrition", () => {
       selectedFoods: [{ id: "sel1", foodId: food.id, servings: 1 }],
     });
 
-    const { fromProtein, fromCarbs, fromFat } = result.calorieBreakdown;
-    expect(fromProtein).toBeCloseTo(food.nutrition.protein * 4, 1);
-    expect(fromCarbs).toBeCloseTo(food.nutrition.totalCarbohydrate * 4, 1);
-    expect(fromFat).toBeCloseTo(food.nutrition.totalFat * 9, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      const { fromProtein, fromCarbs, fromFat } = result.value.calorieBreakdown;
+      expect(fromProtein).toBeCloseTo(food.nutrition.protein * 4, 1);
+      expect(fromCarbs).toBeCloseTo(food.nutrition.totalCarbohydrate * 4, 1);
+      expect(fromFat).toBeCloseTo(food.nutrition.totalFat * 9, 1);
+    }
   });
 
   it("macro percentages sum to approximately 100%", () => {
@@ -125,9 +137,12 @@ describe("calculateNutrition", () => {
       selectedFoods: [{ id: "sel1", foodId: food.id, servings: 1 }],
     });
 
-    const { proteinPercent, carbsPercent, fatPercent } = result.calorieBreakdown;
-    if (proteinPercent + carbsPercent + fatPercent > 0) {
-      expect(proteinPercent + carbsPercent + fatPercent).toBeCloseTo(100, 0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      const { proteinPercent, carbsPercent, fatPercent } = result.value.calorieBreakdown;
+      if (proteinPercent + carbsPercent + fatPercent > 0) {
+        expect(proteinPercent + carbsPercent + fatPercent).toBeCloseTo(100, 0);
+      }
     }
   });
 
@@ -143,7 +158,14 @@ describe("calculateNutrition", () => {
       selectedFoods: [{ id: "sel1", foodId: food.id, servings: 2 }],
     });
 
-    expect(result2.totalNutrition.calories).toBeCloseTo(result1.totalNutrition.calories * 2, 1);
+    expect(result1.ok).toBe(true);
+    expect(result2.ok).toBe(true);
+    if (result1.ok && result2.ok) {
+      expect(result2.value.totalNutrition.calories).toBeCloseTo(
+        result1.value.totalNutrition.calories * 2,
+        1
+      );
+    }
   });
 });
 

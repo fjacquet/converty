@@ -52,22 +52,22 @@ describe("lPer100kmToMpgUS", () => {
 });
 
 describe("calculateFuelEfficiency", () => {
-  it("returns null when distanceKm = 0 in consumption mode", () => {
+  it("returns ok: false when distanceKm = 0 in consumption mode", () => {
     const result = calculateFuelEfficiency({
       mode: "consumption",
       distanceKm: 0,
       fuelLiters: 10,
     });
-    expect(result).toBeNull();
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null when fuelLiters = 0 in consumption mode", () => {
+  it("returns ok: false when fuelLiters = 0 in consumption mode", () => {
     const result = calculateFuelEfficiency({
       mode: "consumption",
       distanceKm: 300,
       fuelLiters: 0,
     });
-    expect(result).toBeNull();
+    expect(result.ok).toBe(false);
   });
 
   it("calculates consumption mode: 300km / 10L = 3.33 L/100km", () => {
@@ -76,10 +76,12 @@ describe("calculateFuelEfficiency", () => {
       distanceKm: 300,
       fuelLiters: 10,
     });
-    expect(result).not.toBeNull();
-    expect(result!.lPer100km).toBeCloseTo(3.33, 1);
-    expect(result!.mpgUS).toBeGreaterThan(0);
-    expect(result!.kmPerL).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.lPer100km).toBeCloseTo(3.33, 1);
+      expect(result.value.mpgUS).toBeGreaterThan(0);
+      expect(result.value.kmPerL).toBeGreaterThan(0);
+    }
   });
 
   it("calculates MPG conversion for 30 MPG car (7.84 L/100km)", () => {
@@ -88,16 +90,18 @@ describe("calculateFuelEfficiency", () => {
       distanceKm: 100,
       fuelLiters: 7.84,
     });
-    expect(result).not.toBeNull();
-    expect(result!.mpgUS).toBeCloseTo(30, 0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.mpgUS).toBeCloseTo(30, 0);
+    }
   });
 
-  it("returns null for tripPlanning with no consumption", () => {
+  it("returns ok: false for tripPlanning with no consumption", () => {
     const result = calculateFuelEfficiency({
       mode: "tripPlanning",
       consumptionLPer100km: 0,
     });
-    expect(result).toBeNull();
+    expect(result.ok).toBe(false);
   });
 
   it("calculates tripPlanning mode with fuel needed", () => {
@@ -106,8 +110,10 @@ describe("calculateFuelEfficiency", () => {
       consumptionLPer100km: 8,
       tripDistanceKm: 500,
     });
-    expect(result).not.toBeNull();
-    expect(result!.tripFuelNeeded).toBeCloseTo(40, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.tripFuelNeeded).toBeCloseTo(40, 1);
+    }
   });
 
   it("identifies more efficient vehicle in comparison mode", () => {
@@ -116,8 +122,10 @@ describe("calculateFuelEfficiency", () => {
       vehicle1LPer100km: 5,
       vehicle2LPer100km: 8,
     });
-    expect(result).not.toBeNull();
-    expect(result!.moreEfficientVehicle).toBe(1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.moreEfficientVehicle).toBe(1);
+    }
   });
 
   it("returns rating for efficiency", () => {
@@ -126,7 +134,9 @@ describe("calculateFuelEfficiency", () => {
       distanceKm: 100,
       fuelLiters: 4,
     });
-    expect(result).not.toBeNull();
-    expect(result!.rating).toBe("excellent");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.rating).toBe("excellent");
+    }
   });
 });

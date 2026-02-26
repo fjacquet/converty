@@ -2,6 +2,7 @@
 
 import tireLoadIndexData from "@/lib/data/tire-load-index.json";
 import tireSpeedRatingsData from "@/lib/data/tire-speed-ratings.json";
+import type { CalculationResult } from "@/types";
 
 /**
  * Tire construction type
@@ -117,19 +118,19 @@ export function parseTireNotation(notation: string): TireSizeComponents | null {
  */
 export function calculateTireDimensions(
   input: TireSizeComponents | string
-): TireDimensionsResult | null {
+): CalculationResult<TireDimensionsResult> {
   // Parse if string
   const components = typeof input === "string" ? parseTireNotation(input) : input;
 
   if (!components) {
-    return null;
+    return { ok: false, error: "Invalid tire notation", code: "INVALID_INPUT" };
   }
 
   const { width, aspectRatio, rimDiameter, loadIndex, speedRating } = components;
 
   // Validate inputs
   if (width <= 0 || aspectRatio <= 0 || rimDiameter <= 0) {
-    return null;
+    return { ok: false, error: "Tire dimensions must be greater than zero", code: "INVALID_INPUT" };
   }
 
   const steps: string[] = [];
@@ -193,7 +194,7 @@ export function calculateTireDimensions(
     }
   }
 
-  return result;
+  return { ok: true, value: result };
 }
 
 /**
@@ -202,13 +203,19 @@ export function calculateTireDimensions(
 export function compareTireSizes(
   tire1Input: TireSizeComponents | string,
   tire2Input: TireSizeComponents | string
-): TireComparisonResult | null {
-  const tire1 = calculateTireDimensions(tire1Input);
-  const tire2 = calculateTireDimensions(tire2Input);
+): CalculationResult<TireComparisonResult> {
+  const tire1Result = calculateTireDimensions(tire1Input);
+  const tire2Result = calculateTireDimensions(tire2Input);
 
-  if (!tire1 || !tire2) {
-    return null;
+  if (!tire1Result.ok) {
+    return { ok: false, error: `Tire 1: ${tire1Result.error}`, code: "INVALID_INPUT" };
   }
+  if (!tire2Result.ok) {
+    return { ok: false, error: `Tire 2: ${tire2Result.error}`, code: "INVALID_INPUT" };
+  }
+
+  const tire1 = tire1Result.value;
+  const tire2 = tire2Result.value;
 
   const steps: string[] = [];
 
@@ -254,18 +261,21 @@ export function compareTireSizes(
   }
 
   return {
-    tire1,
-    tire2,
-    diameterDifferenceMm,
-    diameterDifferencePercent,
-    circumferenceDifferenceMm,
-    circumferenceDifferencePercent,
-    speedometerErrorPercent,
-    actualSpeedAt100,
-    revolutionsDifferencePerKm,
-    withinTolerance,
-    warning,
-    steps,
+    ok: true,
+    value: {
+      tire1,
+      tire2,
+      diameterDifferenceMm,
+      diameterDifferencePercent,
+      circumferenceDifferenceMm,
+      circumferenceDifferencePercent,
+      speedometerErrorPercent,
+      actualSpeedAt100,
+      revolutionsDifferencePerKm,
+      withinTolerance,
+      warning,
+      steps,
+    },
   };
 }
 

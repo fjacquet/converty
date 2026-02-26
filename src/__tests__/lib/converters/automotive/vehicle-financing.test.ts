@@ -7,7 +7,7 @@ import {
 } from "@/lib/converters/automotive/vehicle-financing";
 
 describe("calculateVehicleLoan", () => {
-  it("returns null for vehiclePrice = 0", () => {
+  it("returns ok: false for vehiclePrice = 0", () => {
     const result = calculateVehicleLoan({
       vehiclePrice: 0,
       downPayment: 0,
@@ -18,10 +18,10 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result).toBeNull();
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for loanTermMonths = 0", () => {
+  it("returns ok: false for loanTermMonths = 0", () => {
     const result = calculateVehicleLoan({
       vehiclePrice: 25000,
       downPayment: 0,
@@ -32,7 +32,7 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result).toBeNull();
+    expect(result.ok).toBe(false);
   });
 
   it("$25,000 car at 5% APR 60 months → monthly payment ≈ $471.78", () => {
@@ -46,8 +46,10 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.monthlyPayment).toBeCloseTo(471.78, 0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.monthlyPayment).toBeCloseTo(471.78, 0);
+    }
   });
 
   it("total cost > purchase price due to interest", () => {
@@ -61,8 +63,10 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalCost).toBeGreaterThan(25000);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalCost).toBeGreaterThan(25000);
+    }
   });
 
   it("total payments = monthly payment * months", () => {
@@ -76,8 +80,10 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalPayments).toBeCloseTo(result!.monthlyPayment * 60, 0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalPayments).toBeCloseTo(result.value.monthlyPayment * 60, 0);
+    }
   });
 
   it("down payment reduces loan amount", () => {
@@ -101,8 +107,12 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(noDown!.loanAmount).toBeGreaterThan(withDown!.loanAmount);
-    expect(noDown!.monthlyPayment).toBeGreaterThan(withDown!.monthlyPayment);
+    expect(noDown.ok).toBe(true);
+    expect(withDown.ok).toBe(true);
+    if (noDown.ok && withDown.ok) {
+      expect(noDown.value.loanAmount).toBeGreaterThan(withDown.value.loanAmount);
+      expect(noDown.value.monthlyPayment).toBeGreaterThan(withDown.value.monthlyPayment);
+    }
   });
 
   it("includes amortization schedule", () => {
@@ -116,9 +126,12 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result!.amortization).toHaveLength(60);
-    expect(result!.amortization[0].month).toBe(1);
-    expect(result!.amortization[59].month).toBe(60);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.amortization).toHaveLength(60);
+      expect(result.value.amortization[0].month).toBe(1);
+      expect(result.value.amortization[59].month).toBe(60);
+    }
   });
 
   it("VAT is applied when includeVAT is true", () => {
@@ -142,12 +155,16 @@ describe("calculateVehicleLoan", () => {
       currency: "CHF",
       includeVAT: true,
     });
-    expect(withVAT!.totalVehicleCost).toBeGreaterThan(noVAT!.totalVehicleCost);
+    expect(noVAT.ok).toBe(true);
+    expect(withVAT.ok).toBe(true);
+    if (noVAT.ok && withVAT.ok) {
+      expect(withVAT.value.totalVehicleCost).toBeGreaterThan(noVAT.value.totalVehicleCost);
+    }
   });
 });
 
 describe("calculateVehicleLease", () => {
-  it("returns null for vehiclePrice = 0", () => {
+  it("returns ok: false for vehiclePrice = 0", () => {
     const result = calculateVehicleLease({
       vehiclePrice: 0,
       downPayment: 0,
@@ -161,7 +178,7 @@ describe("calculateVehicleLease", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result).toBeNull();
+    expect(result.ok).toBe(false);
   });
 
   it("calculates monthly lease payment", () => {
@@ -178,8 +195,10 @@ describe("calculateVehicleLease", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.monthlyPayment).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.monthlyPayment).toBeGreaterThan(0);
+    }
   });
 
   it("residual value is percentage of vehicle price", () => {
@@ -196,7 +215,10 @@ describe("calculateVehicleLease", () => {
       currency: "CHF",
       includeVAT: false,
     });
-    expect(result!.residualValue).toBe(15000); // 50% of 30000
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.residualValue).toBe(15000); // 50% of 30000
+    }
   });
 });
 

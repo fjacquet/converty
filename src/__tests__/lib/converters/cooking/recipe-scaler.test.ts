@@ -14,24 +14,32 @@ const makeInput = (
 });
 
 describe("scaleRecipe", () => {
-  it("throws for originalServings = 0", () => {
-    expect(() => scaleRecipe(makeInput(0, 4))).toThrow();
+  it("returns ok: false for originalServings = 0", () => {
+    const result = scaleRecipe(makeInput(0, 4));
+    expect(result.ok).toBe(false);
   });
 
-  it("throws for desiredServings = 0", () => {
-    expect(() => scaleRecipe(makeInput(4, 0))).toThrow();
+  it("returns ok: false for desiredServings = 0", () => {
+    const result = scaleRecipe(makeInput(4, 0));
+    expect(result.ok).toBe(false);
   });
 
   it("scale factor of 1 leaves quantities unchanged", () => {
     const result = scaleRecipe(makeInput(4, 4));
-    expect(result.baseFactor).toBe(1);
-    expect(result.scaledIngredients[0].scaledAmount).toBeCloseTo(2, 4);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.baseFactor).toBe(1);
+      expect(result.value.scaledIngredients[0].scaledAmount).toBeCloseTo(2, 4);
+    }
   });
 
   it("scale 4-serving recipe to 6 servings → factor 1.5, quantities × 1.5", () => {
     const result = scaleRecipe(makeInput(4, 6));
-    expect(result.baseFactor).toBe(1.5);
-    expect(result.scaledIngredients[0].scaledAmount).toBeCloseTo(3, 4);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.baseFactor).toBe(1.5);
+      expect(result.value.scaledIngredients[0].scaledAmount).toBeCloseTo(3, 4);
+    }
   });
 
   it("returns empty scaledIngredients for empty ingredients", () => {
@@ -41,12 +49,18 @@ describe("scaleRecipe", () => {
       desiredServings: 8,
       ingredients: [],
     });
-    expect(result.scaledIngredients).toHaveLength(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.scaledIngredients).toHaveLength(0);
+    }
   });
 
   it("returns correct baseFactor", () => {
     const result = scaleRecipe(makeInput(4, 8));
-    expect(result.baseFactor).toBe(2);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.baseFactor).toBe(2);
+    }
   });
 
   it("scales multiple ingredients", () => {
@@ -55,9 +69,12 @@ describe("scaleRecipe", () => {
       { id: "2", name: "sugar", amount: 1, unit: "cup", type: "standard" },
     ]);
     const result = scaleRecipe(input);
-    expect(result.scaledIngredients).toHaveLength(2);
-    expect(result.scaledIngredients[0].scaledAmount).toBeCloseTo(4, 4);
-    expect(result.scaledIngredients[1].scaledAmount).toBeCloseTo(2, 4);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.scaledIngredients).toHaveLength(2);
+      expect(result.value.scaledIngredients[0].scaledAmount).toBeCloseTo(4, 4);
+      expect(result.value.scaledIngredients[1].scaledAmount).toBeCloseTo(2, 4);
+    }
   });
 
   it("salt scales non-linearly (less than linear)", () => {
@@ -67,17 +84,23 @@ describe("scaleRecipe", () => {
       desiredServings: 4,
       ingredients: [{ id: "1", name: "salt", amount: 1, unit: "tsp", type: "salt" }],
     });
-    // With factor 4, salt adjustedFactor = 1 + (4-1)*0.75 = 3.25, less than 4
-    const saltIngredient = result.scaledIngredients[0];
-    expect(saltIngredient.wasAdjusted).toBe(true);
-    expect(saltIngredient.scaledAmount).toBeLessThan(4); // less than linear scaling
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      // With factor 4, salt adjustedFactor = 1 + (4-1)*0.75 = 3.25, less than 4
+      const saltIngredient = result.value.scaledIngredients[0];
+      expect(saltIngredient.wasAdjusted).toBe(true);
+      expect(saltIngredient.scaledAmount).toBeLessThan(4); // less than linear scaling
+    }
   });
 
   it("standard ingredients scale linearly", () => {
     const result = scaleRecipe(makeInput(4, 8));
-    const ingredient = result.scaledIngredients[0];
-    expect(ingredient.wasAdjusted).toBe(false);
-    expect(ingredient.scaledAmount).toBeCloseTo(ingredient.originalAmount * 2, 4);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      const ingredient = result.value.scaledIngredients[0];
+      expect(ingredient.wasAdjusted).toBe(false);
+      expect(ingredient.scaledAmount).toBeCloseTo(ingredient.originalAmount * 2, 4);
+    }
   });
 });
 

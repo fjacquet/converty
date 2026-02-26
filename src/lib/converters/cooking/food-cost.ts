@@ -1,5 +1,7 @@
 // src/lib/converters/cooking/food-cost.ts
 
+import type { CalculationResult } from "@/types";
+
 export type CostUnit = "kg" | "l" | "piece" | "g" | "ml";
 export type Currency = "CHF" | "EUR" | "USD";
 
@@ -81,13 +83,12 @@ function areUnitsCompatible(unit1: CostUnit, unit2: CostUnit): boolean {
 
 /**
  * Calculate cost for a single ingredient
+ * Returns null if units are incompatible
  */
-function calculateIngredientCost(ingredient: IngredientCost): number {
+function calculateIngredientCost(ingredient: IngredientCost): number | null {
   // Check unit compatibility
   if (!areUnitsCompatible(ingredient.unit, ingredient.amountUnit)) {
-    throw new Error(
-      `Incompatible units for ${ingredient.name}: cost is per ${ingredient.unit}, amount is in ${ingredient.amountUnit}`
-    );
+    return null;
   }
 
   // Convert both to base units
@@ -100,36 +101,46 @@ function calculateIngredientCost(ingredient: IngredientCost): number {
 /**
  * Main food cost calculation function
  */
-export function calculateFoodCost(input: FoodCostInput): FoodCostResult {
+export function calculateFoodCost(input: FoodCostInput): CalculationResult<FoodCostResult> {
   const { recipeName, servings, currency, ingredients } = input;
   const steps: string[] = [];
 
   if (servings <= 0) {
-    throw new Error("Servings must be greater than zero");
+    return { ok: false, error: "Servings must be greater than zero", code: "INVALID_INPUT" };
   }
 
   if (ingredients.length === 0) {
     return {
-      recipeName,
-      servings,
-      currency,
-      totalCost: 0,
-      costPerServing: 0,
-      ingredientBreakdown: [],
-      mostExpensiveIngredient: null,
-      leastExpensiveIngredient: null,
-      steps: ["No ingredients added"],
+      ok: true,
+      value: {
+        recipeName,
+        servings,
+        currency,
+        totalCost: 0,
+        costPerServing: 0,
+        ingredientBreakdown: [],
+        mostExpensiveIngredient: null,
+        leastExpensiveIngredient: null,
+        steps: ["No ingredients added"],
+      },
     };
   }
 
   // Calculate cost for each ingredient
-  const ingredientBreakdown: IngredientBreakdown[] = ingredients.map((ing) => {
+  const ingredientBreakdown: IngredientBreakdown[] = [];
+  for (const ing of ingredients) {
     const cost = calculateIngredientCost(ing);
+    if (cost === null) {
+      return {
+        ok: false,
+        error: `Incompatible units for ${ing.name}: cost is per ${ing.unit}, amount is in ${ing.amountUnit}`,
+        code: "INVALID_INPUT",
+      };
+    }
     steps.push(
       `${ing.name}: ${ing.amountUsed} ${ing.amountUnit} @ ${currency} ${ing.costPerUnit.toFixed(2)}/${ing.unit} = ${currency} ${cost.toFixed(2)}`
     );
-
-    return {
+    ingredientBreakdown.push({
       id: ing.id,
       name: ing.name,
       cost,
@@ -138,8 +149,8 @@ export function calculateFoodCost(input: FoodCostInput): FoodCostResult {
       unit: ing.unit,
       amountUsed: ing.amountUsed,
       amountUnit: ing.amountUnit,
-    };
-  });
+    });
+  }
 
   // Calculate total cost
   const totalCost = ingredientBreakdown.reduce((sum, item) => sum + item.cost, 0);
@@ -161,15 +172,18 @@ export function calculateFoodCost(input: FoodCostInput): FoodCostResult {
     sortedByCost.length > 0 ? sortedByCost[sortedByCost.length - 1].name : null;
 
   return {
-    recipeName,
-    servings,
-    currency,
-    totalCost,
-    costPerServing,
-    ingredientBreakdown,
-    mostExpensiveIngredient,
-    leastExpensiveIngredient,
-    steps,
+    ok: true,
+    value: {
+      recipeName,
+      servings,
+      currency,
+      totalCost,
+      costPerServing,
+      ingredientBreakdown,
+      mostExpensiveIngredient,
+      leastExpensiveIngredient,
+      steps,
+    },
   };
 }
 

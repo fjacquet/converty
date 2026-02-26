@@ -214,67 +214,58 @@ export const useTireSizingStore = create<TireSizingState>()(
       calculate: () => {
         const state = get();
 
-        try {
-          let tire1Input: TireSizeComponents | string;
+        let tire1Input: TireSizeComponents | string;
 
-          if (state.inputMode === "notation") {
-            tire1Input = state.tire1Notation;
-          } else {
-            tire1Input = {
-              width: state.tire1Width,
-              aspectRatio: state.tire1AspectRatio,
-              construction: "R" as const,
-              rimDiameter: state.tire1RimDiameter,
-              loadIndex: state.tire1LoadIndex ? parseInt(state.tire1LoadIndex, 10) : undefined,
-              speedRating: state.tire1SpeedRating || undefined,
-              notation: `${state.tire1Width}/${state.tire1AspectRatio}R${state.tire1RimDiameter}`,
-            };
-          }
+        if (state.inputMode === "notation") {
+          tire1Input = state.tire1Notation;
+        } else {
+          tire1Input = {
+            width: state.tire1Width,
+            aspectRatio: state.tire1AspectRatio,
+            construction: "R" as const,
+            rimDiameter: state.tire1RimDiameter,
+            loadIndex: state.tire1LoadIndex ? parseInt(state.tire1LoadIndex, 10) : undefined,
+            speedRating: state.tire1SpeedRating || undefined,
+            notation: `${state.tire1Width}/${state.tire1AspectRatio}R${state.tire1RimDiameter}`,
+          };
+        }
 
-          const tire1Result = calculateTireDimensions(tire1Input);
+        const tire1CalcResult = calculateTireDimensions(tire1Input);
 
-          if (!tire1Result) {
-            set({
-              tire1Result: null,
-              tire2Result: null,
-              comparisonResult: null,
-              error: "Invalid tire size format. Use format: 205/55R16 or 205/55R16 91V",
-            });
-            return;
-          }
-
-          set({ tire1Result, error: null });
-
-          // Comparison mode
-          if (state.compareMode) {
-            const comparisonResult = compareTireSizes(tire1Input, state.tire2Notation);
-
-            if (!comparisonResult) {
-              set({
-                tire2Result: null,
-                comparisonResult: null,
-                error: "Invalid comparison tire size. Use format: 205/55R16",
-              });
-              return;
-            }
-
-            set({
-              tire2Result: comparisonResult.tire2,
-              comparisonResult,
-              error: null,
-            });
-          } else {
-            set({
-              tire2Result: null,
-              comparisonResult: null,
-            });
-          }
-        } catch (err) {
+        if (!tire1CalcResult.ok) {
           set({
             tire1Result: null,
             tire2Result: null,
             comparisonResult: null,
-            error: err instanceof Error ? err.message : "Calculation failed",
+            error: "Invalid tire size format. Use format: 205/55R16 or 205/55R16 91V",
+          });
+          return;
+        }
+
+        set({ tire1Result: tire1CalcResult.value, error: null });
+
+        // Comparison mode
+        if (state.compareMode) {
+          const comparisonCalcResult = compareTireSizes(tire1Input, state.tire2Notation);
+
+          if (!comparisonCalcResult.ok) {
+            set({
+              tire2Result: null,
+              comparisonResult: null,
+              error: "Invalid comparison tire size. Use format: 205/55R16",
+            });
+            return;
+          }
+
+          set({
+            tire2Result: comparisonCalcResult.value.tire2,
+            comparisonResult: comparisonCalcResult.value,
+            error: null,
+          });
+        } else {
+          set({
+            tire2Result: null,
+            comparisonResult: null,
           });
         }
       },

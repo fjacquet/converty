@@ -255,73 +255,74 @@ export const useVehicleFinancingStore = create<VehicleFinancingState>()(
       calculate: () => {
         const state = get();
 
-        try {
-          const loanInput = {
-            vehiclePrice: state.vehiclePrice,
-            downPayment: state.downPayment,
-            tradeInValue: state.tradeInValue,
-            annualInterestRate: state.loanInterestRate,
-            loanTermMonths: state.loanTermMonths,
-            salesTaxRate: state.salesTaxRate,
-            currency: state.currency,
-            includeVAT: state.includeVAT,
-          };
+        const loanInput = {
+          vehiclePrice: state.vehiclePrice,
+          downPayment: state.downPayment,
+          tradeInValue: state.tradeInValue,
+          annualInterestRate: state.loanInterestRate,
+          loanTermMonths: state.loanTermMonths,
+          salesTaxRate: state.salesTaxRate,
+          currency: state.currency,
+          includeVAT: state.includeVAT,
+        };
 
-          const leaseInput = {
-            vehiclePrice: state.vehiclePrice,
-            downPayment: state.downPayment,
-            tradeInValue: state.tradeInValue,
-            leaseTermMonths: state.leaseTermMonths,
-            residualPercent: state.residualPercent,
-            moneyFactor: aprToMoneyFactor(state.leaseAPR),
-            annualKmLimit: state.annualKmLimit,
-            excessKmCharge: state.excessKmCharge,
-            salesTaxRate: state.salesTaxRate,
-            currency: state.currency,
-            includeVAT: state.includeVAT,
-          };
+        const leaseInput = {
+          vehiclePrice: state.vehiclePrice,
+          downPayment: state.downPayment,
+          tradeInValue: state.tradeInValue,
+          leaseTermMonths: state.leaseTermMonths,
+          residualPercent: state.residualPercent,
+          moneyFactor: aprToMoneyFactor(state.leaseAPR),
+          annualKmLimit: state.annualKmLimit,
+          excessKmCharge: state.excessKmCharge,
+          salesTaxRate: state.salesTaxRate,
+          currency: state.currency,
+          includeVAT: state.includeVAT,
+        };
 
-          switch (state.mode) {
-            case "loan": {
-              const loanResult = calculateVehicleLoan(loanInput);
-              if (loanResult) {
-                set({ loanResult, leaseResult: null, comparisonResult: null, error: null });
-              } else {
-                set({ error: "Invalid loan inputs" });
-              }
-              break;
+        switch (state.mode) {
+          case "loan": {
+            const loanCalcResult = calculateVehicleLoan(loanInput);
+            if (loanCalcResult.ok) {
+              set({
+                loanResult: loanCalcResult.value,
+                leaseResult: null,
+                comparisonResult: null,
+                error: null,
+              });
+            } else {
+              set({ error: loanCalcResult.error });
             }
-            case "lease": {
-              const leaseResult = calculateVehicleLease(leaseInput);
-              if (leaseResult) {
-                set({ loanResult: null, leaseResult, comparisonResult: null, error: null });
-              } else {
-                set({ error: "Invalid lease inputs" });
-              }
-              break;
-            }
-            case "compare": {
-              const comparisonResult = compareFinancingOptions(loanInput, leaseInput);
-              if (comparisonResult) {
-                set({
-                  loanResult: comparisonResult.loan,
-                  leaseResult: comparisonResult.lease,
-                  comparisonResult,
-                  error: null,
-                });
-              } else {
-                set({ error: "Invalid comparison inputs" });
-              }
-              break;
-            }
+            break;
           }
-        } catch (err) {
-          set({
-            loanResult: null,
-            leaseResult: null,
-            comparisonResult: null,
-            error: err instanceof Error ? err.message : "Calculation failed",
-          });
+          case "lease": {
+            const leaseCalcResult = calculateVehicleLease(leaseInput);
+            if (leaseCalcResult.ok) {
+              set({
+                loanResult: null,
+                leaseResult: leaseCalcResult.value,
+                comparisonResult: null,
+                error: null,
+              });
+            } else {
+              set({ error: leaseCalcResult.error });
+            }
+            break;
+          }
+          case "compare": {
+            const comparisonCalcResult = compareFinancingOptions(loanInput, leaseInput);
+            if (comparisonCalcResult.ok) {
+              set({
+                loanResult: comparisonCalcResult.value.loan,
+                leaseResult: comparisonCalcResult.value.lease,
+                comparisonResult: comparisonCalcResult.value,
+                error: null,
+              });
+            } else {
+              set({ error: comparisonCalcResult.error });
+            }
+            break;
+          }
         }
       },
 

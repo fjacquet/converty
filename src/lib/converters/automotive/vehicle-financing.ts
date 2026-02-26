@@ -1,3 +1,4 @@
+import type { CalculationResult } from "@/types";
 import { type Currency, formatCurrency } from "./types";
 
 /**
@@ -176,7 +177,9 @@ function calculatePMT(principal: number, monthlyRate: number, months: number): n
 /**
  * Calculate vehicle loan
  */
-export function calculateVehicleLoan(input: VehicleLoanInput): VehicleLoanResult | null {
+export function calculateVehicleLoan(
+  input: VehicleLoanInput
+): CalculationResult<VehicleLoanResult> {
   const {
     vehiclePrice,
     downPayment,
@@ -190,7 +193,11 @@ export function calculateVehicleLoan(input: VehicleLoanInput): VehicleLoanResult
 
   // Validate inputs
   if (vehiclePrice <= 0 || loanTermMonths <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Vehicle price and loan term must be greater than zero",
+      code: "INVALID_INPUT",
+    };
   }
 
   const steps: string[] = [];
@@ -217,29 +224,32 @@ export function calculateVehicleLoan(input: VehicleLoanInput): VehicleLoanResult
 
   if (loanAmount === 0) {
     return {
-      vehiclePrice,
-      salesTax,
-      totalVehicleCost,
-      downPayment,
-      tradeInValue,
-      loanAmount: 0,
-      monthlyPayment: 0,
-      totalPayments: 0,
-      totalInterest: 0,
-      totalCost: totalVehicleCost,
-      amortization: [],
-      formatted: {
-        vehiclePrice: formatCurrency(vehiclePrice, currency),
-        salesTax: formatCurrency(salesTax, currency),
-        totalVehicleCost: formatCurrency(totalVehicleCost, currency),
-        loanAmount: formatCurrency(0, currency),
-        monthlyPayment: formatCurrency(0, currency),
-        totalPayments: formatCurrency(0, currency),
-        totalInterest: formatCurrency(0, currency),
-        totalCost: formatCurrency(totalVehicleCost, currency),
+      ok: true,
+      value: {
+        vehiclePrice,
+        salesTax,
+        totalVehicleCost,
+        downPayment,
+        tradeInValue,
+        loanAmount: 0,
+        monthlyPayment: 0,
+        totalPayments: 0,
+        totalInterest: 0,
+        totalCost: totalVehicleCost,
+        amortization: [],
+        formatted: {
+          vehiclePrice: formatCurrency(vehiclePrice, currency),
+          salesTax: formatCurrency(salesTax, currency),
+          totalVehicleCost: formatCurrency(totalVehicleCost, currency),
+          loanAmount: formatCurrency(0, currency),
+          monthlyPayment: formatCurrency(0, currency),
+          totalPayments: formatCurrency(0, currency),
+          totalInterest: formatCurrency(0, currency),
+          totalCost: formatCurrency(totalVehicleCost, currency),
+        },
+        currency,
+        steps,
       },
-      currency,
-      steps,
     };
   }
 
@@ -281,29 +291,32 @@ export function calculateVehicleLoan(input: VehicleLoanInput): VehicleLoanResult
   }
 
   return {
-    vehiclePrice,
-    salesTax,
-    totalVehicleCost,
-    downPayment,
-    tradeInValue,
-    loanAmount,
-    monthlyPayment,
-    totalPayments,
-    totalInterest,
-    totalCost,
-    amortization,
-    formatted: {
-      vehiclePrice: formatCurrency(vehiclePrice, currency),
-      salesTax: formatCurrency(salesTax, currency),
-      totalVehicleCost: formatCurrency(totalVehicleCost, currency),
-      loanAmount: formatCurrency(loanAmount, currency),
-      monthlyPayment: formatCurrency(monthlyPayment, currency),
-      totalPayments: formatCurrency(totalPayments, currency),
-      totalInterest: formatCurrency(totalInterest, currency),
-      totalCost: formatCurrency(totalCost, currency),
+    ok: true,
+    value: {
+      vehiclePrice,
+      salesTax,
+      totalVehicleCost,
+      downPayment,
+      tradeInValue,
+      loanAmount,
+      monthlyPayment,
+      totalPayments,
+      totalInterest,
+      totalCost,
+      amortization,
+      formatted: {
+        vehiclePrice: formatCurrency(vehiclePrice, currency),
+        salesTax: formatCurrency(salesTax, currency),
+        totalVehicleCost: formatCurrency(totalVehicleCost, currency),
+        loanAmount: formatCurrency(loanAmount, currency),
+        monthlyPayment: formatCurrency(monthlyPayment, currency),
+        totalPayments: formatCurrency(totalPayments, currency),
+        totalInterest: formatCurrency(totalInterest, currency),
+        totalCost: formatCurrency(totalCost, currency),
+      },
+      currency,
+      steps,
     },
-    currency,
-    steps,
   };
 }
 
@@ -313,7 +326,9 @@ export function calculateVehicleLoan(input: VehicleLoanInput): VehicleLoanResult
  * Depreciation = (Capitalized Cost - Residual Value) / Lease Term
  * Finance Charge = (Capitalized Cost + Residual Value) × Money Factor
  */
-export function calculateVehicleLease(input: VehicleLeaseInput): VehicleLeaseResult | null {
+export function calculateVehicleLease(
+  input: VehicleLeaseInput
+): CalculationResult<VehicleLeaseResult> {
   const {
     vehiclePrice,
     downPayment,
@@ -330,7 +345,11 @@ export function calculateVehicleLease(input: VehicleLeaseInput): VehicleLeaseRes
 
   // Validate inputs
   if (vehiclePrice <= 0 || leaseTermMonths <= 0 || residualPercent < 0 || residualPercent > 100) {
-    return null;
+    return {
+      ok: false,
+      error: "Vehicle price, lease term must be positive and residual percent between 0 and 100",
+      code: "INVALID_INPUT",
+    };
   }
 
   const steps: string[] = [];
@@ -392,32 +411,35 @@ export function calculateVehicleLease(input: VehicleLeaseInput): VehicleLeaseRes
   steps.push(`Excess km charge: ${formatCurrency(excessKmCharge, currency)}/km`);
 
   return {
-    vehiclePrice,
-    salesTax,
-    capitalizedCost,
-    residualValue,
-    residualPercent,
-    depreciation,
-    financeCharge,
-    monthlyPayment,
-    totalPayments,
-    totalCost,
-    annualKmLimit,
-    totalKmLimit,
-    excessKmCharge,
-    equivalentAPR,
-    formatted: {
-      vehiclePrice: formatCurrency(vehiclePrice, currency),
-      capitalizedCost: formatCurrency(capitalizedCost, currency),
-      residualValue: formatCurrency(residualValue, currency),
-      depreciation: formatCurrency(depreciation, currency),
-      financeCharge: formatCurrency(financeCharge, currency),
-      monthlyPayment: formatCurrency(monthlyPayment, currency),
-      totalPayments: formatCurrency(totalPayments, currency),
-      totalCost: formatCurrency(totalCost, currency),
+    ok: true,
+    value: {
+      vehiclePrice,
+      salesTax,
+      capitalizedCost,
+      residualValue,
+      residualPercent,
+      depreciation,
+      financeCharge,
+      monthlyPayment,
+      totalPayments,
+      totalCost,
+      annualKmLimit,
+      totalKmLimit,
+      excessKmCharge,
+      equivalentAPR,
+      formatted: {
+        vehiclePrice: formatCurrency(vehiclePrice, currency),
+        capitalizedCost: formatCurrency(capitalizedCost, currency),
+        residualValue: formatCurrency(residualValue, currency),
+        depreciation: formatCurrency(depreciation, currency),
+        financeCharge: formatCurrency(financeCharge, currency),
+        monthlyPayment: formatCurrency(monthlyPayment, currency),
+        totalPayments: formatCurrency(totalPayments, currency),
+        totalCost: formatCurrency(totalCost, currency),
+      },
+      currency,
+      steps,
     },
-    currency,
-    steps,
   };
 }
 
@@ -427,13 +449,19 @@ export function calculateVehicleLease(input: VehicleLeaseInput): VehicleLeaseRes
 export function compareFinancingOptions(
   loanInput: VehicleLoanInput,
   leaseInput: VehicleLeaseInput
-): FinancingComparisonResult | null {
-  const loan = calculateVehicleLoan(loanInput);
-  const lease = calculateVehicleLease(leaseInput);
+): CalculationResult<FinancingComparisonResult> {
+  const loanResult = calculateVehicleLoan(loanInput);
+  const leaseResult = calculateVehicleLease(leaseInput);
 
-  if (!loan || !lease) {
-    return null;
+  if (!loanResult.ok) {
+    return { ok: false, error: `Loan: ${loanResult.error}`, code: "INVALID_INPUT" };
   }
+  if (!leaseResult.ok) {
+    return { ok: false, error: `Lease: ${leaseResult.error}`, code: "INVALID_INPUT" };
+  }
+
+  const loan = loanResult.value;
+  const lease = leaseResult.value;
 
   const steps: string[] = [];
 
@@ -468,19 +496,22 @@ export function compareFinancingOptions(
   steps.push(`Recommendation: ${recommendation}`);
 
   return {
-    loan,
-    lease,
-    loanMonthlyPayment: loan.monthlyPayment,
-    leaseMonthlyPayment: lease.monthlyPayment,
-    monthlyDifference,
-    loanTotalCost: loan.totalCost,
-    leaseTotalCost: lease.totalCost,
-    totalCostDifference,
-    lowerMonthlyPayment,
-    lowerTotalCost,
-    recommendation,
-    currency: loan.currency,
-    steps,
+    ok: true,
+    value: {
+      loan,
+      lease,
+      loanMonthlyPayment: loan.monthlyPayment,
+      leaseMonthlyPayment: lease.monthlyPayment,
+      monthlyDifference,
+      loanTotalCost: loan.totalCost,
+      leaseTotalCost: lease.totalCost,
+      totalCostDifference,
+      lowerMonthlyPayment,
+      lowerTotalCost,
+      recommendation,
+      currency: loan.currency,
+      steps,
+    },
   };
 }
 

@@ -145,19 +145,16 @@ export const useFoodCostStore = create<FoodCostState>()(
           return;
         }
 
-        try {
-          const result = calculateFoodCost({
-            recipeName: recipeName || "Untitled Recipe",
-            servings,
-            currency,
-            ingredients: validIngredients,
-          });
-          set({ result, error: null });
-        } catch (err) {
-          set({
-            result: null,
-            error: err instanceof Error ? err.message : "Calculation failed",
-          });
+        const calcResult = calculateFoodCost({
+          recipeName: recipeName || "Untitled Recipe",
+          servings,
+          currency,
+          ingredients: validIngredients,
+        });
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

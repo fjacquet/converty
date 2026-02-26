@@ -18,15 +18,14 @@ const makeIngredient = (
 });
 
 describe("calculateFoodCost", () => {
-  it("throws when servings = 0", () => {
-    expect(() =>
-      calculateFoodCost({
-        recipeName: "Test",
-        servings: 0,
-        currency: "USD",
-        ingredients: [],
-      })
-    ).toThrow();
+  it("returns ok: false when servings = 0", () => {
+    const result = calculateFoodCost({
+      recipeName: "Test",
+      servings: 0,
+      currency: "USD",
+      ingredients: [],
+    });
+    expect(result.ok).toBe(false);
   });
 
   it("returns 0 cost for empty ingredients", () => {
@@ -36,9 +35,12 @@ describe("calculateFoodCost", () => {
       currency: "USD",
       ingredients: [],
     });
-    expect(result.totalCost).toBe(0);
-    expect(result.costPerServing).toBe(0);
-    expect(result.ingredientBreakdown).toHaveLength(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalCost).toBe(0);
+      expect(result.value.costPerServing).toBe(0);
+      expect(result.value.ingredientBreakdown).toHaveLength(0);
+    }
   });
 
   it("$10 ingredient for 4 servings = $2.50 per serving", () => {
@@ -49,8 +51,11 @@ describe("calculateFoodCost", () => {
       ingredients: [makeIngredient("flour", 10, "kg", 1, "kg")],
     };
     const result = calculateFoodCost(input);
-    expect(result.totalCost).toBe(10);
-    expect(result.costPerServing).toBeCloseTo(2.5, 2);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalCost).toBe(10);
+      expect(result.value.costPerServing).toBeCloseTo(2.5, 2);
+    }
   });
 
   it("calculates cost for 500g from 1kg-priced ingredient", () => {
@@ -62,7 +67,10 @@ describe("calculateFoodCost", () => {
       ingredients: [makeIngredient("sugar", 10, "kg", 500, "g")],
     };
     const result = calculateFoodCost(input);
-    expect(result.totalCost).toBeCloseTo(5, 2);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalCost).toBeCloseTo(5, 2);
+    }
   });
 
   it("sums multiple ingredients correctly", () => {
@@ -77,8 +85,11 @@ describe("calculateFoodCost", () => {
       ],
     };
     const result = calculateFoodCost(input);
-    expect(result.totalCost).toBeCloseTo(4.5, 2);
-    expect(result.costPerServing).toBeCloseTo(1.125, 2);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalCost).toBeCloseTo(4.5, 2);
+      expect(result.value.costPerServing).toBeCloseTo(1.125, 2);
+    }
   });
 
   it("identifies most and least expensive ingredients", () => {
@@ -92,8 +103,11 @@ describe("calculateFoodCost", () => {
       ],
     };
     const result = calculateFoodCost(input);
-    expect(result.mostExpensiveIngredient).toBe("expensive");
-    expect(result.leastExpensiveIngredient).toBe("cheap");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.mostExpensiveIngredient).toBe("expensive");
+      expect(result.value.leastExpensiveIngredient).toBe("cheap");
+    }
   });
 
   it("calculates percentage of total for each ingredient", () => {
@@ -107,9 +121,12 @@ describe("calculateFoodCost", () => {
       ],
     };
     const result = calculateFoodCost(input);
-    result.ingredientBreakdown.forEach((item) => {
-      expect(item.percentageOfTotal).toBeCloseTo(50, 1);
-    });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      result.value.ingredientBreakdown.forEach((item) => {
+        expect(item.percentageOfTotal).toBeCloseTo(50, 1);
+      });
+    }
   });
 
   it("handles piece unit pricing", () => {
@@ -129,6 +146,9 @@ describe("calculateFoodCost", () => {
       ],
     };
     const result = calculateFoodCost(input);
-    expect(result.totalCost).toBeCloseTo(1.5, 2);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalCost).toBeCloseTo(1.5, 2);
+    }
   });
 });

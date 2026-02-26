@@ -39,42 +39,53 @@ describe("parseTireNotation", () => {
 });
 
 describe("calculateTireDimensions", () => {
-  it("returns null for invalid tire notation string", () => {
-    expect(calculateTireDimensions("invalid-notation")).toBeNull();
+  it("returns ok: false for invalid tire notation string", () => {
+    const result = calculateTireDimensions("invalid-notation");
+    expect(result.ok).toBe(false);
   });
 
   it("calculates sidewall height for 225/45R17", () => {
     const result = calculateTireDimensions("225/45R17");
-    expect(result).not.toBeNull();
-    // sidewall = 225 * 0.45 = 101.25mm
-    expect(result!.sidewallHeight).toBeCloseTo(101.25, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      // sidewall = 225 * 0.45 = 101.25mm
+      expect(result.value.sidewallHeight).toBeCloseTo(101.25, 1);
+    }
   });
 
   it("calculates overall diameter for 225/45R17", () => {
     const result = calculateTireDimensions("225/45R17");
-    expect(result).not.toBeNull();
-    // rimDiameterMm = 17 * 25.4 = 431.8mm
-    // overallDiameter = 431.8 + 2*101.25 = 634.3mm
-    expect(result!.overallDiameter).toBeCloseTo(634.3, 0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      // rimDiameterMm = 17 * 25.4 = 431.8mm
+      // overallDiameter = 431.8 + 2*101.25 = 634.3mm
+      expect(result.value.overallDiameter).toBeCloseTo(634.3, 0);
+    }
   });
 
   it("calculates circumference from diameter", () => {
     const result = calculateTireDimensions("225/45R17");
-    expect(result).not.toBeNull();
-    expect(result!.circumference).toBeCloseTo(Math.PI * result!.overallDiameter, 0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.circumference).toBeCloseTo(Math.PI * result.value.overallDiameter, 0);
+    }
   });
 
   it("calculates revolurionsPerKm", () => {
     const result = calculateTireDimensions("225/45R17");
-    expect(result).not.toBeNull();
-    expect(result!.revolutionsPerKm).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.revolutionsPerKm).toBeGreaterThan(0);
+    }
   });
 
   it("provides cm dimensions", () => {
     const result = calculateTireDimensions("225/45R17");
-    expect(result).not.toBeNull();
-    expect(result!.sidewallHeightCm).toBeCloseTo(result!.sidewallHeight / 10, 3);
-    expect(result!.overallDiameterCm).toBeCloseTo(result!.overallDiameter / 10, 3);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.sidewallHeightCm).toBeCloseTo(result.value.sidewallHeight / 10, 3);
+      expect(result.value.overallDiameterCm).toBeCloseTo(result.value.overallDiameter / 10, 3);
+    }
   });
 
   it("accepts TireSizeComponents object as input", () => {
@@ -86,33 +97,42 @@ describe("calculateTireDimensions", () => {
       notation: "205/55R16",
     };
     const result = calculateTireDimensions(components);
-    expect(result).not.toBeNull();
-    expect(result!.components.width).toBe(205);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.components.width).toBe(205);
+    }
   });
 });
 
 describe("compareTireSizes", () => {
-  it("returns null when one tire notation is invalid", () => {
-    expect(compareTireSizes("225/45R17", "invalid")).toBeNull();
+  it("returns ok: false when one tire notation is invalid", () => {
+    const result = compareTireSizes("225/45R17", "invalid");
+    expect(result.ok).toBe(false);
   });
 
   it("compares same tire size with 0% difference", () => {
     const result = compareTireSizes("225/45R17", "225/45R17");
-    expect(result).not.toBeNull();
-    expect(result!.diameterDifferencePercent).toBeCloseTo(0, 4);
-    expect(result!.withinTolerance).toBe(true);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.diameterDifferencePercent).toBeCloseTo(0, 4);
+      expect(result.value.withinTolerance).toBe(true);
+    }
   });
 
   it("detects diameter difference between different sizes", () => {
     const result = compareTireSizes("205/55R16", "225/45R17");
-    expect(result).not.toBeNull();
-    expect(Math.abs(result!.diameterDifferenceMm)).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(Math.abs(result.value.diameterDifferenceMm)).toBeGreaterThan(0);
+    }
   });
 
   it("calculates speedometer error percentage", () => {
     const result = compareTireSizes("205/55R16", "225/45R17");
-    expect(result).not.toBeNull();
-    expect(typeof result!.speedometerErrorPercent).toBe("number");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(typeof result.value.speedometerErrorPercent).toBe("number");
+    }
   });
 });
 

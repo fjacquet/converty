@@ -141,19 +141,16 @@ export const useRecipeScalerStore = create<RecipeScalerState>()(
           return;
         }
 
-        try {
-          const result = scaleRecipe({
-            recipeName: recipeName || "Untitled Recipe",
-            originalServings,
-            desiredServings,
-            ingredients: validIngredients,
-          });
-          set({ result, error: null });
-        } catch (err) {
-          set({
-            result: null,
-            error: err instanceof Error ? err.message : "Scaling failed",
-          });
+        const calcResult = scaleRecipe({
+          recipeName: recipeName || "Untitled Recipe",
+          originalServings,
+          desiredServings,
+          ingredients: validIngredients,
+        });
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

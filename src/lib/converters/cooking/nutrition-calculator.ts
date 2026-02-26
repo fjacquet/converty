@@ -1,6 +1,7 @@
 // src/lib/converters/cooking/nutrition-calculator.ts
 
 import foodsData from "@/lib/data/foods-cooking.json";
+import type { CalculationResult } from "@/types";
 
 export interface NutritionFacts {
   calories: number;
@@ -189,23 +190,26 @@ function calculateCalorieBreakdown(nutrition: NutritionFacts): CalorieBreakdown 
 /**
  * Main nutrition calculation function
  */
-export function calculateNutrition(input: NutritionInput): NutritionResult {
+export function calculateNutrition(input: NutritionInput): CalculationResult<NutritionResult> {
   const { selectedFoods } = input;
   const steps: string[] = [];
 
   if (selectedFoods.length === 0) {
     return {
-      totalNutrition: createEmptyNutrition(),
-      breakdown: [],
-      calorieBreakdown: {
-        fromProtein: 0,
-        fromCarbs: 0,
-        fromFat: 0,
-        proteinPercent: 0,
-        carbsPercent: 0,
-        fatPercent: 0,
+      ok: true,
+      value: {
+        totalNutrition: createEmptyNutrition(),
+        breakdown: [],
+        calorieBreakdown: {
+          fromProtein: 0,
+          fromCarbs: 0,
+          fromFat: 0,
+          proteinPercent: 0,
+          carbsPercent: 0,
+          fatPercent: 0,
+        },
+        steps: ["No foods selected"],
       },
-      steps: ["No foods selected"],
     };
   }
 
@@ -256,10 +260,13 @@ export function calculateNutrition(input: NutritionInput): NutritionResult {
   );
 
   return {
-    totalNutrition,
-    breakdown,
-    calorieBreakdown,
-    steps,
+    ok: true,
+    value: {
+      totalNutrition,
+      breakdown,
+      calorieBreakdown,
+      steps,
+    },
   };
 }
 

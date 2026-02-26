@@ -1,3 +1,4 @@
+import type { CalculationResult } from "@/types";
 import { type Currency, type EfficiencyRating, formatCurrency, getEfficiencyRating } from "./types";
 
 export type CalculationMode = "consumption" | "tripPlanning" | "comparison";
@@ -108,7 +109,9 @@ export function calculateConsumption(distanceKm: number, fuelLiters: number): nu
 /**
  * Main fuel efficiency calculation function
  */
-export function calculateFuelEfficiency(input: FuelEfficiencyInput): FuelEfficiencyResult | null {
+export function calculateFuelEfficiency(
+  input: FuelEfficiencyInput
+): CalculationResult<FuelEfficiencyResult> {
   const {
     mode,
     distanceKm,
@@ -130,7 +133,11 @@ export function calculateFuelEfficiency(input: FuelEfficiencyInput): FuelEfficie
   switch (mode) {
     case "consumption":
       if (!distanceKm || !fuelLiters || distanceKm <= 0 || fuelLiters <= 0) {
-        return null;
+        return {
+          ok: false,
+          error: "Distance and fuel amount must be greater than zero",
+          code: "INVALID_INPUT",
+        };
       }
       lPer100km = calculateConsumption(distanceKm, fuelLiters);
       steps.push(`Consumption = (${fuelLiters} L / ${distanceKm} km) × 100`);
@@ -139,7 +146,7 @@ export function calculateFuelEfficiency(input: FuelEfficiencyInput): FuelEfficie
 
     case "tripPlanning":
       if (!consumptionLPer100km || consumptionLPer100km <= 0) {
-        return null;
+        return { ok: false, error: "Consumption must be greater than zero", code: "INVALID_INPUT" };
       }
       lPer100km = consumptionLPer100km;
       steps.push(`Using consumption: ${lPer100km.toFixed(2)} L/100km`);
@@ -152,7 +159,11 @@ export function calculateFuelEfficiency(input: FuelEfficiencyInput): FuelEfficie
         vehicle1LPer100km <= 0 ||
         vehicle2LPer100km <= 0
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "Both vehicle consumption values must be greater than zero",
+          code: "INVALID_INPUT",
+        };
       }
       lPer100km = vehicle1LPer100km; // Use vehicle 1 as reference
       steps.push(`Vehicle 1: ${vehicle1LPer100km.toFixed(2)} L/100km`);
@@ -257,7 +268,7 @@ export function calculateFuelEfficiency(input: FuelEfficiencyInput): FuelEfficie
     }
   }
 
-  return result;
+  return { ok: true, value: result };
 }
 
 /**

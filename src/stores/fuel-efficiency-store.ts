@@ -219,18 +219,11 @@ export const useFuelEfficiencyStore = create<FuelEfficiencyState>()(
           annualDistanceKm: state.annualDistanceKm,
         };
 
-        try {
-          const result = calculateFuelEfficiency(input);
-          if (result) {
-            set({ result, error: null });
-          } else {
-            set({ result: null, error: "Invalid input values" });
-          }
-        } catch (err) {
-          set({
-            result: null,
-            error: err instanceof Error ? err.message : "Calculation failed",
-          });
+        const calcResult = calculateFuelEfficiency(input);
+        if (calcResult.ok) {
+          set({ result: calcResult.value, error: null });
+        } else {
+          set({ result: null, error: calcResult.error });
         }
       },
 

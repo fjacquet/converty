@@ -9,57 +9,80 @@ import {
 describe("convertCookingUnit - volume to volume", () => {
   it("1 cup = 16 tablespoons", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "cup", toUnit: "tbsp" });
-    expect(result.convertedAmount).toBeCloseTo(16, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(16, 1);
+    }
   });
 
   it("1 tablespoon = 3 teaspoons", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "tbsp", toUnit: "tsp" });
-    expect(result.convertedAmount).toBeCloseTo(3, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(3, 1);
+    }
   });
 
   it("1 cup = 48 teaspoons", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "cup", toUnit: "tsp" });
-    expect(result.convertedAmount).toBeCloseTo(48, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(48, 1);
+    }
   });
 
   it("1 L = 1000 mL", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "l", toUnit: "ml" });
-    expect(result.convertedAmount).toBeCloseTo(1000, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(1000, 1);
+    }
   });
 
-  it("returns 0 for amount = 0", () => {
+  it("returns ok: false for amount = 0", () => {
     const result = convertCookingUnit({ amount: 0, fromUnit: "cup", toUnit: "tbsp" });
-    expect(result.convertedAmount).toBe(0);
+    expect(result.ok).toBe(false);
   });
 
   it("returns formula string", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "cup", toUnit: "tbsp" });
-    expect(result.formula.length).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.formula.length).toBeGreaterThan(0);
+    }
   });
 });
 
 describe("convertCookingUnit - weight to weight", () => {
   it("1 kg = 1000 g", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "kg", toUnit: "g" });
-    expect(result.convertedAmount).toBeCloseTo(1000, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(1000, 1);
+    }
   });
 
   it("1 lb ≈ 453.59 g", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "lb", toUnit: "g" });
-    expect(result.convertedAmount).toBeCloseTo(453.6, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(453.6, 1);
+    }
   });
 
   it("1 oz ≈ 28.35 g", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "oz", toUnit: "g" });
-    expect(result.convertedAmount).toBeCloseTo(28.35, 1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(28.35, 1);
+    }
   });
 });
 
 describe("convertCookingUnit - cross-type without ingredient", () => {
-  it("requires ingredient for cup to g conversion", () => {
+  it("returns ok: false for cup to g conversion without ingredient", () => {
     const result = convertCookingUnit({ amount: 1, fromUnit: "cup", toUnit: "g" });
-    expect(result.requiresIngredient).toBe(true);
-    expect(result.convertedAmount).toBe(0);
+    expect(result.ok).toBe(false);
   });
 });
 
@@ -71,7 +94,10 @@ describe("it.each volume conversions", () => {
     [2, "cup" as const, "ml" as const, 480],
   ])("%d %s = %d %s", (amount, fromUnit, toUnit, expected) => {
     const result = convertCookingUnit({ amount, fromUnit, toUnit });
-    expect(result.convertedAmount).toBeCloseTo(expected, 0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedAmount).toBeCloseTo(expected, 0);
+    }
   });
 });
 
