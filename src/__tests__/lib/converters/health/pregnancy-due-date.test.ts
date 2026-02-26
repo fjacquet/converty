@@ -13,10 +13,10 @@ describe("calculateDueDate", () => {
 
   describe("LMP method — Naegele's rule (standard 28-day cycle)", () => {
     it("calculates due date as LMP + 280 days", () => {
-      // LMP 2024-01-01 + 280 days = 2024-10-06
+      // LMP 2024-01-01 + 280 days = 2024-10-07 (2024 is a leap year: 29 days in Feb)
       const result = calculateDueDate({ calculationMethod: "lmp", date: "2024-01-01" });
       expect(result.ok).toBe(true);
-      expect((result as { ok: true; value: any }).value.dueDate).toBe("2024-10-06");
+      expect((result as { ok: true; value: any }).value.dueDate).toBe("2024-10-07");
     });
 
     it("conception date is LMP + 14 days", () => {
@@ -28,15 +28,10 @@ describe("calculateDueDate", () => {
 
   describe("conception method", () => {
     it("due date is conception + 266 days", () => {
-      // 2024-01-01 + 266 days = 2024-09-23
+      // 2024-01-01 + 266 days = 2024-09-23 (UTC-consistent: Jan 30+Feb 29+Mar 31+Apr 30+May 31+Jun 30+Jul 31+Aug 31+Sep 23 = 266)
       const result = calculateDueDate({ calculationMethod: "conception", date: "2024-01-01" });
       expect(result.ok).toBe(true);
-      const conception = new Date("2024-01-01");
-      const expected = new Date(conception);
-      expected.setDate(expected.getDate() + 266);
-      expect((result as { ok: true; value: any }).value.dueDate).toBe(
-        expected.toISOString().split("T")[0]
-      );
+      expect((result as { ok: true; value: any }).value.dueDate).toBe("2024-09-23");
     });
   });
 
@@ -54,8 +49,8 @@ describe("calculateDueDate", () => {
         (m: { week: number; date: string }) => m.week === 40
       );
       expect(week40).toBeDefined();
-      // Milestone week 40 = LMP + 40×7 = 2024-01-01 + 280 = 2024-10-06
-      expect(week40?.date).toBe("2024-10-06");
+      // Milestone week 40 = LMP + 40×7 = 2024-01-01 + 280 = 2024-10-07 (2024 is a leap year)
+      expect(week40?.date).toBe("2024-10-07");
     });
   });
 

@@ -39,8 +39,20 @@ export function calculateDueDate(input: DueDateInput): CalculationResult<DueDate
     return { ok: false, error: "Invalid date provided", code: "INVALID_INPUT" };
   }
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  // Use UTC midnight to avoid timezone-dependent date arithmetic
+  const inputMs = Date.UTC(
+    inputDate.getUTCFullYear(),
+    inputDate.getUTCMonth(),
+    inputDate.getUTCDate()
+  );
+  const MS_PER_DAY = 86_400_000;
+  const addDays = (ms: number, days: number) => new Date(ms + days * MS_PER_DAY);
+
+  const todayMs = Date.UTC(
+    new Date().getUTCFullYear(),
+    new Date().getUTCMonth(),
+    new Date().getUTCDate()
+  );
 
   let conceptionDate: Date;
   let dueDate: Date;
@@ -49,51 +61,42 @@ export function calculateDueDate(input: DueDateInput): CalculationResult<DueDate
     case "lmp": {
       // Naegele's rule: LMP + 280 days (adjusted for cycle length)
       const cycleAdjustment = cycleLength - 28;
-      conceptionDate = new Date(inputDate);
-      conceptionDate.setDate(conceptionDate.getDate() + 14 + cycleAdjustment);
-      dueDate = new Date(inputDate);
-      dueDate.setDate(dueDate.getDate() + 280 + cycleAdjustment);
+      conceptionDate = addDays(inputMs, 14 + cycleAdjustment);
+      dueDate = addDays(inputMs, 280 + cycleAdjustment);
       break;
     }
     case "conception": {
-      conceptionDate = new Date(inputDate);
-      dueDate = new Date(inputDate);
-      dueDate.setDate(dueDate.getDate() + 266); // 38 weeks from conception
+      conceptionDate = new Date(inputMs);
+      dueDate = addDays(inputMs, 266); // 38 weeks from conception
       break;
     }
     case "ultrasound": {
       // Calculate backwards from ultrasound gestational age
       const gestationalDays = ultrasoundWeeks * 7 + ultrasoundDays;
-      conceptionDate = new Date(inputDate);
-      conceptionDate.setDate(conceptionDate.getDate() - gestationalDays + 14);
-      dueDate = new Date(inputDate);
-      dueDate.setDate(dueDate.getDate() + (280 - gestationalDays));
+      conceptionDate = addDays(inputMs, -gestationalDays + 14);
+      dueDate = addDays(inputMs, 280 - gestationalDays);
       break;
     }
     case "ivf": {
       // IVF transfer date + 266 days (for day 0 embryo) or adjusted
-      conceptionDate = new Date(inputDate);
-      dueDate = new Date(inputDate);
-      dueDate.setDate(dueDate.getDate() + 266);
+      conceptionDate = new Date(inputMs);
+      dueDate = addDays(inputMs, 266);
       break;
     }
     default:
       return { ok: false, error: "Invalid calculation method", code: "INVALID_INPUT" };
   }
 
-  // Calculate current gestational age
-  const lmpDate = new Date(conceptionDate);
-  lmpDate.setDate(lmpDate.getDate() - 14); // LMP is 14 days before conception
+  // Calculate current gestational age (UTC-consistent)
+  const lmpMs = conceptionDate.getTime() - 14 * MS_PER_DAY; // LMP is 14 days before conception
+  const lmpDate = new Date(lmpMs);
 
-  const daysSinceLmp = Math.floor((today.getTime() - lmpDate.getTime()) / (1000 * 60 * 60 * 24));
+  const daysSinceLmp = Math.floor((todayMs - lmpMs) / MS_PER_DAY);
   const totalDays = Math.max(0, daysSinceLmp);
   const currentWeeks = Math.floor(totalDays / 7);
   const currentDays = totalDays % 7;
 
-  const daysRemaining = Math.max(
-    0,
-    Math.floor((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-  );
+  const daysRemaining = Math.max(0, Math.floor((dueDate.getTime() - todayMs) / MS_PER_DAY));
 
   // Determine trimester
   let trimester: 1 | 2 | 3;
@@ -125,8 +128,7 @@ export function calculateDueDate(input: DueDateInput): CalculationResult<DueDate
   ];
 
   const milestones = milestonesData.map(({ week, name }) => {
-    const milestoneDate = new Date(lmpDate);
-    milestoneDate.setDate(milestoneDate.getDate() + week * 7);
+    const milestoneDate = addDays(lmpMs, week * 7);
     return {
       week,
       name,
