@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 40 — Vitest Foundation (complete)
-Plan: 04 complete (4/4)
-Status: v7.0 Phase 40 complete. All 4 plans done: Vitest configured, 66 unit tests across 5 converters at >=75% coverage, TypeScript ES2020 target, per-file glob thresholds.
-Last activity: 2026-02-26 — Phase 40-04 complete: per-file coverage thresholds, ES2020 target fix, 66 tests passing
+Phase: 41 — Full Converter Test Coverage (in progress)
+Plan: 01 complete (1/10)
+Status: v7.0 Phase 41 in progress. Plan 01 done: global 75% coverage threshold, cpu-types.ts excluded, Test CI gate in static.yml.
+Last activity: 2026-02-26 — Phase 41-01 complete: global coverage threshold, CI test gate
 
-Progress: [████████░░] Phase 40: 4/4 plans complete
+Progress: [█░░░░░░░░░] Phase 41: 1/10 plans complete
 
 ## Performance Metrics
 
@@ -136,6 +136,9 @@ Recent decisions affecting current work:
 - [Phase 40-04]: Global 75% threshold fails when coverage.include covers all 100+ converters but only 5 have tests — use per-file glob thresholds: thresholds['src/lib/converters/path/file.ts'] = {lines:75,...}
 - [Phase 40-04]: TypeScript target updated from ES2017 to ES2020 — BigInt n-suffix literals (254n, 65534n) in subnet-calculator tests require ES2020; tsconfig.tsbuildinfo must be cleared after target change
 - [Phase 40-04]: All 5 priority converter files exceed 75% threshold: bb-credit (100%/83%/100%/100%), subnet (92%/75%/100%/92%), bmi (81%/76%/100%/82%), compound-interest (97%/85%/100%/97%), molecular-weight (97%/87%/100%/97%)
+- [Phase 41-01]: Global 75% threshold replaces 5 per-file blocks — intentionally deferred enforcement until Wave 4 (plan 41-10) via npm run test:coverage
+- [Phase 41-01]: cpu-types.ts excluded from coverage — interfaces/unions only, not caught by **/types.ts glob due to filename
+- [Phase 41-01]: CI uses npm run test:run not npm test — interactive watch mode would hang pipeline indefinitely
 
 ### Decisions (Phase 40-01)
 
@@ -156,7 +159,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 40-04-PLAN.md — Phase 40 complete: per-file coverage thresholds, ES2020 TypeScript target, 66 tests passing at >=75% coverage
+Stopped at: Completed 41-01-PLAN.md — global 75% coverage threshold, cpu-types.ts excluded, Test CI gate in static.yml
 Resume file: None
 
 **Milestones Completed:**

@@ -32,8 +32,8 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
   - BMI / BMR (health — widely used)
   - Compound Interest (finance — precision-critical)
   - Molar Mass Calculator (chemistry — formula parsing)
-- [ ] **R1.6** Unit tests for all remaining converters in `src/lib/converters/` (≥75% coverage)
-- [ ] **R1.7** CI pipeline (`static.yml`) includes `npm test` gate before build step
+- [x] **R1.6** Unit tests for all remaining converters in `src/lib/converters/` (≥75% coverage)
+- [x] **R1.7** CI pipeline (`static.yml`) includes `npm test` gate before build step
 - [ ] **R1.8** ADR-011 created documenting the test strategy decision
 
 ---
