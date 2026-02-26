@@ -53,7 +53,7 @@ function formatDelta(value: number, reverseColor = false): { text: string; class
 
 export function ServerRefreshCalculator() {
   const t = useTranslations("converters.server-refresh-calculator");
-  const { values, setValue, result } = useServerRefreshStore();
+  const { values, setValue, result, calculationError } = useServerRefreshStore();
 
   const cpuList = useMemo(() => getServerRefreshCpus(), []);
 
@@ -407,6 +407,8 @@ export function ServerRefreshCalculator() {
           </Card>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

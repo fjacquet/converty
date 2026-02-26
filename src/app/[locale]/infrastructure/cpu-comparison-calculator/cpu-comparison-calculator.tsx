@@ -33,7 +33,7 @@ const useCpuComparisonStore = createCalculatorStore<CpuComparisonInput, CpuCompa
 
 export function CpuComparisonCalculator() {
   const t = useTranslations("converters.cpu-comparison-calculator");
-  const { values, setValue, result } = useCpuComparisonStore();
+  const { values, setValue, result, calculationError } = useCpuComparisonStore();
 
   const filteredCpus = useMemo(
     () => getFilteredCpus(values.vendor, values.generation),
@@ -301,6 +301,8 @@ export function CpuComparisonCalculator() {
           </Card>
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
