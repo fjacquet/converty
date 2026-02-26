@@ -2,6 +2,7 @@
 
 import { FileText } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { exportToPdf, type PdfExportOptions, type PdfSection } from "@/lib/utils/pdf-export";
 
@@ -23,17 +24,24 @@ export function PdfExportButton({
   disabled = false,
 }: PdfExportButtonProps) {
   const t = useTranslations("calculator.export");
+  const tToast = useTranslations("common.toast");
 
   const handleExport = () => {
-    // Generate timestamp for filename
-    const timestamp = new Date().toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "-");
+    try {
+      // Generate timestamp for filename
+      const timestamp = new Date().toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "-");
 
-    // Compute base filename
-    const baseFilename = options.filename || options.title.toLowerCase().replace(/\s+/g, "-");
-    const fullFilename = `${baseFilename}_${timestamp}.pdf`;
+      // Compute base filename
+      const baseFilename = options.filename || options.title.toLowerCase().replace(/\s+/g, "-");
+      const fullFilename = `${baseFilename}_${timestamp}.pdf`;
 
-    // Export with timestamped filename
-    exportToPdf(sections, { ...options, filename: fullFilename });
+      // Export with timestamped filename
+      exportToPdf(sections, { ...options, filename: fullFilename });
+      toast.success(tToast("pdfExportSuccess"));
+    } catch (error) {
+      console.error("PDF export failed:", error);
+      toast.error(tToast("pdfExportError"));
+    }
   };
 
   return (

@@ -2,6 +2,7 @@
 
 import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { type CsvRow, exportToCsv } from "@/lib/utils/csv-export";
 
@@ -23,16 +24,23 @@ export function CsvExportButton({
   disabled = false,
 }: CsvExportButtonProps) {
   const t = useTranslations("calculator.export");
+  const tToast = useTranslations("common.toast");
 
   const handleExport = () => {
-    // Generate timestamp for filename
-    const timestamp = new Date().toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "-");
+    try {
+      // Generate timestamp for filename
+      const timestamp = new Date().toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "-");
 
-    // Compute full filename with timestamp
-    const fullFilename = `${filename}_${timestamp}.csv`;
+      // Compute full filename with timestamp
+      const fullFilename = `${filename}_${timestamp}.csv`;
 
-    // Export CSV
-    exportToCsv(data, { filename: fullFilename });
+      // Export CSV
+      exportToCsv(data, { filename: fullFilename });
+      toast.success(tToast("csvExportSuccess"));
+    } catch (error) {
+      console.error("CSV export failed:", error);
+      toast.error(tToast("csvExportError"));
+    }
   };
 
   return (
