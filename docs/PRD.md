@@ -1,6 +1,6 @@
 # Product Requirements Document — Converty
 
-**Version:** 6.0
+**Version:** 7.0
 **Last Updated:** 2026-02-26
 **Status:** Living document — updated at each milestone
 
@@ -201,7 +201,24 @@ Molecular weight, molarity, dilution, stoichiometry, pH/buffer, periodic table.
 
 VM storage, server virtualization, Kubernetes capacity, vSphere ESX sizing, VMware licensing, TCO, Hyper-V consolidation, Windows Server licensing, hypervisor comparison.
 
-### 5.3 In-Progress: v6.0 CPU Performance & Server Refresh
+### 5.3 In-Progress: v7.0 Framework & Quality Migration
+
+| ID | Requirement | Status |
+|----|-------------|--------|
+| FQ-01 | Vitest test foundation — 5 priority converters with ≥75% coverage | ✅ Shipped Phase 40 |
+| FQ-02 | Full test coverage — all 19 converter categories, CI gate in static.yml | ✅ Shipped Phase 41 |
+| FQ-03 | Error boundaries via react-error-boundary wrapping all 169 calculators | ✅ Shipped Phase 42 |
+| FQ-04 | Sonner toast notifications for copy/export/clipboard operations | ✅ Shipped Phase 42 |
+| FQ-05 | isomorphic-dompurify sanitize utility for safe HTML rendering | ✅ Shipped Phase 42 |
+| FQ-06 | Zod v4 input validation — 100+ schemas across 15 category schema files | ✅ Shipped Phase 43 |
+| FQ-07 | `schema?` param in `createCalculatorStore` for opt-in Zod validation | ✅ Shipped Phase 43 |
+| FQ-08 | Zod URL param helpers for type-safe URL state parsing | ✅ Shipped Phase 43 |
+| FQ-09 | Field-level validation errors wired into 71 store-based calculator components | ✅ Shipped Phase 43 |
+| FQ-10 | Phases 44–48 (pending) | 🔄 Planned |
+
+**Test coverage achieved (Phase 41):** 2281 tests, 196 test files, 19 categories, 86% line coverage, 91% branch coverage.
+
+### 5.4 Pending: v6.0 CPU Performance & Server Refresh
 
 | ID | Requirement | Status |
 |----|-------------|--------|
@@ -273,6 +290,10 @@ VM storage, server virtualization, Kubernetes capacity, vSphere ESX sizing, VMwa
 | Zero Biome lint errors | ✅ CI enforced |
 | Pre-commit hook runs in < 5s | ✅ Biome Rust speed |
 | All reference data sourced from standards | ✅ IUPAC, ASTM, AISC, NIST |
+| Vitest test suite — ≥75% line coverage | ✅ Shipped v7.0 (86% achieved) |
+| CI gate prevents test regressions | ✅ Shipped v7.0 (static.yml) |
+| Runtime input validation via Zod v4 | ✅ Shipped v7.0 (100+ schemas) |
+| Error boundaries on all calculators | ✅ Shipped v7.0 (react-error-boundary) |
 
 ---
 
@@ -315,6 +336,7 @@ See `docs/adr/` for the full ADR rationale behind each constraint.
 | v4.0 | 2026-01-25 | Infrastructure calculators (VM, K8s, TCO), security hardening |
 | v5.0 | 2026-01-29 | Engineering (6), Chemistry (6), Hyper-V/multi-platform (6) |
 | v6.0 | In progress | CPU benchmark comparison, server refresh sizing |
+| v7.0 | In progress | Vitest 2281 tests, error boundaries, Sonner toasts, Zod v4 validation (Phases 40–43 complete) |
 
 ---
 

@@ -13,6 +13,66 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [7.0.0] - In Progress (2026-02-26)
+
+### Added
+
+**[Phase 40] Vitest Foundation (2026-02-26)**
+
+- Vitest test framework configured (`vitest.config.ts`, node environment, v8 coverage)
+- 66 tests across 5 priority converters with ≥75% per-file coverage thresholds
+  - Fibre Channel BB credit calculator (physics formula + vendor CLI generation)
+  - Subnet calculator (IP math with BigInt, RFC 3021 /31 edge cases)
+  - BMI / BMR (health — WHO formula verification)
+  - Compound interest (finance — precision over multi-year terms)
+  - Molar mass / molecular weight (chemistry — recursive descent parser)
+- `test`, `test:coverage`, `test:watch` npm scripts
+- ADR-011 documenting the Vitest test strategy (supersedes ADR-010)
+
+**[Phase 41] Full Converter Test Coverage (2026-02-26)**
+
+- 2281 tests across 196 test files covering all 19 converter categories
+- 86% line coverage, 91% branch coverage across `src/lib/converters/`
+- Global coverage threshold (75%) enforced via `vitest.config.ts`
+- CI gate added to `static.yml` — `vitest run --coverage` runs before `next build`
+- Per-category coverage: math, health, finance, photo, web, video, datetime, network,
+  crypto, cooking, automotive, data, physics, music, color, engineering, chemistry,
+  infrastructure, and conversion utilities
+
+**[Phase 42] Error Boundaries & Toast Notifications (2026-02-26)**
+
+- `react-error-boundary` integrated into `ConverterLayout` — wraps all 169 calculators
+  with graceful fallback UI on uncaught render errors
+- Sonner toast notifications for user-facing events:
+  - Copy-to-clipboard success/failure
+  - PDF/CSV export completion
+  - Clipboard API unavailability warnings
+- `isomorphic-dompurify` sanitize utility (`src/lib/utils/sanitize.ts`) for safe HTML
+  rendering in calculator description fields
+- Opt-in `onCalculationError` callback in `createCalculatorStore` for structured error
+  reporting from converter functions
+
+**[Phase 43] Zod v4 Input Validation (2026-02-26)**
+
+- Zod v4.3.6 added as a runtime dependency
+- 15 category schema files in `src/lib/schemas/` with 100+ individual input schemas
+  covering all calculator input types (numeric ranges, enums, URLs, units)
+- `schema?` optional parameter added to `createCalculatorStore` — enables opt-in
+  Zod validation without breaking existing stores
+- Zod URL param helpers (`src/lib/utils/zod-url-params.ts`) for type-safe parsing of
+  URL search parameters using Zod schemas
+- Field-level validation errors wired into 71 store-based calculator components
+  - Error messages rendered beneath affected input fields
+  - Schema violations prevent calculation from running (displays inline errors)
+
+### Changed
+
+- ADR-010 (No Automated Test Framework) status updated: superseded by ADR-011
+- `static.yml` CI workflow now includes Vitest coverage gate before build step
+- `ConverterLayout` now wraps calculator content in an `ErrorBoundary`
+- `createCalculatorStore` factory extended with optional `schema` and `onCalculationError`
+  parameters (fully backward compatible)
+
 ## [5.0.0] - 2026-01-29
 
 ### Added
@@ -724,7 +784,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
-[unreleased]: https://github.com/fjacquet/converty/compare/v3.0.0...HEAD
+[unreleased]: https://github.com/fjacquet/converty/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/fjacquet/converty/compare/v5.0.0...v7.0.0
+[5.0.0]: https://github.com/fjacquet/converty/compare/v4.0.0...v5.0.0
+[4.0.0]: https://github.com/fjacquet/converty/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/fjacquet/converty/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/fjacquet/converty/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/fjacquet/converty/releases/tag/v1.0.0
