@@ -21,10 +21,12 @@ import {
   type MortgageInput,
   type MortgageResult,
 } from "@/lib/converters/finance/mortgage";
+import { MortgageFormSchema } from "@/lib/schemas/finance";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useMortgageStore = createCalculatorStore<MortgageInput, MortgageResult>({
   name: "mortgage-calculator",
+  schema: MortgageFormSchema,
   initialValues: {
     homePrice: 400000,
     downPayment: 80000,
@@ -45,7 +47,7 @@ const COLORS = ["hsl(var(--primary))", "hsl(var(--destructive))", "hsl(var(--mut
 export function MortgageCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result } = useMortgageStore();
+  const { values, setValue, result, errors } = useMortgageStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -109,6 +111,7 @@ export function MortgageCalculator() {
             value={values.homePrice.toString()}
             onChange={handleHomePriceChange}
             min={0}
+            error={errors.homePrice}
           />
 
           <div className="grid grid-cols-2 gap-4">
@@ -119,6 +122,7 @@ export function MortgageCalculator() {
               value={values.downPayment.toString()}
               onChange={handleDownPaymentChange}
               min={0}
+              error={errors.downPayment}
             />
             <InputField
               id="downPaymentPercent"
@@ -128,6 +132,7 @@ export function MortgageCalculator() {
               onChange={handleDownPaymentPercentChange}
               min={0}
               max={100}
+              error={errors.downPaymentPercent}
             />
           </div>
 
@@ -140,6 +145,7 @@ export function MortgageCalculator() {
               onChange={(value) => setValue("loanTerm", Number.parseFloat(value) || 0)}
               min={1}
               max={50}
+              error={errors.loanTerm}
             />
             <InputField
               id="interestRate"
@@ -149,6 +155,7 @@ export function MortgageCalculator() {
               onChange={(value) => setValue("interestRate", Number.parseFloat(value) || 0)}
               min={0}
               max={30}
+              error={errors.interestRate}
             />
           </div>
 
@@ -175,6 +182,7 @@ export function MortgageCalculator() {
               value={values.propertyTax.toString()}
               onChange={(value) => setValue("propertyTax", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.propertyTax}
             />
             <InputField
               id="homeInsurance"
@@ -183,6 +191,7 @@ export function MortgageCalculator() {
               value={values.homeInsurance.toString()}
               onChange={(value) => setValue("homeInsurance", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.homeInsurance}
             />
           </div>
 
@@ -194,6 +203,7 @@ export function MortgageCalculator() {
               value={values.pmi.toString()}
               onChange={(value) => setValue("pmi", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.pmi}
             />
             <InputField
               id="hoaFees"
@@ -202,6 +212,7 @@ export function MortgageCalculator() {
               value={values.hoaFees.toString()}
               onChange={(value) => setValue("hoaFees", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.hoaFees}
             />
           </div>
         </CardContent>

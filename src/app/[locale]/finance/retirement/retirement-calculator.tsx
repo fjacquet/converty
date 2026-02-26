@@ -19,10 +19,12 @@ import {
   type RetirementInput,
   type RetirementResult,
 } from "@/lib/converters/finance/retirement";
+import { RetirementFormSchema } from "@/lib/schemas/finance";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useRetirementStore = createCalculatorStore<RetirementInput, RetirementResult>({
   name: "retirement-calculator",
+  schema: RetirementFormSchema,
   initialValues: {
     currentAge: 30,
     retirementAge: 65,
@@ -40,7 +42,7 @@ const useRetirementStore = createCalculatorStore<RetirementInput, RetirementResu
 export function RetirementCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result } = useRetirementStore();
+  const { values, setValue, result, errors } = useRetirementStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -77,6 +79,7 @@ export function RetirementCalculator() {
               onChange={(value) => setValue("currentAge", Number.parseFloat(value) || 0)}
               min={18}
               max={80}
+              error={errors.currentAge}
             />
             <InputField
               id="retirementAge"
@@ -86,6 +89,7 @@ export function RetirementCalculator() {
               onChange={(value) => setValue("retirementAge", Number.parseFloat(value) || 0)}
               min={50}
               max={100}
+              error={errors.retirementAge}
             />
             <InputField
               id="lifeExpectancy"
@@ -95,6 +99,7 @@ export function RetirementCalculator() {
               onChange={(value) => setValue("lifeExpectancy", Number.parseFloat(value) || 0)}
               min={70}
               max={120}
+              error={errors.lifeExpectancy}
             />
           </div>
         </CardContent>
@@ -113,6 +118,7 @@ export function RetirementCalculator() {
               value={values.currentSavings.toString()}
               onChange={(value) => setValue("currentSavings", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.currentSavings}
             />
             <InputField
               id="monthlyContribution"
@@ -121,6 +127,7 @@ export function RetirementCalculator() {
               value={values.monthlyContribution.toString()}
               onChange={(value) => setValue("monthlyContribution", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.monthlyContribution}
             />
           </div>
         </CardContent>
@@ -140,6 +147,7 @@ export function RetirementCalculator() {
               onChange={(value) => setValue("expectedReturn", Number.parseFloat(value) || 0)}
               min={0}
               max={20}
+              error={errors.expectedReturn}
             />
             <InputField
               id="inflationRate"
@@ -149,6 +157,7 @@ export function RetirementCalculator() {
               onChange={(value) => setValue("inflationRate", Number.parseFloat(value) || 0)}
               min={0}
               max={10}
+              error={errors.inflationRate}
             />
           </div>
 
@@ -160,6 +169,7 @@ export function RetirementCalculator() {
               value={values.desiredAnnualIncome.toString()}
               onChange={(value) => setValue("desiredAnnualIncome", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.desiredAnnualIncome}
             />
             <InputField
               id="socialSecurityBenefit"
@@ -168,6 +178,7 @@ export function RetirementCalculator() {
               value={values.socialSecurityBenefit.toString()}
               onChange={(value) => setValue("socialSecurityBenefit", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.socialSecurityBenefit}
             />
           </div>
         </CardContent>

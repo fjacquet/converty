@@ -30,6 +30,7 @@ import {
   type CompoundInterestResult,
   calculateCompoundInterest,
 } from "@/lib/converters/finance/compound-interest";
+import { CompoundInterestFormSchema } from "@/lib/schemas/finance";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useCompoundInterestStore = createCalculatorStore<
@@ -37,6 +38,7 @@ const useCompoundInterestStore = createCalculatorStore<
   CompoundInterestResult
 >({
   name: "compound-interest-calculator",
+  schema: CompoundInterestFormSchema,
   initialValues: {
     principal: 10000,
     interestRate: 7,
@@ -51,7 +53,7 @@ const useCompoundInterestStore = createCalculatorStore<
 export function CompoundInterestCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result } = useCompoundInterestStore();
+  const { values, setValue, result, errors } = useCompoundInterestStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -77,6 +79,7 @@ export function CompoundInterestCalculator() {
               value={values.principal.toString()}
               onChange={(value) => setValue("principal", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.principal}
             />
             <InputField
               id="interestRate"
@@ -86,6 +89,7 @@ export function CompoundInterestCalculator() {
               onChange={(value) => setValue("interestRate", Number.parseFloat(value) || 0)}
               min={0}
               max={100}
+              error={errors.interestRate}
             />
           </div>
 
@@ -98,6 +102,7 @@ export function CompoundInterestCalculator() {
               onChange={(value) => setValue("years", Number.parseFloat(value) || 0)}
               min={1}
               max={100}
+              error={errors.years}
             />
             <div className="space-y-2">
               <Label>{t("finance.compoundFrequency")}</Label>
@@ -134,6 +139,7 @@ export function CompoundInterestCalculator() {
               value={values.monthlyContribution.toString()}
               onChange={(value) => setValue("monthlyContribution", Number.parseFloat(value) || 0)}
               min={0}
+              error={errors.monthlyContribution}
             />
             <div className="space-y-2">
               <Label>{t("finance.contributionTiming")}</Label>

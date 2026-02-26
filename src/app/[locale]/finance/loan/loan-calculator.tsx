@@ -17,10 +17,12 @@ import {
 import { InputField, ResultGrid } from "@/components/converter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { calculateLoan, type LoanInput, type LoanResult } from "@/lib/converters/finance/loan";
+import { LoanFormSchema } from "@/lib/schemas/finance";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const useLoanStore = createCalculatorStore<LoanInput, LoanResult>({
   name: "loan-calculator",
+  schema: LoanFormSchema,
   initialValues: {
     loanAmount: 25000,
     interestRate: 8.5,
@@ -33,7 +35,7 @@ const useLoanStore = createCalculatorStore<LoanInput, LoanResult>({
 export function LoanCalculator() {
   const t = useTranslations("calculator");
   const format = useFormatter();
-  const { values, setValue, result } = useLoanStore();
+  const { values, setValue, result, errors } = useLoanStore();
 
   const formatCurrency = (value: number) => {
     return format.number(value, {
@@ -65,6 +67,7 @@ export function LoanCalculator() {
             value={values.loanAmount.toString()}
             onChange={(value) => setValue("loanAmount", Number.parseFloat(value) || 0)}
             min={0}
+            error={errors.loanAmount}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -76,6 +79,7 @@ export function LoanCalculator() {
               onChange={(value) => setValue("interestRate", Number.parseFloat(value) || 0)}
               min={0}
               max={50}
+              error={errors.interestRate}
             />
             <InputField
               id="loanTerm"
@@ -85,6 +89,7 @@ export function LoanCalculator() {
               onChange={(value) => setValue("loanTerm", Number.parseFloat(value) || 0)}
               min={1}
               max={360}
+              error={errors.loanTerm}
             />
           </div>
 
