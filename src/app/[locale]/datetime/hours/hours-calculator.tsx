@@ -22,7 +22,7 @@ const useHoursStore = createCalculatorStore<HoursInput, HoursResult>({
 export function HoursCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
-  const { values, setValue, result } = useHoursStore();
+  const { values, setValue, result, calculationError } = useHoursStore();
 
   return (
     <div className="space-y-6">
@@ -106,6 +106,8 @@ export function HoursCalculator() {
           </CardContent>
         </Card>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

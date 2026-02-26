@@ -27,7 +27,7 @@ export function TimeDurationCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result } = useTimeDurationStore();
+  const { values, setValue, result, calculationError } = useTimeDurationStore();
 
   const formatDuration = (): string => {
     if (!result?.timeComponents || result.timeComponents.length === 0) {
@@ -146,6 +146,8 @@ export function TimeDurationCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

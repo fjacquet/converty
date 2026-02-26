@@ -25,7 +25,7 @@ export function DayOfWeekCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tResults = useTranslations("calculator.results");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result } = useDayOfWeekStore();
+  const { values, setValue, result, calculationError } = useDayOfWeekStore();
 
   return (
     <div className="space-y-6">
@@ -88,6 +88,8 @@ export function DayOfWeekCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

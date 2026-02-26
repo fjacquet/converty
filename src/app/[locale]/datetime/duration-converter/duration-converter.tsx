@@ -32,7 +32,7 @@ export function DurationConverter() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result, errors } = useDurationStore();
+  const { values, setValue, result, errors, calculationError } = useDurationStore();
 
   const formatHumanReadable = (): string => {
     if (!result?.timeComponents || result.timeComponents.length === 0) {
@@ -102,6 +102,8 @@ export function DurationConverter() {
           </CardContent>
         </Card>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

@@ -21,7 +21,7 @@ export function AgeCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tZodiacWestern = useTranslations("calculator.zodiac.western");
   const tZodiacChinese = useTranslations("calculator.zodiac.chinese");
-  const { values, setValue, result } = useAgeStore();
+  const { values, setValue, result, calculationError } = useAgeStore();
 
   const pdfSections = useMemo(() => {
     if (!result) return [];
@@ -154,6 +154,8 @@ export function AgeCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

@@ -31,7 +31,7 @@ const useTimeStore = createCalculatorStore<TimeInput, TimeResult>({
 export function TimeCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
-  const { values, setValue, result, errors } = useTimeStore();
+  const { values, setValue, result, errors, calculationError } = useTimeStore();
 
   return (
     <div className="space-y-6">
@@ -140,6 +140,8 @@ export function TimeCalculator() {
           </CardContent>
         </Card>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

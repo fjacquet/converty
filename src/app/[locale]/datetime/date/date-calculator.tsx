@@ -34,7 +34,7 @@ export function DateCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tResults = useTranslations("calculator.results");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result, errors } = useDateStore();
+  const { values, setValue, result, errors, calculationError } = useDateStore();
 
   return (
     <div className="space-y-6">
@@ -140,6 +140,8 @@ export function DateCalculator() {
           </CardContent>
         </Card>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

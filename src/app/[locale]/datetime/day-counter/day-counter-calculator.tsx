@@ -29,7 +29,7 @@ export function DayCounterCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tResults = useTranslations("calculator.results");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result } = useDayCounterStore();
+  const { values, setValue, result, calculationError } = useDayCounterStore();
 
   // Format duration using translations with plural support
   const formatDuration = (weeks: number, days: number) => {
@@ -120,6 +120,8 @@ export function DayCounterCalculator() {
           </Card>
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

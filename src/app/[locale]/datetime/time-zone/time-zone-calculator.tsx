@@ -120,7 +120,7 @@ export function TimeZoneCalculator() {
   const t = useTranslations("calculator.labels");
   const tSections = useTranslations("calculator.sections");
   const tDatetime = useTranslations("calculator.datetime");
-  const { values, setValue, result } = useTimeZoneStore();
+  const { values, setValue, result, calculationError } = useTimeZoneStore();
 
   // Get timezone groups (memoized since it's computed)
   const timezoneGroups = useMemo(() => getTimezonesByRegion(), []);
@@ -185,6 +185,8 @@ export function TimeZoneCalculator() {
           </CardContent>
         </Card>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
