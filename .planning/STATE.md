@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 40 — Vitest Foundation (in progress)
-Plan: 02 complete (2/4)
-Status: v7.0 executing. Phase 40-02 complete: 37 unit tests for BB Credit, Subnet, and BMI converters. Plans 40-03 through 40-04 remaining.
-Last activity: 2026-02-26 — Phase 40-02 complete: 3 test files, 37 passing tests across network and health converters
+Plan: 03 complete (3/4)
+Status: v7.0 executing. Phase 40-03 complete: 29 unit tests for compound interest and molecular weight converters, plus bug fix for non-monthly compounding. Plan 40-04 remaining.
+Last activity: 2026-02-26 — Phase 40-03 complete: compound-interest.test.ts (16 tests), molecular-weight.test.ts (13 tests), compound-interest.ts bug fix
 
-Progress: [██░░░░░░░░] Phase 40: 2/4 plans complete
+Progress: [███░░░░░░░] Phase 40: 3/4 plans complete
 
 ## Performance Metrics
 
@@ -130,6 +130,9 @@ Recent decisions affecting current work:
 - [Phase 40-02]: Subnet-calculator uses ipaddr.js which throws for invalid IPs — tests use toThrow() not null assertions
 - [Phase 40-02]: BigInt assertions use n-suffix literals (254n not 254) for all subnet host count assertions
 - [Phase 40-02]: BMI bmi field is pre-rounded in source — toBeCloseTo(22.9, 1) used instead of strict toBe for floating-point
+- [Phase 40-03]: Bug fix: compound-interest.ts inner compound loop used integer iteration causing full-period rate applied 12x/year for annual — fixed with fractional exponentiation `(1+r)^(n/12)`
+- [Phase 40-03]: No mocking for periodic-table.json — vite-tsconfig-paths resolves real JSON; tests validate alias resolution works end-to-end
+- [Phase 40-03]: toBeCloseTo precision: 0 decimal places for large financial sums, 2 decimal places for chemistry molar mass precision
 
 ### Decisions (Phase 40-01)
 
