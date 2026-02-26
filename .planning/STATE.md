@@ -105,6 +105,7 @@ Progress: [████████░░] Phase 41: 8/10 plans complete
 | Phase 41 P03 | 9 | 2 tasks | 13 files |
 | Phase 41 P02 | 13 | 2 tasks | 26 files |
 | Phase 41 P08 | 8 | 2 tasks | 16 files |
+| Phase 41 P07 | 45 | 2 tasks | 26 files |
 
 ## Accumulated Context
 
@@ -153,6 +154,9 @@ Recent decisions affecting current work:
 - [Phase 41]: supernetting uses graceful error returns not throws — tests use success:false not toThrow
 - [Phase 41]: wallet-address-validator only validates P2PKH/P2WPKH for BTC and ETH — P2SH/P2TR/LTC assertions removed
 - [Phase 41]: mining-profitability uses ratio invariants not absolute dollar amounts (imports build-time JSON prices)
+- [Phase 41]: Automotive Currency type is CHF|EUR only — vehicle-financing tests use CHF
+- [Phase 41]: Node.js Intl.supportedValuesOf excludes UTC — time-zone tests check America/ prefix not UTC
+- [Phase 41]: SPF isValid only false when issues contain 'must' or 'will fail' — +all warning does not trigger isValid=false
 
 ### Decisions (Phase 40-01)
 
