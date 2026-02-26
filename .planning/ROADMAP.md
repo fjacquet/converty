@@ -119,7 +119,12 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [x] 41-08-PLAN.md — Network (remaining) + Crypto + Realestate tests (Wave 3, parallel)
   - [x] 41-09-PLAN.md — Chemistry + Engineering + Infrastructure tests (Wave 3, parallel)
   - [x] 41-10-PLAN.md — Global coverage verification + gap fixes (Wave 4)
-- [ ] Phase 42: Error Boundaries & Toasts — react-error-boundary, Sonner, DOMPurify
+- [ ] Phase 42: Error Boundaries & Toasts — **5 plans** — react-error-boundary, Sonner, DOMPurify (R2.1–R2.6)
+  - [ ] 42-01-PLAN.md — Install packages + mount Toaster in layout + i18n toast keys (Wave 1)
+  - [ ] 42-02-PLAN.md — CalculatorErrorBoundary + CalculatorErrorFallback + sanitize.ts utility (Wave 1, parallel)
+  - [ ] 42-03-PLAN.md — Toast feedback for all 7 clipboard copy sites (Wave 2, parallel)
+  - [ ] 42-04-PLAN.md — Toast feedback for CSV/PDF export + wire ErrorBoundary into ConverterLayout (Wave 2, parallel)
+  - [ ] 42-05-PLAN.md — Opt-in onCalculationError callback in createCalculatorStore (Wave 2, parallel)
 - [ ] Phase 43: Zod Input Validation — schemas for all calculator inputs, Zod URL parsing
 - [ ] Phase 44: LZ-String URL Compression — compress state in URL, backward compat
 - [ ] Phase 45: Discriminated Union Result Types — `CalculationResult<T>`, update all converters
@@ -131,4 +136,4 @@ See `.planning/REQUIREMENTS.md` and `.planning/GAP-ANALYSIS.md` for full details
 
 ---
 
-*Next action: `/gsd:execute-phase 41` to start Full Converter Test Coverage*
+*Next action: `/gsd:execute-phase 42` to start Error Boundaries & Toasts*
