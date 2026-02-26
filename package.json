@@ -103,6 +103,7 @@
     "workbox-build": "^7.4.0"
   },
   "overrides": {
-    "minimatch": "^10.2.1"
+    "minimatch": "^10.2.1",
+    "rollup@2": "^2.80.0"
   }
 }
