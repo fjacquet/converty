@@ -108,7 +108,7 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [x] 40-02-PLAN.md — Tests: BB Credit, Subnet, BMI converters (Wave 2, parallel)
   - [x] 40-03-PLAN.md — Tests: Compound Interest, Molecular Weight converters (Wave 2, parallel)
   - [x] 40-04-PLAN.md — Coverage gate: verify ≥75% on all 5 files, fix gaps, TypeScript + Biome clean (Wave 3)
-- [ ] Phase 41: Full Converter Test Coverage — **10 plans** — unit tests for all converters, global 75% threshold, CI gate
+- [x] Phase 41: Full Converter Test Coverage — **10 plans** — unit tests for all converters, global 75% threshold, CI gate (completed 2026-02-26)
   - [ ] 41-01-PLAN.md — vitest.config.ts global threshold + cpu-types.ts exclude + static.yml CI gate (Wave 1)
   - [ ] 41-02-PLAN.md — Math tests: 26 trivial/simple converters (Wave 2, parallel)
   - [ ] 41-03-PLAN.md — Math tests: 13 medium/complex converters (Wave 2, parallel)

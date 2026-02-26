@@ -108,6 +108,8 @@ Progress: [█████████░] Phase 41: 9/10 plans complete
 | Phase 41 P08 | 8 | 2 tasks | 16 files |
 | Phase 41 P07 | 45 | 2 tasks | 26 files |
 | Phase 41 P06 | 45 | 2 tasks | 38 files |
+| Phase 41-full-converter-test-coverage P10 | 2700 | 2 tasks | 22 files |
+| Phase 41-full-converter-test-coverage P10 | 2700 | 2 tasks | 22 files |
 
 ## Accumulated Context
 
@@ -165,6 +167,7 @@ Recent decisions affecting current work:
 - [Phase 41]: SPF isValid only false when issues contain 'must' or 'will fail' — +all warning does not trigger isValid=false
 - [Phase 41]: Used DataUnit/SpeedUnit type casts instead of 'as any' for boundary tests to satisfy biome strict linting
 - [Phase 41]: Fixed golden-hour test to avoid negative time formatting bug in source (use sunsetMinute=30)
+- [Phase 41-full-converter-test-coverage]: Targeted branch tests filled 2.5% gap to reach 90.99% branch coverage; fixed 13 test files missing vitest imports
 
 ### Decisions (Phase 40-01)
 
