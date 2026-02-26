@@ -128,6 +128,8 @@ Progress: [████░░░░░░░░░░░░░░░░] Phase 4
 | Phase 45-discriminated-union-result-types P05 | 2288 | 8 commits | 91 files |
 | Phase 46-i18n-namespace-restructure P01 | - | 2 tasks | 5 files |
 | Phase 47-adrs-ci-hardening P02 | 2 | 2 tasks | 2 files |
+| Phase 48-branch-integration-release P01 | 2 | 1 tasks | 1 files |
+| Phase 47-adrs-ci-hardening P01 | 150 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -225,6 +227,11 @@ Recent decisions affecting current work:
 - [Phase 45-05]: vm-storage-calculator and k8s-capacity-calculator use custom store patterns with own error field — correctly skipped
 - [Phase 47-adrs-ci-hardening]: Inserted Zod Input Validation and CalculationResult<T> sections in CODE_STYLE.md after Precision section
 - [Phase 47-adrs-ci-hardening]: CI gate (npm run test:run) confirmed present in static.yml from Phase 41 — no changes needed
+- [Phase 48-01]: Biome exits 0 with 40 warnings only (no blocking errors) — pre-existing, out of scope for regression gate
+- [Phase 48-01]: CHANGELOG [7.0.0] date finalized from 'In Progress (2026-02-26)' to '2026-02-26'
+- [Phase 47-adrs-ci-hardening]: ADR-013 documents react-error-boundary, isomorphic-dompurify, opt-in onCalculationError for Phase 42
+- [Phase 47-adrs-ci-hardening]: ADR-014 documents Zod runtime validation: schema? param in createCalculatorStore, string vs number strategy, coverage gaps for Phase 43
+- [Phase 47-adrs-ci-hardening]: ADR-015 documents lz-string ?z= compression, dual-path read, null-safety, prototype pollution prevention for Phase 44
 
 ### Decisions (Phase 40-01)
 
