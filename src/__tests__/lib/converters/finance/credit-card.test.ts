@@ -2,30 +2,28 @@ import { describe, expect, it } from "vitest";
 import { calculateCreditCard } from "@/lib/converters/finance/credit-card";
 
 describe("calculateCreditCard", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null for zero balance", () => {
-      expect(
-        calculateCreditCard({
-          balance: 0,
-          annualInterestRate: 20,
-          minimumPaymentPercent: 2,
-          minimumPaymentFixed: 25,
-          additionalPayment: 0,
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false for zero balance", () => {
+      const result = calculateCreditCard({
+        balance: 0,
+        annualInterestRate: 20,
+        minimumPaymentPercent: 2,
+        minimumPaymentFixed: 25,
+        additionalPayment: 0,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null when payment does not cover interest", () => {
+    it("returns ok: false when payment does not cover interest", () => {
       // Very small fixed minimum with high balance/rate so interest > payment
-      expect(
-        calculateCreditCard({
-          balance: 100000,
-          annualInterestRate: 24,
-          minimumPaymentPercent: 0,
-          minimumPaymentFixed: 1, // Only $1 fixed, monthly interest ≈ $2000
-          additionalPayment: 0,
-        })
-      ).toBeNull();
+      const result = calculateCreditCard({
+        balance: 100000,
+        annualInterestRate: 24,
+        minimumPaymentPercent: 0,
+        minimumPaymentFixed: 1, // Only $1 fixed, monthly interest ≈ $2000
+        additionalPayment: 0,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -38,8 +36,10 @@ describe("calculateCreditCard", () => {
         minimumPaymentFixed: 100,
         additionalPayment: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.monthsToPayoff).toBeGreaterThan(24);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.monthsToPayoff).toBeGreaterThan(24);
+      }
     });
 
     it("total interest is positive for nonzero rate", () => {
@@ -50,8 +50,10 @@ describe("calculateCreditCard", () => {
         minimumPaymentFixed: 100,
         additionalPayment: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.totalInterest).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.totalInterest).toBeGreaterThan(0);
+      }
     });
 
     it("paying more than minimum → shorter payoff time", () => {
@@ -69,9 +71,11 @@ describe("calculateCreditCard", () => {
         minimumPaymentFixed: 100,
         additionalPayment: 200,
       });
-      expect(minimal).not.toBeNull();
-      expect(extra).not.toBeNull();
-      expect(extra!.monthsToPayoff).toBeLessThan(minimal!.monthsToPayoff);
+      expect(minimal.ok).toBe(true);
+      expect(extra.ok).toBe(true);
+      if (minimal.ok && extra.ok) {
+        expect(extra.value.monthsToPayoff).toBeLessThan(minimal.value.monthsToPayoff);
+      }
     });
 
     it("schedule has entries equal to monthsToPayoff", () => {
@@ -82,8 +86,10 @@ describe("calculateCreditCard", () => {
         minimumPaymentFixed: 50,
         additionalPayment: 150,
       });
-      expect(result).not.toBeNull();
-      expect(result!.schedule).toHaveLength(result!.monthsToPayoff);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.schedule).toHaveLength(result.value.monthsToPayoff);
+      }
     });
   });
 
@@ -97,9 +103,11 @@ describe("calculateCreditCard", () => {
         additionalPayment: 0,
         targetMonths: 24,
       });
-      expect(result).not.toBeNull();
-      expect(result!.paymentForTarget).toBeDefined();
-      expect(result!.paymentForTarget!).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.paymentForTarget).toBeDefined();
+        expect(result.value.paymentForTarget!).toBeGreaterThan(0);
+      }
     });
   });
 });

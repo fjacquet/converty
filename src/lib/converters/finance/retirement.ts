@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface RetirementInput {
   currentAge: number;
   retirementAge: number;
@@ -32,7 +34,7 @@ export interface RetirementResult {
   projections: YearlyProjection[];
 }
 
-export function calculateRetirement(input: RetirementInput): RetirementResult | null {
+export function calculateRetirement(input: RetirementInput): CalculationResult<RetirementResult> {
   const {
     currentAge,
     retirementAge,
@@ -51,13 +53,12 @@ export function calculateRetirement(input: RetirementInput): RetirementResult | 
     lifeExpectancy <= retirementAge ||
     expectedReturn < 0
   ) {
-    return null;
+    return { ok: false, error: "Invalid age or return parameters", code: "INVALID_INPUT" };
   }
 
   const yearsToRetirement = retirementAge - currentAge;
   const yearsInRetirement = lifeExpectancy - retirementAge;
   const monthlyReturn = expectedReturn / 100 / 12;
-  const _annualReturn = expectedReturn / 100;
   const annualInflation = inflationRate / 100;
   const annualContribution = monthlyContribution * 12;
 
@@ -109,7 +110,6 @@ export function calculateRetirement(input: RetirementInput): RetirementResult | 
   // Simulate retirement phase
   for (let year = 0; year < yearsInRetirement; year++) {
     const age = retirementAge + year;
-    const _startBalance = savings;
 
     // Apply growth (reduced during retirement - more conservative)
     const retirementReturn = (expectedReturn * 0.7) / 100; // More conservative return
@@ -141,14 +141,17 @@ export function calculateRetirement(input: RetirementInput): RetirementResult | 
   const hasSufficientFunds = savingsGap === 0;
 
   return {
-    retirementSavings: Math.round(retirementSavings * 100) / 100,
-    inflationAdjustedSavings: Math.round(inflationAdjustedSavings * 100) / 100,
-    yearsInRetirement,
-    monthlyRetirementIncome: Math.round(monthlyRetirementIncome * 100) / 100,
-    savingsGap: Math.round(savingsGap * 100) / 100,
-    hasSufficientFunds,
-    totalContributions: Math.round(totalContributions * 100) / 100,
-    totalGrowth: Math.round(totalGrowth * 100) / 100,
-    projections,
+    ok: true,
+    value: {
+      retirementSavings: Math.round(retirementSavings * 100) / 100,
+      inflationAdjustedSavings: Math.round(inflationAdjustedSavings * 100) / 100,
+      yearsInRetirement,
+      monthlyRetirementIncome: Math.round(monthlyRetirementIncome * 100) / 100,
+      savingsGap: Math.round(savingsGap * 100) / 100,
+      hasSufficientFunds,
+      totalContributions: Math.round(totalContributions * 100) / 100,
+      totalGrowth: Math.round(totalGrowth * 100) / 100,
+      projections,
+    },
   };
 }

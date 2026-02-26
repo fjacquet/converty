@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export type DayOfWeekKey =
   | "sunday"
   | "monday"
@@ -48,23 +50,30 @@ function getDaysInYear(year: number): number {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 ? 366 : 365;
 }
 
-export function calculateDayOfWeek(input: DayOfWeekInput): DayOfWeekResult | null {
-  if (!input.date) return null;
+export function calculateDayOfWeek(input: DayOfWeekInput): CalculationResult<DayOfWeekResult> {
+  if (!input.date) {
+    return { ok: false, error: "Date is required", code: "INVALID_INPUT" };
+  }
 
   const date = new Date(input.date);
-  if (Number.isNaN(date.getTime())) return null;
+  if (Number.isNaN(date.getTime())) {
+    return { ok: false, error: "Invalid date format", code: "INVALID_INPUT" };
+  }
 
   const dayNumber = date.getDay();
   const dayOfYear = getDayOfYear(date);
   const daysInYear = getDaysInYear(date.getFullYear());
 
   return {
-    dayOfWeekKey: DAY_OF_WEEK_KEYS[dayNumber],
-    dayNumber,
-    isWeekend: dayNumber === 0 || dayNumber === 6,
-    weekNumber: getWeekNumber(date),
-    dayOfYear,
-    daysLeftInYear: daysInYear - dayOfYear,
-    quarter: Math.ceil((date.getMonth() + 1) / 3),
+    ok: true,
+    value: {
+      dayOfWeekKey: DAY_OF_WEEK_KEYS[dayNumber],
+      dayNumber,
+      isWeekend: dayNumber === 0 || dayNumber === 6,
+      weekNumber: getWeekNumber(date),
+      dayOfYear,
+      daysLeftInYear: daysInYear - dayOfYear,
+      quarter: Math.ceil((date.getMonth() + 1) / 3),
+    },
   };
 }

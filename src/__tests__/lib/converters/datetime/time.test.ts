@@ -2,10 +2,15 @@ import { describe, expect, it } from "vitest";
 import { calculateTime } from "@/lib/converters/datetime/time";
 
 describe("calculateTime", () => {
-  it("returns null for missing startTime", () => {
-    expect(
-      calculateTime({ startTime: "", operation: "add", hours: "1", minutes: "0", seconds: "0" })
-    ).toBeNull();
+  it("returns ok: false for missing startTime", () => {
+    const result = calculateTime({
+      startTime: "",
+      operation: "add",
+      hours: "1",
+      minutes: "0",
+      seconds: "0",
+    });
+    expect(result.ok).toBe(false);
   });
 
   it("adds 90 minutes to 10:00 → 11:30", () => {
@@ -16,9 +21,11 @@ describe("calculateTime", () => {
       minutes: "90",
       seconds: "0",
     });
-    expect(result).not.toBeNull();
-    expect(result!.resultTime).toBe("11:30:00");
-    expect(result!.crossesMidnight).toBe(false);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.resultTime).toBe("11:30:00");
+      expect(result.value.crossesMidnight).toBe(false);
+    }
   });
 
   it("subtracts 45 minutes from 01:00 → 00:15", () => {
@@ -29,8 +36,10 @@ describe("calculateTime", () => {
       minutes: "45",
       seconds: "0",
     });
-    expect(result).not.toBeNull();
-    expect(result!.resultTime).toBe("00:15:00");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.resultTime).toBe("00:15:00");
+    }
   });
 
   it("adding crosses midnight correctly", () => {
@@ -41,10 +50,12 @@ describe("calculateTime", () => {
       minutes: "0",
       seconds: "0",
     });
-    expect(result).not.toBeNull();
-    expect(result!.crossesMidnight).toBe(true);
-    expect(result!.dayChange).toBe(1);
-    expect(result!.resultTime).toBe("01:00:00");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.crossesMidnight).toBe(true);
+      expect(result.value.dayChange).toBe(1);
+      expect(result.value.resultTime).toBe("01:00:00");
+    }
   });
 
   it("subtracting crosses midnight backward", () => {
@@ -55,10 +66,12 @@ describe("calculateTime", () => {
       minutes: "0",
       seconds: "0",
     });
-    expect(result).not.toBeNull();
-    expect(result!.crossesMidnight).toBe(true);
-    expect(result!.dayChange).toBe(-1);
-    expect(result!.resultTime).toBe("23:30:00");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.crossesMidnight).toBe(true);
+      expect(result.value.dayChange).toBe(-1);
+      expect(result.value.resultTime).toBe("23:30:00");
+    }
   });
 
   it("adds 0 time returns same time", () => {
@@ -69,8 +82,10 @@ describe("calculateTime", () => {
       minutes: "0",
       seconds: "0",
     });
-    expect(result).not.toBeNull();
-    expect(result!.resultTime).toBe("10:30:00");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.resultTime).toBe("10:30:00");
+    }
   });
 
   it("returns AM for morning time", () => {
@@ -81,7 +96,10 @@ describe("calculateTime", () => {
       minutes: "0",
       seconds: "0",
     });
-    expect(result!.period).toBe("AM");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.period).toBe("AM");
+    }
   });
 
   it("returns PM for afternoon time", () => {
@@ -92,7 +110,10 @@ describe("calculateTime", () => {
       minutes: "0",
       seconds: "0",
     });
-    expect(result!.period).toBe("PM");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.period).toBe("PM");
+    }
   });
 
   it("provides both 12h and 24h formatted times", () => {
@@ -103,7 +124,10 @@ describe("calculateTime", () => {
       minutes: "0",
       seconds: "0",
     });
-    expect(result!.formatted24h).toBe("13:30:00");
-    expect(result!.formatted12h).toContain("1:30");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.formatted24h).toBe("13:30:00");
+      expect(result.value.formatted12h).toContain("1:30");
+    }
   });
 });

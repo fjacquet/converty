@@ -2,38 +2,35 @@ import { describe, expect, it } from "vitest";
 import { calculateSavingsGoal } from "@/lib/converters/finance/savings-goal";
 
 describe("calculateSavingsGoal", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null for zero goal amount", () => {
-      expect(
-        calculateSavingsGoal({
-          goalAmount: 0,
-          currentSavings: 0,
-          monthlyContribution: 500,
-          annualInterestRate: 4,
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false for zero goal amount", () => {
+      const result = calculateSavingsGoal({
+        goalAmount: 0,
+        currentSavings: 0,
+        monthlyContribution: 500,
+        annualInterestRate: 4,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for negative goal amount", () => {
-      expect(
-        calculateSavingsGoal({
-          goalAmount: -1000,
-          currentSavings: 0,
-          monthlyContribution: 500,
-          annualInterestRate: 4,
-        })
-      ).toBeNull();
+    it("returns ok: false for negative goal amount", () => {
+      const result = calculateSavingsGoal({
+        goalAmount: -1000,
+        currentSavings: 0,
+        monthlyContribution: 500,
+        annualInterestRate: 4,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for negative monthly contribution", () => {
-      expect(
-        calculateSavingsGoal({
-          goalAmount: 10000,
-          currentSavings: 0,
-          monthlyContribution: -100,
-          annualInterestRate: 4,
-        })
-      ).toBeNull();
+    it("returns ok: false for negative monthly contribution", () => {
+      const result = calculateSavingsGoal({
+        goalAmount: 10000,
+        currentSavings: 0,
+        monthlyContribution: -100,
+        annualInterestRate: 4,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -45,9 +42,11 @@ describe("calculateSavingsGoal", () => {
         monthlyContribution: 500,
         annualInterestRate: 4,
       });
-      expect(result).not.toBeNull();
-      expect(result!.monthsToGoal).toBe(0);
-      expect(result!.goalReachable).toBe(true);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.monthsToGoal).toBe(0);
+        expect(result.value.goalReachable).toBe(true);
+      }
     });
   });
 
@@ -59,10 +58,12 @@ describe("calculateSavingsGoal", () => {
         monthlyContribution: 500,
         annualInterestRate: 4,
       });
-      expect(result).not.toBeNull();
-      expect(result!.goalReachable).toBe(true);
-      // Interest helps → fewer months than 10000/500 = 20
-      expect(result!.monthsToGoal).toBeLessThanOrEqual(20);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.goalReachable).toBe(true);
+        // Interest helps → fewer months than 10000/500 = 20
+        expect(result.value.monthsToGoal).toBeLessThanOrEqual(20);
+      }
     });
 
     it("with zero interest → exactly 20 months for $10k at $500/month", () => {
@@ -72,8 +73,10 @@ describe("calculateSavingsGoal", () => {
         monthlyContribution: 500,
         annualInterestRate: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.monthsToGoal).toBe(20);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.monthsToGoal).toBe(20);
+      }
     });
 
     it("totalContributions = monthlyContribution × monthsToGoal", () => {
@@ -83,8 +86,10 @@ describe("calculateSavingsGoal", () => {
         monthlyContribution: 500,
         annualInterestRate: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.totalContributions).toBeCloseTo(500 * result!.monthsToGoal, 0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.totalContributions).toBeCloseTo(500 * result.value.monthsToGoal, 0);
+      }
     });
 
     it("totalInterestEarned = 0 for zero interest rate", () => {
@@ -94,8 +99,10 @@ describe("calculateSavingsGoal", () => {
         monthlyContribution: 500,
         annualInterestRate: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.totalInterestEarned).toBeCloseTo(0, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.totalInterestEarned).toBeCloseTo(0, 2);
+      }
     });
 
     it("interest reduces months needed to reach goal", () => {
@@ -111,9 +118,11 @@ describe("calculateSavingsGoal", () => {
         monthlyContribution: 400,
         annualInterestRate: 0,
       });
-      expect(withInterest).not.toBeNull();
-      expect(noInterest).not.toBeNull();
-      expect(withInterest!.monthsToGoal).toBeLessThan(noInterest!.monthsToGoal);
+      expect(withInterest.ok).toBe(true);
+      expect(noInterest.ok).toBe(true);
+      if (withInterest.ok && noInterest.ok) {
+        expect(withInterest.value.monthsToGoal).toBeLessThan(noInterest.value.monthsToGoal);
+      }
     });
   });
 });

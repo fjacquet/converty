@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface InflationInput {
   amount: number;
   inflationRate: number;
@@ -16,11 +18,15 @@ export interface InflationResult {
   }>;
 }
 
-export function calculateInflation(input: InflationInput): InflationResult | null {
+export function calculateInflation(input: InflationInput): CalculationResult<InflationResult> {
   const { amount, inflationRate, years } = input;
 
   if (amount <= 0 || inflationRate < 0 || years < 0 || years > 100) {
-    return null;
+    return {
+      ok: false,
+      error: "Amount must be positive, inflation rate non-negative, years between 0 and 100",
+      code: "INVALID_INPUT",
+    };
   }
 
   const rate = inflationRate / 100;
@@ -40,10 +46,13 @@ export function calculateInflation(input: InflationInput): InflationResult | nul
   }
 
   return {
-    futureValue: Math.round(futureValue * 100) / 100,
-    purchasingPowerLoss: Math.round(purchasingPowerLoss * 100) / 100,
-    purchasingPowerLossPercent: Math.round(purchasingPowerLossPercent * 100) / 100,
-    equivalentPastValue: Math.round(equivalentPastValue * 100) / 100,
-    yearlyBreakdown,
+    ok: true,
+    value: {
+      futureValue: Math.round(futureValue * 100) / 100,
+      purchasingPowerLoss: Math.round(purchasingPowerLoss * 100) / 100,
+      purchasingPowerLossPercent: Math.round(purchasingPowerLossPercent * 100) / 100,
+      equivalentPastValue: Math.round(equivalentPastValue * 100) / 100,
+      yearlyBreakdown,
+    },
   };
 }

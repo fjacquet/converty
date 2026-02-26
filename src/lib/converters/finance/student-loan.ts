@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface StudentLoanInput {
   loanAmount: number;
   annualInterestRate: number;
@@ -21,12 +23,14 @@ export interface StudentLoanResult {
   }>;
 }
 
-export function calculateStudentLoan(input: StudentLoanInput): StudentLoanResult | null {
+export function calculateStudentLoan(
+  input: StudentLoanInput
+): CalculationResult<StudentLoanResult> {
   const { loanAmount, annualInterestRate, loanTermYears, gracePeriodMonths, interestCapitalized } =
     input;
 
   if (loanAmount <= 0 || loanTermYears <= 0) {
-    return null;
+    return { ok: false, error: "Loan amount and term must be positive", code: "INVALID_INPUT" };
   }
 
   const monthlyRate = annualInterestRate / 100 / 12;
@@ -86,15 +90,18 @@ export function calculateStudentLoan(input: StudentLoanInput): StudentLoanResult
   }
 
   return {
-    monthlyPayment,
-    totalInterest,
-    totalCost,
-    gracePeriodInterest,
-    principalAfterGrace,
-    payoffDate: payoffDate.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-    }),
-    amortization,
+    ok: true,
+    value: {
+      monthlyPayment,
+      totalInterest,
+      totalCost,
+      gracePeriodInterest,
+      principalAfterGrace,
+      payoffDate: payoffDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+      }),
+      amortization,
+    },
   };
 }

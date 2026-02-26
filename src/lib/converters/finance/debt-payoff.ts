@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DebtPayoffInput {
   totalDebt: number;
   interestRate: number;
@@ -22,11 +24,15 @@ export interface DebtPayoffResult {
   }>;
 }
 
-export function calculateDebtPayoff(input: DebtPayoffInput): DebtPayoffResult | null {
+export function calculateDebtPayoff(input: DebtPayoffInput): CalculationResult<DebtPayoffResult> {
   const { totalDebt, interestRate, minimumPayment, extraPayment } = input;
 
   if (totalDebt <= 0 || minimumPayment <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Total debt and minimum payment must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const monthlyRate = interestRate / 100 / 12;
@@ -35,7 +41,11 @@ export function calculateDebtPayoff(input: DebtPayoffInput): DebtPayoffResult | 
   // Check if payment is enough to cover interest
   const monthlyInterest = totalDebt * monthlyRate;
   if (monthlyPayment <= monthlyInterest) {
-    return null;
+    return {
+      ok: false,
+      error: "Payment is not enough to cover monthly interest",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate payoff with extra payments
@@ -79,13 +89,16 @@ export function calculateDebtPayoff(input: DebtPayoffInput): DebtPayoffResult | 
   }
 
   return {
-    monthsToPayoff,
-    yearsToPayoff: monthsToPayoff / 12,
-    totalInterest,
-    totalPaid,
-    monthsSaved: extraPayment > 0 ? monthsNoExtra - monthsToPayoff : 0,
-    interestSaved: extraPayment > 0 ? totalInterestNoExtra - totalInterest : 0,
-    monthlyPayment,
-    schedule,
+    ok: true,
+    value: {
+      monthsToPayoff,
+      yearsToPayoff: monthsToPayoff / 12,
+      totalInterest,
+      totalPaid,
+      monthsSaved: extraPayment > 0 ? monthsNoExtra - monthsToPayoff : 0,
+      interestSaved: extraPayment > 0 ? totalInterestNoExtra - totalInterest : 0,
+      monthlyPayment,
+      schedule,
+    },
   };
 }

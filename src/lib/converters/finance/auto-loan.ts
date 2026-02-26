@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface AutoLoanInput {
   vehiclePrice: number;
   downPayment: number;
@@ -22,7 +24,7 @@ export interface AutoLoanResult {
   }>;
 }
 
-export function calculateAutoLoan(input: AutoLoanInput): AutoLoanResult | null {
+export function calculateAutoLoan(input: AutoLoanInput): CalculationResult<AutoLoanResult> {
   const {
     vehiclePrice,
     downPayment,
@@ -33,7 +35,11 @@ export function calculateAutoLoan(input: AutoLoanInput): AutoLoanResult | null {
   } = input;
 
   if (vehiclePrice <= 0 || loanTermMonths <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Vehicle price and loan term must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const salesTax = vehiclePrice * (salesTaxRate / 100);
@@ -42,12 +48,15 @@ export function calculateAutoLoan(input: AutoLoanInput): AutoLoanResult | null {
 
   if (loanAmount === 0) {
     return {
-      loanAmount: 0,
-      monthlyPayment: 0,
-      totalInterest: 0,
-      totalCost: totalVehicleCost,
-      salesTax,
-      amortization: [],
+      ok: true,
+      value: {
+        loanAmount: 0,
+        monthlyPayment: 0,
+        totalInterest: 0,
+        totalCost: totalVehicleCost,
+        salesTax,
+        amortization: [],
+      },
     };
   }
 
@@ -85,11 +94,14 @@ export function calculateAutoLoan(input: AutoLoanInput): AutoLoanResult | null {
   }
 
   return {
-    loanAmount,
-    monthlyPayment,
-    totalInterest,
-    totalCost,
-    salesTax,
-    amortization,
+    ok: true,
+    value: {
+      loanAmount,
+      monthlyPayment,
+      totalInterest,
+      totalCost,
+      salesTax,
+      amortization,
+    },
   };
 }

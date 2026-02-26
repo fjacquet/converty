@@ -24,31 +24,40 @@ describe("getTimezoneOptions", () => {
 });
 
 describe("calculateTimeZone", () => {
-  it("returns null for missing dateTime", () => {
-    expect(
-      calculateTimeZone({ dateTime: "", fromTimezone: "UTC", toTimezone: "America/New_York" })
-    ).toBeNull();
+  it("returns ok: false for missing dateTime", () => {
+    const result = calculateTimeZone({
+      dateTime: "",
+      fromTimezone: "UTC",
+      toTimezone: "America/New_York",
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for missing fromTimezone", () => {
-    expect(
-      calculateTimeZone({ dateTime: "2024-06-15T12:00", fromTimezone: "", toTimezone: "UTC" })
-    ).toBeNull();
+  it("returns ok: false for missing fromTimezone", () => {
+    const result = calculateTimeZone({
+      dateTime: "2024-06-15T12:00",
+      fromTimezone: "",
+      toTimezone: "UTC",
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for missing toTimezone", () => {
-    expect(
-      calculateTimeZone({ dateTime: "2024-06-15T12:00", fromTimezone: "UTC", toTimezone: "" })
-    ).toBeNull();
+  it("returns ok: false for missing toTimezone", () => {
+    const result = calculateTimeZone({
+      dateTime: "2024-06-15T12:00",
+      fromTimezone: "UTC",
+      toTimezone: "",
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns non-null result for UTC to UTC", () => {
+  it("returns ok: true for UTC to UTC", () => {
     const result = calculateTimeZone({
       dateTime: "2024-06-15T12:00",
       fromTimezone: "UTC",
       toTimezone: "UTC",
     });
-    expect(result).not.toBeNull();
+    expect(result.ok).toBe(true);
   });
 
   it("returns convertedDateTime as a Date object", () => {
@@ -57,7 +66,10 @@ describe("calculateTimeZone", () => {
       fromTimezone: "UTC",
       toTimezone: "UTC",
     });
-    expect(result!.convertedDateTime).toBeInstanceOf(Date);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.convertedDateTime).toBeInstanceOf(Date);
+    }
   });
 
   it("returns formattedDate and formattedTime strings", () => {
@@ -66,10 +78,13 @@ describe("calculateTimeZone", () => {
       fromTimezone: "UTC",
       toTimezone: "UTC",
     });
-    expect(typeof result!.formattedDate).toBe("string");
-    expect(result!.formattedDate.length).toBeGreaterThan(0);
-    expect(typeof result!.formattedTime).toBe("string");
-    expect(result!.formattedTime.length).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(typeof result.value.formattedDate).toBe("string");
+      expect(result.value.formattedDate.length).toBeGreaterThan(0);
+      expect(typeof result.value.formattedTime).toBe("string");
+      expect(result.value.formattedTime.length).toBeGreaterThan(0);
+    }
   });
 
   it("offset is 0 minutes for UTC to UTC", () => {
@@ -78,7 +93,10 @@ describe("calculateTimeZone", () => {
       fromTimezone: "UTC",
       toTimezone: "UTC",
     });
-    expect(result!.offsetMinutes).toBe(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.offsetMinutes).toBe(0);
+    }
   });
 
   it("UTC to America/New_York has negative offset (UTC-4 or UTC-5 depending on DST)", () => {
@@ -87,8 +105,10 @@ describe("calculateTimeZone", () => {
       fromTimezone: "UTC",
       toTimezone: "America/New_York",
     });
-    expect(result).not.toBeNull();
-    // New York is UTC-4 in summer (EDT), UTC-5 in winter (EST)
-    expect(result!.offsetMinutes).toBeLessThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      // New York is UTC-4 in summer (EDT), UTC-5 in winter (EST)
+      expect(result.value.offsetMinutes).toBeLessThan(0);
+    }
   });
 });

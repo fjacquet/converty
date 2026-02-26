@@ -5,65 +5,91 @@ import { calculateAge } from "@/lib/converters/datetime/age";
 // so we test structural properties and zodiac info that don't depend on today's date.
 
 describe("calculateAge", () => {
-  it("returns null for missing birthDate", () => {
-    expect(calculateAge({ birthDate: "" })).toBeNull();
+  it("returns ok: false for missing birthDate", () => {
+    const result = calculateAge({ birthDate: "" });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for invalid birthDate string", () => {
-    expect(calculateAge({ birthDate: "not-a-date" })).toBeNull();
+  it("returns ok: false for invalid birthDate string", () => {
+    const result = calculateAge({ birthDate: "not-a-date" });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for future birth date", () => {
-    expect(calculateAge({ birthDate: "2099-01-01" })).toBeNull();
+  it("returns ok: false for future birth date", () => {
+    const result = calculateAge({ birthDate: "2099-01-01" });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns non-null for valid past birth date", () => {
+  it("returns ok: true for valid past birth date", () => {
     const result = calculateAge({ birthDate: "2000-01-15" });
-    expect(result).not.toBeNull();
+    expect(result.ok).toBe(true);
   });
 
   it("returns positive years for a 1990 birth year", () => {
     const result = calculateAge({ birthDate: "1990-06-15" });
-    expect(result).not.toBeNull();
-    expect(result!.years).toBeGreaterThan(30);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.years).toBeGreaterThan(30);
+    }
   });
 
   it("includes totalDays as a positive number", () => {
     const result = calculateAge({ birthDate: "2000-01-15" });
-    expect(result!.totalDays).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalDays).toBeGreaterThan(0);
+    }
   });
 
   it("includes totalWeeks derived from totalDays", () => {
     const result = calculateAge({ birthDate: "2000-01-15" });
-    expect(result!.totalWeeks).toBeGreaterThan(0);
-    expect(result!.totalWeeks).toBe(Math.floor(result!.totalDays / 7));
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalWeeks).toBeGreaterThan(0);
+      expect(result.value.totalWeeks).toBe(Math.floor(result.value.totalDays / 7));
+    }
   });
 
   it("includes zodiacSign for January 15 (capricorn)", () => {
     const result = calculateAge({ birthDate: "2000-01-15" });
-    expect(result!.zodiacSign).toBe("capricorn");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.zodiacSign).toBe("capricorn");
+    }
   });
 
   it("includes zodiacSign for June 15 (gemini)", () => {
     const result = calculateAge({ birthDate: "2000-06-15" });
-    expect(result!.zodiacSign).toBe("gemini");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.zodiacSign).toBe("gemini");
+    }
   });
 
   it("includes chineseZodiac for year 2000 (dragon)", () => {
     const result = calculateAge({ birthDate: "2000-01-15" });
-    expect(result!.chineseZodiac).toBe("dragon");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.chineseZodiac).toBe("dragon");
+    }
   });
 
   it("includes nextBirthday with a date", () => {
     const result = calculateAge({ birthDate: "2000-01-15" });
-    expect(result!.nextBirthday).toBeDefined();
-    expect(result!.nextBirthday.date).toBeInstanceOf(Date);
-    expect(result!.nextBirthday.daysUntil).toBeGreaterThanOrEqual(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.nextBirthday).toBeDefined();
+      expect(result.value.nextBirthday.date).toBeInstanceOf(Date);
+      expect(result.value.nextBirthday.daysUntil).toBeGreaterThanOrEqual(0);
+    }
   });
 
   it("returns months between 0 and 11", () => {
     const result = calculateAge({ birthDate: "1990-06-15" });
-    expect(result!.months).toBeGreaterThanOrEqual(0);
-    expect(result!.months).toBeLessThanOrEqual(11);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.months).toBeGreaterThanOrEqual(0);
+      expect(result.value.months).toBeLessThanOrEqual(11);
+    }
   });
 });

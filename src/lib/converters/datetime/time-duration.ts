@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface TimeDurationInput {
   startDate: string;
   startTime: string;
@@ -22,16 +24,28 @@ export interface TimeDurationResult {
   }>;
 }
 
-export function calculateTimeDuration(input: TimeDurationInput): TimeDurationResult | null {
-  if (!input.startDate || !input.startTime || !input.endDate || !input.endTime) return null;
+export function calculateTimeDuration(
+  input: TimeDurationInput
+): CalculationResult<TimeDurationResult> {
+  if (!input.startDate || !input.startTime || !input.endDate || !input.endTime) {
+    return { ok: false, error: "Start and end date/time are required", code: "INVALID_INPUT" };
+  }
 
   const startDateTime = new Date(`${input.startDate}T${input.startTime}`);
   const endDateTime = new Date(`${input.endDate}T${input.endTime}`);
 
-  if (Number.isNaN(startDateTime.getTime()) || Number.isNaN(endDateTime.getTime())) return null;
+  if (Number.isNaN(startDateTime.getTime()) || Number.isNaN(endDateTime.getTime())) {
+    return { ok: false, error: "Invalid date or time format", code: "INVALID_INPUT" };
+  }
 
   // Ensure end is after start
-  if (endDateTime < startDateTime) return null;
+  if (endDateTime < startDateTime) {
+    return {
+      ok: false,
+      error: "End date/time must be after start date/time",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const diffMs = endDateTime.getTime() - startDateTime.getTime();
 
@@ -87,16 +101,19 @@ export function calculateTimeDuration(input: TimeDurationInput): TimeDurationRes
     timeComponents.push({ count: seconds, unitKey: "second" });
 
   return {
-    years,
-    months,
-    days,
-    hours,
-    minutes,
-    seconds,
-    totalDays,
-    totalHours,
-    totalMinutes,
-    totalSeconds,
-    timeComponents,
+    ok: true,
+    value: {
+      years,
+      months,
+      days,
+      hours,
+      minutes,
+      seconds,
+      totalDays,
+      totalHours,
+      totalMinutes,
+      totalSeconds,
+      timeComponents,
+    },
   };
 }

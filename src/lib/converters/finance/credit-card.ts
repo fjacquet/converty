@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface CreditCardInput {
   balance: number;
   annualInterestRate: number;
@@ -24,7 +26,7 @@ export interface CreditCardResult {
   }>;
 }
 
-export function calculateCreditCard(input: CreditCardInput): CreditCardResult | null {
+export function calculateCreditCard(input: CreditCardInput): CalculationResult<CreditCardResult> {
   const {
     balance,
     annualInterestRate,
@@ -35,7 +37,7 @@ export function calculateCreditCard(input: CreditCardInput): CreditCardResult | 
   } = input;
 
   if (balance <= 0) {
-    return null;
+    return { ok: false, error: "Balance must be positive", code: "INVALID_INPUT" };
   }
 
   const monthlyRate = annualInterestRate / 100 / 12;
@@ -59,7 +61,11 @@ export function calculateCreditCard(input: CreditCardInput): CreditCardResult | 
     const principalPayment = payment - interestCharge;
 
     if (principalPayment <= 0) {
-      return null; // Payment not enough to cover interest
+      return {
+        ok: false,
+        error: "Payment is not enough to cover interest charges",
+        code: "INVALID_INPUT",
+      };
     }
 
     currentBalance = Math.max(0, currentBalance - principalPayment);
@@ -88,13 +94,16 @@ export function calculateCreditCard(input: CreditCardInput): CreditCardResult | 
   }
 
   return {
-    monthsToPayoff: month,
-    yearsToPayoff: month / 12,
-    totalInterest,
-    totalPaid: totalPayments,
-    firstPayment: schedule[0]?.payment ?? 0,
-    averagePayment: totalPayments / month,
-    paymentForTarget,
-    schedule,
+    ok: true,
+    value: {
+      monthsToPayoff: month,
+      yearsToPayoff: month / 12,
+      totalInterest,
+      totalPaid: totalPayments,
+      firstPayment: schedule[0]?.payment ?? 0,
+      averagePayment: totalPayments / month,
+      paymentForTarget,
+      schedule,
+    },
   };
 }

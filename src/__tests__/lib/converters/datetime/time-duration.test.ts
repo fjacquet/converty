@@ -2,36 +2,34 @@ import { describe, expect, it } from "vitest";
 import { calculateTimeDuration } from "@/lib/converters/datetime/time-duration";
 
 describe("calculateTimeDuration", () => {
-  it("returns null for missing startDate", () => {
-    expect(
-      calculateTimeDuration({
-        startDate: "",
-        startTime: "10:00",
-        endDate: "2024-06-15",
-        endTime: "12:00",
-      })
-    ).toBeNull();
+  it("returns ok: false for missing startDate", () => {
+    const result = calculateTimeDuration({
+      startDate: "",
+      startTime: "10:00",
+      endDate: "2024-06-15",
+      endTime: "12:00",
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for missing startTime", () => {
-    expect(
-      calculateTimeDuration({
-        startDate: "2024-06-15",
-        startTime: "",
-        endDate: "2024-06-15",
-        endTime: "12:00",
-      })
-    ).toBeNull();
+  it("returns ok: false for missing startTime", () => {
+    const result = calculateTimeDuration({
+      startDate: "2024-06-15",
+      startTime: "",
+      endDate: "2024-06-15",
+      endTime: "12:00",
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null when end is before start", () => {
+  it("returns ok: false when end is before start", () => {
     const result = calculateTimeDuration({
       startDate: "2024-06-15",
       startTime: "12:00",
       endDate: "2024-06-15",
       endTime: "10:00",
     });
-    expect(result).toBeNull();
+    expect(result.ok).toBe(false);
   });
 
   it("calculates 2 hours from 10:00 to 12:00 on same day", () => {
@@ -41,11 +39,13 @@ describe("calculateTimeDuration", () => {
       endDate: "2024-06-15",
       endTime: "12:00",
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalHours).toBe(2);
-    expect(result!.hours).toBe(2);
-    expect(result!.minutes).toBe(0);
-    expect(result!.totalSeconds).toBe(7200);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalHours).toBe(2);
+      expect(result.value.hours).toBe(2);
+      expect(result.value.minutes).toBe(0);
+      expect(result.value.totalSeconds).toBe(7200);
+    }
   });
 
   it("calculates 1 day duration", () => {
@@ -55,9 +55,11 @@ describe("calculateTimeDuration", () => {
       endDate: "2024-06-16",
       endTime: "12:00",
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalDays).toBe(1);
-    expect(result!.days).toBe(1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalDays).toBe(1);
+      expect(result.value.days).toBe(1);
+    }
   });
 
   it("calculates duration spanning multiple components", () => {
@@ -67,9 +69,11 @@ describe("calculateTimeDuration", () => {
       endDate: "2024-06-15",
       endTime: "12:30",
     });
-    expect(result).not.toBeNull();
-    expect(result!.months).toBeGreaterThan(0);
-    expect(result!.totalDays).toBeGreaterThan(150);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.months).toBeGreaterThan(0);
+      expect(result.value.totalDays).toBeGreaterThan(150);
+    }
   });
 
   it("calculates seconds correctly for 1h1m1s", () => {
@@ -79,11 +83,13 @@ describe("calculateTimeDuration", () => {
       endDate: "2024-06-15",
       endTime: "11:01:01",
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalSeconds).toBe(3661);
-    expect(result!.hours).toBe(1);
-    expect(result!.minutes).toBe(1);
-    expect(result!.seconds).toBe(1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalSeconds).toBe(3661);
+      expect(result.value.hours).toBe(1);
+      expect(result.value.minutes).toBe(1);
+      expect(result.value.seconds).toBe(1);
+    }
   });
 
   it("returns timeComponents array with non-zero values", () => {
@@ -93,9 +99,12 @@ describe("calculateTimeDuration", () => {
       endDate: "2024-06-15",
       endTime: "12:00",
     });
-    expect(result!.timeComponents.length).toBeGreaterThan(0);
-    expect(result!.timeComponents[0].unitKey).toBe("hour");
-    expect(result!.timeComponents[0].count).toBe(2);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.timeComponents.length).toBeGreaterThan(0);
+      expect(result.value.timeComponents[0].unitKey).toBe("hour");
+      expect(result.value.timeComponents[0].count).toBe(2);
+    }
   });
 
   it("returns 0 seconds for identical start and end", () => {
@@ -105,7 +114,9 @@ describe("calculateTimeDuration", () => {
       endDate: "2024-06-15",
       endTime: "10:00",
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalSeconds).toBe(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalSeconds).toBe(0);
+    }
   });
 });

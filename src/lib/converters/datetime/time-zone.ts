@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface TimeZoneInput {
   dateTime: string;
   fromTimezone: string;
@@ -175,12 +177,16 @@ export function getTimezonesByRegion(): TimezoneGroup[] {
 export const TIMEZONES = getTimezoneOptions();
 
 // DST-aware timezone conversion using Intl.DateTimeFormat
-export function calculateTimeZone(input: TimeZoneInput): TimeZoneResult | null {
-  if (!input.dateTime || !input.fromTimezone || !input.toTimezone) return null;
+export function calculateTimeZone(input: TimeZoneInput): CalculationResult<TimeZoneResult> {
+  if (!input.dateTime || !input.fromTimezone || !input.toTimezone) {
+    return { ok: false, error: "Date/time and both timezones are required", code: "INVALID_INPUT" };
+  }
 
   // Parse the input datetime
   const inputDate = new Date(input.dateTime);
-  if (Number.isNaN(inputDate.getTime())) return null;
+  if (Number.isNaN(inputDate.getTime())) {
+    return { ok: false, error: "Invalid date/time format", code: "INVALID_INPUT" };
+  }
 
   try {
     // Get the time in the source timezone as if the input represents that timezone
@@ -269,13 +275,16 @@ export function calculateTimeZone(input: TimeZoneInput): TimeZoneResult | null {
     }
 
     return {
-      convertedDateTime,
-      formattedDate: dateFormatter.format(convertedDateTime),
-      formattedTime: timeFormatter.format(convertedDateTime),
-      offset: offset || offsetStr,
-      offsetMinutes,
+      ok: true,
+      value: {
+        convertedDateTime,
+        formattedDate: dateFormatter.format(convertedDateTime),
+        formattedTime: timeFormatter.format(convertedDateTime),
+        offset: offset || offsetStr,
+        offsetMinutes,
+      },
     };
   } catch {
-    return null;
+    return { ok: false, error: "Timezone conversion failed", code: "INVALID_INPUT" };
   }
 }

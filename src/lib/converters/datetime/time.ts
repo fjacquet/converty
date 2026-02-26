@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export type TimeOperation = "add" | "subtract";
 
 export interface TimeInput {
@@ -40,11 +42,15 @@ function formatTime12h(hours: number, minutes: number, seconds: number): string 
   return `${displayHours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
-export function calculateTime(input: TimeInput): TimeResult | null {
-  if (!input.startTime) return null;
+export function calculateTime(input: TimeInput): CalculationResult<TimeResult> {
+  if (!input.startTime) {
+    return { ok: false, error: "Start time is required", code: "INVALID_INPUT" };
+  }
 
   const startTime = parseTime(input.startTime);
-  if (!startTime) return null;
+  if (!startTime) {
+    return { ok: false, error: "Invalid time format", code: "INVALID_INPUT" };
+  }
 
   const addHours = Number.parseInt(input.hours, 10) || 0;
   const addMinutes = Number.parseInt(input.minutes, 10) || 0;
@@ -76,12 +82,15 @@ export function calculateTime(input: TimeInput): TimeResult | null {
   const resultSeconds = resultTotalSeconds % 60;
 
   return {
-    resultTime: formatTime24h(resultHours, resultMinutes, resultSeconds),
-    formatted12h: formatTime12h(resultHours, resultMinutes, resultSeconds),
-    formatted24h: formatTime24h(resultHours, resultMinutes, resultSeconds),
-    totalSeconds: resultTotalSeconds,
-    crossesMidnight: dayChange !== 0,
-    dayChange,
-    period: resultHours >= 12 ? "PM" : "AM",
+    ok: true,
+    value: {
+      resultTime: formatTime24h(resultHours, resultMinutes, resultSeconds),
+      formatted12h: formatTime12h(resultHours, resultMinutes, resultSeconds),
+      formatted24h: formatTime24h(resultHours, resultMinutes, resultSeconds),
+      totalSeconds: resultTotalSeconds,
+      crossesMidnight: dayChange !== 0,
+      dayChange,
+      period: resultHours >= 12 ? "PM" : "AM",
+    },
   };
 }

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PersonalLoanInput {
   loanAmount: number;
   annualInterestRate: number;
@@ -20,11 +22,13 @@ export interface PersonalLoanResult {
   }>;
 }
 
-export function calculatePersonalLoan(input: PersonalLoanInput): PersonalLoanResult | null {
+export function calculatePersonalLoan(
+  input: PersonalLoanInput
+): CalculationResult<PersonalLoanResult> {
   const { loanAmount, annualInterestRate, loanTermMonths, originationFee } = input;
 
   if (loanAmount <= 0 || loanTermMonths <= 0) {
-    return null;
+    return { ok: false, error: "Loan amount and term must be positive", code: "INVALID_INPUT" };
   }
 
   const originationFeeAmount = loanAmount * (originationFee / 100);
@@ -76,11 +80,14 @@ export function calculatePersonalLoan(input: PersonalLoanInput): PersonalLoanRes
   }
 
   return {
-    monthlyPayment,
-    totalInterest,
-    totalCost,
-    originationFeeAmount,
-    apr,
-    amortization,
+    ok: true,
+    value: {
+      monthlyPayment,
+      totalInterest,
+      totalCost,
+      originationFeeAmount,
+      apr,
+      amortization,
+    },
   };
 }

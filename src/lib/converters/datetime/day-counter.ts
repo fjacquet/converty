@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DayCounterInput {
   startDate: string;
   endDate: string;
@@ -33,13 +35,17 @@ function countBusinessDays(start: Date, end: Date): number {
   return count;
 }
 
-export function calculateDayCounter(input: DayCounterInput): DayCounterResult | null {
-  if (!input.startDate || !input.endDate) return null;
+export function calculateDayCounter(input: DayCounterInput): CalculationResult<DayCounterResult> {
+  if (!input.startDate || !input.endDate) {
+    return { ok: false, error: "Start date and end date are required", code: "INVALID_INPUT" };
+  }
 
   let startDate = new Date(input.startDate);
   let endDate = new Date(input.endDate);
 
-  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return null;
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+    return { ok: false, error: "Invalid date format", code: "INVALID_INPUT" };
+  }
 
   // Swap if end is before start
   if (endDate < startDate) {
@@ -78,12 +84,15 @@ export function calculateDayCounter(input: DayCounterInput): DayCounterResult | 
   if (parts.length === 0) parts.push("0 days");
 
   return {
-    totalDays,
-    businessDays,
-    weekendDays,
-    weeks,
-    remainingDays,
-    months,
-    formattedDuration: parts.join(" and "),
+    ok: true,
+    value: {
+      totalDays,
+      businessDays,
+      weekendDays,
+      weeks,
+      remainingDays,
+      months,
+      formattedDuration: parts.join(" and "),
+    },
   };
 }

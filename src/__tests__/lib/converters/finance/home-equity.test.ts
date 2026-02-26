@@ -2,44 +2,41 @@ import { describe, expect, it } from "vitest";
 import { calculateHomeEquity } from "@/lib/converters/finance/home-equity";
 
 describe("calculateHomeEquity", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null for zero home value", () => {
-      expect(
-        calculateHomeEquity({
-          homeValue: 0,
-          mortgageBalance: 200000,
-          loanAmount: 50000,
-          annualInterestRate: 6,
-          loanTermYears: 10,
-          isHELOC: false,
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false for zero home value", () => {
+      const result = calculateHomeEquity({
+        homeValue: 0,
+        mortgageBalance: 200000,
+        loanAmount: 50000,
+        annualInterestRate: 6,
+        loanTermYears: 10,
+        isHELOC: false,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for zero loan amount", () => {
-      expect(
-        calculateHomeEquity({
-          homeValue: 400000,
-          mortgageBalance: 250000,
-          loanAmount: 0,
-          annualInterestRate: 6,
-          loanTermYears: 10,
-          isHELOC: false,
-        })
-      ).toBeNull();
+    it("returns ok: false for zero loan amount", () => {
+      const result = calculateHomeEquity({
+        homeValue: 400000,
+        mortgageBalance: 250000,
+        loanAmount: 0,
+        annualInterestRate: 6,
+        loanTermYears: 10,
+        isHELOC: false,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for zero loan term years", () => {
-      expect(
-        calculateHomeEquity({
-          homeValue: 400000,
-          mortgageBalance: 250000,
-          loanAmount: 50000,
-          annualInterestRate: 6,
-          loanTermYears: 0,
-          isHELOC: false,
-        })
-      ).toBeNull();
+    it("returns ok: false for zero loan term years", () => {
+      const result = calculateHomeEquity({
+        homeValue: 400000,
+        mortgageBalance: 250000,
+        loanAmount: 50000,
+        annualInterestRate: 6,
+        loanTermYears: 0,
+        isHELOC: false,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -53,9 +50,11 @@ describe("calculateHomeEquity", () => {
         loanTermYears: 10,
         isHELOC: false,
       });
-      expect(result).not.toBeNull();
-      // maxLTV 85% → 400000*0.85 - 250000 = 340000 - 250000 = 90000
-      expect(result!.availableEquity).toBeCloseTo(90000, 0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        // maxLTV 85% → 400000*0.85 - 250000 = 340000 - 250000 = 90000
+        expect(result.value.availableEquity).toBeCloseTo(90000, 0);
+      }
     });
 
     it("monthly payment is positive for standard home equity loan", () => {
@@ -67,8 +66,10 @@ describe("calculateHomeEquity", () => {
         loanTermYears: 15,
         isHELOC: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.monthlyPayment).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.monthlyPayment).toBeGreaterThan(0);
+      }
     });
 
     it("total cost exceeds loan amount (interest paid)", () => {
@@ -80,8 +81,10 @@ describe("calculateHomeEquity", () => {
         loanTermYears: 10,
         isHELOC: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.totalCost).toBeGreaterThan(60000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.totalCost).toBeGreaterThan(60000);
+      }
     });
 
     it("amortization schedule has correct number of yearly entries", () => {
@@ -93,8 +96,10 @@ describe("calculateHomeEquity", () => {
         loanTermYears: 10,
         isHELOC: false,
       });
-      expect(result).not.toBeNull();
-      expect(result!.amortization).toHaveLength(10);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.amortization).toHaveLength(10);
+      }
     });
   });
 
@@ -109,9 +114,11 @@ describe("calculateHomeEquity", () => {
         isHELOC: true,
         drawPeriodYears: 10,
       });
-      expect(result).not.toBeNull();
-      expect(result!.interestOnlyPayment).toBeDefined();
-      expect(result!.interestOnlyPayment!).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.interestOnlyPayment).toBeDefined();
+        expect(result.value.interestOnlyPayment!).toBeGreaterThan(0);
+      }
     });
 
     it("HELOC interest-only payment = loanAmount × monthlyRate", () => {
@@ -126,8 +133,10 @@ describe("calculateHomeEquity", () => {
         loanTermYears: 15,
         isHELOC: true,
       });
-      expect(result).not.toBeNull();
-      expect(result!.interestOnlyPayment).toBeCloseTo(expectedInterestOnly, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.interestOnlyPayment).toBeCloseTo(expectedInterestOnly, 2);
+      }
     });
   });
 });

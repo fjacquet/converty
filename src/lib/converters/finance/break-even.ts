@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BreakEvenInput {
   fixedCosts: number;
   variableCostPerUnit: number;
@@ -17,17 +19,25 @@ export interface BreakEvenResult {
   }>;
 }
 
-export function calculateBreakEven(input: BreakEvenInput): BreakEvenResult | null {
+export function calculateBreakEven(input: BreakEvenInput): CalculationResult<BreakEvenResult> {
   const { fixedCosts, variableCostPerUnit, pricePerUnit } = input;
 
   if (fixedCosts < 0 || variableCostPerUnit < 0 || pricePerUnit <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Fixed costs and variable costs must be non-negative, price must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const contributionMargin = pricePerUnit - variableCostPerUnit;
 
   if (contributionMargin <= 0) {
-    return null; // Cannot break even if price doesn't cover variable costs
+    return {
+      ok: false,
+      error: "Cannot break even: price does not cover variable costs",
+      code: "INVALID_INPUT",
+    };
   }
 
   const breakEvenUnits = fixedCosts / contributionMargin;
@@ -53,10 +63,13 @@ export function calculateBreakEven(input: BreakEvenInput): BreakEvenResult | nul
   }
 
   return {
-    breakEvenUnits: Math.round(breakEvenUnits * 100) / 100,
-    breakEvenRevenue: Math.round(breakEvenRevenue * 100) / 100,
-    contributionMargin: Math.round(contributionMargin * 100) / 100,
-    contributionMarginRatio: Math.round(contributionMarginRatio * 100) / 100,
-    profitAtUnits,
+    ok: true,
+    value: {
+      breakEvenUnits: Math.round(breakEvenUnits * 100) / 100,
+      breakEvenRevenue: Math.round(breakEvenRevenue * 100) / 100,
+      contributionMargin: Math.round(contributionMargin * 100) / 100,
+      contributionMarginRatio: Math.round(contributionMarginRatio * 100) / 100,
+      profitAtUnits,
+    },
   };
 }

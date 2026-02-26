@@ -2,29 +2,27 @@ import { describe, expect, it } from "vitest";
 import { calculateBond } from "@/lib/converters/finance/bond-calculator";
 
 describe("calculateBond", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null for zero face value", () => {
-      expect(
-        calculateBond({
-          faceValue: 0,
-          couponRate: 5,
-          yearsToMaturity: 10,
-          paymentFrequency: 1,
-          marketRate: 5,
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false for zero face value", () => {
+      const result = calculateBond({
+        faceValue: 0,
+        couponRate: 5,
+        yearsToMaturity: 10,
+        paymentFrequency: 1,
+        marketRate: 5,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for zero yearsToMaturity", () => {
-      expect(
-        calculateBond({
-          faceValue: 1000,
-          couponRate: 5,
-          yearsToMaturity: 0,
-          paymentFrequency: 1,
-          marketRate: 5,
-        })
-      ).toBeNull();
+    it("returns ok: false for zero yearsToMaturity", () => {
+      const result = calculateBond({
+        faceValue: 1000,
+        couponRate: 5,
+        yearsToMaturity: 0,
+        paymentFrequency: 1,
+        marketRate: 5,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -37,8 +35,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bondPrice).toBeCloseTo(1000, 0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.bondPrice).toBeCloseTo(1000, 0);
+      }
     });
 
     it("par bond: isPremium is false", () => {
@@ -49,8 +49,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.isPremium).toBe(false);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.isPremium).toBe(false);
+      }
     });
   });
 
@@ -63,8 +65,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bondPrice).toBeLessThan(1000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.bondPrice).toBeLessThan(1000);
+      }
     });
 
     it("discount bond: isPremium is false", () => {
@@ -75,8 +79,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.isPremium).toBe(false);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.isPremium).toBe(false);
+      }
     });
   });
 
@@ -89,8 +95,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.bondPrice).toBeGreaterThan(1000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.bondPrice).toBeGreaterThan(1000);
+      }
     });
 
     it("premium bond: isPremium is true", () => {
@@ -101,8 +109,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.isPremium).toBe(true);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.isPremium).toBe(true);
+      }
     });
   });
 
@@ -115,8 +125,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.couponPayment).toBeCloseTo(50, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.couponPayment).toBeCloseTo(50, 2);
+      }
     });
 
     it("schedule length matches yearsToMaturity", () => {
@@ -127,8 +139,10 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      expect(result!.schedule).toHaveLength(5);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.schedule).toHaveLength(5);
+      }
     });
 
     it("last schedule entry includes face value principal payment", () => {
@@ -139,9 +153,11 @@ describe("calculateBond", () => {
         paymentFrequency: 1,
         marketRate: 5,
       });
-      expect(result).not.toBeNull();
-      const lastEntry = result!.schedule[result!.schedule.length - 1];
-      expect(lastEntry.principalPayment).toBe(1000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        const lastEntry = result.value.schedule[result.value.schedule.length - 1];
+        expect(lastEntry.principalPayment).toBe(1000);
+      }
     });
   });
 });

@@ -2,44 +2,41 @@ import { describe, expect, it } from "vitest";
 import { calculateCompoundInterest } from "@/lib/converters/finance/compound-interest";
 
 describe("calculateCompoundInterest", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null for zero years", () => {
-      expect(
-        calculateCompoundInterest({
-          principal: 1000,
-          interestRate: 5,
-          years: 0,
-          compoundFrequency: "annually",
-          monthlyContribution: 0,
-          contributionTiming: "end",
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false for zero years", () => {
+      const result = calculateCompoundInterest({
+        principal: 1000,
+        interestRate: 5,
+        years: 0,
+        compoundFrequency: "annually",
+        monthlyContribution: 0,
+        contributionTiming: "end",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for negative principal", () => {
-      expect(
-        calculateCompoundInterest({
-          principal: -100,
-          interestRate: 5,
-          years: 10,
-          compoundFrequency: "annually",
-          monthlyContribution: 0,
-          contributionTiming: "end",
-        })
-      ).toBeNull();
+    it("returns ok: false for negative principal", () => {
+      const result = calculateCompoundInterest({
+        principal: -100,
+        interestRate: 5,
+        years: 10,
+        compoundFrequency: "annually",
+        monthlyContribution: 0,
+        contributionTiming: "end",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for negative years", () => {
-      expect(
-        calculateCompoundInterest({
-          principal: 1000,
-          interestRate: 5,
-          years: -1,
-          compoundFrequency: "annually",
-          monthlyContribution: 0,
-          contributionTiming: "end",
-        })
-      ).toBeNull();
+    it("returns ok: false for negative years", () => {
+      const result = calculateCompoundInterest({
+        principal: 1000,
+        interestRate: 5,
+        years: -1,
+        compoundFrequency: "annually",
+        monthlyContribution: 0,
+        contributionTiming: "end",
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -53,9 +50,11 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 0,
         contributionTiming: "end",
       });
-      expect(result).not.toBeNull();
-      expect(result!.finalBalance).toBeCloseTo(1100, 0);
-      expect(result!.totalInterest).toBeCloseTo(100, 0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.finalBalance).toBeCloseTo(1100, 0);
+        expect(result.value.totalInterest).toBeCloseTo(100, 0);
+      }
     });
 
     it("finalBalance exceeds principal", () => {
@@ -67,8 +66,10 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 0,
         contributionTiming: "end",
       });
-      expect(result).not.toBeNull();
-      expect(result!.finalBalance).toBeGreaterThan(5000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.finalBalance).toBeGreaterThan(5000);
+      }
     });
 
     it("totalInterest is positive for valid inputs", () => {
@@ -80,7 +81,10 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 0,
         contributionTiming: "end",
       });
-      expect(result!.totalInterest).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.totalInterest).toBeGreaterThan(0);
+      }
     });
   });
 
@@ -94,7 +98,10 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 100,
         contributionTiming: "end",
       });
-      expect(result!.yearlyBreakdown).toHaveLength(3);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.yearlyBreakdown).toHaveLength(3);
+      }
     });
 
     it("first breakdown entry has year = 1", () => {
@@ -106,7 +113,10 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 100,
         contributionTiming: "end",
       });
-      expect(result!.yearlyBreakdown[0].year).toBe(1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.yearlyBreakdown[0].year).toBe(1);
+      }
     });
 
     it("yearly balance increases each year", () => {
@@ -118,9 +128,12 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 0,
         contributionTiming: "end",
       });
-      const balances = result!.yearlyBreakdown.map((b) => b.balance);
-      expect(balances[1]).toBeGreaterThan(balances[0]);
-      expect(balances[2]).toBeGreaterThan(balances[1]);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        const balances = result.value.yearlyBreakdown.map((b) => b.balance);
+        expect(balances[1]).toBeGreaterThan(balances[0]);
+        expect(balances[2]).toBeGreaterThan(balances[1]);
+      }
     });
   });
 
@@ -140,8 +153,10 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 0,
         contributionTiming: "end",
       });
-      expect(result).not.toBeNull();
-      expect(result!.finalBalance).toBeGreaterThan(1000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.finalBalance).toBeGreaterThan(1000);
+      }
     });
 
     it("more frequent compounding yields higher balance", () => {
@@ -156,7 +171,11 @@ describe("calculateCompoundInterest", () => {
         });
       const annual = makeResult("annually");
       const monthly = makeResult("monthly");
-      expect(monthly!.finalBalance).toBeGreaterThan(annual!.finalBalance);
+      expect(annual.ok).toBe(true);
+      expect(monthly.ok).toBe(true);
+      if (annual.ok && monthly.ok) {
+        expect(monthly.value.finalBalance).toBeGreaterThan(annual.value.finalBalance);
+      }
     });
   });
 
@@ -178,7 +197,11 @@ describe("calculateCompoundInterest", () => {
         monthlyContribution: 100,
         contributionTiming: "end",
       });
-      expect(withContrib!.finalBalance).toBeGreaterThan(withoutContrib!.finalBalance);
+      expect(withoutContrib.ok).toBe(true);
+      expect(withContrib.ok).toBe(true);
+      if (withoutContrib.ok && withContrib.ok) {
+        expect(withContrib.value.finalBalance).toBeGreaterThan(withoutContrib.value.finalBalance);
+      }
     });
   });
 });

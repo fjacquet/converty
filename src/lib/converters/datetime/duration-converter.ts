@@ -3,6 +3,8 @@
  * Converts between time units (seconds, minutes, hours, days, weeks, months, years)
  */
 
+import type { CalculationResult } from "@/types";
+
 export type DurationUnit = "seconds" | "minutes" | "hours" | "days" | "weeks" | "months" | "years";
 
 export interface DurationConverterInput {
@@ -97,24 +99,29 @@ function getTimeComponents(totalSeconds: number): Array<{
   return components;
 }
 
-export function convertDuration(input: DurationConverterInput): DurationConverterResult | null {
+export function convertDuration(
+  input: DurationConverterInput
+): CalculationResult<DurationConverterResult> {
   const numValue = Number.parseFloat(input.value);
 
   if (Number.isNaN(numValue)) {
-    return null;
+    return { ok: false, error: "Invalid numeric value", code: "INVALID_INPUT" };
   }
 
   // Convert input to seconds
   const totalSeconds = numValue * UNIT_TO_SECONDS[input.unit];
 
   return {
-    seconds: totalSeconds,
-    minutes: totalSeconds / SECONDS_PER_MINUTE,
-    hours: totalSeconds / SECONDS_PER_HOUR,
-    days: totalSeconds / SECONDS_PER_DAY,
-    weeks: totalSeconds / SECONDS_PER_WEEK,
-    months: totalSeconds / SECONDS_PER_MONTH,
-    years: totalSeconds / SECONDS_PER_YEAR,
-    timeComponents: getTimeComponents(totalSeconds),
+    ok: true,
+    value: {
+      seconds: totalSeconds,
+      minutes: totalSeconds / SECONDS_PER_MINUTE,
+      hours: totalSeconds / SECONDS_PER_HOUR,
+      days: totalSeconds / SECONDS_PER_DAY,
+      weeks: totalSeconds / SECONDS_PER_WEEK,
+      months: totalSeconds / SECONDS_PER_MONTH,
+      years: totalSeconds / SECONDS_PER_YEAR,
+      timeComponents: getTimeComponents(totalSeconds),
+    },
   };
 }

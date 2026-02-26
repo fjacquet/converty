@@ -2,16 +2,22 @@ import { describe, expect, it } from "vitest";
 import { calculateDayCounter } from "@/lib/converters/datetime/day-counter";
 
 describe("calculateDayCounter", () => {
-  it("returns null for missing startDate", () => {
-    expect(
-      calculateDayCounter({ startDate: "", endDate: "2024-01-05", includeEndDate: false })
-    ).toBeNull();
+  it("returns ok: false for missing startDate", () => {
+    const result = calculateDayCounter({
+      startDate: "",
+      endDate: "2024-01-05",
+      includeEndDate: false,
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for missing endDate", () => {
-    expect(
-      calculateDayCounter({ startDate: "2024-01-01", endDate: "", includeEndDate: false })
-    ).toBeNull();
+  it("returns ok: false for missing endDate", () => {
+    const result = calculateDayCounter({
+      startDate: "2024-01-01",
+      endDate: "",
+      includeEndDate: false,
+    });
+    expect(result.ok).toBe(false);
   });
 
   it("counts 4 days between 2024-01-01 and 2024-01-05 (exclusive)", () => {
@@ -20,8 +26,10 @@ describe("calculateDayCounter", () => {
       endDate: "2024-01-05",
       includeEndDate: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalDays).toBe(4);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalDays).toBe(4);
+    }
   });
 
   it("counts 5 days between 2024-01-01 and 2024-01-05 (inclusive)", () => {
@@ -30,8 +38,10 @@ describe("calculateDayCounter", () => {
       endDate: "2024-01-05",
       includeEndDate: true,
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalDays).toBe(5);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalDays).toBe(5);
+    }
   });
 
   it("counts business days for Mon-Fri week (exclusive)", () => {
@@ -41,9 +51,11 @@ describe("calculateDayCounter", () => {
       endDate: "2024-01-05",
       includeEndDate: false,
     });
-    expect(result).not.toBeNull();
-    // Mon, Tue, Wed, Thu = 4 business days (exclusive of Fri)
-    expect(result!.businessDays).toBe(4);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      // Mon, Tue, Wed, Thu = 4 business days (exclusive of Fri)
+      expect(result.value.businessDays).toBe(4);
+    }
   });
 
   it("swaps dates when end is before start", () => {
@@ -52,8 +64,10 @@ describe("calculateDayCounter", () => {
       endDate: "2024-01-01",
       includeEndDate: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalDays).toBe(4);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalDays).toBe(4);
+    }
   });
 
   it("calculates weeks and remaining days", () => {
@@ -63,9 +77,11 @@ describe("calculateDayCounter", () => {
       endDate: "2024-01-15",
       includeEndDate: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.weeks).toBe(2);
-    expect(result!.remainingDays).toBe(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.weeks).toBe(2);
+      expect(result.value.remainingDays).toBe(0);
+    }
   });
 
   it("returns 0 days for same start and end date (exclusive)", () => {
@@ -74,8 +90,10 @@ describe("calculateDayCounter", () => {
       endDate: "2024-06-15",
       includeEndDate: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.totalDays).toBe(0);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totalDays).toBe(0);
+    }
   });
 
   it("returns formattedDuration string", () => {
@@ -84,7 +102,9 @@ describe("calculateDayCounter", () => {
       endDate: "2024-01-08",
       includeEndDate: false,
     });
-    expect(result).not.toBeNull();
-    expect(result!.formattedDuration).toContain("week");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.formattedDuration).toContain("week");
+    }
   });
 });

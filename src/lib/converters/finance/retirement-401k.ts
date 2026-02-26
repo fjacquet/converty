@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface Retirement401kInput {
   currentAge: number;
   retirementAge: number;
@@ -25,7 +27,9 @@ export interface Retirement401kResult {
   }>;
 }
 
-export function calculateRetirement401k(input: Retirement401kInput): Retirement401kResult | null {
+export function calculateRetirement401k(
+  input: Retirement401kInput
+): CalculationResult<Retirement401kResult> {
   const {
     currentAge,
     retirementAge,
@@ -38,7 +42,12 @@ export function calculateRetirement401k(input: Retirement401kInput): Retirement4
   } = input;
 
   if (currentAge >= retirementAge || currentAge < 18 || retirementAge > 75) {
-    return null;
+    return {
+      ok: false,
+      error:
+        "Current age must be 18+, retirement age must be greater than current age and at most 75",
+      code: "INVALID_INPUT",
+    };
   }
 
   const yearsToRetirement = retirementAge - currentAge;
@@ -87,12 +96,15 @@ export function calculateRetirement401k(input: Retirement401kInput): Retirement4
   const monthlyInRetirement = (balance * 0.04) / 12;
 
   return {
-    totalAtRetirement: balance,
-    totalContributions,
-    totalEmployerMatch,
-    totalGrowth: balance - currentBalance - totalContributions - totalEmployerMatch,
-    yearsToRetirement,
-    monthlyInRetirement,
-    projections,
+    ok: true,
+    value: {
+      totalAtRetirement: balance,
+      totalContributions,
+      totalEmployerMatch,
+      totalGrowth: balance - currentBalance - totalContributions - totalEmployerMatch,
+      yearsToRetirement,
+      monthlyInRetirement,
+      projections,
+    },
   };
 }

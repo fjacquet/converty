@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export type CompoundFrequency = "annually" | "semi-annually" | "quarterly" | "monthly" | "daily";
 
 export interface CompoundInterestInput {
@@ -43,7 +45,7 @@ const getCompoundingPeriods = (frequency: CompoundFrequency): number => {
 
 export function calculateCompoundInterest(
   input: CompoundInterestInput
-): CompoundInterestResult | null {
+): CalculationResult<CompoundInterestResult> {
   const {
     principal,
     interestRate,
@@ -54,7 +56,11 @@ export function calculateCompoundInterest(
   } = input;
 
   if (principal < 0 || interestRate < 0 || years <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Principal and interest rate must be non-negative, years must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const n = getCompoundingPeriods(compoundFrequency);
@@ -71,7 +77,6 @@ export function calculateCompoundInterest(
   let totalContributions = 0;
 
   for (let year = 1; year <= years; year++) {
-    const startOfYearBalance = balance;
     const yearContributions = monthlyContribution * 12;
     totalContributions += yearContributions;
 
@@ -105,12 +110,15 @@ export function calculateCompoundInterest(
   const totalInterest = finalBalance - principal - totalContributions;
 
   return {
-    finalBalance: Math.round(finalBalance * 100) / 100,
-    totalPrincipal: principal,
-    totalContributions: Math.round(totalContributions * 100) / 100,
-    totalInterest: Math.round(totalInterest * 100) / 100,
-    effectiveAnnualRate: Math.round(effectiveAnnualRate * 10000) / 100, // as percentage
-    yearlyBreakdown,
+    ok: true,
+    value: {
+      finalBalance: Math.round(finalBalance * 100) / 100,
+      totalPrincipal: principal,
+      totalContributions: Math.round(totalContributions * 100) / 100,
+      totalInterest: Math.round(totalInterest * 100) / 100,
+      effectiveAnnualRate: Math.round(effectiveAnnualRate * 10000) / 100, // as percentage
+      yearlyBreakdown,
+    },
   };
 }
 

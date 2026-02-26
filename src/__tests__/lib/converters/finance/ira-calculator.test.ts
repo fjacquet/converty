@@ -2,50 +2,47 @@ import { describe, expect, it } from "vitest";
 import { calculateIra } from "@/lib/converters/finance/ira-calculator";
 
 describe("calculateIra", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null when currentAge >= retirementAge", () => {
-      expect(
-        calculateIra({
-          currentAge: 65,
-          retirementAge: 65,
-          currentBalance: 0,
-          annualContribution: 6000,
-          annualReturnRate: 7,
-          iraType: "traditional",
-          taxBracket: 22,
-          retirementTaxBracket: 20,
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false when currentAge >= retirementAge", () => {
+      const result = calculateIra({
+        currentAge: 65,
+        retirementAge: 65,
+        currentBalance: 0,
+        annualContribution: 6000,
+        annualReturnRate: 7,
+        iraType: "traditional",
+        taxBracket: 22,
+        retirementTaxBracket: 20,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null when currentAge < 18", () => {
-      expect(
-        calculateIra({
-          currentAge: 17,
-          retirementAge: 65,
-          currentBalance: 0,
-          annualContribution: 6000,
-          annualReturnRate: 7,
-          iraType: "traditional",
-          taxBracket: 22,
-          retirementTaxBracket: 20,
-        })
-      ).toBeNull();
+    it("returns ok: false when currentAge < 18", () => {
+      const result = calculateIra({
+        currentAge: 17,
+        retirementAge: 65,
+        currentBalance: 0,
+        annualContribution: 6000,
+        annualReturnRate: 7,
+        iraType: "traditional",
+        taxBracket: 22,
+        retirementTaxBracket: 20,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null when retirementAge > 75", () => {
-      expect(
-        calculateIra({
-          currentAge: 30,
-          retirementAge: 76,
-          currentBalance: 0,
-          annualContribution: 6000,
-          annualReturnRate: 7,
-          iraType: "traditional",
-          taxBracket: 22,
-          retirementTaxBracket: 20,
-        })
-      ).toBeNull();
+    it("returns ok: false when retirementAge > 75", () => {
+      const result = calculateIra({
+        currentAge: 30,
+        retirementAge: 76,
+        currentBalance: 0,
+        annualContribution: 6000,
+        annualReturnRate: 7,
+        iraType: "traditional",
+        taxBracket: 22,
+        retirementTaxBracket: 20,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -61,9 +58,11 @@ describe("calculateIra", () => {
         taxBracket: 22,
         retirementTaxBracket: 20,
       });
-      expect(result).not.toBeNull();
-      // 35 years of contributions at 7% should accumulate substantially
-      expect(result!.totalAtRetirement).toBeGreaterThan(500000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        // 35 years of contributions at 7% should accumulate substantially
+        expect(result.value.totalAtRetirement).toBeGreaterThan(500000);
+      }
     });
 
     it("totalGrowth = totalAtRetirement - currentBalance - totalContributions", () => {
@@ -77,11 +76,13 @@ describe("calculateIra", () => {
         taxBracket: 22,
         retirementTaxBracket: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.totalGrowth).toBeCloseTo(
-        result!.totalAtRetirement - 10000 - result!.totalContributions,
-        0
-      );
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.totalGrowth).toBeCloseTo(
+          result.value.totalAtRetirement - 10000 - result.value.totalContributions,
+          0
+        );
+      }
     });
 
     it("projections array is non-empty", () => {
@@ -95,8 +96,10 @@ describe("calculateIra", () => {
         taxBracket: 22,
         retirementTaxBracket: 20,
       });
-      expect(result).not.toBeNull();
-      expect(result!.projections.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.projections.length).toBeGreaterThan(0);
+      }
     });
   });
 
@@ -112,8 +115,10 @@ describe("calculateIra", () => {
         taxBracket: 22,
         retirementTaxBracket: 20,
       });
-      expect(result).not.toBeNull();
-      expect(result!.taxSavingsNow).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.taxSavingsNow).toBeGreaterThan(0);
+      }
     });
 
     it("Roth IRA has taxSavingsNow = 0 (no deduction)", () => {
@@ -127,8 +132,10 @@ describe("calculateIra", () => {
         taxBracket: 22,
         retirementTaxBracket: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.taxSavingsNow).toBe(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.taxSavingsNow).toBe(0);
+      }
     });
 
     it("Roth IRA effectiveValue = totalAtRetirement (tax-free)", () => {
@@ -142,8 +149,10 @@ describe("calculateIra", () => {
         taxBracket: 22,
         retirementTaxBracket: 15,
       });
-      expect(result).not.toBeNull();
-      expect(result!.effectiveValue).toBeCloseTo(result!.totalAtRetirement, 0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.effectiveValue).toBeCloseTo(result.value.totalAtRetirement, 0);
+      }
     });
   });
 });

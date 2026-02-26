@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BondInput {
   faceValue: number;
   couponRate: number;
@@ -23,11 +25,15 @@ export interface BondResult {
   }>;
 }
 
-export function calculateBond(input: BondInput): BondResult | null {
+export function calculateBond(input: BondInput): CalculationResult<BondResult> {
   const { faceValue, couponRate, yearsToMaturity, paymentFrequency, marketRate } = input;
 
   if (faceValue <= 0 || yearsToMaturity <= 0 || paymentFrequency < 1) {
-    return null;
+    return {
+      ok: false,
+      error: "Face value and years to maturity must be positive, payment frequency at least 1",
+      code: "INVALID_INPUT",
+    };
   }
 
   const periodsPerYear = paymentFrequency;
@@ -78,14 +84,17 @@ export function calculateBond(input: BondInput): BondResult | null {
   }
 
   return {
-    bondPrice,
-    currentYield,
-    yieldToMaturity,
-    couponPayment: annualCoupon,
-    totalCouponPayments,
-    totalReturn,
-    premiumOrDiscount: Math.abs(premiumOrDiscount),
-    isPremium,
-    schedule,
+    ok: true,
+    value: {
+      bondPrice,
+      currentYield,
+      yieldToMaturity,
+      couponPayment: annualCoupon,
+      totalCouponPayments,
+      totalReturn,
+      premiumOrDiscount: Math.abs(premiumOrDiscount),
+      isPremium,
+      schedule,
+    },
   };
 }

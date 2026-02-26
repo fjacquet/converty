@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface MortgageInput {
   homePrice: number;
   downPayment: number;
@@ -43,7 +45,7 @@ export interface MortgageResult {
   }[];
 }
 
-export function calculateMortgage(input: MortgageInput): MortgageResult | null {
+export function calculateMortgage(input: MortgageInput): CalculationResult<MortgageResult> {
   const {
     homePrice,
     downPayment,
@@ -57,12 +59,20 @@ export function calculateMortgage(input: MortgageInput): MortgageResult | null {
   } = input;
 
   if (homePrice <= 0 || loanTerm <= 0 || interestRate < 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Home price and loan term must be positive, interest rate must be non-negative",
+      code: "INVALID_INPUT",
+    };
   }
 
   const loanAmount = homePrice - downPayment;
   if (loanAmount <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Loan amount must be positive (home price must exceed down payment)",
+      code: "INVALID_INPUT",
+    };
   }
 
   const monthlyRate = interestRate / 100 / 12;
@@ -154,18 +164,21 @@ export function calculateMortgage(input: MortgageInput): MortgageResult | null {
     hoaFees * numberOfPayments;
 
   return {
-    loanAmount,
-    monthlyPrincipalInterest: Math.round(monthlyPrincipalInterest * 100) / 100,
-    monthlyPropertyTax: Math.round(monthlyPropertyTax * 100) / 100,
-    monthlyInsurance: Math.round(monthlyInsurance * 100) / 100,
-    monthlyPmi: Math.round(monthlyPmi * 100) / 100,
-    monthlyHoa: Math.round(monthlyHoa * 100) / 100,
-    totalMonthlyPayment: Math.round(totalMonthlyPayment * 100) / 100,
-    totalPayments: Math.round(totalPayments * 100) / 100,
-    totalInterest: Math.round(totalInterest * 100) / 100,
-    totalCost: Math.round(totalCost * 100) / 100,
-    payoffDate: payoffDate.toISOString().split("T")[0],
-    amortizationSchedule,
-    yearlyBreakdown,
+    ok: true,
+    value: {
+      loanAmount,
+      monthlyPrincipalInterest: Math.round(monthlyPrincipalInterest * 100) / 100,
+      monthlyPropertyTax: Math.round(monthlyPropertyTax * 100) / 100,
+      monthlyInsurance: Math.round(monthlyInsurance * 100) / 100,
+      monthlyPmi: Math.round(monthlyPmi * 100) / 100,
+      monthlyHoa: Math.round(monthlyHoa * 100) / 100,
+      totalMonthlyPayment: Math.round(totalMonthlyPayment * 100) / 100,
+      totalPayments: Math.round(totalPayments * 100) / 100,
+      totalInterest: Math.round(totalInterest * 100) / 100,
+      totalCost: Math.round(totalCost * 100) / 100,
+      payoffDate: payoffDate.toISOString().split("T")[0],
+      amortizationSchedule,
+      yearlyBreakdown,
+    },
   };
 }

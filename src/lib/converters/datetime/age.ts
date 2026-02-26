@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface AgeInput {
   birthDate: string; // ISO date string (YYYY-MM-DD)
 }
@@ -90,17 +92,23 @@ function getNextBirthday(birthDate: Date, today: Date): { date: Date; daysUntil:
   return { date: nextBirthday, daysUntil };
 }
 
-export function calculateAge(input: AgeInput): AgeResult | null {
-  if (!input.birthDate) return null;
+export function calculateAge(input: AgeInput): CalculationResult<AgeResult> {
+  if (!input.birthDate) {
+    return { ok: false, error: "Birth date is required", code: "INVALID_INPUT" };
+  }
 
   const birthDate = new Date(input.birthDate);
-  if (Number.isNaN(birthDate.getTime())) return null;
+  if (Number.isNaN(birthDate.getTime())) {
+    return { ok: false, error: "Invalid date format", code: "INVALID_INPUT" };
+  }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   // Check if birth date is in the future
-  if (birthDate > today) return null;
+  if (birthDate > today) {
+    return { ok: false, error: "Birth date cannot be in the future", code: "INVALID_INPUT" };
+  }
 
   // Calculate years, months, days
   let years = today.getFullYear() - birthDate.getFullYear();
@@ -133,14 +141,17 @@ export function calculateAge(input: AgeInput): AgeResult | null {
   const nextBirthday = getNextBirthday(birthDate, today);
 
   return {
-    years,
-    months,
-    days,
-    totalDays,
-    totalWeeks,
-    totalMonths,
-    nextBirthday,
-    zodiacSign,
-    chineseZodiac,
+    ok: true,
+    value: {
+      years,
+      months,
+      days,
+      totalDays,
+      totalWeeks,
+      totalMonths,
+      nextBirthday,
+      zodiacSign,
+      chineseZodiac,
+    },
   };
 }

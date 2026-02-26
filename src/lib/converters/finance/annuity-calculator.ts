@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface AnnuityInput {
   principal: number;
   annualInterestRate: number;
@@ -22,7 +24,7 @@ export interface AnnuityResult {
   }>;
 }
 
-export function calculateAnnuity(input: AnnuityInput): AnnuityResult | null {
+export function calculateAnnuity(input: AnnuityInput): CalculationResult<AnnuityResult> {
   const {
     principal,
     annualInterestRate,
@@ -33,7 +35,11 @@ export function calculateAnnuity(input: AnnuityInput): AnnuityResult | null {
   } = input;
 
   if (principal <= 0 || payoutYears <= 0 || paymentFrequency < 1) {
-    return null;
+    return {
+      ok: false,
+      error: "Principal, payout years must be positive and payment frequency at least 1",
+      code: "INVALID_INPUT",
+    };
   }
 
   const periodsPerYear = paymentFrequency;
@@ -93,12 +99,15 @@ export function calculateAnnuity(input: AnnuityInput): AnnuityResult | null {
   }
 
   return {
-    periodicPayment,
-    totalPayments,
-    totalInterestEarned,
-    effectiveRate: effectiveRate * 100,
-    presentValue,
-    futureValue,
-    schedule,
+    ok: true,
+    value: {
+      periodicPayment,
+      totalPayments,
+      totalInterestEarned,
+      effectiveRate: effectiveRate * 100,
+      presentValue,
+      futureValue,
+      schedule,
+    },
   };
 }

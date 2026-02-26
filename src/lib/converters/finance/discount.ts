@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DiscountInput {
   originalPrice: number;
   discountPercent?: number;
@@ -13,11 +15,11 @@ export interface DiscountResult {
   savings: number;
 }
 
-export function calculateDiscount(input: DiscountInput): DiscountResult | null {
+export function calculateDiscount(input: DiscountInput): CalculationResult<DiscountResult> {
   const { originalPrice, discountPercent, discountAmount, finalPrice } = input;
 
   if (originalPrice <= 0) {
-    return null;
+    return { ok: false, error: "Original price must be positive", code: "INVALID_INPUT" };
   }
 
   let calculatedDiscountPercent: number;
@@ -41,14 +43,21 @@ export function calculateDiscount(input: DiscountInput): DiscountResult | null {
     calculatedDiscountAmount = originalPrice - finalPrice;
     calculatedDiscountPercent = (calculatedDiscountAmount / originalPrice) * 100;
   } else {
-    return null;
+    return {
+      ok: false,
+      error: "Must provide valid discount percent, amount, or final price",
+      code: "INVALID_INPUT",
+    };
   }
 
   return {
-    originalPrice: Math.round(originalPrice * 100) / 100,
-    discountPercent: Math.round(calculatedDiscountPercent * 100) / 100,
-    discountAmount: Math.round(calculatedDiscountAmount * 100) / 100,
-    finalPrice: Math.round(calculatedFinalPrice * 100) / 100,
-    savings: Math.round(calculatedDiscountAmount * 100) / 100,
+    ok: true,
+    value: {
+      originalPrice: Math.round(originalPrice * 100) / 100,
+      discountPercent: Math.round(calculatedDiscountPercent * 100) / 100,
+      discountAmount: Math.round(calculatedDiscountAmount * 100) / 100,
+      finalPrice: Math.round(calculatedFinalPrice * 100) / 100,
+      savings: Math.round(calculatedDiscountAmount * 100) / 100,
+    },
   };
 }

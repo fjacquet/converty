@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface HomeEquityInput {
   homeValue: number;
   mortgageBalance: number;
@@ -24,7 +26,7 @@ export interface HomeEquityResult {
   }>;
 }
 
-export function calculateHomeEquity(input: HomeEquityInput): HomeEquityResult | null {
+export function calculateHomeEquity(input: HomeEquityInput): CalculationResult<HomeEquityResult> {
   const {
     homeValue,
     mortgageBalance,
@@ -36,7 +38,11 @@ export function calculateHomeEquity(input: HomeEquityInput): HomeEquityResult | 
   } = input;
 
   if (homeValue <= 0 || loanAmount <= 0 || loanTermYears <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Home value, loan amount, and loan term must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate equity
@@ -103,13 +109,16 @@ export function calculateHomeEquity(input: HomeEquityInput): HomeEquityResult | 
   }
 
   return {
-    availableEquity,
-    loanToValue,
-    combinedLTV,
-    monthlyPayment,
-    totalInterest,
-    totalCost,
-    interestOnlyPayment,
-    amortization,
+    ok: true,
+    value: {
+      availableEquity,
+      loanToValue,
+      combinedLTV,
+      monthlyPayment,
+      totalInterest,
+      totalCost,
+      interestOnlyPayment,
+      amortization,
+    },
   };
 }

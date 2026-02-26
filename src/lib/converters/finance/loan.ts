@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface LoanInput {
   loanAmount: number;
   interestRate: number; // annual percentage
@@ -29,11 +31,15 @@ export interface LoanResult {
   }[];
 }
 
-export function calculateLoan(input: LoanInput): LoanResult | null {
+export function calculateLoan(input: LoanInput): CalculationResult<LoanResult> {
   const { loanAmount, interestRate, loanTerm, startDate } = input;
 
   if (loanAmount <= 0 || interestRate < 0 || loanTerm <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Loan amount and term must be positive, interest rate must be non-negative",
+      code: "INVALID_INPUT",
+    };
   }
 
   const monthlyRate = interestRate / 100 / 12;
@@ -111,12 +117,15 @@ export function calculateLoan(input: LoanInput): LoanResult | null {
   const totalPayment = monthlyPayment * loanTerm;
 
   return {
-    monthlyPayment: Math.round(monthlyPayment * 100) / 100,
-    totalPayment: Math.round(totalPayment * 100) / 100,
-    totalInterest: Math.round(totalInterest * 100) / 100,
-    payoffDate: payoffDate.toISOString().split("T")[0],
-    effectiveRate: Math.round(effectiveRate * 10000) / 100,
-    schedule,
-    yearlyTotals,
+    ok: true,
+    value: {
+      monthlyPayment: Math.round(monthlyPayment * 100) / 100,
+      totalPayment: Math.round(totalPayment * 100) / 100,
+      totalInterest: Math.round(totalInterest * 100) / 100,
+      payoffDate: payoffDate.toISOString().split("T")[0],
+      effectiveRate: Math.round(effectiveRate * 10000) / 100,
+      schedule,
+      yearlyTotals,
+    },
   };
 }

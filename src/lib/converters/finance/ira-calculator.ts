@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface IraInput {
   currentAge: number;
   retirementAge: number;
@@ -25,7 +27,7 @@ export interface IraResult {
   }>;
 }
 
-export function calculateIra(input: IraInput): IraResult | null {
+export function calculateIra(input: IraInput): CalculationResult<IraResult> {
   const {
     currentAge,
     retirementAge,
@@ -38,7 +40,12 @@ export function calculateIra(input: IraInput): IraResult | null {
   } = input;
 
   if (currentAge >= retirementAge || currentAge < 18 || retirementAge > 75) {
-    return null;
+    return {
+      ok: false,
+      error:
+        "Current age must be 18+, retirement age must be greater than current age and at most 75",
+      code: "INVALID_INPUT",
+    };
   }
 
   // IRA contribution limits (2024: $7,000, $8,000 if 50+)
@@ -101,13 +108,16 @@ export function calculateIra(input: IraInput): IraResult | null {
       : (balance * 0.04) / 12;
 
   return {
-    totalAtRetirement: balance,
-    totalContributions,
-    totalGrowth,
-    taxSavingsNow,
-    taxInRetirement,
-    effectiveValue,
-    monthlyInRetirement,
-    projections,
+    ok: true,
+    value: {
+      totalAtRetirement: balance,
+      totalContributions,
+      totalGrowth,
+      taxSavingsNow,
+      taxInRetirement,
+      effectiveValue,
+      monthlyInRetirement,
+      projections,
+    },
   };
 }

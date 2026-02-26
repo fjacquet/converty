@@ -2,39 +2,36 @@ import { describe, expect, it } from "vitest";
 import { calculateDebtPayoff } from "@/lib/converters/finance/debt-payoff";
 
 describe("calculateDebtPayoff", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null for zero total debt", () => {
-      expect(
-        calculateDebtPayoff({
-          totalDebt: 0,
-          interestRate: 8,
-          minimumPayment: 300,
-          extraPayment: 0,
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false for zero total debt", () => {
+      const result = calculateDebtPayoff({
+        totalDebt: 0,
+        interestRate: 8,
+        minimumPayment: 300,
+        extraPayment: 0,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for zero minimum payment", () => {
-      expect(
-        calculateDebtPayoff({
-          totalDebt: 10000,
-          interestRate: 8,
-          minimumPayment: 0,
-          extraPayment: 0,
-        })
-      ).toBeNull();
+    it("returns ok: false for zero minimum payment", () => {
+      const result = calculateDebtPayoff({
+        totalDebt: 10000,
+        interestRate: 8,
+        minimumPayment: 0,
+        extraPayment: 0,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null when payment does not cover interest", () => {
+    it("returns ok: false when payment does not cover interest", () => {
       // $10,000 at 24% APR → monthly interest ≈ $200; payment of $50 won't cover it
-      expect(
-        calculateDebtPayoff({
-          totalDebt: 10000,
-          interestRate: 24,
-          minimumPayment: 50,
-          extraPayment: 0,
-        })
-      ).toBeNull();
+      const result = calculateDebtPayoff({
+        totalDebt: 10000,
+        interestRate: 24,
+        minimumPayment: 50,
+        extraPayment: 0,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -46,8 +43,10 @@ describe("calculateDebtPayoff", () => {
         minimumPayment: 300,
         extraPayment: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.monthsToPayoff).toBeLessThan(48);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.monthsToPayoff).toBeLessThan(48);
+      }
     });
 
     it("first schedule entry has positive interest and principal components", () => {
@@ -57,10 +56,12 @@ describe("calculateDebtPayoff", () => {
         minimumPayment: 300,
         extraPayment: 0,
       });
-      expect(result).not.toBeNull();
-      const first = result!.schedule[0];
-      expect(first.interest).toBeGreaterThan(0);
-      expect(first.principal).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        const first = result.value.schedule[0];
+        expect(first.interest).toBeGreaterThan(0);
+        expect(first.principal).toBeGreaterThan(0);
+      }
     });
 
     it("total paid > principal (interest was paid)", () => {
@@ -70,8 +71,10 @@ describe("calculateDebtPayoff", () => {
         minimumPayment: 300,
         extraPayment: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.totalPaid).toBeGreaterThan(10000);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.totalPaid).toBeGreaterThan(10000);
+      }
     });
 
     it("schedule length matches monthsToPayoff", () => {
@@ -81,8 +84,10 @@ describe("calculateDebtPayoff", () => {
         minimumPayment: 200,
         extraPayment: 0,
       });
-      expect(result).not.toBeNull();
-      expect(result!.schedule).toHaveLength(result!.monthsToPayoff);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.schedule).toHaveLength(result.value.monthsToPayoff);
+      }
     });
   });
 
@@ -100,9 +105,11 @@ describe("calculateDebtPayoff", () => {
         minimumPayment: 300,
         extraPayment: 100,
       });
-      expect(standard).not.toBeNull();
-      expect(extra).not.toBeNull();
-      expect(extra!.monthsToPayoff).toBeLessThan(standard!.monthsToPayoff);
+      expect(standard.ok).toBe(true);
+      expect(extra.ok).toBe(true);
+      if (standard.ok && extra.ok) {
+        expect(extra.value.monthsToPayoff).toBeLessThan(standard.value.monthsToPayoff);
+      }
     });
 
     it("extra payment results in positive monthsSaved", () => {
@@ -112,8 +119,10 @@ describe("calculateDebtPayoff", () => {
         minimumPayment: 300,
         extraPayment: 100,
       });
-      expect(result).not.toBeNull();
-      expect(result!.monthsSaved).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.monthsSaved).toBeGreaterThan(0);
+      }
     });
 
     it("extra payment results in positive interestSaved", () => {
@@ -123,8 +132,10 @@ describe("calculateDebtPayoff", () => {
         minimumPayment: 300,
         extraPayment: 100,
       });
-      expect(result).not.toBeNull();
-      expect(result!.interestSaved).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.interestSaved).toBeGreaterThan(0);
+      }
     });
   });
 });

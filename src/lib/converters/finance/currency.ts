@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 // Common exchange rates (static, for demo purposes)
 // In a real app, these would come from an API
 export const EXCHANGE_RATES: Record<string, number> = {
@@ -40,18 +42,18 @@ export interface CurrencyResult {
   toCurrency: string;
 }
 
-export function convertCurrency(input: CurrencyInput): CurrencyResult | null {
+export function convertCurrency(input: CurrencyInput): CalculationResult<CurrencyResult> {
   const { amount, fromCurrency, toCurrency } = input;
 
   if (amount < 0) {
-    return null;
+    return { ok: false, error: "Amount must be non-negative", code: "INVALID_INPUT" };
   }
 
   const fromRate = EXCHANGE_RATES[fromCurrency];
   const toRate = EXCHANGE_RATES[toCurrency];
 
   if (!fromRate || !toRate) {
-    return null;
+    return { ok: false, error: "Unknown currency code", code: "INVALID_INPUT" };
   }
 
   // Convert to USD first, then to target currency
@@ -61,11 +63,14 @@ export function convertCurrency(input: CurrencyInput): CurrencyResult | null {
   const inverseRate = fromRate / toRate;
 
   return {
-    convertedAmount: Math.round(convertedAmount * 100) / 100,
-    exchangeRate: Math.round(exchangeRate * 10000) / 10000,
-    inverseRate: Math.round(inverseRate * 10000) / 10000,
-    fromCurrency,
-    toCurrency,
+    ok: true,
+    value: {
+      convertedAmount: Math.round(convertedAmount * 100) / 100,
+      exchangeRate: Math.round(exchangeRate * 10000) / 10000,
+      inverseRate: Math.round(inverseRate * 10000) / 10000,
+      fromCurrency,
+      toCurrency,
+    },
   };
 }
 

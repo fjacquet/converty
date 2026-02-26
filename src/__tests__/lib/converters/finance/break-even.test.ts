@@ -2,45 +2,41 @@ import { describe, expect, it } from "vitest";
 import { calculateBreakEven } from "@/lib/converters/finance/break-even";
 
 describe("calculateBreakEven", () => {
-  describe("null returns for invalid input", () => {
-    it("returns null when price equals variable cost (zero contribution margin)", () => {
-      expect(
-        calculateBreakEven({
-          fixedCosts: 10000,
-          variableCostPerUnit: 50,
-          pricePerUnit: 50,
-        })
-      ).toBeNull();
+  describe("ok: false for invalid input", () => {
+    it("returns ok: false when price equals variable cost (zero contribution margin)", () => {
+      const result = calculateBreakEven({
+        fixedCosts: 10000,
+        variableCostPerUnit: 50,
+        pricePerUnit: 50,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null when price is less than variable cost", () => {
-      expect(
-        calculateBreakEven({
-          fixedCosts: 10000,
-          variableCostPerUnit: 60,
-          pricePerUnit: 50,
-        })
-      ).toBeNull();
+    it("returns ok: false when price is less than variable cost", () => {
+      const result = calculateBreakEven({
+        fixedCosts: 10000,
+        variableCostPerUnit: 60,
+        pricePerUnit: 50,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for zero price per unit", () => {
-      expect(
-        calculateBreakEven({
-          fixedCosts: 10000,
-          variableCostPerUnit: 0,
-          pricePerUnit: 0,
-        })
-      ).toBeNull();
+    it("returns ok: false for zero price per unit", () => {
+      const result = calculateBreakEven({
+        fixedCosts: 10000,
+        variableCostPerUnit: 0,
+        pricePerUnit: 0,
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for negative fixed costs", () => {
-      expect(
-        calculateBreakEven({
-          fixedCosts: -100,
-          variableCostPerUnit: 30,
-          pricePerUnit: 50,
-        })
-      ).toBeNull();
+    it("returns ok: false for negative fixed costs", () => {
+      const result = calculateBreakEven({
+        fixedCosts: -100,
+        variableCostPerUnit: 30,
+        pricePerUnit: 50,
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -51,8 +47,10 @@ describe("calculateBreakEven", () => {
         variableCostPerUnit: 30,
         pricePerUnit: 50,
       });
-      expect(result).not.toBeNull();
-      expect(result!.breakEvenUnits).toBeCloseTo(500, 0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.breakEvenUnits).toBeCloseTo(500, 0);
+      }
     });
 
     it("higher fixed costs → more units needed to break even", () => {
@@ -66,9 +64,11 @@ describe("calculateBreakEven", () => {
         variableCostPerUnit: 20,
         pricePerUnit: 50,
       });
-      expect(low).not.toBeNull();
-      expect(high).not.toBeNull();
-      expect(high!.breakEvenUnits).toBeGreaterThan(low!.breakEvenUnits);
+      expect(low.ok).toBe(true);
+      expect(high.ok).toBe(true);
+      if (low.ok && high.ok) {
+        expect(high.value.breakEvenUnits).toBeGreaterThan(low.value.breakEvenUnits);
+      }
     });
 
     it("breakEvenRevenue = breakEvenUnits × pricePerUnit", () => {
@@ -77,8 +77,10 @@ describe("calculateBreakEven", () => {
         variableCostPerUnit: 30,
         pricePerUnit: 50,
       });
-      expect(result).not.toBeNull();
-      expect(result!.breakEvenRevenue).toBeCloseTo(result!.breakEvenUnits * 50, 0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.breakEvenRevenue).toBeCloseTo(result.value.breakEvenUnits * 50, 0);
+      }
     });
 
     it("contributionMargin = pricePerUnit - variableCostPerUnit", () => {
@@ -87,8 +89,10 @@ describe("calculateBreakEven", () => {
         variableCostPerUnit: 30,
         pricePerUnit: 50,
       });
-      expect(result).not.toBeNull();
-      expect(result!.contributionMargin).toBeCloseTo(20, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.contributionMargin).toBeCloseTo(20, 2);
+      }
     });
 
     it("profitAtUnits array is non-empty", () => {
@@ -97,9 +101,11 @@ describe("calculateBreakEven", () => {
         variableCostPerUnit: 30,
         pricePerUnit: 50,
       });
-      expect(result).not.toBeNull();
-      expect(result!.profitAtUnits).toBeDefined();
-      expect(result!.profitAtUnits!.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value.profitAtUnits).toBeDefined();
+        expect(result.value.profitAtUnits!.length).toBeGreaterThan(0);
+      }
     });
   });
 });

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DownPaymentInput {
   homePrice: number;
   downPaymentPercent: number;
@@ -21,12 +23,19 @@ export interface DownPaymentResult {
   }>;
 }
 
-export function calculateDownPayment(input: DownPaymentInput): DownPaymentResult | null {
+export function calculateDownPayment(
+  input: DownPaymentInput
+): CalculationResult<DownPaymentResult> {
   const { homePrice, downPaymentPercent, savingsGoalMonths, currentSavings, annualReturnRate } =
     input;
 
   if (homePrice <= 0 || downPaymentPercent < 0 || savingsGoalMonths <= 0) {
-    return null;
+    return {
+      ok: false,
+      error:
+        "Home price and savings months must be positive, down payment percent must be non-negative",
+      code: "INVALID_INPUT",
+    };
   }
 
   const downPaymentAmount = homePrice * (downPaymentPercent / 100);
@@ -35,13 +44,16 @@ export function calculateDownPayment(input: DownPaymentInput): DownPaymentResult
 
   if (amountNeeded === 0) {
     return {
-      downPaymentAmount,
-      amountNeeded: 0,
-      monthlyContribution: 0,
-      totalContributions: 0,
-      interestEarned: 0,
-      loanAmount,
-      projections: [],
+      ok: true,
+      value: {
+        downPaymentAmount,
+        amountNeeded: 0,
+        monthlyContribution: 0,
+        totalContributions: 0,
+        interestEarned: 0,
+        loanAmount,
+        projections: [],
+      },
     };
   }
 
@@ -83,12 +95,15 @@ export function calculateDownPayment(input: DownPaymentInput): DownPaymentResult
   const totalContributions = monthlyContribution * savingsGoalMonths;
 
   return {
-    downPaymentAmount,
-    amountNeeded,
-    monthlyContribution,
-    totalContributions,
-    interestEarned: totalInterest,
-    loanAmount,
-    projections,
+    ok: true,
+    value: {
+      downPaymentAmount,
+      amountNeeded,
+      monthlyContribution,
+      totalContributions,
+      interestEarned: totalInterest,
+      loanAmount,
+      projections,
+    },
   };
 }

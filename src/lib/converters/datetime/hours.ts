@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface HoursInput {
   startTime: string;
   endTime: string;
@@ -28,13 +30,17 @@ function parseTime(timeStr: string): { hours: number; minutes: number; seconds: 
   return { hours, minutes, seconds };
 }
 
-export function calculateHours(input: HoursInput): HoursResult | null {
-  if (!input.startTime || !input.endTime) return null;
+export function calculateHours(input: HoursInput): CalculationResult<HoursResult> {
+  if (!input.startTime || !input.endTime) {
+    return { ok: false, error: "Start time and end time are required", code: "INVALID_INPUT" };
+  }
 
   const startTime = parseTime(input.startTime);
   const endTime = parseTime(input.endTime);
 
-  if (!startTime || !endTime) return null;
+  if (!startTime || !endTime) {
+    return { ok: false, error: "Invalid time format", code: "INVALID_INPUT" };
+  }
 
   let startDate: Date;
   let endDate: Date;
@@ -44,7 +50,9 @@ export function calculateHours(input: HoursInput): HoursResult | null {
     startDate = new Date(input.startDate);
     endDate = new Date(input.endDate);
 
-    if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return null;
+    if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+      return { ok: false, error: "Invalid date format", code: "INVALID_INPUT" };
+    }
 
     startDate.setHours(startTime.hours, startTime.minutes, startTime.seconds);
     endDate.setHours(endTime.hours, endTime.minutes, endTime.seconds);
@@ -65,7 +73,9 @@ export function calculateHours(input: HoursInput): HoursResult | null {
 
   const diffMs = endDate.getTime() - startDate.getTime();
 
-  if (diffMs < 0) return null;
+  if (diffMs < 0) {
+    return { ok: false, error: "End time must be after start time", code: "INVALID_INPUT" };
+  }
 
   const totalSeconds = Math.floor(diffMs / 1000);
   const totalMinutes = Math.floor(diffMs / (1000 * 60));
@@ -82,12 +92,15 @@ export function calculateHours(input: HoursInput): HoursResult | null {
   if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`);
 
   return {
-    totalHours: Math.round(totalHours * 100) / 100,
-    hours,
-    minutes,
-    seconds,
-    totalMinutes,
-    totalSeconds,
-    formattedDuration: parts.join(" "),
+    ok: true,
+    value: {
+      totalHours: Math.round(totalHours * 100) / 100,
+      hours,
+      minutes,
+      seconds,
+      totalMinutes,
+      totalSeconds,
+      formattedDuration: parts.join(" "),
+    },
   };
 }
