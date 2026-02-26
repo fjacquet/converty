@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 45 — Discriminated Union Result Types (in progress)
-Plan: 45-01 complete (1/?)
-Status: Phase 45 in progress. 45-01 done: CalculationResult<T> discriminated union type created, createCalculatorStore updated with adapter pattern — calculationError field added to state, calculate signature updated to CalculationResult<R>.
-Last activity: 2026-02-26 — Phase 45-01 complete: CalculationResult<T> type and store adapter pattern satisfies R5.1, R5.3
+Plan: 45-02 complete (2/?)
+Status: Phase 45 in progress. 45-02 done: All 27 health + 40 math converters migrated from T|null to CalculationResult<T>; all health/math test files updated to use .ok discriminant; 2288 tests pass.
+Last activity: 2026-02-26 — Phase 45-02 complete: Health and math converter migration + test file updates satisfies R5.2, R5.5
 
-Progress: [██████████] Phase 45: 1/1 plans complete
+Progress: [██████████] Phase 45: 2/5 plans complete
 
 ## Performance Metrics
 
@@ -122,6 +122,7 @@ Progress: [██████████] Phase 45: 1/1 plans complete
 | Phase 43-zod-input-validation P05 | 12 | 2 tasks | 24 files |
 | Phase 44-lz-string-url-compression P01 | 3 | 3 tasks | 5 files |
 | Phase 45-discriminated-union-result-types P01 | 2 | 2 tasks | 3 files |
+| Phase 45-discriminated-union-result-types P02 | 2288 | 2 tasks | 135 files |
 
 ## Accumulated Context
 
@@ -207,6 +208,9 @@ Recent decisions affecting current work:
 - [Phase 45-discriminated-union-result-types]: Adapter pattern (Strategy A): result: R | null kept in CalculatorState for component backward compat; CalculationResult<R> unwrapped inside setValue/setValues
 - [Phase 45-discriminated-union-result-types]: calculationError: string | undefined added to CalculatorState — undefined on success, set to error string on ok: false
 - [Phase 45-discriminated-union-result-types]: 91 type errors in converters/app stores after 45-01 are expected — they serve as automatic migration guide for plans 45-02 through 45-05
+- [Phase 45-02]: Test assertion pattern: (result as { ok: true; value: any }).value.property — biome.json override added for src/__tests__/**/*.test.ts to allow value:any
+- [Phase 45-02]: Nullable scalar fields inside result.value (slope:number|null, geometricMean:number|null) keep .toBeNull() — they are NOT CalculationResult objects
+- [Phase 45-02]: toHaveProperty assertions must target result.value not result — properties are nested under value after migration
 
 ### Decisions (Phase 40-01)
 
@@ -227,7 +231,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 45-01-PLAN.md — CalculationResult<T> discriminated union type, createCalculatorStore adapter pattern with calculationError state field
+Stopped at: Completed 45-02-PLAN.md — All health and math converters migrated to CalculationResult<T>; test files updated to use .ok discriminant; 2288 tests pass
 Resume file: None
 
 **Milestones Completed:**
