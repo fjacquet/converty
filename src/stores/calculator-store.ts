@@ -6,6 +6,7 @@ import type { ZodType } from "zod";
 import { create, type StateCreator } from "zustand";
 import { createUrlSyncMiddleware } from "@/lib/middleware/url-sync";
 import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/url-params";
+import type { CalculationResult } from "@/types";
 
 /**
  * Calculator store state interface
@@ -15,8 +16,10 @@ import { getUrlParams, parseNumberParam, parseStringParam } from "@/lib/utils/ur
 export interface CalculatorState<T extends object, R> {
   /** Current input values */
   values: T;
-  /** Calculated result (null if invalid inputs) */
+  /** Calculated result (null if invalid inputs or calculation failed) */
   result: R | null;
+  /** Error message from CalculationResult when ok: false; undefined on success */
+  calculationError: string | undefined;
   /** Validation errors by field */
   errors: Partial<Record<keyof T, string>>;
   /** Set a single value */
@@ -37,8 +40,8 @@ export interface CreateCalculatorStoreOptions<T extends object, R> {
   name: string;
   /** Initial values for the calculator */
   initialValues: T;
-  /** Calculation function (returns null for invalid inputs) */
-  calculate: (values: T) => R | null;
+  /** Calculation function — returns CalculationResult<R> instead of R | null */
+  calculate: (values: T) => CalculationResult<R>;
   /** Optional validation function */
   validate?: (values: T) => Partial<Record<keyof T, string>>;
   /** Optional Zod schema for automatic validation. When provided, derives validate internally. */
@@ -150,6 +153,7 @@ export function createCalculatorStore<T extends object, R>({
     return {
       values: mergedInitialValues,
       result: null,
+      calculationError: undefined,
       errors: {},
 
       setValue: <K extends keyof T>(key: K, value: T[K]) => {
@@ -160,14 +164,16 @@ export function createCalculatorStore<T extends object, R>({
         const errors = effectiveValidate?.(newValues) ?? {};
 
         // Calculate if no errors
-        const result = Object.keys(errors).length === 0 ? calculate(newValues) : null;
+        const calcResult = Object.keys(errors).length === 0 ? calculate(newValues) : null;
+        const result = calcResult?.ok ? calcResult.value : null;
+        const calculationError = calcResult && !calcResult.ok ? calcResult.error : undefined;
 
         // Fire toast only when user changes a value and calculation fails
-        if (result === null && onCalculationError) {
+        if (!calcResult?.ok && onCalculationError) {
           toast.error(onCalculationError(newValues));
         }
 
-        set({ values: newValues, errors, result });
+        set({ values: newValues, errors, result, calculationError });
       },
 
       setValues: (values: T) => {
@@ -175,14 +181,16 @@ export function createCalculatorStore<T extends object, R>({
         const errors = effectiveValidate?.(values) ?? {};
 
         // Calculate if no errors
-        const result = Object.keys(errors).length === 0 ? calculate(values) : null;
+        const calcResult = Object.keys(errors).length === 0 ? calculate(values) : null;
+        const result = calcResult?.ok ? calcResult.value : null;
+        const calculationError = calcResult && !calcResult.ok ? calcResult.error : undefined;
 
         // Fire toast only when user changes values and calculation fails
-        if (result === null && onCalculationError) {
+        if (!calcResult?.ok && onCalculationError) {
           toast.error(onCalculationError(values));
         }
 
-        set({ values, errors, result });
+        set({ values, errors, result, calculationError });
       },
 
       reset: () => {
@@ -190,6 +198,7 @@ export function createCalculatorStore<T extends object, R>({
           values: initialValues,
           errors: {},
           result: null,
+          calculationError: undefined,
         });
       },
     };
