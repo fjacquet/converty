@@ -36,7 +36,7 @@ const useStore = createCalculatorStore<FormValues, BandwidthDelayProductResult>(
 
 export function BandwidthDelayProductCalculator() {
   const t = useTranslations("calculator.network");
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -132,6 +132,8 @@ export function BandwidthDelayProductCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

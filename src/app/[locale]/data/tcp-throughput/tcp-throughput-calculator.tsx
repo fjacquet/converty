@@ -39,7 +39,7 @@ const useStore = createCalculatorStore<FormValues, TcpThroughputResult>({
 
 export function TcpThroughputCalculator() {
   const t = useTranslations("calculator.network");
-  const { values, setValue, result, errors } = useStore();
+  const { values, setValue, result, errors, calculationError } = useStore();
 
   return (
     <div className="space-y-6">
@@ -135,6 +135,8 @@ export function TcpThroughputCalculator() {
           )}
         </div>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
