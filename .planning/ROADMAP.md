@@ -103,11 +103,11 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
 **Branch:** `feature/framework-migration`
 **Goal:** Adopt Raidy's proven building blocks — Vitest testing, Zod validation, react-error-boundary, Sonner toasts, DOMPurify, LZ-String URL compression, discriminated union result types, and i18n namespace restructure. All without replacing Next.js.
 
-- [ ] Phase 40: Vitest Foundation — **4 plans** — install Vitest, configure for Next.js, test 5 priority converters
-  - [ ] 40-01-PLAN.md — Install deps + vitest.config.ts + test-setup.ts + package.json scripts (Wave 1)
-  - [ ] 40-02-PLAN.md — Tests: BB Credit, Subnet, BMI converters (Wave 2, parallel)
-  - [ ] 40-03-PLAN.md — Tests: Compound Interest, Molecular Weight converters (Wave 2, parallel)
-  - [ ] 40-04-PLAN.md — Coverage gate: verify ≥75% on all 5 files, fix gaps, TypeScript + Biome clean (Wave 3)
+- [x] Phase 40: Vitest Foundation — **4 plans** — install Vitest, configure for Next.js, test 5 priority converters (COMPLETE)
+  - [x] 40-01-PLAN.md — Install deps + vitest.config.ts + test-setup.ts + package.json scripts (Wave 1)
+  - [x] 40-02-PLAN.md — Tests: BB Credit, Subnet, BMI converters (Wave 2, parallel)
+  - [x] 40-03-PLAN.md — Tests: Compound Interest, Molecular Weight converters (Wave 2, parallel)
+  - [x] 40-04-PLAN.md — Coverage gate: verify ≥75% on all 5 files, fix gaps, TypeScript + Biome clean (Wave 3)
 - [ ] Phase 41: Full Converter Test Coverage — unit tests for all 169 converters, 75% threshold in CI
 - [ ] Phase 42: Error Boundaries & Toasts — react-error-boundary, Sonner, DOMPurify
 - [ ] Phase 43: Zod Input Validation — schemas for all calculator inputs, Zod URL parsing

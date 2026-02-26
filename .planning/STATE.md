@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 40 — Vitest Foundation (in progress)
-Plan: 03 complete (3/4)
-Status: v7.0 executing. Phase 40-03 complete: 29 unit tests for compound interest and molecular weight converters, plus bug fix for non-monthly compounding. Plan 40-04 remaining.
-Last activity: 2026-02-26 — Phase 40-03 complete: compound-interest.test.ts (16 tests), molecular-weight.test.ts (13 tests), compound-interest.ts bug fix
+Phase: 40 — Vitest Foundation (complete)
+Plan: 04 complete (4/4)
+Status: v7.0 Phase 40 complete. All 4 plans done: Vitest configured, 66 unit tests across 5 converters at >=75% coverage, TypeScript ES2020 target, per-file glob thresholds.
+Last activity: 2026-02-26 — Phase 40-04 complete: per-file coverage thresholds, ES2020 target fix, 66 tests passing
 
-Progress: [███░░░░░░░] Phase 40: 3/4 plans complete
+Progress: [████████░░] Phase 40: 4/4 plans complete
 
 ## Performance Metrics
 
@@ -133,6 +133,9 @@ Recent decisions affecting current work:
 - [Phase 40-03]: Bug fix: compound-interest.ts inner compound loop used integer iteration causing full-period rate applied 12x/year for annual — fixed with fractional exponentiation `(1+r)^(n/12)`
 - [Phase 40-03]: No mocking for periodic-table.json — vite-tsconfig-paths resolves real JSON; tests validate alias resolution works end-to-end
 - [Phase 40-03]: toBeCloseTo precision: 0 decimal places for large financial sums, 2 decimal places for chemistry molar mass precision
+- [Phase 40-04]: Global 75% threshold fails when coverage.include covers all 100+ converters but only 5 have tests — use per-file glob thresholds: thresholds['src/lib/converters/path/file.ts'] = {lines:75,...}
+- [Phase 40-04]: TypeScript target updated from ES2017 to ES2020 — BigInt n-suffix literals (254n, 65534n) in subnet-calculator tests require ES2020; tsconfig.tsbuildinfo must be cleared after target change
+- [Phase 40-04]: All 5 priority converter files exceed 75% threshold: bb-credit (100%/83%/100%/100%), subnet (92%/75%/100%/92%), bmi (81%/76%/100%/82%), compound-interest (97%/85%/100%/97%), molecular-weight (97%/87%/100%/97%)
 
 ### Decisions (Phase 40-01)
 
@@ -153,7 +156,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 40-03-PLAN.md — compound interest and molecular weight tests, 29 passing, 1 bug fix
+Stopped at: Completed 40-04-PLAN.md — Phase 40 complete: per-file coverage thresholds, ES2020 TypeScript target, 66 tests passing at >=75% coverage
 Resume file: None
 
 **Milestones Completed:**
