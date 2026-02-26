@@ -119,7 +119,7 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [x] 41-08-PLAN.md — Network (remaining) + Crypto + Realestate tests (Wave 3, parallel)
   - [x] 41-09-PLAN.md — Chemistry + Engineering + Infrastructure tests (Wave 3, parallel)
   - [x] 41-10-PLAN.md — Global coverage verification + gap fixes (Wave 4)
-- [ ] Phase 42: Error Boundaries & Toasts — **5 plans** — react-error-boundary, Sonner, DOMPurify (R2.1–R2.6)
+- [x] Phase 42: Error Boundaries & Toasts — **5 plans** — react-error-boundary, Sonner, DOMPurify (R2.1–R2.6) (completed 2026-02-26)
   - [ ] 42-01-PLAN.md — Install packages + mount Toaster in layout + i18n toast keys (Wave 1)
   - [ ] 42-02-PLAN.md — CalculatorErrorBoundary + CalculatorErrorFallback + sanitize.ts utility (Wave 1, parallel)
   - [ ] 42-03-PLAN.md — Toast feedback for all 7 clipboard copy sites (Wave 2, parallel)
