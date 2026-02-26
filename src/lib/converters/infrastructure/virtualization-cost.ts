@@ -12,6 +12,7 @@
  * - TCO: CAPEX + (OPEX × term years)
  */
 
+import type { CalculationResult } from "@/types";
 import type { HypervisorPlatform } from "./types";
 
 /**
@@ -161,7 +162,7 @@ export interface VirtualizationCostResult {
  */
 export function calculateVirtualizationCost(
   input: VirtualizationCostInput
-): VirtualizationCostResult | null {
+): CalculationResult<VirtualizationCostResult> {
   const steps: string[] = [];
 
   // Platform selection: default to VMware for backward compatibility
@@ -186,22 +187,22 @@ export function calculateVirtualizationCost(
     input.totalRackUnits < 0 ||
     input.laborCostAnnual < 0
   ) {
-    return null;
+    return { ok: false, error: "All cost values must be non-negative", code: "INVALID_INPUT" };
   }
 
   // Validation: PUE must be >= 1.0 (physical minimum)
   if (input.pue < 1.0) {
-    return null;
+    return { ok: false, error: "PUE must be at least 1.0", code: "INVALID_INPUT" };
   }
 
   // Validation: VM count must be positive
   if (input.vmCount <= 0) {
-    return null;
+    return { ok: false, error: "VM count must be positive", code: "INVALID_INPUT" };
   }
 
   // Validation: Term years must be 1, 3, or 5
   if (![1, 3, 5].includes(input.termYears)) {
-    return null;
+    return { ok: false, error: "Term years must be 1, 3, or 5", code: "INVALID_INPUT" };
   }
 
   // Step 1: Calculate CAPEX (hardware costs)
@@ -287,14 +288,17 @@ export function calculateVirtualizationCost(
   };
 
   return {
-    capex,
-    opexAnnual,
-    opexTotal,
-    tco,
-    costPerVm,
-    costPerVmMonthly,
-    breakdown,
-    percentages,
-    steps,
+    ok: true,
+    value: {
+      capex,
+      opexAnnual,
+      opexTotal,
+      tco,
+      costPerVm,
+      costPerVmMonthly,
+      breakdown,
+      percentages,
+      steps,
+    },
   };
 }

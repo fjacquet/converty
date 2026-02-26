@@ -255,10 +255,10 @@ export const useVmStorageStore = create<VmStorageState>()(
             growthPercent,
           });
 
-          if (result === null) {
-            set({ result: null, error: "Invalid input parameters" });
+          if (result.ok) {
+            set({ result: result.value, error: null });
           } else {
-            set({ result, error: null });
+            set({ result: null, error: result.error });
           }
         } catch (err) {
           set({

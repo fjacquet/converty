@@ -44,12 +44,7 @@ const useHypervConsolidationStore = createCalculatorStore<
     vcpuRatio: 4,
     ramOvercommit: 1.0,
   },
-  calculate: (input) => {
-    const r = calculateHypervConsolidation(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateHypervConsolidation(input),
 });
 
 export function HypervConsolidationCalculator() {

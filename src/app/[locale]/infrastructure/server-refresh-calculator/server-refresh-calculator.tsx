@@ -33,12 +33,7 @@ const useServerRefreshStore = createCalculatorStore<ServerRefreshInput, ServerRe
     chassisConstraint: "none",
     powerBudgetW: "0",
   },
-  calculate: (input) => {
-    const r = calculateServerRefresh(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateServerRefresh(input),
 });
 
 function formatDelta(value: number, reverseColor = false): { text: string; className: string } {

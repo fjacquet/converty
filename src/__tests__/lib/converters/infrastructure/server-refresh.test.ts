@@ -17,68 +17,72 @@ const BASE_INPUT = {
 };
 
 describe("calculateServerRefresh (real cpu-database.json)", () => {
-  describe("null returns for invalid inputs", () => {
-    it("returns null for invalid old CPU ID", () => {
-      expect(
-        calculateServerRefresh({
-          ...BASE_INPUT,
-          oldCpuId: "nonexistent-cpu-id",
-        })
-      ).toBeNull();
+  describe("error returns for invalid inputs", () => {
+    it("returns error for invalid old CPU ID", () => {
+      const result = calculateServerRefresh({
+        ...BASE_INPUT,
+        oldCpuId: "nonexistent-cpu-id",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for invalid new CPU ID", () => {
-      expect(
-        calculateServerRefresh({
-          ...BASE_INPUT,
-          newCpuId: "nonexistent-cpu-id",
-        })
-      ).toBeNull();
+    it("returns error for invalid new CPU ID", () => {
+      const result = calculateServerRefresh({
+        ...BASE_INPUT,
+        newCpuId: "nonexistent-cpu-id",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for oldServerCount = 0", () => {
-      expect(
-        calculateServerRefresh({
-          ...BASE_INPUT,
-          oldServerCount: "0",
-        })
-      ).toBeNull();
+    it("returns error for oldServerCount = 0", () => {
+      const result = calculateServerRefresh({
+        ...BASE_INPUT,
+        oldServerCount: "0",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for non-numeric oldServerCount", () => {
-      expect(
-        calculateServerRefresh({
-          ...BASE_INPUT,
-          oldServerCount: "abc",
-        })
-      ).toBeNull();
+    it("returns error for non-numeric oldServerCount", () => {
+      const result = calculateServerRefresh({
+        ...BASE_INPUT,
+        oldServerCount: "abc",
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
   describe("valid server refresh scenario", () => {
-    it("returns non-null result for valid inputs", () => {
+    it("returns ok result for valid inputs", () => {
       const result = calculateServerRefresh(BASE_INPUT);
-      expect(result).not.toBeNull();
+      expect(result.ok).toBe(true);
     });
 
     it("oldFleet.serverCount matches input", () => {
       const result = calculateServerRefresh(BASE_INPUT);
-      expect(result!.oldFleet.serverCount).toBe(10);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.oldFleet.serverCount).toBe(10);
     });
 
     it("requiredSpecint > oldFleet.totalSpecint due to headroom", () => {
       const result = calculateServerRefresh(BASE_INPUT);
-      expect(result!.requiredSpecint).toBeGreaterThan(result!.oldFleet.totalSpecint);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.requiredSpecint).toBeGreaterThan(result.value.oldFleet.totalSpecint);
     });
 
     it("minNewServerCount is positive", () => {
       const result = calculateServerRefresh(BASE_INPUT);
-      expect(result!.minNewServerCount).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.minNewServerCount).toBeGreaterThan(0);
     });
 
     it("headroomPct is correct value", () => {
       const result = calculateServerRefresh(BASE_INPUT);
-      expect(result!.headroomPct).toBe(25);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.headroomPct).toBe(25);
     });
   });
 
@@ -89,16 +93,19 @@ describe("calculateServerRefresh (real cpu-database.json)", () => {
         chassisConstraint: "1u-single",
         newSocketsPerServer: "2", // Should be capped to 1
       });
-      expect(result).not.toBeNull();
-      expect(result!.specintPerNewServer).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.specintPerNewServer).toBeGreaterThan(0);
     });
   });
 
   describe("power budget", () => {
     it("serversPerRack and racksNeeded are null when powerBudget = 0", () => {
       const result = calculateServerRefresh(BASE_INPUT); // powerBudgetW: "0"
-      expect(result!.serversPerRack).toBeNull();
-      expect(result!.racksNeeded).toBeNull();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.serversPerRack).toBeNull();
+      expect(result.value.racksNeeded).toBeNull();
     });
 
     it("serversPerRack is non-null when powerBudget > 0", () => {
@@ -106,22 +113,27 @@ describe("calculateServerRefresh (real cpu-database.json)", () => {
         ...BASE_INPUT,
         powerBudgetW: "10000",
       });
-      expect(result).not.toBeNull();
-      expect(result!.serversPerRack).not.toBeNull();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.serversPerRack).not.toBeNull();
     });
   });
 
   describe("result structure", () => {
     it("result has oldFleet and newFleet summaries", () => {
       const result = calculateServerRefresh(BASE_INPUT);
-      expect(result!.oldFleet.totalCores).toBeGreaterThan(0);
-      expect(result!.oldFleet.totalSpecint).toBeGreaterThan(0);
-      expect(result!.newFleet.serverCount).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.oldFleet.totalCores).toBeGreaterThan(0);
+      expect(result.value.oldFleet.totalSpecint).toBeGreaterThan(0);
+      expect(result.value.newFleet.serverCount).toBeGreaterThan(0);
     });
 
     it("has dataAsOf string", () => {
       const result = calculateServerRefresh(BASE_INPUT);
-      expect(result!.dataAsOf).toBeTruthy();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.dataAsOf).toBeTruthy();
     });
   });
 });

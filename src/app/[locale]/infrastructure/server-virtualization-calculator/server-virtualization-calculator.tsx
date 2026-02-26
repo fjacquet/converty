@@ -42,12 +42,7 @@ const useServerVirtualizationStore = createCalculatorStore<
     targetRamUtilization: 85,
     highAvailability: true,
   },
-  calculate: (input) => {
-    const r = calculateServerVirtualization(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateServerVirtualization(input),
 });
 
 export function ServerVirtualizationCalculator() {

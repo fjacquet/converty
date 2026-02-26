@@ -4,6 +4,7 @@
  */
 
 import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
+import type { CalculationResult } from "@/types";
 import type { HaMode } from "./types";
 
 /**
@@ -97,7 +98,7 @@ export interface HypervConsolidationResult {
  */
 export function calculateHypervConsolidation(
   input: HypervConsolidationInput
-): HypervConsolidationResult | null {
+): CalculationResult<HypervConsolidationResult> {
   if (
     input.vmCount <= 0 ||
     input.avgVcpusPerVm <= 0 ||
@@ -110,13 +111,14 @@ export function calculateHypervConsolidation(
     input.vcpuRatio <= 0 ||
     input.ramOvercommit <= 0
   ) {
-    return null;
+    return { ok: false, error: "All consolidation inputs must be positive", code: "INVALID_INPUT" };
   }
 
   const steps: string[] = [];
   const hypervData = hypervisorData.find((h) => h.id === "hyperv");
 
-  if (!hypervData) return null;
+  if (!hypervData)
+    return { ok: false, error: "Hyper-V platform data not found", code: "INVALID_INPUT" };
 
   // Step 1: Calculate total resource requirements
   steps.push("=== Resource Requirements ===");
@@ -137,7 +139,7 @@ export function calculateHypervConsolidation(
 
   const diskFormat = hypervData.diskFormats[input.diskType];
   if (!diskFormat) {
-    throw new Error(`Unknown disk type: ${input.diskType}`);
+    return { ok: false, error: `Unknown disk type: ${input.diskType}`, code: "INVALID_INPUT" };
   }
   const thinMultiplier = diskFormat.multiplier;
   const snapshotMultiplier = input.enableSnapshots ? hypervData.snapshotOverhead.multiplier : 1.0;
@@ -301,36 +303,39 @@ export function calculateHypervConsolidation(
   const storagePerHost = totalStorage / effectiveHosts;
 
   return {
-    hostsRequired,
-    totalCoresRequired,
-    totalRamRequired,
-    totalStorageRequired: totalStorage,
-    storageBreakdown,
-    licensing: {
-      datacenter: {
-        licensesRequired: hostsRequired,
-        corePacksRequired: datacenterTotalCorePacks,
-        totalCost: datacenterCost,
+    ok: true,
+    value: {
+      hostsRequired,
+      totalCoresRequired,
+      totalRamRequired,
+      totalStorageRequired: totalStorage,
+      storageBreakdown,
+      licensing: {
+        datacenter: {
+          licensesRequired: hostsRequired,
+          corePacksRequired: datacenterTotalCorePacks,
+          totalCost: datacenterCost,
+        },
+        standard: {
+          licensesRequired: standardLicensesForVms,
+          corePacksRequired: standardTotalCorePacks,
+          totalCost: standardCost,
+        },
+        recommendation,
+        breakEvenVms,
       },
-      standard: {
-        licensesRequired: standardLicensesForVms,
-        corePacksRequired: standardTotalCorePacks,
-        totalCost: standardCost,
+      ha: {
+        mode: input.haMode,
+        failoverCapacity,
+        effectiveHosts,
       },
-      recommendation,
-      breakEvenVms,
+      perHost: {
+        vms: vmsPerHost,
+        vcpus: vcpusPerHost,
+        ramGB: ramPerHost,
+        storageGB: storagePerHost,
+      },
+      steps,
     },
-    ha: {
-      mode: input.haMode,
-      failoverCapacity,
-      effectiveHosts,
-    },
-    perHost: {
-      vms: vmsPerHost,
-      vcpus: vcpusPerHost,
-      ramGB: ramPerHost,
-      storageGB: storagePerHost,
-    },
-    steps,
   };
 }

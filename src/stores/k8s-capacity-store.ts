@@ -262,7 +262,7 @@ export const useK8sCapacityStore = create<K8sCapacityState>()(
         } = get();
 
         try {
-          const result = calculateK8sCapacity({
+          const calcResult = calculateK8sCapacity({
             podCpuRequest,
             podMemoryRequest,
             podReplicas,
@@ -276,10 +276,10 @@ export const useK8sCapacityStore = create<K8sCapacityState>()(
             targetMemoryUtilization,
           });
 
-          if (result === null) {
-            set({ result: null, error: "Invalid input parameters" });
+          if (calcResult.ok) {
+            set({ result: calcResult.value, error: null });
           } else {
-            set({ result, error: null });
+            set({ result: null, error: calcResult.error });
           }
         } catch (err) {
           set({

@@ -50,7 +50,7 @@ const useHypervisorComparisonStore = createCalculatorStore<
     hardwareLifespanYears: 5,
     windowsEdition: "datacenter",
   },
-  calculate: (input) => ({ ok: true as const, value: calculateHypervisorComparison(input) }),
+  calculate: (input) => calculateHypervisorComparison(input),
 });
 
 export function HypervisorComparisonCalculator() {

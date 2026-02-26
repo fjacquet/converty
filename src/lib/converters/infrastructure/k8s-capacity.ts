@@ -11,6 +11,8 @@
  * Implements multi-dimensional bin packing (CPU and memory constraints).
  */
 
+import type { CalculationResult } from "@/types";
+
 /**
  * Input parameters for Kubernetes capacity calculation
  */
@@ -110,17 +112,27 @@ export interface K8sCapacityResult {
  *   targetMemoryUtilization: 80
  * });
  */
-export function calculateK8sCapacity(input: K8sCapacityInput): K8sCapacityResult | null {
+export function calculateK8sCapacity(
+  input: K8sCapacityInput
+): CalculationResult<K8sCapacityResult> {
   const steps: string[] = [];
 
   // Validation: Positive counts
   if (input.podReplicas < 1 || input.nodeCpuCores < 1 || input.nodeMemoryMb < 1) {
-    return null;
+    return {
+      ok: false,
+      error: "Pod replicas, node CPU cores, and node memory must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Validation: Positive pod requests
   if (input.podCpuRequest <= 0 || input.podMemoryRequest <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Pod CPU and memory requests must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Validation: Percentage ranges (1-100, not 0 to ensure some headroom)
@@ -130,7 +142,11 @@ export function calculateK8sCapacity(input: K8sCapacityInput): K8sCapacityResult
     input.targetMemoryUtilization < 1 ||
     input.targetMemoryUtilization > 100
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "Target utilization must be between 1 and 100",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Validation: Non-negative overhead
@@ -140,7 +156,11 @@ export function calculateK8sCapacity(input: K8sCapacityInput): K8sCapacityResult
     input.daemonSetCpuPerNode < 0 ||
     input.daemonSetMemoryPerNode < 0
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "System reserved and DaemonSet overhead must be non-negative",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Step 1: Calculate allocatable resources per node
@@ -152,7 +172,12 @@ export function calculateK8sCapacity(input: K8sCapacityInput): K8sCapacityResult
 
   // Validation: Sufficient allocatable resources
   if (allocatableCpuPerNode <= 0 || allocatableMemoryPerNode <= 0) {
-    return null; // System overhead exceeds node capacity
+    return {
+      ok: false,
+      error:
+        "System overhead exceeds node capacity — reduce reserved resources or use larger nodes",
+      code: "INVALID_INPUT",
+    };
   }
 
   steps.push(
@@ -225,19 +250,22 @@ export function calculateK8sCapacity(input: K8sCapacityInput): K8sCapacityResult
   }
 
   return {
-    allocatableCpuPerNode,
-    allocatableMemoryPerNode,
-    totalPodCpuRequired,
-    totalPodMemoryRequired,
-    targetCpuPerNode,
-    targetMemoryPerNode,
-    nodesNeededByCpu,
-    nodesNeededByMemory,
-    nodesNeededTotal,
-    limitingFactor,
-    finalCpuUtilization,
-    finalMemoryUtilization,
-    overUtilized,
-    steps,
+    ok: true,
+    value: {
+      allocatableCpuPerNode,
+      allocatableMemoryPerNode,
+      totalPodCpuRequired,
+      totalPodMemoryRequired,
+      targetCpuPerNode,
+      targetMemoryPerNode,
+      nodesNeededByCpu,
+      nodesNeededByMemory,
+      nodesNeededTotal,
+      limitingFactor,
+      finalCpuUtilization,
+      finalMemoryUtilization,
+      overUtilized,
+      steps,
+    },
   };
 }

@@ -1,6 +1,7 @@
 import featuresData from "@/data/infrastructure/hypervisor-features.json";
 import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
 import licensingData from "@/data/infrastructure/licensing-costs.json";
+import type { CalculationResult } from "@/types";
 
 export interface HypervisorComparisonInput {
   // Workload
@@ -130,19 +131,19 @@ export interface HypervisorComparisonResult {
 
 export function calculateHypervisorComparison(
   input: HypervisorComparisonInput
-): HypervisorComparisonResult {
+): CalculationResult<HypervisorComparisonResult> {
   const platforms: PlatformSizing[] = [];
   const warnings: string[] = [];
 
   // Validate input
   if (input.vmCount <= 0) {
-    throw new Error("VM count must be positive");
+    return { ok: false, error: "VM count must be positive", code: "INVALID_INPUT" };
   }
   if (input.avgVcpusPerVm <= 0 || input.avgRamPerVm <= 0) {
-    throw new Error("VM specifications must be positive");
+    return { ok: false, error: "VM specifications must be positive", code: "INVALID_INPUT" };
   }
   if (input.coresPerCpu <= 0 || input.cpusPerHost <= 0) {
-    throw new Error("Host specifications must be positive");
+    return { ok: false, error: "Host specifications must be positive", code: "INVALID_INPUT" };
   }
 
   // Calculate for each platform
@@ -244,30 +245,33 @@ export function calculateHypervisorComparison(
   }
 
   return {
-    platforms,
-    recommendation: {
-      costLeader: costLeader.platform,
-      performanceLeader: performanceLeader.platform,
-      bestOverall,
-      reasoning,
-    },
-    comparison: {
-      costDifference: {
-        lowest: costLeader.platform,
-        highest: costLoser.platform,
-        savingsPercent:
-          ((costLoser.costs.total.fiveYear - costLeader.costs.total.fiveYear) /
-            costLoser.costs.total.fiveYear) *
-          100,
-        savingsAmount: costLoser.costs.total.fiveYear - costLeader.costs.total.fiveYear,
+    ok: true,
+    value: {
+      platforms,
+      recommendation: {
+        costLeader: costLeader.platform,
+        performanceLeader: performanceLeader.platform,
+        bestOverall,
+        reasoning,
       },
-      performanceDifference: {
-        bestCpu: performanceLeader.platform,
-        bestRam: performanceLeader.platform,
+      comparison: {
+        costDifference: {
+          lowest: costLeader.platform,
+          highest: costLoser.platform,
+          savingsPercent:
+            ((costLoser.costs.total.fiveYear - costLeader.costs.total.fiveYear) /
+              costLoser.costs.total.fiveYear) *
+            100,
+          savingsAmount: costLoser.costs.total.fiveYear - costLeader.costs.total.fiveYear,
+        },
+        performanceDifference: {
+          bestCpu: performanceLeader.platform,
+          bestRam: performanceLeader.platform,
+        },
       },
+      features: featuresData,
+      warnings,
     },
-    features: featuresData,
-    warnings,
   };
 }
 

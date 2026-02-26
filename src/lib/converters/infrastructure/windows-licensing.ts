@@ -4,6 +4,7 @@
  */
 
 import licensingData from "@/data/infrastructure/licensing-costs.json";
+import type { CalculationResult } from "@/types";
 import type { WindowsServerEdition } from "./types";
 
 /**
@@ -89,14 +90,18 @@ function checkPricingStaleness(lastUpdated: string, staleDays: number) {
  */
 export function calculateWindowsLicensing(
   input: WindowsLicensingInput
-): WindowsLicensingResult | null {
+): CalculationResult<WindowsLicensingResult> {
   if (
     input.hostCount <= 0 ||
     input.coresPerCpu <= 0 ||
     input.socketsPerHost <= 0 ||
     input.vmCount <= 0
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "Host count, cores per CPU, sockets per host, and VM count must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const steps: string[] = [];
@@ -252,37 +257,40 @@ export function calculateWindowsLicensing(
   }
 
   return {
-    datacenter: {
-      edition: windowsServer.datacenter.edition,
-      totalCores: totalPhysicalCores,
-      coresPerHost: datacenterCoresPerHost,
-      corePacksPerHost: datacenterCorePacksPerHost,
-      totalCorePacks: datacenterTotalCorePacks,
-      costPerCorePack: windowsServer.datacenter.pricePerCorePack,
-      totalCost: datacenterTotalCost,
-      vmsIncluded: "Unlimited",
-      notes: datacenterNotes,
+    ok: true,
+    value: {
+      datacenter: {
+        edition: windowsServer.datacenter.edition,
+        totalCores: totalPhysicalCores,
+        coresPerHost: datacenterCoresPerHost,
+        corePacksPerHost: datacenterCorePacksPerHost,
+        totalCorePacks: datacenterTotalCorePacks,
+        costPerCorePack: windowsServer.datacenter.pricePerCorePack,
+        totalCost: datacenterTotalCost,
+        vmsIncluded: "Unlimited",
+        notes: datacenterNotes,
+      },
+      standard: {
+        edition: windowsServer.standard.edition,
+        totalCores: totalPhysicalCores,
+        coresPerHost: standardCoresPerHost,
+        corePacksPerHost: standardCorePacksPerHost,
+        licensesRequired: standardLicensesRequired,
+        totalCorePacks: standardTotalCorePacks,
+        costPerCorePack: windowsServer.standard.pricePerCorePack,
+        totalCost: standardTotalCost,
+        vmsIncluded: input.vmCount,
+        notes: standardNotes,
+      },
+      comparison: {
+        savings: Math.abs(savings),
+        savingsPercent: Math.abs(savingsPercent),
+        recommendation,
+        breakEvenVms,
+        currentVmsPerHost,
+      },
+      pricingWarning,
+      steps,
     },
-    standard: {
-      edition: windowsServer.standard.edition,
-      totalCores: totalPhysicalCores,
-      coresPerHost: standardCoresPerHost,
-      corePacksPerHost: standardCorePacksPerHost,
-      licensesRequired: standardLicensesRequired,
-      totalCorePacks: standardTotalCorePacks,
-      costPerCorePack: windowsServer.standard.pricePerCorePack,
-      totalCost: standardTotalCost,
-      vmsIncluded: input.vmCount,
-      notes: standardNotes,
-    },
-    comparison: {
-      savings: Math.abs(savings),
-      savingsPercent: Math.abs(savingsPercent),
-      recommendation,
-      breakEvenVms,
-      currentVmsPerHost,
-    },
-    pricingWarning,
-    steps,
   };
 }

@@ -10,6 +10,7 @@
  */
 
 import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
+import type { CalculationResult } from "@/types";
 import type { HypervisorOverhead, HypervisorPlatform } from "./types";
 
 /**
@@ -98,7 +99,7 @@ export interface ServerVirtualizationResult {
  */
 export function calculateServerVirtualization(
   input: ServerVirtualizationInput
-): ServerVirtualizationResult | null {
+): CalculationResult<ServerVirtualizationResult> {
   const steps: string[] = [];
 
   // Platform selection: default to VMware for backward compatibility
@@ -109,7 +110,7 @@ export function calculateServerVirtualization(
     (p) => p.id === platform
   );
   if (!platformData) {
-    return null;
+    return { ok: false, error: `Unknown platform: ${platform}`, code: "INVALID_INPUT" };
   }
 
   const platformName = platformData.name;
@@ -125,17 +126,21 @@ export function calculateServerVirtualization(
 
   // Validation: Positive VM configuration
   if (input.vmCount <= 0 || input.vCpuPerVm <= 0 || input.ramPerVmGb <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "VM count, vCPU per VM, and RAM per VM must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Validation: Positive host configuration
   if (input.hostCores <= 0 || input.hostRamGb <= 0) {
-    return null;
+    return { ok: false, error: "Host cores and host RAM must be positive", code: "INVALID_INPUT" };
   }
 
   // Validation: Positive over-subscription ratio
   if (input.vCpuToCoreRatio <= 0) {
-    return null;
+    return { ok: false, error: "vCPU to core ratio must be positive", code: "INVALID_INPUT" };
   }
 
   // Validation: Percentage ranges (1-100, not 0 to ensure some headroom)
@@ -145,7 +150,11 @@ export function calculateServerVirtualization(
     input.targetRamUtilization < 1 ||
     input.targetRamUtilization > 100
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "Target utilization percentages must be between 1 and 100",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Step 1: Calculate total VM resource requirements
@@ -228,18 +237,21 @@ export function calculateServerVirtualization(
   );
 
   return {
-    totalVCpuRequired,
-    totalRamRequiredGb,
-    effectiveCpuPerHost,
-    effectiveRamPerHostGb,
-    hostsNeededByCpu,
-    hostsNeededByRam,
-    hostsNeededBeforeHa,
-    hostsNeededTotal,
-    limitingFactor,
-    vCpuConsolidationRatio,
-    finalCpuUtilization,
-    finalRamUtilization,
-    steps,
+    ok: true,
+    value: {
+      totalVCpuRequired,
+      totalRamRequiredGb,
+      effectiveCpuPerHost,
+      effectiveRamPerHostGb,
+      hostsNeededByCpu,
+      hostsNeededByRam,
+      hostsNeededBeforeHa,
+      hostsNeededTotal,
+      limitingFactor,
+      vCpuConsolidationRatio,
+      finalCpuUtilization,
+      finalRamUtilization,
+      steps,
+    },
   };
 }

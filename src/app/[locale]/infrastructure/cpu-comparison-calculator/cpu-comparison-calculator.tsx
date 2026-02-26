@@ -28,12 +28,7 @@ const useCpuComparisonStore = createCalculatorStore<CpuComparisonInput, CpuCompa
     vendor: "all",
     generation: "all",
   },
-  calculate: (input) => {
-    const r = calculateCpuComparison(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateCpuComparison(input),
 });
 
 export function CpuComparisonCalculator() {

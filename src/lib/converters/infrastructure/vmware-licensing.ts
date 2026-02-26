@@ -8,6 +8,8 @@
  * Reference: https://kb.vmware.com/s/article/95927
  */
 
+import type { CalculationResult } from "@/types";
+
 /**
  * VMware product pricing (2026 list prices, USD per core per year)
  */
@@ -87,22 +89,30 @@ export interface VmwareLicensingResult {
  */
 export function calculateVmwareLicensing(
   input: VmwareLicensingInput
-): VmwareLicensingResult | null {
+): CalculationResult<VmwareLicensingResult> {
   const steps: string[] = [];
 
   // Validation: Positive host configuration
   if (input.hostCount <= 0 || input.cpusPerHost <= 0 || input.coresPerCpu <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Host count, CPUs per host, and cores per CPU must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Validation: Valid product type
   if (!Object.hasOwn(PRICING, input.productType)) {
-    return null;
+    return {
+      ok: false,
+      error: `Unknown product type: ${input.productType}`,
+      code: "INVALID_INPUT",
+    };
   }
 
   // Validation: Valid term years
   if (![1, 3, 5].includes(input.termYears)) {
-    return null;
+    return { ok: false, error: "Term years must be 1, 3, or 5", code: "INVALID_INPUT" };
   }
 
   // Step 1: Calculate total physical cores
@@ -174,14 +184,17 @@ export function calculateVmwareLicensing(
   }
 
   return {
-    totalPhysicalCores,
-    totalLicensedCores,
-    coresPerCpuLicensed,
-    pricePerCorePerYear,
-    annualCost,
-    totalCost,
-    vsanEntitlementTib,
-    minCoreEnforced,
-    steps,
+    ok: true,
+    value: {
+      totalPhysicalCores,
+      totalLicensedCores,
+      coresPerCpuLicensed,
+      pricePerCorePerYear,
+      annualCost,
+      totalCost,
+      vsanEntitlementTib,
+      minCoreEnforced,
+      steps,
+    },
   };
 }

@@ -34,12 +34,7 @@ const useWindowsLicensingStore = createCalculatorStore<
     vmCount: 50,
     calculationMode: "compare",
   },
-  calculate: (input) => {
-    const r = calculateWindowsLicensing(input);
-    return r
-      ? { ok: true as const, value: r }
-      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
-  },
+  calculate: (input) => calculateWindowsLicensing(input),
 });
 
 export function WindowsLicensingCalculator() {

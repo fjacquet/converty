@@ -24,35 +24,44 @@ const BASE_INPUT = {
 };
 
 describe("calculateHypervisorComparison", () => {
-  describe("throws for invalid inputs", () => {
-    it("throws for vmCount = 0", () => {
-      expect(() => calculateHypervisorComparison({ ...BASE_INPUT, vmCount: 0 })).toThrow();
+  describe("error returns for invalid inputs", () => {
+    it("returns error for vmCount = 0", () => {
+      const result = calculateHypervisorComparison({ ...BASE_INPUT, vmCount: 0 });
+      expect(result.ok).toBe(false);
     });
 
-    it("throws for avgVcpusPerVm = 0", () => {
-      expect(() => calculateHypervisorComparison({ ...BASE_INPUT, avgVcpusPerVm: 0 })).toThrow();
+    it("returns error for avgVcpusPerVm = 0", () => {
+      const result = calculateHypervisorComparison({ ...BASE_INPUT, avgVcpusPerVm: 0 });
+      expect(result.ok).toBe(false);
     });
 
-    it("throws for coresPerCpu = 0", () => {
-      expect(() => calculateHypervisorComparison({ ...BASE_INPUT, coresPerCpu: 0 })).toThrow();
+    it("returns error for coresPerCpu = 0", () => {
+      const result = calculateHypervisorComparison({ ...BASE_INPUT, coresPerCpu: 0 });
+      expect(result.ok).toBe(false);
     });
   });
 
   describe("comparison results", () => {
     it("returns result with platforms array", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      expect(result.platforms).toBeInstanceOf(Array);
-      expect(result.platforms.length).toBeGreaterThan(0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.platforms).toBeInstanceOf(Array);
+      expect(result.value.platforms.length).toBeGreaterThan(0);
     });
 
     it("returns platforms for vmware, hyperv, proxmox, xcp-ng", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      expect(result.platforms.length).toBeGreaterThanOrEqual(3);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.platforms.length).toBeGreaterThanOrEqual(3);
     });
 
     it("each platform has a name and sizing info", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      for (const platform of result.platforms) {
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      for (const platform of result.value.platforms) {
         expect(platform.platform).toBeTruthy();
         expect(platform.platformName).toBeTruthy();
         expect(platform.totalHostsRequired).toBeGreaterThan(0);
@@ -61,7 +70,9 @@ describe("calculateHypervisorComparison", () => {
 
     it("each platform has costs.total.fiveYear > 0", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      for (const platform of result.platforms) {
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      for (const platform of result.value.platforms) {
         expect(platform.costs.total.fiveYear).toBeGreaterThan(0);
       }
     });
@@ -70,35 +81,45 @@ describe("calculateHypervisorComparison", () => {
   describe("recommendation", () => {
     it("has costLeader, performanceLeader, bestOverall fields", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      expect(result.recommendation.costLeader).toBeTruthy();
-      expect(result.recommendation.performanceLeader).toBeTruthy();
-      expect(result.recommendation.bestOverall).toBeTruthy();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.recommendation.costLeader).toBeTruthy();
+      expect(result.value.recommendation.performanceLeader).toBeTruthy();
+      expect(result.value.recommendation.bestOverall).toBeTruthy();
     });
 
     it("has reasoning array", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      expect(result.recommendation.reasoning).toBeInstanceOf(Array);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.recommendation.reasoning).toBeInstanceOf(Array);
     });
   });
 
   describe("comparison metrics", () => {
     it("has costDifference with lowest and highest platform", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      expect(result.comparison.costDifference.lowest).toBeTruthy();
-      expect(result.comparison.costDifference.highest).toBeTruthy();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.comparison.costDifference.lowest).toBeTruthy();
+      expect(result.value.comparison.costDifference.highest).toBeTruthy();
     });
 
     it("savingsPercent is between 0 and 100", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      expect(result.comparison.costDifference.savingsPercent).toBeGreaterThanOrEqual(0);
-      expect(result.comparison.costDifference.savingsPercent).toBeLessThanOrEqual(100);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.comparison.costDifference.savingsPercent).toBeGreaterThanOrEqual(0);
+      expect(result.value.comparison.costDifference.savingsPercent).toBeLessThanOrEqual(100);
     });
   });
 
   describe("features data", () => {
     it("returns features comparison data", () => {
       const result = calculateHypervisorComparison(BASE_INPUT);
-      expect(result.features).toBeDefined();
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.features).toBeDefined();
     });
   });
 });

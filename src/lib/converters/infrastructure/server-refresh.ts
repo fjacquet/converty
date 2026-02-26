@@ -5,6 +5,7 @@
  */
 
 import cpuDatabaseRaw from "@/lib/data/cpu-database.json";
+import type { CalculationResult } from "@/types";
 import type { CpuDatabase, CpuEntry } from "./cpu-types";
 
 const cpuDatabase = cpuDatabaseRaw as CpuDatabase;
@@ -84,7 +85,9 @@ export function getServerRefreshCpus(): CpuEntry[] {
  * Returns null for invalid inputs (unknown CPU IDs, server count <= 0,
  * division by zero, etc.).
  */
-export function calculateServerRefresh(input: ServerRefreshInput): ServerRefreshResult | null {
+export function calculateServerRefresh(
+  input: ServerRefreshInput
+): CalculationResult<ServerRefreshResult> {
   // Parse all string inputs to numbers
   const oldSocketsPerServer = Number.parseInt(input.oldSocketsPerServer, 10);
   const oldServerCount = Number.parseInt(input.oldServerCount, 10);
@@ -103,7 +106,11 @@ export function calculateServerRefresh(input: ServerRefreshInput): ServerRefresh
     !Number.isFinite(headroomPct) ||
     !Number.isFinite(powerBudgetW)
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "Invalid server refresh inputs — check socket counts and headroom values",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Look up CPUs from database
@@ -111,7 +118,7 @@ export function calculateServerRefresh(input: ServerRefreshInput): ServerRefresh
   const newCpu = cpuDatabase.cpus.find((cpu) => cpu.id === input.newCpuId);
 
   if (!oldCpu || !newCpu) {
-    return null;
+    return { ok: false, error: "One or both CPU IDs not found in database", code: "INVALID_INPUT" };
   }
 
   // Apply chassis constraint to effective sockets per new server
@@ -152,7 +159,11 @@ export function calculateServerRefresh(input: ServerRefreshInput): ServerRefresh
 
   // Guard against division by zero
   if (specintPerNewServer === 0) {
-    return null;
+    return {
+      ok: false,
+      error: "New CPU has zero SPECint score — cannot calculate sizing",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Compute minimum new server count
@@ -192,17 +203,20 @@ export function calculateServerRefresh(input: ServerRefreshInput): ServerRefresh
   const isStale = daysOld > cpuDatabase.staleDays;
 
   return {
-    oldFleet,
-    newFleet,
-    requiredSpecint: Math.round(requiredSpecint),
-    minNewServerCount,
-    specintPerNewServer,
-    headroomPct,
-    powerBudgetW,
-    serversPerRack,
-    racksNeeded,
-    dataAsOf: cpuDatabase.dataAsOf,
-    isStale,
-    staleWarning: isStale ? cpuDatabase.staleWarning : undefined,
+    ok: true,
+    value: {
+      oldFleet,
+      newFleet,
+      requiredSpecint: Math.round(requiredSpecint),
+      minNewServerCount,
+      specintPerNewServer,
+      headroomPct,
+      powerBudgetW,
+      serversPerRack,
+      racksNeeded,
+      dataAsOf: cpuDatabase.dataAsOf,
+      isStale,
+      staleWarning: isStale ? cpuDatabase.staleWarning : undefined,
+    },
   };
 }

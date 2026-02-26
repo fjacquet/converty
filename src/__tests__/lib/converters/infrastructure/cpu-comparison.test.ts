@@ -5,35 +5,32 @@ import {
 } from "@/lib/converters/infrastructure/cpu-comparison";
 
 describe("calculateCpuComparison (real cpu-database.json)", () => {
-  describe("null returns for invalid inputs", () => {
-    it("returns null for fewer than 2 CPU IDs", () => {
-      expect(
-        calculateCpuComparison({
-          cpuIds: "intel-xeon-platinum-8592plus",
-          vendor: "all",
-          generation: "all",
-        })
-      ).toBeNull();
+  describe("error returns for invalid inputs", () => {
+    it("returns error for fewer than 2 CPU IDs", () => {
+      const result = calculateCpuComparison({
+        cpuIds: "intel-xeon-platinum-8592plus",
+        vendor: "all",
+        generation: "all",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for empty cpuIds string", () => {
-      expect(
-        calculateCpuComparison({
-          cpuIds: "",
-          vendor: "all",
-          generation: "all",
-        })
-      ).toBeNull();
+    it("returns error for empty cpuIds string", () => {
+      const result = calculateCpuComparison({
+        cpuIds: "",
+        vendor: "all",
+        generation: "all",
+      });
+      expect(result.ok).toBe(false);
     });
 
-    it("returns null for single invalid CPU ID", () => {
-      expect(
-        calculateCpuComparison({
-          cpuIds: "nonexistent-cpu-id",
-          vendor: "all",
-          generation: "all",
-        })
-      ).toBeNull();
+    it("returns error for single invalid CPU ID", () => {
+      const result = calculateCpuComparison({
+        cpuIds: "nonexistent-cpu-id",
+        vendor: "all",
+        generation: "all",
+      });
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -44,8 +41,9 @@ describe("calculateCpuComparison (real cpu-database.json)", () => {
         vendor: "all",
         generation: "all",
       });
-      expect(result).not.toBeNull();
-      expect(result!.rows).toHaveLength(2);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.rows).toHaveLength(2);
     });
 
     it("first CPU always has sizingRatioVsFirst = 1.0", () => {
@@ -54,7 +52,9 @@ describe("calculateCpuComparison (real cpu-database.json)", () => {
         vendor: "all",
         generation: "all",
       });
-      expect(result!.rows[0].sizingRatioVsFirst).toBe(1.0);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.rows[0].sizingRatioVsFirst).toBe(1.0);
     });
 
     it("result includes dataAsOf and baselineCpuId", () => {
@@ -63,8 +63,10 @@ describe("calculateCpuComparison (real cpu-database.json)", () => {
         vendor: "all",
         generation: "all",
       });
-      expect(result!.dataAsOf).toBeTruthy();
-      expect(result!.baselineCpuId).toBe("intel-xeon-platinum-8592plus");
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.value.dataAsOf).toBeTruthy();
+      expect(result.value.baselineCpuId).toBe("intel-xeon-platinum-8592plus");
     });
 
     it("each row has required performance fields", () => {
@@ -73,7 +75,9 @@ describe("calculateCpuComparison (real cpu-database.json)", () => {
         vendor: "all",
         generation: "all",
       });
-      for (const row of result!.rows) {
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      for (const row of result.value.rows) {
         expect(row.cores).toBeGreaterThan(0);
         expect(row.specint2017Peak).toBeGreaterThan(0);
         expect(row.perfPerCore).toBeGreaterThan(0);

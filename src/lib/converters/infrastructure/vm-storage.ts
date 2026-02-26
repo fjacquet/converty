@@ -14,6 +14,7 @@
  */
 
 import hypervisorData from "@/data/infrastructure/hypervisor-overhead.json";
+import type { CalculationResult } from "@/types";
 import type { HypervisorOverhead, HypervisorPlatform } from "./types";
 
 /**
@@ -120,7 +121,7 @@ export interface VmStorageResult {
  *   growthPercent: 30
  * });
  */
-export function calculateVmStorage(input: VmStorageInput): VmStorageResult | null {
+export function calculateVmStorage(input: VmStorageInput): CalculationResult<VmStorageResult> {
   const steps: string[] = [];
 
   // Platform selection: default to VMware for backward compatibility
@@ -136,7 +137,7 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
     (p) => p.id === platform
   );
   if (!platformData) {
-    return null;
+    return { ok: false, error: `Unknown platform: ${platform}`, code: "INVALID_INPUT" };
   }
 
   const platformName = platformData.name;
@@ -144,13 +145,17 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
 
   // Validation: Check for empty VM configs
   if (input.vmConfigs.length === 0) {
-    return null;
+    return { ok: false, error: "At least one VM configuration is required", code: "INVALID_INPUT" };
   }
 
   // Validation: Check for negative values in VM configs
   for (const config of input.vmConfigs) {
     if (config.diskGb < 0 || config.ramGb < 0 || config.count < 0) {
-      return null;
+      return {
+        ok: false,
+        error: "VM configuration values must be non-negative",
+        code: "INVALID_INPUT",
+      };
     }
   }
 
@@ -163,12 +168,16 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
     input.growthPercent < 0 ||
     input.growthPercent > 100
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "Percentage values must be between 0 and 100",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Validation: Check hypervisor hosts minimum
   if (hypervisorHosts < 1) {
-    return null;
+    return { ok: false, error: "At least one hypervisor host is required", code: "INVALID_INPUT" };
   }
 
   // Step 1: Calculate total provisioned disk and VM count
@@ -246,18 +255,21 @@ export function calculateVmStorage(input: VmStorageInput): VmStorageResult | nul
   };
 
   return {
-    totalProvisionedGb,
-    usedDiskGb,
-    overSubscribedGb,
-    snapshotGb,
-    swapGb,
-    configLogGb,
-    totalVmStorageGb,
-    esxStorageGb: hypervisorOverheadGb, // Renamed internally but kept field name for backward compatibility
-    growthAllocationGb,
-    totalRequiredGb,
-    totalVmCount,
-    percentages,
-    steps,
+    ok: true,
+    value: {
+      totalProvisionedGb,
+      usedDiskGb,
+      overSubscribedGb,
+      snapshotGb,
+      swapGb,
+      configLogGb,
+      totalVmStorageGb,
+      esxStorageGb: hypervisorOverheadGb, // Renamed internally but kept field name for backward compatibility
+      growthAllocationGb,
+      totalRequiredGb,
+      totalVmCount,
+      percentages,
+      steps,
+    },
   };
 }

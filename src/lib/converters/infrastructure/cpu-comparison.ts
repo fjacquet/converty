@@ -5,6 +5,7 @@
  */
 
 import cpuDatabaseRaw from "@/lib/data/cpu-database.json";
+import type { CalculationResult } from "@/types";
 import type { CpuDatabase, CpuEntry, CpuGeneration, CpuVendor } from "./cpu-types";
 
 const cpuDatabase = cpuDatabaseRaw as CpuDatabase;
@@ -78,7 +79,9 @@ export function getFilteredCpus(vendor: string, generation: string): CpuEntry[] 
  * Calculates CPU comparison metrics for 2–4 selected CPUs.
  * Returns null if fewer than 2 valid CPU IDs are provided.
  */
-export function calculateCpuComparison(input: CpuComparisonInput): CpuComparisonResult | null {
+export function calculateCpuComparison(
+  input: CpuComparisonInput
+): CalculationResult<CpuComparisonResult> {
   // Parse and look up CPU IDs
   const rawIds = input.cpuIds
     .split(",")
@@ -95,7 +98,11 @@ export function calculateCpuComparison(input: CpuComparisonInput): CpuComparison
 
   // Need at least 2 valid CPUs
   if (cpus.length < 2) {
-    return null;
+    return {
+      ok: false,
+      error: "At least 2 valid CPU IDs are required for comparison",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Clamp to 4 CPUs maximum
@@ -138,10 +145,13 @@ export function calculateCpuComparison(input: CpuComparisonInput): CpuComparison
   const isStale = daysOld > cpuDatabase.staleDays;
 
   return {
-    rows,
-    baselineCpuId: selectedCpus[0].id,
-    dataAsOf: cpuDatabase.dataAsOf,
-    isStale,
-    staleWarning: isStale ? cpuDatabase.staleWarning : undefined,
+    ok: true,
+    value: {
+      rows,
+      baselineCpuId: selectedCpus[0].id,
+      dataAsOf: cpuDatabase.dataAsOf,
+      isStale,
+      staleWarning: isStale ? cpuDatabase.staleWarning : undefined,
+    },
   };
 }
