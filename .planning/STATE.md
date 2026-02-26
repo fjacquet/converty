@@ -116,6 +116,7 @@ Progress: [██████████] Phase 42: 5/5 plans complete
 | Phase 42-error-boundaries-toasts P04 | 3 | 2 tasks | 3 files |
 | Phase 42-error-boundaries-toasts P05 | 1 | 1 tasks | 1 files |
 | Phase 43-zod-input-validation P01 | 2 | 3 tasks | 3 files |
+| Phase 43-zod-input-validation P02 | 24 | 2 tasks | 28 files |
 
 ## Accumulated Context
 
@@ -187,6 +188,8 @@ Recent decisions affecting current work:
 - [Phase 43-zod-input-validation]: zod installed as runtime dep (not devDep) since schemas run client-side in stores
 - [Phase 43-zod-input-validation]: schema and validate both optional; explicit validate takes precedence over schema when both provided
 - [Phase 43-zod-input-validation]: ZodType imported as type-only (import type) for Biome strict compliance; z imported as value in url-params.ts
+- [Phase 43-zod-input-validation]: String-based Zod schemas (z.string().refine()) used — z.coerce.number() outputs number type incompatible with string FormValues
+- [Phase 43-zod-input-validation]: Corpulence calculator uses useState directly — schema created but store wiring skipped (no createCalculatorStore to attach to)
 
 ### Decisions (Phase 40-01)
 

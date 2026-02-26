@@ -62,11 +62,11 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 ### Requirements
 
 - [x] **R3.1** `zod` installed
-- [ ] **R3.2** Zod schemas defined for each calculator's input type in `src/lib/schemas/`
+- [x] **R3.2** Zod schemas defined for each calculator's input type in `src/lib/schemas/`
 - [x] **R3.3** `createCalculatorStore` factory updated to accept optional Zod schema for validation
 - [x] **R3.4** URL parameter parsing helpers (`parseNumberParam`, `parseBooleanParam`, `parseStringParam`) replaced with Zod `.safeParse()` equivalents
-- [ ] **R3.5** Validation errors surface as field-level error messages in calculator forms
-- [ ] **R3.6** Out-of-range inputs produce user-visible errors (not silent null results)
+- [x] **R3.5** Validation errors surface as field-level error messages in calculator forms
+- [x] **R3.6** Out-of-range inputs produce user-visible errors (not silent null results)
 
 ---
 
