@@ -52,7 +52,61 @@ describe("calculateArea", () => {
     });
   });
 
-  it("returns null for missing required fields on trapezoid", () => {
-    expect(calculateArea({ shape: "trapezoid" })).toBeNull();
+  describe("trapezoid", () => {
+    it("returns null for missing required fields on trapezoid", () => {
+      expect(calculateArea({ shape: "trapezoid" })).toBeNull();
+    });
+
+    it("calculates trapezoid area: (b1+b2)/2 * h", () => {
+      const result = calculateArea({ shape: "trapezoid", base1: 3, base2: 5, height: 4 });
+      expect(result).not.toBeNull();
+      // (3+5)/2 * 4 = 16
+      expect(result!.area).toBe(16);
+    });
+
+    it("returns null for zero base in trapezoid", () => {
+      expect(calculateArea({ shape: "trapezoid", base1: 0, base2: 5, height: 4 })).toBeNull();
+    });
+  });
+
+  describe("ellipse", () => {
+    it("calculates ellipse area: π * a * b", () => {
+      const result = calculateArea({ shape: "ellipse", radiusA: 3, radiusB: 4 });
+      expect(result).not.toBeNull();
+      expect(result!.area).toBeCloseTo(Math.PI * 3 * 4, 4);
+    });
+
+    it("returns null for missing radii", () => {
+      expect(calculateArea({ shape: "ellipse" })).toBeNull();
+    });
+  });
+
+  describe("sector", () => {
+    it("calculates sector area for 90 degree sector", () => {
+      // A = (90/360) * π * r² = 0.25 * π * 25
+      const result = calculateArea({ shape: "sector", radius: 5, angle: 90 });
+      expect(result).not.toBeNull();
+      expect(result!.area).toBeCloseTo(0.25 * Math.PI * 25, 4);
+    });
+
+    it("returns null for angle > 360", () => {
+      expect(calculateArea({ shape: "sector", radius: 5, angle: 361 })).toBeNull();
+    });
+
+    it("returns null for missing angle", () => {
+      expect(calculateArea({ shape: "sector", radius: 5 })).toBeNull();
+    });
+  });
+
+  describe("rhombus", () => {
+    it("calculates rhombus area: (d1 * d2) / 2", () => {
+      const result = calculateArea({ shape: "rhombus", diagonal1: 6, diagonal2: 8 });
+      expect(result).not.toBeNull();
+      expect(result!.area).toBe(24);
+    });
+
+    it("returns null for missing diagonals", () => {
+      expect(calculateArea({ shape: "rhombus" })).toBeNull();
+    });
   });
 });

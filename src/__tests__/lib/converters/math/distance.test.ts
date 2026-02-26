@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { calculateDistance } from "@/lib/converters/math/distance";
 
 describe("calculateDistance", () => {

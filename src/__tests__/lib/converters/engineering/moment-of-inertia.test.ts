@@ -91,4 +91,117 @@ describe("calculateMomentOfInertia", () => {
       expect(calculateMomentOfInertia(input)).not.toBeNull();
     });
   });
+
+  describe("hollow circle", () => {
+    it("hollow circle Ix < solid circle of same outer diameter", () => {
+      const solid = calculateMomentOfInertia({ shape: "circle", diameter: 100 });
+      const hollow = calculateMomentOfInertia({
+        shape: "hollow-circle",
+        diameter: 100,
+        innerDiameter: 80,
+      });
+      expect(hollow).not.toBeNull();
+      expect(hollow!.Ix).toBeLessThan(solid!.Ix);
+    });
+
+    it("returns null for hollow circle without innerDiameter", () => {
+      expect(calculateMomentOfInertia({ shape: "hollow-circle", diameter: 100 })).toBeNull();
+    });
+  });
+
+  describe("triangle", () => {
+    it("calculates triangle moment of inertia", () => {
+      const result = calculateMomentOfInertia({ shape: "triangle", width: 100, height: 200 });
+      expect(result).not.toBeNull();
+      // Ix = bh³/36
+      expect(result!.Ix).toBeCloseTo((100 * 200 ** 3) / 36, 0);
+    });
+
+    it("returns null for triangle without height", () => {
+      expect(calculateMomentOfInertia({ shape: "triangle", width: 100 })).toBeNull();
+    });
+  });
+
+  describe("i-beam", () => {
+    it("calculates i-beam moment of inertia", () => {
+      const result = calculateMomentOfInertia({
+        shape: "i-beam",
+        depth: 200,
+        flangeWidth: 100,
+        flangeThickness: 10,
+        webThickness: 8,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.Ix).toBeGreaterThan(0);
+      expect(result!.area).toBeGreaterThan(0);
+    });
+
+    it("returns null for i-beam without flangeWidth", () => {
+      expect(
+        calculateMomentOfInertia({
+          shape: "i-beam",
+          depth: 200,
+          flangeThickness: 10,
+          webThickness: 8,
+        })
+      ).toBeNull();
+    });
+  });
+
+  describe("channel", () => {
+    it("calculates channel section moment of inertia", () => {
+      const result = calculateMomentOfInertia({
+        shape: "channel",
+        channelDepth: 150,
+        channelWidth: 65,
+        channelWebThickness: 8,
+        channelFlangeThickness: 12,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.Ix).toBeGreaterThan(0);
+    });
+
+    it("returns null for channel without channelDepth", () => {
+      expect(
+        calculateMomentOfInertia({
+          shape: "channel",
+          channelWidth: 65,
+          channelWebThickness: 8,
+          channelFlangeThickness: 12,
+        })
+      ).toBeNull();
+    });
+  });
+
+  describe("angle", () => {
+    it("calculates angle section moment of inertia", () => {
+      const result = calculateMomentOfInertia({
+        shape: "angle",
+        legWidth1: 75,
+        legWidth2: 75,
+        thickness: 8,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.Ix).toBeGreaterThan(0);
+    });
+
+    it("returns null for angle without thickness", () => {
+      expect(calculateMomentOfInertia({ shape: "angle", legWidth1: 75, legWidth2: 75 })).toBeNull();
+    });
+  });
+
+  describe("parallel axis theorem", () => {
+    it("applying offset increases moment of inertia", () => {
+      const noOffset = calculateMomentOfInertia({ shape: "rectangle", width: 100, height: 100 });
+      const withOffset = calculateMomentOfInertia({
+        shape: "rectangle",
+        width: 100,
+        height: 100,
+        offsetX: 50,
+        offsetY: 50,
+      });
+      expect(withOffset).not.toBeNull();
+      expect(withOffset!.Ix).toBeGreaterThan(noOffset!.Ix);
+    });
+  });
 });

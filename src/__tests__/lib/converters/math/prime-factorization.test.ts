@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { calculatePrimeFactorization } from "@/lib/converters/math/prime-factorization";
 
 describe("calculatePrimeFactorization", () => {

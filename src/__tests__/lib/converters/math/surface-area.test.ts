@@ -38,4 +38,85 @@ describe("calculateSurfaceArea", () => {
     // SA = 2πr(r+h) = 2π×1×2 = 4π ≈ 12.566
     expect(result!.totalSurfaceArea).toBeCloseTo(4 * Math.PI, 3);
   });
+
+  describe("cone", () => {
+    it("calculates cone surface area: πrs + πr²", () => {
+      const result = calculateSurfaceArea({ shape: "cone", radius: 3, slantHeight: 5 });
+      expect(result).not.toBeNull();
+      // SA = π*3*5 + π*3² = 15π + 9π = 24π
+      expect(result!.totalSurfaceArea).toBeCloseTo(24 * Math.PI, 3);
+    });
+
+    it("returns null for missing slantHeight", () => {
+      expect(calculateSurfaceArea({ shape: "cone", radius: 3 })).toBeNull();
+    });
+  });
+
+  describe("pyramid", () => {
+    it("calculates rectangular pyramid surface area", () => {
+      const result = calculateSurfaceArea({
+        shape: "pyramid",
+        baseLength: 4,
+        baseWidth: 3,
+        slantHeight: 5,
+      });
+      expect(result).not.toBeNull();
+      // baseSA = 4*3 = 12, lateralSA = 4*5 + 3*5 = 35, total = 47
+      expect(result!.totalSurfaceArea).toBeCloseTo(47, 3);
+    });
+
+    it("returns null for missing slantHeight in pyramid", () => {
+      expect(calculateSurfaceArea({ shape: "pyramid", baseLength: 4, baseWidth: 3 })).toBeNull();
+    });
+  });
+
+  describe("triangularPrism", () => {
+    it("calculates triangular prism surface area", () => {
+      const result = calculateSurfaceArea({
+        shape: "triangularPrism",
+        triangleBase: 3,
+        triangleHeight: 4,
+        prismLength: 10,
+        side1: 3,
+        side2: 4,
+        side3: 5,
+      });
+      expect(result).not.toBeNull();
+      // baseSA = 0.5*3*4 = 6; lateral = (3+4+5)*10 = 120; total = 2*6 + 120 = 132
+      expect(result!.totalSurfaceArea).toBeCloseTo(132, 3);
+    });
+
+    it("calculates triangular prism with estimated sides when not provided", () => {
+      const result = calculateSurfaceArea({
+        shape: "triangularPrism",
+        triangleBase: 6,
+        triangleHeight: 4,
+        prismLength: 10,
+      });
+      expect(result).not.toBeNull();
+    });
+
+    it("returns null for missing triangleBase", () => {
+      expect(
+        calculateSurfaceArea({ shape: "triangularPrism", triangleHeight: 4, prismLength: 10 })
+      ).toBeNull();
+    });
+  });
+
+  describe("hemisphere", () => {
+    it("calculates hemisphere surface area: 3πr²", () => {
+      const result = calculateSurfaceArea({ shape: "hemisphere", radius: 2 });
+      expect(result).not.toBeNull();
+      expect(result!.totalSurfaceArea).toBeCloseTo(3 * Math.PI * 4, 3);
+    });
+
+    it("returns null for non-positive radius", () => {
+      expect(calculateSurfaceArea({ shape: "hemisphere", radius: 0 })).toBeNull();
+    });
+  });
+
+  it("returns null for unknown shape", () => {
+    // biome-ignore lint/suspicious/noExplicitAny: testing invalid input
+    expect(calculateSurfaceArea({ shape: "unknown" as any })).toBeNull();
+  });
 });

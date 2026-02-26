@@ -44,4 +44,131 @@ describe("calculateHalfLife", () => {
     expect(result!.halfLife).toBe(5730);
     expect(result!.time).toBeCloseTo(5730, 0);
   });
+
+  describe("findHalfLife mode", () => {
+    it("finds half-life from initial amount, remaining amount, and time", () => {
+      // N₀=100, N=50 after t=10 → t½ = 10
+      const result = calculateHalfLife({
+        mode: "findHalfLife",
+        initialAmount: 100,
+        remainingAmount: 50,
+        time: 10,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.halfLife).toBeCloseTo(10, 4);
+    });
+
+    it("returns null if inputs missing", () => {
+      expect(calculateHalfLife({ mode: "findHalfLife", initialAmount: 100 })).toBeNull();
+    });
+
+    it("returns null if remaining > initial", () => {
+      expect(
+        calculateHalfLife({
+          mode: "findHalfLife",
+          initialAmount: 50,
+          remainingAmount: 100,
+          time: 10,
+        })
+      ).toBeNull();
+    });
+
+    it("returns null if time <= 0", () => {
+      expect(
+        calculateHalfLife({
+          mode: "findHalfLife",
+          initialAmount: 100,
+          remainingAmount: 50,
+          time: 0,
+        })
+      ).toBeNull();
+    });
+  });
+
+  describe("findTime mode", () => {
+    it("finds time using half-life", () => {
+      // 50% remaining, t½=10 → t = 10
+      const result = calculateHalfLife({ mode: "findTime", halfLife: 10, percentRemaining: 50 });
+      expect(result).not.toBeNull();
+      expect(result!.time).toBeCloseTo(10, 2);
+    });
+
+    it("finds time using decay constant", () => {
+      // decayConstant = ln(2)/10 → t½ ≈ 10
+      const decayConstant = Math.LN2 / 10;
+      const result = calculateHalfLife({
+        mode: "findTime",
+        decayConstant,
+        percentRemaining: 50,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.time).toBeCloseTo(10, 2);
+    });
+
+    it("finds time using initialAmount and remainingAmount instead of percentRemaining", () => {
+      const result = calculateHalfLife({
+        mode: "findTime",
+        halfLife: 10,
+        initialAmount: 100,
+        remainingAmount: 50,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.time).toBeCloseTo(10, 2);
+    });
+
+    it("returns null if no decay constant or half-life provided", () => {
+      expect(calculateHalfLife({ mode: "findTime", percentRemaining: 50 })).toBeNull();
+    });
+
+    it("returns null if fraction out of range", () => {
+      expect(calculateHalfLife({ mode: "findTime", halfLife: 10, percentRemaining: 0 })).toBeNull();
+    });
+  });
+
+  describe("remaining mode - additional cases", () => {
+    it("returns null if remaining > initial", () => {
+      expect(
+        calculateHalfLife({
+          mode: "remaining",
+          initialAmount: 50,
+          remainingAmount: 100,
+          halfLife: 10,
+        })
+      ).toBeNull();
+    });
+
+    it("returns null if inputs missing", () => {
+      expect(calculateHalfLife({ mode: "remaining", initialAmount: 100 })).toBeNull();
+    });
+  });
+
+  describe("carbon14 mode - additional cases", () => {
+    it("uses initialAmount and remainingAmount when percentRemaining not provided", () => {
+      const result = calculateHalfLife({
+        mode: "carbon14",
+        initialAmount: 100,
+        remainingAmount: 50,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.time).toBeCloseTo(5730, 0);
+    });
+
+    it("returns null for null fraction in carbon14", () => {
+      expect(calculateHalfLife({ mode: "carbon14" })).toBeNull();
+    });
+
+    it("adds note for samples older than 50000 years", () => {
+      // 0.1% remaining → ~57,000 years → exceeds 50,000 year limit
+      const result = calculateHalfLife({ mode: "carbon14", percentRemaining: 0.1 });
+      expect(result).not.toBeNull();
+      const hasNote = result!.steps.some((s) => s.includes("50,000"));
+      expect(hasNote).toBe(true);
+    });
+  });
+
+  it("decay mode returns decayTable array", () => {
+    const result = calculateHalfLife({ mode: "decay", initialAmount: 100, halfLife: 10, time: 10 });
+    expect(result!.decayTable).toBeInstanceOf(Array);
+    expect(result!.decayTable.length).toBeGreaterThan(0);
+  });
 });

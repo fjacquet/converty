@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { calculateConfidenceInterval } from "@/lib/converters/math/confidence-interval";
 
 describe("calculateConfidenceInterval", () => {

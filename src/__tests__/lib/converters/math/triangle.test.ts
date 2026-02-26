@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { calculateTriangle } from "@/lib/converters/math/triangle";
 
 describe("calculateTriangle", () => {

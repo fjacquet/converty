@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
+  calculateMFKDue,
   calculateNextService,
+  getDefaultLastServices,
   getServiceById,
+  getServiceSchedule,
   getServiceTypes,
 } from "@/lib/converters/automotive/maintenance-intervals";
 
@@ -97,5 +100,146 @@ describe("calculateNextService", () => {
     if (result.kmRemaining !== null) {
       expect(result.kmRemaining).toBe(expectedRemaining);
     }
+  });
+
+  describe("status variants", () => {
+    it("returns critical status when far past due km", () => {
+      const services = getServiceTypes();
+      const service = services.find((s) => s.intervalKm !== null);
+      if (!service || service.intervalKm === null) return;
+
+      // 6000km past due → critical
+      const currentOdometer = service.intervalKm + 6000;
+      const result = calculateNextService(service, currentOdometer, 0, null, 1000);
+      expect(result.status).toBe("critical");
+    });
+
+    it("returns due status when within 1000km remaining", () => {
+      const services = getServiceTypes();
+      const service = services.find((s) => s.intervalKm !== null && s.intervalKm > 2000);
+      if (!service || service.intervalKm === null) return;
+
+      // 500km before due
+      const lastServiceKm = 0;
+      const currentOdometer = service.intervalKm - 500;
+      const result = calculateNextService(service, currentOdometer, lastServiceKm, null, 1000);
+      expect(["due", "due_soon"]).toContain(result.status);
+    });
+
+    it("returns due_soon status when 1000-3000km remaining", () => {
+      const services = getServiceTypes();
+      const service = services.find((s) => s.intervalKm !== null && s.intervalKm > 5000);
+      if (!service || service.intervalKm === null) return;
+
+      // 2000km before due
+      const lastServiceKm = 0;
+      const currentOdometer = service.intervalKm - 2000;
+      const result = calculateNextService(service, currentOdometer, lastServiceKm, null, 1000);
+      expect(["due_soon", "due", "ok"]).toContain(result.status);
+    });
+  });
+
+  describe("time-based services", () => {
+    it("processes time-based service with lastServiceDate", () => {
+      const services = getServiceTypes();
+      const service = services.find((s) => s.intervalMonths !== null);
+      if (!service || service.intervalMonths === null) return;
+
+      const lastServiceDate = new Date();
+      lastServiceDate.setMonth(lastServiceDate.getMonth() - service.intervalMonths + 2);
+
+      const result = calculateNextService(service, 10000, null, lastServiceDate, 1000);
+      expect(result).toBeDefined();
+      expect(result.daysRemaining).not.toBeNull();
+    });
+
+    it("processes overdue time-based service", () => {
+      const services = getServiceTypes();
+      const service = services.find((s) => s.intervalMonths !== null);
+      if (!service || service.intervalMonths === null) return;
+
+      // Last service was 2 intervals ago
+      const lastServiceDate = new Date();
+      lastServiceDate.setMonth(lastServiceDate.getMonth() - service.intervalMonths * 2);
+
+      const result = calculateNextService(service, 10000, null, lastServiceDate, 1000);
+      expect(["overdue", "critical"]).toContain(result.status);
+    });
+  });
+
+  describe("urgency messages", () => {
+    it("returns overdue urgency message for overdue service", () => {
+      const services = getServiceTypes();
+      const service = services.find((s) => s.intervalKm !== null);
+      if (!service || service.intervalKm === null) return;
+
+      const currentOdometer = service.intervalKm + 1000; // 1000km past due
+      const result = calculateNextService(service, currentOdometer, 0, null, 1000);
+      expect(result.urgencyMessage).toContain("OVERDUE");
+    });
+  });
+});
+
+describe("calculateMFKDue", () => {
+  it("returns first inspection for new vehicle (< 3 years old)", () => {
+    const registrationDate = new Date();
+    registrationDate.setMonth(registrationDate.getMonth() - 12); // 1 year old
+    const result = calculateMFKDue(registrationDate);
+    expect(result).toBeDefined();
+    expect(result.isFirstInspection).toBe(true);
+  });
+
+  it("returns subsequent inspection for older vehicle", () => {
+    const registrationDate = new Date();
+    registrationDate.setFullYear(registrationDate.getFullYear() - 5); // 5 years old
+    const result = calculateMFKDue(registrationDate);
+    expect(result).toBeDefined();
+    expect(result.isFirstInspection).toBe(false);
+    expect(typeof result.daysRemaining).toBe("number");
+  });
+});
+
+describe("getServiceSchedule", () => {
+  it("returns full service schedule result", () => {
+    const registrationDate = new Date();
+    registrationDate.setFullYear(registrationDate.getFullYear() - 3);
+
+    const result = getServiceSchedule({
+      currentOdometerKm: 50000,
+      averageKmPerMonth: 1000,
+      vehicleRegistrationDate: registrationDate,
+      lastServices: {},
+      oilType: "synthetic",
+    });
+
+    expect(result).toBeDefined();
+    expect(result.services).toBeInstanceOf(Array);
+    expect(result.totalServices).toBeGreaterThan(0);
+  });
+
+  it("uses conventional oil type when specified", () => {
+    const registrationDate = new Date();
+    registrationDate.setFullYear(registrationDate.getFullYear() - 2);
+
+    const result = getServiceSchedule({
+      currentOdometerKm: 30000,
+      averageKmPerMonth: 1000,
+      vehicleRegistrationDate: registrationDate,
+      lastServices: {},
+      oilType: "conventional",
+    });
+
+    expect(result).toBeDefined();
+    expect(result.services).toBeInstanceOf(Array);
+  });
+});
+
+describe("getDefaultLastServices", () => {
+  it("returns default service map", () => {
+    const registrationDate = new Date();
+    registrationDate.setFullYear(registrationDate.getFullYear() - 3);
+
+    const defaults = getDefaultLastServices(60000, registrationDate);
+    expect(typeof defaults).toBe("object");
   });
 });

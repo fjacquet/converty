@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateStressStrain } from "@/lib/converters/engineering/stress-strain";
+import { calculateStressStrain, getMaterials } from "@/lib/converters/engineering/stress-strain";
 
 // Base input: no material from DB, custom values
 const BASE_INPUT = {
@@ -82,6 +82,65 @@ describe("calculateStressStrain", () => {
       // 500 kN / 100 mm² = 5000 MPa >> yield 250 MPa
       const result = calculateStressStrain({ ...BASE_INPUT, force: 500 });
       expect(result!.exceedsYield).toBe(true);
+    });
+  });
+
+  describe("youngs-modulus mode", () => {
+    it("calculates Young's modulus from stress and strain", () => {
+      // force=10kN, area=100mm² → stress=100MPa; changeInLength=0.5, origLength=1000 → strain=0.0005
+      // E = σ/ε = 100/(0.0005*1000) = 200 GPa
+      const result = calculateStressStrain({ ...BASE_INPUT, mode: "youngs-modulus" });
+      expect(result).not.toBeNull();
+      expect(result!.youngsModulus).toBeCloseTo(200, 0);
+    });
+
+    it("returns null when strain = 0 (changeInLength = 0)", () => {
+      expect(
+        calculateStressStrain({ ...BASE_INPUT, mode: "youngs-modulus", changeInLength: 0 })
+      ).toBeNull();
+    });
+  });
+
+  describe("strain mode - additional cases", () => {
+    it("strain mode with youngsModulus = 0 gives stress = 0", () => {
+      const result = calculateStressStrain({
+        ...BASE_INPUT,
+        mode: "strain",
+        customYoungsModulus: 0,
+        customYieldStrength: 0,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.stress).toBe(0);
+    });
+  });
+
+  describe("stress mode - no Young's modulus", () => {
+    it("stress mode with youngsModulus = 0 gives strain = 0", () => {
+      const result = calculateStressStrain({
+        ...BASE_INPUT,
+        customYoungsModulus: 0,
+        customYieldStrength: 0,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.strain).toBe(0);
+      expect(result!.safetyFactor).toBeNull();
+    });
+  });
+
+  describe("material lookup", () => {
+    it("getMaterials returns array of materials", () => {
+      const materials = getMaterials();
+      expect(Array.isArray(materials)).toBe(true);
+      expect(materials.length).toBeGreaterThan(0);
+    });
+
+    it("uses material properties when valid materialId is provided", () => {
+      const materials = getMaterials();
+      if (materials.length === 0) return;
+      const materialId = materials[0].id;
+      const result = calculateStressStrain({ ...BASE_INPUT, materialId });
+      expect(result).not.toBeNull();
+      expect(result!.materialName).not.toBeNull();
     });
   });
 

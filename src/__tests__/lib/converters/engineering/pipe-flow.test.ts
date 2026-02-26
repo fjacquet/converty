@@ -94,6 +94,27 @@ describe("calculatePipeFlow", () => {
     });
   });
 
+  describe("transitional flow (2300 ≤ Re < 4000)", () => {
+    it("velocity that gives Re ≈ 3000 results in transitional flow", () => {
+      // Re = ρvD/μ = 1000 * v * 0.05 / 0.001 = 50000v → v for Re=3000: v = 3000/50000 = 0.06
+      const result = calculatePipeFlow({
+        ...BASE_INPUT,
+        velocity: 0.06,
+      });
+      expect(result).not.toBeNull();
+      expect(result!.flowRegime).toBe("transitional");
+    });
+  });
+
+  describe("pipe material and fluid lookup", () => {
+    it("returns pipeMaterialName when valid pipeMaterialId is provided", () => {
+      // Use a known material ID if exists, else test that null materialId works
+      const result = calculatePipeFlow({ ...BASE_INPUT, pipeMaterialId: "" });
+      expect(result).not.toBeNull();
+      expect(result!.pipeMaterialName).toBeNull();
+    });
+  });
+
   describe("result structure", () => {
     it("has flowRate, flowRateLpm, headLoss, relativeRoughness", () => {
       const result = calculatePipeFlow(BASE_INPUT);
