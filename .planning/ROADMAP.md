@@ -137,7 +137,7 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
   - [ ] 45-01-PLAN.md — CalculationResult<T> type definition + createCalculatorStore adapter pattern + calculationError state (Wave 1)
   - [ ] 45-02-PLAN.md — Health + math converters to CalculationResult + update their tests (Wave 2, parallel)
   - [ ] 45-03-PLAN.md — Finance + datetime + automotive + cooking converters (recipe-scaler/food-cost throw→ok:false) + tests (Wave 2, parallel)
-  - [ ] 45-04-PLAN.md — Photo + video + data + physics + music + color + realestate + crypto converters + tests (Wave 2, parallel)
+  - [x] 45-04-PLAN.md — Photo + video + data + physics + music + color + realestate + crypto converters + tests (Wave 2, parallel)
   - [ ] 45-05-PLAN.md — Network + chemistry (success→ok rename) + engineering + infrastructure (throw→ok:false) + web + component calculationError display + final quality gate (Wave 3)
 - [ ] Phase 46: i18n Namespace Restructure — nested translation objects, no library change
 - [ ] Phase 47: ADRs & CI Hardening — ADRs 011–015, CI test gate, updated docs

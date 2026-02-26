@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 45 — Discriminated Union Result Types (in progress)
-Plan: 45-03 complete (3/5)
-Status: Phase 45 in progress. 45-03 done: Automotive (4) and cooking (4) converters migrated to CalculationResult<T>; 48 UI components fixed for TypeScript compatibility (0 errors); 2288 tests pass.
-Last activity: 2026-02-26 — Phase 45-03 complete: Automotive/cooking migration + 48 UI component fixes
+Plan: 45-04 complete (4/5)
+Status: Phase 45 in progress. 45-04 done: Photo (22), video (9), data (3), music (1), color (1), realestate, crypto + engineering (8) + infrastructure (10) converters migrated to CalculationResult<T>; 2288 tests pass, 0 TypeScript errors.
+Last activity: 2026-02-26 — Phase 45-04 complete: Photo/video/data/music/color/realestate/crypto + engineering/infrastructure migration
 
-Progress: [██████████████] Phase 45: 3/5 plans complete
+Progress: [████████████████] Phase 45: 4/5 plans complete
 
 ## Performance Metrics
 
@@ -124,6 +124,7 @@ Progress: [██████████████] Phase 45: 3/5 plans compl
 | Phase 45-discriminated-union-result-types P01 | 2 | 2 tasks | 3 files |
 | Phase 45-discriminated-union-result-types P02 | 2288 | 2 tasks | 135 files |
 | Phase 45-discriminated-union-result-types P03 | 45 | 3 tasks | 57 files |
+| Phase 45-discriminated-union-result-types P04 | 2288 | 6 tasks (3 deviations) | 80 files |
 
 ## Accumulated Context
 
@@ -213,6 +214,9 @@ Recent decisions affecting current work:
 - [Phase 45-02]: Nullable scalar fields inside result.value (slope:number|null, geometricMean:number|null) keep .toBeNull() — they are NOT CalculationResult objects
 - [Phase 45-02]: toHaveProperty assertions must target result.value not result — properties are nested under value after migration
 - [Phase 45-03]: Three UI fix patterns for CalculationResult: Group A (converter migrated, unwrap calcResult.ok), Group B (converter not migrated, wrap with ok:true/false), Group C (migrated, extract .value before JSX)
+- [Phase 45-04]: Double-wrapping anti-pattern: engineering/infrastructure stores wrapping already-CalculationResult converters — fixed by simplifying to calculate: (input) => calculateFn(input) direct passthrough
+- [Phase 45-04]: Custom stores (k8s-capacity, vm-storage): if (result === null) check updated to if (calcResult.ok) check for CalculationResult discriminant pattern
+- [Phase 45-04]: Inline table-row converter calls need local variable unwrap: const rResult = fn(...); const r = rResult.ok ? rResult.value : null
 
 ### Decisions (Phase 40-01)
 
@@ -233,7 +237,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 45-03-PLAN.md — Automotive/cooking converters migrated; 48 UI components fixed for TypeScript (0 errors); 2288 tests pass
+Stopped at: Completed 45-04-PLAN.md — Photo/video/data/music/color/realestate/crypto + engineering/infrastructure converters migrated to CalculationResult<T>; 2288 tests pass, 0 TypeScript errors
 Resume file: None
 
 **Milestones Completed:**
