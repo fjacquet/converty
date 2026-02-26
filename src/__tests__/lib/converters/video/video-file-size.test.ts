@@ -6,27 +6,31 @@ import {
 } from "@/lib/converters/video/video-file-size";
 
 describe("calculateVideoFileSize", () => {
-  it("returns null for zero duration", () => {
-    expect(calculateVideoFileSize({ duration: 0, bitrateMbps: 10 })).toBeNull();
+  it("returns error for zero duration", () => {
+    const result = calculateVideoFileSize({ duration: 0, bitrateMbps: 10 });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero bitrate", () => {
-    expect(calculateVideoFileSize({ duration: 3600, bitrateMbps: 0 })).toBeNull();
+  it("returns error for zero bitrate", () => {
+    const result = calculateVideoFileSize({ duration: 3600, bitrateMbps: 0 });
+    expect(result.ok).toBe(false);
   });
 
   it("calculates file size for 10 Mbps × 60 minutes", () => {
     // Video bytes = 10 × 10^6 × 3600 / 8 = 4,500,000,000 bytes ≈ 4.19 GB
     const result = calculateVideoFileSize({ duration: 3600, bitrateMbps: 10 });
-    expect(result).not.toBeNull();
-    expect(result?.totalGB).toBeCloseTo(4.19, 0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.totalGB).toBeCloseTo(4.19, 0);
   });
 
   it("higher bitrate gives larger file", () => {
     const low = calculateVideoFileSize({ duration: 3600, bitrateMbps: 5 });
     const high = calculateVideoFileSize({ duration: 3600, bitrateMbps: 50 });
-    expect(low).not.toBeNull();
-    expect(high).not.toBeNull();
-    expect(high?.totalBytes ?? 0).toBeGreaterThan(low?.totalBytes ?? 0);
+    expect(low.ok).toBe(true);
+    expect(high.ok).toBe(true);
+    if (!low.ok || !high.ok) return;
+    expect(high.value.totalBytes).toBeGreaterThan(low.value.totalBytes);
   });
 
   it("includes audio bytes in total", () => {
@@ -35,13 +39,17 @@ describe("calculateVideoFileSize", () => {
       bitrateMbps: 10,
       audioBitrateKbps: 192,
     });
-    expect(result?.audioBytes).toBeGreaterThan(0);
-    expect(result?.totalBytes ?? 0).toBeGreaterThan(result?.videoBytes ?? 0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.audioBytes).toBeGreaterThan(0);
+    expect(result.value.totalBytes).toBeGreaterThan(result.value.videoBytes);
   });
 
   it("returns formatted string", () => {
     const result = calculateVideoFileSize({ duration: 3600, bitrateMbps: 10 });
-    expect(result?.formatted).toMatch(/GB|MB/);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.formatted).toMatch(/GB|MB/);
   });
 });
 

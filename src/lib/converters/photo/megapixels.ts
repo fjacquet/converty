@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface MegapixelResult {
   megapixels: number;
   totalPixels: number;
@@ -6,9 +8,16 @@ export interface MegapixelResult {
   orientation: "landscape" | "portrait" | "square";
 }
 
-export function calculateMegapixels(width: number, height: number): MegapixelResult | null {
+export function calculateMegapixels(
+  width: number,
+  height: number
+): CalculationResult<MegapixelResult> {
   if (width <= 0 || height <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Width and height must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const totalPixels = width * height;
@@ -31,11 +40,14 @@ export function calculateMegapixels(width: number, height: number): MegapixelRes
   }
 
   return {
-    megapixels: Math.round(megapixels * 100) / 100,
-    totalPixels,
-    aspectRatio,
-    aspectDecimal: Math.round(aspectDecimal * 1000) / 1000,
-    orientation,
+    ok: true,
+    value: {
+      megapixels: Math.round(megapixels * 100) / 100,
+      totalPixels,
+      aspectRatio,
+      aspectDecimal: Math.round(aspectDecimal * 1000) / 1000,
+      orientation,
+    },
   };
 }
 
@@ -43,9 +55,13 @@ export function calculateDimensionsFromMegapixels(
   megapixels: number,
   aspectRatioW: number,
   aspectRatioH: number
-): { width: number; height: number } | null {
+): CalculationResult<{ width: number; height: number }> {
   if (megapixels <= 0 || aspectRatioW <= 0 || aspectRatioH <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Megapixels and aspect ratio values must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const totalPixels = megapixels * 1000000;
@@ -58,8 +74,11 @@ export function calculateDimensionsFromMegapixels(
   const width = height * (aspectRatioW / aspectRatioH);
 
   return {
-    width: Math.round(width),
-    height: Math.round(height),
+    ok: true,
+    value: {
+      width: Math.round(width),
+      height: Math.round(height),
+    },
   };
 }
 

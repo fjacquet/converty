@@ -6,16 +6,24 @@ import {
 } from "@/lib/converters/photo/circle-of-confusion";
 
 describe("calculateCoC", () => {
-  it("returns null for zero sensor width", () => {
-    expect(
-      calculateCoC({ sensorWidth: 0, printWidth: 152, viewingDistance: 450, visualAcuity: 30 })
-    ).toBeNull();
+  it("returns error for zero sensor width", () => {
+    const result = calculateCoC({
+      sensorWidth: 0,
+      printWidth: 152,
+      viewingDistance: 450,
+      visualAcuity: 30,
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero print width", () => {
-    expect(
-      calculateCoC({ sensorWidth: 36, printWidth: 0, viewingDistance: 450, visualAcuity: 30 })
-    ).toBeNull();
+  it("returns error for zero print width", () => {
+    const result = calculateCoC({
+      sensorWidth: 36,
+      printWidth: 0,
+      viewingDistance: 450,
+      visualAcuity: 30,
+    });
+    expect(result.ok).toBe(false);
   });
 
   it("calculates CoC for full frame sensor", () => {
@@ -25,9 +33,10 @@ describe("calculateCoC", () => {
       viewingDistance: 450,
       visualAcuity: 30,
     });
-    expect(result).not.toBeNull();
-    expect(result?.coc).toBeGreaterThan(0);
-    expect(result?.cocMicrons).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.coc).toBeGreaterThan(0);
+    expect(result.value.cocMicrons).toBeGreaterThan(0);
   });
 
   it("larger sensor gives larger coc value", () => {
@@ -43,10 +52,11 @@ describe("calculateCoC", () => {
       viewingDistance: 450,
       visualAcuity: 30,
     });
-    expect(fullFrame).not.toBeNull();
-    expect(apsC).not.toBeNull();
+    expect(fullFrame.ok).toBe(true);
+    expect(apsC.ok).toBe(true);
+    if (!fullFrame.ok || !apsC.ok) return;
     // Full frame has larger sensor so larger CoC on sensor
-    expect(fullFrame?.coc ?? 0).toBeGreaterThan(apsC?.coc ?? 0);
+    expect(fullFrame.value.coc).toBeGreaterThan(apsC.value.coc);
   });
 
   it("returns enlargement factor", () => {
@@ -56,7 +66,9 @@ describe("calculateCoC", () => {
       viewingDistance: 450,
       visualAcuity: 30,
     });
-    expect(result?.enlargementFactor).toBeGreaterThan(1);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.enlargementFactor).toBeGreaterThan(1);
   });
 });
 

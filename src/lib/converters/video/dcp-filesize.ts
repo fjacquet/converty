@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DCPFilesizeResult {
   videoBytes: number;
   audioBytes: number;
@@ -18,8 +20,14 @@ export function calculateDCPFilesize(
   audioChannels: number = 6, // 5.1 surround
   audioSampleRate: number = 48000,
   audioBitDepth: number = 24
-): DCPFilesizeResult | null {
-  if (durationMinutes <= 0) return null;
+): CalculationResult<DCPFilesizeResult> {
+  if (durationMinutes <= 0) {
+    return {
+      ok: false,
+      error: "Duration must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const durationSeconds = durationMinutes * 60;
 
@@ -43,13 +51,16 @@ export function calculateDCPFilesize(
   }
 
   return {
-    videoBytes: Math.round(videoBytes),
-    audioBytes: Math.round(audioBytes),
-    totalBytes: Math.round(totalBytes),
-    totalGB: Math.round(totalGB * 100) / 100,
-    formatted,
-    videoBitrate: videoBitrateMbps,
-    audioBitrate: Math.round(audioBitrateKbps),
+    ok: true,
+    value: {
+      videoBytes: Math.round(videoBytes),
+      audioBytes: Math.round(audioBytes),
+      totalBytes: Math.round(totalBytes),
+      totalGB: Math.round(totalGB * 100) / 100,
+      formatted,
+      videoBitrate: videoBitrateMbps,
+      audioBitrate: Math.round(audioBitrateKbps),
+    },
   };
 }
 

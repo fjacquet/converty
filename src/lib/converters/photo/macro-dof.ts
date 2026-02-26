@@ -9,6 +9,8 @@
  * where N = f-number, c = CoC, m = magnification
  */
 
+import type { CalculationResult } from "@/types";
+
 export interface MacroDoFInput {
   aperture: number; // f-number
   magnification: number; // e.g., 1:1 = 1, 2:1 = 2, 1:2 = 0.5
@@ -37,11 +39,15 @@ export interface MacroDoFResult {
  * Back DoF = N × c × (m + 1) × P / m²
  * where P = pupil ratio
  */
-export function calculateMacroDoF(input: MacroDoFInput): MacroDoFResult | null {
+export function calculateMacroDoF(input: MacroDoFInput): CalculationResult<MacroDoFResult> {
   const { aperture, magnification, coc, pupilRatio = 1 } = input;
 
   if (aperture <= 0 || magnification <= 0 || coc <= 0 || pupilRatio <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Aperture, magnification, circle of confusion, and pupil ratio must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const N = aperture;
@@ -82,12 +88,15 @@ export function calculateMacroDoF(input: MacroDoFInput): MacroDoFResult | null {
   }
 
   return {
-    totalDoF: Math.round(totalDoF * 1000) / 1000,
-    inFront: Math.round(frontDoF * 1000) / 1000,
-    behind: Math.round(backDoF * 1000) / 1000,
-    effectiveAperture: Math.round(effectiveAperture * 10) / 10,
-    workingDistance: null, // Would need focal length to calculate
-    notes,
+    ok: true,
+    value: {
+      totalDoF: Math.round(totalDoF * 1000) / 1000,
+      inFront: Math.round(frontDoF * 1000) / 1000,
+      behind: Math.round(backDoF * 1000) / 1000,
+      effectiveAperture: Math.round(effectiveAperture * 10) / 10,
+      workingDistance: null, // Would need focal length to calculate
+      notes,
+    },
   };
 }
 
@@ -100,16 +109,19 @@ export function calculateMacroDoFWithFocalLength(
   coc: number,
   focalLength: number,
   pupilRatio: number = 1
-): MacroDoFResult | null {
+): CalculationResult<MacroDoFResult> {
   const result = calculateMacroDoF({ aperture, magnification, coc, pupilRatio });
-  if (!result) return null;
+  if (!result.ok) return result;
 
   // Working distance ≈ focal length × (1 + 1/m)
   const workingDistance = focalLength * (1 + 1 / magnification);
 
   return {
-    ...result,
-    workingDistance: Math.round(workingDistance),
+    ok: true,
+    value: {
+      ...result.value,
+      workingDistance: Math.round(workingDistance),
+    },
   };
 }
 
@@ -124,10 +136,10 @@ export function calculateFocusStackShots(
   overlap: number = 0.3 // 30% overlap between shots
 ): number {
   const dof = calculateMacroDoF({ aperture, magnification, coc });
-  if (!dof || dof.totalDoF <= 0) return 1;
+  if (!dof.ok || dof.value.totalDoF <= 0) return 1;
 
   // Effective step size with overlap
-  const stepSize = dof.totalDoF * (1 - overlap);
+  const stepSize = dof.value.totalDoF * (1 - overlap);
   const shots = Math.ceil(totalDepthNeeded / stepSize);
 
   return Math.max(1, shots);

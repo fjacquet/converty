@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface FootLambertResult {
   footLamberts: number;
   nits: number;
@@ -16,8 +18,14 @@ export function calculateFootLambert(
   screenWidthFt?: number,
   screenHeightFt?: number,
   gain: number = 1.0
-): FootLambertResult | null {
-  if (value <= 0) return null;
+): CalculationResult<FootLambertResult> {
+  if (value <= 0) {
+    return {
+      ok: false,
+      error: "Value must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   let footLamberts: number;
   let lumens: number;
@@ -28,7 +36,13 @@ export function calculateFootLambert(
     footLamberts = value / FL_TO_NITS;
   } else {
     // From lumens - need screen size
-    if (!screenWidthFt || !screenHeightFt) return null;
+    if (!screenWidthFt || !screenHeightFt) {
+      return {
+        ok: false,
+        error: "Screen dimensions are required when converting from lumens",
+        code: "INVALID_INPUT",
+      };
+    }
     const screenAreaSqFt = screenWidthFt * screenHeightFt;
     // FL = Lumens / (Screen Area × π × Gain)
     footLamberts = value / (screenAreaSqFt * Math.PI * gain);
@@ -48,12 +62,15 @@ export function calculateFootLambert(
   const { descriptionKey, useCaseKey } = getBrightnessCategory(footLamberts);
 
   return {
-    footLamberts: Math.round(footLamberts * 100) / 100,
-    nits: Math.round(nits * 100) / 100,
-    candelasPerM2: Math.round(candelasPerM2 * 100) / 100,
-    lumens: Math.round(lumens),
-    descriptionKey,
-    useCaseKey,
+    ok: true,
+    value: {
+      footLamberts: Math.round(footLamberts * 100) / 100,
+      nits: Math.round(nits * 100) / 100,
+      candelasPerM2: Math.round(candelasPerM2 * 100) / 100,
+      lumens: Math.round(lumens),
+      descriptionKey,
+      useCaseKey,
+    },
   };
 }
 

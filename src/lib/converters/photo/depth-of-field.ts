@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DepthOfFieldResult {
   nearLimit: number; // meters
   farLimit: number; // meters
@@ -21,9 +23,13 @@ export function calculateDepthOfField(
   focalLength: number, // mm
   distance: number, // meters
   cropFactor: number = 1
-): DepthOfFieldResult | null {
+): CalculationResult<DepthOfFieldResult> {
   if (aperture <= 0 || focalLength <= 0 || distance <= 0 || cropFactor <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Aperture, focal length, distance, and crop factor must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Adjust circle of confusion for crop factor
@@ -58,13 +64,17 @@ export function calculateDepthOfField(
   const behindSubject = farLimit === Infinity ? Infinity : farLimit - distance;
 
   return {
-    nearLimit: Math.round(nearLimit * 1000) / 1000,
-    farLimit: farLimit === Infinity ? Infinity : Math.round(farLimit * 1000) / 1000,
-    totalDoF: totalDoF === Infinity ? Infinity : Math.round(totalDoF * 1000) / 1000,
-    hyperfocalDistance: Math.round(hyperfocalDistance * 100) / 100,
-    circleOfConfusion: Math.round(coc * 1000) / 1000,
-    inFrontOfSubject: Math.round(inFrontOfSubject * 1000) / 1000,
-    behindSubject: behindSubject === Infinity ? Infinity : Math.round(behindSubject * 1000) / 1000,
+    ok: true,
+    value: {
+      nearLimit: Math.round(nearLimit * 1000) / 1000,
+      farLimit: farLimit === Infinity ? Infinity : Math.round(farLimit * 1000) / 1000,
+      totalDoF: totalDoF === Infinity ? Infinity : Math.round(totalDoF * 1000) / 1000,
+      hyperfocalDistance: Math.round(hyperfocalDistance * 100) / 100,
+      circleOfConfusion: Math.round(coc * 1000) / 1000,
+      inFrontOfSubject: Math.round(inFrontOfSubject * 1000) / 1000,
+      behindSubject:
+        behindSubject === Infinity ? Infinity : Math.round(behindSubject * 1000) / 1000,
+    },
   };
 }
 

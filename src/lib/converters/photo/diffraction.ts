@@ -9,6 +9,8 @@
  * where λ = wavelength (typically 550nm for green light), N = f-number
  */
 
+import type { CalculationResult } from "@/types";
+
 export interface DiffractionInput {
   aperture: number; // f-number
   sensorWidth: number; // mm
@@ -31,11 +33,17 @@ export interface DiffractionResult {
 /**
  * Calculate diffraction effects
  */
-export function calculateDiffraction(input: DiffractionInput): DiffractionResult | null {
+export function calculateDiffraction(
+  input: DiffractionInput
+): CalculationResult<DiffractionResult> {
   const { aperture, sensorWidth, sensorHeight, megapixels, wavelength = 550 } = input;
 
   if (aperture <= 0 || sensorWidth <= 0 || sensorHeight <= 0 || megapixels <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Aperture, sensor dimensions, and megapixels must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate pixel pitch (micrometers)
@@ -110,17 +118,20 @@ export function calculateDiffraction(input: DiffractionInput): DiffractionResult
   }
 
   return {
-    airyDiskDiameter: Math.round(airyDiskDiameter * 100) / 100,
-    pixelPitch: Math.round(pixelPitch * 100) / 100,
-    isDiffractionLimited,
-    diffractionLimitAperture: Math.round(diffractionLimitAperture * 10) / 10,
-    optimalApertureRange: {
-      min: Math.round(optimalMin * 10) / 10,
-      max: Math.round(optimalMax * 10) / 10,
+    ok: true,
+    value: {
+      airyDiskDiameter: Math.round(airyDiskDiameter * 100) / 100,
+      pixelPitch: Math.round(pixelPitch * 100) / 100,
+      isDiffractionLimited,
+      diffractionLimitAperture: Math.round(diffractionLimitAperture * 10) / 10,
+      optimalApertureRange: {
+        min: Math.round(optimalMin * 10) / 10,
+        max: Math.round(optimalMax * 10) / 10,
+      },
+      sharpnessImpact,
+      resolution: Math.round(resolution),
+      notes,
     },
-    sharpnessImpact,
-    resolution: Math.round(resolution),
-    notes,
   };
 }
 

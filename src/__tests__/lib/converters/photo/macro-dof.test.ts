@@ -6,51 +6,60 @@ import {
 } from "@/lib/converters/photo/macro-dof";
 
 describe("calculateMacroDoF", () => {
-  it("returns null for zero aperture", () => {
-    expect(calculateMacroDoF({ aperture: 0, magnification: 1, coc: 0.03 })).toBeNull();
+  it("returns error for zero aperture", () => {
+    const result = calculateMacroDoF({ aperture: 0, magnification: 1, coc: 0.03 });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero magnification", () => {
-    expect(calculateMacroDoF({ aperture: 11, magnification: 0, coc: 0.03 })).toBeNull();
+  it("returns error for zero magnification", () => {
+    const result = calculateMacroDoF({ aperture: 11, magnification: 0, coc: 0.03 });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero CoC", () => {
-    expect(calculateMacroDoF({ aperture: 11, magnification: 1, coc: 0 })).toBeNull();
+  it("returns error for zero CoC", () => {
+    const result = calculateMacroDoF({ aperture: 11, magnification: 1, coc: 0 });
+    expect(result.ok).toBe(false);
   });
 
   it("calculates shallow DOF at 1:1 macro", () => {
     const result = calculateMacroDoF({ aperture: 11, magnification: 1, coc: 0.03 });
-    expect(result).not.toBeNull();
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
     // DOF should be in mm range
-    expect(result?.totalDoF).toBeGreaterThan(0);
-    expect(result?.totalDoF ?? 0).toBeLessThan(50); // less than 50mm
+    expect(result.value.totalDoF).toBeGreaterThan(0);
+    expect(result.value.totalDoF).toBeLessThan(50); // less than 50mm
   });
 
   it("higher magnification gives shallower DOF", () => {
     const halfSize = calculateMacroDoF({ aperture: 11, magnification: 0.5, coc: 0.03 });
     const lifeSize = calculateMacroDoF({ aperture: 11, magnification: 1, coc: 0.03 });
-    expect(halfSize).not.toBeNull();
-    expect(lifeSize).not.toBeNull();
-    expect(lifeSize?.totalDoF ?? 0).toBeLessThan(halfSize?.totalDoF ?? 0);
+    expect(halfSize.ok).toBe(true);
+    expect(lifeSize.ok).toBe(true);
+    if (!halfSize.ok || !lifeSize.ok) return;
+    expect(lifeSize.value.totalDoF).toBeLessThan(halfSize.value.totalDoF);
   });
 
   it("for symmetric lens: inFront equals behind", () => {
     const result = calculateMacroDoF({ aperture: 11, magnification: 1, coc: 0.03 });
-    expect(result).not.toBeNull();
-    expect(result?.inFront).toBeCloseTo(result?.behind ?? 0, 3);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.inFront).toBeCloseTo(result.value.behind, 3);
   });
 
   it("returns effective aperture > marked aperture", () => {
     const result = calculateMacroDoF({ aperture: 11, magnification: 1, coc: 0.03 });
-    expect(result?.effectiveAperture ?? 0).toBeGreaterThan(11);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.effectiveAperture).toBeGreaterThan(11);
   });
 });
 
 describe("calculateMacroDoFWithFocalLength", () => {
   it("returns working distance when focal length provided", () => {
     const result = calculateMacroDoFWithFocalLength(11, 1, 0.03, 100);
-    expect(result).not.toBeNull();
-    expect(result?.workingDistance).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.workingDistance).toBeGreaterThan(0);
   });
 });
 

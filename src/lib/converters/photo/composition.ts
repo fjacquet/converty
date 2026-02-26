@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface CompositionResult {
   fieldOfView: number; // degrees
   horizontalFOV: number;
@@ -14,9 +16,13 @@ export function calculateComposition(
   cropFactor: number = 1,
   sensorWidth: number = 36, // mm (full frame default)
   sensorHeight: number = 24 // mm
-): CompositionResult | null {
+): CalculationResult<CompositionResult> {
   if (focalLength <= 0 || distance <= 0 || cropFactor <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Focal length, distance, and crop factor must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const effectiveFocalLength = focalLength * cropFactor;
@@ -40,12 +46,15 @@ export function calculateComposition(
   const subjectCoverage = (subjectWidth / horizontalCoverage) * 100;
 
   return {
-    fieldOfView: Math.round(fieldOfView * 10) / 10,
-    horizontalFOV: Math.round(horizontalFOV * 10) / 10,
-    verticalFOV: Math.round(verticalFOV * 10) / 10,
-    subjectCoverage: Math.round(subjectCoverage * 10) / 10,
-    effectiveFocalLength: Math.round(effectiveFocalLength),
-    angleOfView: Math.round(fieldOfView * 10) / 10,
+    ok: true,
+    value: {
+      fieldOfView: Math.round(fieldOfView * 10) / 10,
+      horizontalFOV: Math.round(horizontalFOV * 10) / 10,
+      verticalFOV: Math.round(verticalFOV * 10) / 10,
+      subjectCoverage: Math.round(subjectCoverage * 10) / 10,
+      effectiveFocalLength: Math.round(effectiveFocalLength),
+      angleOfView: Math.round(fieldOfView * 10) / 10,
+    },
   };
 }
 

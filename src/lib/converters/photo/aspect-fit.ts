@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface AspectFitResult {
   fittedWidth: number;
   fittedHeight: number;
@@ -12,9 +14,13 @@ export function calculateAspectFit(
   imageHeight: number,
   screenWidth: number,
   screenHeight: number
-): AspectFitResult | null {
+): CalculationResult<AspectFitResult> {
   if (imageWidth <= 0 || imageHeight <= 0 || screenWidth <= 0 || screenHeight <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Image and screen dimensions must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const imageRatio = imageWidth / imageHeight;
@@ -49,12 +55,15 @@ export function calculateAspectFit(
   const fillPercentage = ((fittedWidth * fittedHeight) / (screenWidth * screenHeight)) * 100;
 
   return {
-    fittedWidth: Math.round(fittedWidth),
-    fittedHeight: Math.round(fittedHeight),
-    scale: Math.round(scale * 1000) / 1000,
-    letterboxing,
-    letterboxSize: Math.round(letterboxSize),
-    fillPercentage: Math.round(fillPercentage * 10) / 10,
+    ok: true,
+    value: {
+      fittedWidth: Math.round(fittedWidth),
+      fittedHeight: Math.round(fittedHeight),
+      scale: Math.round(scale * 1000) / 1000,
+      letterboxing,
+      letterboxSize: Math.round(letterboxSize),
+      fillPercentage: Math.round(fillPercentage * 10) / 10,
+    },
   };
 }
 

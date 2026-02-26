@@ -2,16 +2,24 @@ import { describe, expect, it } from "vitest";
 import { calculateDiffraction } from "@/lib/converters/photo/diffraction";
 
 describe("calculateDiffraction", () => {
-  it("returns null for zero aperture", () => {
-    expect(
-      calculateDiffraction({ aperture: 0, sensorWidth: 36, sensorHeight: 24, megapixels: 24 })
-    ).toBeNull();
+  it("returns error for zero aperture", () => {
+    const result = calculateDiffraction({
+      aperture: 0,
+      sensorWidth: 36,
+      sensorHeight: 24,
+      megapixels: 24,
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero megapixels", () => {
-    expect(
-      calculateDiffraction({ aperture: 8, sensorWidth: 36, sensorHeight: 24, megapixels: 0 })
-    ).toBeNull();
+  it("returns error for zero megapixels", () => {
+    const result = calculateDiffraction({
+      aperture: 8,
+      sensorWidth: 36,
+      sensorHeight: 24,
+      megapixels: 0,
+    });
+    expect(result.ok).toBe(false);
   });
 
   it("calculates airy disk diameter for f/8", () => {
@@ -21,9 +29,10 @@ describe("calculateDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(result).not.toBeNull();
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
     // Airy disk = 2.44 × 0.55µm × 8 = 10.7µm
-    expect(result?.airyDiskDiameter).toBeCloseTo(10.74, 1);
+    expect(result.value.airyDiskDiameter).toBeCloseTo(10.74, 1);
   });
 
   it("narrow aperture gives larger airy disk (more diffraction)", () => {
@@ -39,9 +48,10 @@ describe("calculateDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(wide).not.toBeNull();
-    expect(narrow).not.toBeNull();
-    expect(narrow?.airyDiskDiameter ?? 0).toBeGreaterThan(wide?.airyDiskDiameter ?? 0);
+    expect(wide.ok).toBe(true);
+    expect(narrow.ok).toBe(true);
+    if (!wide.ok || !narrow.ok) return;
+    expect(narrow.value.airyDiskDiameter).toBeGreaterThan(wide.value.airyDiskDiameter);
   });
 
   it("returns pixel pitch > 0", () => {
@@ -51,7 +61,9 @@ describe("calculateDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(result?.pixelPitch).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.pixelPitch).toBeGreaterThan(0);
   });
 
   it("returns isDiffractionLimited boolean", () => {
@@ -61,7 +73,9 @@ describe("calculateDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(typeof result?.isDiffractionLimited).toBe("boolean");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(typeof result.value.isDiffractionLimited).toBe("boolean");
   });
 
   it("returns optimal aperture range", () => {
@@ -71,7 +85,9 @@ describe("calculateDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(result?.optimalApertureRange.min).toBeGreaterThan(0);
-    expect(result?.optimalApertureRange.max).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.optimalApertureRange.min).toBeGreaterThan(0);
+    expect(result.value.optimalApertureRange.max).toBeGreaterThan(0);
   });
 });

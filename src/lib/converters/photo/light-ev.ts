@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ExposureResult {
   ev: number;
   ev100: number; // EV at ISO 100
@@ -14,9 +16,13 @@ export function calculateEV(
   aperture: number, // f-number
   shutterSpeed: number, // seconds (e.g., 1/250 = 0.004)
   iso: number
-): ExposureResult | null {
+): CalculationResult<ExposureResult> {
   if (aperture <= 0 || shutterSpeed <= 0 || iso <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Aperture, shutter speed, and ISO must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // EV = log2(aperture² / shutter_speed)
@@ -32,12 +38,15 @@ export function calculateEV(
   const { lightLevel, description } = getLightLevel(ev100);
 
   return {
-    ev: Math.round(ev * 100) / 100,
-    ev100: Math.round(ev100 * 100) / 100,
-    lux: Math.round(lux),
-    footCandles: Math.round(footCandles * 10) / 10,
-    lightLevel,
-    description,
+    ok: true,
+    value: {
+      ev: Math.round(ev * 100) / 100,
+      ev100: Math.round(ev100 * 100) / 100,
+      lux: Math.round(lux),
+      footCandles: Math.round(footCandles * 10) / 10,
+      lightLevel,
+      description,
+    },
   };
 }
 

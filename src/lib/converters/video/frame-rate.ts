@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface FrameRateConversionResult {
   sourceRate: number;
   targetRate: number;
@@ -15,8 +17,14 @@ export function calculateFrameRateConversion(
   targetFps: number,
   _duration: number = 60, // seconds
   adjustAudio: boolean = true
-): FrameRateConversionResult | null {
-  if (sourceFps <= 0 || targetFps <= 0) return null;
+): CalculationResult<FrameRateConversionResult> {
+  if (sourceFps <= 0 || targetFps <= 0) {
+    return {
+      ok: false,
+      error: "Frame rates must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const ratio = targetFps / sourceFps;
   const speedChange = (ratio - 1) * 100;
@@ -75,15 +83,18 @@ export function calculateFrameRateConversion(
   }
 
   return {
-    sourceRate: sourceFps,
-    targetRate: targetFps,
-    conversionMethod,
-    speedChange: Math.round(speedChange * 100) / 100,
-    durationChange: Math.round(durationChange * 100) / 100,
-    audioAdjustment,
-    ffmpegCommand,
-    soxCommand,
-    warnings,
+    ok: true,
+    value: {
+      sourceRate: sourceFps,
+      targetRate: targetFps,
+      conversionMethod,
+      speedChange: Math.round(speedChange * 100) / 100,
+      durationChange: Math.round(durationChange * 100) / 100,
+      audioAdjustment,
+      ffmpegCommand,
+      soxCommand,
+      warnings,
+    },
   };
 }
 

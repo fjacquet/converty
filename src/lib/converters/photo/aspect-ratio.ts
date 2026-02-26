@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface AspectRatioResult {
   width: number;
   height: number;
@@ -20,9 +22,16 @@ function calculateGCD(a: number, b: number): number {
   return a;
 }
 
-export function calculateAspectRatio(width: number, height: number): AspectRatioResult | null {
+export function calculateAspectRatio(
+  width: number,
+  height: number
+): CalculationResult<AspectRatioResult> {
   if (width <= 0 || height <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Width and height must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const gcd = calculateGCD(width, height);
@@ -31,14 +40,17 @@ export function calculateAspectRatio(width: number, height: number): AspectRatio
   const decimal = width / height;
 
   return {
-    width,
-    height,
-    ratio: `${ratioWidth}:${ratioHeight}`,
-    decimal: Math.round(decimal * 1000) / 1000,
-    gcd,
-    isPortrait: height > width,
-    isLandscape: width > height,
-    isSquare: width === height,
+    ok: true,
+    value: {
+      width,
+      height,
+      ratio: `${ratioWidth}:${ratioHeight}`,
+      decimal: Math.round(decimal * 1000) / 1000,
+      gcd,
+      isPortrait: height > width,
+      isLandscape: width > height,
+      isSquare: width === height,
+    },
   };
 }
 
@@ -52,26 +64,40 @@ export function calculateDimensionFromRatio(
   ratioHeight: number,
   targetWidth?: number,
   targetHeight?: number
-): DimensionFromRatio | null {
+): CalculationResult<DimensionFromRatio> {
   if (ratioWidth <= 0 || ratioHeight <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Ratio dimensions must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   if (targetWidth && targetWidth > 0) {
     return {
-      width: targetWidth,
-      height: Math.round((targetWidth * ratioHeight) / ratioWidth),
+      ok: true,
+      value: {
+        width: targetWidth,
+        height: Math.round((targetWidth * ratioHeight) / ratioWidth),
+      },
     };
   }
 
   if (targetHeight && targetHeight > 0) {
     return {
-      width: Math.round((targetHeight * ratioWidth) / ratioHeight),
-      height: targetHeight,
+      ok: true,
+      value: {
+        width: Math.round((targetHeight * ratioWidth) / ratioHeight),
+        height: targetHeight,
+      },
     };
   }
 
-  return null;
+  return {
+    ok: false,
+    error: "Target width or height must be provided",
+    code: "INVALID_INPUT",
+  };
 }
 
 // Common aspect ratios for reference

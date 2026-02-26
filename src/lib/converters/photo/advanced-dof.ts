@@ -5,6 +5,7 @@
  * and visual acuity for more accurate DoF calculations.
  */
 
+import type { CalculationResult } from "@/types";
 import { calculateCoC } from "./circle-of-confusion";
 
 export interface AdvancedDoFInput {
@@ -79,7 +80,9 @@ function calculateDoFWithCoC(
 /**
  * Calculate advanced depth of field with adjustable CoC
  */
-export function calculateAdvancedDoF(input: AdvancedDoFInput): AdvancedDoFResult | null {
+export function calculateAdvancedDoF(
+  input: AdvancedDoFInput
+): CalculationResult<AdvancedDoFResult> {
   const {
     aperture,
     focalLength,
@@ -101,7 +104,11 @@ export function calculateAdvancedDoF(input: AdvancedDoFInput): AdvancedDoFResult
     viewingDistance <= 0 ||
     visualAcuity <= 0
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "All input values must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate adjusted CoC based on viewing conditions
@@ -112,9 +119,11 @@ export function calculateAdvancedDoF(input: AdvancedDoFInput): AdvancedDoFResult
     visualAcuity,
   });
 
-  if (!cocResult) return null;
+  if (!cocResult.ok) {
+    return { ok: false, error: cocResult.error, code: cocResult.code };
+  }
 
-  const adjustedCoC = cocResult.coc;
+  const adjustedCoC = cocResult.value.coc;
 
   // Calculate standard CoC (diagonal / 1500)
   const diagonal = Math.sqrt(sensorWidth * sensorWidth + sensorHeight * sensorHeight);
@@ -135,23 +144,26 @@ export function calculateAdvancedDoF(input: AdvancedDoFInput): AdvancedDoFResult
   const behind = adjusted.far === Infinity ? Infinity : adjusted.far - subjectDistance;
 
   return {
-    nearLimit: Math.round(adjusted.near * 1000) / 1000,
-    farLimit: adjusted.far === Infinity ? Infinity : Math.round(adjusted.far * 1000) / 1000,
-    totalDoF: totalDoF === Infinity ? Infinity : Math.round(totalDoF * 1000) / 1000,
-    inFrontOfSubject: Math.round(inFront * 1000) / 1000,
-    behindSubject: behind === Infinity ? Infinity : Math.round(behind * 1000) / 1000,
-    hyperfocalDistance: Math.round(adjusted.hyperfocal * 100) / 100,
-    adjustedCoC: Math.round(adjustedCoC * 10000) / 10000,
-    standardCoC: Math.round(standardCoC * 10000) / 10000,
-    comparison: {
-      standardNear: Math.round(standard.near * 1000) / 1000,
-      standardFar: standard.far === Infinity ? Infinity : Math.round(standard.far * 1000) / 1000,
-      standardDoF: standardDoF === Infinity ? Infinity : Math.round(standardDoF * 1000) / 1000,
-      differenceFront: Math.round((standard.near - adjusted.near) * 1000) / 1000,
-      differenceBack:
-        standard.far === Infinity || adjusted.far === Infinity
-          ? 0
-          : Math.round((adjusted.far - standard.far) * 1000) / 1000,
+    ok: true,
+    value: {
+      nearLimit: Math.round(adjusted.near * 1000) / 1000,
+      farLimit: adjusted.far === Infinity ? Infinity : Math.round(adjusted.far * 1000) / 1000,
+      totalDoF: totalDoF === Infinity ? Infinity : Math.round(totalDoF * 1000) / 1000,
+      inFrontOfSubject: Math.round(inFront * 1000) / 1000,
+      behindSubject: behind === Infinity ? Infinity : Math.round(behind * 1000) / 1000,
+      hyperfocalDistance: Math.round(adjusted.hyperfocal * 100) / 100,
+      adjustedCoC: Math.round(adjustedCoC * 10000) / 10000,
+      standardCoC: Math.round(standardCoC * 10000) / 10000,
+      comparison: {
+        standardNear: Math.round(standard.near * 1000) / 1000,
+        standardFar: standard.far === Infinity ? Infinity : Math.round(standard.far * 1000) / 1000,
+        standardDoF: standardDoF === Infinity ? Infinity : Math.round(standardDoF * 1000) / 1000,
+        differenceFront: Math.round((standard.near - adjusted.near) * 1000) / 1000,
+        differenceBack:
+          standard.far === Infinity || adjusted.far === Infinity
+            ? 0
+            : Math.round((adjusted.far - standard.far) * 1000) / 1000,
+      },
     },
   };
 }

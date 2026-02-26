@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ScreenSizeResult {
   width: number;
   height: number;
@@ -14,8 +16,14 @@ export function calculateScreenSize(
   _unit: "inches" | "cm" = "inches",
   pixelWidth?: number,
   pixelHeight?: number
-): ScreenSizeResult | null {
-  if (diagonal <= 0 || aspectRatioW <= 0 || aspectRatioH <= 0) return null;
+): CalculationResult<ScreenSizeResult> {
+  if (diagonal <= 0 || aspectRatioW <= 0 || aspectRatioH <= 0) {
+    return {
+      ok: false,
+      error: "Diagonal and aspect ratio dimensions must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   // Using Pythagorean theorem:
   // diagonal² = width² + height²
@@ -38,12 +46,15 @@ export function calculateScreenSize(
   }
 
   return {
-    width: Math.round(width * 100) / 100,
-    height: Math.round(height * 100) / 100,
-    diagonal: Math.round(diagonal * 100) / 100,
-    area: Math.round(area * 100) / 100,
-    aspectRatio: `${aspectRatioW}:${aspectRatioH}`,
-    ppi: ppi ? Math.round(ppi) : undefined,
+    ok: true,
+    value: {
+      width: Math.round(width * 100) / 100,
+      height: Math.round(height * 100) / 100,
+      diagonal: Math.round(diagonal * 100) / 100,
+      area: Math.round(area * 100) / 100,
+      aspectRatio: `${aspectRatioW}:${aspectRatioH}`,
+      ppi: ppi ? Math.round(ppi) : undefined,
+    },
   };
 }
 

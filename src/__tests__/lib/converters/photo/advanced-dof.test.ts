@@ -13,51 +13,61 @@ const validInput = {
 };
 
 describe("calculateAdvancedDoF", () => {
-  it("returns null for zero aperture", () => {
-    expect(calculateAdvancedDoF({ ...validInput, aperture: 0 })).toBeNull();
+  it("returns error for zero aperture", () => {
+    const result = calculateAdvancedDoF({ ...validInput, aperture: 0 });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero focal length", () => {
-    expect(calculateAdvancedDoF({ ...validInput, focalLength: 0 })).toBeNull();
+  it("returns error for zero focal length", () => {
+    const result = calculateAdvancedDoF({ ...validInput, focalLength: 0 });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero subject distance", () => {
-    expect(calculateAdvancedDoF({ ...validInput, subjectDistance: 0 })).toBeNull();
+  it("returns error for zero subject distance", () => {
+    const result = calculateAdvancedDoF({ ...validInput, subjectDistance: 0 });
+    expect(result.ok).toBe(false);
   });
 
   it("calculates near and far limits", () => {
     const result = calculateAdvancedDoF(validInput);
-    expect(result).not.toBeNull();
-    expect(result?.nearLimit).toBeGreaterThan(0);
-    expect(result?.nearLimit ?? 0).toBeLessThan(3);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.nearLimit).toBeGreaterThan(0);
+    expect(result.value.nearLimit).toBeLessThan(3);
   });
 
   it("provides adjustedCoC and standardCoC fields", () => {
     const result = calculateAdvancedDoF(validInput);
-    expect(result).not.toBeNull();
-    expect(result?.adjustedCoC).toBeGreaterThan(0);
-    expect(result?.standardCoC).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.adjustedCoC).toBeGreaterThan(0);
+    expect(result.value.standardCoC).toBeGreaterThan(0);
   });
 
   it("provides hyperfocalDistance field", () => {
     const result = calculateAdvancedDoF(validInput);
-    expect(result?.hyperfocalDistance).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.hyperfocalDistance).toBeGreaterThan(0);
   });
 
   it("comparison object has standardNear, standardFar, standardDoF fields", () => {
     const result = calculateAdvancedDoF(validInput);
-    expect(result?.comparison).toHaveProperty("standardNear");
-    expect(result?.comparison).toHaveProperty("standardFar");
-    expect(result?.comparison).toHaveProperty("standardDoF");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.comparison).toHaveProperty("standardNear");
+    expect(result.value.comparison).toHaveProperty("standardFar");
+    expect(result.value.comparison).toHaveProperty("standardDoF");
   });
 
   it("wider aperture gives smaller DOF than narrower aperture", () => {
     const wide = calculateAdvancedDoF({ ...validInput, aperture: 1.8 });
     const narrow = calculateAdvancedDoF({ ...validInput, aperture: 16 });
-    expect(wide).not.toBeNull();
-    expect(narrow).not.toBeNull();
-    const wideDof = wide?.totalDoF === Infinity ? 9999 : (wide?.totalDoF ?? 0);
-    const narrowDof = narrow?.totalDoF === Infinity ? 9999 : (narrow?.totalDoF ?? 0);
+    expect(wide.ok).toBe(true);
+    expect(narrow.ok).toBe(true);
+    if (!wide.ok || !narrow.ok) return;
+    const wideDof = wide.value.totalDoF === Infinity ? 9999 : wide.value.totalDoF;
+    const narrowDof = narrow.value.totalDoF === Infinity ? 9999 : narrow.value.totalDoF;
     expect(wideDof).toBeLessThan(narrowDof);
   });
 });

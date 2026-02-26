@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 /**
  * Circle of Confusion (CoC) Calculator
  *
@@ -78,11 +80,15 @@ export const PRINT_SIZES = [
  *
  * For 30 cycles/degree visual acuity, minimum resolvable distance ≈ 0.2mm at 250mm
  */
-export function calculateCoC(input: CoCInput): CoCResult | null {
+export function calculateCoC(input: CoCInput): CalculationResult<CoCResult> {
   const { sensorWidth, printWidth, viewingDistance, visualAcuity } = input;
 
   if (sensorWidth <= 0 || printWidth <= 0 || viewingDistance <= 0 || visualAcuity <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Sensor dimensions, print width, viewing distance, and visual acuity must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Enlargement factor (how much the sensor image is enlarged for print)
@@ -128,13 +134,16 @@ export function calculateCoC(input: CoCInput): CoCResult | null {
   }
 
   return {
-    coc: Math.round(coc * 10000) / 10000, // 4 decimal places
-    cocMicrons: Math.round(coc * 1000 * 10) / 10, // micrometers with 1 decimal
-    standardCoc: Math.round(standardCoc * 10000) / 10000,
-    explanation,
-    enlargementFactor: Math.round(enlargementFactor * 10) / 10,
-    printResolution: Math.round(printResolution * 10) / 10,
-    sensorResolutionRequired: Math.round(megapixels * 10) / 10,
+    ok: true,
+    value: {
+      coc: Math.round(coc * 10000) / 10000, // 4 decimal places
+      cocMicrons: Math.round(coc * 1000 * 10) / 10, // micrometers with 1 decimal
+      standardCoc: Math.round(standardCoc * 10000) / 10000,
+      explanation,
+      enlargementFactor: Math.round(enlargementFactor * 10) / 10,
+      printResolution: Math.round(printResolution * 10) / 10,
+      sensorResolutionRequired: Math.round(megapixels * 10) / 10,
+    },
   };
 }
 

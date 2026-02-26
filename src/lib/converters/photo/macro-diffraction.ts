@@ -8,6 +8,8 @@
  * than in normal photography.
  */
 
+import type { CalculationResult } from "@/types";
+
 export interface MacroDiffractionInput {
   aperture: number; // marked f-number
   magnification: number; // e.g., 1:1 = 1, 2:1 = 2
@@ -34,7 +36,7 @@ export interface MacroDiffractionResult {
  */
 export function calculateMacroDiffraction(
   input: MacroDiffractionInput
-): MacroDiffractionResult | null {
+): CalculationResult<MacroDiffractionResult> {
   const {
     aperture,
     magnification,
@@ -51,7 +53,11 @@ export function calculateMacroDiffraction(
     sensorHeight <= 0 ||
     megapixels <= 0
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "Aperture, magnification, sensor dimensions, and megapixels must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate effective aperture
@@ -111,18 +117,21 @@ export function calculateMacroDiffraction(
   }
 
   return {
-    markedAperture: aperture,
-    effectiveAperture: Math.round(effectiveAperture * 10) / 10,
-    airyDiskDiameter: Math.round(airyDiskDiameter * 100) / 100,
-    pixelPitch: Math.round(pixelPitch * 100) / 100,
-    isDiffractionLimited,
-    maxApertureForSharpness: Math.round(maxApertureForSharpness * 10) / 10,
-    optimalApertureRange: {
-      min: Math.round(optimalMin * 10) / 10,
-      max: Math.round(optimalMax * 10) / 10,
+    ok: true,
+    value: {
+      markedAperture: aperture,
+      effectiveAperture: Math.round(effectiveAperture * 10) / 10,
+      airyDiskDiameter: Math.round(airyDiskDiameter * 100) / 100,
+      pixelPitch: Math.round(pixelPitch * 100) / 100,
+      isDiffractionLimited,
+      maxApertureForSharpness: Math.round(maxApertureForSharpness * 10) / 10,
+      optimalApertureRange: {
+        min: Math.round(optimalMin * 10) / 10,
+        max: Math.round(optimalMax * 10) / 10,
+      },
+      lightLossStops: Math.round(lightLossStops * 10) / 10,
+      notes,
     },
-    lightLossStops: Math.round(lightLossStops * 10) / 10,
-    notes,
   };
 }
 

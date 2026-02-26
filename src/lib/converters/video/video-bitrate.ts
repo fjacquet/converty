@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface VideoBitrateResult {
   bitrateMbps: number;
   bitrateKbps: number;
@@ -13,8 +15,14 @@ export function calculateVideoBitrate(
   bitDepth: 8 | 10 | 12 = 8,
   codec: "h264" | "h265" | "prores" | "raw" = "h264",
   quality: "low" | "medium" | "high" | "lossless" = "medium"
-): VideoBitrateResult | null {
-  if (width <= 0 || height <= 0 || fps <= 0) return null;
+): CalculationResult<VideoBitrateResult> {
+  if (width <= 0 || height <= 0 || fps <= 0) {
+    return {
+      ok: false,
+      error: "Width, height, and FPS must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const totalPixels = width * height;
   const pixelsPerSecond = totalPixels * fps;
@@ -42,11 +50,14 @@ export function calculateVideoBitrate(
   const { qualityLevel, recommendation } = getQualityAssessment(bitrateMbps, width, height, codec);
 
   return {
-    bitrateMbps: Math.round(bitrateMbps * 100) / 100,
-    bitrateKbps: Math.round(bitrateKbps),
-    bitsPerPixel: Math.round(adjustedBpp * 1000) / 1000,
-    qualityLevel,
-    recommendation,
+    ok: true,
+    value: {
+      bitrateMbps: Math.round(bitrateMbps * 100) / 100,
+      bitrateKbps: Math.round(bitrateKbps),
+      bitsPerPixel: Math.round(adjustedBpp * 1000) / 1000,
+      qualityLevel,
+      recommendation,
+    },
   };
 }
 

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export type ImageFormat = "jpeg" | "png" | "raw" | "tiff" | "webp" | "heic";
 
 export interface ImageFilesizeResult {
@@ -25,9 +27,13 @@ export function calculateImageFilesize(
   height: number,
   format: ImageFormat,
   quality: "low" | "typical" | "high" = "typical"
-): ImageFilesizeResult | null {
+): CalculationResult<ImageFilesizeResult> {
   if (width <= 0 || height <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Image dimensions must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const totalPixels = width * height;
@@ -62,13 +68,16 @@ export function calculateImageFilesize(
   }
 
   return {
-    estimatedBytes: Math.round(estimatedBytes),
-    estimatedKB: Math.round(estimatedKB * 100) / 100,
-    estimatedMB: Math.round(estimatedMB * 100) / 100,
-    formatted,
-    bitsPerPixel,
-    totalPixels,
-    megapixels: Math.round(megapixels * 100) / 100,
+    ok: true,
+    value: {
+      estimatedBytes: Math.round(estimatedBytes),
+      estimatedKB: Math.round(estimatedKB * 100) / 100,
+      estimatedMB: Math.round(estimatedMB * 100) / 100,
+      formatted,
+      bitsPerPixel,
+      totalPixels,
+      megapixels: Math.round(megapixels * 100) / 100,
+    },
   };
 }
 

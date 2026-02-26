@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export type AudioFormat = "wav" | "flac" | "mp3" | "aac" | "ogg" | "opus";
 
 export interface AudioFilesizeResult {
@@ -27,8 +29,14 @@ export function calculateAudioFilesize(
   channels: 1 | 2 = 2,
   sampleRate: number = 44100,
   bitDepth: number = 16
-): AudioFilesizeResult | null {
-  if (durationSeconds <= 0) return null;
+): CalculationResult<AudioFilesizeResult> {
+  if (durationSeconds <= 0) {
+    return {
+      ok: false,
+      error: "Duration must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const formatInfo = FORMAT_BITRATES[format];
   let bitrate: number;
@@ -55,14 +63,17 @@ export function calculateAudioFilesize(
   const estimatedMB = estimatedBytes / (1024 * 1024);
 
   return {
-    estimatedBytes: Math.round(estimatedBytes),
-    estimatedMB: Math.round(estimatedMB * 100) / 100,
-    formatted:
-      estimatedMB >= 1000
-        ? `${(estimatedMB / 1024).toFixed(2)} GB`
-        : `${estimatedMB.toFixed(2)} MB`,
-    bitrate: Math.round(bitrate),
-    duration: durationSeconds,
+    ok: true,
+    value: {
+      estimatedBytes: Math.round(estimatedBytes),
+      estimatedMB: Math.round(estimatedMB * 100) / 100,
+      formatted:
+        estimatedMB >= 1000
+          ? `${(estimatedMB / 1024).toFixed(2)} GB`
+          : `${estimatedMB.toFixed(2)} MB`,
+      bitrate: Math.round(bitrate),
+      duration: durationSeconds,
+    },
   };
 }
 

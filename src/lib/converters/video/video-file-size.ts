@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export type VideoResolution = "720p" | "1080p" | "1440p" | "4k" | "8k" | "custom";
 
 export interface ResolutionInfo {
@@ -30,11 +32,17 @@ export interface VideoFileSizeResult {
   formatted: string;
 }
 
-export function calculateVideoFileSize(input: VideoFileSizeInput): VideoFileSizeResult | null {
+export function calculateVideoFileSize(
+  input: VideoFileSizeInput
+): CalculationResult<VideoFileSizeResult> {
   const { duration, bitrateMbps, audioBitrateKbps = 192 } = input;
 
   if (duration <= 0 || bitrateMbps <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Duration and bitrate must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Video size: (bitrate in Mbps * duration in seconds) / 8 = MB
@@ -55,12 +63,15 @@ export function calculateVideoFileSize(input: VideoFileSizeInput): VideoFileSize
   }
 
   return {
-    totalBytes: Math.round(totalBytes),
-    totalMB: Math.round(totalMB * 100) / 100,
-    totalGB: Math.round(totalGB * 1000) / 1000,
-    videoBytes: Math.round(videoBytes),
-    audioBytes: Math.round(audioBytes),
-    formatted,
+    ok: true,
+    value: {
+      totalBytes: Math.round(totalBytes),
+      totalMB: Math.round(totalMB * 100) / 100,
+      totalGB: Math.round(totalGB * 1000) / 1000,
+      videoBytes: Math.round(videoBytes),
+      audioBytes: Math.round(audioBytes),
+      formatted,
+    },
   };
 }
 

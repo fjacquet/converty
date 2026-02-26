@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DPIResult {
   megapixels: number;
   totalPixels: number;
@@ -11,9 +13,9 @@ export function calculateDPI(
   printWidth: number, // inches
   printHeight: number, // inches
   dpi: number
-): DPIResult | null {
+): CalculationResult<DPIResult> {
   if (printWidth <= 0 || printHeight <= 0 || dpi <= 0) {
-    return null;
+    return { ok: false, error: "Print dimensions and DPI must be positive", code: "INVALID_INPUT" };
   }
 
   const pixelWidth = Math.round(printWidth * dpi);
@@ -24,12 +26,15 @@ export function calculateDPI(
   const { printQuality, qualityDescription } = getPrintQuality(dpi);
 
   return {
-    megapixels: Math.round(megapixels * 100) / 100,
-    totalPixels,
-    pixelWidth,
-    pixelHeight,
-    printQuality,
-    qualityDescription,
+    ok: true,
+    value: {
+      megapixels: Math.round(megapixels * 100) / 100,
+      totalPixels,
+      pixelWidth,
+      pixelHeight,
+      printQuality,
+      qualityDescription,
+    },
   };
 }
 
@@ -38,9 +43,13 @@ export function calculatePixelsToDPI(
   pixelHeight: number,
   printWidth: number, // inches
   printHeight: number // inches
-): { horizontalDPI: number; verticalDPI: number; effectiveDPI: number } | null {
+): CalculationResult<{ horizontalDPI: number; verticalDPI: number; effectiveDPI: number }> {
   if (pixelWidth <= 0 || pixelHeight <= 0 || printWidth <= 0 || printHeight <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Pixel dimensions and print dimensions must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const horizontalDPI = pixelWidth / printWidth;
@@ -48,9 +57,12 @@ export function calculatePixelsToDPI(
   const effectiveDPI = Math.min(horizontalDPI, verticalDPI);
 
   return {
-    horizontalDPI: Math.round(horizontalDPI),
-    verticalDPI: Math.round(verticalDPI),
-    effectiveDPI: Math.round(effectiveDPI),
+    ok: true,
+    value: {
+      horizontalDPI: Math.round(horizontalDPI),
+      verticalDPI: Math.round(verticalDPI),
+      effectiveDPI: Math.round(effectiveDPI),
+    },
   };
 }
 

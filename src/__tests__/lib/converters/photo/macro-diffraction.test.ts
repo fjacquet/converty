@@ -5,28 +5,26 @@ import {
 } from "@/lib/converters/photo/macro-diffraction";
 
 describe("calculateMacroDiffraction", () => {
-  it("returns null for zero aperture", () => {
-    expect(
-      calculateMacroDiffraction({
-        aperture: 0,
-        magnification: 1,
-        sensorWidth: 36,
-        sensorHeight: 24,
-        megapixels: 24,
-      })
-    ).toBeNull();
+  it("returns error for zero aperture", () => {
+    const result = calculateMacroDiffraction({
+      aperture: 0,
+      magnification: 1,
+      sensorWidth: 36,
+      sensorHeight: 24,
+      megapixels: 24,
+    });
+    expect(result.ok).toBe(false);
   });
 
-  it("returns null for zero magnification", () => {
-    expect(
-      calculateMacroDiffraction({
-        aperture: 11,
-        magnification: 0,
-        sensorWidth: 36,
-        sensorHeight: 24,
-        megapixels: 24,
-      })
-    ).toBeNull();
+  it("returns error for zero magnification", () => {
+    const result = calculateMacroDiffraction({
+      aperture: 11,
+      magnification: 0,
+      sensorWidth: 36,
+      sensorHeight: 24,
+      megapixels: 24,
+    });
+    expect(result.ok).toBe(false);
   });
 
   it("calculates effective aperture: N × (1 + m)", () => {
@@ -37,9 +35,10 @@ describe("calculateMacroDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(result).not.toBeNull();
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
     // Effective = 11 × (1 + 1) = 22
-    expect(result?.effectiveAperture).toBeCloseTo(22, 0);
+    expect(result.value.effectiveAperture).toBeCloseTo(22, 0);
   });
 
   it("effective aperture > marked aperture at magnification > 0", () => {
@@ -50,8 +49,9 @@ describe("calculateMacroDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(result).not.toBeNull();
-    expect(result?.effectiveAperture ?? 0).toBeGreaterThan(result?.markedAperture ?? 0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.effectiveAperture).toBeGreaterThan(result.value.markedAperture);
   });
 
   it("light loss at 1:1 = 2 stops", () => {
@@ -62,7 +62,9 @@ describe("calculateMacroDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(result?.lightLossStops).toBeCloseTo(2, 0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.lightLossStops).toBeCloseTo(2, 0);
   });
 
   it("returns pixel pitch > 0", () => {
@@ -73,7 +75,9 @@ describe("calculateMacroDiffraction", () => {
       sensorHeight: 24,
       megapixels: 24,
     });
-    expect(result?.pixelPitch).toBeGreaterThan(0);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.pixelPitch).toBeGreaterThan(0);
   });
 });
 

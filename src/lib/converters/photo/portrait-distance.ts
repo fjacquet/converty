@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PortraitDistanceResult {
   recommendedDistance: number; // meters
   minimumDistance: number;
@@ -28,9 +30,13 @@ export function calculatePortraitDistance(
   portraitType: PortraitType,
   cropFactor: number = 1,
   sensorHeight: number = 24 // mm (full frame default)
-): PortraitDistanceResult | null {
+): CalculationResult<PortraitDistanceResult> {
   if (focalLength <= 0 || cropFactor <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Focal length and crop factor must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   const effectiveFocalLength = focalLength * cropFactor;
@@ -73,13 +79,16 @@ export function calculatePortraitDistance(
   }
 
   return {
-    recommendedDistance: Math.round(recommendedDistance * 100) / 100,
-    minimumDistance: Math.round(minimumDistance * 100) / 100,
-    maximumDistance: Math.round(maximumDistance * 100) / 100,
-    fieldOfView: Math.round(vFOV * 10) / 10,
-    subjectHeight: targetHeight,
-    compressionEffect,
-    description,
+    ok: true,
+    value: {
+      recommendedDistance: Math.round(recommendedDistance * 100) / 100,
+      minimumDistance: Math.round(minimumDistance * 100) / 100,
+      maximumDistance: Math.round(maximumDistance * 100) / 100,
+      fieldOfView: Math.round(vFOV * 10) / 10,
+      subjectHeight: targetHeight,
+      compressionEffect,
+      description,
+    },
   };
 }
 
