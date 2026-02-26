@@ -39,7 +39,7 @@ export default function DilutionCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tModes = useTranslations("calculator.chemistry.modes");
 
-  const { values, setValue, result } = useDilutionStore();
+  const { values, setValue, result, calculationError } = useDilutionStore();
 
   const showInitialVolume = values.mode === "find-V2" || values.mode === "find-M2";
   const showFinalVolume = values.mode === "find-V1" || values.mode === "find-M2";
@@ -275,6 +275,8 @@ export default function DilutionCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

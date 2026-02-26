@@ -37,7 +37,7 @@ export default function MolarityCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tModes = useTranslations("calculator.chemistry.modes");
 
-  const { values, setValue, result } = useMolarityStore();
+  const { values, setValue, result, calculationError } = useMolarityStore();
 
   return (
     <div className="space-y-6">
@@ -221,6 +221,8 @@ export default function MolarityCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

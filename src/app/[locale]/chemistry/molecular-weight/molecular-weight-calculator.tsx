@@ -31,7 +31,7 @@ export default function MolecularWeightCalculator() {
   const t = useTranslations("calculator.chemistry");
   const tSections = useTranslations("calculator.sections");
 
-  const { values, setValue, result } = useMolecularWeightStore();
+  const { values, setValue, result, calculationError } = useMolecularWeightStore();
 
   const handleCompoundChange = (compoundId: string) => {
     if (compoundId === "custom") return;
@@ -168,6 +168,8 @@ export default function MolecularWeightCalculator() {
           </CardContent>
         </Card>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }

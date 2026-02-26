@@ -31,7 +31,7 @@ export default function PhCalculatorCalculator() {
   const tSections = useTranslations("calculator.sections");
   const tModes = useTranslations("calculator.chemistry.phModes");
 
-  const { values, setValue, result } = usePhStore();
+  const { values, setValue, result, calculationError } = usePhStore();
 
   const acids = acidsBasesData.filter((c) => c.type === "acid");
 
@@ -303,6 +303,8 @@ export default function PhCalculatorCalculator() {
           )}
         </>
       )}
+
+      {calculationError && <p className="mt-2 text-sm text-destructive">{calculationError}</p>}
     </div>
   );
 }
