@@ -118,6 +118,7 @@ Progress: [██████████] Phase 42: 5/5 plans complete
 | Phase 43-zod-input-validation P01 | 2 | 3 tasks | 3 files |
 | Phase 43-zod-input-validation P02 | 24 | 2 tasks | 28 files |
 | Phase 43 P03 | 6 | 2 tasks | 5 files |
+| Phase 43-zod-input-validation P43-04 | 45 | 2 tasks | 31 files |
 
 ## Accumulated Context
 
@@ -193,6 +194,7 @@ Recent decisions affecting current work:
 - [Phase 43-zod-input-validation]: Corpulence calculator uses useState directly — schema created but store wiring skipped (no createCalculatorStore to attach to)
 - [Phase 43]: z.number() used for finance schemas — finance FormValues are number types unlike health string-based FormValues
 - [Phase 43]: Only 4 of 23 finance calculators wired with schema: compound-interest, loan, mortgage, retirement (only ones using createCalculatorStore)
+- [Phase 43-zod-input-validation]: Math schemas: z.string().refine() pattern used (not z.coerce.number()) to match string-typed FormValues; 8 useState-based calculators have schemas but not wired to stores
 
 ### Decisions (Phase 40-01)
 
