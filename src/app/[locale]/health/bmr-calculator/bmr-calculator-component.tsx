@@ -15,6 +15,7 @@ import {
   type BmrResult,
   calculateBmr,
 } from "@/lib/converters/health/bmr-calculator";
+import { BmrFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -32,6 +33,7 @@ const useStore = createCalculatorStore<FormValues, BmrResult | null>({
     weight: "75",
     height: "175",
   },
+  schema: BmrFormSchema,
   calculate: (vals) => {
     const input: BmrInput = {
       gender: vals.gender,
@@ -47,7 +49,7 @@ export function BmrCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -73,6 +75,7 @@ export function BmrCalculatorComponent() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={0}
           max={120}
           step="1"
@@ -84,6 +87,7 @@ export function BmrCalculatorComponent() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="75"
@@ -94,6 +98,7 @@ export function BmrCalculatorComponent() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="175"

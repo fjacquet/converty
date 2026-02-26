@@ -15,6 +15,7 @@ import {
   type PaceInput,
   type PaceResult,
 } from "@/lib/converters/health/pace-calculator";
+import { PaceFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -38,6 +39,7 @@ const useStore = createCalculatorStore<FormValues, PaceResult | null>({
     paceMinutes: "5",
     paceSeconds: "0",
   },
+  schema: PaceFormSchema,
   calculate: (vals) => {
     const input: PaceInput = {
       mode: vals.mode,
@@ -56,7 +58,7 @@ export function PaceCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -84,6 +86,7 @@ export function PaceCalculatorComponent() {
             label={t("distanceKm")}
             value={values.distance}
             onChange={(v) => setValue("distance", v)}
+            error={errors.distance}
             min={0}
             step="0.1"
             placeholder="10"
@@ -99,6 +102,7 @@ export function PaceCalculatorComponent() {
                 label={t("minutes")}
                 value={values.paceMinutes}
                 onChange={(v) => setValue("paceMinutes", v)}
+                error={errors.paceMinutes}
                 min={0}
                 max={59}
                 step="1"
@@ -109,6 +113,7 @@ export function PaceCalculatorComponent() {
                 label={t("seconds")}
                 value={values.paceSeconds}
                 onChange={(v) => setValue("paceSeconds", v)}
+                error={errors.paceSeconds}
                 min={0}
                 max={59}
                 step="1"
@@ -127,6 +132,7 @@ export function PaceCalculatorComponent() {
                 label={t("hours")}
                 value={values.hours}
                 onChange={(v) => setValue("hours", v)}
+                error={errors.hours}
                 min={0}
                 step="1"
                 placeholder="0"
@@ -136,6 +142,7 @@ export function PaceCalculatorComponent() {
                 label={t("minutes")}
                 value={values.minutes}
                 onChange={(v) => setValue("minutes", v)}
+                error={errors.minutes}
                 min={0}
                 max={59}
                 step="1"
@@ -146,6 +153,7 @@ export function PaceCalculatorComponent() {
                 label={t("seconds")}
                 value={values.seconds}
                 onChange={(v) => setValue("seconds", v)}
+                error={errors.seconds}
                 min={0}
                 max={59}
                 step="1"

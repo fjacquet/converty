@@ -8,6 +8,7 @@ import {
   type PeriodInput,
   type PeriodResult,
 } from "@/lib/converters/health/period-calculator";
+import { PeriodFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -25,6 +26,7 @@ const useStore = createCalculatorStore<FormValues, PeriodResult | null>({
     cycleLength: "28",
     periodLength: "5",
   },
+  schema: PeriodFormSchema,
   calculate: (vals) => {
     const input: PeriodInput = {
       lastPeriodDate: vals.lastPeriodDate,
@@ -39,7 +41,7 @@ export function PeriodCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   const getPhaseColor = (phase: string) => {
     switch (phase) {
@@ -74,6 +76,7 @@ export function PeriodCalculatorComponent() {
           label={t("cycleLength")}
           value={values.cycleLength}
           onChange={(v) => setValue("cycleLength", v)}
+          error={errors.cycleLength}
           min={21}
           max={40}
           step="1"
@@ -85,6 +88,7 @@ export function PeriodCalculatorComponent() {
           label={t("periodLength")}
           value={values.periodLength}
           onChange={(v) => setValue("periodLength", v)}
+          error={errors.periodLength}
           min={2}
           max={10}
           step="1"

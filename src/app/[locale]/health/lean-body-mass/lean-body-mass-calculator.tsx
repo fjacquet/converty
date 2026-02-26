@@ -15,6 +15,7 @@ import {
   type LeanBodyMassInput,
   type LeanBodyMassResult,
 } from "@/lib/converters/health/lean-body-mass";
+import { LeanBodyMassFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -30,6 +31,7 @@ const useStore = createCalculatorStore<FormValues, LeanBodyMassResult | null>({
     weight: "80",
     height: "175",
   },
+  schema: LeanBodyMassFormSchema,
   calculate: (vals) => {
     const input: LeanBodyMassInput = {
       gender: vals.gender,
@@ -44,7 +46,7 @@ export function LeanBodyMassCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -70,6 +72,7 @@ export function LeanBodyMassCalculator() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="80"
@@ -80,6 +83,7 @@ export function LeanBodyMassCalculator() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="175"

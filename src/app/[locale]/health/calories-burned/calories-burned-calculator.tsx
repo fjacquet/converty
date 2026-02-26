@@ -16,6 +16,7 @@ import {
   calculateCaloriesBurned,
   getAvailableActivities,
 } from "@/lib/converters/health/calories-burned";
+import { CaloriesBurnedFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -33,6 +34,7 @@ const useStore = createCalculatorStore<FormValues, CaloriesBurnedResult | null>(
     activity: "running_6mph",
     duration: "30",
   },
+  schema: CaloriesBurnedFormSchema,
   calculate: (vals) => {
     const input: CaloriesBurnedInput = {
       weight: parseFloat(vals.weight) || 0,
@@ -48,7 +50,7 @@ export function CaloriesBurnedCalculator() {
   const tResults = useTranslations("calculator.results");
   const tActivities = useTranslations("calculator.activities");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -58,6 +60,7 @@ export function CaloriesBurnedCalculator() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="70"
@@ -84,6 +87,7 @@ export function CaloriesBurnedCalculator() {
           label={t("duration")}
           value={values.duration}
           onChange={(v) => setValue("duration", v)}
+          error={errors.duration}
           min={0}
           step="1"
           placeholder="30"

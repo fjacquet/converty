@@ -15,6 +15,7 @@ import {
   type GfrInput,
   type GfrResult,
 } from "@/lib/converters/health/gfr-calculator";
+import { GfrFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -36,6 +37,7 @@ const useStore = createCalculatorStore<FormValues, GfrResult | null>({
     race: "other",
     weight: "75",
   },
+  schema: GfrFormSchema,
   calculate: (vals) => {
     const input: GfrInput = {
       creatinine: parseFloat(vals.creatinine) || 0,
@@ -54,7 +56,7 @@ export function GfrCalculatorComponent() {
   const tResults = useTranslations("calculator.results");
   const tHealth = useTranslations("calculator.health");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   const getStageColor = (stage: number) => {
     switch (stage) {
@@ -81,6 +83,7 @@ export function GfrCalculatorComponent() {
           label={t("creatinine")}
           value={values.creatinine}
           onChange={(v) => setValue("creatinine", v)}
+          error={errors.creatinine}
           min={0}
           step="0.01"
           placeholder="1.0"
@@ -107,6 +110,7 @@ export function GfrCalculatorComponent() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={18}
           max={120}
           step="1"
@@ -134,6 +138,7 @@ export function GfrCalculatorComponent() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="75"

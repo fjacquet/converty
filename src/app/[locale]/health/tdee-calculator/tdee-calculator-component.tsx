@@ -15,6 +15,7 @@ import {
   type TdeeInput,
   type TdeeResult,
 } from "@/lib/converters/health/tdee-calculator";
+import { TdeeFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -36,6 +37,7 @@ const useStore = createCalculatorStore<FormValues, TdeeResult | null>({
     activityLevel: "moderate",
     goal: "maintain",
   },
+  schema: TdeeFormSchema,
   calculate: (vals) => {
     const input: TdeeInput = {
       gender: vals.gender,
@@ -53,7 +55,7 @@ export function TdeeCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -79,6 +81,7 @@ export function TdeeCalculatorComponent() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={0}
           max={120}
           step="1"
@@ -90,6 +93,7 @@ export function TdeeCalculatorComponent() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="75"
@@ -100,6 +104,7 @@ export function TdeeCalculatorComponent() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="175"

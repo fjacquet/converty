@@ -15,6 +15,7 @@ import {
   type FatIntakeInput,
   type FatIntakeResult,
 } from "@/lib/converters/health/fat-intake-calculator";
+import { FatIntakeFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -28,6 +29,7 @@ const useStore = createCalculatorStore<FormValues, FatIntakeResult | null>({
     calories: "2000",
     goal: "maintenance",
   },
+  schema: FatIntakeFormSchema,
   calculate: (vals) => {
     const input: FatIntakeInput = {
       calories: parseInt(vals.calories) || 0,
@@ -42,7 +44,7 @@ export function FatIntakeCalculator() {
   const tResults = useTranslations("calculator.results");
   const tFats = useTranslations("calculator.health.fats");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -52,6 +54,7 @@ export function FatIntakeCalculator() {
           label={t("dailyCalories")}
           value={values.calories}
           onChange={(v) => setValue("calories", v)}
+          error={errors.calories}
           min={1000}
           max={6000}
           step="50"

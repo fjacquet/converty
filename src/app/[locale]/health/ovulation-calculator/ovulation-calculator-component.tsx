@@ -8,6 +8,7 @@ import {
   type OvulationInput,
   type OvulationResult,
 } from "@/lib/converters/health/ovulation-calculator";
+import { OvulationFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -23,6 +24,7 @@ const useStore = createCalculatorStore<FormValues, OvulationResult | null>({
     lastPeriodDate: today,
     cycleLength: "28",
   },
+  schema: OvulationFormSchema,
   calculate: (vals) => {
     const input: OvulationInput = {
       lastPeriodDate: vals.lastPeriodDate,
@@ -36,7 +38,7 @@ export function OvulationCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   const getFertilityColor = (fertility: string) => {
     switch (fertility) {
@@ -69,6 +71,7 @@ export function OvulationCalculatorComponent() {
           label={t("cycleLength")}
           value={values.cycleLength}
           onChange={(v) => setValue("cycleLength", v)}
+          error={errors.cycleLength}
           min={21}
           max={40}
           step="1"

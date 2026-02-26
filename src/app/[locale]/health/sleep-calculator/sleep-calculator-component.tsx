@@ -15,6 +15,7 @@ import {
   type SleepInput,
   type SleepResult,
 } from "@/lib/converters/health/sleep-calculator";
+import { SleepFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -30,6 +31,7 @@ const useStore = createCalculatorStore<FormValues, SleepResult | null>({
     targetTime: "07:00",
     age: "30",
   },
+  schema: SleepFormSchema,
   calculate: (vals) => {
     const input: SleepInput = {
       mode: vals.mode,
@@ -44,7 +46,7 @@ export function SleepCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   const getQualityColor = (quality: string) => {
     switch (quality) {
@@ -91,6 +93,7 @@ export function SleepCalculatorComponent() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={1}
           max={120}
           step="1"

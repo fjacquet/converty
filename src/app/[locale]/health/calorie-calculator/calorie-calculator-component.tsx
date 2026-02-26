@@ -15,6 +15,7 @@ import {
   type CalorieResult,
   calculateCalories,
 } from "@/lib/converters/health/calorie-calculator";
+import { CalorieFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -38,6 +39,7 @@ const useStore = createCalculatorStore<FormValues, CalorieResult | null>({
     targetWeight: "75",
     weeksToGoal: "12",
   },
+  schema: CalorieFormSchema,
   calculate: (vals) => {
     const input: CalorieInput = {
       gender: vals.gender,
@@ -56,7 +58,7 @@ export function CalorieCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -82,6 +84,7 @@ export function CalorieCalculatorComponent() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={0}
           max={120}
           step="1"
@@ -93,6 +96,7 @@ export function CalorieCalculatorComponent() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="80"
@@ -103,6 +107,7 @@ export function CalorieCalculatorComponent() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="175"
@@ -132,6 +137,7 @@ export function CalorieCalculatorComponent() {
           label={t("targetWeight")}
           value={values.targetWeight}
           onChange={(v) => setValue("targetWeight", v)}
+          error={errors.targetWeight}
           min={0}
           step="0.1"
           placeholder="75"
@@ -142,6 +148,7 @@ export function CalorieCalculatorComponent() {
           label={t("weeksToGoal")}
           value={values.weeksToGoal}
           onChange={(v) => setValue("weeksToGoal", v)}
+          error={errors.weeksToGoal}
           min={1}
           step="1"
           placeholder="12"

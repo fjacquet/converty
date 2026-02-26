@@ -15,6 +15,7 @@ import {
   type ArmyBodyFatResult,
   calculateArmyBodyFat,
 } from "@/lib/converters/health/army-body-fat";
+import { ArmyBodyFatFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -36,6 +37,7 @@ const useStore = createCalculatorStore<FormValues, ArmyBodyFatResult | null>({
     waist: "85",
     hip: "95",
   },
+  schema: ArmyBodyFatFormSchema,
   calculate: (vals) => {
     const input: ArmyBodyFatInput = {
       gender: vals.gender,
@@ -53,7 +55,7 @@ export function ArmyBodyFatCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   const getStatusColor = (category: "pass" | "tape" | "fail") => {
     switch (category) {
@@ -90,6 +92,7 @@ export function ArmyBodyFatCalculator() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={17}
           max={60}
           step="1"
@@ -101,6 +104,7 @@ export function ArmyBodyFatCalculator() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={100}
           max={250}
           step="0.5"
@@ -112,6 +116,7 @@ export function ArmyBodyFatCalculator() {
           label={t("neckCircumference")}
           value={values.neck}
           onChange={(v) => setValue("neck", v)}
+          error={errors.neck}
           min={20}
           max={60}
           step="0.5"
@@ -123,6 +128,7 @@ export function ArmyBodyFatCalculator() {
           label={t("waistCircumference")}
           value={values.waist}
           onChange={(v) => setValue("waist", v)}
+          error={errors.waist}
           min={40}
           max={200}
           step="0.5"
@@ -135,6 +141,7 @@ export function ArmyBodyFatCalculator() {
             label={t("hipCircumference")}
             value={values.hip}
             onChange={(v) => setValue("hip", v)}
+            error={errors.hip}
             min={50}
             max={200}
             step="0.5"

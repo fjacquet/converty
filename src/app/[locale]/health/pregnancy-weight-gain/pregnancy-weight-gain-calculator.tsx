@@ -9,6 +9,7 @@ import {
   type PregnancyWeightGainInput,
   type PregnancyWeightGainResult,
 } from "@/lib/converters/health/pregnancy-weight-gain";
+import { PregnancyWeightGainFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -28,6 +29,7 @@ const useStore = createCalculatorStore<FormValues, PregnancyWeightGainResult | n
     weeksPregnant: "20",
     twins: false,
   },
+  schema: PregnancyWeightGainFormSchema,
   calculate: (vals) => {
     const input: PregnancyWeightGainInput = {
       prePregnancyWeight: parseFloat(vals.prePregnancyWeight) || 0,
@@ -44,7 +46,7 @@ export function PregnancyWeightGainCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -67,6 +69,7 @@ export function PregnancyWeightGainCalculator() {
           label={t("prePregnancyWeight")}
           value={values.prePregnancyWeight}
           onChange={(v) => setValue("prePregnancyWeight", v)}
+          error={errors.prePregnancyWeight}
           min={0}
           step="0.1"
           placeholder="60"
@@ -77,6 +80,7 @@ export function PregnancyWeightGainCalculator() {
           label={t("currentWeight")}
           value={values.currentWeight}
           onChange={(v) => setValue("currentWeight", v)}
+          error={errors.currentWeight}
           min={0}
           step="0.1"
           placeholder="65"
@@ -87,6 +91,7 @@ export function PregnancyWeightGainCalculator() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="165"
@@ -97,6 +102,7 @@ export function PregnancyWeightGainCalculator() {
           label={t("weeksPregnant")}
           value={values.weeksPregnant}
           onChange={(v) => setValue("weeksPregnant", v)}
+          error={errors.weeksPregnant}
           min={0}
           max={42}
           step="1"

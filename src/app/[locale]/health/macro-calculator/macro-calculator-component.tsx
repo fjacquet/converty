@@ -15,6 +15,7 @@ import {
   type MacroInput,
   type MacroResult,
 } from "@/lib/converters/health/macro-calculator";
+import { MacroFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -28,6 +29,7 @@ const useStore = createCalculatorStore<FormValues, MacroResult | null>({
     calories: "2000",
     goal: "maintenance",
   },
+  schema: MacroFormSchema,
   calculate: (vals) => {
     const input: MacroInput = {
       calories: parseFloat(vals.calories) || 0,
@@ -41,7 +43,7 @@ export function MacroCalculatorComponent() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -51,6 +53,7 @@ export function MacroCalculatorComponent() {
           label={t("dailyCalories")}
           value={values.calories}
           onChange={(v) => setValue("calories", v)}
+          error={errors.calories}
           min={0}
           step="50"
           placeholder="2000"

@@ -15,6 +15,7 @@ import {
   type DueDateInput,
   type DueDateResult,
 } from "@/lib/converters/health/pregnancy-due-date";
+import { DueDateFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -36,6 +37,7 @@ const useStore = createCalculatorStore<FormValues, DueDateResult | null>({
     ultrasoundWeeks: "8",
     ultrasoundDays: "0",
   },
+  schema: DueDateFormSchema,
   calculate: (vals) => {
     const input: DueDateInput = {
       calculationMethod: vals.calculationMethod,
@@ -52,7 +54,7 @@ export function DueDateCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -93,6 +95,7 @@ export function DueDateCalculator() {
             label={t("cycleLength")}
             value={values.cycleLength}
             onChange={(v) => setValue("cycleLength", v)}
+            error={errors.cycleLength}
             min={21}
             max={40}
             step="1"
@@ -107,6 +110,7 @@ export function DueDateCalculator() {
               label={t("gestationalWeeks")}
               value={values.ultrasoundWeeks}
               onChange={(v) => setValue("ultrasoundWeeks", v)}
+              error={errors.ultrasoundWeeks}
               min={0}
               max={42}
               step="1"
@@ -117,6 +121,7 @@ export function DueDateCalculator() {
               label={t("gestationalDays")}
               value={values.ultrasoundDays}
               onChange={(v) => setValue("ultrasoundDays", v)}
+              error={errors.ultrasoundDays}
               min={0}
               max={6}
               step="1"

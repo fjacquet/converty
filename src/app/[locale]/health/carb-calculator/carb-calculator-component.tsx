@@ -15,6 +15,7 @@ import {
   type CarbResult,
   calculateCarbs,
 } from "@/lib/converters/health/carb-calculator";
+import { CarbFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -30,6 +31,7 @@ const useStore = createCalculatorStore<FormValues, CarbResult | null>({
     goal: "maintenance",
     activityLevel: "moderate",
   },
+  schema: CarbFormSchema,
   calculate: (vals) => {
     const input: CarbInput = {
       calories: parseInt(vals.calories) || 0,
@@ -45,7 +47,7 @@ export function CarbCalculatorComponent() {
   const tResults = useTranslations("calculator.results");
   const tCarbs = useTranslations("calculator.health.carbs");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -55,6 +57,7 @@ export function CarbCalculatorComponent() {
           label={t("dailyCalories")}
           value={values.calories}
           onChange={(v) => setValue("calories", v)}
+          error={errors.calories}
           min={1000}
           max={6000}
           step="50"

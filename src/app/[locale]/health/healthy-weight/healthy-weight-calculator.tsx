@@ -15,6 +15,7 @@ import {
   type HealthyWeightInput,
   type HealthyWeightResult,
 } from "@/lib/converters/health/healthy-weight-calculator";
+import { HealthyWeightFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -32,6 +33,7 @@ const useStore = createCalculatorStore<FormValues, HealthyWeightResult | null>({
     gender: "male",
     frameSize: "medium",
   },
+  schema: HealthyWeightFormSchema,
   calculate: (vals) => {
     const input: HealthyWeightInput = {
       height: parseFloat(vals.height) || 0,
@@ -48,7 +50,7 @@ export function HealthyWeightCalculator() {
   const tResults = useTranslations("calculator.results");
   const tHealthyWeight = useTranslations("calculator.health.healthyWeight");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -58,6 +60,7 @@ export function HealthyWeightCalculator() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={100}
           max={250}
           step="1"
@@ -69,6 +72,7 @@ export function HealthyWeightCalculator() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={1}
           max={120}
           step="1"

@@ -9,6 +9,7 @@ import {
   type HeightUnit,
   type WeightUnit,
 } from "@/lib/converters/health/bmi";
+import { BmiFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 const WEIGHT_UNITS = [
@@ -38,6 +39,7 @@ const useStore = createCalculatorStore<FormValues, BMIResult | null>({
     height: "175",
     heightUnit: "cm",
   },
+  schema: BmiFormSchema,
   calculate: (vals) => {
     const input: BMIInput = {
       weight: parseFloat(vals.weight) || 0,
@@ -53,7 +55,7 @@ export function BMICalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -63,6 +65,7 @@ export function BMICalculator() {
           label={t("weightSimple")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           units={WEIGHT_UNITS}
           selectedUnit={values.weightUnit}
           onUnitChange={(u) => setValue("weightUnit", u as WeightUnit)}
@@ -76,6 +79,7 @@ export function BMICalculator() {
           label={t("heightSimple")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           units={HEIGHT_UNITS}
           selectedUnit={values.heightUnit}
           onUnitChange={(u) => setValue("heightUnit", u as HeightUnit)}

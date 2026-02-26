@@ -7,6 +7,7 @@ import {
   type OneRepMaxInput,
   type OneRepMaxResult,
 } from "@/lib/converters/health/one-rep-max";
+import { OneRepMaxFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -20,6 +21,7 @@ const useStore = createCalculatorStore<FormValues, OneRepMaxResult | null>({
     weight: "100",
     reps: "5",
   },
+  schema: OneRepMaxFormSchema,
   calculate: (vals) => {
     const input: OneRepMaxInput = {
       weight: parseFloat(vals.weight) || 0,
@@ -33,7 +35,7 @@ export function OneRepMaxCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -43,6 +45,7 @@ export function OneRepMaxCalculator() {
           label={t("weightLifted")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.5"
           placeholder="100"
@@ -53,6 +56,7 @@ export function OneRepMaxCalculator() {
           label={t("repetitions")}
           value={values.reps}
           onChange={(v) => setValue("reps", v)}
+          error={errors.reps}
           min={1}
           max={30}
           step="1"

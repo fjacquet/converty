@@ -15,6 +15,7 @@ import {
   type ProteinInput,
   type ProteinResult,
 } from "@/lib/converters/health/protein-calculator";
+import { ProteinFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -30,6 +31,7 @@ const useStore = createCalculatorStore<FormValues, ProteinResult | null>({
     goal: "maintenance",
     activityLevel: "moderate",
   },
+  schema: ProteinFormSchema,
   calculate: (vals) => {
     const input: ProteinInput = {
       weight: parseFloat(vals.weight) || 0,
@@ -45,7 +47,7 @@ export function ProteinCalculatorComponent() {
   const tResults = useTranslations("calculator.results");
   const tProtein = useTranslations("calculator.health.protein");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -55,6 +57,7 @@ export function ProteinCalculatorComponent() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="75"

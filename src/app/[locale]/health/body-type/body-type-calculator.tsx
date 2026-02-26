@@ -15,6 +15,7 @@ import {
   type BodyTypeResult,
   calculateBodyType,
 } from "@/lib/converters/health/body-type-calculator";
+import { BodyTypeFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -34,6 +35,7 @@ const useStore = createCalculatorStore<FormValues, BodyTypeResult | null>({
     shoulderWidth: "45",
     hipWidth: "35",
   },
+  schema: BodyTypeFormSchema,
   calculate: (vals) => {
     const input: BodyTypeInput = {
       gender: vals.gender,
@@ -50,7 +52,7 @@ export function BodyTypeCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   const getBodyTypeColor = (type: string) => {
     switch (type) {
@@ -89,6 +91,7 @@ export function BodyTypeCalculator() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="175"
@@ -99,6 +102,7 @@ export function BodyTypeCalculator() {
           label={t("wristCircumference")}
           value={values.wristCircumference}
           onChange={(v) => setValue("wristCircumference", v)}
+          error={errors.wristCircumference}
           min={0}
           step="0.1"
           placeholder="17"
@@ -109,6 +113,7 @@ export function BodyTypeCalculator() {
           label={t("shoulderWidth")}
           value={values.shoulderWidth}
           onChange={(v) => setValue("shoulderWidth", v)}
+          error={errors.shoulderWidth}
           min={0}
           step="0.1"
           placeholder="45"
@@ -119,6 +124,7 @@ export function BodyTypeCalculator() {
           label={t("hipWidth")}
           value={values.hipWidth}
           onChange={(v) => setValue("hipWidth", v)}
+          error={errors.hipWidth}
           min={0}
           step="0.1"
           placeholder="35"

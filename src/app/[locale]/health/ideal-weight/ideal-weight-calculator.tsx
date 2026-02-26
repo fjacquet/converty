@@ -15,6 +15,7 @@ import {
   type IdealWeightInput,
   type IdealWeightResult,
 } from "@/lib/converters/health/ideal-weight";
+import { IdealWeightFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -30,6 +31,7 @@ const useStore = createCalculatorStore<FormValues, IdealWeightResult | null>({
     height: "175",
     frameSize: "medium",
   },
+  schema: IdealWeightFormSchema,
   calculate: (vals) => {
     const input: IdealWeightInput = {
       gender: vals.gender,
@@ -44,7 +46,7 @@ export function IdealWeightCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -70,6 +72,7 @@ export function IdealWeightCalculator() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="175"

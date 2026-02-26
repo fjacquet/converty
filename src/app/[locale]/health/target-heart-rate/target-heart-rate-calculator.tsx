@@ -7,6 +7,7 @@ import {
   type TargetHeartRateInput,
   type TargetHeartRateResult,
 } from "@/lib/converters/health/target-heart-rate";
+import { TargetHeartRateFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -20,6 +21,7 @@ const useStore = createCalculatorStore<FormValues, TargetHeartRateResult | null>
     age: "30",
     restingHeartRate: "60",
   },
+  schema: TargetHeartRateFormSchema,
   calculate: (vals) => {
     const input: TargetHeartRateInput = {
       age: parseFloat(vals.age) || 0,
@@ -33,7 +35,7 @@ export function TargetHeartRateCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -43,6 +45,7 @@ export function TargetHeartRateCalculator() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={0}
           max={120}
           step="1"
@@ -54,6 +57,7 @@ export function TargetHeartRateCalculator() {
           label={t("restingHeartRate")}
           value={values.restingHeartRate}
           onChange={(v) => setValue("restingHeartRate", v)}
+          error={errors.restingHeartRate}
           min={30}
           max={120}
           step="1"

@@ -15,6 +15,7 @@ import {
   type BodyFatResult,
   calculateBodyFat,
 } from "@/lib/converters/health/body-fat";
+import { BodyFatFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -38,6 +39,7 @@ const useStore = createCalculatorStore<FormValues, BodyFatResult | null>({
     waist: "85",
     hip: "95",
   },
+  schema: BodyFatFormSchema,
   calculate: (vals) => {
     const input: BodyFatInput = {
       gender: vals.gender,
@@ -56,7 +58,7 @@ export function BodyFatCalculator() {
   const t = useTranslations("calculator.labels");
   const tResults = useTranslations("calculator.results");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -82,6 +84,7 @@ export function BodyFatCalculator() {
           label={t("age")}
           value={values.age}
           onChange={(v) => setValue("age", v)}
+          error={errors.age}
           min={0}
           max={120}
           step="1"
@@ -93,6 +96,7 @@ export function BodyFatCalculator() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="80"
@@ -103,6 +107,7 @@ export function BodyFatCalculator() {
           label={t("height")}
           value={values.height}
           onChange={(v) => setValue("height", v)}
+          error={errors.height}
           min={0}
           step="0.1"
           placeholder="175"
@@ -113,6 +118,7 @@ export function BodyFatCalculator() {
           label={t("neck")}
           value={values.neck}
           onChange={(v) => setValue("neck", v)}
+          error={errors.neck}
           min={0}
           step="0.1"
           placeholder="38"
@@ -123,6 +129,7 @@ export function BodyFatCalculator() {
           label={t("waist")}
           value={values.waist}
           onChange={(v) => setValue("waist", v)}
+          error={errors.waist}
           min={0}
           step="0.1"
           placeholder="85"
@@ -134,6 +141,7 @@ export function BodyFatCalculator() {
             label={t("hip")}
             value={values.hip}
             onChange={(v) => setValue("hip", v)}
+            error={errors.hip}
             min={0}
             step="0.1"
             placeholder="95"

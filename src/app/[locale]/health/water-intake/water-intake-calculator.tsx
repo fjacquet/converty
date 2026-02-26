@@ -16,6 +16,7 @@ import {
   type WaterIntakeInput,
   type WaterIntakeResult,
 } from "@/lib/converters/health/water-intake-calculator";
+import { WaterIntakeFormSchema } from "@/lib/schemas/health";
 import { createCalculatorStore } from "@/stores/calculator-store";
 
 interface FormValues {
@@ -35,6 +36,7 @@ const useStore = createCalculatorStore<FormValues, WaterIntakeResult | null>({
     pregnant: false,
     breastfeeding: false,
   },
+  schema: WaterIntakeFormSchema,
   calculate: (vals) => {
     const input: WaterIntakeInput = {
       weight: parseFloat(vals.weight) || 0,
@@ -52,7 +54,7 @@ export function WaterIntakeCalculator() {
   const tResults = useTranslations("calculator.results");
   const tWater = useTranslations("calculator.health.water");
 
-  const { values, setValue, result } = useStore();
+  const { values, setValue, result, errors } = useStore();
 
   return (
     <div className="space-y-6">
@@ -62,6 +64,7 @@ export function WaterIntakeCalculator() {
           label={t("weight")}
           value={values.weight}
           onChange={(v) => setValue("weight", v)}
+          error={errors.weight}
           min={0}
           step="0.1"
           placeholder="70"
