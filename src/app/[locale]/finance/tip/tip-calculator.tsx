@@ -15,11 +15,12 @@ export function TipCalculator() {
   const [tipPercentage, setTipPercentage] = useState<number>(15);
   const [numberOfPeople, setNumberOfPeople] = useState<number>(1);
 
-  const result: TipResult | null = calculateTip({
+  const calcResult = calculateTip({
     billAmount,
     tipPercentage,
     numberOfPeople,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

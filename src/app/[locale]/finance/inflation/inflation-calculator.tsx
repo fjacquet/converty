@@ -16,11 +16,12 @@ export function InflationCalculator() {
   const [inflationRate, setInflationRate] = useState<number>(2.5);
   const [years, setYears] = useState<number>(10);
 
-  const result: InflationResult | null = calculateInflation({
+  const calcResult = calculateInflation({
     amount,
     inflationRate,
     years,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

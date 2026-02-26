@@ -18,7 +18,7 @@ export function HomeEquityCalculator() {
   const [loanTermYears, setLoanTermYears] = useState<number>(15);
   const [isHELOC, setIsHELOC] = useState<boolean>(false);
 
-  const result: HomeEquityResult | null = calculateHomeEquity({
+  const calcResult = calculateHomeEquity({
     homeValue,
     mortgageBalance,
     loanAmount,
@@ -26,6 +26,7 @@ export function HomeEquityCalculator() {
     loanTermYears,
     isHELOC,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

@@ -65,7 +65,8 @@ export function NumberSequenceCalculator() {
       terms,
     };
 
-    setResult(calculateNumberSequence(input));
+    const calcResult = calculateNumberSequence(input);
+    setResult(calcResult.ok ? calcResult.value : null);
   }, [
     mode,
     firstTerm,

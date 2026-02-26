@@ -51,7 +51,12 @@ const useStore = createCalculatorStore<MomentOfInertiaInput, MomentOfInertiaResu
     offsetY: 0,
     beamSectionId: "custom",
   },
-  calculate: (input) => calculateMomentOfInertia(input),
+  calculate: (input) => {
+    const r = calculateMomentOfInertia(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function MomentOfInertiaCalculator() {

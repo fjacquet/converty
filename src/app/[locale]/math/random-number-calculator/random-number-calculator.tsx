@@ -57,7 +57,8 @@ export function RandomNumberCalculator() {
       diceSides: parseInt(values.diceSides) || 6,
       diceCount: parseInt(values.diceCount) || 1,
     };
-    setResult(calculateRandomNumber(input));
+    const calcResult = calculateRandomNumber(input);
+    setResult(calcResult.ok ? calcResult.value : null);
   };
 
   return (

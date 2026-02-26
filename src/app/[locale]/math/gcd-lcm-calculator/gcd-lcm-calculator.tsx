@@ -25,7 +25,8 @@ export function GcdLcmCalculator() {
 
     if (numbers.length > 0) {
       const input: GcdLcmInput = { numbers };
-      setResult(calculateGcdLcm(input));
+      const calcResult = calculateGcdLcm(input);
+      setResult(calcResult.ok ? calcResult.value : null);
     } else {
       setResult(null);
     }

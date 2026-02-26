@@ -18,7 +18,7 @@ export function CreditCardCalculator() {
   const [additionalPayment, setAdditionalPayment] = useState<number>(50);
   const [targetMonths, setTargetMonths] = useState<number>(24);
 
-  const result: CreditCardResult | null = calculateCreditCard({
+  const calcResult = calculateCreditCard({
     balance,
     annualInterestRate,
     minimumPaymentPercent,
@@ -26,6 +26,7 @@ export function CreditCardCalculator() {
     additionalPayment,
     targetMonths,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

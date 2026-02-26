@@ -29,7 +29,7 @@ const useStore = createCalculatorStore<FormValues, BandwidthDelayProductResult>(
       rtt: parseFloat(vals.rtt) || 1,
       windowSize: parseFloat(vals.windowSize) || 64,
     };
-    return calculateBandwidthDelayProduct(input);
+    return { ok: true, value: calculateBandwidthDelayProduct(input) };
   },
   schema: BandwidthDelayProductFormSchema,
 });

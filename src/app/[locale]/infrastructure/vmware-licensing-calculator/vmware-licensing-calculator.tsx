@@ -31,7 +31,12 @@ const useVmwareLicensingStore = createCalculatorStore<VmwareLicensingInput, Vmwa
     productType: "vcf",
     termYears: 3,
   },
-  calculate: calculateVmwareLicensing,
+  calculate: (input) => {
+    const r = calculateVmwareLicensing(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export function VmwareLicensingCalculator() {

@@ -49,7 +49,8 @@ export function BigNumberCalculator() {
       numberB: mode !== "factorial" ? numberB : undefined,
       precision,
     };
-    setResult(calculateBigNumber(input));
+    const calcResult = calculateBigNumber(input);
+    setResult(calcResult.ok ? calcResult.value : null);
   }, [mode, numberA, numberB, precision]);
 
   const needsSecondNumber = mode !== "factorial";

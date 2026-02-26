@@ -32,7 +32,7 @@ const useStore = createCalculatorStore<FormValues, TcpThroughputResult>({
       lossRate: parseFloat(vals.lossRate) || 0.0001,
       cFactor: parseFloat(vals.cFactor) || 1,
     };
-    return calculateTcpThroughput(input);
+    return { ok: true, value: calculateTcpThroughput(input) };
   },
   schema: TcpThroughputFormSchema,
 });

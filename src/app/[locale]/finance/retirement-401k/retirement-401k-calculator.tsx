@@ -23,7 +23,7 @@ export function Retirement401kCalculator() {
   const [annualReturnRate, setAnnualReturnRate] = useState<number>(7);
   const [annualSalaryGrowth, setAnnualSalaryGrowth] = useState<number>(2);
 
-  const result: Retirement401kResult | null = calculateRetirement401k({
+  const calcResult = calculateRetirement401k({
     currentAge,
     retirementAge,
     currentBalance,
@@ -33,6 +33,7 @@ export function Retirement401kCalculator() {
     annualReturnRate,
     annualSalaryGrowth,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

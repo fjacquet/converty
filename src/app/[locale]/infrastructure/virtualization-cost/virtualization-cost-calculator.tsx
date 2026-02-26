@@ -45,7 +45,12 @@ const useVirtualizationCostStore = createCalculatorStore<
     vmCount: 100,
     termYears: 3,
   },
-  calculate: calculateVirtualizationCost,
+  calculate: (input) => {
+    const r = calculateVirtualizationCost(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function VirtualizationCostCalculator() {

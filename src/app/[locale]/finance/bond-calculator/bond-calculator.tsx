@@ -17,13 +17,14 @@ export function BondCalculator() {
   const [paymentFrequency, setPaymentFrequency] = useState<number>(2);
   const [marketRate, setMarketRate] = useState<number>(4);
 
-  const result: BondResult | null = calculateBond({
+  const calcResult = calculateBond({
     faceValue,
     couponRate,
     yearsToMaturity,
     paymentFrequency,
     marketRate,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

@@ -17,8 +17,10 @@ export function CorpulenceCalculator() {
   const numWeight = parseFloat(weight) || 0;
   const numHeight = parseFloat(height) || 0;
 
-  const result = calculateCorpulence(numWeight, numHeight, unit);
-  const comparison = compareToBMI(numWeight, numHeight, unit);
+  const corpulenceResult = calculateCorpulence(numWeight, numHeight, unit);
+  const result = corpulenceResult.ok ? corpulenceResult.value : null;
+  const comparisonResult = compareToBMI(numWeight, numHeight, unit);
+  const comparison = comparisonResult.ok ? comparisonResult.value : null;
 
   const getCategoryColor = (categoryKey: string) => {
     switch (categoryKey) {

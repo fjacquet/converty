@@ -31,7 +31,12 @@ const useDilutionStore = createCalculatorStore<DilutionInput, DilutionResult | n
     finalVolume: 500,
     finalVolumeUnit: "mL",
   },
-  calculate: (input) => calculateDilution(input),
+  calculate: (input) => {
+    const r = calculateDilution(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function DilutionCalculator() {

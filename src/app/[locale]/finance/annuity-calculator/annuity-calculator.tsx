@@ -18,7 +18,7 @@ export function AnnuityCalculator() {
   const [annuityType, setAnnuityType] = useState<"immediate" | "deferred">("immediate");
   const [deferralYears, setDeferralYears] = useState<number>(5);
 
-  const result: AnnuityResult | null = calculateAnnuity({
+  const calcResult = calculateAnnuity({
     principal,
     annualInterestRate,
     payoutYears,
@@ -26,6 +26,7 @@ export function AnnuityCalculator() {
     annuityType,
     deferralYears: annuityType === "deferred" ? deferralYears : 0,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

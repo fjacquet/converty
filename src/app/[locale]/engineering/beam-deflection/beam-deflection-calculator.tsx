@@ -40,7 +40,12 @@ const useBeamDeflectionStore = createCalculatorStore<
     materialId: "custom",
     beamSectionId: "custom",
   },
-  calculate: (input) => calculateBeamDeflection(input),
+  calculate: (input) => {
+    const r = calculateBeamDeflection(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function BeamDeflectionCalculator() {

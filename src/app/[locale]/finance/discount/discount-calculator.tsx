@@ -14,10 +14,11 @@ export function DiscountCalculator() {
   const [originalPrice, setOriginalPrice] = useState<number>(100);
   const [discountPercent, setDiscountPercent] = useState<number>(20);
 
-  const result: DiscountResult | null = calculateDiscount({
+  const calcResult = calculateDiscount({
     originalPrice,
     discountPercent,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

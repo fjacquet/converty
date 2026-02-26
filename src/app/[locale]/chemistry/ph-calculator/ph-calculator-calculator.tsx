@@ -23,7 +23,12 @@ const usePhStore = createCalculatorStore<PhInput, PhResult | null>({
     mode: "from-ph",
     ph: 7,
   },
-  calculate: (input) => calculatePh(input),
+  calculate: (input) => {
+    const r = calculatePh(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function PhCalculatorCalculator() {

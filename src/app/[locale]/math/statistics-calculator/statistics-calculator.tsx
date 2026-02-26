@@ -30,7 +30,8 @@ export function StatisticsCalculator() {
         data,
         population: isPopulation,
       };
-      setResult(calculateStatistics(input));
+      const calcResult = calculateStatistics(input);
+      setResult(calcResult.ok ? calcResult.value : null);
     } else {
       setResult(null);
     }

@@ -27,7 +27,12 @@ const useMolecularWeightStore = createCalculatorStore<
   initialValues: {
     formula: "H2O",
   },
-  calculate: (input) => calculateMolecularWeight(input),
+  calculate: (input) => {
+    const r = calculateMolecularWeight(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function MolecularWeightCalculator() {

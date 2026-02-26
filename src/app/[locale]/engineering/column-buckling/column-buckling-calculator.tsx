@@ -41,7 +41,12 @@ const useColumnBucklingStore = createCalculatorStore<
     customYoungsModulus: 200,
     customYieldStrength: 250,
   },
-  calculate: (input) => calculateColumnBuckling(input),
+  calculate: (input) => {
+    const r = calculateColumnBuckling(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function ColumnBucklingCalculator() {

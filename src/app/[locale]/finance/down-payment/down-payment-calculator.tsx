@@ -20,13 +20,14 @@ export function DownPaymentCalculator() {
   const [currentSavings, setCurrentSavings] = useState<number>(20000);
   const [annualReturnRate, setAnnualReturnRate] = useState<number>(4);
 
-  const result: DownPaymentResult | null = calculateDownPayment({
+  const calcResult = calculateDownPayment({
     homePrice,
     downPaymentPercent,
     savingsGoalMonths,
     currentSavings,
     annualReturnRate,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

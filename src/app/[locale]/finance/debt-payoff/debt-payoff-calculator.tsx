@@ -16,12 +16,13 @@ export function DebtPayoffCalculator() {
   const [minimumPayment, setMinimumPayment] = useState<number>(250);
   const [extraPayment, setExtraPayment] = useState<number>(100);
 
-  const result: DebtPayoffResult | null = calculateDebtPayoff({
+  const calcResult = calculateDebtPayoff({
     totalDebt,
     interestRate,
     minimumPayment,
     extraPayment,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

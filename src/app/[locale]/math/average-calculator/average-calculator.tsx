@@ -25,7 +25,8 @@ export function AverageCalculator() {
 
     if (numbers.length > 0) {
       const input: AverageInput = { numbers };
-      setResult(calculateAverage(input));
+      const calcResult = calculateAverage(input);
+      setResult(calcResult.ok ? calcResult.value : null);
     }
   };
 

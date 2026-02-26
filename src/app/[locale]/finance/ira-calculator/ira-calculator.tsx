@@ -20,7 +20,7 @@ export function IraCalculator() {
   const [taxBracket, setTaxBracket] = useState<number>(22);
   const [retirementTaxBracket, setRetirementTaxBracket] = useState<number>(15);
 
-  const result: IraResult | null = calculateIra({
+  const calcResult = calculateIra({
     currentAge,
     retirementAge,
     currentBalance,
@@ -30,6 +30,7 @@ export function IraCalculator() {
     taxBracket,
     retirementTaxBracket,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

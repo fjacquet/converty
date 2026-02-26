@@ -30,7 +30,8 @@ export function StandardDeviationCalculator() {
         numbers,
         isPopulation,
       };
-      setResult(calculateStandardDeviation(input));
+      const calcResult = calculateStandardDeviation(input);
+      setResult(calcResult.ok ? calcResult.value : null);
     } else {
       setResult(null);
     }

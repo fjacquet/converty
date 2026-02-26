@@ -28,11 +28,12 @@ export function CurrencyConverter() {
   const [toCurrency, setToCurrency] = useState<string>("EUR");
 
   const currencies = getAvailableCurrencies();
-  const result: CurrencyResult | null = convertCurrency({
+  const calcResult = convertCurrency({
     amount,
     fromCurrency,
     toCurrency,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const swapCurrencies = () => {
     setFromCurrency(toCurrency);

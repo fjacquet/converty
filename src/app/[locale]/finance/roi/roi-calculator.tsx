@@ -15,11 +15,12 @@ export function RoiCalculator() {
   const [finalValue, setFinalValue] = useState<number>(15000);
   const [years, setYears] = useState<number>(3);
 
-  const result: RoiResult | null = calculateRoi({
+  const calcResult = calculateRoi({
     initialInvestment,
     finalValue,
     years: years > 0 ? years : undefined,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

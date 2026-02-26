@@ -15,11 +15,12 @@ export function BreakEvenCalculator() {
   const [variableCostPerUnit, setVariableCostPerUnit] = useState<number>(20);
   const [pricePerUnit, setPricePerUnit] = useState<number>(50);
 
-  const result: BreakEvenResult | null = calculateBreakEven({
+  const calcResult = calculateBreakEven({
     fixedCosts,
     variableCostPerUnit,
     pricePerUnit,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

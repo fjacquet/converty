@@ -35,7 +35,12 @@ const useStressStrainStore = createCalculatorStore<StressStrainInput, StressStra
     customYoungsModulus: 200,
     customYieldStrength: 250,
   },
-  calculate: (input) => calculateStressStrain(input),
+  calculate: (input) => {
+    const r = calculateStressStrain(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function StressStrainCalculator() {

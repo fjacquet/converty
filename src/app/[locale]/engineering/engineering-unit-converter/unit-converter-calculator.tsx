@@ -29,7 +29,12 @@ const useUnitConverterStore = createCalculatorStore<UnitConverterInput, UnitConv
       toUnit: "psi",
       value: 1,
     },
-    calculate: (input) => calculateUnitConversion(input),
+    calculate: (input) => {
+      const r = calculateUnitConversion(input);
+      return r
+        ? { ok: true as const, value: r }
+        : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+    },
   }
 );
 

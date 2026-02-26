@@ -19,12 +19,13 @@ export function SavingsGoalCalculator() {
   const [monthlyContribution, setMonthlyContribution] = useState<number>(500);
   const [annualInterestRate, setAnnualInterestRate] = useState<number>(4);
 
-  const result: SavingsGoalResult | null = calculateSavingsGoal({
+  const calcResult = calculateSavingsGoal({
     goalAmount,
     currentSavings,
     monthlyContribution,
     annualInterestRate,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

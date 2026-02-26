@@ -18,7 +18,7 @@ export function AutoLoanCalculator() {
   const [loanTermMonths, setLoanTermMonths] = useState<number>(60);
   const [salesTaxRate, setSalesTaxRate] = useState<number>(7.7);
 
-  const result: AutoLoanResult | null = calculateAutoLoan({
+  const calcResult = calculateAutoLoan({
     vehiclePrice,
     downPayment,
     tradeInValue,
@@ -26,6 +26,7 @@ export function AutoLoanCalculator() {
     loanTermMonths,
     salesTaxRate,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

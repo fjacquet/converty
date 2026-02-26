@@ -29,7 +29,12 @@ const useMolarityStore = createCalculatorStore<MolarityInput, MolarityResult | n
     volume: 1,
     volumeUnit: "L",
   },
-  calculate: (input) => calculateMolarity(input),
+  calculate: (input) => {
+    const r = calculateMolarity(input);
+    return r
+      ? { ok: true as const, value: r }
+      : { ok: false as const, error: "Invalid inputs", code: "INVALID_INPUT" };
+  },
 });
 
 export default function MolarityCalculator() {

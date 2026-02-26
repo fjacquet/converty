@@ -67,7 +67,8 @@ export function MatrixCalculator() {
       scalar: needsScalar ? scalar : undefined,
     };
 
-    setResult(calculateMatrix(input));
+    const calcResult = calculateMatrix(input);
+    setResult(calcResult.ok ? calcResult.value : null);
   }, [mode, matrixAText, matrixBText, scalar, needsB, needsScalar]);
 
   const isResultMatrix = Array.isArray(result?.result);

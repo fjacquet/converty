@@ -19,12 +19,13 @@ export function PersonalLoanCalculator() {
   const [loanTermMonths, setLoanTermMonths] = useState<number>(36);
   const [originationFee, setOriginationFee] = useState<number>(2);
 
-  const result: PersonalLoanResult | null = calculatePersonalLoan({
+  const calcResult = calculatePersonalLoan({
     loanAmount,
     annualInterestRate,
     loanTermMonths,
     originationFee,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

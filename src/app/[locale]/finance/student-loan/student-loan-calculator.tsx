@@ -20,13 +20,14 @@ export function StudentLoanCalculator() {
   const [gracePeriodMonths, setGracePeriodMonths] = useState<number>(6);
   const [interestCapitalized, setInterestCapitalized] = useState<boolean>(true);
 
-  const result: StudentLoanResult | null = calculateStudentLoan({
+  const calcResult = calculateStudentLoan({
     loanAmount,
     annualInterestRate,
     loanTermYears,
     gracePeriodMonths,
     interestCapitalized,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });

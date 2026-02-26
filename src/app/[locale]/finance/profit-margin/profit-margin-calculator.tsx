@@ -19,12 +19,13 @@ export function ProfitMarginCalculator() {
   const [operatingExpenses, setOperatingExpenses] = useState<number>(20000);
   const [taxes, setTaxes] = useState<number>(5000);
 
-  const result: ProfitMarginResult | null = calculateProfitMargin({
+  const calcResult = calculateProfitMargin({
     revenue,
     costOfGoodsSold,
     operatingExpenses,
     taxes,
   });
+  const result = calcResult.ok ? calcResult.value : null;
 
   const formatCurrency = (value: number) =>
     format.number(value, { style: "currency", currency: "CHF" });
