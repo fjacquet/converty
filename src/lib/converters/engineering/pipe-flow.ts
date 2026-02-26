@@ -1,5 +1,6 @@
 import fluidsData from "@/data/engineering/fluids.json";
 import pipeMaterialsData from "@/data/engineering/pipe-materials.json";
+import type { CalculationResult } from "@/types";
 import type { FluidProperties, PipeMaterial } from "./types";
 
 /**
@@ -77,7 +78,7 @@ export interface PipeFlowResult {
  *   f = 0.25 / [log₁₀(ε/(3.7D) + 5.74/Re⁰·⁹)]²
  * - Head loss: hL = ΔP/(ρg)
  */
-export function calculatePipeFlow(input: PipeFlowInput): PipeFlowResult | null {
+export function calculatePipeFlow(input: PipeFlowInput): CalculationResult<PipeFlowResult> {
   const {
     diameter,
     length,
@@ -90,7 +91,13 @@ export function calculatePipeFlow(input: PipeFlowInput): PipeFlowResult | null {
   } = input;
 
   // Validation
-  if (diameter <= 0 || length <= 0 || velocity <= 0) return null;
+  if (diameter <= 0 || length <= 0 || velocity <= 0) {
+    return {
+      ok: false,
+      error: "Diameter, length, and velocity must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const steps: string[] = [];
 
@@ -122,7 +129,13 @@ export function calculatePipeFlow(input: PipeFlowInput): PipeFlowResult | null {
     }
   }
 
-  if (roughness_mm < 0 || density <= 0 || viscosity <= 0) return null;
+  if (roughness_mm < 0 || density <= 0 || viscosity <= 0) {
+    return {
+      ok: false,
+      error: "Roughness must be non-negative; density and viscosity must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const D_m = diameter / 1000; // mm → m
 
@@ -223,20 +236,23 @@ export function calculatePipeFlow(input: PipeFlowInput): PipeFlowResult | null {
   };
 
   return {
-    reynoldsNumber: Re,
-    flowRegime,
-    frictionFactor: f,
-    pressureDrop,
-    pressureDropBar: pressureDrop / 100000,
-    headLoss,
-    flowRate,
-    flowRateLpm,
-    relativeRoughness,
-    pipeMaterialName,
-    fluidName,
-    iterations,
-    steps,
-    pressureUnits,
+    ok: true,
+    value: {
+      reynoldsNumber: Re,
+      flowRegime,
+      frictionFactor: f,
+      pressureDrop,
+      pressureDropBar: pressureDrop / 100000,
+      headLoss,
+      flowRate,
+      flowRateLpm,
+      relativeRoughness,
+      pipeMaterialName,
+      fluidName,
+      iterations,
+      steps,
+      pressureUnits,
+    },
   };
 }
 

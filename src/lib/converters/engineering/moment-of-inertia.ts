@@ -5,6 +5,7 @@
  */
 
 import beamSectionsData from "@/data/engineering/beam-sections.json";
+import type { CalculationResult } from "@/types";
 import type { BeamSection } from "./types";
 
 export interface MomentOfInertiaInput {
@@ -233,13 +234,18 @@ function applyParallelAxisTheorem(
  */
 export function calculateMomentOfInertia(
   input: MomentOfInertiaInput
-): MomentOfInertiaResult | null {
+): CalculationResult<MomentOfInertiaResult> {
   const steps: string[] = [];
 
   // If beam section selected, use database values
   if (input.beamSectionId && input.beamSectionId !== "custom") {
     const section = getBeamSectionById(input.beamSectionId);
-    if (!section) return null;
+    if (!section)
+      return {
+        ok: false,
+        error: `Beam section not found: ${input.beamSectionId}`,
+        code: "INVALID_INPUT",
+      };
 
     steps.push(`Using standard beam section: ${section.name}`);
     steps.push(`Standard: ${section.standard}`);
@@ -257,19 +263,22 @@ export function calculateMomentOfInertia(
     const radiusOfGyrationY = Math.sqrt(Iy / area);
 
     return {
-      Ix,
-      Iy,
-      Ixy: 0,
-      area,
-      centroidX: 0,
-      centroidY: 0,
-      radiusOfGyrationX,
-      radiusOfGyrationY,
-      steps,
-      units: {
-        mm4: { Ix, Iy },
-        in4: { Ix: Ix / MM4_PER_IN4, Iy: Iy / MM4_PER_IN4 },
-        cm4: { Ix: Ix / 10000, Iy: Iy / 10000 },
+      ok: true,
+      value: {
+        Ix,
+        Iy,
+        Ixy: 0,
+        area,
+        centroidX: 0,
+        centroidY: 0,
+        radiusOfGyrationX,
+        radiusOfGyrationY,
+        steps,
+        units: {
+          mm4: { Ix, Iy },
+          in4: { Ix: Ix / MM4_PER_IN4, Iy: Iy / MM4_PER_IN4 },
+          cm4: { Ix: Ix / 10000, Iy: Iy / 10000 },
+        },
       },
     };
   }
@@ -281,7 +290,8 @@ export function calculateMomentOfInertia(
 
   switch (input.shape) {
     case "rectangle": {
-      if (!input.width || !input.height) return null;
+      if (!input.width || !input.height)
+        return { ok: false, error: "Rectangle requires width and height", code: "INVALID_INPUT" };
       const result = calculateRectangle(input.width, input.height);
       Ix = result.Ix;
       Iy = result.Iy;
@@ -293,7 +303,8 @@ export function calculateMomentOfInertia(
     }
 
     case "circle": {
-      if (!input.diameter) return null;
+      if (!input.diameter)
+        return { ok: false, error: "Circle requires diameter", code: "INVALID_INPUT" };
       const result = calculateCircle(input.diameter);
       Ix = result.I;
       Iy = result.I;
@@ -304,7 +315,12 @@ export function calculateMomentOfInertia(
     }
 
     case "hollow-rectangle": {
-      if (!input.width || !input.height || !input.innerWidth || !input.innerHeight) return null;
+      if (!input.width || !input.height || !input.innerWidth || !input.innerHeight)
+        return {
+          ok: false,
+          error: "Hollow rectangle requires width, height, innerWidth, and innerHeight",
+          code: "INVALID_INPUT",
+        };
       const result = calculateHollowRectangle(
         input.width,
         input.height,
@@ -322,7 +338,12 @@ export function calculateMomentOfInertia(
     }
 
     case "hollow-circle": {
-      if (!input.diameter || !input.innerDiameter) return null;
+      if (!input.diameter || !input.innerDiameter)
+        return {
+          ok: false,
+          error: "Hollow circle requires diameter and innerDiameter",
+          code: "INVALID_INPUT",
+        };
       const result = calculateHollowCircle(input.diameter, input.innerDiameter);
       Ix = result.I;
       Iy = result.I;
@@ -333,7 +354,12 @@ export function calculateMomentOfInertia(
     }
 
     case "triangle": {
-      if (!input.width || !input.height) return null;
+      if (!input.width || !input.height)
+        return {
+          ok: false,
+          error: "Triangle requires width (base) and height",
+          code: "INVALID_INPUT",
+        };
       const result = calculateTriangle(input.width, input.height);
       Ix = result.Ix;
       Iy = result.Iy;
@@ -345,7 +371,11 @@ export function calculateMomentOfInertia(
 
     case "i-beam": {
       if (!input.depth || !input.flangeWidth || !input.flangeThickness || !input.webThickness)
-        return null;
+        return {
+          ok: false,
+          error: "I-beam requires depth, flangeWidth, flangeThickness, and webThickness",
+          code: "INVALID_INPUT",
+        };
       const result = calculateIBeam(
         input.depth,
         input.flangeWidth,
@@ -369,7 +399,12 @@ export function calculateMomentOfInertia(
         !input.channelWebThickness ||
         !input.channelFlangeThickness
       )
-        return null;
+        return {
+          ok: false,
+          error:
+            "Channel requires channelDepth, channelWidth, channelWebThickness, and channelFlangeThickness",
+          code: "INVALID_INPUT",
+        };
       const result = calculateChannel(
         input.channelDepth,
         input.channelWidth,
@@ -384,7 +419,12 @@ export function calculateMomentOfInertia(
     }
 
     case "angle": {
-      if (!input.legWidth1 || !input.legWidth2 || !input.thickness) return null;
+      if (!input.legWidth1 || !input.legWidth2 || !input.thickness)
+        return {
+          ok: false,
+          error: "Angle requires legWidth1, legWidth2, and thickness",
+          code: "INVALID_INPUT",
+        };
       const result = calculateAngle(input.legWidth1, input.legWidth2, input.thickness);
       Ix = result.Ix;
       Iy = result.Iy;
@@ -394,7 +434,7 @@ export function calculateMomentOfInertia(
     }
 
     default:
-      return null;
+      return { ok: false, error: `Unknown shape: ${input.shape}`, code: "INVALID_INPUT" };
   }
 
   // Apply parallel axis theorem if offsets provided
@@ -419,19 +459,22 @@ export function calculateMomentOfInertia(
   steps.push(`Radius of gyration: ry = ${radiusOfGyrationY.toFixed(2)} mm`);
 
   return {
-    Ix,
-    Iy,
-    Ixy: 0, // Simplified: assume principal axes
-    area,
-    centroidX: 0,
-    centroidY: 0,
-    radiusOfGyrationX,
-    radiusOfGyrationY,
-    steps,
-    units: {
-      mm4: { Ix, Iy },
-      in4: { Ix: Ix / 416231.4, Iy: Iy / 416231.4 },
-      cm4: { Ix: Ix / 10000, Iy: Iy / 10000 },
+    ok: true,
+    value: {
+      Ix,
+      Iy,
+      Ixy: 0, // Simplified: assume principal axes
+      area,
+      centroidX: 0,
+      centroidY: 0,
+      radiusOfGyrationX,
+      radiusOfGyrationY,
+      steps,
+      units: {
+        mm4: { Ix, Iy },
+        in4: { Ix: Ix / 416231.4, Iy: Iy / 416231.4 },
+        cm4: { Ix: Ix / 10000, Iy: Iy / 10000 },
+      },
     },
   };
 }

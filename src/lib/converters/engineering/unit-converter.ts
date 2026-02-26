@@ -7,6 +7,8 @@
  * - NIST Handbook 44 (2024)
  */
 
+import type { CalculationResult } from "@/types";
+
 /**
  * Unit category with available units
  */
@@ -207,17 +209,25 @@ export const UNIT_CATEGORIES: UnitCategory[] = [
  * Conversion path: source → base unit → target
  * result = value × (fromUnit.toBase / toUnit.toBase)
  */
-export function calculateUnitConversion(input: UnitConverterInput): UnitConverterResult | null {
+export function calculateUnitConversion(
+  input: UnitConverterInput
+): CalculationResult<UnitConverterResult> {
   const { categoryId, fromUnit, toUnit, value } = input;
 
   // Find category
   const category = UNIT_CATEGORIES.find((c) => c.id === categoryId);
-  if (!category) return null;
+  if (!category)
+    return { ok: false, error: `Unknown unit category: ${categoryId}`, code: "INVALID_INPUT" };
 
   // Find units
   const from = category.units.find((u) => u.id === fromUnit);
   const to = category.units.find((u) => u.id === toUnit);
-  if (!from || !to) return null;
+  if (!from || !to)
+    return {
+      ok: false,
+      error: `Unknown unit: ${!from ? fromUnit : toUnit}`,
+      code: "INVALID_INPUT",
+    };
 
   const steps: string[] = [];
   steps.push(`Category: ${category.name}`);
@@ -250,13 +260,16 @@ export function calculateUnitConversion(input: UnitConverterInput): UnitConverte
   const formatted = formatResult(result);
 
   return {
-    result,
-    formatted,
-    fromUnit: { name: from.name, symbol: from.symbol },
-    toUnit: { name: to.name, symbol: to.symbol },
-    conversionFactor,
-    steps,
-    allConversions,
+    ok: true,
+    value: {
+      result,
+      formatted,
+      fromUnit: { name: from.name, symbol: from.symbol },
+      toUnit: { name: to.name, symbol: to.symbol },
+      conversionFactor,
+      steps,
+      allConversions,
+    },
   };
 }
 

@@ -1,5 +1,6 @@
 import beamSectionsData from "@/data/engineering/beam-sections.json";
 import materialsData from "@/data/engineering/materials.json";
+import type { CalculationResult } from "@/types";
 import type { BeamSection, Material } from "./types";
 
 /**
@@ -93,7 +94,9 @@ export interface ColumnBucklingResult {
  * - Length: m → mm (× 1000)
  * - Force: N → kN (÷ 1000)
  */
-export function calculateColumnBuckling(input: ColumnBucklingInput): ColumnBucklingResult | null {
+export function calculateColumnBuckling(
+  input: ColumnBucklingInput
+): CalculationResult<ColumnBucklingResult> {
   const {
     materialId,
     sectionId,
@@ -107,7 +110,9 @@ export function calculateColumnBuckling(input: ColumnBucklingInput): ColumnBuckl
   } = input;
 
   // Validation
-  if (length <= 0) return null;
+  if (length <= 0) {
+    return { ok: false, error: "Length must be positive", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
 
@@ -126,7 +131,13 @@ export function calculateColumnBuckling(input: ColumnBucklingInput): ColumnBuckl
     }
   }
 
-  if (E_GPa <= 0 || Fy_MPa <= 0) return null;
+  if (E_GPa <= 0 || Fy_MPa <= 0) {
+    return {
+      ok: false,
+      error: "Young's modulus and yield strength must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   // Get section properties - convert from imperial (in, in², in⁴) to metric (mm, mm², mm⁴)
   const IN2_TO_MM2 = 645.16;
@@ -153,7 +164,13 @@ export function calculateColumnBuckling(input: ColumnBucklingInput): ColumnBuckl
     }
   }
 
-  if (A_mm2 <= 0 || I_mm4 <= 0) return null;
+  if (A_mm2 <= 0 || I_mm4 <= 0) {
+    return {
+      ok: false,
+      error: "Cross-sectional area and moment of inertia must be positive",
+      code: "INVALID_INPUT",
+    };
+  }
 
   // K factor
   const K = END_CONDITION_K[endCondition];
@@ -243,20 +260,23 @@ export function calculateColumnBuckling(input: ColumnBucklingInput): ColumnBuckl
   };
 
   return {
-    eulerLoad: Pcr_kN,
-    effectiveLength,
-    kFactor: K,
-    slendernessRatio,
-    radiusOfGyration: r_mm,
-    criticalSlenderness,
-    bucklingMode,
-    allowableStress: Fcr_MPa,
-    allowableLoad: allowableLoad_kN,
-    eulerStress: Fe_MPa,
-    materialName,
-    sectionName,
-    steps,
-    loadUnits,
+    ok: true,
+    value: {
+      eulerLoad: Pcr_kN,
+      effectiveLength,
+      kFactor: K,
+      slendernessRatio,
+      radiusOfGyration: r_mm,
+      criticalSlenderness,
+      bucklingMode,
+      allowableStress: Fcr_MPa,
+      allowableLoad: allowableLoad_kN,
+      eulerStress: Fe_MPa,
+      materialName,
+      sectionName,
+      steps,
+      loadUnits,
+    },
   };
 }
 

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BeamDeflectionInput {
   beamType: "simply-supported" | "cantilever" | "fixed-fixed";
   loadType: "point-load" | "distributed-load";
@@ -41,21 +43,27 @@ export interface BeamDeflectionResult {
   };
 }
 
-export function calculateBeamDeflection(input: BeamDeflectionInput): BeamDeflectionResult | null {
+export function calculateBeamDeflection(
+  input: BeamDeflectionInput
+): CalculationResult<BeamDeflectionResult> {
   // Validate inputs
   if (input.length <= 0 || input.momentOfInertia <= 0 || input.youngsModulus <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Length, moment of inertia, and Young's modulus must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   if (input.loadType === "point-load" && (!input.pointLoad || input.pointLoad <= 0)) {
-    return null;
+    return { ok: false, error: "Point load must be positive", code: "INVALID_INPUT" };
   }
 
   if (
     input.loadType === "distributed-load" &&
     (!input.distributedLoad || input.distributedLoad <= 0)
   ) {
-    return null;
+    return { ok: false, error: "Distributed load must be positive", code: "INVALID_INPUT" };
   }
 
   const steps: string[] = [];
@@ -314,33 +322,36 @@ export function calculateBeamDeflection(input: BeamDeflectionInput): BeamDeflect
   );
 
   return {
-    maxDeflection: maxDeflection_mm,
-    maxDeflectionLocation: maxDeflectionLocation_m,
-    maxShear: maxShear_kN,
-    maxMoment: maxMoment_kNm,
-    slopeAtEnds: {
-      left: slopeLeft_rad,
-      right: slopeRight_rad,
+    ok: true,
+    value: {
+      maxDeflection: maxDeflection_mm,
+      maxDeflectionLocation: maxDeflectionLocation_m,
+      maxShear: maxShear_kN,
+      maxMoment: maxMoment_kNm,
+      slopeAtEnds: {
+        left: slopeLeft_rad,
+        right: slopeRight_rad,
+      },
+      shearDiagram,
+      momentDiagram,
+      deflectionCurve,
+      steps,
+      units: {
+        deflection: {
+          mm: maxDeflection_mm,
+          in: maxDeflection_mm / 25.4,
+          cm: maxDeflection_mm / 10,
+        },
+        moment: {
+          kNm: maxMoment_kNm,
+          ftlb: maxMoment_kNm * 737.562, // kN·m → ft·lb
+        },
+        shear: {
+          kN: maxShear_kN,
+          lb: maxShear_kN * 224.809, // kN → lb
+        },
+      },
+      deflectionRatios,
     },
-    shearDiagram,
-    momentDiagram,
-    deflectionCurve,
-    steps,
-    units: {
-      deflection: {
-        mm: maxDeflection_mm,
-        in: maxDeflection_mm / 25.4,
-        cm: maxDeflection_mm / 10,
-      },
-      moment: {
-        kNm: maxMoment_kNm,
-        ftlb: maxMoment_kNm * 737.562, // kN·m → ft·lb
-      },
-      shear: {
-        kN: maxShear_kN,
-        lb: maxShear_kN * 224.809, // kN → lb
-      },
-    },
-    deflectionRatios,
   };
 }

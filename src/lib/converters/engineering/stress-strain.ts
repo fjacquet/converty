@@ -1,4 +1,5 @@
 import materialsData from "@/data/engineering/materials.json";
+import type { CalculationResult } from "@/types";
 import type { Material } from "./types";
 
 /**
@@ -68,7 +69,9 @@ export interface StressStrainResult {
  * - Stress: N/mm² = MPa
  * - E: GPa → MPa (multiply by 1000)
  */
-export function calculateStressStrain(input: StressStrainInput): StressStrainResult | null {
+export function calculateStressStrain(
+  input: StressStrainInput
+): CalculationResult<StressStrainResult> {
   const {
     mode,
     force,
@@ -82,10 +85,10 @@ export function calculateStressStrain(input: StressStrainInput): StressStrainRes
 
   // Validation
   if (area <= 0 || originalLength <= 0) {
-    return null;
+    return { ok: false, error: "Area and original length must be positive", code: "INVALID_INPUT" };
   }
   if (force < 0) {
-    return null;
+    return { ok: false, error: "Force must be non-negative", code: "INVALID_INPUT" };
   }
 
   const steps: string[] = [];
@@ -178,7 +181,11 @@ export function calculateStressStrain(input: StressStrainInput): StressStrainRes
 
     // Calculate Young's modulus: E = σ / ε
     if (strain === 0) {
-      return null;
+      return {
+        ok: false,
+        error: "Strain cannot be zero when calculating Young's modulus",
+        code: "INVALID_INPUT",
+      };
     }
     youngsModulus = stress / (strain * 1000); // Convert MPa to GPa
 
@@ -217,15 +224,18 @@ export function calculateStressStrain(input: StressStrainInput): StressStrainRes
   };
 
   return {
-    stress,
-    strain,
-    youngsModulus,
-    safetyFactor,
-    exceedsYield,
-    materialName,
-    yieldStrength: yieldStrength > 0 ? yieldStrength : null,
-    steps,
-    stressUnits,
+    ok: true,
+    value: {
+      stress,
+      strain,
+      youngsModulus,
+      safetyFactor,
+      exceedsYield,
+      materialName,
+      yieldStrength: yieldStrength > 0 ? yieldStrength : null,
+      steps,
+      stressUnits,
+    },
   };
 }
 
