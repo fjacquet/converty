@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PythagoreanInput {
   mode: "findHypotenuse" | "findLeg";
   sideA: number;
@@ -19,29 +21,49 @@ export interface PythagoreanResult {
   isPythagoreanTriple: boolean;
 }
 
-export function calculatePythagorean(input: PythagoreanInput): PythagoreanResult | null {
+export function calculatePythagorean(
+  input: PythagoreanInput
+): CalculationResult<PythagoreanResult> {
   const { mode, sideA, sideB, hypotenuse } = input;
 
   let a: number, b: number, c: number;
 
   switch (mode) {
     case "findHypotenuse":
-      if (!sideB || sideA <= 0 || sideB <= 0) return null;
+      if (!sideB || sideA <= 0 || sideB <= 0) {
+        return {
+          ok: false,
+          error: "Both sides A and B must be positive to find the hypotenuse",
+          code: "INVALID_INPUT",
+        };
+      }
       a = sideA;
       b = sideB;
       c = Math.sqrt(a * a + b * b);
       break;
 
     case "findLeg":
-      if (!hypotenuse || sideA <= 0 || hypotenuse <= 0) return null;
-      if (sideA >= hypotenuse) return null; // Leg must be smaller than hypotenuse
+      if (!hypotenuse || sideA <= 0 || hypotenuse <= 0) {
+        return {
+          ok: false,
+          error: "Side A and hypotenuse must be positive to find the other leg",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (sideA >= hypotenuse) {
+        return {
+          ok: false,
+          error: "Leg must be smaller than the hypotenuse",
+          code: "INVALID_INPUT",
+        };
+      }
       a = sideA;
       c = hypotenuse;
       b = Math.sqrt(c * c - a * a);
       break;
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   // Calculate area
@@ -79,16 +101,19 @@ export function calculatePythagorean(input: PythagoreanInput): PythagoreanResult
   ];
 
   return {
-    sideA: a,
-    sideB: b,
-    hypotenuse: c,
-    area,
-    perimeter,
-    angles: { A: angleA, B: angleB },
-    isValid: true,
-    formula,
-    verification,
-    pythagoreanTriples,
-    isPythagoreanTriple,
+    ok: true,
+    value: {
+      sideA: a,
+      sideB: b,
+      hypotenuse: c,
+      area,
+      perimeter,
+      angles: { A: angleA, B: angleB },
+      isValid: true,
+      formula,
+      verification,
+      pythagoreanTriples,
+      isPythagoreanTriple,
+    },
   };
 }

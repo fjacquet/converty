@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DistanceInput {
   mode: "twoPoints2D" | "twoPoints3D" | "pointToLine" | "manhattan" | "haversine";
   // 2D points
@@ -40,7 +42,7 @@ function toDegrees(radians: number): number {
   return radians * (180 / Math.PI);
 }
 
-export function calculateDistance(input: DistanceInput): DistanceResult | null {
+export function calculateDistance(input: DistanceInput): CalculationResult<DistanceResult> {
   const { mode } = input;
   const steps: string[] = [];
   let distance: number;
@@ -54,7 +56,11 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
     case "twoPoints2D": {
       const { x1, y1, x2, y2 } = input;
       if (x1 === undefined || y1 === undefined || x2 === undefined || y2 === undefined) {
-        return null;
+        return {
+          ok: false,
+          error: "All four coordinates (x1, y1, x2, y2) are required",
+          code: "INVALID_INPUT",
+        };
       }
 
       const dx = x2 - x1;
@@ -91,7 +97,11 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
         y2 === undefined ||
         z2 === undefined
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "All six coordinates (x1, y1, z1, x2, y2, z2) are required",
+          code: "INVALID_INPUT",
+        };
       }
 
       const dx = x2 - x1;
@@ -127,7 +137,11 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
         lineB === undefined ||
         lineC === undefined
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "Point coordinates and line coefficients (a, b, c) are required",
+          code: "INVALID_INPUT",
+        };
       }
 
       // Distance from point (x₁, y₁) to line ax + by + c = 0
@@ -135,7 +149,13 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
       const numerator = Math.abs(lineA * x1 + lineB * y1 + lineC);
       const denominator = Math.sqrt(lineA * lineA + lineB * lineB);
 
-      if (denominator === 0) return null;
+      if (denominator === 0) {
+        return {
+          ok: false,
+          error: "Line coefficients a and b cannot both be zero",
+          code: "DIVISION_BY_ZERO",
+        };
+      }
 
       distance = numerator / denominator;
       distanceType = "Point to Line Distance";
@@ -154,7 +174,11 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
     case "manhattan": {
       const { x1, y1, x2, y2 } = input;
       if (x1 === undefined || y1 === undefined || x2 === undefined || y2 === undefined) {
-        return null;
+        return {
+          ok: false,
+          error: "All four coordinates (x1, y1, x2, y2) are required",
+          code: "INVALID_INPUT",
+        };
       }
 
       const dx = Math.abs(x2 - x1);
@@ -176,7 +200,11 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
     case "haversine": {
       const { lat1, lon1, lat2, lon2 } = input;
       if (lat1 === undefined || lon1 === undefined || lat2 === undefined || lon2 === undefined) {
-        return null;
+        return {
+          ok: false,
+          error: "All four geographic coordinates (lat1, lon1, lat2, lon2) are required",
+          code: "INVALID_INPUT",
+        };
       }
 
       // Haversine formula for great-circle distance
@@ -214,16 +242,19 @@ export function calculateDistance(input: DistanceInput): DistanceResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   return {
-    distance,
-    distanceType,
-    unit,
-    formula,
-    steps,
-    midpoint,
-    bearing,
+    ok: true,
+    value: {
+      distance,
+      distanceType,
+      unit,
+      formula,
+      steps,
+      midpoint,
+      bearing,
+    },
   };
 }

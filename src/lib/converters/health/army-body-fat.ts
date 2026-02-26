@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ArmyBodyFatInput {
   gender: "male" | "female";
   age: number;
@@ -17,15 +19,25 @@ export interface ArmyBodyFatResult {
   armyCategory: "pass" | "tape" | "fail";
 }
 
-export function calculateArmyBodyFat(input: ArmyBodyFatInput): ArmyBodyFatResult | null {
+export function calculateArmyBodyFat(
+  input: ArmyBodyFatInput
+): CalculationResult<ArmyBodyFatResult> {
   const { gender, age, height, neck, waist, hip } = input;
 
   if (height <= 0 || neck <= 0 || waist <= 0 || age <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Height, neck, waist, and age must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   if (gender === "female" && (!hip || hip <= 0)) {
-    return null;
+    return {
+      ok: false,
+      error: "Hip measurement is required for females and must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Convert measurements to inches for US Army formula
@@ -95,12 +107,15 @@ export function calculateArmyBodyFat(input: ArmyBodyFatInput): ArmyBodyFatResult
   }
 
   return {
-    bodyFatPercent,
-    maxAllowedPercent,
-    passesStandard,
-    category,
-    circumferenceValue: circumferenceValue * 2.54, // Convert back to cm for display
-    heightInches,
-    armyCategory,
+    ok: true,
+    value: {
+      bodyFatPercent,
+      maxAllowedPercent,
+      passesStandard,
+      category,
+      circumferenceValue: circumferenceValue * 2.54, // Convert back to cm for display
+      heightInches,
+      armyCategory,
+    },
   };
 }

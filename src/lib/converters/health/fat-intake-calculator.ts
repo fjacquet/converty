@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface FatIntakeInput {
   calories: number;
   goal: "weightLoss" | "maintenance" | "muscleGain" | "keto" | "lowFat";
@@ -49,11 +51,11 @@ export interface FatIntakeResult {
   };
 }
 
-export function calculateFatIntake(input: FatIntakeInput): FatIntakeResult | null {
+export function calculateFatIntake(input: FatIntakeInput): CalculationResult<FatIntakeResult> {
   const { calories, goal } = input;
 
   if (calories <= 0) {
-    return null;
+    return { ok: false, error: "Calories must be positive", code: "INVALID_INPUT" };
   }
 
   // Fat percentage based on goal
@@ -126,14 +128,17 @@ export function calculateFatIntake(input: FatIntakeInput): FatIntakeResult | nul
   };
 
   return {
-    dailyFatGrams,
-    dailyFatCalories,
-    fatPercent,
-    saturatedFatMax,
-    transFatMax,
-    omega3Min,
-    omega6Max,
-    breakdown,
-    foodSourceKeys,
+    ok: true,
+    value: {
+      dailyFatGrams,
+      dailyFatCalories,
+      fatPercent,
+      saturatedFatMax,
+      transFatMax,
+      omega3Min,
+      omega6Max,
+      breakdown,
+      foodSourceKeys,
+    },
   };
 }

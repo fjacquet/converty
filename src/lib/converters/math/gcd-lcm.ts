@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface GcdLcmInput {
   numbers: number[];
 }
@@ -56,11 +58,15 @@ function primeFactorization(n: number): Array<{ prime: number; power: number }> 
   return factors;
 }
 
-export function calculateGcdLcm(input: GcdLcmInput): GcdLcmResult | null {
+export function calculateGcdLcm(input: GcdLcmInput): CalculationResult<GcdLcmResult> {
   const { numbers } = input;
 
-  if (numbers.length === 0) return null;
-  if (numbers.some((n) => !Number.isInteger(n) || n === 0)) return null;
+  if (numbers.length === 0) {
+    return { ok: false, error: "At least one number is required", code: "INVALID_INPUT" };
+  }
+  if (numbers.some((n) => !Number.isInteger(n) || n === 0)) {
+    return { ok: false, error: "All numbers must be non-zero integers", code: "INVALID_INPUT" };
+  }
 
   const absNumbers = numbers.map((n) => Math.abs(Math.round(n)));
 
@@ -95,10 +101,13 @@ export function calculateGcdLcm(input: GcdLcmInput): GcdLcmResult | null {
   });
 
   return {
-    gcd,
-    lcm,
-    gcdSteps,
-    lcmSteps,
-    primeFactorizations,
+    ok: true,
+    value: {
+      gcd,
+      lcm,
+      gcdSteps,
+      lcmSteps,
+      primeFactorizations,
+    },
   };
 }

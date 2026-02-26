@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BacInput {
   gender: "male" | "female";
   weight: number; // kg
@@ -18,11 +20,15 @@ export interface BacResult {
   legalToDrive: boolean;
 }
 
-export function calculateBac(input: BacInput): BacResult | null {
+export function calculateBac(input: BacInput): CalculationResult<BacResult> {
   const { gender, weight, drinks, drinkType, customAlcoholGrams, hoursSinceDrinking } = input;
 
   if (weight <= 0 || drinks < 0 || hoursSinceDrinking < 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Weight must be positive and drinks and hours cannot be negative",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Standard drink alcohol content in grams
@@ -96,13 +102,16 @@ export function calculateBac(input: BacInput): BacResult | null {
   }
 
   return {
-    bac,
-    status,
-    timeToSober,
-    timeToLegal,
-    alcoholGrams,
-    peakBac,
-    effects,
-    legalToDrive: bac < legalLimit,
+    ok: true,
+    value: {
+      bac,
+      status,
+      timeToSober,
+      timeToLegal,
+      alcoholGrams,
+      peakBac,
+      effects,
+      legalToDrive: bac < legalLimit,
+    },
   };
 }

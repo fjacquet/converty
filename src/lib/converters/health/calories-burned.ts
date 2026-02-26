@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface CaloriesBurnedInput {
   weight: number; // kg
   activity: string;
@@ -47,16 +49,18 @@ export interface CaloriesBurnedResult {
   fatBurned: number; // grams
 }
 
-export function calculateCaloriesBurned(input: CaloriesBurnedInput): CaloriesBurnedResult | null {
+export function calculateCaloriesBurned(
+  input: CaloriesBurnedInput
+): CalculationResult<CaloriesBurnedResult> {
   const { weight, activity, duration } = input;
 
   if (weight <= 0 || duration <= 0) {
-    return null;
+    return { ok: false, error: "Weight and duration must be positive", code: "INVALID_INPUT" };
   }
 
   const activityData = activityMets[activity];
   if (!activityData) {
-    return null;
+    return { ok: false, error: "Unknown activity specified", code: "INVALID_INPUT" };
   }
 
   // Calories burned = MET × weight (kg) × duration (hours)
@@ -71,12 +75,15 @@ export function calculateCaloriesBurned(input: CaloriesBurnedInput): CaloriesBur
   const fatBurned = (caloriesBurned / 7700) * 1000; // grams
 
   return {
-    caloriesBurned,
-    caloriesPerMinute,
-    activityName: activityData.name,
-    met: activityData.met,
-    equivalentWalking,
-    fatBurned,
+    ok: true,
+    value: {
+      caloriesBurned,
+      caloriesPerMinute,
+      activityName: activityData.name,
+      met: activityData.met,
+      equivalentWalking,
+      fatBurned,
+    },
   };
 }
 

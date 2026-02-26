@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PermutationCombinationInput {
   mode: "permutation" | "combination" | "permutationRepetition" | "combinationRepetition";
   n: number; // Total items
@@ -63,10 +65,12 @@ function combination(n: number, r: number): number {
 
 export function calculatePermutationCombination(
   input: PermutationCombinationInput
-): PermutationCombinationResult | null {
+): CalculationResult<PermutationCombinationResult> {
   const { mode, n, r } = input;
 
-  if (!Number.isInteger(n) || !Number.isInteger(r) || n < 0 || r < 0) return null;
+  if (!Number.isInteger(n) || !Number.isInteger(r) || n < 0 || r < 0) {
+    return { ok: false, error: "n and r must be non-negative integers", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   let result: number;
@@ -82,7 +86,13 @@ export function calculatePermutationCombination(
   switch (mode) {
     case "permutation": {
       // nPr = n! / (n-r)!
-      if (r > n) return null;
+      if (r > n) {
+        return {
+          ok: false,
+          error: "r cannot be greater than n for permutation",
+          code: "INVALID_INPUT",
+        };
+      }
 
       result = permutation(n, r);
       formula = "P(n,r) = n! / (n-r)!";
@@ -107,7 +117,13 @@ export function calculatePermutationCombination(
 
     case "combination": {
       // nCr = n! / (r! × (n-r)!)
-      if (r > n) return null;
+      if (r > n) {
+        return {
+          ok: false,
+          error: "r cannot be greater than n for combination",
+          code: "INVALID_INPUT",
+        };
+      }
 
       result = combination(n, r);
       formula = "C(n,r) = n! / (r! × (n-r)!)";
@@ -172,20 +188,23 @@ export function calculatePermutationCombination(
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   return {
-    result,
-    formula,
-    notation,
-    factorials: {
-      nFactorial,
-      rFactorial,
-      nMinusRFactorial,
+    ok: true,
+    value: {
+      result,
+      formula,
+      notation,
+      factorials: {
+        nFactorial,
+        rFactorial,
+        nMinusRFactorial,
+      },
+      steps,
+      interpretation,
+      examples,
     },
-    steps,
-    interpretation,
-    examples,
   };
 }

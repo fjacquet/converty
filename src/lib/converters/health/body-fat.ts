@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BodyFatInput {
   gender: "male" | "female";
   age: number;
@@ -18,15 +20,23 @@ export interface BodyFatResult {
   idealBodyFatMax: number;
 }
 
-export function calculateBodyFat(input: BodyFatInput): BodyFatResult | null {
+export function calculateBodyFat(input: BodyFatInput): CalculationResult<BodyFatResult> {
   const { gender, age: _age, weight, height, neck, waist, hip } = input;
 
   if (weight <= 0 || height <= 0 || neck <= 0 || waist <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Weight, height, neck, and waist must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   if (gender === "female" && (!hip || hip <= 0)) {
-    return null;
+    return {
+      ok: false,
+      error: "Hip measurement is required for females and must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // US Navy Method for body fat calculation
@@ -71,12 +81,15 @@ export function calculateBodyFat(input: BodyFatInput): BodyFatResult | null {
   }
 
   return {
-    bodyFatPercent,
-    fatMass,
-    leanMass,
-    category,
-    bmi,
-    idealBodyFatMin,
-    idealBodyFatMax,
+    ok: true,
+    value: {
+      bodyFatPercent,
+      fatMass,
+      leanMass,
+      category,
+      bmi,
+      idealBodyFatMin,
+      idealBodyFatMax,
+    },
   };
 }

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BinaryInput {
   mode: "decimalToBinary" | "binaryToDecimal" | "binaryOperation";
   decimal?: number;
@@ -80,7 +82,7 @@ function binaryNot(a: string): string {
     .join("");
 }
 
-export function calculateBinary(input: BinaryInput): BinaryResult | null {
+export function calculateBinary(input: BinaryInput): CalculationResult<BinaryResult> {
   const { mode, decimal: inputDecimal, binary: inputBinary, binary2, operation } = input;
   const steps: string[] = [];
 
@@ -89,16 +91,20 @@ export function calculateBinary(input: BinaryInput): BinaryResult | null {
 
   switch (mode) {
     case "decimalToBinary": {
-      if (inputDecimal === undefined || !Number.isInteger(inputDecimal)) return null;
+      if (inputDecimal === undefined || !Number.isInteger(inputDecimal)) {
+        return {
+          ok: false,
+          error: "A valid integer is required for decimal to binary conversion",
+          code: "INVALID_INPUT",
+        };
+      }
       decimal = inputDecimal;
       binary = decimalToBinary(decimal);
       steps.push(`Converting ${decimal} to binary:`);
 
       // Show division steps
       let temp = Math.abs(decimal);
-      const remainders: number[] = [];
       while (temp > 0) {
-        remainders.push(temp % 2);
         steps.push(`${temp} ÷ 2 = ${Math.floor(temp / 2)} remainder ${temp % 2}`);
         temp = Math.floor(temp / 2);
       }
@@ -107,7 +113,13 @@ export function calculateBinary(input: BinaryInput): BinaryResult | null {
     }
 
     case "binaryToDecimal": {
-      if (!inputBinary || !isValidBinary(inputBinary)) return null;
+      if (!inputBinary || !isValidBinary(inputBinary)) {
+        return {
+          ok: false,
+          error: "A valid binary string (only 0s and 1s) is required",
+          code: "INVALID_INPUT",
+        };
+      }
       binary = inputBinary;
       decimal = binaryToDecimal(binary);
       steps.push(`Converting ${binary} to decimal:`);
@@ -126,28 +138,39 @@ export function calculateBinary(input: BinaryInput): BinaryResult | null {
     }
 
     case "binaryOperation": {
-      if (!inputBinary || !isValidBinary(inputBinary)) return null;
+      if (!inputBinary || !isValidBinary(inputBinary)) {
+        return { ok: false, error: "A valid binary string is required", code: "INVALID_INPUT" };
+      }
       binary = inputBinary;
       decimal = binaryToDecimal(binary);
 
       if (operation === "not") {
         const result = binaryNot(binary);
         return {
-          decimal,
-          binary,
-          octal: decimal.toString(8),
-          hexadecimal: decimal.toString(16).toUpperCase(),
-          operationResult: {
-            binary: result,
-            decimal: binaryToDecimal(result),
+          ok: true,
+          value: {
+            decimal,
+            binary,
+            octal: decimal.toString(8),
+            hexadecimal: decimal.toString(16).toUpperCase(),
+            operationResult: {
+              binary: result,
+              decimal: binaryToDecimal(result),
+            },
+            steps: [`NOT ${binary} = ${result}`],
+            bitCount: binary.length,
+            twosComplement: decimalToBinary(-decimal),
           },
-          steps: [`NOT ${binary} = ${result}`],
-          bitCount: binary.length,
-          twosComplement: decimalToBinary(-decimal),
         };
       }
 
-      if (!binary2 || !isValidBinary(binary2)) return null;
+      if (!binary2 || !isValidBinary(binary2)) {
+        return {
+          ok: false,
+          error: "A valid second binary string is required for this operation",
+          code: "INVALID_INPUT",
+        };
+      }
 
       let resultBinary: string;
       switch (operation) {
@@ -176,26 +199,29 @@ export function calculateBinary(input: BinaryInput): BinaryResult | null {
           steps.push(`${binary} XOR ${binary2} = ${resultBinary}`);
           break;
         default:
-          return null;
+          return { ok: false, error: "Unknown binary operation", code: "INVALID_INPUT" };
       }
 
       return {
-        decimal,
-        binary,
-        octal: decimal.toString(8),
-        hexadecimal: decimal.toString(16).toUpperCase(),
-        operationResult: {
-          binary: resultBinary,
-          decimal: binaryToDecimal(resultBinary),
+        ok: true,
+        value: {
+          decimal,
+          binary,
+          octal: decimal.toString(8),
+          hexadecimal: decimal.toString(16).toUpperCase(),
+          operationResult: {
+            binary: resultBinary,
+            decimal: binaryToDecimal(resultBinary),
+          },
+          steps,
+          bitCount: binary.length,
+          twosComplement: decimalToBinary(-decimal),
         },
-        steps,
-        bitCount: binary.length,
-        twosComplement: decimalToBinary(-decimal),
       };
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const octal = decimal >= 0 ? decimal.toString(8) : (decimal >>> 0).toString(8);
@@ -206,12 +232,15 @@ export function calculateBinary(input: BinaryInput): BinaryResult | null {
   const twosComplement = decimal >= 0 ? binary.padStart(32, "0") : decimalToBinary(-decimal);
 
   return {
-    decimal,
-    binary,
-    octal,
-    hexadecimal,
-    steps,
-    bitCount: binary.length,
-    twosComplement,
+    ok: true,
+    value: {
+      decimal,
+      binary,
+      octal,
+      hexadecimal,
+      steps,
+      bitCount: binary.length,
+      twosComplement,
+    },
   };
 }

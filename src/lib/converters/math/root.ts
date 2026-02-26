@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface RootInput {
   radicand: number; // The number under the radical
   index: number; // The root index (2 for square root, 3 for cube root, etc.)
@@ -38,13 +40,19 @@ function simplifyRadical(
   return { coefficient, radicand: remaining };
 }
 
-export function calculateRoot(input: RootInput): RootResult | null {
+export function calculateRoot(input: RootInput): CalculationResult<RootResult> {
   const { radicand, index } = input;
 
   // Validate inputs
-  if (index < 1) return null;
+  if (index < 1) {
+    return { ok: false, error: "Root index must be at least 1", code: "INVALID_INPUT" };
+  }
   if (radicand < 0 && index % 2 === 0) {
-    return null; // Even roots of negative numbers are not real
+    return {
+      ok: false,
+      error: "Even roots of negative numbers are not real",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate the root
@@ -90,12 +98,15 @@ export function calculateRoot(input: RootInput): RootResult | null {
   }
 
   return {
-    result,
-    isRational,
-    simplified,
-    formula,
-    asFraction,
-    verification,
-    relatedRoots,
+    ok: true,
+    value: {
+      result,
+      isRational,
+      simplified,
+      formula,
+      asFraction,
+      verification,
+      relatedRoots,
+    },
   };
 }

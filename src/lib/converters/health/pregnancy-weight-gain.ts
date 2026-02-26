@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PregnancyWeightGainInput {
   prePregnancyWeight: number; // kg
   currentWeight: number; // kg
@@ -30,11 +32,16 @@ export interface PregnancyWeightGainResult {
 
 export function calculatePregnancyWeightGain(
   input: PregnancyWeightGainInput
-): PregnancyWeightGainResult | null {
+): CalculationResult<PregnancyWeightGainResult> {
   const { prePregnancyWeight, currentWeight, height, weeksPregnant, twins } = input;
 
   if (prePregnancyWeight <= 0 || height <= 0 || weeksPregnant < 0 || weeksPregnant > 42) {
-    return null;
+    return {
+      ok: false,
+      error:
+        "Pre-pregnancy weight and height must be positive, and weeks pregnant must be between 0 and 42",
+      code: "INVALID_INPUT",
+    };
   }
 
   const heightM = height / 100;
@@ -114,15 +121,18 @@ export function calculatePregnancyWeightGain(
   };
 
   return {
-    prePregnancyBmi,
-    bmiCategory,
-    currentWeightGain,
-    recommendedGainMin,
-    recommendedGainMax,
-    recommendedGainAtWeek,
-    status,
-    weeklyGainRate: weeklyGainSecondThird,
-    projectedTotalGain,
-    breakdown,
+    ok: true,
+    value: {
+      prePregnancyBmi,
+      bmiCategory,
+      currentWeightGain,
+      recommendedGainMin,
+      recommendedGainMax,
+      recommendedGainAtWeek,
+      status,
+      weeklyGainRate: weeklyGainSecondThird,
+      projectedTotalGain,
+      breakdown,
+    },
   };
 }

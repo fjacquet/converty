@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface WaterIntakeInput {
   weight: number; // kg
   activityLevel: "sedentary" | "light" | "moderate" | "active" | "athlete";
@@ -45,11 +47,13 @@ export interface WaterIntakeResult {
   }>;
 }
 
-export function calculateWaterIntake(input: WaterIntakeInput): WaterIntakeResult | null {
+export function calculateWaterIntake(
+  input: WaterIntakeInput
+): CalculationResult<WaterIntakeResult> {
   const { weight, activityLevel, climate, pregnant, breastfeeding } = input;
 
   if (weight <= 0) {
-    return null;
+    return { ok: false, error: "Weight must be positive", code: "INVALID_INPUT" };
   }
 
   // Base water needs: 30-35ml per kg body weight
@@ -119,18 +123,21 @@ export function calculateWaterIntake(input: WaterIntakeInput): WaterIntakeResult
   ];
 
   return {
-    dailyIntakeMl,
-    dailyIntakeLiters,
-    dailyIntakeOz,
-    dailyIntakeCups,
-    hourlyReminder,
-    breakdown: {
-      baseNeeds,
-      activityAddition,
-      climateAddition,
-      specialAddition,
+    ok: true,
+    value: {
+      dailyIntakeMl,
+      dailyIntakeLiters,
+      dailyIntakeOz,
+      dailyIntakeCups,
+      hourlyReminder,
+      breakdown: {
+        baseNeeds,
+        activityAddition,
+        climateAddition,
+        specialAddition,
+      },
+      tipKeys,
+      schedule,
     },
-    tipKeys,
-    schedule,
   };
 }

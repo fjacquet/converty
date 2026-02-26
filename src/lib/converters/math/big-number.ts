@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BigNumberInput {
   mode: "add" | "subtract" | "multiply" | "divide" | "power" | "factorial" | "compare";
   numberA: string;
@@ -155,12 +157,16 @@ function toScientificNotation(num: string, precision: number = 6): string {
   return `${mantissa} × 10^${exponent}`;
 }
 
-export function calculateBigNumber(input: BigNumberInput): BigNumberResult | null {
+export function calculateBigNumber(input: BigNumberInput): CalculationResult<BigNumberResult> {
   const { mode, numberA, numberB, precision = 10 } = input;
 
   // Validate inputs are valid integers
-  if (!/^-?\d+$/.test(numberA)) return null;
-  if (numberB && !/^-?\d+$/.test(numberB)) return null;
+  if (!/^-?\d+$/.test(numberA)) {
+    return { ok: false, error: "numberA must be a valid integer", code: "INVALID_INPUT" };
+  }
+  if (numberB && !/^-?\d+$/.test(numberB)) {
+    return { ok: false, error: "numberB must be a valid integer", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   let result: string;
@@ -175,7 +181,9 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
 
   switch (mode) {
     case "add": {
-      if (!numberB || !absB) return null;
+      if (!numberB || !absB) {
+        return { ok: false, error: "numberB is required for addition", code: "INVALID_INPUT" };
+      }
 
       operation = `${numberA} + ${numberB}`;
 
@@ -203,7 +211,9 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
     }
 
     case "subtract": {
-      if (!numberB || !absB) return null;
+      if (!numberB || !absB) {
+        return { ok: false, error: "numberB is required for subtraction", code: "INVALID_INPUT" };
+      }
 
       operation = `${numberA} - ${numberB}`;
 
@@ -232,7 +242,13 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
     }
 
     case "multiply": {
-      if (!numberB || !absB) return null;
+      if (!numberB || !absB) {
+        return {
+          ok: false,
+          error: "numberB is required for multiplication",
+          code: "INVALID_INPUT",
+        };
+      }
 
       operation = `${numberA} × ${numberB}`;
       result = multiplyBigIntegers(absA, absB);
@@ -249,7 +265,13 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
     }
 
     case "divide": {
-      if (!numberB || !absB || absB === "0") return null;
+      if (!numberB || !absB || absB === "0") {
+        return {
+          ok: false,
+          error: "numberB must be a non-zero integer for division",
+          code: "DIVISION_BY_ZERO",
+        };
+      }
 
       operation = `${numberA} ÷ ${numberB}`;
 
@@ -265,16 +287,28 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
         steps.push(`Quotient: ${result}`);
         steps.push(`Remainder: ${remainder.toString()}`);
       } catch {
-        return null;
+        return { ok: false, error: "Division calculation failed", code: "CALCULATION_ERROR" };
       }
       break;
     }
 
     case "power": {
-      if (!numberB || !absB) return null;
+      if (!numberB || !absB) {
+        return {
+          ok: false,
+          error: "numberB is required for power operation",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const exp = parseInt(numberB);
-      if (exp < 0) return null;
+      if (exp < 0) {
+        return {
+          ok: false,
+          error: "Exponent must be non-negative for big number power",
+          code: "INVALID_INPUT",
+        };
+      }
 
       operation = `${numberA}^${numberB}`;
 
@@ -299,7 +333,13 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
 
     case "factorial": {
       const n = parseInt(numberA);
-      if (n < 0 || n > 10000) return null;
+      if (n < 0 || n > 10000) {
+        return {
+          ok: false,
+          error: "Number must be between 0 and 10000 for factorial",
+          code: "INVALID_INPUT",
+        };
+      }
 
       operation = `${n}!`;
       result = factorialBig(n);
@@ -311,7 +351,9 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
     }
 
     case "compare": {
-      if (!numberB || !absB) return null;
+      if (!numberB || !absB) {
+        return { ok: false, error: "numberB is required for comparison", code: "INVALID_INPUT" };
+      }
 
       operation = `Compare ${numberA} and ${numberB}`;
 
@@ -344,19 +386,22 @@ export function calculateBigNumber(input: BigNumberInput): BigNumberResult | nul
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const absResult = result.replace("-", "");
 
   return {
-    result,
-    operation,
-    numberA,
-    numberB,
-    scientificNotation: toScientificNotation(absResult, precision),
-    digitCount: absResult.length,
-    steps,
-    comparison,
+    ok: true,
+    value: {
+      result,
+      operation,
+      numberA,
+      numberB,
+      scientificNotation: toScientificNotation(absResult, precision),
+      digitCount: absResult.length,
+      steps,
+      comparison,
+    },
   };
 }

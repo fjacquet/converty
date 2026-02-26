@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface FactorInput {
   mode: "factors" | "factorPairs" | "commonFactors" | "factorTree";
   number: number;
@@ -99,10 +101,12 @@ function gcd(a: number, b: number): number {
   return a;
 }
 
-export function calculateFactor(input: FactorInput): FactorResult | null {
+export function calculateFactor(input: FactorInput): CalculationResult<FactorResult> {
   const { mode, number, number2 } = input;
 
-  if (!Number.isInteger(number) || number <= 0) return null;
+  if (!Number.isInteger(number) || number <= 0) {
+    return { ok: false, error: "Number must be a positive integer", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   const factors = getFactors(number);
@@ -143,19 +147,22 @@ export function calculateFactor(input: FactorInput): FactorResult | null {
   }
 
   return {
-    number,
-    factors,
-    factorPairs,
-    primeFactors,
-    primeFactorization: formatPrimeFactorization(primeFactors),
-    factorCount: factors.length,
-    factorSum: factors.reduce((a, b) => a + b, 0),
-    isPrime: isPrime(number),
-    isPerfect: isPerfectNumber,
-    isAbundant,
-    isDeficient,
-    commonFactors,
-    greatestCommonFactor,
-    steps,
+    ok: true,
+    value: {
+      number,
+      factors,
+      factorPairs,
+      primeFactors,
+      primeFactorization: formatPrimeFactorization(primeFactors),
+      factorCount: factors.length,
+      factorSum: factors.reduce((a, b) => a + b, 0),
+      isPrime: isPrime(number),
+      isPerfect: isPerfectNumber,
+      isAbundant,
+      isDeficient,
+      commonFactors,
+      greatestCommonFactor,
+      steps,
+    },
   };
 }

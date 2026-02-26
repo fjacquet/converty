@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface OvulationInput {
   lastPeriodDate: string; // ISO date string
   cycleLength: number; // days
@@ -25,12 +27,16 @@ export interface OvulationResult {
   }>;
 }
 
-export function calculateOvulation(input: OvulationInput): OvulationResult | null {
+export function calculateOvulation(input: OvulationInput): CalculationResult<OvulationResult> {
   const { lastPeriodDate, cycleLength, periodLength: _periodLength = 5 } = input;
 
   const lmpDate = new Date(lastPeriodDate);
   if (Number.isNaN(lmpDate.getTime()) || cycleLength < 21 || cycleLength > 40) {
-    return null;
+    return {
+      ok: false,
+      error: "Invalid date or cycle length must be between 21 and 40 days",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Ovulation typically occurs 14 days before the next period
@@ -111,13 +117,16 @@ export function calculateOvulation(input: OvulationInput): OvulationResult | nul
   }
 
   return {
-    ovulationDate: ovulationDate.toISOString().split("T")[0],
-    fertileWindowStart: fertileWindowStart.toISOString().split("T")[0],
-    fertileWindowEnd: fertileWindowEnd.toISOString().split("T")[0],
-    nextPeriodDate: nextPeriodDate.toISOString().split("T")[0],
-    safePeriodsBefore,
-    safePeriodsAfter,
-    fertileWindow,
-    upcomingCycles,
+    ok: true,
+    value: {
+      ovulationDate: ovulationDate.toISOString().split("T")[0],
+      fertileWindowStart: fertileWindowStart.toISOString().split("T")[0],
+      fertileWindowEnd: fertileWindowEnd.toISOString().split("T")[0],
+      nextPeriodDate: nextPeriodDate.toISOString().split("T")[0],
+      safePeriodsBefore,
+      safePeriodsAfter,
+      fertileWindow,
+      upcomingCycles,
+    },
   };
 }

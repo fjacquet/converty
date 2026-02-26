@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ProbabilityInput {
   mode:
     | "single"
@@ -46,7 +48,9 @@ function permutation(n: number, r: number): number {
   return factorial(n) / factorial(n - r);
 }
 
-export function calculateProbability(input: ProbabilityInput): ProbabilityResult | null {
+export function calculateProbability(
+  input: ProbabilityInput
+): CalculationResult<ProbabilityResult> {
   const { mode } = input;
   let result: number;
   let formula: string;
@@ -56,7 +60,9 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
   switch (mode) {
     case "single": {
       const { probabilityA } = input;
-      if (probabilityA === undefined || probabilityA < 0 || probabilityA > 1) return null;
+      if (probabilityA === undefined || probabilityA < 0 || probabilityA > 1) {
+        return { ok: false, error: "Probability A must be between 0 and 1", code: "INVALID_INPUT" };
+      }
       result = probabilityA;
       formula = "P(A)";
       explanation = `The probability of event A is ${(probabilityA * 100).toFixed(2)}%`;
@@ -67,8 +73,16 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
     case "and": {
       // P(A and B) = P(A) × P(B) for independent events
       const { probabilityA, probabilityB } = input;
-      if (probabilityA === undefined || probabilityB === undefined) return null;
-      if (probabilityA < 0 || probabilityA > 1 || probabilityB < 0 || probabilityB > 1) return null;
+      if (probabilityA === undefined || probabilityB === undefined) {
+        return {
+          ok: false,
+          error: "Both probability A and probability B are required",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (probabilityA < 0 || probabilityA > 1 || probabilityB < 0 || probabilityB > 1) {
+        return { ok: false, error: "Probabilities must be between 0 and 1", code: "INVALID_INPUT" };
+      }
       result = probabilityA * probabilityB;
       formula = "P(A ∩ B) = P(A) × P(B)";
       explanation = "For independent events, multiply the probabilities";
@@ -80,8 +94,16 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
     case "or": {
       // P(A or B) = P(A) + P(B) - P(A and B)
       const { probabilityA, probabilityB, probabilityAandB = 0 } = input;
-      if (probabilityA === undefined || probabilityB === undefined) return null;
-      if (probabilityA < 0 || probabilityA > 1 || probabilityB < 0 || probabilityB > 1) return null;
+      if (probabilityA === undefined || probabilityB === undefined) {
+        return {
+          ok: false,
+          error: "Both probability A and probability B are required",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (probabilityA < 0 || probabilityA > 1 || probabilityB < 0 || probabilityB > 1) {
+        return { ok: false, error: "Probabilities must be between 0 and 1", code: "INVALID_INPUT" };
+      }
       result = probabilityA + probabilityB - probabilityAandB;
       result = Math.min(1, Math.max(0, result));
       formula = "P(A ∪ B) = P(A) + P(B) - P(A ∩ B)";
@@ -94,8 +116,20 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
     case "conditional": {
       // P(A|B) = P(A and B) / P(B)
       const { probabilityAandB, probabilityB } = input;
-      if (probabilityAandB === undefined || probabilityB === undefined) return null;
-      if (probabilityB === 0) return null;
+      if (probabilityAandB === undefined || probabilityB === undefined) {
+        return {
+          ok: false,
+          error: "P(A and B) and P(B) are required for conditional probability",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (probabilityB === 0) {
+        return {
+          ok: false,
+          error: "P(B) cannot be zero for conditional probability",
+          code: "DIVISION_BY_ZERO",
+        };
+      }
       result = probabilityAandB / probabilityB;
       formula = "P(A|B) = P(A ∩ B) / P(B)";
       explanation = "The probability of A given that B has occurred";
@@ -106,7 +140,9 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
 
     case "complement": {
       const { probabilityA } = input;
-      if (probabilityA === undefined || probabilityA < 0 || probabilityA > 1) return null;
+      if (probabilityA === undefined || probabilityA < 0 || probabilityA > 1) {
+        return { ok: false, error: "Probability A must be between 0 and 1", code: "INVALID_INPUT" };
+      }
       result = 1 - probabilityA;
       formula = "P(A') = 1 - P(A)";
       explanation = "The probability that A does NOT occur";
@@ -117,10 +153,23 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
 
     case "binomial": {
       const { trials, successes, probabilityA } = input;
-      if (trials === undefined || successes === undefined || probabilityA === undefined)
-        return null;
-      if (trials < 0 || successes < 0 || successes > trials) return null;
-      if (probabilityA < 0 || probabilityA > 1) return null;
+      if (trials === undefined || successes === undefined || probabilityA === undefined) {
+        return {
+          ok: false,
+          error: "Trials, successes, and probability are required for binomial",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (trials < 0 || successes < 0 || successes > trials) {
+        return {
+          ok: false,
+          error: "Trials and successes must be non-negative, successes cannot exceed trials",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (probabilityA < 0 || probabilityA > 1) {
+        return { ok: false, error: "Probability must be between 0 and 1", code: "INVALID_INPUT" };
+      }
 
       const n = trials;
       const k = successes;
@@ -139,7 +188,13 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
 
     case "permutation": {
       const { n, r } = input;
-      if (n === undefined || r === undefined || n < 0 || r < 0 || r > n) return null;
+      if (n === undefined || r === undefined || n < 0 || r < 0 || r > n) {
+        return {
+          ok: false,
+          error: "Valid n and r values are required (r ≤ n, both non-negative)",
+          code: "INVALID_INPUT",
+        };
+      }
       result = permutation(n, r);
       formula = "P(n,r) = n! / (n-r)!";
       explanation = `Number of ways to arrange ${r} items from ${n} items (order matters)`;
@@ -150,7 +205,13 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
 
     case "combination": {
       const { n, r } = input;
-      if (n === undefined || r === undefined || n < 0 || r < 0 || r > n) return null;
+      if (n === undefined || r === undefined || n < 0 || r < 0 || r > n) {
+        return {
+          ok: false,
+          error: "Valid n and r values are required (r ≤ n, both non-negative)",
+          code: "INVALID_INPUT",
+        };
+      }
       result = combination(n, r);
       formula = "C(n,r) = n! / (r! × (n-r)!)";
       explanation = `Number of ways to choose ${r} items from ${n} items (order doesn't matter)`;
@@ -160,7 +221,7 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   // Calculate odds
@@ -169,14 +230,17 @@ export function calculateProbability(input: ProbabilityInput): ProbabilityResult
   const oddsAgainst = (1 - result) / result;
 
   return {
-    result,
-    percentage,
-    odds: {
-      for: Number.isFinite(oddsFor) ? `${oddsFor.toFixed(2)} to 1` : "∞",
-      against: Number.isFinite(oddsAgainst) ? `${oddsAgainst.toFixed(2)} to 1` : "∞",
+    ok: true,
+    value: {
+      result,
+      percentage,
+      odds: {
+        for: Number.isFinite(oddsFor) ? `${oddsFor.toFixed(2)} to 1` : "∞",
+        against: Number.isFinite(oddsAgainst) ? `${oddsAgainst.toFixed(2)} to 1` : "∞",
+      },
+      formula,
+      explanation,
+      steps,
     },
-    formula,
-    explanation,
-    steps,
   };
 }

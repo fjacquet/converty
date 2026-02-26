@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 // Category keys for translation lookup
 export type CorpulenceCategoryKey =
   | "underweight"
@@ -22,8 +24,10 @@ export function calculateCorpulence(
   weight: number,
   height: number,
   unit: "metric" | "imperial" = "metric"
-): CorpulenceResult | null {
-  if (weight <= 0 || height <= 0) return null;
+): CalculationResult<CorpulenceResult> {
+  if (weight <= 0 || height <= 0) {
+    return { ok: false, error: "Weight and height must be positive", code: "INVALID_INPUT" };
+  }
 
   let weightKg: number;
   let heightM: number;
@@ -43,8 +47,11 @@ export function calculateCorpulence(
   const categoryKey = getCorpulenceCategory(corpulenceIndex);
 
   return {
-    corpulenceIndex: Math.round(corpulenceIndex * 100) / 100,
-    categoryKey,
+    ok: true,
+    value: {
+      corpulenceIndex: Math.round(corpulenceIndex * 100) / 100,
+      categoryKey,
+    },
   };
 }
 
@@ -69,8 +76,10 @@ export function compareToBMI(
   weight: number,
   height: number,
   unit: "metric" | "imperial" = "metric"
-): { bmi: number; ci: number; comparisonKey: ComparisonKey } | null {
-  if (weight <= 0 || height <= 0) return null;
+): CalculationResult<{ bmi: number; ci: number; comparisonKey: ComparisonKey }> {
+  if (weight <= 0 || height <= 0) {
+    return { ok: false, error: "Weight and height must be positive", code: "INVALID_INPUT" };
+  }
 
   let weightKg: number;
   let heightM: number;
@@ -96,8 +105,11 @@ export function compareToBMI(
   }
 
   return {
-    bmi: Math.round(bmi * 100) / 100,
-    ci: Math.round(ci * 100) / 100,
-    comparisonKey,
+    ok: true,
+    value: {
+      bmi: Math.round(bmi * 100) / 100,
+      ci: Math.round(ci * 100) / 100,
+      comparisonKey,
+    },
   };
 }

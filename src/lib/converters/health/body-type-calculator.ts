@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BodyTypeInput {
   gender: "male" | "female";
   wristCircumference: number; // cm
@@ -18,11 +20,15 @@ export interface BodyTypeResult {
   nutritionRecommendations: string[];
 }
 
-export function calculateBodyType(input: BodyTypeInput): BodyTypeResult | null {
+export function calculateBodyType(input: BodyTypeInput): CalculationResult<BodyTypeResult> {
   const { gender, wristCircumference, height, shoulderWidth, hipWidth, waist } = input;
 
   if (wristCircumference <= 0 || height <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Wrist circumference and height must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Frame size calculation using wrist circumference
@@ -145,13 +151,16 @@ export function calculateBodyType(input: BodyTypeInput): BodyTypeResult | null {
   }
 
   return {
-    frameSize,
-    bodyType,
-    wristRatio,
-    shoulderToHipRatio,
-    waistToHipRatio,
-    characteristics,
-    trainingRecommendations,
-    nutritionRecommendations,
+    ok: true,
+    value: {
+      frameSize,
+      bodyType,
+      wristRatio,
+      shoulderToHipRatio,
+      waistToHipRatio,
+      characteristics,
+      trainingRecommendations,
+      nutritionRecommendations,
+    },
   };
 }

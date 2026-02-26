@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export type WeightUnit = "kg" | "lb";
 export type HeightUnit = "cm" | "m" | "in" | "ft";
 
@@ -49,18 +51,18 @@ function getBMICategory(bmi: number): BMICategory {
   return "obese-3";
 }
 
-export function calculateBMI(input: BMIInput): BMIResult | null {
+export function calculateBMI(input: BMIInput): CalculationResult<BMIResult> {
   const { weight, weightUnit, height, heightUnit } = input;
 
   if (weight <= 0 || height <= 0) {
-    return null;
+    return { ok: false, error: "Weight and height must be positive", code: "INVALID_INPUT" };
   }
 
   const weightKg = convertWeightToKg(weight, weightUnit);
   const heightM = convertHeightToMeters(height, heightUnit);
 
   if (heightM <= 0) {
-    return null;
+    return { ok: false, error: "Height must be positive", code: "INVALID_INPUT" };
   }
 
   const bmi = weightKg / (heightM * heightM);
@@ -81,9 +83,12 @@ export function calculateBMI(input: BMIInput): BMIResult | null {
   }
 
   return {
-    bmi: Math.round(bmi * 10) / 10,
-    category,
-    healthyWeightRange,
-    weightToHealthy,
+    ok: true,
+    value: {
+      bmi: Math.round(bmi * 10) / 10,
+      category,
+      healthyWeightRange,
+      weightToHealthy,
+    },
   };
 }

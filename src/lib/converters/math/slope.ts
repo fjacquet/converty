@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface SlopeInput {
   mode: "twoPoints" | "slopeIntercept" | "pointSlope";
   x1?: number;
@@ -26,7 +28,7 @@ export interface SlopeResult {
   perpendicularSlope: number | null;
 }
 
-export function calculateSlope(input: SlopeInput): SlopeResult | null {
+export function calculateSlope(input: SlopeInput): CalculationResult<SlopeResult> {
   const { mode } = input;
   const steps: string[] = [];
 
@@ -43,7 +45,11 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
         input.x2 === undefined ||
         input.y2 === undefined
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "All four coordinates (x1, y1, x2, y2) are required for twoPoints mode",
+          code: "INVALID_INPUT",
+        };
       }
       x1 = input.x1;
       y1 = input.y1;
@@ -68,7 +74,13 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
     }
 
     case "slopeIntercept": {
-      if (input.slope === undefined || input.yIntercept === undefined) return null;
+      if (input.slope === undefined || input.yIntercept === undefined) {
+        return {
+          ok: false,
+          error: "Slope and y-intercept are required for slopeIntercept mode",
+          code: "INVALID_INPUT",
+        };
+      }
       slope = input.slope;
       yIntercept = input.yIntercept;
       x1 = 0;
@@ -82,7 +94,11 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
 
     case "pointSlope": {
       if (input.x1 === undefined || input.y1 === undefined || input.slope === undefined) {
-        return null;
+        return {
+          ok: false,
+          error: "Point (x1, y1) and slope are required for pointSlope mode",
+          code: "INVALID_INPUT",
+        };
       }
       x1 = input.x1;
       y1 = input.y1;
@@ -95,7 +111,7 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   // Calculate properties
@@ -167,20 +183,23 @@ export function calculateSlope(input: SlopeInput): SlopeResult | null {
   const perpendicularSlope = slope !== null && slope !== 0 ? -1 / slope : slope === 0 ? null : 0;
 
   return {
-    slope,
-    yIntercept,
-    xIntercept,
-    slopeInterceptForm,
-    pointSlopeForm,
-    standardForm,
-    angle,
-    distance,
-    midpoint,
-    isVertical,
-    isHorizontal,
-    slopeType,
-    steps,
-    parallelSlope,
-    perpendicularSlope,
+    ok: true,
+    value: {
+      slope,
+      yIntercept,
+      xIntercept,
+      slopeInterceptForm,
+      pointSlopeForm,
+      standardForm,
+      angle,
+      distance,
+      midpoint,
+      isVertical,
+      isHorizontal,
+      slopeType,
+      steps,
+      parallelSlope,
+      perpendicularSlope,
+    },
   };
 }

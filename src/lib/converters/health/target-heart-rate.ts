@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface TargetHeartRateInput {
   age: number;
   restingHeartRate?: number;
@@ -20,11 +22,11 @@ export interface TargetHeartRateResult {
 
 export function calculateTargetHeartRate(
   input: TargetHeartRateInput
-): TargetHeartRateResult | null {
+): CalculationResult<TargetHeartRateResult> {
   const { age, restingHeartRate } = input;
 
   if (age <= 0 || age > 120) {
-    return null;
+    return { ok: false, error: "Age must be between 1 and 120", code: "INVALID_INPUT" };
   }
 
   // Maximum Heart Rate (Tanaka formula, more accurate than 220-age)
@@ -98,10 +100,13 @@ export function calculateTargetHeartRate(
   ];
 
   return {
-    maxHeartRate: Math.round(maxHeartRate),
-    zones,
-    fatBurningZone: calculateZone(60, 70),
-    cardioZone: calculateZone(70, 80),
-    heartRateReserve: heartRateReserve ? Math.round(heartRateReserve) : undefined,
+    ok: true,
+    value: {
+      maxHeartRate: Math.round(maxHeartRate),
+      zones,
+      fatBurningZone: calculateZone(60, 70),
+      cardioZone: calculateZone(70, 80),
+      heartRateReserve: heartRateReserve ? Math.round(heartRateReserve) : undefined,
+    },
   };
 }

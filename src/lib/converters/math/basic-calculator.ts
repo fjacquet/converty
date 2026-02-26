@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BasicCalculatorInput {
   expression: string;
   precision?: number;
@@ -273,10 +275,12 @@ function evaluatePostfix(
 
 export function calculateBasicCalculator(
   input: BasicCalculatorInput
-): BasicCalculatorResult | null {
+): CalculationResult<BasicCalculatorResult> {
   const { expression, precision = 10, angleMode = "radians" } = input;
 
-  if (!expression || expression.trim().length === 0) return null;
+  if (!expression || expression.trim().length === 0) {
+    return { ok: false, error: "Expression is required", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
 
@@ -323,8 +327,7 @@ export function calculateBasicCalculator(
     const result = evaluatePostfix(postfix, angleMode, steps);
 
     if (!Number.isFinite(result)) {
-      steps.push("Error: Result is undefined or infinite");
-      return null;
+      return { ok: false, error: "Result is undefined or infinite", code: "CALCULATION_ERROR" };
     }
 
     const formattedResult = Number.isInteger(result)
@@ -334,14 +337,21 @@ export function calculateBasicCalculator(
     steps.push(`Result: ${formattedResult}`);
 
     return {
-      result,
-      expression: cleanExpr,
-      formattedResult,
-      steps,
-      variables: { ...CONSTANTS },
+      ok: true,
+      value: {
+        result,
+        expression: cleanExpr,
+        formattedResult,
+        steps,
+        variables: { ...CONSTANTS },
+      },
     };
   } catch (error) {
     steps.push(`Error: ${error instanceof Error ? error.message : "Invalid expression"}`);
-    return null;
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Invalid expression",
+      code: "CALCULATION_ERROR",
+    };
   }
 }

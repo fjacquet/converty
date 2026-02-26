@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface CircleInput {
   mode: "radius" | "diameter" | "circumference" | "area";
   value: number;
@@ -25,10 +27,12 @@ export interface CircleResult {
   }>;
 }
 
-export function calculateCircle(input: CircleInput): CircleResult | null {
+export function calculateCircle(input: CircleInput): CalculationResult<CircleResult> {
   const { mode, value } = input;
 
-  if (value <= 0) return null;
+  if (value <= 0) {
+    return { ok: false, error: "Value must be positive", code: "INVALID_INPUT" };
+  }
 
   let radius: number;
 
@@ -46,7 +50,7 @@ export function calculateCircle(input: CircleInput): CircleResult | null {
       radius = Math.sqrt(value / Math.PI);
       break;
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const diameter = radius * 2;
@@ -85,14 +89,17 @@ export function calculateCircle(input: CircleInput): CircleResult | null {
   }));
 
   return {
-    radius,
-    diameter,
-    circumference,
-    area,
-    arcLength,
-    sectorArea,
-    chordLength,
-    formulas,
-    commonAngles,
+    ok: true,
+    value: {
+      radius,
+      diameter,
+      circumference,
+      area,
+      arcLength,
+      sectorArea,
+      chordLength,
+      formulas,
+      commonAngles,
+    },
   };
 }

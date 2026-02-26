@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface MacroInput {
   calories: number;
   goal: "maintenance" | "cutting" | "bulking" | "keto" | "highProtein";
@@ -24,11 +26,11 @@ export interface MacroResult {
   }>;
 }
 
-export function calculateMacros(input: MacroInput): MacroResult | null {
+export function calculateMacros(input: MacroInput): CalculationResult<MacroResult> {
   const { calories, goal, customProtein, customCarbs, customFat } = input;
 
   if (calories <= 0) {
-    return null;
+    return { ok: false, error: "Calories must be positive", code: "INVALID_INPUT" };
   }
 
   let proteinPercent: number;
@@ -88,15 +90,18 @@ export function calculateMacros(input: MacroInput): MacroResult | null {
   }));
 
   return {
-    proteinGrams,
-    carbsGrams,
-    fatGrams,
-    proteinCalories,
-    carbsCalories,
-    fatCalories,
-    proteinPercent,
-    carbsPercent,
-    fatPercent,
-    mealsBreakdown,
+    ok: true,
+    value: {
+      proteinGrams,
+      carbsGrams,
+      fatGrams,
+      proteinCalories,
+      carbsCalories,
+      fatCalories,
+      proteinPercent,
+      carbsPercent,
+      fatPercent,
+      mealsBreakdown,
+    },
   };
 }

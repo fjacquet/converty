@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface GfrInput {
   creatinine: number; // mg/dL or umol/L
   creatinineUnit: "mgdl" | "umol";
@@ -20,11 +22,15 @@ export interface GfrResult {
   creatinineMgdl: number;
 }
 
-export function calculateGfr(input: GfrInput): GfrResult | null {
+export function calculateGfr(input: GfrInput): CalculationResult<GfrResult> {
   const { creatinine, creatinineUnit, age, gender, race, weight, height: _height } = input;
 
   if (creatinine <= 0 || age <= 0 || age > 120) {
-    return null;
+    return {
+      ok: false,
+      error: "Creatinine must be positive and age must be between 1 and 120",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Convert creatinine to mg/dL if needed
@@ -82,11 +88,14 @@ export function calculateGfr(input: GfrInput): GfrResult | null {
   }
 
   return {
-    egfrMdrd,
-    egfrCkdEpi,
-    egfrCockcroftGault,
-    stage,
-    stageKey,
-    creatinineMgdl,
+    ok: true,
+    value: {
+      egfrMdrd,
+      egfrCkdEpi,
+      egfrCockcroftGault,
+      stage,
+      stageKey,
+      creatinineMgdl,
+    },
   };
 }

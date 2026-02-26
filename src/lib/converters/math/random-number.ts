@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface RandomNumberInput {
   mode: "integer" | "float" | "multiple" | "dice" | "shuffle" | "sample";
   min?: number;
@@ -39,13 +41,21 @@ function shuffleArray<T>(array: T[]): T[] {
   return result;
 }
 
-export function calculateRandomNumber(input: RandomNumberInput): RandomNumberResult | null {
+export function calculateRandomNumber(
+  input: RandomNumberInput
+): CalculationResult<RandomNumberResult> {
   const { mode } = input;
 
   switch (mode) {
     case "integer": {
       const { min = 1, max = 100, count = 1 } = input;
-      if (min > max || count < 1 || count > 1000) return null;
+      if (min > max || count < 1 || count > 1000) {
+        return {
+          ok: false,
+          error: "Min must be ≤ max and count must be between 1 and 1000",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const results: number[] = [];
       for (let i = 0; i < count; i++) {
@@ -55,18 +65,27 @@ export function calculateRandomNumber(input: RandomNumberInput): RandomNumberRes
       const sum = results.reduce((a, b) => a + b, 0);
 
       return {
-        results,
-        sum,
-        average: sum / results.length,
-        min: Math.min(...results),
-        max: Math.max(...results),
-        formula: `Random integer between ${min} and ${max}`,
+        ok: true,
+        value: {
+          results,
+          sum,
+          average: sum / results.length,
+          min: Math.min(...results),
+          max: Math.max(...results),
+          formula: `Random integer between ${min} and ${max}`,
+        },
       };
     }
 
     case "float": {
       const { min = 0, max = 1, count = 1 } = input;
-      if (min > max || count < 1 || count > 1000) return null;
+      if (min > max || count < 1 || count > 1000) {
+        return {
+          ok: false,
+          error: "Min must be ≤ max and count must be between 1 and 1000",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const results: number[] = [];
       for (let i = 0; i < count; i++) {
@@ -76,21 +95,36 @@ export function calculateRandomNumber(input: RandomNumberInput): RandomNumberRes
       const sum = results.reduce((a, b) => a + b, 0);
 
       return {
-        results,
-        sum,
-        average: sum / results.length,
-        min: Math.min(...results),
-        max: Math.max(...results),
-        formula: `Random float between ${min} and ${max}`,
+        ok: true,
+        value: {
+          results,
+          sum,
+          average: sum / results.length,
+          min: Math.min(...results),
+          max: Math.max(...results),
+          formula: `Random float between ${min} and ${max}`,
+        },
       };
     }
 
     case "multiple": {
       const { min = 1, max = 100, count = 10, allowDuplicates = true } = input;
-      if (min > max || count < 1 || count > 1000) return null;
+      if (min > max || count < 1 || count > 1000) {
+        return {
+          ok: false,
+          error: "Min must be ≤ max and count must be between 1 and 1000",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const range = max - min + 1;
-      if (!allowDuplicates && count > range) return null;
+      if (!allowDuplicates && count > range) {
+        return {
+          ok: false,
+          error: "Cannot generate unique numbers: count exceeds available range",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const results: number[] = [];
 
@@ -117,19 +151,28 @@ export function calculateRandomNumber(input: RandomNumberInput): RandomNumberRes
       }
 
       return {
-        results,
-        sum,
-        average: sum / results.length,
-        min: Math.min(...results),
-        max: Math.max(...results),
-        formula: `${count} random integers between ${min} and ${max}${allowDuplicates ? "" : " (no duplicates)"}`,
-        distribution,
+        ok: true,
+        value: {
+          results,
+          sum,
+          average: sum / results.length,
+          min: Math.min(...results),
+          max: Math.max(...results),
+          formula: `${count} random integers between ${min} and ${max}${allowDuplicates ? "" : " (no duplicates)"}`,
+          distribution,
+        },
       };
     }
 
     case "dice": {
       const { diceSides = 6, diceCount = 1 } = input;
-      if (diceSides < 2 || diceSides > 100 || diceCount < 1 || diceCount > 100) return null;
+      if (diceSides < 2 || diceSides > 100 || diceCount < 1 || diceCount > 100) {
+        return {
+          ok: false,
+          error: "Dice sides must be 2-100 and dice count must be 1-100",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const results: number[] = [];
       for (let i = 0; i < diceCount; i++) {
@@ -145,32 +188,56 @@ export function calculateRandomNumber(input: RandomNumberInput): RandomNumberRes
       }
 
       return {
-        results,
-        sum,
-        average: sum / results.length,
-        min: Math.min(...results),
-        max: Math.max(...results),
-        formula: `Rolling ${diceCount}d${diceSides}`,
-        distribution,
+        ok: true,
+        value: {
+          results,
+          sum,
+          average: sum / results.length,
+          min: Math.min(...results),
+          max: Math.max(...results),
+          formula: `Rolling ${diceCount}d${diceSides}`,
+          distribution,
+        },
       };
     }
 
     case "shuffle": {
       const { items } = input;
-      if (!items || items.length === 0 || items.length > 1000) return null;
+      if (!items || items.length === 0 || items.length > 1000) {
+        return {
+          ok: false,
+          error: "Items array must have between 1 and 1000 elements",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const results = shuffleArray(items);
 
       return {
-        results,
-        formula: `Shuffled ${items.length} items`,
+        ok: true,
+        value: {
+          results,
+          formula: `Shuffled ${items.length} items`,
+        },
       };
     }
 
     case "sample": {
       const { items, sampleSize = 1, allowDuplicates = false } = input;
-      if (!items || items.length === 0 || sampleSize < 1) return null;
-      if (!allowDuplicates && sampleSize > items.length) return null;
+      if (!items || items.length === 0 || sampleSize < 1) {
+        return {
+          ok: false,
+          error: "Items array must be non-empty and sample size must be at least 1",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (!allowDuplicates && sampleSize > items.length) {
+        return {
+          ok: false,
+          error: "Sample size cannot exceed items count when duplicates are not allowed",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const results: string[] = [];
 
@@ -191,13 +258,16 @@ export function calculateRandomNumber(input: RandomNumberInput): RandomNumberRes
       }
 
       return {
-        results,
-        formula: `Random sample of ${sampleSize} from ${items.length} items`,
-        distribution,
+        ok: true,
+        value: {
+          results,
+          formula: `Random sample of ${sampleSize} from ${items.length} items`,
+          distribution,
+        },
       };
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 }

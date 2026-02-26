@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface SampleSizeInput {
   mode: "proportion" | "mean" | "fromMarginOfError";
   // For proportion
@@ -34,7 +36,7 @@ function getZScore(confidenceLevel: number): number {
   return zScores[confidenceLevel] || 1.96;
 }
 
-export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | null {
+export function calculateSampleSize(input: SampleSizeInput): CalculationResult<SampleSizeResult> {
   const {
     mode,
     confidenceLevel = 95,
@@ -45,7 +47,13 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
     sampleSize: inputSampleSize,
   } = input;
 
-  if (marginOfError <= 0 || marginOfError >= 1) return null;
+  if (marginOfError <= 0 || marginOfError >= 1) {
+    return {
+      ok: false,
+      error: "Margin of error must be between 0 and 1 (exclusive)",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const steps: string[] = [];
   const z = getZScore(confidenceLevel);
@@ -86,7 +94,13 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
 
     case "mean": {
       // n = (z × σ / E)²
-      if (!standardDeviation || standardDeviation <= 0) return null;
+      if (!standardDeviation || standardDeviation <= 0) {
+        return {
+          ok: false,
+          error: "Standard deviation must be positive for mean mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       sampleSize = Math.ceil(((z * standardDeviation) / marginOfError) ** 2);
       formula = "n = (z × σ / E)²";
@@ -109,7 +123,13 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
 
     case "fromMarginOfError": {
       // Calculate margin of error from sample size
-      if (!inputSampleSize || inputSampleSize <= 0) return null;
+      if (!inputSampleSize || inputSampleSize <= 0) {
+        return {
+          ok: false,
+          error: "Sample size must be positive for fromMarginOfError mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       sampleSize = inputSampleSize;
       const p = populationProportion;
@@ -130,7 +150,7 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const interpretation =
@@ -139,13 +159,16 @@ export function calculateSampleSize(input: SampleSizeInput): SampleSizeResult | 
       : `A sample size of ${finiteCorrected || sampleSize} is needed to achieve a ${(marginOfError * 100).toFixed(1)}% margin of error at ${confidenceLevel}% confidence.`;
 
   return {
-    sampleSize: finiteCorrected || sampleSize,
-    marginOfError: resultMarginOfError,
-    confidenceLevel,
-    zScore: z,
-    formula,
-    finiteCorrected,
-    steps,
-    interpretation,
+    ok: true,
+    value: {
+      sampleSize: finiteCorrected || sampleSize,
+      marginOfError: resultMarginOfError,
+      confidenceLevel,
+      zScore: z,
+      formula,
+      finiteCorrected,
+      steps,
+      interpretation,
+    },
   };
 }

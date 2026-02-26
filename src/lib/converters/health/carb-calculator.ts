@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface CarbInput {
   calories: number;
   goal: "weightLoss" | "maintenance" | "muscleGain" | "keto" | "lowCarb" | "athlete";
@@ -48,11 +50,11 @@ export interface CarbResult {
   };
 }
 
-export function calculateCarbs(input: CarbInput): CarbResult | null {
+export function calculateCarbs(input: CarbInput): CalculationResult<CarbResult> {
   const { calories, goal, activityLevel } = input;
 
   if (calories <= 0) {
-    return null;
+    return { ok: false, error: "Calories must be positive", code: "INVALID_INPUT" };
   }
 
   // Base carb percentage based on goal
@@ -166,14 +168,17 @@ export function calculateCarbs(input: CarbInput): CarbResult | null {
   };
 
   return {
-    dailyCarbGrams,
-    dailyCarbCalories,
-    carbPercent: adjustedCarbPercent,
-    fiberMin,
-    sugarMax,
-    netCarbs,
-    timing,
-    carbTypes,
-    foodSourceKeys,
+    ok: true,
+    value: {
+      dailyCarbGrams,
+      dailyCarbCalories,
+      carbPercent: adjustedCarbPercent,
+      fiberMin,
+      sugarMax,
+      netCarbs,
+      timing,
+      carbTypes,
+      foodSourceKeys,
+    },
   };
 }

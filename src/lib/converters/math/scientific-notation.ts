@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ScientificNotationInput {
   mode: "toScientific" | "fromScientific" | "operation";
   number?: number;
@@ -52,9 +54,14 @@ function countSignificantFigures(num: number): number {
   return str.replace(/0+$/, "").length || 1;
 }
 
+function formatEngineering(num: number): string {
+  const eng = toEngineering(num);
+  return `${eng.mantissa.toFixed(6)} × 10^${eng.exponent}`;
+}
+
 export function calculateScientificNotation(
   input: ScientificNotationInput
-): ScientificNotationResult | null {
+): CalculationResult<ScientificNotationResult> {
   const { mode } = input;
   const steps: string[] = [];
 
@@ -65,7 +72,13 @@ export function calculateScientificNotation(
   switch (mode) {
     case "toScientific": {
       const { number: inputNumber } = input;
-      if (inputNumber === undefined) return null;
+      if (inputNumber === undefined) {
+        return {
+          ok: false,
+          error: "Number is required for toScientific mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       standardForm = inputNumber;
       const result = toScientific(inputNumber);
@@ -85,7 +98,13 @@ export function calculateScientificNotation(
 
     case "fromScientific": {
       const { mantissa: inputMantissa, exponent: inputExponent } = input;
-      if (inputMantissa === undefined || inputExponent === undefined) return null;
+      if (inputMantissa === undefined || inputExponent === undefined) {
+        return {
+          ok: false,
+          error: "Mantissa and exponent are required for fromScientific mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       mantissa = inputMantissa;
       exponent = inputExponent;
@@ -106,7 +125,11 @@ export function calculateScientificNotation(
         e2 === undefined ||
         !operation
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "Two numbers and an operation are required for operation mode",
+          code: "INVALID_INPUT",
+        };
       }
 
       const num1 = m1 * 10 ** e1;
@@ -138,7 +161,9 @@ export function calculateScientificNotation(
           steps.push(`= ${resultNum}`);
           break;
         case "divide":
-          if (num2 === 0) return null;
+          if (num2 === 0) {
+            return { ok: false, error: "Cannot divide by zero", code: "DIVISION_BY_ZERO" };
+          }
           resultNum = num1 / num2;
           steps.push(`(${m1} × 10^${e1}) ÷ (${m2} × 10^${e2})`);
           steps.push(`= (${m1} / ${m2}) × 10^(${e1} - ${e2})`);
@@ -146,30 +171,33 @@ export function calculateScientificNotation(
           steps.push(`= ${resultNum}`);
           break;
         default:
-          return null;
+          return { ok: false, error: "Unknown operation specified", code: "INVALID_INPUT" };
       }
 
       const resultScientific = toScientific(resultNum);
 
       return {
-        standardForm,
-        scientificNotation: `${mantissa.toFixed(6)} × 10^${exponent}`,
-        mantissa,
-        exponent,
-        engineeringNotation: formatEngineering(standardForm),
-        significantFigures: countSignificantFigures(standardForm),
-        steps,
-        operationResult: {
-          standardForm: resultNum,
-          scientificNotation: `${resultScientific.mantissa.toFixed(6)} × 10^${resultScientific.exponent}`,
-          mantissa: resultScientific.mantissa,
-          exponent: resultScientific.exponent,
+        ok: true,
+        value: {
+          standardForm,
+          scientificNotation: `${mantissa.toFixed(6)} × 10^${exponent}`,
+          mantissa,
+          exponent,
+          engineeringNotation: formatEngineering(standardForm),
+          significantFigures: countSignificantFigures(standardForm),
+          steps,
+          operationResult: {
+            standardForm: resultNum,
+            scientificNotation: `${resultScientific.mantissa.toFixed(6)} × 10^${resultScientific.exponent}`,
+            mantissa: resultScientific.mantissa,
+            exponent: resultScientific.exponent,
+          },
         },
       };
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const eng = toEngineering(standardForm);
@@ -177,17 +205,15 @@ export function calculateScientificNotation(
   const significantFigures = countSignificantFigures(standardForm);
 
   return {
-    standardForm,
-    scientificNotation: `${mantissa.toFixed(6)} × 10^${exponent}`,
-    mantissa,
-    exponent,
-    engineeringNotation,
-    significantFigures,
-    steps,
+    ok: true,
+    value: {
+      standardForm,
+      scientificNotation: `${mantissa.toFixed(6)} × 10^${exponent}`,
+      mantissa,
+      exponent,
+      engineeringNotation,
+      significantFigures,
+      steps,
+    },
   };
-}
-
-function formatEngineering(num: number): string {
-  const eng = toEngineering(num);
-  return `${eng.mantissa.toFixed(6)} × 10^${eng.exponent}`;
 }

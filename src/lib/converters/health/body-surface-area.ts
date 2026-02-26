@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BodySurfaceAreaInput {
   weight: number; // kg
   height: number; // cm
@@ -14,11 +16,11 @@ export interface BodySurfaceAreaResult {
 
 export function calculateBodySurfaceArea(
   input: BodySurfaceAreaInput
-): BodySurfaceAreaResult | null {
+): CalculationResult<BodySurfaceAreaResult> {
   const { weight, height } = input;
 
   if (weight <= 0 || height <= 0) {
-    return null;
+    return { ok: false, error: "Weight and height must be positive", code: "INVALID_INPUT" };
   }
 
   // Du Bois Formula: BSA = 0.007184 × W^0.425 × H^0.725
@@ -39,11 +41,14 @@ export function calculateBodySurfaceArea(
   const average = (duBois + mosteller + haycock + gehanGeorge + boyd) / 5;
 
   return {
-    duBois,
-    mosteller,
-    haycock,
-    gehanGeorge,
-    boyd,
-    average,
+    ok: true,
+    value: {
+      duBois,
+      mosteller,
+      haycock,
+      gehanGeorge,
+      boyd,
+      average,
+    },
   };
 }

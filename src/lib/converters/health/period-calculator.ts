@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PeriodInput {
   lastPeriodDate: string; // ISO date string
   cycleLength: number; // days
@@ -27,7 +29,7 @@ export interface PeriodResult {
   pmsStartDate: string;
 }
 
-export function calculatePeriod(input: PeriodInput): PeriodResult | null {
+export function calculatePeriod(input: PeriodInput): CalculationResult<PeriodResult> {
   const { lastPeriodDate, cycleLength, periodLength } = input;
 
   const lmpDate = new Date(lastPeriodDate);
@@ -38,7 +40,11 @@ export function calculatePeriod(input: PeriodInput): PeriodResult | null {
     periodLength < 2 ||
     periodLength > 10
   ) {
-    return null;
+    return {
+      ok: false,
+      error: "Invalid date, cycle length must be 21-40 days, period length must be 2-10 days",
+      code: "INVALID_INPUT",
+    };
   }
 
   const today = new Date();
@@ -144,16 +150,19 @@ export function calculatePeriod(input: PeriodInput): PeriodResult | null {
   }
 
   return {
-    nextPeriodDate: nextPeriodDate.toISOString().split("T")[0],
-    daysUntilNextPeriod:
-      daysUntilNextPeriod > 0 ? daysUntilNextPeriod : daysUntilNextPeriod + cycleLength,
-    currentPhase,
-    phaseDay,
-    ovulationDate: ovulationDate.toISOString().split("T")[0],
-    fertileWindowStart: fertileWindowStart.toISOString().split("T")[0],
-    fertileWindowEnd: fertileWindowEnd.toISOString().split("T")[0],
-    upcomingPeriods,
-    cyclePhases,
-    pmsStartDate: pmsStartDate.toISOString().split("T")[0],
+    ok: true,
+    value: {
+      nextPeriodDate: nextPeriodDate.toISOString().split("T")[0],
+      daysUntilNextPeriod:
+        daysUntilNextPeriod > 0 ? daysUntilNextPeriod : daysUntilNextPeriod + cycleLength,
+      currentPhase,
+      phaseDay,
+      ovulationDate: ovulationDate.toISOString().split("T")[0],
+      fertileWindowStart: fertileWindowStart.toISOString().split("T")[0],
+      fertileWindowEnd: fertileWindowEnd.toISOString().split("T")[0],
+      upcomingPeriods,
+      cyclePhases,
+      pmsStartDate: pmsStartDate.toISOString().split("T")[0],
+    },
   };
 }

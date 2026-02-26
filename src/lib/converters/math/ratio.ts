@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface RatioInput {
   mode: "simplify" | "scale" | "findMissing" | "compare";
   a: number;
@@ -37,10 +39,12 @@ function simplifyRatio(a: number, b: number): { a: number; b: number } {
   return { a: a / divisor, b: b / divisor };
 }
 
-export function calculateRatio(input: RatioInput): RatioResult | null {
+export function calculateRatio(input: RatioInput): CalculationResult<RatioResult> {
   const { mode, a, b } = input;
 
-  if (b === 0 && mode !== "findMissing") return null;
+  if (b === 0 && mode !== "findMissing") {
+    return { ok: false, error: "Second ratio value (b) cannot be zero", code: "DIVISION_BY_ZERO" };
+  }
 
   const steps: string[] = [];
   const simplified = simplifyRatio(a, b);
@@ -85,13 +89,25 @@ export function calculateRatio(input: RatioInput): RatioResult | null {
       const { c, d } = input;
       if (c !== undefined && d === undefined) {
         // a:b = c:? → ? = (b × c) / a
-        if (a === 0) return null;
+        if (a === 0) {
+          return {
+            ok: false,
+            error: "First ratio value (a) cannot be zero when finding missing value",
+            code: "DIVISION_BY_ZERO",
+          };
+        }
         missing = (b * c) / a;
         steps.push(`${a}:${b} = ${c}:?`);
         steps.push(`? = (${b} × ${c}) / ${a} = ${missing}`);
       } else if (c === undefined && d !== undefined) {
         // a:b = ?:d → ? = (a × d) / b
-        if (b === 0) return null;
+        if (b === 0) {
+          return {
+            ok: false,
+            error: "Second ratio value (b) cannot be zero when finding missing value",
+            code: "DIVISION_BY_ZERO",
+          };
+        }
         missing = (a * d) / b;
         steps.push(`${a}:${b} = ?:${d}`);
         steps.push(`? = (${a} × ${d}) / ${b} = ${missing}`);
@@ -101,7 +117,13 @@ export function calculateRatio(input: RatioInput): RatioResult | null {
 
     case "compare": {
       const { c, d } = input;
-      if (c === undefined || d === undefined || d === 0) return null;
+      if (c === undefined || d === undefined || d === 0) {
+        return {
+          ok: false,
+          error: "Valid c and non-zero d are required for comparison",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const ratio1 = a / b;
       const ratio2 = c / d;
@@ -122,18 +144,21 @@ export function calculateRatio(input: RatioInput): RatioResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   return {
-    simplified,
-    decimal,
-    percentage,
-    fraction,
-    scaled,
-    missing,
-    comparison,
-    steps,
-    equivalentRatios,
+    ok: true,
+    value: {
+      simplified,
+      decimal,
+      percentage,
+      fraction,
+      scaled,
+      missing,
+      comparison,
+      steps,
+      equivalentRatios,
+    },
   };
 }

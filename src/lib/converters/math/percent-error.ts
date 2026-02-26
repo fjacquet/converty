@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PercentErrorInput {
   experimental: number;
   theoretical: number;
@@ -11,11 +13,13 @@ export interface PercentErrorResult {
   interpretation: string;
 }
 
-export function calculatePercentError(input: PercentErrorInput): PercentErrorResult | null {
+export function calculatePercentError(
+  input: PercentErrorInput
+): CalculationResult<PercentErrorResult> {
   const { experimental, theoretical } = input;
 
   if (theoretical === 0) {
-    return null;
+    return { ok: false, error: "Theoretical value cannot be zero", code: "DIVISION_BY_ZERO" };
   }
 
   const absoluteError = Math.abs(experimental - theoretical);
@@ -36,10 +40,13 @@ export function calculatePercentError(input: PercentErrorInput): PercentErrorRes
   }
 
   return {
-    percentError,
-    absoluteError,
-    relativeError,
-    formula,
-    interpretation,
+    ok: true,
+    value: {
+      percentError,
+      absoluteError,
+      relativeError,
+      formula,
+      interpretation,
+    },
   };
 }

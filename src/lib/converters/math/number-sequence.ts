@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface NumberSequenceInput {
   mode: "arithmetic" | "geometric" | "fibonacci" | "custom" | "findPattern";
   // For arithmetic
@@ -73,7 +75,9 @@ function detectPattern(terms: number[]): { type: string; diff?: number; ratio?: 
   return { type: "unknown" };
 }
 
-export function calculateNumberSequence(input: NumberSequenceInput): NumberSequenceResult | null {
+export function calculateNumberSequence(
+  input: NumberSequenceInput
+): CalculationResult<NumberSequenceResult> {
   const {
     mode,
     firstTerm = 1,
@@ -84,7 +88,13 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
     findNthTerm,
   } = input;
 
-  if (numberOfTerms < 1 || numberOfTerms > 1000) return null;
+  if (numberOfTerms < 1 || numberOfTerms > 1000) {
+    return {
+      ok: false,
+      error: "Number of terms must be between 1 and 1000",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const steps: string[] = [];
   let sequence: number[] = [];
@@ -211,7 +221,13 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
     }
 
     case "custom": {
-      if (!terms || terms.length < 3) return null;
+      if (!terms || terms.length < 3) {
+        return {
+          ok: false,
+          error: "At least 3 terms are required for custom sequence mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       sequence = [...terms];
       const pattern = detectPattern(terms);
@@ -265,7 +281,13 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
     }
 
     case "findPattern": {
-      if (!terms || terms.length < 3) return null;
+      if (!terms || terms.length < 3) {
+        return {
+          ok: false,
+          error: "At least 3 terms are required for findPattern mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       sequence = [...terms];
       const pattern = detectPattern(terms);
@@ -300,22 +322,25 @@ export function calculateNumberSequence(input: NumberSequenceInput): NumberSeque
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   return {
-    sequence,
-    sequenceType,
-    formula,
-    nthTermFormula,
-    sumFormula,
-    sum,
-    firstTerm: sequence[0],
-    commonDifference: resultDiff,
-    commonRatio: resultRatio,
-    nthTerm,
-    steps,
-    isConvergent,
-    limit,
+    ok: true,
+    value: {
+      sequence,
+      sequenceType,
+      formula,
+      nthTermFormula,
+      sumFormula,
+      sum,
+      firstTerm: sequence[0],
+      commonDifference: resultDiff,
+      commonRatio: resultRatio,
+      nthTerm,
+      steps,
+      isConvergent,
+      limit,
+    },
   };
 }

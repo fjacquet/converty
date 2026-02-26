@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface IdealWeightInput {
   gender: "male" | "female";
   height: number; // cm
@@ -16,11 +18,13 @@ export interface IdealWeightResult {
   rangeMax: number;
 }
 
-export function calculateIdealWeight(input: IdealWeightInput): IdealWeightResult | null {
+export function calculateIdealWeight(
+  input: IdealWeightInput
+): CalculationResult<IdealWeightResult> {
   const { gender, height, frameSize } = input;
 
   if (height <= 0) {
-    return null;
+    return { ok: false, error: "Height must be positive", code: "INVALID_INPUT" };
   }
 
   // Convert height to inches for formula calculations
@@ -78,14 +82,17 @@ export function calculateIdealWeight(input: IdealWeightInput): IdealWeightResult
   const rangeMax = average * frameAdjustment * 1.05;
 
   return {
-    robinson: robinson * frameAdjustment,
-    miller: miller * frameAdjustment,
-    devine: devine * frameAdjustment,
-    hamwi: hamwi * frameAdjustment,
-    average: average * frameAdjustment,
-    bmiBasedMin,
-    bmiBasedMax,
-    rangeMin,
-    rangeMax,
+    ok: true,
+    value: {
+      robinson: robinson * frameAdjustment,
+      miller: miller * frameAdjustment,
+      devine: devine * frameAdjustment,
+      hamwi: hamwi * frameAdjustment,
+      average: average * frameAdjustment,
+      bmiBasedMin,
+      bmiBasedMax,
+      rangeMin,
+      rangeMax,
+    },
   };
 }

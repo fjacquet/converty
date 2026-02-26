@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface RoundingInput {
   mode: "round" | "ceil" | "floor" | "truncate" | "toFixed" | "toSignificant";
   number: number;
@@ -28,10 +30,12 @@ function roundToSignificantFigures(num: number, sigFigs: number): number {
   return Math.round(num * scale) / scale;
 }
 
-export function calculateRounding(input: RoundingInput): RoundingResult | null {
+export function calculateRounding(input: RoundingInput): CalculationResult<RoundingResult> {
   const { mode, number, decimalPlaces = 0, significantFigures = 3 } = input;
 
-  if (!Number.isFinite(number)) return null;
+  if (!Number.isFinite(number)) {
+    return { ok: false, error: "Number must be a finite value", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   let rounded: number;
@@ -94,19 +98,22 @@ export function calculateRounding(input: RoundingInput): RoundingResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const difference = rounded - number;
   const percentChange = number !== 0 ? (difference / number) * 100 : 0;
 
   return {
-    original: number,
-    rounded,
-    method,
-    decimalPlaces: countDecimalPlaces(rounded),
-    difference,
-    percentChange,
-    steps,
+    ok: true,
+    value: {
+      original: number,
+      rounded,
+      method,
+      decimalPlaces: countDecimalPlaces(rounded),
+      difference,
+      percentChange,
+      steps,
+    },
   };
 }

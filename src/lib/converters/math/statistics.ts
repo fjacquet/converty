@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface StatisticsInput {
   data: number[];
   population?: boolean; // true for population, false for sample
@@ -55,10 +57,12 @@ function calculatePercentile(sorted: number[], percentile: number): number {
   return sorted[lower] * (1 - weight) + sorted[upper] * weight;
 }
 
-export function calculateStatistics(input: StatisticsInput): StatisticsResult | null {
+export function calculateStatistics(input: StatisticsInput): CalculationResult<StatisticsResult> {
   const { data, population = false } = input;
 
-  if (!data || data.length === 0) return null;
+  if (!data || data.length === 0) {
+    return { ok: false, error: "Data array cannot be empty", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   const n = data.length;
@@ -180,28 +184,31 @@ export function calculateStatistics(input: StatisticsInput): StatisticsResult | 
   }
 
   return {
-    count: n,
-    sum,
-    mean,
-    median,
-    mode,
-    range,
-    min,
-    max,
-    variance,
-    standardDeviation,
-    standardError,
-    coefficientOfVariation,
-    quartiles: { q1, q2, q3, iqr },
-    percentiles,
-    skewness,
-    kurtosis,
-    geometricMean,
-    harmonicMean,
-    sumOfSquares,
-    sortedData: sorted,
-    frequencyDistribution: frequency,
-    isPopulation: population,
-    steps,
+    ok: true,
+    value: {
+      count: n,
+      sum,
+      mean,
+      median,
+      mode,
+      range,
+      min,
+      max,
+      variance,
+      standardDeviation,
+      standardError,
+      coefficientOfVariation,
+      quartiles: { q1, q2, q3, iqr },
+      percentiles,
+      skewness,
+      kurtosis,
+      geometricMean,
+      harmonicMean,
+      sumOfSquares,
+      sortedData: sorted,
+      frequencyDistribution: frequency,
+      isPopulation: population,
+      steps,
+    },
   };
 }

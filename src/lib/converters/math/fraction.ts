@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface FractionInput {
   mode: "simplify" | "add" | "subtract" | "multiply" | "divide" | "toDecimal" | "toFraction";
   numerator1: number;
@@ -45,10 +47,12 @@ function simplifyFraction(num: number, den: number): { numerator: number; denomi
   return { numerator: newNum, denominator: newDen };
 }
 
-export function calculateFraction(input: FractionInput): FractionResult | null {
+export function calculateFraction(input: FractionInput): CalculationResult<FractionResult> {
   const { mode, numerator1, denominator1, numerator2, denominator2, decimal } = input;
 
-  if (denominator1 === 0) return null;
+  if (denominator1 === 0) {
+    return { ok: false, error: "Denominator cannot be zero", code: "DIVISION_BY_ZERO" };
+  }
 
   let resultNum: number;
   let resultDen: number;
@@ -62,7 +66,13 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
       break;
 
     case "add": {
-      if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) return null;
+      if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) {
+        return {
+          ok: false,
+          error: "Valid second fraction with non-zero denominator is required for addition",
+          code: "INVALID_INPUT",
+        };
+      }
       const commonDenAdd = lcm(denominator1, denominator2);
       resultNum =
         numerator1 * (commonDenAdd / denominator1) + numerator2 * (commonDenAdd / denominator2);
@@ -76,7 +86,13 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
     }
 
     case "subtract": {
-      if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) return null;
+      if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) {
+        return {
+          ok: false,
+          error: "Valid second fraction with non-zero denominator is required for subtraction",
+          code: "INVALID_INPUT",
+        };
+      }
       const commonDenSub = lcm(denominator1, denominator2);
       resultNum =
         numerator1 * (commonDenSub / denominator1) - numerator2 * (commonDenSub / denominator2);
@@ -87,7 +103,13 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
     }
 
     case "multiply":
-      if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) return null;
+      if (numerator2 === undefined || denominator2 === undefined || denominator2 === 0) {
+        return {
+          ok: false,
+          error: "Valid second fraction with non-zero denominator is required for multiplication",
+          code: "INVALID_INPUT",
+        };
+      }
       resultNum = numerator1 * numerator2;
       resultDen = denominator1 * denominator2;
       steps.push(`${numerator1}/${denominator1} × ${numerator2}/${denominator2}`);
@@ -95,7 +117,13 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
       break;
 
     case "divide":
-      if (numerator2 === undefined || denominator2 === undefined || numerator2 === 0) return null;
+      if (numerator2 === undefined || denominator2 === undefined || numerator2 === 0) {
+        return {
+          ok: false,
+          error: "Valid second fraction with non-zero numerator is required for division",
+          code: "DIVISION_BY_ZERO",
+        };
+      }
       resultNum = numerator1 * denominator2;
       resultDen = denominator1 * numerator2;
       steps.push(`${numerator1}/${denominator1} ÷ ${numerator2}/${denominator2}`);
@@ -110,7 +138,13 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
       break;
 
     case "toFraction": {
-      if (decimal === undefined) return null;
+      if (decimal === undefined) {
+        return {
+          ok: false,
+          error: "Decimal value is required for toFraction mode",
+          code: "INVALID_INPUT",
+        };
+      }
       // Convert decimal to fraction
       const precision = 1000000;
       resultNum = Math.round(decimal * precision);
@@ -120,7 +154,7 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const simplified = simplifyFraction(resultNum, resultDen);
@@ -148,12 +182,15 @@ export function calculateFraction(input: FractionInput): FractionResult | null {
   }
 
   return {
-    numerator: resultNum,
-    denominator: resultDen,
-    simplified,
-    decimal: decimalValue,
-    mixedNumber,
-    percentage: decimalValue * 100,
-    steps,
+    ok: true,
+    value: {
+      numerator: resultNum,
+      denominator: resultDen,
+      simplified,
+      decimal: decimalValue,
+      mixedNumber,
+      percentage: decimalValue * 100,
+      steps,
+    },
   };
 }

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface DueDateInput {
   calculationMethod: "lmp" | "conception" | "ultrasound" | "ivf";
   date: string; // ISO date string
@@ -23,7 +25,7 @@ export interface DueDateResult {
   }>;
 }
 
-export function calculateDueDate(input: DueDateInput): DueDateResult | null {
+export function calculateDueDate(input: DueDateInput): CalculationResult<DueDateResult> {
   const {
     calculationMethod,
     date,
@@ -34,7 +36,7 @@ export function calculateDueDate(input: DueDateInput): DueDateResult | null {
 
   const inputDate = new Date(date);
   if (Number.isNaN(inputDate.getTime())) {
-    return null;
+    return { ok: false, error: "Invalid date provided", code: "INVALID_INPUT" };
   }
 
   const today = new Date();
@@ -76,7 +78,7 @@ export function calculateDueDate(input: DueDateInput): DueDateResult | null {
       break;
     }
     default:
-      return null;
+      return { ok: false, error: "Invalid calculation method", code: "INVALID_INPUT" };
   }
 
   // Calculate current gestational age
@@ -134,14 +136,17 @@ export function calculateDueDate(input: DueDateInput): DueDateResult | null {
   });
 
   return {
-    dueDate: dueDate.toISOString().split("T")[0],
-    conceptionDate: conceptionDate.toISOString().split("T")[0],
-    currentWeeks,
-    currentDays,
-    totalDays,
-    daysRemaining,
-    trimester,
-    trimesterProgress: Math.min(100, trimesterProgress),
-    milestones,
+    ok: true,
+    value: {
+      dueDate: dueDate.toISOString().split("T")[0],
+      conceptionDate: conceptionDate.toISOString().split("T")[0],
+      currentWeeks,
+      currentDays,
+      totalDays,
+      daysRemaining,
+      trimester,
+      trimesterProgress: Math.min(100, trimesterProgress),
+      milestones,
+    },
   };
 }

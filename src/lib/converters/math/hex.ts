@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface HexInput {
   mode: "decimalToHex" | "hexToDecimal" | "hexOperation" | "hexToRgb" | "rgbToHex";
   decimal?: number;
@@ -35,7 +37,7 @@ function decimalToHex(decimal: number): string {
   return decimal.toString(16).toUpperCase();
 }
 
-export function calculateHex(input: HexInput): HexResult | null {
+export function calculateHex(input: HexInput): CalculationResult<HexResult> {
   const { mode, decimal: inputDecimal, hex: inputHex, hex2, operation, rgb: inputRgb } = input;
   const steps: string[] = [];
 
@@ -44,18 +46,22 @@ export function calculateHex(input: HexInput): HexResult | null {
 
   switch (mode) {
     case "decimalToHex": {
-      if (inputDecimal === undefined || !Number.isInteger(inputDecimal)) return null;
+      if (inputDecimal === undefined || !Number.isInteger(inputDecimal)) {
+        return {
+          ok: false,
+          error: "A valid integer is required for decimal to hex conversion",
+          code: "INVALID_INPUT",
+        };
+      }
       decimal = inputDecimal;
       hexadecimal = decimalToHex(decimal);
       steps.push(`Converting ${decimal} to hexadecimal:`);
 
       // Show division steps
       let temp = Math.abs(decimal);
-      const remainders: string[] = [];
       while (temp > 0) {
         const remainder = temp % 16;
         const hexDigit = remainder.toString(16).toUpperCase();
-        remainders.unshift(hexDigit);
         steps.push(`${temp} ÷ 16 = ${Math.floor(temp / 16)} remainder ${remainder} (${hexDigit})`);
         temp = Math.floor(temp / 16);
       }
@@ -64,7 +70,13 @@ export function calculateHex(input: HexInput): HexResult | null {
     }
 
     case "hexToDecimal": {
-      if (!inputHex || !isValidHex(inputHex)) return null;
+      if (!inputHex || !isValidHex(inputHex)) {
+        return {
+          ok: false,
+          error: "A valid hexadecimal string is required",
+          code: "INVALID_INPUT",
+        };
+      }
       hexadecimal = inputHex.toUpperCase();
       decimal = hexToDecimal(hexadecimal);
       steps.push(`Converting ${hexadecimal} to decimal:`);
@@ -84,7 +96,13 @@ export function calculateHex(input: HexInput): HexResult | null {
     }
 
     case "hexOperation": {
-      if (!inputHex || !isValidHex(inputHex) || !hex2 || !isValidHex(hex2)) return null;
+      if (!inputHex || !isValidHex(inputHex) || !hex2 || !isValidHex(hex2)) {
+        return {
+          ok: false,
+          error: "Two valid hexadecimal strings are required for hex operations",
+          code: "INVALID_INPUT",
+        };
+      }
       hexadecimal = inputHex.toUpperCase();
       decimal = hexToDecimal(hexadecimal);
       const decimal2 = hexToDecimal(hex2);
@@ -116,24 +134,29 @@ export function calculateHex(input: HexInput): HexResult | null {
           steps.push(`${hexadecimal} XOR ${hex2.toUpperCase()} = ${decimalToHex(resultDecimal)}`);
           break;
         default:
-          return null;
+          return { ok: false, error: "Unknown hex operation", code: "INVALID_INPUT" };
       }
 
       return {
-        decimal,
-        hexadecimal,
-        binary: decimal.toString(2),
-        octal: decimal.toString(8),
-        operationResult: {
-          hex: decimalToHex(resultDecimal),
-          decimal: resultDecimal,
+        ok: true,
+        value: {
+          decimal,
+          hexadecimal,
+          binary: decimal.toString(2),
+          octal: decimal.toString(8),
+          operationResult: {
+            hex: decimalToHex(resultDecimal),
+            decimal: resultDecimal,
+          },
+          steps,
         },
-        steps,
       };
     }
 
     case "hexToRgb": {
-      if (!inputHex) return null;
+      if (!inputHex) {
+        return { ok: false, error: "A hex color string is required", code: "INVALID_INPUT" };
+      }
       let cleanHex = inputHex.replace(/^#/, "");
       if (cleanHex.length === 3) {
         cleanHex = cleanHex
@@ -141,7 +164,13 @@ export function calculateHex(input: HexInput): HexResult | null {
           .map((c) => c + c)
           .join("");
       }
-      if (!isValidHex(cleanHex) || cleanHex.length !== 6) return null;
+      if (!isValidHex(cleanHex) || cleanHex.length !== 6) {
+        return {
+          ok: false,
+          error: "A valid 3 or 6 digit hex color is required",
+          code: "INVALID_INPUT",
+        };
+      }
 
       hexadecimal = cleanHex.toUpperCase();
       decimal = hexToDecimal(hexadecimal);
@@ -156,19 +185,26 @@ export function calculateHex(input: HexInput): HexResult | null {
       steps.push(`B: ${cleanHex.substring(4, 6)} = ${b}`);
 
       return {
-        decimal,
-        hexadecimal: `#${hexadecimal}`,
-        binary: decimal.toString(2),
-        octal: decimal.toString(8),
-        rgb: { r, g, b },
-        steps,
+        ok: true,
+        value: {
+          decimal,
+          hexadecimal: `#${hexadecimal}`,
+          binary: decimal.toString(2),
+          octal: decimal.toString(8),
+          rgb: { r, g, b },
+          steps,
+        },
       };
     }
 
     case "rgbToHex": {
-      if (!inputRgb) return null;
+      if (!inputRgb) {
+        return { ok: false, error: "RGB values are required", code: "INVALID_INPUT" };
+      }
       const { r, g, b } = inputRgb;
-      if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) return null;
+      if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+        return { ok: false, error: "RGB values must be between 0 and 255", code: "INVALID_INPUT" };
+      }
 
       const rHex = r.toString(16).padStart(2, "0").toUpperCase();
       const gHex = g.toString(16).padStart(2, "0").toUpperCase();
@@ -183,24 +219,30 @@ export function calculateHex(input: HexInput): HexResult | null {
       steps.push(`B: ${b} = ${bHex}`);
 
       return {
-        decimal,
-        hexadecimal,
-        binary: decimal.toString(2),
-        octal: decimal.toString(8),
-        rgb: { r, g, b },
-        steps,
+        ok: true,
+        value: {
+          decimal,
+          hexadecimal,
+          binary: decimal.toString(2),
+          octal: decimal.toString(8),
+          rgb: { r, g, b },
+          steps,
+        },
       };
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   return {
-    decimal,
-    hexadecimal,
-    binary: decimal >= 0 ? decimal.toString(2) : (decimal >>> 0).toString(2),
-    octal: decimal >= 0 ? decimal.toString(8) : (decimal >>> 0).toString(8),
-    steps,
+    ok: true,
+    value: {
+      decimal,
+      hexadecimal,
+      binary: decimal >= 0 ? decimal.toString(2) : (decimal >>> 0).toString(2),
+      octal: decimal >= 0 ? decimal.toString(8) : (decimal >>> 0).toString(8),
+      steps,
+    },
   };
 }

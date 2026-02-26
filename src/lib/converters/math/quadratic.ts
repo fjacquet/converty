@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface QuadraticInput {
   a: number;
   b: number;
@@ -18,11 +20,15 @@ export interface QuadraticResult {
   steps: string[];
 }
 
-export function calculateQuadratic(input: QuadraticInput): QuadraticResult | null {
+export function calculateQuadratic(input: QuadraticInput): CalculationResult<QuadraticResult> {
   const { a, b, c } = input;
 
   if (a === 0) {
-    return null; // Not a quadratic equation
+    return {
+      ok: false,
+      error: "Coefficient 'a' cannot be zero (not a quadratic equation)",
+      code: "INVALID_INPUT",
+    };
   }
 
   const steps: string[] = [];
@@ -83,16 +89,19 @@ export function calculateQuadratic(input: QuadraticInput): QuadraticResult | nul
   const formula = `f(x) = ${a}x² ${b >= 0 ? "+" : ""}${b}x ${c >= 0 ? "+" : ""}${c}`;
 
   return {
-    hasRealRoots,
-    discriminant,
-    discriminantType,
-    roots,
-    complexRoots,
-    vertex: { x: vertexX, y: vertexY },
-    axisOfSymmetry,
-    yIntercept,
-    opensUpward,
-    formula,
-    steps,
+    ok: true,
+    value: {
+      hasRealRoots,
+      discriminant,
+      discriminantType,
+      roots,
+      complexRoots,
+      vertex: { x: vertexX, y: vertexY },
+      axisOfSymmetry,
+      yIntercept,
+      opensUpward,
+      formula,
+      steps,
+    },
   };
 }

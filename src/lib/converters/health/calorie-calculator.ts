@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface CalorieInput {
   gender: "male" | "female";
   age: number;
@@ -21,11 +23,15 @@ export interface CalorieResult {
   projectedDate: string;
 }
 
-export function calculateCalories(input: CalorieInput): CalorieResult | null {
+export function calculateCalories(input: CalorieInput): CalculationResult<CalorieResult> {
   const { gender, age, weight, height, activityLevel, targetWeight, weeksToGoal } = input;
 
   if (age <= 0 || weight <= 0 || height <= 0 || weeksToGoal <= 0) {
-    return null;
+    return {
+      ok: false,
+      error: "Age, weight, height, and weeks to goal must be positive",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate BMR using Mifflin-St Jeor
@@ -74,15 +80,18 @@ export function calculateCalories(input: CalorieInput): CalorieResult | null {
   const projectedDate = new Date(today.getTime() + weeksToGoal * 7 * 24 * 60 * 60 * 1000);
 
   return {
-    bmr,
-    maintenanceCalories,
-    targetCalories,
-    dailyDeficit,
-    weeklyWeightChange,
-    isSafe,
-    proteinGrams,
-    carbsGrams,
-    fatGrams,
-    projectedDate: projectedDate.toLocaleDateString(),
+    ok: true,
+    value: {
+      bmr,
+      maintenanceCalories,
+      targetCalories,
+      dailyDeficit,
+      weeklyWeightChange,
+      isSafe,
+      proteinGrams,
+      carbsGrams,
+      fatGrams,
+      projectedDate: projectedDate.toLocaleDateString(),
+    },
   };
 }

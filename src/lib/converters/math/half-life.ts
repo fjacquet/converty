@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface HalfLifeInput {
   mode: "decay" | "remaining" | "findHalfLife" | "findTime" | "carbon14";
   initialAmount?: number;
@@ -24,7 +26,7 @@ export interface HalfLifeResult {
 
 const CARBON14_HALF_LIFE = 5730; // years
 
-export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
+export function calculateHalfLife(input: HalfLifeInput): CalculationResult<HalfLifeResult> {
   const {
     mode,
     initialAmount: inputInitial,
@@ -48,9 +50,19 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       // Given: initial amount, half-life, and time
       // Find: remaining amount
       if (inputInitial === undefined || inputHalfLife === undefined || inputTime === undefined) {
-        return null;
+        return {
+          ok: false,
+          error: "Initial amount, half-life, and time are required for decay mode",
+          code: "INVALID_INPUT",
+        };
       }
-      if (inputInitial <= 0 || inputHalfLife <= 0 || inputTime < 0) return null;
+      if (inputInitial <= 0 || inputHalfLife <= 0 || inputTime < 0) {
+        return {
+          ok: false,
+          error: "Initial amount and half-life must be positive, time must be non-negative",
+          code: "INVALID_INPUT",
+        };
+      }
 
       initialAmount = inputInitial;
       halfLife = inputHalfLife;
@@ -79,7 +91,11 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
         inputRemaining === undefined ||
         inputHalfLife === undefined
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "Initial amount, remaining amount, and half-life are required for remaining mode",
+          code: "INVALID_INPUT",
+        };
       }
       if (
         inputInitial <= 0 ||
@@ -87,7 +103,12 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
         inputRemaining > inputInitial ||
         inputHalfLife <= 0
       ) {
-        return null;
+        return {
+          ok: false,
+          error:
+            "Initial and remaining amounts must be positive, remaining must not exceed initial, half-life must be positive",
+          code: "INVALID_INPUT",
+        };
       }
 
       initialAmount = inputInitial;
@@ -113,7 +134,11 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
       // Given: initial amount, remaining amount, time
       // Find: half-life
       if (inputInitial === undefined || inputRemaining === undefined || inputTime === undefined) {
-        return null;
+        return {
+          ok: false,
+          error: "Initial amount, remaining amount, and time are required for findHalfLife mode",
+          code: "INVALID_INPUT",
+        };
       }
       if (
         inputInitial <= 0 ||
@@ -121,7 +146,12 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
         inputRemaining > inputInitial ||
         inputTime <= 0
       ) {
-        return null;
+        return {
+          ok: false,
+          error:
+            "Initial and remaining amounts must be positive, remaining must not exceed initial, time must be positive",
+          code: "INVALID_INPUT",
+        };
       }
 
       initialAmount = inputInitial;
@@ -154,7 +184,11 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
         halfLife = inputHalfLife;
         decayConstant = Math.LN2 / halfLife;
       } else {
-        return null;
+        return {
+          ok: false,
+          error: "A valid decay constant or half-life is required for findTime mode",
+          code: "INVALID_INPUT",
+        };
       }
 
       const fraction =
@@ -163,7 +197,13 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
           : inputRemaining && inputInitial
             ? inputRemaining / inputInitial
             : null;
-      if (fraction === null || fraction <= 0 || fraction > 1) return null;
+      if (fraction === null || fraction <= 0 || fraction > 1) {
+        return {
+          ok: false,
+          error: "A valid fraction remaining (0 < fraction ≤ 1) is required",
+          code: "INVALID_INPUT",
+        };
+      }
 
       initialAmount = inputInitial || 100;
       remainingAmount = initialAmount * fraction;
@@ -191,7 +231,13 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
           : inputRemaining && inputInitial
             ? inputRemaining / inputInitial
             : null;
-      if (fraction === null || fraction <= 0 || fraction > 1) return null;
+      if (fraction === null || fraction <= 0 || fraction > 1) {
+        return {
+          ok: false,
+          error: "A valid fraction remaining (0 < fraction ≤ 1) is required for carbon-14 dating",
+          code: "INVALID_INPUT",
+        };
+      }
 
       initialAmount = inputInitial || 100;
       remainingAmount = initialAmount * fraction;
@@ -215,7 +261,7 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const pctRemaining = (remainingAmount / initialAmount) * 100;
@@ -230,15 +276,18 @@ export function calculateHalfLife(input: HalfLifeInput): HalfLifeResult | null {
   }
 
   return {
-    initialAmount,
-    remainingAmount,
-    halfLife,
-    time,
-    decayConstant,
-    percentRemaining: pctRemaining,
-    numberOfHalfLives,
-    formula,
-    steps,
-    decayTable,
+    ok: true,
+    value: {
+      initialAmount,
+      remainingAmount,
+      halfLife,
+      time,
+      decayConstant,
+      percentRemaining: pctRemaining,
+      numberOfHalfLives,
+      formula,
+      steps,
+      decayTable,
+    },
   };
 }

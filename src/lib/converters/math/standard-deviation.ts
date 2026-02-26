@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface StandardDeviationInput {
   numbers: number[];
   isPopulation: boolean; // true for population, false for sample
@@ -22,11 +24,19 @@ export interface StandardDeviationResult {
 
 export function calculateStandardDeviation(
   input: StandardDeviationInput
-): StandardDeviationResult | null {
+): CalculationResult<StandardDeviationResult> {
   const { numbers, isPopulation } = input;
 
-  if (numbers.length === 0) return null;
-  if (!isPopulation && numbers.length < 2) return null;
+  if (numbers.length === 0) {
+    return { ok: false, error: "Numbers array cannot be empty", code: "INVALID_INPUT" };
+  }
+  if (!isPopulation && numbers.length < 2) {
+    return {
+      ok: false,
+      error: "At least 2 numbers are required for sample standard deviation",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const count = numbers.length;
   const sum = numbers.reduce((a, b) => a + b, 0);
@@ -65,15 +75,18 @@ export function calculateStandardDeviation(
   }));
 
   return {
-    mean,
-    variance,
-    standardDeviation,
-    coefficientOfVariation,
-    count,
-    sum,
-    sumOfSquares,
-    deviations,
-    formula,
-    zScores,
+    ok: true,
+    value: {
+      mean,
+      variance,
+      standardDeviation,
+      coefficientOfVariation,
+      count,
+      sum,
+      sumOfSquares,
+      deviations,
+      formula,
+      zScores,
+    },
   };
 }

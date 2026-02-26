@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface VolumeInput {
   shape: "cube" | "rectangular" | "sphere" | "cylinder" | "cone" | "pyramid" | "prism" | "torus";
   // Cube/Rectangular
@@ -21,7 +23,7 @@ export interface VolumeResult {
   unit: string;
 }
 
-export function calculateVolume(input: VolumeInput): VolumeResult | null {
+export function calculateVolume(input: VolumeInput): CalculationResult<VolumeResult> {
   const { shape } = input;
   let volume: number;
   let surfaceArea: number;
@@ -31,7 +33,13 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
   switch (shape) {
     case "cube": {
       const { length } = input;
-      if (!length || length <= 0) return null;
+      if (!length || length <= 0) {
+        return {
+          ok: false,
+          error: "Side length must be a positive number for cube",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = length ** 3;
       surfaceArea = 6 * length ** 2;
       formula = "V = s³";
@@ -42,7 +50,13 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
 
     case "rectangular": {
       const { length, width, height } = input;
-      if (!length || !width || !height || length <= 0 || width <= 0 || height <= 0) return null;
+      if (!length || !width || !height || length <= 0 || width <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Length, width, and height must be positive numbers for rectangular prism",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = length * width * height;
       surfaceArea = 2 * (length * width + width * height + height * length);
       formula = "V = l × w × h";
@@ -53,7 +67,13 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
 
     case "sphere": {
       const { radius } = input;
-      if (!radius || radius <= 0) return null;
+      if (!radius || radius <= 0) {
+        return {
+          ok: false,
+          error: "Radius must be a positive number for sphere",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = (4 / 3) * Math.PI * radius ** 3;
       surfaceArea = 4 * Math.PI * radius ** 2;
       formula = "V = (4/3)πr³";
@@ -65,7 +85,13 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
 
     case "cylinder": {
       const { radius, height } = input;
-      if (!radius || !height || radius <= 0 || height <= 0) return null;
+      if (!radius || !height || radius <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Radius and height must be positive numbers for cylinder",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = Math.PI * radius ** 2 * height;
       surfaceArea = 2 * Math.PI * radius * (radius + height);
       formula = "V = πr²h";
@@ -77,7 +103,13 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
 
     case "cone": {
       const { radius, height } = input;
-      if (!radius || !height || radius <= 0 || height <= 0) return null;
+      if (!radius || !height || radius <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Radius and height must be positive numbers for cone",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = (1 / 3) * Math.PI * radius ** 2 * height;
       const slantHeight = Math.sqrt(radius ** 2 + height ** 2);
       surfaceArea = Math.PI * radius * (radius + slantHeight);
@@ -89,7 +121,13 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
 
     case "pyramid": {
       const { baseArea, height } = input;
-      if (!baseArea || !height || baseArea <= 0 || height <= 0) return null;
+      if (!baseArea || !height || baseArea <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Base area and height must be positive numbers for pyramid",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = (1 / 3) * baseArea * height;
       // Surface area requires more info about the base shape
       surfaceArea = baseArea; // Base only, lateral faces would need more info
@@ -101,7 +139,13 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
 
     case "prism": {
       const { baseArea, height } = input;
-      if (!baseArea || !height || baseArea <= 0 || height <= 0) return null;
+      if (!baseArea || !height || baseArea <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Base area and height must be positive numbers for prism",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = baseArea * height;
       surfaceArea = 2 * baseArea; // Top and bottom only
       formula = "V = Base Area × h";
@@ -112,8 +156,20 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
 
     case "torus": {
       const { majorRadius, minorRadius } = input;
-      if (!majorRadius || !minorRadius || majorRadius <= 0 || minorRadius <= 0) return null;
-      if (minorRadius >= majorRadius) return null; // Invalid torus
+      if (!majorRadius || !minorRadius || majorRadius <= 0 || minorRadius <= 0) {
+        return {
+          ok: false,
+          error: "Major radius and minor radius must be positive numbers for torus",
+          code: "INVALID_INPUT",
+        };
+      }
+      if (minorRadius >= majorRadius) {
+        return {
+          ok: false,
+          error: "Minor radius must be less than major radius for a valid torus",
+          code: "INVALID_INPUT",
+        };
+      }
       volume = 2 * Math.PI * Math.PI * majorRadius * minorRadius ** 2;
       surfaceArea = 4 * Math.PI * Math.PI * majorRadius * minorRadius;
       formula = "V = 2π²Rr²";
@@ -123,14 +179,17 @@ export function calculateVolume(input: VolumeInput): VolumeResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown shape specified", code: "INVALID_INPUT" };
   }
 
   return {
-    volume,
-    surfaceArea,
-    formula,
-    steps,
-    unit: "cubic units",
+    ok: true,
+    value: {
+      volume,
+      surfaceArea,
+      formula,
+      steps,
+      unit: "cubic units",
+    },
   };
 }

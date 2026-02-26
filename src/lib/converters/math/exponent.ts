@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ExponentInput {
   base: number;
   exponent: number;
@@ -12,18 +14,18 @@ export interface ExponentResult {
   logarithm: number | null;
 }
 
-export function calculateExponent(input: ExponentInput): ExponentResult | null {
+export function calculateExponent(input: ExponentInput): CalculationResult<ExponentResult> {
   const { base, exponent } = input;
 
   // Handle special cases
   if (base === 0 && exponent <= 0) {
-    return null; // 0^0 and 0^negative are undefined
+    return { ok: false, error: "0^0 and 0^negative are undefined", code: "INVALID_INPUT" };
   }
 
   const result = base ** exponent;
 
   if (!Number.isFinite(result)) {
-    return null; // Result too large or invalid
+    return { ok: false, error: "Result is too large or invalid", code: "CALCULATION_ERROR" };
   }
 
   // Scientific notation
@@ -60,11 +62,14 @@ export function calculateExponent(input: ExponentInput): ExponentResult | null {
   const logarithm = base > 0 && base !== 1 ? Math.log(result) / Math.log(base) : null;
 
   return {
-    result,
-    scientificNotation,
-    formula,
-    rules,
-    reciprocal,
-    logarithm,
+    ok: true,
+    value: {
+      result,
+      scientificNotation,
+      formula,
+      rules,
+      reciprocal,
+      logarithm,
+    },
   };
 }

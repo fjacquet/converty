@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface BmrInput {
   gender: "male" | "female";
   age: number;
@@ -17,11 +19,11 @@ export interface BmrResult {
   extraActive: number;
 }
 
-export function calculateBmr(input: BmrInput): BmrResult | null {
+export function calculateBmr(input: BmrInput): CalculationResult<BmrResult> {
   const { gender, age, weight, height } = input;
 
   if (age <= 0 || weight <= 0 || height <= 0) {
-    return null;
+    return { ok: false, error: "Age, weight, and height must be positive", code: "INVALID_INPUT" };
   }
 
   let harrisBenedict: number;
@@ -45,13 +47,16 @@ export function calculateBmr(input: BmrInput): BmrResult | null {
 
   // Calculate TDEE based on activity levels
   return {
-    harrisBenedict,
-    mifflinStJeor,
-    average,
-    sedentary: average * 1.2,
-    lightActivity: average * 1.375,
-    moderateActivity: average * 1.55,
-    veryActive: average * 1.725,
-    extraActive: average * 1.9,
+    ok: true,
+    value: {
+      harrisBenedict,
+      mifflinStJeor,
+      average,
+      sedentary: average * 1.2,
+      lightActivity: average * 1.375,
+      moderateActivity: average * 1.55,
+      veryActive: average * 1.725,
+      extraActive: average * 1.9,
+    },
   };
 }

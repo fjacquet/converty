@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface LogarithmInput {
   value: number;
   base: number;
@@ -14,12 +16,16 @@ export interface LogarithmResult {
   properties: string[];
 }
 
-export function calculateLogarithm(input: LogarithmInput): LogarithmResult | null {
+export function calculateLogarithm(input: LogarithmInput): CalculationResult<LogarithmResult> {
   const { value, base } = input;
 
   // Validate inputs
   if (value <= 0 || base <= 0 || base === 1) {
-    return null;
+    return {
+      ok: false,
+      error: "Value must be positive and base must be positive and not equal to 1",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Calculate logarithm using change of base formula
@@ -47,13 +53,16 @@ export function calculateLogarithm(input: LogarithmInput): LogarithmResult | nul
   ];
 
   return {
-    result,
-    naturalLog,
-    log10,
-    log2,
-    antilog,
-    formula,
-    changeOfBase,
-    properties,
+    ok: true,
+    value: {
+      result,
+      naturalLog,
+      log10,
+      log2,
+      antilog,
+      formula,
+      changeOfBase,
+      properties,
+    },
   };
 }

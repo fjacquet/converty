@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface SleepInput {
   mode: "wakeTime" | "bedTime";
   targetTime: string; // HH:MM format
@@ -21,17 +23,17 @@ export interface SleepResult {
   }>;
 }
 
-export function calculateSleep(input: SleepInput): SleepResult | null {
+export function calculateSleep(input: SleepInput): CalculationResult<SleepResult> {
   const { mode, targetTime, age } = input;
 
   if (age <= 0 || age > 120) {
-    return null;
+    return { ok: false, error: "Age must be between 1 and 120", code: "INVALID_INPUT" };
   }
 
   // Parse target time
   const [hours, minutes] = targetTime.split(":").map(Number);
   if (Number.isNaN(hours) || Number.isNaN(minutes)) {
-    return null;
+    return { ok: false, error: "Invalid time format, expected HH:MM", code: "INVALID_INPUT" };
   }
 
   // Recommended sleep by age
@@ -140,10 +142,13 @@ export function calculateSleep(input: SleepInput): SleepResult | null {
   ];
 
   return {
-    recommendedHours,
-    sleepCycles: 5, // Optimal for most adults
-    cycleTimes,
-    tips,
-    sleepStages,
+    ok: true,
+    value: {
+      recommendedHours,
+      sleepCycles: 5, // Optimal for most adults
+      cycleTimes,
+      tips,
+      sleepStages,
+    },
   };
 }

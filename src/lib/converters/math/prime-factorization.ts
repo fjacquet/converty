@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PrimeFactorizationInput {
   number: number;
 }
@@ -26,11 +28,15 @@ function isPrime(n: number): boolean {
 
 export function calculatePrimeFactorization(
   input: PrimeFactorizationInput
-): PrimeFactorizationResult | null {
+): CalculationResult<PrimeFactorizationResult> {
   const { number } = input;
 
   if (!Number.isInteger(number) || number < 1 || number > 1000000000) {
-    return null;
+    return {
+      ok: false,
+      error: "Number must be a positive integer up to 1,000,000,000",
+      code: "INVALID_INPUT",
+    };
   }
 
   const originalNumber = number;
@@ -38,15 +44,18 @@ export function calculatePrimeFactorization(
 
   if (number === 1) {
     return {
-      originalNumber: 1,
-      isPrime: false,
-      factors: [],
-      factorString: "1",
-      expandedForm: "1",
-      allDivisors: [1],
-      divisorCount: 1,
-      divisorSum: 1,
-      factorTree: ["1 (neither prime nor composite)"],
+      ok: true,
+      value: {
+        originalNumber: 1,
+        isPrime: false,
+        factors: [],
+        factorString: "1",
+        expandedForm: "1",
+        allDivisors: [1],
+        divisorCount: 1,
+        divisorSum: 1,
+        factorTree: ["1 (neither prime nor composite)"],
+      },
     };
   }
 
@@ -107,14 +116,17 @@ export function calculatePrimeFactorization(
   const divisorSum = sortedDivisors.reduce((a, b) => a + b, 0);
 
   return {
-    originalNumber,
-    isPrime: isNumberPrime,
-    factors,
-    factorString,
-    expandedForm,
-    allDivisors: sortedDivisors,
-    divisorCount: sortedDivisors.length,
-    divisorSum,
-    factorTree,
+    ok: true,
+    value: {
+      originalNumber,
+      isPrime: isNumberPrime,
+      factors,
+      factorString,
+      expandedForm,
+      allDivisors: sortedDivisors,
+      divisorCount: sortedDivisors.length,
+      divisorSum,
+      factorTree,
+    },
   };
 }

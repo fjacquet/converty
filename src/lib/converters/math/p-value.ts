@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PValueInput {
   mode: "fromZScore" | "fromTScore" | "fromChiSquare" | "fromFScore";
   testStatistic: number;
@@ -138,7 +140,7 @@ function fCDF(f: number, df1: number, df2: number): number {
   return incompleteBeta(x, df1 / 2, df2 / 2);
 }
 
-export function calculatePValue(input: PValueInput): PValueResult | null {
+export function calculatePValue(input: PValueInput): CalculationResult<PValueResult> {
   const { mode, testStatistic, degreesOfFreedom, degreesOfFreedom2, twoTailed = true } = input;
 
   const steps: string[] = [];
@@ -160,7 +162,13 @@ export function calculatePValue(input: PValueInput): PValueResult | null {
     }
 
     case "fromTScore": {
-      if (!degreesOfFreedom || degreesOfFreedom <= 0) return null;
+      if (!degreesOfFreedom || degreesOfFreedom <= 0) {
+        return {
+          ok: false,
+          error: "Positive degrees of freedom is required for t-score",
+          code: "INVALID_INPUT",
+        };
+      }
 
       statisticType = "t-score";
       const oneTailP = 1 - tCDF(Math.abs(testStatistic), degreesOfFreedom);
@@ -176,7 +184,13 @@ export function calculatePValue(input: PValueInput): PValueResult | null {
     }
 
     case "fromChiSquare": {
-      if (!degreesOfFreedom || degreesOfFreedom <= 0) return null;
+      if (!degreesOfFreedom || degreesOfFreedom <= 0) {
+        return {
+          ok: false,
+          error: "Positive degrees of freedom is required for chi-square test",
+          code: "INVALID_INPUT",
+        };
+      }
 
       statisticType = "Chi-square";
       pValue = 1 - chiSquareCDF(testStatistic, degreesOfFreedom);
@@ -194,7 +208,11 @@ export function calculatePValue(input: PValueInput): PValueResult | null {
         degreesOfFreedom <= 0 ||
         degreesOfFreedom2 <= 0
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "Two positive degrees of freedom values are required for F-test",
+          code: "INVALID_INPUT",
+        };
       }
 
       statisticType = "F-score";
@@ -208,7 +226,7 @@ export function calculatePValue(input: PValueInput): PValueResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   // Ensure p-value is in valid range
@@ -241,15 +259,18 @@ export function calculatePValue(input: PValueInput): PValueResult | null {
   steps.push(`Significant at α = 0.001? ${significantAt001 ? "Yes" : "No"}`);
 
   return {
-    pValue,
-    testStatistic,
-    statisticType,
-    twoTailed,
-    degreesOfFreedom,
-    significantAt05,
-    significantAt01,
-    significantAt001,
-    interpretation,
-    steps,
+    ok: true,
+    value: {
+      pValue,
+      testStatistic,
+      statisticType,
+      twoTailed,
+      degreesOfFreedom,
+      significantAt05,
+      significantAt01,
+      significantAt001,
+      interpretation,
+      steps,
+    },
   };
 }

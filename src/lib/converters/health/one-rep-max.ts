@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface OneRepMaxInput {
   weight: number; // kg or lbs
   reps: number;
@@ -19,11 +21,15 @@ export interface OneRepMaxResult {
   }>;
 }
 
-export function calculateOneRepMax(input: OneRepMaxInput): OneRepMaxResult | null {
+export function calculateOneRepMax(input: OneRepMaxInput): CalculationResult<OneRepMaxResult> {
   const { weight, reps } = input;
 
   if (weight <= 0 || reps <= 0 || reps > 30) {
-    return null;
+    return {
+      ok: false,
+      error: "Weight must be positive and reps must be between 1 and 30",
+      code: "INVALID_INPUT",
+    };
   }
 
   // Various 1RM formulas
@@ -69,14 +75,17 @@ export function calculateOneRepMax(input: OneRepMaxInput): OneRepMaxResult | nul
   }));
 
   return {
-    epley,
-    brzycki,
-    lander,
-    lombardi,
-    mayhew,
-    oconner,
-    wathan,
-    average,
-    percentages,
+    ok: true,
+    value: {
+      epley,
+      brzycki,
+      lander,
+      lombardi,
+      mayhew,
+      oconner,
+      wathan,
+      average,
+      percentages,
+    },
   };
 }

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ZScoreInput {
   mode: "calculate" | "fromZScore" | "probability";
   value?: number;
@@ -86,10 +88,12 @@ function normalInverseCDF(p: number): number {
   }
 }
 
-export function calculateZScore(input: ZScoreInput): ZScoreResult | null {
+export function calculateZScore(input: ZScoreInput): CalculationResult<ZScoreResult> {
   const { mode, value, mean = 0, standardDeviation = 1, zScore: inputZScore } = input;
 
-  if (standardDeviation <= 0) return null;
+  if (standardDeviation <= 0) {
+    return { ok: false, error: "Standard deviation must be positive", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   let zScore: number;
@@ -98,7 +102,9 @@ export function calculateZScore(input: ZScoreInput): ZScoreResult | null {
   switch (mode) {
     case "calculate": {
       // Calculate z-score from value
-      if (value === undefined) return null;
+      if (value === undefined) {
+        return { ok: false, error: "Value is required for calculate mode", code: "INVALID_INPUT" };
+      }
 
       zScore = (value - mean) / standardDeviation;
       resultValue = value;
@@ -115,7 +121,13 @@ export function calculateZScore(input: ZScoreInput): ZScoreResult | null {
 
     case "fromZScore": {
       // Calculate value from z-score
-      if (inputZScore === undefined) return null;
+      if (inputZScore === undefined) {
+        return {
+          ok: false,
+          error: "Z-score is required for fromZScore mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       zScore = inputZScore;
       resultValue = mean + zScore * standardDeviation;
@@ -132,7 +144,13 @@ export function calculateZScore(input: ZScoreInput): ZScoreResult | null {
 
     case "probability": {
       // Calculate z-score for a given percentile
-      if (value === undefined || value <= 0 || value >= 100) return null;
+      if (value === undefined || value <= 0 || value >= 100) {
+        return {
+          ok: false,
+          error: "Value must be a percentile between 0 and 100 (exclusive) for probability mode",
+          code: "INVALID_INPUT",
+        };
+      }
 
       const percentile = value / 100;
       zScore = normalInverseCDF(percentile);
@@ -145,7 +163,7 @@ export function calculateZScore(input: ZScoreInput): ZScoreResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const probabilityBelow = normalCDF(zScore);
@@ -178,15 +196,18 @@ export function calculateZScore(input: ZScoreInput): ZScoreResult | null {
   }
 
   return {
-    zScore,
-    value: resultValue,
-    mean,
-    standardDeviation,
-    percentile,
-    probabilityBelow,
-    probabilityAbove,
-    probabilityBetween,
-    interpretation,
-    steps,
+    ok: true,
+    value: {
+      zScore,
+      value: resultValue,
+      mean,
+      standardDeviation,
+      percentile,
+      probabilityBelow,
+      probabilityAbove,
+      probabilityBetween,
+      interpretation,
+      steps,
+    },
   };
 }

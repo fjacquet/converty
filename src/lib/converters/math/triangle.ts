@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface TriangleInput {
   mode: "sides" | "sasAngle" | "asaAngles" | "aasAngles";
   sideA?: number;
@@ -39,7 +41,7 @@ function toDegrees(radians: number): number {
   return radians * (180 / Math.PI);
 }
 
-export function calculateTriangle(input: TriangleInput): TriangleResult | null {
+export function calculateTriangle(input: TriangleInput): CalculationResult<TriangleResult> {
   const { mode } = input;
 
   let a: number, b: number, c: number;
@@ -48,13 +50,25 @@ export function calculateTriangle(input: TriangleInput): TriangleResult | null {
   switch (mode) {
     case "sides": {
       // Given three sides (SSS)
-      if (!input.sideA || !input.sideB || !input.sideC) return null;
+      if (!input.sideA || !input.sideB || !input.sideC) {
+        return {
+          ok: false,
+          error: "All three sides (sideA, sideB, sideC) are required for sides mode",
+          code: "INVALID_INPUT",
+        };
+      }
       a = input.sideA;
       b = input.sideB;
       c = input.sideC;
 
       // Check triangle inequality
-      if (a + b <= c || b + c <= a || a + c <= b) return null;
+      if (a + b <= c || b + c <= a || a + c <= b) {
+        return {
+          ok: false,
+          error: "The given sides do not form a valid triangle (triangle inequality violated)",
+          code: "INVALID_INPUT",
+        };
+      }
 
       // Law of cosines to find angles
       A = toDegrees(Math.acos((b * b + c * c - a * a) / (2 * b * c)));
@@ -65,12 +79,25 @@ export function calculateTriangle(input: TriangleInput): TriangleResult | null {
 
     case "sasAngle": {
       // Given two sides and included angle (SAS)
-      if (!input.sideA || !input.sideB || input.angleC === undefined) return null;
+      if (!input.sideA || !input.sideB || input.angleC === undefined) {
+        return {
+          ok: false,
+          error:
+            "Two sides (sideA, sideB) and included angle (angleC) are required for sasAngle mode",
+          code: "INVALID_INPUT",
+        };
+      }
       a = input.sideA;
       b = input.sideB;
       C = input.angleC;
 
-      if (C <= 0 || C >= 180) return null;
+      if (C <= 0 || C >= 180) {
+        return {
+          ok: false,
+          error: "Angle C must be between 0 and 180 degrees (exclusive)",
+          code: "INVALID_INPUT",
+        };
+      }
 
       // Law of cosines to find third side
       c = Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(toRadians(C)));
@@ -83,13 +110,26 @@ export function calculateTriangle(input: TriangleInput): TriangleResult | null {
 
     case "asaAngles": {
       // Given two angles and included side (ASA)
-      if (input.angleA === undefined || input.angleB === undefined || !input.sideC) return null;
+      if (input.angleA === undefined || input.angleB === undefined || !input.sideC) {
+        return {
+          ok: false,
+          error:
+            "Two angles (angleA, angleB) and included side (sideC) are required for asaAngles mode",
+          code: "INVALID_INPUT",
+        };
+      }
       A = input.angleA;
       B = input.angleB;
       c = input.sideC;
 
       C = 180 - A - B;
-      if (C <= 0 || A <= 0 || B <= 0) return null;
+      if (C <= 0 || A <= 0 || B <= 0) {
+        return {
+          ok: false,
+          error: "All angles must be positive and sum to 180 degrees",
+          code: "INVALID_INPUT",
+        };
+      }
 
       // Law of sines
       a = (c * Math.sin(toRadians(A))) / Math.sin(toRadians(C));
@@ -99,13 +139,25 @@ export function calculateTriangle(input: TriangleInput): TriangleResult | null {
 
     case "aasAngles": {
       // Given two angles and non-included side (AAS)
-      if (input.angleA === undefined || input.angleB === undefined || !input.sideA) return null;
+      if (input.angleA === undefined || input.angleB === undefined || !input.sideA) {
+        return {
+          ok: false,
+          error: "Two angles (angleA, angleB) and side (sideA) are required for aasAngles mode",
+          code: "INVALID_INPUT",
+        };
+      }
       A = input.angleA;
       B = input.angleB;
       a = input.sideA;
 
       C = 180 - A - B;
-      if (C <= 0 || A <= 0 || B <= 0) return null;
+      if (C <= 0 || A <= 0 || B <= 0) {
+        return {
+          ok: false,
+          error: "All angles must be positive and sum to 180 degrees",
+          code: "INVALID_INPUT",
+        };
+      }
 
       // Law of sines
       b = (a * Math.sin(toRadians(B))) / Math.sin(toRadians(A));
@@ -114,7 +166,7 @@ export function calculateTriangle(input: TriangleInput): TriangleResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   // Calculate properties
@@ -167,25 +219,28 @@ export function calculateTriangle(input: TriangleInput): TriangleResult | null {
   const medianC = 0.5 * Math.sqrt(2 * a * a + 2 * b * b - c * c);
 
   return {
-    sideA: a,
-    sideB: b,
-    sideC: c,
-    angleA: A,
-    angleB: B,
-    angleC: C,
-    perimeter,
-    area,
-    semiperimeter: s,
-    inradius,
-    circumradius,
-    type,
-    angleType,
-    isValid: true,
-    altitudeA,
-    altitudeB,
-    altitudeC,
-    medianA,
-    medianB,
-    medianC,
+    ok: true,
+    value: {
+      sideA: a,
+      sideB: b,
+      sideC: c,
+      angleA: A,
+      angleB: B,
+      angleC: C,
+      perimeter,
+      area,
+      semiperimeter: s,
+      inradius,
+      circumradius,
+      type,
+      angleType,
+      isValid: true,
+      altitudeA,
+      altitudeB,
+      altitudeC,
+      medianA,
+      medianB,
+      medianC,
+    },
   };
 }

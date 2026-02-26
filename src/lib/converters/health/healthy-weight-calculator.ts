@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface HealthyWeightInput {
   height: number; // cm
   age: number;
@@ -32,11 +34,17 @@ export interface HealthyWeightResult {
   };
 }
 
-export function calculateHealthyWeight(input: HealthyWeightInput): HealthyWeightResult | null {
+export function calculateHealthyWeight(
+  input: HealthyWeightInput
+): CalculationResult<HealthyWeightResult> {
   const { height, age, gender, frameSize = "medium" } = input;
 
   if (height <= 0 || age <= 0 || age > 120) {
-    return null;
+    return {
+      ok: false,
+      error: "Height must be positive and age must be between 1 and 120",
+      code: "INVALID_INPUT",
+    };
   }
 
   const heightM = height / 100;
@@ -134,10 +142,13 @@ export function calculateHealthyWeight(input: HealthyWeightInput): HealthyWeight
   };
 
   return {
-    bmiBasedRange,
-    idealWeight: adjustedIdeal,
-    adjustedRange,
-    weightCategories,
-    currentBmiThresholds,
+    ok: true,
+    value: {
+      bmiBasedRange,
+      idealWeight: adjustedIdeal,
+      adjustedRange,
+      weightCategories,
+      currentBmiThresholds,
+    },
   };
 }

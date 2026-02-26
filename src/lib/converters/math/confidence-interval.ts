@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ConfidenceIntervalInput {
   mode: "mean" | "proportion" | "difference";
   // For mean
@@ -100,7 +102,7 @@ function getTValue(confidenceLevel: number, df: number): number {
 
 export function calculateConfidenceInterval(
   input: ConfidenceIntervalInput
-): ConfidenceIntervalResult | null {
+): CalculationResult<ConfidenceIntervalResult> {
   const {
     mode,
     sampleMean,
@@ -113,7 +115,9 @@ export function calculateConfidenceInterval(
     standardDeviation2,
   } = input;
 
-  if (sampleSize <= 0) return null;
+  if (sampleSize <= 0) {
+    return { ok: false, error: "Sample size must be positive", code: "INVALID_INPUT" };
+  }
 
   const steps: string[] = [];
   let pointEstimate: number;
@@ -124,7 +128,11 @@ export function calculateConfidenceInterval(
   switch (mode) {
     case "mean": {
       if (sampleMean === undefined || standardDeviation === undefined || standardDeviation <= 0) {
-        return null;
+        return {
+          ok: false,
+          error: "Sample mean and positive standard deviation are required for mean mode",
+          code: "INVALID_INPUT",
+        };
       }
 
       pointEstimate = sampleMean;
@@ -147,7 +155,13 @@ export function calculateConfidenceInterval(
     }
 
     case "proportion": {
-      if (successes === undefined || successes < 0 || successes > sampleSize) return null;
+      if (successes === undefined || successes < 0 || successes > sampleSize) {
+        return {
+          ok: false,
+          error: "Successes must be between 0 and sample size",
+          code: "INVALID_INPUT",
+        };
+      }
 
       pointEstimate = successes / sampleSize;
       standardError = Math.sqrt((pointEstimate * (1 - pointEstimate)) / sampleSize);
@@ -175,7 +189,12 @@ export function calculateConfidenceInterval(
         sampleSize2 === undefined ||
         sampleSize2 <= 0
       ) {
-        return null;
+        return {
+          ok: false,
+          error:
+            "Both sample means, standard deviations, and sizes are required for difference mode",
+          code: "INVALID_INPUT",
+        };
       }
 
       pointEstimate = sampleMean - sampleMean2;
@@ -204,7 +223,7 @@ export function calculateConfidenceInterval(
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   const marginOfError = criticalValue * standardError;
@@ -233,15 +252,18 @@ export function calculateConfidenceInterval(
   }
 
   return {
-    lowerBound,
-    upperBound,
-    pointEstimate,
-    marginOfError,
-    confidenceLevel,
-    criticalValue,
-    standardError,
-    formula,
-    steps,
-    interpretation,
+    ok: true,
+    value: {
+      lowerBound,
+      upperBound,
+      pointEstimate,
+      marginOfError,
+      confidenceLevel,
+      criticalValue,
+      standardError,
+      formula,
+      steps,
+      interpretation,
+    },
   };
 }

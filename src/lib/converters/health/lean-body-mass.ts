@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface LeanBodyMassInput {
   gender: "male" | "female";
   weight: number; // kg
@@ -13,11 +15,13 @@ export interface LeanBodyMassResult {
   bodyFatPercentEstimate: number;
 }
 
-export function calculateLeanBodyMass(input: LeanBodyMassInput): LeanBodyMassResult | null {
+export function calculateLeanBodyMass(
+  input: LeanBodyMassInput
+): CalculationResult<LeanBodyMassResult> {
   const { gender, weight, height } = input;
 
   if (weight <= 0 || height <= 0) {
-    return null;
+    return { ok: false, error: "Weight and height must be positive", code: "INVALID_INPUT" };
   }
 
   let boerFormula: number;
@@ -54,11 +58,14 @@ export function calculateLeanBodyMass(input: LeanBodyMassInput): LeanBodyMassRes
   const bodyFatPercentEstimate = (fatMassEstimate / weight) * 100;
 
   return {
-    boerFormula,
-    jamesFormula,
-    humeFormula,
-    average,
-    fatMassEstimate,
-    bodyFatPercentEstimate,
+    ok: true,
+    value: {
+      boerFormula,
+      jamesFormula,
+      humeFormula,
+      average,
+      fatMassEstimate,
+      bodyFatPercentEstimate,
+    },
   };
 }

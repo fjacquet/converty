@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface LongDivisionInput {
   dividend: number;
   divisor: number;
@@ -36,11 +38,17 @@ function gcd(a: number, b: number): number {
   return a;
 }
 
-export function calculateLongDivision(input: LongDivisionInput): LongDivisionResult | null {
+export function calculateLongDivision(
+  input: LongDivisionInput
+): CalculationResult<LongDivisionResult> {
   const { dividend, divisor, decimalPlaces = 10 } = input;
 
-  if (divisor === 0) return null;
-  if (!Number.isInteger(dividend) || !Number.isInteger(divisor)) return null;
+  if (divisor === 0) {
+    return { ok: false, error: "Divisor cannot be zero", code: "DIVISION_BY_ZERO" };
+  }
+  if (!Number.isInteger(dividend) || !Number.isInteger(divisor)) {
+    return { ok: false, error: "Dividend and divisor must be integers", code: "INVALID_INPUT" };
+  }
 
   const isNegative = dividend < 0 !== divisor < 0;
   const absDividend = Math.abs(dividend);
@@ -126,14 +134,17 @@ export function calculateLongDivision(input: LongDivisionInput): LongDivisionRes
   }
 
   return {
-    quotient: isNegative ? -Math.abs(quotient) : Math.abs(quotient),
-    remainder,
-    decimal: isNegative ? -decimal : decimal,
-    fraction: isNegative ? `-${fraction}` : fraction,
-    mixedNumber: isNegative ? `-${mixedNumber}` : mixedNumber,
-    steps,
-    verification: `${quotient} × ${divisor} + ${remainder} = ${quotient * divisor + remainder}`,
-    isExact: remainder === 0,
-    repeatingDecimal,
+    ok: true,
+    value: {
+      quotient: isNegative ? -Math.abs(quotient) : Math.abs(quotient),
+      remainder,
+      decimal: isNegative ? -decimal : decimal,
+      fraction: isNegative ? `-${fraction}` : fraction,
+      mixedNumber: isNegative ? `-${mixedNumber}` : mixedNumber,
+      steps,
+      verification: `${quotient} × ${divisor} + ${remainder} = ${quotient * divisor + remainder}`,
+      isExact: remainder === 0,
+      repeatingDecimal,
+    },
   };
 }

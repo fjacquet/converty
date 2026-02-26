@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface AverageInput {
   numbers: number[];
   weights?: number[];
@@ -19,11 +21,11 @@ export interface AverageResult {
   standardDeviation: number;
 }
 
-export function calculateAverage(input: AverageInput): AverageResult | null {
+export function calculateAverage(input: AverageInput): CalculationResult<AverageResult> {
   const { numbers, weights } = input;
 
   if (numbers.length === 0) {
-    return null;
+    return { ok: false, error: "At least one number is required", code: "INVALID_INPUT" };
   }
 
   const sorted = [...numbers].sort((a, b) => a - b);
@@ -81,18 +83,21 @@ export function calculateAverage(input: AverageInput): AverageResult | null {
   const standardDeviation = Math.sqrt(variance);
 
   return {
-    mean,
-    median,
-    mode,
-    range,
-    min,
-    max,
-    sum,
-    count,
-    weightedMean,
-    geometricMean,
-    harmonicMean,
-    variance,
-    standardDeviation,
+    ok: true,
+    value: {
+      mean,
+      median,
+      mode,
+      range,
+      min,
+      max,
+      sum,
+      count,
+      weightedMean,
+      geometricMean,
+      harmonicMean,
+      variance,
+      standardDeviation,
+    },
   };
 }

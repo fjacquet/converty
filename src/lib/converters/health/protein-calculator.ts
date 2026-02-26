@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface ProteinInput {
   weight: number; // kg
   goal: "sedentary" | "maintenance" | "muscleGain" | "fatLoss" | "athlete" | "endurance";
@@ -32,11 +34,11 @@ export interface ProteinResult {
   }>;
 }
 
-export function calculateProtein(input: ProteinInput): ProteinResult | null {
+export function calculateProtein(input: ProteinInput): CalculationResult<ProteinResult> {
   const { weight, goal, activityLevel, age } = input;
 
   if (weight <= 0) {
-    return null;
+    return { ok: false, error: "Weight must be positive", code: "INVALID_INPUT" };
   }
 
   // Protein requirements based on goal (grams per kg body weight)
@@ -117,12 +119,15 @@ export function calculateProtein(input: ProteinInput): ProteinResult | null {
   }));
 
   return {
-    dailyProteinMin,
-    dailyProteinMax,
-    dailyProteinOptimal,
-    proteinPerKg: { min: adjustedMin, max: adjustedMax },
-    perMeal,
-    percentOfCalories,
-    foodSources,
+    ok: true,
+    value: {
+      dailyProteinMin,
+      dailyProteinMax,
+      dailyProteinOptimal,
+      proteinPerKg: { min: adjustedMin, max: adjustedMax },
+      perMeal,
+      percentOfCalories,
+      foodSources,
+    },
   };
 }

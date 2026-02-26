@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface SurfaceAreaInput {
   shape:
     | "cube"
@@ -40,7 +42,9 @@ export interface SurfaceAreaResult {
   unit: string;
 }
 
-export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult | null {
+export function calculateSurfaceArea(
+  input: SurfaceAreaInput
+): CalculationResult<SurfaceAreaResult> {
   const { shape } = input;
   const steps: string[] = [];
   let totalSurfaceArea: number;
@@ -52,7 +56,13 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
   switch (shape) {
     case "cube": {
       const { side } = input;
-      if (side === undefined || side <= 0) return null;
+      if (side === undefined || side <= 0) {
+        return {
+          ok: false,
+          error: "Side length must be a positive number for cube",
+          code: "INVALID_INPUT",
+        };
+      }
 
       shapeName = "Cube";
       totalSurfaceArea = 6 * side * side;
@@ -70,7 +80,13 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "rectangularPrism": {
       const { length, width, height } = input;
-      if (!length || !width || !height || length <= 0 || width <= 0 || height <= 0) return null;
+      if (!length || !width || !height || length <= 0 || width <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Length, width, and height must be positive numbers for rectangular prism",
+          code: "INVALID_INPUT",
+        };
+      }
 
       shapeName = "Rectangular Prism";
       totalSurfaceArea = 2 * (length * width + width * height + height * length);
@@ -88,7 +104,13 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "sphere": {
       const { radius } = input;
-      if (radius === undefined || radius <= 0) return null;
+      if (radius === undefined || radius <= 0) {
+        return {
+          ok: false,
+          error: "Radius must be a positive number for sphere",
+          code: "INVALID_INPUT",
+        };
+      }
 
       shapeName = "Sphere";
       totalSurfaceArea = 4 * Math.PI * radius * radius;
@@ -106,7 +128,13 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "cylinder": {
       const { radius, height } = input;
-      if (radius === undefined || height === undefined || radius <= 0 || height <= 0) return null;
+      if (radius === undefined || height === undefined || radius <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Radius and height must be positive numbers for cylinder",
+          code: "INVALID_INPUT",
+        };
+      }
 
       shapeName = "Cylinder";
       lateralSurfaceArea = 2 * Math.PI * radius * height;
@@ -124,8 +152,13 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "cone": {
       const { radius, slantHeight } = input;
-      if (radius === undefined || slantHeight === undefined || radius <= 0 || slantHeight <= 0)
-        return null;
+      if (radius === undefined || slantHeight === undefined || radius <= 0 || slantHeight <= 0) {
+        return {
+          ok: false,
+          error: "Radius and slant height must be positive numbers for cone",
+          code: "INVALID_INPUT",
+        };
+      }
 
       shapeName = "Cone";
       lateralSurfaceArea = Math.PI * radius * slantHeight;
@@ -151,7 +184,11 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
         baseWidth <= 0 ||
         slantHeight <= 0
       ) {
-        return null;
+        return {
+          ok: false,
+          error: "Base length, base width, and slant height must be positive numbers for pyramid",
+          code: "INVALID_INPUT",
+        };
       }
 
       shapeName = "Rectangular Pyramid";
@@ -179,7 +216,12 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
         triangleHeight <= 0 ||
         prismLength <= 0
       ) {
-        return null;
+        return {
+          ok: false,
+          error:
+            "Triangle base, triangle height, and prism length must be positive numbers for triangular prism",
+          code: "INVALID_INPUT",
+        };
       }
 
       shapeName = "Triangular Prism";
@@ -205,7 +247,13 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
 
     case "hemisphere": {
       const { radius } = input;
-      if (radius === undefined || radius <= 0) return null;
+      if (radius === undefined || radius <= 0) {
+        return {
+          ok: false,
+          error: "Radius must be a positive number for hemisphere",
+          code: "INVALID_INPUT",
+        };
+      }
 
       shapeName = "Hemisphere";
       lateralSurfaceArea = 2 * Math.PI * radius * radius; // Curved surface
@@ -221,16 +269,19 @@ export function calculateSurfaceArea(input: SurfaceAreaInput): SurfaceAreaResult
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown shape specified", code: "INVALID_INPUT" };
   }
 
   return {
-    shape: shapeName,
-    totalSurfaceArea,
-    lateralSurfaceArea,
-    baseSurfaceArea,
-    formula,
-    steps,
-    unit: "square units",
+    ok: true,
+    value: {
+      shape: shapeName,
+      totalSurfaceArea,
+      lateralSurfaceArea,
+      baseSurfaceArea,
+      formula,
+      steps,
+      unit: "square units",
+    },
   };
 }

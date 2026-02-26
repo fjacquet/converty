@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface PaceInput {
   mode: "pace" | "time" | "distance";
   distance?: number; // km
@@ -22,7 +24,7 @@ export interface PaceResult {
   }>;
 }
 
-export function calculatePace(input: PaceInput): PaceResult | null {
+export function calculatePace(input: PaceInput): CalculationResult<PaceResult> {
   const {
     mode,
     distance,
@@ -39,23 +41,33 @@ export function calculatePace(input: PaceInput): PaceResult | null {
 
   if (mode === "pace") {
     // Calculate pace from distance and time
-    if (!distance || distance <= 0) return null;
+    if (!distance || distance <= 0) {
+      return { ok: false, error: "Distance must be positive", code: "INVALID_INPUT" };
+    }
     totalSeconds = hours * 3600 + minutes * 60 + seconds;
-    if (totalSeconds <= 0) return null;
+    if (totalSeconds <= 0) {
+      return { ok: false, error: "Total time must be positive", code: "INVALID_INPUT" };
+    }
     distanceKm = distance;
     paceSecondsPerKm = totalSeconds / distanceKm;
   } else if (mode === "time") {
     // Calculate time from distance and pace
-    if (!distance || distance <= 0) return null;
+    if (!distance || distance <= 0) {
+      return { ok: false, error: "Distance must be positive", code: "INVALID_INPUT" };
+    }
     paceSecondsPerKm = paceMinutes * 60 + paceSeconds;
-    if (paceSecondsPerKm <= 0) return null;
+    if (paceSecondsPerKm <= 0) {
+      return { ok: false, error: "Pace must be positive", code: "INVALID_INPUT" };
+    }
     distanceKm = distance;
     totalSeconds = paceSecondsPerKm * distanceKm;
   } else {
     // Calculate distance from time and pace
     totalSeconds = hours * 3600 + minutes * 60 + seconds;
     paceSecondsPerKm = paceMinutes * 60 + paceSeconds;
-    if (totalSeconds <= 0 || paceSecondsPerKm <= 0) return null;
+    if (totalSeconds <= 0 || paceSecondsPerKm <= 0) {
+      return { ok: false, error: "Total time and pace must be positive", code: "INVALID_INPUT" };
+    }
     distanceKm = totalSeconds / paceSecondsPerKm;
   }
 
@@ -91,13 +103,16 @@ export function calculatePace(input: PaceInput): PaceResult | null {
   }
 
   return {
-    pace: { minutes: paceMinutesResult, seconds: paceSecondsResult },
-    paceMile: { minutes: paceMinutesMile, seconds: paceSecondsMile },
-    speed: speedKmh,
-    speedMph,
-    totalTime: { hours: totalHours, minutes: totalMinutes, seconds: totalSecs },
-    distance: distanceKm,
-    distanceMiles: distanceKm / 1.60934,
-    splits,
+    ok: true,
+    value: {
+      pace: { minutes: paceMinutesResult, seconds: paceSecondsResult },
+      paceMile: { minutes: paceMinutesMile, seconds: paceSecondsMile },
+      speed: speedKmh,
+      speedMph,
+      totalTime: { hours: totalHours, minutes: totalMinutes, seconds: totalSecs },
+      distance: distanceKm,
+      distanceMiles: distanceKm / 1.60934,
+      splits,
+    },
   };
 }

@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface MatrixInput {
   mode: "add" | "subtract" | "multiply" | "transpose" | "determinant" | "inverse" | "scalar";
   matrixA: number[][];
@@ -137,16 +139,22 @@ function inverseMatrix(m: number[][]): number[][] | null {
   return scalarMultiply(adjugate, 1 / det);
 }
 
-export function calculateMatrix(input: MatrixInput): MatrixResult | null {
+export function calculateMatrix(input: MatrixInput): CalculationResult<MatrixResult> {
   const { mode, matrixA, matrixB, scalar } = input;
 
   if (!matrixA || matrixA.length === 0 || !matrixA[0] || matrixA[0].length === 0) {
-    return null;
+    return { ok: false, error: "Matrix A must be a non-empty matrix", code: "INVALID_INPUT" };
   }
 
   // Validate matrix is rectangular
   const colsA = matrixA[0].length;
-  if (!matrixA.every((row) => row.length === colsA)) return null;
+  if (!matrixA.every((row) => row.length === colsA)) {
+    return {
+      ok: false,
+      error: "Matrix A must be rectangular (all rows same length)",
+      code: "INVALID_INPUT",
+    };
+  }
 
   const [rowsA, colsAFinal] = getDimensions(matrixA);
   const isSquare = rowsA === colsAFinal;
@@ -164,11 +172,16 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
 
   switch (mode) {
     case "add": {
-      if (!matrixB) return null;
+      if (!matrixB) {
+        return { ok: false, error: "Matrix B is required for addition", code: "INVALID_INPUT" };
+      }
       const [rowsB, colsB] = getDimensions(matrixB);
       if (rowsA !== rowsB || colsAFinal !== colsB) {
-        steps.push("Error: Matrices must have same dimensions for addition");
-        return null;
+        return {
+          ok: false,
+          error: "Matrices must have the same dimensions for addition",
+          code: "INVALID_INPUT",
+        };
       }
 
       steps.push(`Matrix B (${rowsB}×${colsB}):`);
@@ -185,11 +198,16 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
     }
 
     case "subtract": {
-      if (!matrixB) return null;
+      if (!matrixB) {
+        return { ok: false, error: "Matrix B is required for subtraction", code: "INVALID_INPUT" };
+      }
       const [rowsB, colsB] = getDimensions(matrixB);
       if (rowsA !== rowsB || colsAFinal !== colsB) {
-        steps.push("Error: Matrices must have same dimensions for subtraction");
-        return null;
+        return {
+          ok: false,
+          error: "Matrices must have the same dimensions for subtraction",
+          code: "INVALID_INPUT",
+        };
       }
 
       steps.push(`Matrix B (${rowsB}×${colsB}):`);
@@ -206,11 +224,20 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
     }
 
     case "multiply": {
-      if (!matrixB) return null;
+      if (!matrixB) {
+        return {
+          ok: false,
+          error: "Matrix B is required for multiplication",
+          code: "INVALID_INPUT",
+        };
+      }
       const [rowsB, colsB] = getDimensions(matrixB);
       if (colsAFinal !== rowsB) {
-        steps.push("Error: Number of columns in A must equal number of rows in B");
-        return null;
+        return {
+          ok: false,
+          error: "Number of columns in A must equal number of rows in B for multiplication",
+          code: "INVALID_INPUT",
+        };
       }
 
       steps.push(`Matrix B (${rowsB}×${colsB}):`);
@@ -239,7 +266,13 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
     }
 
     case "scalar": {
-      if (scalar === undefined) return null;
+      if (scalar === undefined) {
+        return {
+          ok: false,
+          error: "Scalar value is required for scalar multiplication",
+          code: "INVALID_INPUT",
+        };
+      }
 
       result = scalarMultiply(matrixA, scalar);
       operation = `Scalar multiplication (${scalar} × A)`;
@@ -253,8 +286,11 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
 
     case "determinant": {
       if (!isSquare) {
-        steps.push("Error: Determinant only defined for square matrices");
-        return null;
+        return {
+          ok: false,
+          error: "Determinant is only defined for square matrices",
+          code: "INVALID_INPUT",
+        };
       }
 
       det = determinant(matrixA);
@@ -277,21 +313,28 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
 
     case "inverse": {
       if (!isSquare) {
-        steps.push("Error: Inverse only defined for square matrices");
-        return null;
+        return {
+          ok: false,
+          error: "Inverse is only defined for square matrices",
+          code: "INVALID_INPUT",
+        };
       }
 
       det = determinant(matrixA);
       isInvertible = Math.abs(det) > 1e-10;
 
       if (!isInvertible) {
-        steps.push(`Determinant = ${det} (approximately 0)`);
-        steps.push("Matrix is singular and has no inverse");
-        return null;
+        return {
+          ok: false,
+          error: "Matrix is singular (determinant is 0) and has no inverse",
+          code: "CALCULATION_ERROR",
+        };
       }
 
       const inv = inverseMatrix(matrixA);
-      if (!inv) return null;
+      if (!inv) {
+        return { ok: false, error: "Could not compute matrix inverse", code: "CALCULATION_ERROR" };
+      }
 
       result = inv;
       operation = "Inverse (A⁻¹)";
@@ -305,18 +348,21 @@ export function calculateMatrix(input: MatrixInput): MatrixResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown mode specified", code: "INVALID_INPUT" };
   }
 
   return {
-    result,
-    operation,
-    dimensionsA: `${rowsA}×${colsAFinal}`,
-    dimensionsB,
-    dimensionsResult,
-    determinant: det,
-    isSquare,
-    isInvertible,
-    steps,
+    ok: true,
+    value: {
+      result,
+      operation,
+      dimensionsA: `${rowsA}×${colsAFinal}`,
+      dimensionsB,
+      dimensionsResult,
+      determinant: det,
+      isSquare,
+      isInvertible,
+      steps,
+    },
   };
 }

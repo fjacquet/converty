@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface AreaInput {
   shape:
     | "rectangle"
@@ -37,7 +39,7 @@ export interface AreaResult {
   unit: string;
 }
 
-export function calculateArea(input: AreaInput): AreaResult | null {
+export function calculateArea(input: AreaInput): CalculationResult<AreaResult> {
   const { shape } = input;
   let area: number;
   let perimeter: number | null = null;
@@ -47,7 +49,9 @@ export function calculateArea(input: AreaInput): AreaResult | null {
   switch (shape) {
     case "rectangle": {
       const { length, width } = input;
-      if (!length || !width || length <= 0 || width <= 0) return null;
+      if (!length || !width || length <= 0 || width <= 0) {
+        return { ok: false, error: "Length and width must be positive", code: "INVALID_INPUT" };
+      }
       area = length * width;
       perimeter = 2 * (length + width);
       formula = "A = length × width";
@@ -58,7 +62,9 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "square": {
       const { length } = input;
-      if (!length || length <= 0) return null;
+      if (!length || length <= 0) {
+        return { ok: false, error: "Side length must be positive", code: "INVALID_INPUT" };
+      }
       area = length * length;
       perimeter = 4 * length;
       formula = "A = side²";
@@ -69,7 +75,9 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "triangle": {
       const { base, height } = input;
-      if (!base || !height || base <= 0 || height <= 0) return null;
+      if (!base || !height || base <= 0 || height <= 0) {
+        return { ok: false, error: "Base and height must be positive", code: "INVALID_INPUT" };
+      }
       area = 0.5 * base * height;
       formula = "A = ½ × base × height";
       steps.push(`A = ½ × ${base} × ${height}`);
@@ -79,7 +87,9 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "circle": {
       const { radius } = input;
-      if (!radius || radius <= 0) return null;
+      if (!radius || radius <= 0) {
+        return { ok: false, error: "Radius must be positive", code: "INVALID_INPUT" };
+      }
       area = Math.PI * radius * radius;
       perimeter = 2 * Math.PI * radius; // Circumference
       formula = "A = πr²";
@@ -91,7 +101,13 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "trapezoid": {
       const { base1, base2, height } = input;
-      if (!base1 || !base2 || !height || base1 <= 0 || base2 <= 0 || height <= 0) return null;
+      if (!base1 || !base2 || !height || base1 <= 0 || base2 <= 0 || height <= 0) {
+        return {
+          ok: false,
+          error: "Both bases and height must be positive",
+          code: "INVALID_INPUT",
+        };
+      }
       area = 0.5 * (base1 + base2) * height;
       formula = "A = ½ × (base₁ + base₂) × height";
       steps.push(`A = ½ × (${base1} + ${base2}) × ${height}`);
@@ -102,7 +118,9 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "parallelogram": {
       const { base, height } = input;
-      if (!base || !height || base <= 0 || height <= 0) return null;
+      if (!base || !height || base <= 0 || height <= 0) {
+        return { ok: false, error: "Base and height must be positive", code: "INVALID_INPUT" };
+      }
       area = base * height;
       formula = "A = base × height";
       steps.push(`A = ${base} × ${height}`);
@@ -112,7 +130,9 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "ellipse": {
       const { radiusA, radiusB } = input;
-      if (!radiusA || !radiusB || radiusA <= 0 || radiusB <= 0) return null;
+      if (!radiusA || !radiusB || radiusA <= 0 || radiusB <= 0) {
+        return { ok: false, error: "Both radii must be positive", code: "INVALID_INPUT" };
+      }
       area = Math.PI * radiusA * radiusB;
       // Approximate perimeter using Ramanujan's formula
       const h = (radiusA - radiusB) ** 2 / (radiusA + radiusB) ** 2;
@@ -125,7 +145,13 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "sector": {
       const { radius, angle } = input;
-      if (!radius || !angle || radius <= 0 || angle <= 0 || angle > 360) return null;
+      if (!radius || !angle || radius <= 0 || angle <= 0 || angle > 360) {
+        return {
+          ok: false,
+          error: "Radius must be positive and angle must be between 0 and 360",
+          code: "INVALID_INPUT",
+        };
+      }
       area = (angle / 360) * Math.PI * radius * radius;
       const arcLength = (angle / 360) * 2 * Math.PI * radius;
       perimeter = arcLength + 2 * radius;
@@ -138,7 +164,9 @@ export function calculateArea(input: AreaInput): AreaResult | null {
 
     case "rhombus": {
       const { diagonal1, diagonal2 } = input;
-      if (!diagonal1 || !diagonal2 || diagonal1 <= 0 || diagonal2 <= 0) return null;
+      if (!diagonal1 || !diagonal2 || diagonal1 <= 0 || diagonal2 <= 0) {
+        return { ok: false, error: "Both diagonals must be positive", code: "INVALID_INPUT" };
+      }
       area = 0.5 * diagonal1 * diagonal2;
       const side = Math.sqrt((diagonal1 / 2) ** 2 + (diagonal2 / 2) ** 2);
       perimeter = 4 * side;
@@ -149,14 +177,17 @@ export function calculateArea(input: AreaInput): AreaResult | null {
     }
 
     default:
-      return null;
+      return { ok: false, error: "Unknown shape specified", code: "INVALID_INPUT" };
   }
 
   return {
-    area,
-    perimeter,
-    formula,
-    steps,
-    unit: "square units",
+    ok: true,
+    value: {
+      area,
+      perimeter,
+      formula,
+      steps,
+      unit: "square units",
+    },
   };
 }

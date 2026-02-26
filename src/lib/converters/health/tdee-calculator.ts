@@ -1,3 +1,5 @@
+import type { CalculationResult } from "@/types";
+
 export interface TdeeInput {
   gender: "male" | "female";
   age: number;
@@ -18,11 +20,11 @@ export interface TdeeResult {
   activityMultiplier: number;
 }
 
-export function calculateTdee(input: TdeeInput): TdeeResult | null {
+export function calculateTdee(input: TdeeInput): CalculationResult<TdeeResult> {
   const { gender, age, weight, height, activityLevel, goal } = input;
 
   if (age <= 0 || weight <= 0 || height <= 0) {
-    return null;
+    return { ok: false, error: "Age, weight, and height must be positive", code: "INVALID_INPUT" };
   }
 
   // Calculate BMR using Mifflin-St Jeor
@@ -72,13 +74,16 @@ export function calculateTdee(input: TdeeInput): TdeeResult | null {
   const carbsGrams = carbsCalories / 4;
 
   return {
-    bmr,
-    tdee,
-    targetCalories,
-    proteinGrams,
-    carbsGrams: Math.max(0, carbsGrams),
-    fatGrams,
-    weeklyChange,
-    activityMultiplier,
+    ok: true,
+    value: {
+      bmr,
+      tdee,
+      targetCalories,
+      proteinGrams,
+      carbsGrams: Math.max(0, carbsGrams),
+      fatGrams,
+      weeklyChange,
+      activityMultiplier,
+    },
   };
 }
