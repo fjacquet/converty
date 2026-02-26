@@ -34,7 +34,16 @@
     "at": "at",
     "duration": "Duration",
     "start": "Start",
-    "end": "End"
+    "end": "End",
+    "toast": {
+      "copySuccess": "Copied to clipboard",
+      "copyError": "Failed to copy to clipboard",
+      "csvExportSuccess": "CSV exported successfully",
+      "csvExportError": "CSV export failed",
+      "pdfExportSuccess": "PDF exported successfully",
+      "pdfExportError": "PDF export failed",
+      "calculationError": "Could not calculate — check your inputs"
+    }
   },
   "categories": {
     "color": {

@@ -34,7 +34,16 @@
     "at": "a",
     "duration": "Duree",
     "start": "Debut",
-    "end": "Fin"
+    "end": "Fin",
+    "toast": {
+      "copySuccess": "Copié dans le presse-papiers",
+      "copyError": "Échec de la copie dans le presse-papiers",
+      "csvExportSuccess": "Export CSV réussi",
+      "csvExportError": "Échec de l'export CSV",
+      "pdfExportSuccess": "Export PDF réussi",
+      "pdfExportError": "Échec de l'export PDF",
+      "calculationError": "Calcul impossible — vérifiez vos données"
+    }
   },
   "categories": {
     "color": {

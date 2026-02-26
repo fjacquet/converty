@@ -34,7 +34,16 @@
     "at": "alle",
     "duration": "Durata",
     "start": "Inizio",
-    "end": "Fine"
+    "end": "Fine",
+    "toast": {
+      "copySuccess": "Copiato negli appunti",
+      "copyError": "Copia negli appunti non riuscita",
+      "csvExportSuccess": "CSV esportato con successo",
+      "csvExportError": "Esportazione CSV non riuscita",
+      "pdfExportSuccess": "PDF esportato con successo",
+      "pdfExportError": "Esportazione PDF non riuscita",
+      "calculationError": "Calcolo impossibile — controllare i dati inseriti"
+    }
   },
   "categories": {
     "color": {

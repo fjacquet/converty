@@ -34,7 +34,16 @@
     "at": "um",
     "duration": "Dauer",
     "start": "Start",
-    "end": "Ende"
+    "end": "Ende",
+    "toast": {
+      "copySuccess": "In die Zwischenablage kopiert",
+      "copyError": "Kopieren in die Zwischenablage fehlgeschlagen",
+      "csvExportSuccess": "CSV erfolgreich exportiert",
+      "csvExportError": "CSV-Export fehlgeschlagen",
+      "pdfExportSuccess": "PDF erfolgreich exportiert",
+      "pdfExportError": "PDF-Export fehlgeschlagen",
+      "calculationError": "Berechnung nicht möglich — bitte Eingaben prüfen"
+    }
   },
   "categories": {
     "color": {
