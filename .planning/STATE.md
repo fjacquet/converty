@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 
 ## Current Position
 
-Phase: 42 — Error Boundaries & Toasts (not started)
-Plan: Phase 41 complete (10/10)
-Status: v7.0 Phase 41 COMPLETE. 2281 tests across 196 files, 86% line coverage, 91% branch coverage — global 75% threshold satisfied, CI gate active.
-Last activity: 2026-02-26 — Phase 41-10 complete: global coverage gate (2281 tests, all thresholds exceeded)
+Phase: 42 — Error Boundaries & Toasts (in progress)
+Plan: 42-01 complete (1/5)
+Status: v7.0 Phase 42 IN PROGRESS. 42-01 done: packages installed (sonner, react-error-boundary, isomorphic-dompurify), Toaster mounted, 7 toast i18n keys in all 4 locales.
+Last activity: 2026-02-26 — Phase 42-01 complete: infrastructure for error boundaries and toasts
 
-Progress: [██████████] Phase 41: 10/10 plans complete ✓
+Progress: [██░░░░░░░░] Phase 42: 1/5 plans complete
 
 ## Performance Metrics
 
@@ -110,6 +110,7 @@ Progress: [██████████] Phase 41: 10/10 plans complete ✓
 | Phase 41 P06 | 45 | 2 tasks | 38 files |
 | Phase 41-full-converter-test-coverage P10 | 2700 | 2 tasks | 22 files |
 | Phase 41-full-converter-test-coverage P10 | 2700 | 2 tasks | 22 files |
+| Phase 42-error-boundaries-toasts P01 | 2 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -168,6 +169,8 @@ Recent decisions affecting current work:
 - [Phase 41]: Used DataUnit/SpeedUnit type casts instead of 'as any' for boundary tests to satisfy biome strict linting
 - [Phase 41]: Fixed golden-hour test to avoid negative time formatting bug in source (use sunsetMinute=30)
 - [Phase 41-full-converter-test-coverage]: Targeted branch tests filled 2.5% gap to reach 90.99% branch coverage; fixed 13 test files missing vitest imports
+- [Phase 42]: Toaster placed inside ThemeProvider after flex container div — no 'use client' needed on layout.tsx
+- [Phase 42]: Toast i18n keys stored under common.toast namespace, 7 keys covering copy/CSV/PDF/calculation scenarios
 
 ### Decisions (Phase 40-01)
 
