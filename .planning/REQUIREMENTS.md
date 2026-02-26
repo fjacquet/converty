@@ -45,7 +45,7 @@ This milestone operates on a dedicated branch. All 169 calculators must continue
 
 ### Requirements
 
-- [ ] **R2.1** `react-error-boundary` installed and wrapping the calculator page layout
+- [x] **R2.1** `react-error-boundary` installed and wrapping the calculator page layout
 - [x] **R2.2** Error fallback component showing error message + "Reload Calculator" button
 - [x] **R2.3** `sonner` installed with `<Toaster>` mounted in root layout
 - [x] **R2.4** Toast notifications for: copy-to-clipboard success/fail, CSV/PDF export success/fail

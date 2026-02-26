@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 42 — Error Boundaries & Toasts (in progress)
-Plan: 42-03 complete (3/5)
-Status: v7.0 Phase 42 IN PROGRESS. 42-03 done: toast notifications wired into useCopyToClipboard hook and 5 inline clipboard call sites.
-Last activity: 2026-02-26 — Phase 42-03 complete: Sonner toast.success/toast.error for all clipboard copy actions
+Plan: 42-04 complete (4/5)
+Status: v7.0 Phase 42 IN PROGRESS. 42-04 done: toast feedback wired into CSV/PDF export buttons, CalculatorErrorBoundary wrapped into ConverterLayout protecting all 169 calculators.
+Last activity: 2026-02-26 — Phase 42-04 complete: toast.success/toast.error for export actions, error boundary applied to all calculators via ConverterLayout
 
-Progress: [██████░░░░] Phase 42: 3/5 plans complete
+Progress: [████████░░] Phase 42: 4/5 plans complete
 
 ## Performance Metrics
 
@@ -113,6 +113,7 @@ Progress: [██████░░░░] Phase 42: 3/5 plans complete
 | Phase 42-error-boundaries-toasts P01 | 2 | 2 tasks | 6 files |
 | Phase 42-error-boundaries-toasts P02 | 2 | 2 tasks | 3 files |
 | Phase 42-error-boundaries-toasts P03 | 3 | 2 tasks | 6 files |
+| Phase 42-error-boundaries-toasts P04 | 3 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -176,6 +177,8 @@ Recent decisions affecting current work:
 - [Phase 42-error-boundaries-toasts]: Both error boundary files require 'use client' — ErrorBoundary uses React state internally
 - [Phase 42-error-boundaries-toasts]: sanitize.ts uses isomorphic-dompurify not plain dompurify — prevents 'window is not defined' during static generation
 - [Phase 42-error-boundaries-toasts]: 42-03: Hook-level toast in useCopyToClipboard covers all hook consumers automatically; Biome chain formatting requires each promise method on its own line
+- [Phase 42-error-boundaries-toasts]: 42-04: Export button toast uses separate tToast = useTranslations('common.toast') alongside existing t = useTranslations('calculator.export') — toast keys and button label keys live in different i18n namespaces
+- [Phase 42-error-boundaries-toasts]: 42-04: ConverterLayout remains server component after adding CalculatorErrorBoundary import — Next.js App Router allows server components to import client components; error boundary activation happens client-side
 
 ### Decisions (Phase 40-01)
 
@@ -196,7 +199,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 41-09-PLAN.md — 23 chemistry/engineering/infrastructure test files (326 new tests), 2464 total tests passing
+Stopped at: Completed 42-04-PLAN.md — toast feedback for CSV/PDF export buttons, CalculatorErrorBoundary applied to all 169 calculators via ConverterLayout
 Resume file: None
 
 **Milestones Completed:**
