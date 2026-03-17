@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   title: "Converty - Free online calculators and converters",
   description:
     "Free online calculators and converters for finance, health, math, photo, video, and more.",
+  icons: {
+    icon: [
+      { url: "/converty/favicon.ico", sizes: "any" },
+      { url: "/converty/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/converty/icons/apple-touch-icon.png",
+  },
 };
 
 // Root layout - provides HTML structure
