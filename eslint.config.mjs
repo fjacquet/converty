@@ -69,6 +69,7 @@ export default [
       "node_modules/**",
       "out/**",
       "coverage/**",
+      "converty-local/**",
       "*.config.js",
       "*.config.mjs",
     ],

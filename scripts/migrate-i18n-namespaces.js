@@ -14,8 +14,8 @@
  * { common, nav, converter, calculator }
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const LOCALES = ["en", "fr", "de", "it"];
 const MESSAGES_DIR = path.join(__dirname, "../src/messages");

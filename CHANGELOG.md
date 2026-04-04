@@ -9,9 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Favicon and logo assets for toolbox catalog branding
+
 ### Changed
 
+- npm overrides extended: `serialize-javascript ^7.0.5` and `@rollup/plugin-terser ^1.0.0` added to resolve transitive dependency vulnerabilities without downgrading `workbox-build`
+
 ### Fixed
+
+- **Security:** 9 npm audit vulnerabilities resolved — `brace-expansion` (moderate), `flatted` (high), `lodash` (high), `minimatch` (high), `picomatch` (high ×4), `yaml` (moderate), `serialize-javascript` (high ×2) via `npm audit fix` and targeted npm overrides
+- **Health:** UTC-consistent date arithmetic in pregnancy due date converter (fixes off-by-one near DST transitions)
+- Biome import ordering auto-fixed in 6 source files
 
 ## [7.0.0] - 2026-02-26
 

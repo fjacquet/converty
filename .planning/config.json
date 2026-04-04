@@ -1,6 +1,5 @@
 {
   "mode": "yolo",
-  "depth": "standard",
   "parallelization": false,
   "execution_mode": "direct_tools",
   "model_profile": "balanced",
@@ -10,5 +9,6 @@
     "verifier": true
   },
   "created": "2026-01-17T08:00:00.000Z",
-  "updated": "2026-01-25T12:00:00.000Z"
+  "updated": "2026-01-25T12:00:00.000Z",
+  "granularity": "standard"
 }
