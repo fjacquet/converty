@@ -22,7 +22,13 @@ Each ADR follows the format:
 | [ADR-007](ADR-007-pure-functions-converters.md) | Pure Functions for All Calculation Logic | Accepted |
 | [ADR-008](ADR-008-github-pages-deployment.md) | GitHub Pages Deployment via GitHub Actions | Accepted |
 | [ADR-009](ADR-009-no-backend-privacy-first.md) | No Backend — Privacy-First, Client-Side Only | Accepted |
-| [ADR-010](ADR-010-no-test-framework.md) | No Automated Test Framework (Current State) | Accepted — Under Review |
+| [ADR-010](ADR-010-no-test-framework.md) | No Automated Test Framework (Current State) | Superseded by ADR-011 |
+| [ADR-011](ADR-011-vitest-test-strategy.md) | Vitest Test Strategy | Accepted |
+| [ADR-012](ADR-012-i18n-namespace-restructure.md) | i18n Namespace Restructure | Accepted |
+| [ADR-013](ADR-013-error-boundaries-sonner-toasts.md) | Error Boundaries & Sonner Toast Notifications | Accepted |
+| [ADR-014](ADR-014-zod-input-validation.md) | Zod v4 Runtime Input Validation | Accepted |
+| [ADR-015](ADR-015-lz-string-url-compression.md) | LZ-String URL State Compression | Accepted |
+| [ADR-016](ADR-016-npm-security-override-strategy.md) | npm Override Strategy for Transitive Dependency CVEs | Accepted |
 
 ---
 

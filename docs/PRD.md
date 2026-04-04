@@ -1,7 +1,7 @@
 # Product Requirements Document — Converty
 
-**Version:** 7.0
-**Last Updated:** 2026-02-26
+**Version:** 7.1
+**Last Updated:** 2026-04-04
 **Status:** Living document — updated at each milestone
 
 ---
@@ -279,7 +279,8 @@ VM storage, server virtualization, Kubernetes capacity, vSphere ESX sizing, VMwa
 | Zero CodeQL vulnerabilities | ✅ v4.0 |
 | URL parameter injection prevention (Map-based parsing) | ✅ v4.0 |
 | No `eval()` or dynamic code execution | ✅ Enforced by Biome |
-| Zero npm audit vulnerabilities (production deps) | ✅ v1.0 |
+| Zero npm audit vulnerabilities (all deps) | ✅ v7.1 — 9 CVEs patched via `npm audit fix` + npm overrides |
+| npm override strategy for transitive dep CVEs | ✅ v7.1 — `serialize-javascript`, `@rollup/plugin-terser`, `minimatch`, `rollup@2` pinned |
 | CSP headers | Handled by GitHub Pages |
 
 ### 6.5 Quality
@@ -335,8 +336,9 @@ See `docs/adr/` for the full ADR rationale behind each constraint.
 | v3.0 | 2026-01-23 | Crypto, real estate, cooking, automotive, PDF/CSV export, performance |
 | v4.0 | 2026-01-25 | Infrastructure calculators (VM, K8s, TCO), security hardening |
 | v5.0 | 2026-01-29 | Engineering (6), Chemistry (6), Hyper-V/multi-platform (6) |
-| v6.0 | In progress | CPU benchmark comparison, server refresh sizing |
-| v7.0 | In progress | Vitest 2281 tests, error boundaries, Sonner toasts, Zod v4 validation (Phases 40–43 complete) |
+| v6.0 | 2026-01-28 | CPU benchmark comparison (SPECint2017), server refresh sizing (Phases 37–39) |
+| v7.0 | 2026-02-26 | Vitest 2288 tests (197 files), error boundaries, Sonner toasts, Zod v4 validation, LZ-String URL compression, discriminated unions, i18n restructure, ADRs 011–015 (Phases 40–48) |
+| v7.1 | In progress | Security hardening — 9 npm vulnerabilities patched, npm override strategy for transitive deps |
 
 ---
 
