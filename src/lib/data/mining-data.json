@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-02-26T20:22:57.712Z",
-  "source": "fallback",
-  "difficulty": 75500000000000,
-  "networkHashRate": 550000000,
+  "timestamp": "2026-02-26T20:42:08.177Z",
+  "source": "blockchain.info+coingecko",
+  "difficulty": 144398401518101,
+  "networkHashRate": 933150851.562,
   "btcPrice": {
-    "chf": 85000,
-    "eur": 90000,
-    "usd": 95000
+    "chf": 52165,
+    "eur": 57119,
+    "usd": 67407
   },
   "blockReward": 3.125,
   "blocksPerDay": 144

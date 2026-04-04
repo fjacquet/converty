@@ -109,14 +109,14 @@ function parseCSV(text: string): SpecCsvRow[] {
     benchmark: headers.indexOf("benchmark"),
     hardwareVendor: headers.findIndex((h) => h.includes("hardware vendor")),
     system: headers.indexOf("system"),
-    cores: headers.findIndex((h) => h === "# cores"),
-    chips: headers.findIndex((h) => h === "# chips"),
+    cores: headers.indexOf("# cores"),
+    chips: headers.indexOf("# chips"),
     threadsPerCore: headers.findIndex((h) => h.includes("threads per core")),
     processor: headers.indexOf("processor"),
     processorMhz: headers.findIndex((h) => h.includes("processor mhz")),
     result: headers.indexOf("result"),
     baseline: headers.indexOf("baseline"),
-    hwAvail: headers.findIndex((h) => h === "hw avail"),
+    hwAvail: headers.indexOf("hw avail"),
   };
 
   // Validate required columns exist
