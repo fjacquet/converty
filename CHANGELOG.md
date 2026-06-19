@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.2.0] - 2026-06-19
+
+### Security
+
+- **14 npm audit vulnerabilities resolved** (6 high, 5 moderate, 3 low) reported by Dependabot + Trivy: `next` 16.2.2→16.2.9, `next-intl` 4.9.0→4.13.0, `dompurify` 3.3.3→3.4.11, plus build-time deps (`vite`, `esbuild`, `@babel/*`, `ws`, `fast-uri`, `undici`, `js-yaml`, `brace-expansion`). `npm audit` now reports 0 vulnerabilities.
+
+### Changed
+
+- npm override added: `postcss` pinned to `^8.5.15` (via `$postcss`) to dedupe Next.js's nested `postcss@8.4.31`, avoiding the breaking `next 16 → 9.3.3` downgrade (ADR-016 addendum)
+- Default branch renamed `maincd` → `main`; CI deploy/scan triggers, GitHub Pages environment policy, and ADR-008 updated accordingly
+- Refreshed build-time generated data (crypto prices, mining data, CPU database, four-locale search indexes)
+
+## [7.1.0] - 2026-04-04
+
 ### Added
 
 - Favicon and logo assets for toolbox catalog branding
