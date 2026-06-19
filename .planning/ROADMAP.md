@@ -104,7 +104,7 @@ See `.planning/milestones/v6.0-ROADMAP.md` for full details.
 
 See `.planning/milestones/v7.0-MILESTONE-AUDIT.md` for full details.
 
-**Branch:** `maincd`
+**Branch:** `main`
 **Goal:** Adopt Raidy's proven building blocks — Vitest testing, Zod validation, react-error-boundary, Sonner toasts, DOMPurify, LZ-String URL compression, discriminated union result types, and i18n namespace restructure. All without replacing Next.js.
 
 - [x] Phase 40: Vitest Foundation — **4 plans** — install Vitest, configure for Next.js, test 5 priority converters (COMPLETE)

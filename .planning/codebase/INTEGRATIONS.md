@@ -107,7 +107,7 @@
 
   - Build workflow: `.github/workflows/static.yml`
 
-    - Runs on: `maincd` branch push
+    - Runs on: `main` branch push
     - Node.js 20
     - Steps: install -> type-check -> lint -> build -> deploy
 

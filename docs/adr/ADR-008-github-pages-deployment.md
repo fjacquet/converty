@@ -28,7 +28,7 @@ GitHub Pages won because the project is already hosted on GitHub, requires no ad
 
 ## Decision
 
-Deploy to **GitHub Pages** using the official `actions/deploy-pages` action, triggered on every push to the `maincd` branch.
+Deploy to **GitHub Pages** using the official `actions/deploy-pages` action, triggered on every push to the `main` branch.
 
 **Deployment workflow (`static.yml`):**
 1. Checkout code
@@ -42,7 +42,7 @@ Deploy to **GitHub Pages** using the official `actions/deploy-pages` action, tri
 
 **Base path:** `/converty` (subdirectory of the GitHub Pages domain `fjacquet.github.io`)
 
-**Branch:** `maincd` (not `main`) is the production branch to allow work-in-progress on `main`.
+**Branch:** `main` is the single production branch — every push deploys. (A short-lived `maincd` branch name was used previously and renamed back to `main`.)
 
 **Trailing slashes:** Forced via `trailingSlash: true` in `next.config.ts` — required by GitHub Pages static routing.
 
@@ -59,7 +59,7 @@ Deploy to **GitHub Pages** using the official `actions/deploy-pages` action, tri
 - Base path `/converty` is hardcoded — all internal links must account for it
 - GitHub Pages has a soft 10 GB repository size limit (not yet a concern)
 - Build logs visible to GitHub Actions are public (for public repo)
-- No preview deployments for pull requests (static.yml only runs on push to `maincd`)
+- No preview deployments for pull requests (static.yml only runs on push to `main`)
 - GitHub Pages does not support custom headers (Cache-Control, CSP) — static assets served with GitHub's defaults
 
 **Security workflows:**

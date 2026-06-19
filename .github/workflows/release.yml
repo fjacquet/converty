@@ -115,7 +115,7 @@ jobs:
 
             ---
 
-            See [CHANGELOG.md](https://github.com/fjacquet/converty/blob/maincd/CHANGELOG.md) for details.
+            See [CHANGELOG.md](https://github.com/fjacquet/converty/blob/main/CHANGELOG.md) for details.
           files: |
             converty-local.zip
           draft: false
