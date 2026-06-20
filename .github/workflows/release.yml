@@ -1,122 +1,17 @@
 name: Release
-
 on:
   push:
-    tags:
-      - 'v*'
-
+    tags: ['v*']
 permissions:
   contents: write
-
+  id-token: write       # OIDC for build-provenance attestation
+  attestations: write   # write the provenance attestation
+  packages: write
 jobs:
   release:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build and package
-        run: |
-          npm run build
-
-          # Create package directory
-          mkdir -p converty-local
-          cp -r out/* converty-local/
-
-          # Create start scripts
-          cat > converty-local/start.sh << 'EOF'
-          #!/bin/bash
-          PORT=${1:-3000}
-          DIR="$(cd "$(dirname "$0")" && pwd)"
-          echo "🧮 Starting Converty on http://localhost:$PORT"
-          echo "   Press Ctrl+C to stop"
-          if command -v python3 &> /dev/null; then
-              cd "$DIR" && python3 -m http.server $PORT
-          elif command -v python &> /dev/null; then
-              cd "$DIR" && python -m SimpleHTTPServer $PORT
-          elif command -v npx &> /dev/null; then
-              cd "$DIR" && npx serve -l $PORT
-          else
-              echo "❌ Please install Python or Node.js"
-              exit 1
-          fi
-          EOF
-          chmod +x converty-local/start.sh
-
-          cat > converty-local/start.bat << 'EOF'
-          @echo off
-          set PORT=%1
-          if "%PORT%"=="" set PORT=3000
-          echo Starting Converty on http://localhost:%PORT%
-          where python >nul 2>nul && (python -m http.server %PORT% & goto :eof)
-          where npx >nul 2>nul && (npx serve -l %PORT% & goto :eof)
-          echo ERROR: Please install Python or Node.js
-          pause
-          EOF
-
-          cat > converty-local/README.md << 'EOF'
-          # Converty Local
-
-          Run Converty offline on your computer.
-
-          ## Quick Start
-
-          **Mac/Linux:** `./start.sh`
-          **Windows:** `start.bat`
-
-          Then open http://localhost:3000
-
-          ## Requirements
-
-          Python 3.x (recommended) or Node.js 18+
-
-          ## More Info
-
-          https://github.com/fjacquet/converty
-          EOF
-
-          # Create ZIP
-          zip -r converty-local.zip converty-local
-
-      - name: Get version
-        id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: Converty ${{ steps.version.outputs.VERSION }}
-          body: |
-            ## Downloads
-
-            - **converty-local.zip** - Run Converty offline on your computer
-
-            ### How to use
-
-            1. Download `converty-local.zip`
-            2. Extract the archive
-            3. Run `./start.sh` (Mac/Linux) or `start.bat` (Windows)
-            4. Open http://localhost:3000
-
-            ### Requirements
-
-            - Python 3.x (recommended, pre-installed on Mac/Linux)
-            - Or Node.js 18+
-
-            ---
-
-            See [CHANGELOG.md](https://github.com/fjacquet/converty/blob/main/CHANGELOG.md) for details.
-          files: |
-            converty-local.zip
-          draft: false
-          prerelease: false
+    uses: fjacquet/ci/.github/workflows/web-release.yml@v1
+    with:
+      node-version: "24"
+      publish-npm: false
+      publish-docker: true
+      build-dir: "out"
