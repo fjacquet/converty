@@ -1,5 +1,8 @@
 # Converty
 
+[![CI](https://github.com/fjacquet/converty/actions/workflows/ci.yml/badge.svg)](https://github.com/fjacquet/converty/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/fjacquet/converty)](https://github.com/fjacquet/converty/blob/HEAD/LICENSE)
+
 A comprehensive unit converter and calculator toolkit built with Next.js 16. Inspired by [toolstud.io](https://toolstud.io), Converty provides 167+ calculators across 15 categories for photography, video production, web development, networking, finance, crypto, real estate, cooking, automotive, and more.
 
 [![Deploy to GitHub Pages](https://github.com/fjacquet/converty/actions/workflows/static.yml/badge.svg)](https://github.com/fjacquet/converty/actions/workflows/static.yml)
