@@ -11,10 +11,12 @@
  * Development needs fresh code on every change, but SW caches aggressively.
  * This is a known PWA development pitfall (see RESEARCH.md Pitfall 5).
  *
- * Why scope '/':
- * Converty uses locale routing (/en/, /fr/, /de/, /it/).
- * Service worker at root scope intercepts all requests.
- * If scope was /en/, would miss /fr/ requests.
+ * Why scope '/converty/':
+ * The app is deployed to GitHub Pages under the /converty base path
+ * (see next.config.ts basePath). The SW is emitted at /converty/sw.js and
+ * must use scope /converty/ to intercept all locale routes
+ * (/converty/en/, /converty/fr/, ...). A '/' scope would be rejected by the
+ * browser since it is broader than the script's own path.
  *
  * Why fire-and-forget:
  * Registration happens in background. No need to await or handle result.
@@ -48,7 +50,7 @@ export function registerServiceWorker(): void {
 
   // Register service worker
   navigator.serviceWorker
-    .register("/sw.js", { scope: "/" })
+    .register("/converty/sw.js", { scope: "/converty/" })
     .then((registration) => {
       console.log("Service worker registered:", registration.scope);
 
