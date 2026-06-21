@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.2.3] - 2026-06-21
+
+### Fixed
+
+- **PWA home-screen launch broken on GitHub Pages**: the manifest `start_url`/`scope`/icons and the service-worker registration path still pointed at `/` instead of the `/converty` base path, so launching from the home screen opened the bare domain root (blank) and the service worker never registered (no offline caching). All now prefixed with `/converty/` to match `next.config.ts`. (#12)
+
 ## [7.2.0] - 2026-06-19
 
 ### Security
