@@ -4,7 +4,7 @@
 # ============================================================================
 # Stage 1: Dependencies
 # ============================================================================
-FROM node:24-alpine AS deps
+FROM docker.io/library/node:24-alpine AS deps
 WORKDIR /app
 
 # Install dependencies needed for node-gyp (if any native modules)
@@ -19,7 +19,7 @@ RUN npm ci && npm cache clean --force
 # ============================================================================
 # Stage 2: Builder
 # ============================================================================
-FROM node:24-alpine AS builder
+FROM docker.io/library/node:24-alpine AS builder
 WORKDIR /app
 
 # Copy dependencies from deps stage
@@ -35,7 +35,7 @@ RUN npm run build
 # ============================================================================
 # Stage 3: Runner (Production) - Using nginx for static files
 # ============================================================================
-FROM nginx:alpine AS runner
+FROM docker.io/library/nginx:alpine AS runner
 
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
