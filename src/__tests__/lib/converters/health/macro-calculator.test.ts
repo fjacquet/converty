@@ -34,21 +34,18 @@ describe("calculateMacros", () => {
   });
 
   describe("macro percentages sum to 100", () => {
-    it.each([
-      "maintenance",
-      "cutting",
-      "bulking",
-      "keto",
-      "highProtein",
-    ] as const)("goal %s percentages sum to 100", (goal) => {
-      const result = calculateMacros({ calories: 2000, goal });
-      expect(result.ok).toBe(true);
-      const total =
-        (result as { ok: true; value: any }).value.proteinPercent +
-        (result as { ok: true; value: any }).value.carbsPercent +
-        (result as { ok: true; value: any }).value.fatPercent;
-      expect(total).toBe(100);
-    });
+    it.each(["maintenance", "cutting", "bulking", "keto", "highProtein"] as const)(
+      "goal %s percentages sum to 100",
+      (goal) => {
+        const result = calculateMacros({ calories: 2000, goal });
+        expect(result.ok).toBe(true);
+        const total =
+          (result as { ok: true; value: any }).value.proteinPercent +
+          (result as { ok: true; value: any }).value.carbsPercent +
+          (result as { ok: true; value: any }).value.fatPercent;
+        expect(total).toBe(100);
+      }
+    );
   });
 
   describe("keto goal minimizes carbs", () => {

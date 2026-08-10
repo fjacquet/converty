@@ -12,13 +12,14 @@ describe("calculateRounding", () => {
     ["ceil", 2.1, 0, 3],
     ["floor", 2.9, 0, 2],
     ["truncate", -2.9, 0, -2],
-  ] as Array<
-    [Parameters<typeof calculateRounding>[0]["mode"], number, number, number]
-  >)("mode %s: rounds %f to %i decimal places giving %f", (mode, number, decimalPlaces, expected) => {
-    const result = calculateRounding({ mode, number, decimalPlaces });
-    expect(result.ok).toBe(true);
-    expect((result as { ok: true; value: any }).value.rounded).toBeCloseTo(expected, 5);
-  });
+  ] as Array<[Parameters<typeof calculateRounding>[0]["mode"], number, number, number]>)(
+    "mode %s: rounds %f to %i decimal places giving %f",
+    (mode, number, decimalPlaces, expected) => {
+      const result = calculateRounding({ mode, number, decimalPlaces });
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.rounded).toBeCloseTo(expected, 5);
+    }
+  );
 
   it("round to 0 decimal places: 2.567 → 3", () => {
     const result = calculateRounding({ mode: "round", number: 2.567 });
