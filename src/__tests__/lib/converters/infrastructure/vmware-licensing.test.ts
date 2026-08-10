@@ -105,15 +105,13 @@ describe("calculateVmwareLicensing", () => {
   });
 
   describe("different product types", () => {
-    it.each([
-      "vcf",
-      "vvf",
-      "vsphere-ep",
-      "vsphere-std",
-    ] as const)("productType %s returns ok result", (productType) => {
-      const result = calculateVmwareLicensing({ ...BASE_INPUT, productType });
-      expect(result.ok).toBe(true);
-    });
+    it.each(["vcf", "vvf", "vsphere-ep", "vsphere-std"] as const)(
+      "productType %s returns ok result",
+      (productType) => {
+        const result = calculateVmwareLicensing({ ...BASE_INPUT, productType });
+        expect(result.ok).toBe(true);
+      }
+    );
 
     it("vcf is more expensive per core than vsphere-std", () => {
       const vcf = calculateVmwareLicensing({ ...BASE_INPUT, productType: "vcf" });

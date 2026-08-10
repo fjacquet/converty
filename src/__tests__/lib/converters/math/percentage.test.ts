@@ -27,11 +27,12 @@ describe("calculatePercentage", () => {
     ["whatPercent", 25, 100, 25],
     ["percentChange", 100, 150, 50],
     ["percentDifference", 100, 200, 66.667],
-  ] as Array<
-    [Parameters<typeof calculatePercentage>[0]["mode"], number, number, number]
-  >)("mode %s returns non-null for valid inputs", (mode, value1, value2, expected) => {
-    const result = calculatePercentage({ mode, value1, value2 });
-    expect(result.ok).toBe(true);
-    expect((result as { ok: true; value: any }).value.result).toBeCloseTo(expected, 1);
-  });
+  ] as Array<[Parameters<typeof calculatePercentage>[0]["mode"], number, number, number]>)(
+    "mode %s returns non-null for valid inputs",
+    (mode, value1, value2, expected) => {
+      const result = calculatePercentage({ mode, value1, value2 });
+      expect(result.ok).toBe(true);
+      expect((result as { ok: true; value: any }).value.result).toBeCloseTo(expected, 1);
+    }
+  );
 });

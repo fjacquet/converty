@@ -138,26 +138,23 @@ describe("calculateCompoundInterest", () => {
   });
 
   describe("compounding frequencies", () => {
-    it.each([
-      "annually",
-      "semi-annually",
-      "quarterly",
-      "monthly",
-      "daily",
-    ] as const)("handles %s compounding without error", (freq) => {
-      const result = calculateCompoundInterest({
-        principal: 1000,
-        interestRate: 5,
-        years: 1,
-        compoundFrequency: freq,
-        monthlyContribution: 0,
-        contributionTiming: "end",
-      });
-      expect(result.ok).toBe(true);
-      if (result.ok) {
-        expect(result.value.finalBalance).toBeGreaterThan(1000);
+    it.each(["annually", "semi-annually", "quarterly", "monthly", "daily"] as const)(
+      "handles %s compounding without error",
+      (freq) => {
+        const result = calculateCompoundInterest({
+          principal: 1000,
+          interestRate: 5,
+          years: 1,
+          compoundFrequency: freq,
+          monthlyContribution: 0,
+          contributionTiming: "end",
+        });
+        expect(result.ok).toBe(true);
+        if (result.ok) {
+          expect(result.value.finalBalance).toBeGreaterThan(1000);
+        }
       }
-    });
+    );
 
     it("more frequent compounding yields higher balance", () => {
       const makeResult = (freq: "annually" | "monthly") =>

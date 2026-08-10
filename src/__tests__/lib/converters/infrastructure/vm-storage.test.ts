@@ -113,14 +113,13 @@ describe("calculateVmStorage", () => {
   });
 
   describe("multi-platform support", () => {
-    it.each([
-      "vmware",
-      "hyperv",
-      "proxmox",
-    ] as const)("platform %s returns ok result", (platform) => {
-      const result = calculateVmStorage({ ...BASE_INPUT, platform });
-      expect(result.ok).toBe(true);
-    });
+    it.each(["vmware", "hyperv", "proxmox"] as const)(
+      "platform %s returns ok result",
+      (platform) => {
+        const result = calculateVmStorage({ ...BASE_INPUT, platform });
+        expect(result.ok).toBe(true);
+      }
+    );
   });
 
   describe("result structure", () => {
