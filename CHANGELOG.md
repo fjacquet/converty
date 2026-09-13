@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.3.1] - 2026-09-13
+
+### Security
+
+- **`next` bumped to 16.3.5**, closing two CRITICAL advisories: **GHSA-2xp9-vwfh-vxw4**,
+  **GHSA-p293-qw3h-jr36**.
+- **`sharp` bumped to 0.35.4**, closing **GHSA-rgj7-g3m4-5g8c** (HIGH).
+- **`js-yaml` bumped to 4.3.2**, closing **GHSA-2883-xcg3-v3hh** (HIGH).
+- **`vitest`/`@vitest/coverage-v8` bumped to 4.1.11**, closing **GHSA-82fw-gwwq-j7x9** (MODERATE,
+  a stale transitive `@vitest/mocker`). All four bumps stayed within their existing major lines.
+  `osv-scanner` reports no issues.
+- Lockfile refreshed for a `fast-uri` advisory wave published after the prior green scan:
+  **GHSA-5jgf-p345-68v8**, **GHSA-f65p-4m7j-42xc**, **GHSA-fph4-wmhf-6fwf**,
+  **GHSA-jqff-g426-hqxp** (transitive only, no `package.json` range changes).
+
+### Changed
+
+- `isomorphic-dompurify` bumped to 4.0.0 — a semver correction re-publishing the same code as
+  3.23.0 under a proper major (3.20.0 had quietly raised the Node.js floor to
+  `^22.22.2 || ^24.15.0 || >=26.0.0`); no functional change.
+- Resynced `biome.json`'s `$schema` with the installed Biome CLI version (config only; no source
+  reformat).
+
 ## [7.2.3] - 2026-06-21
 
 ### Fixed
@@ -846,7 +869,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
-[unreleased]: https://github.com/fjacquet/converty/compare/v7.0.0...HEAD
+[unreleased]: https://github.com/fjacquet/converty/compare/v7.3.1...HEAD
+[7.3.1]: https://github.com/fjacquet/converty/compare/v7.3.0...v7.3.1
 [7.0.0]: https://github.com/fjacquet/converty/compare/v5.0.0...v7.0.0
 [5.0.0]: https://github.com/fjacquet/converty/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/fjacquet/converty/compare/v3.0.0...v4.0.0
