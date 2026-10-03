@@ -1,0 +1,23 @@
+# OSV-Scanner configuration.
+# https://google.github.io/osv-scanner/configuration/
+#
+# Waivers require a justification and an `ignoreUntil` expiry (max 90 days) so
+# they are revisited rather than forgotten.
+
+[[IgnoredVulns]]
+id = "GHSA-vfj7-8cjw-p6xm"
+ignoreUntil = 2026-12-01
+reason = """
+braces stack-exhaustion denial of service through deeply nested brace patterns.
+Dependency path: @next/eslint-plugin-next -> fast-glob@3.3.1 -> micromatch@4.0.8 -> braces@3.0.3
+(development only: ESLint tooling, never shipped).
+
+No fix exists to upgrade to. The OSV record is {introduced: 0, last_affected: 3.0.3} and 3.0.3
+is the latest version published on npm, so every release of braces is affected.
+
+Not reachable as an attack: braces expands glob patterns taken from the repo's own lint
+configuration at lint time on a developer or CI machine, never from an untrusted party, and
+the worst case is a hung lint run.
+
+Re-check at expiry: drop this waiver the moment braces ships a patched release.
+"""
