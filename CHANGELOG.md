@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.3.2] - 2026-10-02
+
+### Security
+
+- **`next` bumped from 16.3.5 to 16.3.8**, closing a CRITICAL advisory (CVSS 9.5). Stays within
+  the existing `^16` range (lockfile-only).
+
+### Changed
+
+- Full lockfile refresh within existing ranges, including `react` 19.3.0 and `@biomejs/biome`
+  2.5.15. No `package.json` range changes; `osv-scanner` recursive scan is clean.
+
 ## [7.3.1] - 2026-09-13
 
 ### Security
@@ -869,7 +881,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
-[unreleased]: https://github.com/fjacquet/converty/compare/v7.3.1...HEAD
+[unreleased]: https://github.com/fjacquet/converty/compare/v7.3.2...HEAD
+[7.3.2]: https://github.com/fjacquet/converty/compare/v7.3.1...v7.3.2
 [7.3.1]: https://github.com/fjacquet/converty/compare/v7.3.0...v7.3.1
 [7.0.0]: https://github.com/fjacquet/converty/compare/v5.0.0...v7.0.0
 [5.0.0]: https://github.com/fjacquet/converty/compare/v4.0.0...v5.0.0
