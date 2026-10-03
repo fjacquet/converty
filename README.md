@@ -8,7 +8,7 @@ A comprehensive unit converter and calculator toolkit built with Next.js 16. Ins
 [![Deploy to GitHub Pages](https://github.com/fjacquet/converty/actions/workflows/static.yml/badge.svg)](https://github.com/fjacquet/converty/actions/workflows/static.yml)
 [![Security Scan](https://github.com/fjacquet/converty/actions/workflows/security.yml/badge.svg)](https://github.com/fjacquet/converty/actions/workflows/security.yml)
 [![Release](https://img.shields.io/github/v/release/fjacquet/converty)](https://github.com/fjacquet/converty/releases/latest)
-![Next.js](https://img.shields.io/badge/Next.js-16.1-black)
+![Next.js](https://img.shields.io/badge/Next.js-16.3-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![React](https://img.shields.io/badge/React-19-61dafb)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -213,7 +213,7 @@ converty/
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) 4.0
 - **UI Components**: Custom components with Radix UI primitives
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Linting**: [Biome](https://biomejs.dev/) 2.3
+- **Linting**: [Biome](https://biomejs.dev/) 2.5
 - **Build**: Turbopack (development)
 
 ## Deployment
