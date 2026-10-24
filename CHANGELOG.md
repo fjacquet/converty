@@ -11,8 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- Lockfile refresh within existing ranges: `vite` moves to its patched release, closing three
-  Dependabot advisories. `osv-scanner` recursive scan is clean.
+- `vite` 8.3.2 → 8.3.5 for GHSA-587h-7wmj-h5pm, GHSA-r825-w8mm-5pxw and GHSA-698v-4r3x-3vcv (plus three more fixed in the same release).
+- `next` 16.3.8 → 16.4.3 for GHSA-2464-fhr4-w9xw, GHSA-673q-mjm6-r5xr and GHSA-p3m5-59mp-jv5r.
+- `dompurify` (isomorphic-dompurify 4.6.0) for GHSA-c6gr-qvv4-5v3f, GHSA-cg2g-xh64-v4q7 and GHSA-mrv2-3pqr-j5jr.
+- `undici` for GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472 and GHSA-xjj6-f33q-929c; `fast-uri`, `serialize-javascript`, `@vitest/mocker` (GHSA-qxg6-89mg-rqv8 and GHSA-xp26-3454-mjgp); `zod` 4.6.5 → 4.6.7 for GHSA-mrhx-c7xc-m3w5.
+- Removed the `osv-scanner.toml` waiver for GHSA-vfj7-8cjw-p6xm: the `braces` advisory was withdrawn.
+
+All moves are lockfile-only, within existing ranges.
 
 ## [7.3.2] - 2026-10-02
 
@@ -888,7 +893,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
-[unreleased]: https://github.com/fjacquet/converty/compare/v7.3.2...HEAD
+[unreleased]: https://github.com/fjacquet/converty/compare/v7.3.3...HEAD
+[7.3.3]: https://github.com/fjacquet/converty/compare/v7.3.2...v7.3.3
 [7.3.2]: https://github.com/fjacquet/converty/compare/v7.3.1...v7.3.2
 [7.3.1]: https://github.com/fjacquet/converty/compare/v7.3.0...v7.3.1
 [7.0.0]: https://github.com/fjacquet/converty/compare/v5.0.0...v7.0.0
