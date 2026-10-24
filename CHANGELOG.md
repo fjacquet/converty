@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.3.3] - 2026-10-24
+
+### Security
+
+- Lockfile refresh within existing ranges: `vite` moves to its patched release, closing three
+  Dependabot advisories. `osv-scanner` recursive scan is clean.
+
 ## [7.3.2] - 2026-10-02
 
 ### Security
